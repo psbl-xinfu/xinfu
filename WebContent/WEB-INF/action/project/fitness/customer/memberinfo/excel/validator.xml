@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochuvc_all" type="varchar" required="false" label="卡号/姓名" />
+	<parameter id="daochuskill_name" type="varchar" required="false" label="会籍" />
+	<parameter id="daochu_start_date" type="varchar" required="false" label="开始时间" />
+	<parameter id="daochu_end_date" type="varchar" required="false" label="结束时间" />
+	<parameter id="daochuvc_cardtype" type="varchar" required="false" label="卡类型" />
+	<parameter id="daochui_status" type="integer" required="false" label="卡状态" />
+	<parameter id="daochu_period_day" type="integer" required="true" label="会员保护期" />
+
+	<parameter id="daochu_f_sex" type="varchar" required="false" label="性别" />
+	<parameter id="daochu_f_age" type="varchar" required="false" label="年龄区间" />
+	<parameter id="daochu_f_nofollowstartdate" type="varchar" required="false" label="录入日期" />
+	<parameter id="daochu_f_nofollowenddate" type="varchar" required="false" label="录入日期" />
+	<parameter id="daochu_f_startmonth" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_startday" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_endmonth" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_endday" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_type" type="varchar" required="false" label="获客渠道" />
+	<parameter id="daochu_f_mc" type="varchar" required="false" label="会籍" />
+	
+	<parameter id="daochu_f_purpose" type="varchar" required="false" label="健身目的" />
+	<parameter id="daochu_f_stage" type="varchar" required="false" label="沟通阶段" />
+	<parameter id="daochu_f_personalhobbit" type="varchar" required="false" label="个人爱好" />
+	<parameter id="daochu_f_marriage" type="varchar" required="false" label="婚姻情况" />
+	<parameter id="daochu_f_children" type="varchar" required="false" label="子女情况" />
+	<parameter id="daochu_f_leave" type="varchar" required="false" label="其他俱乐部未续费原因" />
+	
+	
+	<parameter id="daochu_f_protection" type="varchar" required="false" label="剩余保护期" />
+	<parameter id="daochu_f_calltimes" type="varchar" required="false" label="通话次数" />
+	<parameter id="daochu_f_distributioncount" type="varchar" required="false" label="分配次数" />
+	<parameter id="daochu_f_inleftnum" type="varchar" required="false" label="入场次数条件" />
+	<parameter id="daochu_f_overduecard" type="varchar" required="false" label="距会员到期日期" />
+
+</validator>

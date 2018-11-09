@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="cardcode" type="varchar" required="true" label="卡号" />
+	<parameter id="formtype" type="varchar" required="true" label="0查看1修改" />
+</validator>

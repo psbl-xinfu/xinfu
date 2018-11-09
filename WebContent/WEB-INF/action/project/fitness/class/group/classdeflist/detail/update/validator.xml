@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="vc_code" type="varchar" required="true" label="vc_code" maxlen="50" />
+    <parameter id="classlistcode" type="varchar" required="true" label="classlistcode" maxlen="50" />
+    <parameter id="cardcode" type="varchar" required="false" label="cardcode" maxlen="50" />
+    <parameter id="issank" type="varchar" required="false" label="issank" maxlen="50" />
+    <parameter id="customercode" type="varchar" required="false" label="customercode" maxlen="50" />
+    
+    <parameter id="cust" type="varchar" required="true" label="cust" maxlen="50" />
+    <parameter id="mobile" type="varchar" required="true" label="mobile" maxlen="50" />
+</validator>
+
+
+
+
+

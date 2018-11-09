@@ -1,0 +1,33 @@
+select
+    code,
+    status,
+    name,
+    sex,
+    org_id,
+    birthdate,
+	rank,
+	email,
+    idnumber,
+    nation,
+    hometel,
+    addr,
+    officetel,
+	zip,
+	mobile,
+    contact,
+    company,
+    jobtype,
+    illnessrec,
+    hobby,
+	pt,
+	mc,
+    guestcode,
+    moneyleft,
+    emcontact1,
+    emcontact2,
+	remark
+from 
+	cc_customer
+where 
+	code = ${fld:vc_code} and org_id = ${def:org}
+

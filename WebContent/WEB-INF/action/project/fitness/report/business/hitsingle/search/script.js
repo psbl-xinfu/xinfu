@@ -1,0 +1,17 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"_rowNumber":"${fld:_rowNumber}",
+		"guestname":"${fld:guestname@js}",
+		"name":"${fld:name@js}",
+		"contractcode":"${fld:contractcode@js}",
+		"mobile":"${fld:mobile@js}",
+		"idate":"${fld:idate@js}",
+		"guest_mc":"${fld:guest_mc@js}",
+		"customer_mc":"${fld:customer_mc@js}",
+		"guestcode":"${fld:guestcode@js}",
+		"customercode":"${fld:customercode@js}"
+	},
+	</rows>
+	{}
+]}

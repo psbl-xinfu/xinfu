@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <title>参加活动赢大奖</title>
+        <link href="${def:context}/js/project/fitness/wx/css/market/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/market/index.css" rel="stylesheet">
+    </head>
+
+
+<body>
+	<input type="hidden" id="toupiaoid" value="">
+	<input type="hidden" id="wxuserid" value="${fld:wxuserid}"> 
+	<input type="hidden" id="votenum" value="">
+
+	<div class="containter">
+		<div class="banner">
+			<img src="${def:context}/js/project/fitness/wx/image/cx/banner.png">
+		</div>
+		<div class="section-1 clearlr">
+			<div class="fl enroll-div">
+				<label class="enroll-num" id="baomingnum"></label>
+				<label class="enroll-desc">报名人数</label>
+			</div>
+			<div class="fl enroll-div enroll-div2" style="margin-left: 3%;width: 26%">
+				<span class="btn-enroll"  onclick="getbaoming()"></span>
+			</div>
+			<div class="fl enroll-div">
+				<label class="enroll-num" id="toupiaonum"></label>
+				<label class="enroll-desc">累积投票</label>
+			</div>
+		</div>
+		<div class="section-2">
+		<form id="filter"  name="filter">
+		 				 <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
+						 <img id="s_search" src="${def:context}/js/project/fitness/wx/image/cx/btn-search.png" width="20" height="20"  style="position:absolute;top: 247px;left: 7%"  >
+						 <input type="text" class="input-name" placeholder="请输入名称" id="s_name" name="s_name" > 
+		</form>
+			<div class="section-content clearlr" id="datas">
+				
+			</div>
+		</div>
+	</div>
+	<div class="abso-btn">
+		<span class="btn-open"></span>
+		<span class="btn-close disNone"></span>
+		<span class="btn-share disNone"></span>
+		<span class="btn-code disNone"></span>
+		<span class="btn-music disNone"></span>
+	</div>
+	<script type="text/javascript">
+	$(function(){
+		homecust();
+		getlist();
+		getNum();
+		$('.btn-open').on('click',function(){
+			var $this = $(this);
+			$this.addClass('disNone').siblings().removeClass('disNone');
+		});
+		$('.btn-close').on('click',function(){
+			var $btn_open = $('.btn-open');
+			$btn_open.removeClass('disNone').siblings().addClass('disNone');
+		});
+		
+		$('.btn-music').on('click',function(){
+	    	location.href="${def:context}/action/project/fitness/wx/market/raking/crud?customercode=${fld:customercode}";
+		});
+		
+		$('.btn-share').on('click',function(){
+			getAjaxCall("/action/project/fitness/wx/market/index/getbaoming",false);
+		});
+		
+		$('.btn-code').on('click',function(){
+	    	location.href="${def:context}/action/project/fitness/wx/market/info/crud?customercode=${fld:customercode}";
+		});
+		
+		$('#s_search').on('click',function(){
+				getlist();
+		});
+		
+	})
+		
+	
+	
+		//获取列表
+	    function getlist(){
+	    	postAjaxCall("/action/project/fitness/wx/market/index/search",'filter',false);
+	    }
+		
+		//获取报名人数
+	    function getNum(){
+	    	getAjaxCall("/action/project/fitness/wx/market/index/getnum",false);
+	    }
+	
+		//验证报名
+	    function getbaoming(){
+    		getAjaxCall("/action/project/fitness/wx/market/index/getbaoming",false);
+	    }
+		//通过报名验证
+	  	function goRnroll(){
+	    	location.href="${def:context}/action/project/fitness/wx/market/enroll/crud?customercode=${fld:customercode}";
+	    }
+	
+		
+	  	//投票验证
+	  	var object=null;
+	  	function touPiaoVer(id,obj){
+	  		$('#toupiaoid').val(id);
+	  		object=obj
+	    		getAjaxCall("/action/project/fitness/wx/market/index/gettoupiao?toupiaoid="+$('#toupiaoid').val(),false,function(){
+	    		});
+	    }
+	  	
+	  	//通过投票验证
+	  	function toupiao(id){
+	  		var num=$(object).prev().attr('code');
+	  	  	num++;
+	  	  	$(object).prev().text(num+'票')
+	  	  	getAjaxCall("/action/project/fitness/wx/market/index/insert?enrollcode="+id+"&wxuserid="+$('#wxuserid').val(),false);
+	  	}
+	    
+	    //获取明细
+/* 	    function info(id){
+	    	location.href="${def:context}/action/project/fitness/wx/market/ballot/crud?customercode=${fld:customercode}&id="+id;
+	    }
+	     */
+	    function info(id){
+	    	<service>
+	        var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/market/ballot/crud?sid=${fld:tuid}&customercode="+customercode+"&id="+id;
+	    	var _uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+	    	</service>
+	    	window.location.href = _uri;
+	    }
+	    
+	</script>
+</body>
+
+</html>

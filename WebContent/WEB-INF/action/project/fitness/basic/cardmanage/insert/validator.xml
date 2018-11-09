@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+      <parameter id="vc_name" type="varchar" required="true" label="vc_name" maxlen="100" />
+      <parameter id="i_membercount" type="integer" required="true" label="i_priority" maxlen="100" />
+      <parameter id="vc_name1" type="varchar" required="true" label="vc_remark" maxlen="100" />
+      <parameter id="i_type" type="integer" required="true" label="vc_name" maxlen="100" />
+      <parameter id="vc_isoffseason" type="integer" required="false" label="vc_name" maxlen="100" />
+      <parameter id="vt" type="varchar" required="false" label="vc_name" maxlen="100" />
+      <parameter id="i_daycount" type="integer" required="false" label="vc_name" maxlen="100" />
+      <parameter id="i_allowcount" type="integer" required="false" label="vc_name" maxlen="100" />
+      <parameter id="f_limitswimtime" type="varchar" required="false" label="vc_name" maxlen="100" />
+      <parameter id="i_freebathcount" type="integer" required="false" label="vc_name" maxlen="100" />
+      <parameter id="f_cardfee" type="varchar" required="false" label="vc_name" maxlen="100" />
+      <parameter id="f_scale" type="varchar" required="false" label="vc_name" maxlen="100" />
+      <parameter id="i_giveday" type="integer" required="false" label="vc_name" maxlen="100" />
+       <parameter id="i_ptcount" type="integer" required="false" label="vc_name" maxlen="100" />
+       <parameter id="i_universal" type="integer" required="false" label="vc_name" maxlen="100" />    
+        <parameter id="i_clubcount" type="integer" required="false" label="i_clubcount" maxlen="100" />   
+        <parameter id="vc_groupcode" type="varchar" required="false" label="vc_name" maxlen="100" />  
+         <parameter id="i_savedaycount" type="integer" required="false" label="vc_name" maxlen="100" />   
+         <parameter id="i_status" type="varchar" required="false" label="vc_name" maxlen="100" /> 
+          <parameter id="vc_remark" type="varchar" required="false" label="vc_name" maxlen="100" /> 
+          <parameter id="i_count" type="integer" required="false" label="vc_name" maxlen="100" />    
+             <parameter id="f_money" type="varchar" required="false" label="vc_name" maxlen="100" />      
+            <parameter id="f_moneyleft" type="varchar" required="false" label="vc_name" maxlen="100" />    
+</validator>

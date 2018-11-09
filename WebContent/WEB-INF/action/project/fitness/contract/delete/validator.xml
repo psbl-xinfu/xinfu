@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/util/validation/alert">
+
+	<parameter id="contractcode" type="varchar" required="true" label="contractcode" />
+
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="已经付款合同不允许删除" id="contractcode" sql="nodup.sql" />
+</validator>

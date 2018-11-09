@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>体侧记录</title>
+</head>
+<body>
+		<div class="basic-information dialogbg" style="width: 900px;height: 560px;">
+			<header class="header-default">
+				<span id="formTitle">体测记录</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			<input type="hidden" id="guestcode" name="guestcode" value="${fld:guestcode}"/>
+				<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}"/>
+				<input type="hidden" id="cardcode" name="cardcode" value="${fld:cardcode}"/>
+				<input type="hidden" id="ptpreparecode" name="ptpreparecode" value="${fld:ptpreparecode}"/>
+				<input type="hidden" id="testcode" name="testcode" value="${fld:code}"/>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">身高（厘米）</label>
+							<input type="text" id="height" name="height" value="" placeholder="身高"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">体重（公斤）</label>
+							<input type="text" id="weight" name="weight" value="" placeholder="体重"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">脂肪（公斤）</label>
+						<input type="text" id="fat" name="fat" value="" placeholder="脂肪"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">肌肉（公斤）</label>
+						<input type="text" id="muscle" name="muscle" value="" placeholder="肌肉"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">骨骼（公斤）</label>
+							<input type="text" id="bone" name="bone" value="" placeholder="骨骼"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">水分（公斤）</label>
+							<input type="text" id="moisture_content" name="moisture_content" value="" placeholder="水分"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">体脂比</label>
+							<input type="text" id="body_fat" name="body_fat" value="" placeholder="体脂比"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">水体重指数（BMI）</label>
+							<input type="text" id="weight_index" name="weight_index" value="" placeholder="水体重指数"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">大腿围（厘米）</label>
+							<input type="text" id="thigh_circumference" name="thigh_circumference" value="" placeholder="大腿围"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">小腿围（厘米）</label>
+							<input type="text" id="crus_circumference" name="crus_circumference" value="" placeholder="小腿围"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">肺活量（毫升）</label>
+							<input type="text" id="lung_capacity" name="lung_capacity" value="" placeholder="肺活量"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">静态心率</br>（次/分钟）</label>
+							<input type="text" id="static_heart" name="static_heart" value="" placeholder="静态心率"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">血压收缩压</br>（毫米汞柱）</label>
+							<input type="text" id="systolic" name="systolic" value="" placeholder="血压收缩压"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">血压舒张压</br>（毫米汞柱）</label>
+							<input type="text" id="pressure" name="pressure" value="" placeholder="血压舒张压"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">心肺功能测试</br>（mL/（kg.min））</label>
+							<input type="text" id="cardiopulmonary_test" name="cardiopulmonary_test" value="" placeholder="心肺功能测试"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">上肢肌肉力量测试（个/分钟）</label>
+							<input type="text" id="upper_limb_muscles" name="upper_limb_muscles" value="" placeholder="上肢肌肉力量测试"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">腹部肌肉力量测试（个/分钟）</label>
+							
+						<input type="text" id="abdomen_muscles" name="abdomen_muscles" value="" placeholder="腹部肌肉力量测试"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">下肢肌肉力量测试（个/分钟）</label>
+						<input type="text" id="lower_limb_muscles" name="lower_limb_muscles" value="" placeholder="下肢肌肉力量测试"/>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">柔韧性测试（分值）</label>
+							<input type="text" id="flexibility" name="flexibility" value="" placeholder="柔韧性测试"/>
+						</li>
+						<li>
+							<label for="" style="width: 120px;">平衡能力测试（秒）</label>
+							<input type="text" id="equilibria" name="equilibria" value="" placeholder="平衡能力测试"/>
+						</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn">保存</button>
+			</footer>
+			</form>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	if("${fld:code}"!=""){
+		var url = "${def:context}${def:actionroot}/edit?code=${fld:code}";
+		ajaxCall(url,{
+		   	method: "post",
+		   	form:"formEditor",
+		   	progress: true,
+		   	dataType: "script",
+		   	success: function() {
+			}
+		});
+	}
+	$("#save_btn").click(function(){
+		if("${fld:code}"==""){
+			var url = "${def:context}${def:actionroot}/insert";
+		}else{
+			var url = "${def:context}${def:actionroot}/update";
+		}
+		ajaxCall(url,{
+		   	method: "post",
+		   	form:"formEditor",
+		   	progress: true,
+		   	dataType: "script",
+		   	success: function() {
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

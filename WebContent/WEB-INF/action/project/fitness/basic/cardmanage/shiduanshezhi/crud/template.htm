@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body style="width: 100%">
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+		<input  id="in_vc_code"  name="in_vc_code"  type="hidden"  value="${fld:in_vc_code}"/>
+		<div id="shiduanshezhi">
+			<div class="checkbox">
+     			 <label>
+      				<input id="youyong" type="checkbox"/>限制时段
+      			</label>
+  			 </div>
+  			 
+				  <table class="table table-bordered" style="width: 900px;text-align: center;" id="show">
+				   <thead>
+				      <tr >
+				         <th >类别</th>
+				         <rows-week>
+				         <th>${fld:week_name}</th>
+	   						<input  id="i_weekday"  name="i_weekday"  type="hidden"  value="${fld:i_weekday}"/>
+				         </rows-week>
+				      </tr>
+				   </thead>
+				   <tbody>
+				      <tr>
+				         <td  style="width: 60px;padding-top: 15px">起始</td>
+				         <rows-starttime1>
+				         <td ><input  class="form-control"  id="c_starttime1"   name="c_starttime1"  type="text"  value="${fld:c_starttime1}"/> </td>
+				         </rows-starttime1>
+				      </tr>
+				         
+				       <tr>
+				         <td  style="width: 60px;padding-top: 15px">截止</td>
+				         <rows-endtime1>
+				         <td ><input  class="form-control"  id="c_endtime1"  name="c_endtime1"  type="text"  value="${fld:c_endtime1}""/> </td>
+				         </rows-endtime1>
+				      </tr>
+				         
+				       <tr>
+				         <td  style="width: 60px;padding-top: 15px">起始</td>
+				          <rows-starttime2>
+				         <td ><input  class="form-control"  id="c_starttime2"   name="c_starttime2"    type="text"  value="${fld:c_starttime2}""/> </td>
+				         </rows-starttime2>
+				      </tr>
+				         
+				       <tr>
+				         <td  style="width: 60px;padding-top: 15px">截止</td>
+				         <rows-endtime2>
+				         <td ><input  class="form-control"   id="c_endtime2"  name="c_endtime2"    type="text"  value="${fld:c_endtime2}"/> </td>
+				          </rows-endtime2>
+				      </tr>
+				   </tbody>
+				</table>
+		</div>
+		<div class="col-xs-12 col-sm-8 col-md-6 col-lg-8 col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-lg-offset-2">
+		    </div>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	$(function(){
+		$("input").attr('readonly',true);
+		$('#show').hide();
+		$Dialog().time($('input'));
+		
+		$('#f_mealdiscount,#f_drinkdiscount,#f_jsdiscount,#f_swimdiscount,#f_classdiscount,#f_singlediscount').attr('readonly',true);
+		
+		parent.$('#bianji').unbind().on("click",function(){
+			$('#qingchu').val(1)
+			$("input").attr('readonly',false);
+		});
+		
+		parent.$('#zhuangtaigaibian').unbind().on("click",function(){
+			ccms.dialog.notice("请点击基本设置")
+		})
+		
+		parent.$('#xinzeng').unbind().on("click",function(){
+			ccms.dialog.notice("此页面只能编辑");
+		})
+		
+		parent.$('#liulan').unbind().on("click",function(){
+			ccms.dialog.notice("请返回基本设置");
+		})
+		
+		parent.$('#qingkong').unbind().on("click",function(){
+			if($('#qingchu').val()!=1){
+				ccms.dialog.notice("请先点击修改");
+			}else{
+				$('#f_mealdiscount,#f_drinkdiscount,#f_jsdiscount,#f_classdiscount,#f_singlediscount,#f_swimdiscount').val(0);
+			}
+		})
+		
+		
+		parent.$('#baocun').unbind().on("click",function(){
+			var starttime1 = new Array();
+			var starttime2 = new Array();
+			var endtime1 = new Array();
+			var endtime2 = new Array();
+			var i=0;
+			$("input[name=c_starttime1][type=text]").each(function(){
+				starttime1[i]=$(this).val();
+				i++;
+			});
+			i=0;
+			$("input[name=c_starttime2][type=text]").each(function(){
+				starttime2[i]=$(this).val();
+				i++;
+			});
+			i=0;
+			$("input[name=c_endtime1][type=text]").each(function(){
+				endtime1[i]=$(this).val();
+				i++;
+			});		
+			i=0;
+			$("input[name=c_endtime2][type=text]").each(function(){
+				endtime2[i]=$(this).val();
+				i++;
+			});	
+			var z;
+			for(i = 0;i<6;i++){
+				z=i;
+				if(starttime1[i]!="" && endtime1[i]==""){	//
+				    i= libai(i)
+					ccms.dialog.notice(i+"的时间有误");
+					i=z;
+					return false;
+				}
+				if(starttime2[i]!="" && endtime2[i]==""){	//
+					 i=libai(i)
+					ccms.dialog.notice(i+"的时间有误");
+					i=z;
+					return false;
+				}
+				if(starttime2[i]<endtime1[i]&&starttime2[i]!==''&&endtime1[i]!==''){	//
+					 i=libai(i)
+					ccms.dialog.notice(i+"的时间有误");
+					i=z;
+					return false;
+				}
+				if(starttime1[i]>endtime1[i]){	//
+					 i=libai(i)
+					ccms.dialog.notice(i+"的时间有误");
+					i=z;
+					return false;
+				}
+				if(starttime2[i]>endtime2[i]){	//
+					 i=libai(i)
+					ccms.dialog.notice(i+"的时间有误");
+					i=z;
+					return false;
+				}
+				
+			}
+			
+			var uri="${def:context}${def:actionroot}/update";
+			   ajaxCall(uri,{
+			   	method: "post",
+			   	form:"formEditor",
+			   	progress: true,
+			   	dataType: "script",
+			   	success: function() {
+			   		ccms.dialog.notice("修改成功")
+			   		$('#qingchu').val(0);
+			   		$("input").attr('readonly',true);
+			   		}
+			   	});
+		});
+		
+	})
+	
+	$("#youyong").on("ifChecked",function () { 
+		$("#show").show();
+	})
+	
+	$("#youyong").on("ifUnchecked",function () { 
+		$("#show").hide();
+	})
+	
+function libai(i) {
+		if(i==0){
+			i='礼拜天'
+		}
+		if(i==1){
+			i='礼拜一'
+		}
+		if(i==2){
+			i='礼拜二'
+		}
+		if(i==3){
+			i='礼拜三'
+		}
+		if(i==4){
+			i='礼拜四'
+		}
+		if(i==5){
+			i='礼拜五'
+		}
+		if(i==6){
+			i='礼拜六'
+		}
+		return i
+}	
+
+	</script>
+</body>
+</html>

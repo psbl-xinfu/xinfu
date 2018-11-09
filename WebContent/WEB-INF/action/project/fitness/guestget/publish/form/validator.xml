@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="types" type="varchar" required="true" label="1公告2话术"/>
+	<parameter id="tuid" type="varchar" required="false" label="tuid有值修改，没值添加"/>
+</validator>

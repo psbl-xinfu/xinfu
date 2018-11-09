@@ -1,0 +1,2 @@
+﻿
+$('#preparecount').val("${fld:num}");

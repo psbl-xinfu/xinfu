@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <title>投票</title>
+        <link href="${def:context}/js/project/fitness/wx/css/market/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/market/ballot.css" rel="stylesheet">
+        <script type="text/javascript" src="${def:context}/js/ccms/jweixin-1.js"></script>
+    </head>
+
+<body>
+	<input type="hidden" id="toupiaoid" value="">
+	 <input type="hidden" id="wxuserid" value="${fld:wxuserid}"> 
+	<input type="hidden" id="votenum" value="${fld:votenum}" >
+
+
+
+	<div class="containter">
+		<div class="comm-width bg">
+			<div class="desc"></div>
+			<div class="header clearlr">
+				<img class="fl" src="${def:context}${fld:headpic}">
+				<div class="user-info fl">
+					<label class="user-no">${fld:id}号</label><br>
+					<label class="user-name">${fld:cusstname}</label>
+				</div>
+				<label class="user-num fr" code="${fld:toupiaonum}"  id="toupiaonum">${fld:toupiaonum}票</label>
+			</div>
+			<div class="details">
+				${fld:descr}
+				<div id="datas">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+		<div class="btn-div">
+			<button class="btn-lp fl">右上角分享拉票</button>
+			<button id="toupiao"  class="btn-tp fl"  style="display: none"  onclick="touPiaoVer(${fld:id})">投票</button>
+		</div>
+</body>
+
+<script type="text/javascript">
+
+$(function(){
+	var edate="${fld:enddate}";
+	var d = new Date();
+	var time = d.getFullYear()+"-"+((d.getMonth()+1)>=10?+(d.getMonth()+1):"0"+(d.getMonth()+1))+"-"+((d.getDate())>=10?d.getDate():'0'+d.getDate())
+	$('.desc').text("投票倒计时："+getTime2Time(edate,time)+'天')
+	
+	
+ 	if( "" == "${fld:boot}"){//会员
+ 		homecust();
+	}
+
+	if("${fld:enddate}">time){//投票时间大于当前   可投票
+		$('#toupiao').show();
+	}
+	
+	
+	var str="";
+	<img>
+	str+='<img height="200" width="100%"  src='+contextPath+'/action/ccms/attachment/download?id=${fld:tuid}&type=0&t='+new Date().getTime()+'">'
+	</img>
+	$('#datas').html(str);
+})
+//计算活动截止天数
+function getTime2Time(time1,time2)
+	{
+	var time1 = arguments[0], time2 = arguments[1];
+	time1 = Date.parse(time1)/1000;
+	time2 = Date.parse(time2)/1000;
+	var time_ = time1 - time2;
+	return (time_/(3600*24));
+	}
+	
+/* //投票
+function touPiao(id,obj){
+	var num=$('#toupiaonum').attr('code');
+	num++;
+	$('#toupiaonum').text(num+'票')
+	getAjaxCall("/action/project/fitness/wx/market/ballot/insert?enrollcode="+id,false);
+}	 */
+
+
+	//投票验证
+	function touPiaoVer(id){
+		$('#toupiaoid').val(id);
+		getAjaxCall("/action/project/fitness/wx/market/index/gettoupiao?toupiaoid="+$('#toupiaoid').val(),false,function(){
+		});
+}
+	
+	//通过投票验证
+	function toupiao(id){
+		var num=$('#toupiaonum').attr('code');
+		num++;
+		$('#toupiaonum').text(num+'票')
+		getAjaxCall("/action/project/fitness/wx/market/ballot/insert?enrollcode="+id+"&wxuserid="+$('#wxuserid').val(),false);
+	}
+
+
+ $(function() {
+	wx.config({
+		debug: false,
+		appId:  "${fld:appid}",
+		timestamp: ${fld:timestamp},
+		nonceStr: "${fld:noncestr}",
+		signature: "${fld:signature}",
+		jsApiList : [ 'checkJsApi','onMenuShareTimeline',"onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone",
+		              'hideOptionMenu','showOptionMenu','hideMenuItems','showMenuItems','hideAllNonBaseMenuItem','showAllNonBaseMenuItem']
+		// 必填，需要使用的JS接口列表
+	});
+
+    wx.ready(function(){
+    	menuShareConfig({
+    		titlename: $('.user-name').text() + '的投票',
+    		desc: "",
+    		linkuri: '${fld:access_address}${def:context}/action/project/fitness/wx/market/ballot/crud?id=${fld:id}&boot=false',
+    		imguri: "${fld:access_address}${def:context}/js/project/fitness/image/favicon.ico",
+    		callback: function () { 
+            }
+    	});
+	});
+}); 
+</script>
+</html>

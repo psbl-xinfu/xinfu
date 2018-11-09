@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>transactions.project.fitness.report.AnalysisOrgBase</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+	
+	<query>query-zero.sql</query>
+	<query>query-one.sql</query>
+	<query>query-two.sql</query>
+	<query>query-three.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query-zero.sql" tag="zero-rows" />
+		<print mode="table" recordset="query-one.sql" tag="one-rows" />
+		<print mode="table" recordset="query-two.sql" tag="two-rows" />
+		<print mode="table" recordset="query-three.sql" tag="three-rows" />
+		<!-- 同比 -->
+		<print mode="table" recordset="tb-query-zero.sql" tag="tb-zero-rows" />
+		<print mode="table" recordset="tb-query-one.sql" tag="tb-one-rows" />
+		<print mode="table" recordset="tb-query-two.sql" tag="tb-two-rows" />
+		<print mode="table" recordset="tb-query-three.sql" tag="tb-three-rows" />
+		<!-- 环比 -->
+		<print mode="table" recordset="hb-query-zero.sql" tag="hb-zero-rows" />
+		<print mode="table" recordset="hb-query-one.sql" tag="hb-one-rows" />
+		<print mode="table" recordset="hb-query-two.sql" tag="hb-two-rows" />
+		<print mode="table" recordset="hb-query-three.sql" tag="hb-three-rows" />
+	</output>
+
+</config>

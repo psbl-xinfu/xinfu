@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>修改预约</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="gerenyuyuexqcontent" style="margin-top: 20px;" >
+            <div class="listothers" >
+                <div class='d1 fl'>姓名</div>
+                <div class='d3 fr'  id="name">${fld:name}</div>
+            </div>
+          
+             <div class="listothers">
+                <div class='d1 fl'>手机</div>
+                <div class='d3 fr'  id="mobile">${fld:mobile}</div>
+               </div>
+           
+            <div class="listothers">
+                <div class='d2 fl' style="width: 15%">日期</div>
+                <div class='d4 fr' ><input     type="text" name=""  class="form-control dateinput" id="datetimepicker"  value="${fld:preparedate}  ${fld:preparetime} - ${fld:endtime}" style="border: none;width:120%;margin-right: -13%"></div>
+            </div>
+            
+            
+            <div class="listothers">
+                <div class='d1 fl'>预约状态</div>
+                <div class='d3 fr' id="pre_result">${fld:status}</div>
+            </div>
+        </div>  
+
+ <!--   	  <div class="hetongxqbtn">
+            <img src="${def:context}/js/project/fitness/wx/image/tijiao.png" class="tijiao" id="save">
+        </div> -->
+
+
+  	 <div class="gy-save"  id="save" style="margin-top: 20px">
+   	  	提&nbsp;交
+     </div>
+
+        
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+var date="";
+var time=""
+
+    $(function(){
+    	homept();
+        $('#save').click(function(){
+        	save();
+        })
+
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+                theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd ',
+            timeFormat: 'HH:ii:ss',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#datetimepicker").mobiscroll( $.extend(opt['datetime'], opt['default']) );
+    });
+    
+    function save(){
+    	var dateval = $("#datetimepicker").val();
+    	dateval=dateval.substring(0,17)
+    	dateval=dateval.split("  ");
+    	var date=dateval[0]
+    	var time=dateval[1]
+    	
+    	var times=time.split(":");
+    	var hour=times[0]
+    	var minute=times[1]
+        	getAjaxCall("/action/project/fitness/wx/pt/course/updateyuyue/updategust?"
+        			+"code=${fld:code}"
+        			+"&pdate="+date
+        			+"&hour="+hour
+        			+"&minute="+minute
+        			+"&customercode=${fld:customercode}",    
+        			false);
+    }
+    
+    
+    function goyuyueinfo(){
+    	var date=$('#datetimepicker').val();
+    	date=date.substring(0,10)
+    	location.href="${def:context}/action/project/fitness/wx/pt/course/crud?years="+date;
+    }
+</script>

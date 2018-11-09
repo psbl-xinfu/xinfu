@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		过期会员导出
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_custall,daochu_mc</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="过期会员" filename="过期会员记录.xls" header-background="true">
+		<col id="name" label="姓名" /> 
+		<col id="sex" label="性别" />
+		<col id="mobile" label="电话" />
+		<col id="mc" label="会籍" />
+		<col id="enddate" label="会籍截止日期" />
+	</excel>
+</config>

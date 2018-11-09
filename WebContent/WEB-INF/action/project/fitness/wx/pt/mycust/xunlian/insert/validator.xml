@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	
+	<parameter id="custcode" type="varchar" required="true" label="会员编号" />
+	<parameter id="ptid" type="varchar" required="true" label="私教" />
+	<parameter id="ptpreparecode" type="varchar" required="true" label="预约编号" />
+	<parameter id="pdcode" type="varchar" required="true" label="课程编号" />
+	<parameter id="warmup_mins" type="varchar" required="true" label="热身时间" />
+	<parameter id="aerobic_mins" type="varchar" required="true" label="有氧时间" />
+	<parameter id="run_mileage" type="varchar" required="true" label="跑步里程" />
+	
+	<parameter id="trainingsite1" type="varchar" required="true" label="trainingsite1" />
+	<parameter id="largecategories1" type="varchar" required="true" label="largecategories1" />
+	<parameter id="action1" type="varchar" required="true" label="action1" />
+	<parameter id="details1" type="varchar" required="true" label="details1" />
+	<parameter id="group" type="varchar" required="true" label="group" />
+</validator>

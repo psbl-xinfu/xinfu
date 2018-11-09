@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="tuid" type="integer" required="true" label="tuid"/>
+	<parameter id="question_name" type="varchar" required="true" label="question_name" maxlen='256'/>
+	<parameter id="question_code" type="varchar" required="true" label="question_code" maxlen='32'/>
+	<parameter id="question_score" type="double" required="true" label="question_score"/>
+	<parameter id="question_type" type="integer" required="true" label="question_type" maxlen='4'/>
+	<parameter id="showorder" type="integer" required="true" label="showorder"/>
+</validator>

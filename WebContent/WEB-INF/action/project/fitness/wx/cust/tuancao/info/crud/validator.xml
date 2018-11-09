@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="customercode" type="varchar" required="true" label="customercode" />
+	<parameter id="dcode" type="varchar" required="true" label="dcode" />
+	<parameter id="ccode" type="varchar" required="true" label="ccode" />
+	<parameter id="status" type="varchar" required="true" label="status" />
+	<parameter id="isyuyue" type="varchar" required="true" label="isyuyue" />
+	
+	<parameter id="type" type="varchar" required="false" label="type" />
+</validator>

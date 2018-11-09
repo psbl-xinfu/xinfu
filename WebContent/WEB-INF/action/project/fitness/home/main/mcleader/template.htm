@@ -1,0 +1,229 @@
+<script src="${def:context}/js/echarts-2.2.7/liquidfill/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/echarts-2.2.7/liquidfill/echarts-liquidfill.min.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/echarts-liquidfill-util.js" type="text/javascript"></script>
+
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/echarts-2.2.7/build/dist/chart/line.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/main.js"></script>
+<div class="r-index	">
+	<section class="r-i-1" >
+		<div class="home-a-title">本月总业绩</div>
+		<div id="ptsaleDiv" style="float:left ;width:60%;height:100%;margin-top:-20px;margin-left: 5%"></div>
+		<div class="home-a-right">
+			<div class="divs" style="margin-top: 75px">本月业绩</div>
+			<div class="divs" id="saleFee"></div>
+			<div class="divs"style="margin-top: 30px">完成百分比</div>
+			<div class="divs" style="color: rgba(51,143,226,1)" id="saleRate"></div>
+		</div>
+	</section>
+	
+	<section class="r-i-2">
+		<article class="r-i-2-1">
+			<p class="title smallpersontitle">本月到访人数</p>
+			<div class="keshi smallperson">
+				<span id="visitnum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="visitnumRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar am-progress-bar-danger" id="visitnumProgress"></div>
+				</div>
+			</div>
+		</article>
+		<article class="r-i-2-2">
+			<p class="title smallpersontitle">新增会员量</p>
+			<div class="keshi smallperson">
+				<span id="newcustnum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="newcustnumRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar am-progress-bar-success" id="newcustnumProgress"></div>
+				</div>
+			</div>
+		</article>
+		<article class="r-i-2-3">
+			<p class="title smallpersontitle">新增资源量</p>
+			<div class="keshi smallperson">
+				<span id="newguestnum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="newguestnumRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar" id="newguestnumProgress"></div>
+				</div>
+			</div>
+		</article>
+		<article class="r-i-2-4">
+			<p class="title smallpersontitle">待分配资源</p>
+			<div class="keshi smallperson">
+				<span id="guestNum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="guestRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar am-progress-bar-secondary" id="guestProgress"></div>
+				</div>
+			</div>
+		</article>
+	</section>
+	
+	<section class="r-i-3">
+		<div id="ptDiv" style="width:100%;height:70%;"></div>
+		<div class="divs" >
+			<div class="divs-left">我的提成</div>
+			<div class="divs-right" id="pttotal"></div>
+		</div>
+	</section>
+	
+	<section class="r-i-4">
+		<button class="r-i-set" type="button" id="quickmenu_btn"></button>
+	</section>
+	
+	<section class="r-i-5">
+		<header>当月销售排行 </header>
+		<article id="ptsalerank0" style="display:none;">
+			<img src="${def:context}/js/project/fitness/image/SVG/index/one.svg" alt="">
+			<div class="target">
+				<p>销售冠军</p>
+				<span id="ptsalerank0_target">目标：</span>
+			</div>
+			<img src="${def:context}/js/project/fitness/image/SVG/50X50.svg" alt=""> <span class="name" id="ptsalerank0_name"></span>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<div class="am-progress am-active am-progress-striped">
+					<div id="ptsalerank0_progress" class="am-progress-bar am-progress-bar-danger"></div>
+				</div>
+				<div class="toSay">
+					<p id="ptsalerank0_total"></p>
+					<p id="ptsalerank0_rate"></p>
+				</div>
+			</div>
+		</article>
+		<article id="ptsalerank1" style="display:none;" class="r-i-two">
+			<img src="${def:context}/js/project/fitness/image/SVG/index/two.svg" alt="">
+			<div class="target">
+				<p>销售亚军</p>
+				<span id="ptsalerank1_target">目标：</span>
+			</div>
+			<img src="${def:context}/js/project/fitness/image/SVG/50X50.svg" alt=""> <span class="name" id="ptsalerank1_name"></span>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<div class="am-progress am-active am-progress-striped">
+					<div id="ptsalerank1_progress" class="am-progress-bar am-progress-bar-my"></div>
+				</div>
+				<div class="toSay">
+					<p id="ptsalerank1_total"></p>
+					<p id="ptsalerank1_rate"></p>
+				</div>
+			</div>
+		</article>
+		<article id="ptsalerank2" style="display:none;" class="r-i-three">
+			<img src="${def:context}/js/project/fitness/image/SVG/index/three.svg" alt="">
+			<div class="target">
+				<p>销售季军</p>
+				<span id="ptsalerank2_target">目标：</span>
+			</div>
+			<img src="${def:context}/js/project/fitness/image/SVG/50X50.svg" alt=""> <span class="name" id="ptsalerank2_name"></span>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<div class="am-progress am-active am-progress-striped">
+					<div id="ptsalerank2_progress" class="am-progress-bar am-progress-bar-my2"></div>
+				</div>
+				<div class="toSay">
+					<p id="ptsalerank2_total"></p>
+					<p id="ptsalerank2_rate"></p>
+				</div>
+			</div>
+		</article>
+	</section>
+	
+	<section class="r-i-6">
+		<header id="ptRank">当月资源获取排行</header>
+	</section>
+</div>
+
+<script type="text/javaScript">
+	$(document).ready(function() {
+		$("#quickmenu_btn").unbind().on("click",function(){
+			
+		});
+		
+		var fdate = new Date().format("yyyy-MM-01");
+		var tdate = new Date().format("yyyy-MM-dd");
+		// 本月销售业绩+课时+资源
+		getAjaxCall("${def:actionroot}/mcleader/loadtarget", false);
+		// 私教签课
+		getAjaxCall("${def:actionroot}/mcleader/loadpt?fdate="+fdate+"&tdate="+tdate, false);
+		var targetyear = new Date().format("yyyy");
+		var targetmonth = new Date().format("MM");
+		// 当月教练销售排行
+		getJsonAjaxCall("/action/project/fitness/util/queryranksale?fdate="+fdate+"&tdate="+tdate+"&target_year="+targetyear+"&target_month="+targetmonth, false, function(data){
+			if( undefined != data && null != data && data.length > 0 ){
+				for( var i = 0; i < data.length; i++ ){
+					var rankJson = data[i];
+					if( i == 3 || undefined == rankJson["userlogin"] || null == rankJson["userlogin"] ){
+						break;
+					}
+					var pttarget = rankJson["targetfee"];
+					var ptfinish = rankJson["finishfee"];
+					$("#ptsalerank"+i+"_target").text("目标："+(0 == pttarget ? "" : pttarget+""));
+					$("#ptsalerank"+i+"_name").text(rankJson["staffname"]);
+					var ptrate = parseFloat(ptfinish)*100.00/parseFloat(0 == pttarget ? 1 : pttarget);
+					$("#ptsalerank"+i+"_progress").text((ptrate >= 100.00 ? 100 : ptrate)+"%");
+					$("#ptsalerank"+i+"_progress").css("width", (ptrate >= 100.00 ? 100 : ptrate)+"%");
+					$("#ptsalerank"+i+"_total").text(ptfinish);
+					$("#ptsalerank"+i+"_rate").text(ptrate >= 100.00 ? "满额" : ptrate+"%");
+					$("#ptsalerank"+i).show();
+				}
+			}
+		});
+		// 当月资源获取排行
+		getJsonAjaxCall("/action/project/fitness/util/queryrankmc?fdate="+fdate+"&tdate="+tdate+"&target_year="+targetyear+"&target_month="+targetmonth, false, function(data){
+			if( undefined != data && null != data && data.length > 0 ){
+				for( var i = 0; i < data.length; i++ ){
+					var rankJson = data[i];
+					if( i == 10 || undefined == rankJson["userlogin"] || null == rankJson["userlogin"] ){
+						break;
+					}
+					var rankflag = "";
+					if( i == 0 ){
+						rankflag = "one";
+					}else if( i == 1 ){
+						rankflag = "two";
+					}else if( i == 2 ){
+						rankflag = "three";
+					}
+					var str = '';
+					if( "" != rankflag ){
+						str += '<article class="r-i-'+rankflag+'">';
+						str += '<img src="${def:context}/js/project/fitness/image/SVG/50X50.svg" alt="">'; 
+						str += '<span class="name">'+rankJson["staffname"]+'</span> <span class="count">'+rankJson["finishnum"]+'</span>';
+						str += '<img src="${def:context}/js/project/fitness/image/SVG/index/'+rankflag+'.svg" alt="">';
+					}else{
+						str += '<article>';
+						str += '<img src="${def:context}/js/project/fitness/image/SVG/50X50.svg" alt="">'; 
+						str += '<span class="name">'+rankJson["staffname"]+'</span> <span class="count">'+rankJson["finishnum"]+'</span>';
+						str += '<span class="rank">'+(i+1)+'</span>';
+					}
+					str += '</article>';
+					$("#ptRank").append(str);
+				}
+			}
+		});
+		
+	});
+	function getRateProgressMargin(rate){
+		return (rate >= 90 ? 85 : (rate <= 5 ? 0 : rate - 5));
+	}
+</script>

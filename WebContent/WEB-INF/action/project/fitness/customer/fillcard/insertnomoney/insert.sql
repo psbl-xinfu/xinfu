@@ -1,0 +1,32 @@
+insert into cc_fillcard
+(
+	code,
+	oldcardcode,
+	cardcode,
+	customercode,
+	status,
+	money,
+	remark,
+	cardstartdate,
+	cardenddate,
+	incode,
+	createdby,
+	created,
+	org_id
+)
+values 
+(
+	${seq:currval@seq_cc_fillcard},
+    ${fld:cardcode},
+    ${fld:new_vc_code},
+    ${fld:customercode},
+    10,
+    ${fld:money},
+    ${fld:remark},
+    ${fld:cardstartdate},
+    ${fld:cardenddate},
+    ${fld:incode},
+    '${def:user}',
+    {ts'${def:timestamp}'},
+	${def:org}
+)

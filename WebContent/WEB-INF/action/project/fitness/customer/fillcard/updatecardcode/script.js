@@ -1,0 +1,1 @@
+$("#vc_billcode").val("${fld:vc_code}");

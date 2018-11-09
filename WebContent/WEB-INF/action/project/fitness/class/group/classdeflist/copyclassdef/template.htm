@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/jscolor/jscolor.js"></script>
+<title>复制</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 500px;">
+		<div class=" basic-dialog">
+			<header class="header-default">
+				<span id="formTitle">复制</span>
+			</header>
+			<form style="width: 100%;" id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="code" name="code" value="${fld:code}"/>
+				<div class="modal-body b-i-main">
+					<nav id="copys">
+						<li>
+							<label for=""></label>					
+							<span>将${fld:classtime}【${fld:name}】 ${fld:class_name}</span>
+						</li>
+						<li>
+							<label for=""></label>					
+							<i class="am-icon-plus" onclick="inserthour()" title="添加"></i>
+						</li>
+						<li>
+							<label for="">复制到</label>					
+							<input type='text' name='classdate' placeholder="日期"/>&nbsp;&nbsp;&nbsp;&nbsp;
+							<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" style="width: 15px;height: 15px;" title="删除" onclick='delhour(this)'/>
+						</li>
+					</nav>	
+				</div>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+			</form>
+	</div></div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	$Dialog().date($('input[name=classdate]'));
+	$("#save_btn").click(function(){
+		var count = 0;
+		var val = document.getElementsByName("classdate");
+		$(val).each(function(v,l){
+			if(val[v].value==""){
+				ccms.dialog.alert("请选择时间!");
+				count++;
+				return false;
+			}else if(new Date()>new Date(val[v].value)){
+				ccms.dialog.alert("复制的时间必须大于当前时间!");
+				count++;
+				return false;
+			}
+		});
+		if(count==0){
+			var url="${def:context}${def:actionroot}/insertcopyclasslist";
+			ajaxCall(url,{
+				method:"post",
+				form:"formEditor",
+				dataType:"script",
+				progress:true,
+				success:function(){
+				}
+			});
+		}
+	});
+	$("#close").click(function(){ccms.dialog.close();});
+});
+//删除购课折扣div
+function delhour(val){
+	$(val).parent().remove();
+}
+//增加购课
+function inserthour(){
+	$("#copys").append("<li><label>复制到</label><input type='text' name='classdate'  placeholder='日期'/>&nbsp;&nbsp;&nbsp;&nbsp;"
+		+"<img src='${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg' style='width: 15px;height: 15px;' title='删除' onclick='delhour(this)'/></li>");
+	$Dialog().date($('input[name=classdate]'));
+}
+</script>
+</body>
+</html>

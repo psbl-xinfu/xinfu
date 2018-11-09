@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		商品导出
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_gname,daochu_type,daochu_goodunit,daochu_isgifttwo</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="商品记录" filename="商品记录.xls" header-background="true">
+		<col id="goods_name" label="商品名称" /> 
+		<col id="fastcode" label="商品货号" />
+		<col id="goods_type" label="类别" />
+		<col id="standard" label="规格" />
+		<col id="unit" label="单位" />
+		<col id="buyprice" label="进货价" />
+	</excel>
+</config>

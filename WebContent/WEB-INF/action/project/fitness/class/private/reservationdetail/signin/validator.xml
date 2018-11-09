@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="code" type="varchar" required="true" label="ID" maxlen="100"/>
+	<parameter id="restcode" type="varchar" required="true" label="私教课库存id" maxlen="100"/>
+	
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="该会员不能签到，请确认时间或状态" id="yuebiao" sql="nodup.sql" />
+</validator>

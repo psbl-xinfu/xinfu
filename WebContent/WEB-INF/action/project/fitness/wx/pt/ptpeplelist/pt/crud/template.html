@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>私教合同</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+    
+    <body>
+    <form id="contractForm"  name="contractForm">
+    			<input type="hidden" id="contractcode" name="contractcode" value="" preserve="true" />
+				<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+				<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
+				<input type="hidden" id="recommendcode" name="recommendcode" value="" />
+    
+        <div class="hetongxqtop">
+            <img id="headpic" src="" class="touxiangpic img-circle">
+            <p class="name text-center" id="name"></p>
+            <p class="tel text-center"id="mobile"></p>
+        </div>
+
+         <div class="hetongxqcontent">
+           <div class="listother"id="recommendDiv" style="display:none;">
+                <p class='p1'>推荐人</p>
+                <p class='p2 ' ><input type="text"  id="recommend" name="recommend"  class="textinput"   ></p>
+            </div>
+
+            
+            <div class="listothers">
+                <div class='d1 fl'>销售员</div>
+                <div class='d2 fr'>
+                    <select class="form-control" name="salemember" id="salemember">
+                       <mc>
+                      	 	<option value="${fld:userlogin}">${fld:name}</option>
+                       </mc>
+                    </select>
+                </div>
+            </div>
+            
+         <div class="listothers">
+                <div class='d1 fl'>第二会籍</div>
+                <div class='d2 fr'>
+                    <select class="form-control" name="salemember1" id="salemember1">
+                    <option value="">请选择</option>
+                       <mc1>
+                      	 	<option value="${fld:userlogin}">${fld:name}</option>
+                       </mc1>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="listothers">
+                <div class='d1 fl'>教练</div>
+                <div class='d2 fr'>
+							<select id="pt" name="pt" class="form-control">
+								<option value="">请选择</option>
+								<pt-rows>
+								<option value="${fld:userlogin}">${fld:name@js}</option>
+								</pt-rows>
+							</select>
+                </div>
+            </div>
+            
+            
+              <div class="listothers">
+                <div class='d1 fl'>获客渠道</div>
+                <div class='d2 fr'>
+          				<select id="channel" name="channel" class="form-control">
+								<option value="">请选择</option>
+								<source-rows>
+								<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</source-rows>
+							</select>
+                </div>
+            </div>
+            
+           <div class="listothers">
+                <div class='d1 fl'>课程名称</div>
+                <div class='d2 fr'>
+							<select  id="ptlevelcode" name="ptlevelcode" class="form-control">
+								<option value="">请选择</option>
+								<ptlevel-rows>
+								<option value="${fld:code}" code1="${fld:ptfee}" code2="${fld:scale}">${fld:ptlevelname@js}</option>
+								</ptlevel-rows>
+							</select>
+                </div>
+            </div>
+                       
+             <div class="listother">
+                <p class='p1'>课程单价</p>
+                <p class='p2 ' ><input type="text"  id="ptfee" name="ptfee"  class="textinput"  readonly="readonly"  value="0"></p>
+            </div>          
+            
+            <div class="listother">
+                <p class='p1'>购买课时</p>
+                <p class='p2 ' ><input type="text"  id="ptcount" name="ptcount"  class="textinput"   placeholder="购买课时" value="1"></p>
+            </div>              
+            
+              <div class="listother">
+                <p class='p1'>截止日期</p>
+                <p class='p2 ' ><input type="text"  id="ptenddate" name="ptenddate"  class="textinput"  readonly="readonly"  ></p>
+            </div>     
+            
+           <div class="listother">
+                <p class='p1'>折扣金额</p>
+                <p class='p2 ' ><input type="text"  id="ptamount" name="ptamount"  class="textinput"  ></p>
+            </div>     
+            
+           <div class="listother">
+                <p class='p1'>应收</p>
+                <p class='p2 ' ><input type="text"  id="normalmoney" name="normalmoney"  class="textinput"  readonly="readonly"  value="0" style="color: #FDB346;font-weight: bold;font-size: 18px"></p>
+            </div>              
+            
+        <div class="hetongxqcontent" >
+            <div class="list">
+                <p class='p1'>备注</p>
+                <p class='p2'><textarea class="form-control" rows="3" placeholder="请写入备注" id="remark" name="remark"></textarea></p>
+            </div>
+        </div>
+<!--    	  <div class="hetongxqbtn">
+            <img src="${def:context}/js/project/fitness/wx/image/tijiao.png" class="tijiao" id="save_btn" >
+        </div>
+         -->
+        
+        
+  	<div class="gy-save"  id="save_btn" >
+   	  	提&nbsp;交
+     </div>
+        
+        
+        
+		</form>
+    </body>
+</html>
+<script type="text/javascript">
+var ptday = 1.00;	// 每节课几天上完
+var istopay = false;
+var currentDate = new Date();
+$(document).ready(function(){
+	$('#pt').val('${def:user}');
+	homept();
+	$("#salemember").val("${def:user}");
+	<cust-rows>
+		$("#customercode").val("${fld:code}");
+		$("#name").text("${fld:name@js}");
+		$("#mobile").text("${fld:mobile@js}");
+		$('#headpic').attr('src',contextPath+"${fld:headpic}");
+	</cust-rows>
+	<ptday-rows>
+		if( isFloat("${fld:param_value}") ){
+			ptday = (isFloat("${fld:param_value}") || isNumber("${fld:param_value}") ? parseFloat("${fld:param_value}") : ptday);
+		}
+	</ptday-rows>
+	// 根据教练重新加载私教课
+	$("#pt").on("change",function(){
+		$("#ptenddate").val("");
+		loadPtlevelByPT($(this).val());
+	});
+	// 私教变更
+	$("#ptlevelcode").on("change",function(){
+		var ptfee = $(this).find("option:selected").attr("code1");
+		ptfee = isFloat(ptfee) || isNumber(ptfee) ? parseFloat(ptfee) : 0.00;
+		$("#ptfee").val(ptfee);
+		setptfee();
+	});
+	// 获取渠道
+	$("#channel").on("change",function(){
+		if( "2" == $(this).val() ){
+			$("#recommendDiv").show();
+		}else{
+			$("#recommendDiv").hide();
+			$("#recommendcode,#recommend").val("");
+		}
+	});
+/* 	// 购买课时
+	$("#ptcount").unbind().on("blur",function(){
+		var ptcount = $(this).val();
+		if(isNaN(ptcount)){
+			$("#ptcount").val("1");
+			ccms.dialog.notice("请输入数字！", 3000);
+		}
+		ptcount = isNumber(ptcount) && Number(ptcount) > 0 ? parseInt(ptcount) : 1;
+		setptfee();
+	}); */
+	
+	
+	
+	
+	$("#ptcount").bind('input propertychange', function() {   	
+		var ptcount = $(this).val();
+		
+		if(ptcount!=""){
+			if(isNaN(ptcount)){
+				$("#ptcount").val("1");
+			}
+			ptcount = isNumber(ptcount) && Number(ptcount) > 0 ? parseInt(ptcount) : 1;
+			setptfee();
+		}
+	});
+	
+	
+	// 保存
+	$("#save_btn").unbind().on("click",function(){
+		var ptamount = Number($("#ptamount").val());
+		var normalmoney = Number($("#normalmoney").val());
+		
+		if(ptamount>normalmoney){
+			ccms.dialog.notice("折扣金额不能大于应收金额！");
+		}else{
+			istopay = false;
+			saveContract();
+		}
+	});
+	// 收款
+	$("#pay_btn").unbind().on("click",function(){
+		istopay = true;
+		saveContract();
+	});
+
+	//折扣金额
+	$("#ptamount").blur(function(){
+		var money = 0;
+		var ptamount = Number($(this).val());
+		var normalmoney = Number($("#normalmoney").val());
+		if(isNaN(ptamount)){
+			ccms.dialog.notice("请输入数字！", 3000);
+		}else if(ptamount<0){
+			ccms.dialog.notice("折扣金额不能小于0！", 3000);
+		}else if(ptamount>normalmoney){
+			ccms.dialog.notice("折扣金额不能大于应收金额！", 3000);
+		}else{
+			normalmoney-=ptamount.toFixed(2);
+			money = ptamount.toFixed(2);
+		}
+		$("#ptamount").val(money);
+		$("#normalmoney").val(normalmoney);
+	});
+});
+function loadPtlevelByPT(pt, callback){
+	getAjaxCall("/action/project/fitness/wx/basic/queryptdefbypt?objid=ptlevelcode&pt="+pt, false, function(){
+		if( typeof(callback) == "function" && undefined != callback ){
+			callback();
+		}
+	});
+}
+function saveContract(){
+	var contractcode = $("#contractcode").val();
+	if( "" != contractcode ){
+		// 判断合同状态
+		getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
+			if( data && Number(data.status) >= 2 ){
+				if( istopay ){
+					topay(contractcode);
+				}else{
+					ccms.dialog.notice("已付款合同不允许修改！", 2000);
+				}
+			}else{
+				postAjaxCall("${def:actionroot}/update", "contractForm", false);	// 未付款合同可修改
+			}
+		});
+	}else{
+		getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", false, function(){
+			if( "" == $("#newcontractcode").val() ){
+				ccms.dialog.notice("合同号生成失败", 2000);
+			}else{
+				postAjaxCall("/action/project/fitness/wx/pt/ptpeplelist/pt/insert", "contractForm", false);
+			}
+		});
+	}
+}
+
+
+function setptfee(){
+	var ptcount = parseInt($("#ptcount").val());
+	var ptfee = $("#ptlevelcode").find("option:selected").attr("code1");
+	var fee = parseFloat(ptfee) * parseFloat(ptcount);
+	$("#normalmoney").val(fee);
+	$("#ptenddate").val(addDate(currentDate, Math.ceil((ptday*ptcount).toFixed(2))).format("yyyy-MM-dd"));
+}
+//回调查询方法
+function pickcustCallback(){
+}
+</script>

@@ -1,0 +1,17 @@
+var vc_name = "${fld:vc_name}";
+var vc_level = "${fld:vc_level}";
+var _start_date=$("#_start_date").val();
+var _end_date=$("#_end_date").val();
+var vc_mobile=$("#vc_mobile").val();
+var skill_name=$("#skill_name").val();
+var i_public=$("#i_public").val();
+var i_status=$("#i_status").val();
+var vc_status=$("#vc_status").val();
+var kh_zyfpcx=$("#kh_zyfpcx").val();
+var i_type=$("#i_type").val();
+var count_mcchange=$("#count_mcchange").val();
+var i_visited=$("#i_visited").val();
+var count_call=$("#count_call").val();
+var features = "height=500,width=800,status=no,toolbar=no,menubar=no,location=no,scrollbars=yes,resizable=yes";
+var url = "${def:context}${def:actionroot}?vc_name="+vc_name+"&_start_date="+_start_date+"&_end_date="+_end_date+"&vc_mobile="+vc_mobile+"&skill_name="+skill_name+"&vc_level="+vc_level+"&i_public="+i_public+"&i_status="+i_status+"&kh_zyfpcx="+kh_zyfpcx+"&vc_status="+vc_status+"&i_type="+i_type+"&count_mcchange="+count_mcchange+"&i_visited="+i_visited+"&count_call="+count_call;
+var w = window.open(url, null, features);

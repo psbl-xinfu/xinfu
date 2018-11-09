@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochu_vc_name,daochu_skill_name,daochu_i_status,daochu_monthfeipei,daochu_monthweigenjin,daochu_monthnew,daochu_public
+	,daochu_f_sex,daochu_f_age,daochu_f_nofollowstartdate,daochu_f_nofollowenddate,daochu_f_startmonth,daochu_f_startday,daochu_f_endmonth
+	,daochu_f_endday,daochu_f_genjintype,daochu_f_type,daochu_f_mc,daochu_f_level,daochu_f_purpose,daochu_f_stage,daochu_f_personalhobbit
+	,daochu_f_marriage,daochu_f_children,daochu_f_leave,daochu_f_participate,daochu_f_ismember,daochu_f_protection,daochu_f_calltimes
+	,daochu_f_distributioncount,daochu_f_entrystartdate,daochu_f_entryenddate</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="客户资源分配及跟进记录" filename="客户资源分配及跟进记录.xls" header-background="true">
+		<col id="num_days" label="保护期" />
+		<col id="vc_itime" label="录入日期" />
+		<col id="i_public" label="公海" />
+		<col id="preparedate" label="预约沟通时间" />
+		<col id="vc_name" label="姓名" />
+		<col id="i_sex" label="性别" />
+		<col id="vc_mobile" label="手机" />
+		<col id="count_call" label="通话次数" />
+		<col id="vc_callitime" label="最新跟进" />
+		<col id="vc_visititime" label="最新到访" />
+		<col id="followup" label="跟进状态" />
+	</excel>
+
+</config>

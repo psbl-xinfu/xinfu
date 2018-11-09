@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="vc_cardcode" type="varchar" required="false" label="vc_cardcode"/>
+	<parameter id="vc_tempcabinet" type="varchar" required="false" label="vc_tempcabinet"/>
+	<parameter id="vc_itemtype" type="varchar" required="false" label="vc_itemtype"/>
+		
+</validator>

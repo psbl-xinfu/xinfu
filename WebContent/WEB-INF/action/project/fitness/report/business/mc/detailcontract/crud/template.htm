@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>卡列表</title>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm" class="dialogbg" style="height: 570px;">
+		<header class="header-default">
+			<span id="formTitle"></span>
+		</header>
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<input name="userlogin" type="hidden" value="${fld:userlogin}" preserve="true" />
+		<input name="startdate" type="hidden" value="${fld:startdate}" preserve="true" />
+		<input name="enddate" type="hidden" value="${fld:enddate}" preserve="true" />
+		<input name="type" type="hidden" value="${fld:type}" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr style="display: none;" id="thtype1">
+								<th>合同编号</th>
+							    <th>卡号</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>应收金额</th>
+							    <th>实收金额</th>
+							    <th>签约日期</th>
+							</tr>
+							<tr style="display: none;" id="thtype2">
+								<th>合同编号</th>
+							    <th>卡号</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>原卡类型</th>
+							    <th>新卡类型</th>
+							    <th>应收金额</th>
+							    <th>实收金额</th>
+							    <th>签约日期</th>
+							</tr>
+							<tr style="display: none;" id="thtype3">
+								<th>合同编号</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>课程名称</th>
+							    <th>教练</th>
+							    <th>购买课时</th>
+							    <th>实收金额</th>
+							    <th>截止日期</th>
+							</tr>
+							<tr style="display: none;" id="thtype4">
+								<th>合同编号</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>柜子编号</th>
+							    <th>实收金额</th>
+							    <th>租用开始日期</th>
+							    <th>租用截止日期</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr style="display: none;" id="tdtype1">
+				                <td>#code#</td>
+				                <td>#card_code#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#normalmoney#</td>
+				                <td>#factmoney#</td>
+				                <td>#collectdate#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype2">
+				                <td>#code#</td>
+				                <td>#card_code#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#cardname#</td>
+				                <td>#ncardname#</td>
+				                <td>#normalmoney#</td>
+				                <td>#factmoney#</td>
+				                <td>#collectdate#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype3">
+				                <td>#code#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#ptlevelname#</td>
+				                <td>#pt#</td>
+				                <td>#pttotalcount#</td>
+				                <td>#factmoney#</td>
+				                <td>#ptenddate#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype4">
+				                <td>#code#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#net_code#</td>
+				                <td>#factmoney#</td>
+				                <td>#net_start#</td>
+				                <td>#net_end#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	if("${fld:type}"=="1"){
+		$("#formTitle").html("会员卡销售记录");
+	}else if("${fld:type}"=="2"){
+		$("#formTitle").html("会员卡续费记录");
+	}else if("${fld:type}"=="3"){
+		$("#formTitle").html("私教销售记录");
+	}else if("${fld:type}"=="4"){
+		$("#formTitle").html("租赁柜销售记录");
+	}
+	$("#thtype${fld:type},#tdtype${fld:type}").show();
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+	}}).initSearchBtn().searchData(1);
+});
+</script>
+</body>
+</html>

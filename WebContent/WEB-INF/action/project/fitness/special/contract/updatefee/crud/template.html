@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>修改已收款合同</title>
+</head>
+<body>
+  <div class='dialogbg'>
+	<div class="panel-default col_mainInner">
+			<header class="header-default">
+				<span id="formTitle">修改已收款合同</span>
+			</header>
+		<div class="panel-body col_main_body basic-dialog dialogbg" style="margin-top: 20px;">
+			<form id="getMoneyForm" name="getMoneyForm" class="form-horizontal" role="form" method="post">
+				<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 130px;">会员卡号：</label>
+							<input type="hidden" id="vc_contractcode" name="vc_contractcode" value="${fld:vc_code}" />
+							<input type="text" id="vc_cardcode" name="vc_cardcode" value="${fld:vc_cardcode}" readonly />
+						</li>
+						<li>
+							<label for="">会员姓名：</label>
+							<input type="text" id="vc_name" name="vc_name" value="${fld:vc_name}" readonly />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">性别：</label>
+							<input type="text" id="vc_sex" name="vc_sex" value="${fld:vc_sex}" readonly />
+						</li>
+						<li>
+							<label for="">身份证号：</label>
+							<input type="text" id="vc_id" name="vc_id" value="${fld:vc_id}" readonly />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">手机：</label>
+							<input type="text" id="vc_mobile" name="vc_mobile" value="${fld:vc_mobile}" readonly />
+						</li>
+						<li>
+							<label for="">家庭地址：</label>
+							<input type="text" id="vc_addr" name="vc_addr" value="${fld:vc_addr}" readonly />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">应收金额：</label>
+							<input type="text" id="f_normalmoney" name="f_normalmoney" value="${fld:f_normalmoney}" readonly />
+						</li>
+						<li>
+							<label for="">实收金额：</label>
+							<input type="text" id="f_factmoney" name="f_factmoney" value="${fld:f_factmoney}" />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">尚欠金额：</label>
+							<input type="text" id="f_leftmoney" name="f_leftmoney" value="${fld:f_leftmoney}" readonly />
+						</li>
+						<li>
+							<label for="">收款日期：</label>
+							<input type="hidden" id="old_adate" name="old_adate" value="${fld:c_adate}"  />
+							<input type="text" id="c_adate" name="c_adate" value="${fld:c_adate}" readonly />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">折扣：</label>
+							<select id="i_discounttype" name="i_discounttype" class="normal-select">
+								<option value="">折扣类型</option>
+								<option value="1">正价合同</option>
+								<option value="2">活动折扣合同</option>
+								<option value="3">特批折扣合同</option>
+							</select>
+						</li>
+					</nav>
+				</div>
+			<div id="i_paytypeone"  >
+	          		<div class="modal-body " id="paymoney" style="margin-left: 6%;height: 30px"  >
+					</div>
+	          		<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label for="" style="width: 130px;">支付方式：</label>
+								<select id="moneytype" class="normal-select">
+									<option value="">--请选择--</option>
+									<OtherPayWay-list>
+										<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+									</OtherPayWay-list>
+								</select>
+								<label for="" style="width: 170px;">金额：</label>
+								<input type="text" id="money" name="money" />
+								&nbsp;
+								<i class="am-icon-plus" id="addmoney" title="添加"></i>
+							</li>
+						</nav>
+					</div>
+					<input type="hidden" id="pay_detail" name="pay_detail"/>
+				</div>
+				<div class="modal-body b-i-main">
+					<nav>
+						<li class="to100w" style="margin-left: 6%">
+							<label for="">备注：</label>
+							<input type="hidden" id="old_remark" name="old_remark" value="${fld:vc_remark}"  />
+							<textarea id="vc_remark" name="vc_remark" class="my-textarea" placeholder="备注" rows="4" cols="80">${fld:vc_remark}</textarea>
+						</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+				<button type="button" id="getmoney" >保存</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+  </div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script type="text/javaScript">
+	var i_contracttype = "${fld:i_contracttype}";
+	var stage_flag = 0;	// 0普通付款，1分期付款，2分期付款最后一次付款
+	$(document).ready(function() {
+		searchSelectInit($("#i_discounttype,#moneytype"));
+		var i_stage_times = parseInt("${fld:i_stage_times}");	// 分期次数
+		if( i_stage_times > 1 ){
+			var i_stage_times_pay = parseInt("${fld:i_stage_times_pay}");	// 已付款次数
+			if( i_stage_times == i_stage_times_pay - 1 ){	// 最后一次付款
+				stage_flag = 2;
+			}else{
+				stage_flag = 1;
+			}
+		}
+		//分割付款方式
+		var strs="${fld:pay_detail}".split(";"); //字符分割 
+		var money = 0;
+		for (var i=0;i<(strs.length-1) ;i++ ){ 
+			var num = i+1;
+			if(parseInt(strs[i])>0)
+			$("#paymoney").append(
+					"<li style='margin-left:25px;float:left'><span><span>"+$("#moneytype option").eq(num).html()+"：</span><span>"+strs[i]+"元</span></span>"
+				+"<input type='hidden' value='"+strs[i]+"' code='"+$("#moneytype option").eq(num).val()+"'  name='paytypemoney'/>"
+				+ '<img   onclick="delhour(this)" style="margin-left:5px;margin-top:-2px" height="18" width="40"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+			);
+			money+=Number(strs[i]);
+		} 
+		$("#f_leftmoney").val(Number("${fld:f_normalmoney}")-money);
+		
+		$("#closeBtn").unbind().on("click",function(){
+			ccms.dialog.close();
+		});
+		
+		$Dialog().date($("#c_adate"));
+		$("#i_discounttype").val("${fld:i_discounttype}");
+		$("td").attr('nowrap','nowrap');
+	
+		$("#f_factmoney").unbind().on("blur",function(){
+			var f_factmoney = $(this).val();	// 实收
+			if( isFloat(f_factmoney) ){
+				$("._paytype").each(function(idx,ele){
+					if( $(this).attr("name") == "f_cash" ){
+						$(this).val(f_factmoney);	// 现金
+					}else{
+						$(this).val(0);
+					}
+				});
+				var f_normalmoney = $("#f_normalmoney").val();	// 应收
+				if( isFloat(f_normalmoney) ){
+					var f_leftmoney = parseFloat(f_normalmoney) - parseFloat(f_factmoney);
+					$("#f_leftmoney").val(f_leftmoney);	// 尚欠
+				}
+			}
+		});
+		// 收款
+		$("#getmoney").unbind().on("click", function(){
+			var f_factmoney = $("#f_factmoney").val();	// 实收
+			//计算支付开始
+			var moneydetail = "";
+			//获取所有支付类型option
+			$("#moneytype option").each(function(){  
+				if($(this).val()!=""){
+					moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+				}
+				moneydetail = moneydetail.replace("undefined", "0");
+			});
+			//明细
+			$("#pay_detail").val(moneydetail);
+			//获取所有退费金额
+			var paymoney = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				paymoney+=Number(item.value);
+			});
+			//计算支付结束
+			var f_allmoney = paymoney;
+			if( parseFloat(f_factmoney) != parseFloat(f_allmoney) ){
+				ccms.dialog.notice("各种支付方式的合计金额不等于总实收金额！请重新录入", 2000);
+				return false;
+			}
+			var f_normalmoney = $("#f_normalmoney").val();	// 应收
+			if( parseFloat(f_normalmoney) < parseFloat(f_factmoney) ){
+				ccms.dialog.notice("实收不能大于应收！", 2000);
+				return false;
+			}else if( i_contracttype == "3" &&　parseFloat(f_normalmoney) > parseFloat(f_factmoney) && stage_flag == 0 ){	// 非分期合同还款必须一次性付清
+				ccms.dialog.notice("还款必须一次性付清，不允许有欠款！", 2000);
+				return false;
+			}else{
+				submitPayVildate();
+			}
+		});
+		//支付方式
+		$("#moneytype").change(function(){
+			document.getElementById("money").focus();
+		});
+
+		//支付加载
+	   $("#addmoney").click(function(){
+		   	var moneytype = $("#moneytype").val();
+		   	var moneytypetext = $("#moneytype option:selected").text();
+		   	var money = $("#money").val();
+		   	if(moneytype==""){
+		   		ccms.dialog.alert("请选择方式！");
+		   	}else if(money==""){
+		   		ccms.dialog.alert("请输入金额！");
+		   	}else{
+		   		var count = 0;
+				$("input[name='paytypemoney']").each(function(j,item){
+					   if($(item).attr("code")==moneytype)count++;
+				});
+				if(count==0){
+					$("#paymoney").append(
+							"<li style='margin-left:25px;float:left'><span><span>"+moneytypetext+"：</span><span>"+money+"元</span></span>"
+						+"<input type='hidden' value='"+money+"' code='"+moneytype+"'  name='paytypemoney'/>"
+						+ '<img   onclick="delhour(this)" style="margin-left:5px;margin-top:-2px" height="12" width="12"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+					);
+					
+					$("#moneytype,#money").val("");
+					$("#moneytype").selectpicker("refresh");
+					$("#moneytype").selectpicker("render");
+				}else
+					ccms.dialog.alert(moneytypetext+"已存在！");
+		   	}
+	   });
+	});
+	// 支付提交验证
+	function submitPayVildate(){
+		var f_normalmoney = $("#f_normalmoney").val();	// 应收
+		var f_factmoney = $("#f_factmoney").val();	// 实收
+		if( parseFloat(f_normalmoney) > parseFloat(f_factmoney) ){
+			ccms.dialog.confirm("实收金额为" + f_factmoney + "，确认有欠款吗？", function(){
+				payAjaxCall();
+			}, function(){
+				return false;
+			});
+		}else{
+			payAjaxCall();
+		}
+	}
+	// 支付请求提交
+	function payAjaxCall(){
+		var payuri = "${def:context}${def:actionroot}/update";
+		ajaxCall(payuri,{
+			method:"post",
+			form:"getMoneyForm",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+				ccms.dialog.notice("合同修改成功", 2000, function(){
+					parent.searchContract();
+					ccms.dialog.close();
+				});
+			}
+		});
+	}
+	function delhour(val){
+		$(val).parent().remove();
+	}
+	</script>
+</body>
+</html>

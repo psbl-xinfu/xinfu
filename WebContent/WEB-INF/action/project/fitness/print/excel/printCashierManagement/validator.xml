@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="_start_date" type="varchar" required="false" label="_start_date" />
+	<parameter id="_end_date" type="varchar" required="false" label="_end_date" />
+	<parameter id="salename_query" type="varchar" required="false" label="salename_query" />
+	<parameter id="xiaoshouyuan" type="varchar" required="false" label="xiaoshouyuan" />
+	<parameter id="shouyinyuan" type="varchar" required="false" label="shouyinyuan" />
+	<parameter id="yewuleixing" type="varchar" required="false" label="yewuleixing" />
+
+</validator>

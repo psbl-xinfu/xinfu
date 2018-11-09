@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script type="text/javascript" src="${def:context}/js/echarts-2.2.7/build/echarts-all-3.js"></script>
+<script type="text/javascript" src="${def:context}/js/echarts-2.2.7/build/china.js"></script>
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<title>潜客到访记录</title>
+<style>
+.btn-group {
+			border-radius: 6px;
+		}
+		.con{
+		    width: 214px;
+    margin: 70px 50px;
+    height: 50px;
+    display: inline-block;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 4px;
+    line-height: 50px;
+    text-align: center;
+		}
+		.con p{
+			font-size: 34px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.con span{
+		
+			vertical-align: middle;
+		}
+</style>
+</head>
+<body>
+	<div class="am-tabs-bd r-tab-cont">
+		<div class="bb-tab-cout-2 bb-tab-cout-8 am-active three-none" id="bb-tab8">
+			<div class="tab-cout-nav f-s-t">
+				
+				<div style="background: #2d3740;width: 100%;">
+					<div class="addTop full-div" code="funnelgroup" data-area="mc">				
+					
+						<div class="other-full">
+							<div class="other-half" id="content" style="width: 400px;height:260px; display: inline-block"></div>
+							<div class="other-half" id="main" style="width: 477px;height:260px; display: inline-block"></div>
+						</div>
+					</div>
+					<div><span class="con" style="background: #6EC685"><span>陌生到访</span><p id="msvisitnum">0</p></span>
+					<span class="con"style="background: #21A79D"><span>电话邀约到访</span><p id="yyvisitnum">0</p></span>
+					<span class="con"style="background:#FF2D47"><span>客户转介绍到访</span><p id="tjguestnum">0</p></span></div>
+				</div>
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime "><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<li class="dateTime "><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<li>
+							<select id="mc" name="mc" style="display: none;">
+								<option value="">全部会籍</option>
+								<mc-rows>
+								<option value="${fld:userlogin@js}">${fld:name@js}</option>
+								</mc-rows>
+							</select>
+						</li>
+						<button id="searchAll" class="freshen">刷新</button>
+					</nav>
+				</div>
+				<article class="r-tab-cout-3-b">
+					<form role="form" method="post" id="searchForm" class="disNone">
+						<input name="sort" type="hidden" value="" preserve="true" />
+						<input name="order" type="hidden" value="" preserve="true" />
+						<input name="pageNo" type="hidden" value="" preserve="true" />
+						<input name="totalPages" type="hidden" value="" preserve="true" />
+						<input id="listfdate" name="listfdate" type="hidden" value="" preserve="true" />
+						<input id="listtdate" name="listtdate" type="hidden" value="" preserve="true" />
+						<input id="listmc" name="listmc" type="hidden" value="" preserve="true" />
+					</form>
+					<div class="to-change-background"></div>
+					<table class="am-table">
+							<thead>
+									<tr>
+										<th></th>
+										<th></th>
+										<th>陌生到访</th>
+										<th></th>
+										<th>电话邀约到访数量</th>
+										<th></th>
+										<th>客户转介绍到访数量</th>
+									</tr>
+									<tr>
+										<th>序号</th>
+										<th>会籍</th>
+										<th></th>
+										<th>电话跟进数量</th>
+										<th>邀约到店数量</th>
+										<th>邀约到店率</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										<td>#show_order#</td>
+										<td>#name#</td>
+										<td>#msvisitnum#</td>
+										<td>#followupnum#</td>
+										<td>#yyvisitnum#</td>
+										<td>#yyrate#</td>
+										<td>#khguestnum#</td>
+									</tr>
+								</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</article>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var chartsObj = [];
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	searchSelectInit($("#mc"));
+	// 搜索列表
+	var search = $Search({datagrid:"datagrid", formId:"searchForm", rowpackage:function(obj){
+	},success:function(){
+	}}).initSearchBtn();
+	
+	$("#searchAll").unbind().on("click",function(){
+		$("#listfdate").val($("#fdate").val());
+		$("#listmc").val($("#mc").val());
+		$("#listtdate").val($("#tdate").val());
+		search.searchData(1);
+		var url = "${def:context}${def:actionroot}/querynum?fdate="
+				+$("#fdate").val()+"&tdate="+$("#tdate").val()+"&mc="+$("#mc").val();
+		ajaxCall(url,{
+			method: "get",
+			progress: true,
+			dataType: "script",
+			success: function() {
+			}
+		});
+	});
+	$("#searchAll").click();
+});
+</script>
+</body>
+</html>

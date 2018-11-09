@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	    <recordset id="query-ptlevel.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-pt.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-ptday.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-customer.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-salemember.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-ptrest.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-source.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-skillscopenum.sql" source="sql" scope="transaction"/> 
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-ptlevel.sql" tag="ptlevel-rows"/>
+		<print mode="table" recordset="query-pt.sql" tag="pt-rows"/>
+		<print mode="table" recordset="query-ptday.sql" tag="ptday-rows"/>
+		<print mode="table" recordset="query-customer.sql" tag="cust-rows"/>
+		<print mode="table" recordset="query-salemember.sql" tag="sale-rows"/>
+		<print mode="table" recordset="query-salemember.sql" tag="sale2-rows"/>
+		<print mode="table" recordset="query-ptrest.sql" tag="ptrest-rows"/>
+		<print mode="table" recordset="query-source.sql" tag="source-rows"/>
+		<print mode="form" recordset="query-skillscopenum.sql" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

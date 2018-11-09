@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>私教刷课</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+<script type="text/javascript" src="${def:context}/js/ccms/jweixin-1.js"></script>
+</head>
+<body>
+	<div class="container smrc">
+		<div class="saoma">
+			<h2 id="name"></h2>
+			<img id="saoma" src="${def:context}/js/project/fitness/wx/image/saoma.gif" />
+			<p><a id="saoma_link" href="javascript:void(0)">点击</a>扫描教练手机端二维码</p>
+			<span id="result">进行消课并进行评价</span>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+var qritv = null, qrcodeid = "";
+$(document).ready(function(){
+	$('#name').text("私教"+decodeURI("${fld:name}"));
+	var ptrestcode = "${fld:pk_value}";
+	console.log(ptrestcode);
+	//调微信扫码功能
+	wx.config({
+	    debug: false,
+	    appId: "${fld:appid}",
+	    timestamp: ${fld:timestamp},
+	    nonceStr: "${fld:noncestr}",
+	    signature: "${fld:signature}",
+	    jsApiList: [ 'scanQRCode']
+	});
+//	alert('现在的：${fld:url}，真正的：'+location.href.split('#')[0]);
+	/*alert("jsapi_ticket：${fld:jsapi_ticket}"+
+	 "，nonceStr：${fld:noncestr}"+
+	 "，timestamp：${fld:timestamp}"+
+	 "， url：${fld:url}"+
+	 "，signature：${fld:signature}");*/
+
+	wx.ready(function(){
+		document.querySelector('#saoma,#saoma_link').onclick = function () {
+			wx.scanQRCode({
+				needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+				desc: 'scanQRCode desc',
+				scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+				success: function (res) {
+					var qrcode = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+					// 私教刷课处理逻辑
+					ajaxCall("/action/project/fitness/wx/cust/center/erweima/qianke/insert?ptrestcode=${fld:pk_value}&qrcode="+qrcode,{
+						method:"get",
+						progress:true,
+						dataType:"script",
+						success:function(){
+						}
+					});
+				}
+			});
+		};
+	});
+
+	wx.error(function(res){
+    	alert("error: " + res.errMsg);
+	});
+});
+</script>
+</html>

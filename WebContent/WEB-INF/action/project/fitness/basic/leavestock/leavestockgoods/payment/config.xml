@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		付款
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<query>update.sql</query>
+	<query>insert-operatelog.sql</query>
+	<query>insert-finance.sql</query>
+	<query>insert-message.sql</query>
+	<query>update-custmoney.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

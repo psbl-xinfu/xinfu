@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="class_name" type="varchar" required="false" label="接受者姓名" />
+	<parameter id="courseid" type="integer" required="false" label="courseid" />
+</validator>

@@ -1,0 +1,13 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{		
+		    "card_code":"${fld:card_code@js}",
+		    "contract_code":"${fld:contract_code@js}",
+		    "cust_code":"${fld:cust_code@js}",
+		    "vc_iuser":"${fld:vc_iuser@js}",
+		    "c_idate":"${fld:c_idate}",
+		    "vc_content":"${fld:vc_content@js}"
+	},
+	</rows>
+	{}
+]}

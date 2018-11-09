@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>课程定义</title>
+	${inc:/action/project/fitness/home/pub}
+	<link  rel='stylesheet' href='${def:context}/js/project/fitness/trains/css/common.css'/>
+</head>
+<body>
+	  <form class="form-horizontal" role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="tuid" preserve="true" />
+		<input name="order" type="hidden" value="desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+						<nav>
+							<li>
+								<input name="course_name" placeholder="请输入课程名称" class="input-default" type="text" size="20" value="" />
+							</li>
+							<div>
+					<button class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+					<img class="r-c-3-btn-3" title="新增" src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" data-toggle="modal" id="addnew_btn"/>
+							</div>
+						</nav>
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" class='edit_btn' alt="">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" class='delete_btn' alt="">
+							</li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			<!-- 通用表格 -->
+			<div class="r-tab-cout-3-b checkBox-right only">
+				<div class="to-change-background"></div>
+				<table> 
+					<!-- am-table -->
+					<thead>
+						<tr>
+							<th><input type="checkbox" name="selectAll" id="selectAll" style="display: none;"/></th>
+							<th>操作</th>
+							<th class="sortable" code="course_name">课程名称</th>
+							<th class="sortable" code="course_desc">课程介绍</th>
+							<th class="sortable" code="createdby">创建人</th>
+							<th class="sortable" code="created">创建日期</th>
+						</tr>
+					</thead>
+					<tbody id="datagridTemplate" style="display:none">
+						<tr>
+							<td>
+								#checklink#
+							</td>
+							<td align="center" nowrap style='width:20%;'>
+								<button type="button" class="term_btn"  code="#tuid#">设置测评</button>
+								<button type="button" class="class_btn"  code="#tuid#">设置课时</button>
+							</td>
+							<td align="center">#course_name#</td>
+							<td align="center" style='width:30%;'>
+								<div><p>#course_desc#</p></div>
+							</td>
+							<td align="center">#createdby#</td>
+							<td align="center">#created#</td>
+						</tr>
+					</tbody>
+					<tbody id="datagrid"></tbody>
+				</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>		
+		<div class="modal fade" id="modalAddnew" tabindex="-1" role="dialog">
+		<div class="basic-information modal-dialog dialogbg" style="height: 400px;">
+			<header class="header-default">
+				<span>新增课程定义</span>
+				<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+			</header>
+				<div class="b-i-main">
+					<form  role="form" method="post" id="formEditor" name="formEditor">
+						<input type="hidden" id="tuid" name="tuid" value="" />
+						<nav>
+							<li>
+								<label>课程名称</label>
+								<input type="text" id="course_name" name="course_name" size="30" maxlength="128" placeholder="请输入"/>
+							</li>
+							<li>
+								<label>分组名称</label>
+								<select id="grouptuid" name="grouptuid" data-live-search="true">
+									<option value="">全部分组名称</option>
+									<group-list>
+										<option value="${fld:tuid}">${fld:groupname}</option>
+									</group-list>
+								</select>
+							</li>
+							
+							<li>
+								<label>课程介绍<span style='visibility:hidden;'>0000000000000</span></label><!--用后部分的字符加宽label使得文本域不换行-->
+								<textarea  id="course_desc" name="course_desc" class="my-textarea" rows="" cols="4" placeholder="请输入"></textarea>
+							</li>
+						</nav>
+					</form>
+				</div>
+			<footer class="footer-default">
+				<button type="button" id="save_btn" class="my-btn-default active">确&nbsp;定</button>
+				<button type="button" class="my-btn-default active" data-dismiss="modal">取&nbsp;消</button>
+			</footer>
+			</div>
+		</div>
+
+	
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script type="text/javascript">
+	$(document).ready(function() {
+		ccms.util.renderCheckbox("selectAll");
+		selectInit($("#grouptuid"));
+		var searchObj = null;
+		var obj = $Crud({
+			formId : "formEditor",
+			button : "save_btn",
+			insertBack : function() {
+				searchObj.searchData(1);
+			},
+			updateBack : function() {
+				searchObj.searchData(1);
+			},
+			deleteBack : function() {
+				searchObj.searchData(1);
+			},
+			addNewBack : function() {
+				setSelectValue($("#grouptuid"), "");
+				$("#formTitle").html("新增课程定义");
+			},
+			editBack : function() {
+				$("#formTitle").html("修改课程定义");
+			},
+			validate : function() {
+				var flag = $("#formEditor").validate({
+					rules : {},
+					messages : {}
+				});
+				return flag;
+			},
+			check : function() {
+				return true;
+			}
+		}).init();
+
+		this.searchObj = searchObj;
+		searchObj = $Search({datagrid : "datagrid", formId : "searchForm",rowpackage:function(obj){
+				obj.checklink = '<input type="checkbox" name="datalist" value="'+obj.tuid+'">';
+			}, success : function() {
+			ccms.util.renderCheckbox('datalist')
+			$(".edit_btn").unbind().on("click", function() {
+			var obthis =getCheckboxValue("datalist");
+				if ( obthis != undefined && obthis != "") {
+					if(checkCheckBox(obthis))
+					{
+						ccms.dialog.notice('请选择其中一条记录更新！')
+					}else{
+						obj.edit({id : obthis});
+					}
+				}else
+				{
+					ccms.dialog.notice('请选择一个课程');
+				}
+				
+			});
+			$(".delete_btn").unbind().on("click", function() {
+				var obthis =getCheckboxValue("datalist");
+				if(obthis!=""){
+			 	$Dialog().confirm("确定要删除吗?", function() {
+					var url="${def:context}${def:actionroot}/delete?id="+obthis;
+					ajaxCall(url,{
+					method: "get",
+					progress: false,
+					dataType: "script",
+					success: function() {
+						ccms.dialog.notice("删除成功！");
+						searchObj.searchData(1);
+					}
+				}); 
+				});
+				}else{
+					ccms.dialog.notice('请选择课程!')
+				}
+			});
+			$(".term_btn").unbind().on("click",function(){
+				var tuid=$(this).attr('code');
+				var course_url='${def:context}/action/project/fitness/trains/course/setterm/crud?courseid='+String(tuid);
+				ccms.dialog.open({url :course_url});
+			});
+			
+			$(".class_btn").unbind().on('click',function(){
+				var tuid=$(this).attr('code');
+				if ( tuid!= undefined &&tuid != "") {
+					var class_url='${def:context}/action/project/fitness/trains/course/class/crud?courseid='+String(tuid);
+					ccms.dialog.open({url : class_url});
+				}
+			})
+			
+		}}).initSearchBtn().searchData(1);
+		//全选
+		$("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
+			 if( $(this).prop("checked") ){// 
+				$('input[name=datalist]').iCheck('uncheck');
+			 }else{
+				$('input[name=datalist]').iCheck('check');  //
+			 }
+		 });
+	});
+	
+	function checkCheckBox(string) //检查是否多选,多选返回真，否则为假
+	{
+		var arr=new Array();
+		arr=string.split(',')
+		if(arr.length>1)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+	<head>
+		<title>课程测评定义</title>
+	    ${inc:/action/project/fitness/home/pub}
+		<style>
+			input
+			{
+				color:white;
+			}
+			.modal-content
+			{
+				background-color:transparent;
+			}
+			.modal-body
+			{
+				padding:0px;
+			}
+			#addnew_btn
+			{
+				background-image:url("${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg");
+			}
+		</style>
+	</head>
+	<body>
+	<div class="f-s-t dialogbg" style="height: 700px">
+		<header class="header-default">
+			<span>课程测评定义</span>
+		</header>
+		 <div class="tab-cout-nav">
+			<div class="tab-cout-nav-t">
+			  <form class="form-horizontal" role="form" method="post" id="searchForm">
+				<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}"/>
+				<input type="hidden" id="tuid" name="tuid" value=''/>
+				<input type="hidden" id="courseid" name="courseid" value='${fld:courseid}'/>
+				<input name="pageNo" type="hidden" value="" preserve="true" /> 
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+				<div class='r-hea-search'>
+						<input name="term_name" type="text" size="20" value="" placeholder="请输入测评名称" />
+				</div>
+			  </form>
+			   <div class="r-c-btnList">
+					<button class="r-c-3-btn-1" id="search_btn"></button>
+			  </div>
+			</div>
+			<div class="tab-cout-nav-b">
+				<nav class="r-c-3-t-b-l">	
+				</nav>
+				<nav class="r-c-3-t-b-r">
+				</nav>
+			</div>
+		</div>
+		<!-- 通用表格 -->
+		<div class="r-tab-cout-3-b">
+			<div class="to-change-background"></div>
+			<table> 
+				<!-- am-table -->
+				<thead>
+					<tr>
+						<th>操作</th>
+						<th class="sortable" code="tuid">测评号</th>
+						<th class="sortable" code="term_name">测评名称</th>
+						<th class="sortable" code="total_score">总分</th>
+						<th class="sortable" code="standard_score">合格分</th>
+						<th class="sortable" code="createdby">创建者</th>
+						<th class="sortable" code="created">创建日期</th>
+						<th class="sortable" code="updatedby">更改者</th>
+						<th class="sortable" code="updated">更改日期</th>
+					</tr>
+				</thead>
+				<tbody id="datagridTemplate" style="display: none">
+					<tr>
+						<td align="center" nowrap style='width:20%;'>
+							<button class="setterm_btn"  code="#tuid#">设为测评</button>
+						</td>
+						<td align="center">#tuid#</td>
+						<td align="center">#term_name#</td>
+						<td align="center">#total_score#</td>
+						<td align="center">#standard_score#</td>
+						<td align="center">#createdby#</td>
+						<td align="center">#created#</td>
+						<td align="center">#updatedby#</td>
+						<td align="center">#updated#</td>
+					</tr>
+				</tbody>
+				<tbody id="datagrid"></tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+    <form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post" style='display:none;'>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script>
+$(document).ready(function(){
+		var searchObj=null;
+		    var obj = $Crud({
+			formId: "formEditor", 
+			button: "save_btn",  
+			bpkField:"tuid", 
+			insertBack: function () {
+				searchObj.searchData();
+			},
+		    updateBack: function () {
+				searchObj.searchData(); 
+			},
+		    deleteBack: function () {
+				searchObj.searchData();
+			},
+			addNewBack: function () { 
+				searchObj.searchData();
+				$("#formTitle").html("新增评测");
+			},
+			editBack: function () {
+				$("#formTitle").html("更新评测");
+			},
+			validate: function () {
+              	var flag = $("#formEditor").validate({
+                    rules: {
+                    },
+                    messages: {
+                    }
+                });
+				return flag;
+			}
+		}).init();
+		searchObj=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		$(".setterm_btn").unbind().on("click", function(){
+			var obthis = $(this);
+			var courseid = $('#courseid').val();
+			if(obthis.attr("code") != undefined && obthis.attr("code") != ""){
+				$Dialog().confirm("确定要设为该课程的测评吗?", function() {
+					var url="${def:context}${def:actionroot}/setting?id="+obthis.attr("code")+"&courseid="+courseid;
+						ajaxCall(url,{
+						method: "get",
+						progress: false,
+						dataType: "script",
+						success: function() {
+							searchObj.searchData(1);
+						}
+					}); 
+				});
+			}
+		});
+		
+	}}).initSearchBtn().searchData(1);
+})
+
+function checkCheckBox(string) //检查是否多选,多选返回真，否则为假
+{
+	var arr=new Array();
+	arr=string.split(',')
+	if(arr.length>1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+</script>
+	</body>
+</html>

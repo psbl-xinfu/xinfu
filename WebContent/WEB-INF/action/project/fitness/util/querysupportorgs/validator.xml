@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+    <parameter id="cardtype" type="varchar" required="false" label="cardtype" maxlen="64"/>
+    <parameter id="objid" type="varchar" required="false" label="objid" maxlen="64"/>
+
+</validator>

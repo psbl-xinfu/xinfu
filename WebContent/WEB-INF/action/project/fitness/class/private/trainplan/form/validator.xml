@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="vc_cardcode" type="varchar" required="false" label="会员卡号" />
+	<parameter id="vc_customercode" type="varchar" required="false" label="会员编号" />
+	<parameter id="vc_ptpreparecode" type="varchar" required="false" label="预约编号" />
+	<parameter id="code" type="varchar" required="false" label="code" />
+</validator>

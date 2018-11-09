@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="site_timelimitcode" type="varchar" required="true" label="场地时段定义表code" />
+    <parameter id="choose_way" type="varchar" required="true" label="状态" />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    	on-error-label="该场地已预订，不能更改场地状态！" id="sitedefkxname" sql="noRep.sql" />
+</validator>

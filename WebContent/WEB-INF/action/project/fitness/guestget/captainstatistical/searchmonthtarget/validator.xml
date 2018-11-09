@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="monthdateinfo" type="varchar" required="true" label="日期"/>
+	<parameter id="pk_value" type="varchar" required="false" label="分组id"/>
+	<parameter id="staffname" type="varchar" required="false" label="员工姓名"/>
+</validator>

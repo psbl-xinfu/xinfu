@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="daochu_not_comeday" type="integer" required="false" label="沟通次数" />
+	<parameter id="daochu_personal_train" type="varchar" required="false" label="personal_train" />
+	<parameter id="daochu_ptstatus" type="varchar" required="false" label="PT状态" />
+	<parameter id="daochu_period_day" type="varchar" required="true" label="会员保护期" />
+	<parameter id="daochu_custall" type="varchar" required="false" label="会员号/卡号/姓名/手机" />
+	
+	<parameter id="daochu_f_sex" type="varchar" required="false" label="性别" />
+	<parameter id="daochu_f_age" type="varchar" required="false" label="年龄区间" />
+	<parameter id="daochu_f_nofollowstartdate" type="varchar" required="false" label="录入日期" />
+	<parameter id="daochu_f_nofollowenddate" type="varchar" required="false" label="录入日期" />
+	<parameter id="daochu_f_entrystartdate" type="varchar" required="false" label="未跟进日期" />
+	<parameter id="daochu_f_entryenddate" type="varchar" required="false" label="未跟进日期" />
+	<parameter id="daochu_f_startmonth" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_startday" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_endmonth" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_endday" type="varchar" required="false" label="生日区间" />
+	<parameter id="daochu_f_genjintype" type="varchar" required="false" label="跟进状态" />
+	<parameter id="daochu_f_type" type="varchar" required="false" label="获客渠道" />
+	<parameter id="daochu_f_mc" type="varchar" required="false" label="会籍" />
+	<parameter id="daochu_f_pt" type="varchar" required="false" label="私教" />
+	<parameter id="daochu_f_level" type="varchar" required="false" label="关注度" />
+	<parameter id="daochu_f_purpose" type="varchar" required="false" label="健身目的" />
+	<parameter id="daochu_f_stage" type="varchar" required="false" label="沟通阶段" />
+	<parameter id="daochu_f_personalhobbit" type="varchar" required="false" label="个人爱好" />
+	<parameter id="daochu_f_marriage" type="varchar" required="false" label="婚姻情况" />
+	<parameter id="daochu_f_children" type="varchar" required="false" label="子女情况" />
+	<parameter id="daochu_f_leave" type="varchar" required="false" label="其他俱乐部未续费原因" />
+	<parameter id="daochu_f_participate" type="varchar" required="false" label="是否参加过俱乐部" />
+	<parameter id="daochu_f_ismember" type="varchar" required="false" label="是否曾是本俱乐部会员" />
+	<parameter id="daochu_f_protection" type="varchar" required="false" label="剩余保护期" />
+	<parameter id="daochu_f_calltimes" type="varchar" required="false" label="通话次数" />
+	<parameter id="daochu_f_distributioncount" type="varchar" required="false" label="分配次数" />
+	
+</validator>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>消息记录</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="huiyuanhtjllistbody">
+        </div>
+    </body>
+    
+    <script type="text/javascript">
+    $(function(){
+    	
+		getAjaxCall("/action/project/fitness/wx/mc/personal/message/update", false);
+
+    	
+    	
+     	if("${fld:type}"=="pt"){
+    		homept();
+    	}else{
+    		homemc();
+    	}
+    	var str="";
+    	var time=null;
+    	<list>
+    	
+    	
+        	str+=' <div  class="list"onclick="messageinfo(\'${fld:ren}\')">'
+        	str+='        <img   src="'+contextPath+'${fld:headpic}" class="touxiangpic fl">'
+        	str+='       <div class="content fl" style="width:73%">'
+        	if("${fld:type}"==1){
+            	str+='         <p class="name" >${fld:name}<span style="float:right;padding-top:10px">${fld:sendtime@ hh:mm:ss}</span></p>'
+        	}else{
+            	str+='         <p class="name" >${fld:name}<span style="float:right;padding-top:10px">${fld:sendtime}</span></p>'
+        	}
+        	str+='       <p class="time" >${fld:content}</p>'
+        	str+='   </div>'
+        	str+=' </div>'
+    	</list>
+    	$('.huiyuanhtjllistbody').html(str);
+    	
+        
+    })
+    
+    function messageinfo(recuser){
+    	location.href='${def:context}${def:actionroot}/list?recuser='+recuser+"&type=${fld:type}";
+    }
+    
+    
+    
+    </script>
+</html>

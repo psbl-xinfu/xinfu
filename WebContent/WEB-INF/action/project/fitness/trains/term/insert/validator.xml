@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="term_name" type="varchar" required="true" label="term_name" />
+	<parameter id="total_score" type="double" required="true" label="total_score"/>
+	<parameter id="standard_score" type="double" required="true" label="standard_score"/>
+</validator>

@@ -1,0 +1,19 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_fbtype" type="varchar" required="false" label="类型" />
+	<parameter id="daochu_f_status" type="varchar" required="false" label="处理状态" />
+	<parameter id="daochu_benyuefenpei" type="varchar" required="false" label="本月分配" />
+	<parameter id="daochu_benyueweichuli" type="varchar" required="false" label="本月未处理" />
+	<parameter id="daochu_startdate" type="varchar" required="false" label="开始时间" />
+	<parameter id="daochu_enddate" type="varchar" required="false" label="结束时间" />
+	
+	<parameter id="daochu_f_isanonymous" type="varchar" required="false" label="筛选匿名" />
+	<parameter id="daochu_f_complainttype" type="varchar" required="false" label="筛选投诉类型" />
+	<parameter id="daochu_f_complaint_userid" type="varchar" required="false" label="筛选投诉员工" />
+	<parameter id="daochu_f_complaint_skill" type="varchar" required="false" label="筛选投诉岗位" />
+	<parameter id="daochu_f_complaint_item" type="varchar" required="false" label="筛选投诉项目" />
+	<parameter id="daochu_f_complaint_envir" type="varchar" required="false" label="筛选投诉环境" />
+	<parameter id="daochu_f_status" type="varchar" required="false" label="筛选状态" />
+	<parameter id="daochu_f_evalstar" type="varchar" required="false" label="筛选评价" />
+	
+</validator>

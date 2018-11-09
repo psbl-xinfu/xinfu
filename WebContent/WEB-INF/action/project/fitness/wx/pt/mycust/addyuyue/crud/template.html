@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        ${inc:/action/project/fitness/wx/pub}
+        <title>预约添加</title>
+       
+        <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" />
+        <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/style.css?v=7" />
+        <link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+        <link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        <link href="${def:context}/js/project/fitness/wx/css/sijiao.css" rel="stylesheet">
+    </head>
+    <body>
+      <form class='ptprepare_form' id='ptprepare_form'>
+        <div class="sijiaoyuyueaddtop">
+             <div class="listothers">
+                <div class='d2 fl'>预约时间</div>
+                <div class='d4 fr'><input type="text"  value="" preserve='true' class="form-control dateinput" id="datetimepicker" data-date-format="yyyy-mm-dd HH:ii" placeholder=""></div>
+            	<input type='hidden' name="preparedate"  value="" preserve='true' id='preparedate'/>
+            	<input type='hidden' name="preparetime"  value="" preserve='true' id='preparetime'/>
+            </div>
+        </div>
+        
+        <div class="sijiaoyuyueaddcontent">
+            <div class="listothers">
+                <div class='d2 fl'>选择会员</div>
+                <div class='d4 fr'>
+                    <select class="form-control select_op huiyuan_select" id='customercode' name='customercode'>
+                        <op-huiyuan><option value="${fld:code}">${fld:name@js}</option></op-huiyuan>
+                    </select>
+                </div>
+            </div>
+            <div class="listothers">
+                <div class='d2 fl'>选择课程</div>
+                <div class='d4 fr'>
+                    <select class="form-control select_op kecheng_select" id='ptrestcode' name='ptrestcode'>
+                       
+                    </select>
+                </div>
+            </div>
+            
+        </div>  
+        
+            <div class="sijiaoyuyueaddbtn">
+                <img src="${def:context}/js/project/fitness/wx/image/addyuyue.png" class="tijiao">
+            </div>
+      
+     </form>
+        
+        
+        
+       
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homept();
+    	<op-kecheng>
+    	   var html="<option class='kecheng_op' value='${fld:code}'  >${fld:ptlevelname}</option>"
+    	   $('.kecheng_select').append(html);
+    	</op-kecheng>
+
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+        opt.defaults = {
+            theme: 'ios', //皮肤样式
+            display: 'modal', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            width:90,
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#datetimepicker").mobiscroll($.extend(opt['datetime'], opt['default']));
+        //$("#datetimepicker").mobiscroll( $.extend(opt['date'], opt['default']) );
+        $("#datetimepickers").mobiscroll( $.extend(opt['time'], opt['defaults']) );
+        $("#datetimepickerss").mobiscroll( $.extend(opt['time'], opt['defaults']) );
+    });
+    
+    
+    
+    
+     $(".sijiaoyuyueaddbtn").click(function(){
+       var customercode=$(this).val();  
+       var dateval=$("#datetimepicker").val().split(" ");
+       $("#preparedate").val(dateval[0]);
+       $("#preparetime").val(dateval[1]);
+       var url="${def:context}${def:actionroot}/ptprepare";
+		ajaxCall(url,{
+			method: "post",
+			progress:false,
+			dataType: "script",
+			form:"ptprepare_form",
+			success: function() {
+			}
+	    });
+    })
+    
+</script>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_custall" type="varchar" required="false" label="daochu_custall" />
+	<parameter id="daochu_s_birthday_status" type="integer" required="false" label="daochu_s_birthday_status" />
+	<parameter id="daochu_s_skill_name" type="varchar" required="false" label="daochu_s_skill_name" />
+	
+</validator>

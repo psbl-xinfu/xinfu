@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="fileid" type="varchar" required="true" label="fileid" maxlen="64"/>
+	<parameter id="videoname" type="varchar" required="true" label="videoname" maxlen="128"/>
+	<parameter id="videourl" type="varchar" required="true" label="videourl" maxlen="128"/>
+	<parameter id="coverurl" type="varchar" required="false" label="coverurl" maxlen="128"/>
+	<parameter id="videodesc" type="varchar" required="true" label="videodesc" maxlen="2000"/>
+	<parameter id="timelength" type="integer" required="true" label="timelength" maxlen="32"/>
+
+</validator>

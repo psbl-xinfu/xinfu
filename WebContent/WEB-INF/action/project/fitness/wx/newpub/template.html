@@ -1,0 +1,75 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="renderer" content="webkit">
+<!-- 定义你的网页为 Web 应用 -->
+<meta name="mobile-web-app-capable" content="yes">
+<!--uc开启应用模式-->
+<meta name="browsermode" content="application">
+<!--禁用的 UC 浏览器的字体缩放功能-->
+<meta name="wap-font-scale" content="no">
+<meta name="screen-orientation" content="landscape">
+<!-- 设置锁定横屏、竖屏显示模式，portrait（横屏），landscape（竖屏）-->
+<meta name="x5-orientation" content="landscape">
+<meta name="x5-page-mode" content="app" />
+<meta name="x5-fullscreen" content="true" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="wap-font-scale" content="no">
+<meta name="HandheldFriendly" content="true">
+<meta name="full-screen" content="true" />
+<meta name="screen-orientation" content="portrait" />
+<meta name="360-fullscreen" content="true" />
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<meta name="format-detection" content="telephone=no" />
+
+<link href="${def:context}/js/project/fitness/wx/css/normalize.css" rel="stylesheet">
+<link href="${def:context}/js/project/fitness/wx/css/amazeui.min.css" rel="stylesheet">
+<link href="${def:context}/js/project/fitness/wx/css/web.css" rel="stylesheet">
+<link href="${def:context}/js/project/fitness/wx/css/custom.css" rel="stylesheet" />
+<style type="text/css">
+.row div{
+padding:0
+}
+</style>
+<script type="text/javascript">
+var console = window.console || { log: function() {} };
+var contextPath = "${def:context}";
+</script>
+
+<script type="text/javascript" src="${def:context}/js/jquery/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/datetimepicker/js/datetimepicker.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/datetimepicker/js/locales/datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/bootbox.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/ccms/jquery.validate.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/ccms.js"></script>
+<script type="text/javascript" src="${def:context}/js/ccms/common.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/util.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/flexible.js"></script>
+
+<script type="text/javascript">
+function homept(){
+    var str='<a  href="${def:context}/action/project/fitness/wx/pt/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+	$('body').append(str);
+}
+function homecust(){
+    var str='<a  href="${def:context}/action/project/fitness/wx/cust/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+	$('body').append(str);
+}
+function homemc(){
+    var str='<a  href="${def:context}/action/project/fitness/wx/mc/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+	$('body').append(str);
+}
+function loadHeadpic(objid, user_id){
+	if( "" != objid && "" != user_id ){
+    	ajaxCall("/action/project/fitness/wx/util/getstaffheadpic?objid="+objid+"&userid="+user_id,{
+			method: "get",
+			progress: false,
+			dataType: "script",
+			success: function() {
+			}
+	    });
+	}
+}
+</script>

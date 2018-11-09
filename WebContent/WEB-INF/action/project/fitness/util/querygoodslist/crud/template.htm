@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>查询商品</title>
+</head>
+<body>
+<div class="dialogbg" style="height: 700px;">
+	<header class="header-default">
+		查询商品
+	</header>
+	<form  role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+			<div class="tab-cout-nav">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<input type="hidden" id="storage_id" name="storage_id" value="${fld:storage_id}"  />
+						<li>
+							<input id="goodsname" style="background-color:transparent!important" name="goodsname" 
+								type="text" placeholder="名称/货号" value="${fld:goodsname}" class="input-default"/>
+						</li>		
+						<button type="button" class="r-c-3-btn-1" id="search_btn"></button>
+						</nav>
+					</div>
+				</div>
+				<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th>商品名称</th>
+								<th>仓库</th>
+							</tr>
+						</thead>
+						
+						<tbody id="datagridTemplate" style="display: none">
+							<tr onclick="goods(#gptuid#)" code="#gptuid#">
+								<td>#goods_name#</td>
+								<td>#storage_name#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	var search=null;
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		/* if($("#datagrid tr").length==1){
+			parent.$("#${fld:objid}").val($("#datagrid tr").attr("code"));
+			parent.pickcustCallback();
+			ccms.dialog.close();
+		} */
+	}}).initSearchBtn().searchData(1);
+});
+//
+function goods(gptuid){
+	parent.$("#${fld:objid}").val(gptuid);
+	parent.pickcustCallback();
+	ccms.dialog.close();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+  ${inc:/action/project/fitness/wx/newpub?1123}
+    <title>新增预约</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    		 <link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+<body>
+	
+	    <form class='ptprepare_form' id='ptprepare_form'>
+	           	<input type='hidden' name="preparedate"  value="" preserve='true' id='preparedate'/>
+            	<input type='hidden' name="preparetime"  value="" preserve='true' id='preparetime'/>
+            	 <input type='hidden' name="customercode"  value="" preserve='true' id='customercode'/>
+            	<input type='hidden' name="ptrestcode"  value="" preserve='true' id='ptrestcode'/>
+         </form>
+         	<input type='hidden' name="corsestatus"  value=""id='corsestatus'/>
+         	<input type='hidden' name="preparecount"  value=""id='preparecount'/>
+         	<input type='hidden' name="ptleftcount"  value=""id='ptleftcount'/>
+         	
+         
+	<form  id="filter"  name="filter">
+	<div class=""  id="mm">
+		<div class="m1 disNone"  id="cust">
+			<h3>
+				选择会员
+				<button type="button" class="close"  ></button>
+			</h3>
+			<p>
+				<input type="text" placeholder="请输入会员姓名/电话搜索" 	id="s_name"  name="s_name"   oninput="updateurl(this)" >
+				<button type="button"  id="search">  <img     src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit"  width="20" height="20"></button>
+			</p>
+</form>
+			<div>
+				<nav  id="custlist">
+				</nav>
+			</div>
+		</div>
+
+
+
+		<div class="m1 m2 disNone" id="course">
+			<h3>
+				选择会员
+				<button type="button"  class="close"></button>
+			</h3>
+		
+			<p>
+				<span>
+					会员信息：
+				</span>
+				
+				<span id="textname1">
+				</span>
+				<span id="textmobile1">
+				</span>
+			</p>
+			
+			<nav id="courselist">
+			</nav>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="containter tjyy">
+		
+		<p>
+			<span>预约时间</span>
+			<input type="text" name=""  class="form-control dateinput" id="datetimepicker"  value="${fld:parpredate}  ${fld:time}">
+		</p>
+		
+		<p>
+			<span>选择会员</span>
+			<input type="text"   class="form-control" readonly="readonly" placeholder="请选择会员"  onclick="custShow()"  id="textname">
+		</p>
+		<p>
+			<span>选择课程</span>
+			<input type="text"   class="form-control" readonly="readonly" placeholder="请选择课程"onclick="courseShow()" id="textcourse">
+		</p>
+		<button type="button"  id="save">
+			添加预约
+		</button>
+	</div>
+
+</body>
+ 
+ <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+ <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+<script type="text/javascript">
+var date="";
+var time=""
+
+    $(function(){
+    	homept();
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+      		theme: 'android-ics light', //皮肤样式
+      		display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd ',
+            timeFormat: 'HH:ii:ss',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#datetimepicker").mobiscroll( $.extend(opt['datetime'], opt['default']) );
+        
+        $('.close').on('click',function(){
+        	$('.m1').addClass('disNone')
+        	$('#mm').removeClass('mm');
+        })
+        $('#search').on('click',function(){
+        	$('#textcourse').val('');
+        	getCust();
+        })
+        
+        
+ $("#save").click(function(){
+	 
+		
+	 
+ 	 if($('#corsestatus').val()=="已过期"){
+ 		ccms.dialog.notice("无法预约已过期课程");
+	 }else if(Number($('#ptleftcount').val())<Number($('#preparecount').val())){
+		 
+		 ccms.dialog.notice("预约数量不能大于能剩余课时");
+	 }else if($("#textname").val()==""){
+		 ccms.dialog.notice("请选择会员");
+	 }else if($("#textcourse").val()==""){
+		 ccms.dialog.notice("请选择课程");
+	 }else{
+	      var dateval=$("#datetimepicker").val().split("  ");
+	       $("#preparedate").val(dateval[0]);
+	       $("#preparetime").val(dateval[1]);
+	       
+	       
+	       
+	       var url="${def:context}/action/project/fitness/wx/pt/course/addyuyue/crud/insert";
+			ajaxCall(url,{
+				method: "post",
+				progress:false,
+				dataType: "script",
+				form:"ptprepare_form",
+				button:"save",
+				success: function() {
+				}
+		    });
+	 }
+    })
+ });
+    
+    function getCourse(){
+    	var customercode = $("#customercode").val()
+        	getAjaxCall("/action/project/fitness/wx/pt/course/addyuyue/crud/searchcourse?customercode="+customercode,false);
+    }
+    
+    function getCust(){
+    	postAjaxCall("/action/project/fitness/wx/pt/course/addyuyue/crud/search?","filter",false);
+}
+    
+    function custShow(){
+    	getCust();
+    	$('#cust').removeClass('disNone');
+    	$('#mm').addClass('mm');
+    }
+    
+    function courseShow(){
+    	if($('#customercode').val()!=""){
+    		getCourse();
+        	$('#course').removeClass('disNone');
+        	$('#mm').addClass('mm');
+    	}
+    }
+    
+    function goyuyueinfo(){
+    	var date=$('#datetimepicker').val();
+    	date=date.substring(0,10)
+    	location.href="${def:context}/action/project/fitness/wx/pt/course/crud?years="+date;
+    }
+    
+    function updateurl(obj){
+		   if($(obj).val()!=""){
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/sousuo_on.png")
+		   }else{
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/search.png")
+		   }
+ }
+</script>
+</html>

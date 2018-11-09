@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+			<parameter id="recuser" type="varchar" required="true" label="recuser " />
+			<parameter id="type" type="varchar" required="false" label="type"/>
+</validator>

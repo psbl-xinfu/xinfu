@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>POS条打印</title>
+</head>
+<body>
+<div>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form method="post" name="formEditor" id="formEditor" class="titlecust">
+			   <input type="hidden" id="printstyle_id" name="printstyle_id" value="${fld:printstyle_id}" preserve="true"/>
+			   <input type="hidden" id="printtype_id" name="printtype_id" value="${fld:printtype_id}" preserve="true"/>
+			   <input type="hidden" id="wish_id" name="wish_id" value="${fld:wish_id}" preserve="true"/>
+				<div class="xt-1-div">
+					<label for="ccc" style="color: white;">POS 小条结束语</label>
+			   	 	<input class="input-2"type="text" id = "wish" name = "wish" value="${fld:wish}"/>
+					<span style="color: white;">（不要超过14个字）</span>
+					<button class="my-btn-default active" id="edit_btn" type="button">确定</button>
+				</div>
+			</form>
+		</div>
+	</div>
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#edit_btn").click(function updateData(){
+		var wish = $("#wish").val();
+		var wish_id = $("#wish_id").val();
+		//修改参数
+		var url = "${def:context}${def:actionroot}/update?"+"tuid="+wish_id+"&param_text="+wish;
+		ajaxCall(url,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	   			ccms.dialog.notice("修改成功！", 2000);
+	 		}
+	 	});
+	});
+
+});
+</script>
+</body>
+</html>

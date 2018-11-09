@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教上课</title>
+<style type="text/css">
+.pl_2{
+   margin-left: 10px;
+}
+.day{
+   width:45px;
+   text-align:center;
+}
+.titlecust{
+  margin-top: 20px;
+}
+</style>
+</head>
+<body >
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+		<form id="formedit1" name="formedit1" method="post" action="" class="titlecust">
+		    <input type="hidden" id="isprintpassprepare_id" name="isprintpassprepare_id" value="${fld:isprintpassprepare_id}" preserve="true"/>
+		    <input type="hidden" id="ismustownclass_id" name="ismustownclass_id" value="${fld:ismustownclass_id}" preserve="true"/>
+		    <input type="hidden" id="singleptusemoney_id" name="singleptusemoney_id" value="${fld:singleptusemoney_id}" preserve="true"/>
+		    <input type="hidden" id="isprintpos_id" name="isprintpos_id" value="${fld:isprintpos_id}" preserve="true"/>
+		    <input type="hidden" id="isshowprint_id" name="isshowprint_id" value="${fld:isshowprint_id}" preserve="true"/>
+		    <input type="hidden" id="htisusetempcabinet_id" name="htisusetempcabinet_id" value="${fld:htisusetempcabinet_id}" preserve="true"/>
+		    
+		  	<!-- <div class="xt-1-div m-t-b-10 hasCheck">
+				<label for="ccc" style="color: white;"></label>
+    			<input type = "hidden" value="1" id="htisusetempcabinet" name="htisusetempcabinet" class="pl_2"/>
+				<input type = "checkbox" value="1" id="htisusetempcabinet1" name="htisusetempcabinet1" class="pl_2"/>
+				<span style="color: white;">后台刷卡必须输入手牌</span>
+			</div> -->
+		  	<div class="xt-1-div m-t-b-10 hasCheck">
+				<label for="ccc" style="color: white;"></label>
+    			<input type="hidden" value="" id="isprintpassprepare" name="isprintpassprepare" class="pl_2"/>
+				<input type = "checkbox" value="1" id="isprintpassprepare1" name="isprintpassprepare1" class="pl_2"/>
+				<span style="color: white;">爽约PT课，第二天强行刷掉</span>
+			</div>
+		  	<div class="xt-1-div m-t-b-10 hasCheck">
+				<label for="ccc" style="color: white;"></label>
+    			<input type="hidden" value="" id="ismustownclass" name="ismustownclass" class="pl_2"/>
+				<input type = "checkbox" value="1" id="ismustownclass1" name="ismustownclass1" class="pl_2"/>
+				<span style="color: white;">只能上分配给自己的免费课</span>
+			</div>
+		  	<div class="xt-1-div m-t-b-10 hasCheck">
+				<label for="ccc" style="color: white;"></label>
+    			<input type="hidden" value="" id="singleptusemoney" name="singleptusemoney" class="pl_2"/>
+				<input type = "checkbox" value="1" id="singleptusemoney1" name="singleptusemoney1" class="pl_2"/>
+				<span style="color: white;">单次私教允许使用运动基金</span>
+			</div>
+		  	<div class="xt-1-div m-t-b-10 hasCheck">
+				<label for="ccc" style="color: white;"></label>
+    			<input type="hidden" value="" id="isprintpos" name="isprintpos" class="pl_2"/>
+				<input type = "checkbox" value="1" id="isprintpos1" name="isprintpos1" class="pl_2"/>
+				<span style="color: white;">私教上课时，打印POS小票</span>
+			</div>
+		  	<div class="xt-1-div m-t-b-10 hasCheck">
+				<label for="ccc" style="color: white;"></label>
+    			<input type="hidden" value="" id="isshowprint" name="isshowprint" class="pl_2"/>
+				<input type = "checkbox" value="1" id="isshowprint1" name="isshowprint1" class="pl_2"/>
+				<span style="color: white;">私教刷课显示打印机选择框（如果每台私教电脑都配置了默认打印机，则不显示打印机,这样直接打印私教上课记录，速度快）</span>
+			</div>
+    </form></div></div>
+		<div style="margin-top:15px;padding: 0 0 10px 15px;">
+			 <button id="update_btn" type="button">确定</button>
+	   </div>
+		<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+function querycengcardbeacause(){
+	ccms.util.renderCheckbox("htisusetempcabinet1");
+	ccms.util.renderCheckbox("isprintpassprepare1");
+	ccms.util.renderCheckbox("ismustownclass1");
+	ccms.util.renderCheckbox("singleptusemoney1");
+	ccms.util.renderCheckbox("isprintpos1");
+	ccms.util.renderCheckbox("isshowprint1");
+	var search=null;
+}
+
+function queryradiodateisprintpassprepare(){
+	ccms.util.setCheckboxValue('isprintpassprepare1',"${fld:isprintpassprepare}","formedit1");
+	$("#isprintpassprepare").val("${fld:isprintpassprepare}");
+}
+
+function queryradiodateismustownclass(){
+	ccms.util.setCheckboxValue('ismustownclass1',"${fld:ismustownclass}","formedit1");
+	$("#ismustownclass").val("${fld:ismustownclass}");
+}
+
+function queryradiodatesingleptusemoney(){
+	ccms.util.setCheckboxValue('singleptusemoney1',"${fld:singleptusemoney}","formedit1");
+	$("#singleptusemoney").val("${fld:singleptusemoney}");
+}
+
+function queryradiodateisprintpos(){
+	ccms.util.setCheckboxValue('isprintpos1',"${fld:isprintpos}","formedit1");
+	$("#isprintpos").val("${fld:isprintpos}");
+}
+
+function queryradiodateisshowprint(){
+	ccms.util.setCheckboxValue('isshowprint1',"${fld:isshowprint}","formedit1");
+	$("#isshowprint").val("${fld:isshowprint}");
+}
+
+
+function queryradiodatehtisusetempcabinet(){
+	ccms.util.setMulitCheckboxValue('htisusetempcabinet1',"${fld:htisusetempcabinet}","formedit1");
+	$("#htisusetempcabinet").val("${fld:htisusetempcabinet}");
+	
+}
+
+$(document).ready(function() {
+	queryradiodatehtisusetempcabinet();
+	queryradiodateisprintpassprepare();
+	queryradiodateismustownclass();
+	queryradiodatesingleptusemoney();
+	queryradiodateisprintpos();
+	queryradiodateisshowprint();
+	querycengcardbeacause();
+	$("#update_btn").click(function updateData(){
+		var uri = "${def:context}${def:actionroot}/updateformdate?";
+		//修改参数
+		url(uri+"tuid="+$("#htisusetempcabinet_id").val()+"&param_text="+$("#htisusetempcabinet").val());
+		url(uri+"tuid="+$("#ismustownclass_id").val()+"&param_text="+$("#ismustownclass").val());
+
+		url(uri+"tuid="+$("#isprintpassprepare_id").val()+"&param_text="+$("#isprintpassprepare").val());
+		url(uri+"tuid="+$("#isprintpos_id").val()+"&param_text="+$("#isprintpos").val());
+		url(uri+"tuid="+$("#isshowprint_id").val()+"&param_text="+$("#isshowprint").val());
+		url(uri+"tuid="+$("#singleptusemoney_id").val()+"&param_text="+$("#singleptusemoney").val());
+		ccms.dialog.alert("修改成功！");
+		 	
+	 });
+
+	function url(uri){
+		ajaxCall(uri,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	 		}
+	 	});
+	}
+	
+	//手牌是否输入
+	$("#htisusetempcabinet1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#htisusetempcabinet").val("1");
+		}else{
+			$("#htisusetempcabinet").val("0");
+		}
+	});
+	
+	$("#isprintpassprepare1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#isprintpassprepare").val("1");
+		}else{
+			$("#isprintpassprepare").val("0");
+		}
+	});
+	$("#ismustownclass1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#ismustownclass").val("1");
+		}else{
+			$("#ismustownclass").val("0");
+		}
+	});
+	$("#singleptusemoney1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#singleptusemoney").val("1");
+		}else{
+			$("#singleptusemoney").val("0");
+		}
+	});
+	$("#isprintpos1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#isprintpos").val("1");
+		}else{
+			$("#isprintpos").val("0");
+		}
+	});
+	$("#isshowprint1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#isshowprint").val("1");
+		}else{
+			$("#isshowprint").val("0");
+		}
+	});
+});
+</script>
+</body>
+</html>

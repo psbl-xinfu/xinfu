@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html id='upload_cover_html'>
+<head>
+<title>修改视频封面</title>
+${inc:/action/project/fitness/home/pub}
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/qcloud/ugcUploader.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/qcloud/qcloud.js"></script>
+<link  rel='stylesheet' href='${def:context}/js/project/fitness/trains/css/common.css'/>
+</head>
+<body id='upload_cover_body' class="dialogbg">
+<div id='upload_cover_div'">
+	<div class="basic-information  " id='upload_cover_dialog'  >
+		<header class="header-default">
+			<span>修改视频封面</span>
+		</header>
+	<!-- 上传界面 -->
+		<div class="b-i-main" id="ugcUpload" >
+			<form  name="uploadform" id="uploadform" method="post" >
+				<nav>
+					<li>
+						<label style="width: 100px;">选择本地文件：</label>
+						<input class="btn btn-info btn-md" type="button" value="添加封面" id="addcover" />
+						<input style="display:none;" class="ugc" type="file" name="coverfile" size="30" /><span id="coverfilespan"></span>
+					</li>
+					
+					<li>
+						<div id="uploadmsg" class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4" style="color:red;">
+						</div>
+					</li>
+				
+					<li>
+						<input class="btn btn-info btn-md" type="button" value="上传" id="submit_btn" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input class="btn btn-info btn-md" type="button" value="重置" id="reset_btn" />
+					</li>
+				</nav>
+				<input type="hidden" id="fileid" name="fileid" value="${fld:fileid}" preserve="true" />
+				<input type="hidden" id="coverurl" name="coverurl" value="" />
+			</form>
+		</div>
+	</div>
+</div>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+
+<script language="javascript">
+$(document).ready(function(){
+	var videoFile, coverFile;
+	ccms.qcloud.initConfig({debug : true});
+	
+	$("#addcover").unbind().on("click", function(){
+		$("#ugcUpload").find("input[type=file][name=coverfile]").click();
+	});
+	$("#ugcUpload").find("input[type=file][name=coverfile]").unbind().change(function(){
+		coverFile = this.files[0];
+		$("#coverfilespan").text(coverFile.name);
+	});
+	$("#submit_btn").unbind().on("click", function(){
+		if (document.uploadform.coverfile.value == "") {
+			ccms.dialog.notice("请先选择上传的视频封面文件！", 2000);
+			return false;
+		}
+		ccms.qcloud.updateCover("${fld:fileid}", coverFile, function(res){
+			console.log(res);
+			if( res ){
+				$("#fileid").val("${fld:fileid}");
+				$("#coverurl").val(undefined != res.coverUrl ? res.coverUrl : "");
+				if(res.message) {
+					ccms.dialog.notice("更新失败：" + res.message, 2000);
+				}else{
+					$("#uploadmsg").empty();
+					var uri = "${def:actionroot}/update";
+					ajaxCall(uri,{
+						method: "post",
+						form: "uploadform",
+						progress: true,
+						dataType: "script",
+						success: function() {
+						}
+					});
+				}
+			}
+		});
+	});
+	$("#reset_btn").unbind().on("click", function(){
+		$("#uploadform")[0].reset();
+		$("#videofilespan").empty();
+		$("#coverfilespan").empty();
+		$("#uploadmsg").empty();
+		videoFile = null;
+		coverFile = null;
+	});
+});
+</script>
+</body>
+</html>

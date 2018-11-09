@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		当月应还款合同导出
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_month_date,daochu_pt_name,daochu_custall</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="当月合同应还款查询" filename="当月合同应还款查询.xls" header-background="true">
+		<col id="vc_contractcode" label="合同号" />
+		<col id="vc_name" label="性别" />
+		<col id="vc_mobile" label="手机号" />
+		<col id="f_normalmoney" label="合同金额" />
+		<col id="i_stage_times" label="分期数" />
+		
+		<col id="i_stage_times_pay" label="已还期数" />
+		<col id="amount_owe" label="尚欠" />
+		<col id="should_resver" label="本月应还款" />
+		<col id="c_idate" label="操作时间" />
+		<col id="vc_iuser" label="操作员" />
+	</excel>
+
+</config>

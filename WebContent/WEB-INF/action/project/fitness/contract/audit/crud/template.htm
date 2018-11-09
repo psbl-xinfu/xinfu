@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>合同审批列表</title>
+</head>
+<body >
+ 	<div class="modal fade" id="myModalLabel"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+			<header class="header-default">
+				<span id="formTitle">合同审批</span>
+				<span class="header-close"></span>	
+			</header>
+				<div class="b-i-main">
+					<form id="messageForm" name="messageForm" method="post">
+					<nav>
+						<li >
+						<label for="">状态</label>
+							<div class="my-selected">
+								<select id="c_status" name="c_status" class="normal-select">
+									<option value="2">审批通过</option>
+									<option value="3">审批拒绝</option>
+								</select>
+							</div>
+						</li>
+					</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="trial_bth_save" class="my-btn-default active" style='width:20%;'>保存</button>
+				</footer>
+			</div>
+		</div>
+	<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="c.createdate;c.createtime" preserve="true" />
+				<input name="order" type="hidden" value="desc;desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+				<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="dateTime">
+										<input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
+									</li>
+									<li class="dateTime">
+										<input id="s_end_date" name="s_end_date" type="text"class="input-default"/>
+									</li>	
+									<li class="inputName">
+										<input type="text" id="custall" name="custall" placeholder="合同编号/姓名/电话" class="input-default"/>							
+					 			 	</li>
+									<li style="width: 130px;">
+										<select id="s_type" name="s_type" style="display: none;">
+											<option value="">全部合同类型</option>
+											<option value="0">升级合同</option>
+											<option value="1">还款合同	</option>
+											<option value="2">定金合同</option>
+											<option value="3">办卡合同</option>
+											<option value="4">续卡合同</option>									
+											<option value="5">转卡合同</option>
+											<option value="6">退卡合同</option>
+											<option value="7">私教合同</option>			
+											<option value="8">租柜合同</option>												
+										</select>
+									</li>
+									<li style="width: 120px;">
+										<select id="s_skill_name" name="s_skill_name" style="display: none;">
+											<option value="">全部会籍</option>
+												<staff-rows>
+													<option value="${fld:userlogin}">${fld:name}</option>
+												</staff-rows>
+										</select>
+									</li>
+									<li style="width: 90px;">
+										<select id="s_isaudit" name="s_isaudit" style="display: none;">
+											<option value="1">未审批</option>
+											<option value="2">审批通过</option>
+											<option value="3">审批拒绝</option>
+									 	 </select> 	
+									  </li>	
+									  <div class="r-c-btnList">
+											<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+											<button type="button"  class="r-c-3-btn-3" id="excel" title="导出"></button>
+										</div>								
+								</nav>
+							</div>
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+								</nav>
+								<nav class="r-c-3-t-b-r">
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/shenpi.svg" title="审批" alt="" id="trial_bth">
+									</li>
+								</nav>
+							</div>
+						</div>
+				<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;">
+										</th>
+										<th>合同编号</th>
+										<th>付款状态</th>
+										<th>审批状态</th>
+										<th>姓名</th>
+										<th>手机号</th>
+										<th>原价</th>
+										<th>应收金额</th>
+										<th>销售人员</th>
+										<th>审批人</th>
+										<th>审批时间</th>
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										 <td class="table-checkbox">#application_id#</td> 
+										<td class="mustWrap">#code#</td>
+										<td >#i_status#</td>
+										<td >#isaudit#</td>
+										<td >#name#</td>
+										<td >#mobile#</td>										
+										<td >#inimoney#</td>										
+										<td >#normalmoney#</td>
+										<td >#salemember#</td>			
+										<td >#auditby#</td>										
+										<td >#audittime#</td>										
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+				<input id="daochu_start_date" name="daochu_start_date" type="text"/>
+				<input id="daochu_end_date" name="daochu_end_date" type="text"/>
+				<input id="daochu_isaudit"  name="daochu_isaudit" type="text"/>
+				<input id="daochu_skill_name" name="daochu_skill_name" type="text"/>
+				<input id="daochu_type" name="daochu_type" type="text"/>
+				<input id="daochu_custall" name="daochu_custall" type="text"/>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	
+	<script language="JavaScript">
+	var search=null;
+$(document).ready(function() {
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
+	searchSelectInit($("#s_skill_name"));
+	selectInit($('#c_status,#s_type,#s_isaudit'))
+	$(".header-close").unbind().on("click",function(){
+		$("#myModalLabel").modal('hide');
+		ccms.util.clearForm('messageForm');
+	});
+	//批量审批
+	$("#trial_bth").unbind().on("click",function(){
+		var obthis = getCheckboxValue("datalist");
+		if(obthis!=""){
+			var isauditcount=0;
+			$("input[name=datalist]:checked").each(function(){
+				//2说明已审批通过
+				if($(this).attr("isaudit")=="2"){
+					isauditcount++;
+				}
+			})
+			if(isauditcount>0){
+				ccms.dialog.notice("当前选择存在已审批通过合同，不能再次审批！", 3000);
+				return false;
+			}
+			$("#myModalLabel").modal('show')
+		}else{
+			ccms.dialog.notice('请选择', 2000, function(){});
+		}
+	});
+	//批量审批确认
+	$("#trial_bth_save").unbind().on("click",function(){
+		trials();
+	});
+	
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_start_date").val($("#s_start_date").val());
+		$("#daochu_end_date").val($("#s_end_date").val());
+		$("#daochu_isaudit").val($("#s_isaudit").val());
+		$("#daochu_skill_name").val($("#s_skill_name").val());
+		$("#daochu_type").val($("#s_type").val());
+		$("#daochu_custall").val($("#custall").val());
+		$("#daochuForm").submit();
+	});  
+	
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		ccms.util.renderCheckbox("datalist");	
+		//全选   取消全选
+	    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('check');  //
+	    }).on("ifUnchecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('uncheck');  //
+	    });
+}}).initSearchBtn().searchData(1);
+
+		$('#look').on('click',function(){
+			var obthis = getCheckboxValue("datalist");
+			var count = obthis.split(",").length;
+			if(obthis==""){
+				ccms.dialog.alert("请选择！")
+			}else{
+				if(count>1){
+					ccms.dialog.alert("查看只能选择一条记录！")
+				}else{
+					var contracttype = $("input[name=datalist]:checked").attr("code-cttype");
+					var type = $("input[name=datalist]:checked").attr("code-type");
+					var relatecode = $("input[name=datalist]:checked").attr("code-relate");
+					var uri = contextPath + getContractUri(obthis, type, false) + "?contractcode=" + obthis + "&relatecode=" + relatecode;
+					ccms.dialog.open({url : uri,height:"500"});
+				}
+			}
+		});
+})
+
+function trials(){
+	var obthis = getCheckboxValue("datalist");
+	var c_status = $('#c_status').val();
+	if(obthis!= ""){
+		$Dialog().confirm("确定要审批这些数据吗?", function(){
+			var url = "${def:context}${def:actionroot}/updates?id="+obthis+"&c_status="+c_status;
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+					ccms.dialog.notice('操作成功！', 2000, function(){
+						$("#myModalLabel").modal('hide');
+						search.searchData(1);
+					});
+				}
+			});
+		});
+	}else{
+		ccms.dialog.alert("请选择！")
+}
+}
+</script>
+</body>
+</html>

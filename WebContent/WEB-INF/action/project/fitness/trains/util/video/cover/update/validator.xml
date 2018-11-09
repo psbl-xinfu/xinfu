@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="fileid" type="varchar" required="true" label="fileid" maxlen="64"/>
+	<parameter id="coverurl" type="varchar" required="true" label="coverurl" maxlen="128"/>
+
+</validator>
+
+

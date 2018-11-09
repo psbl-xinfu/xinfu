@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		添加副卡
+	</summary>
+	
+	<log>true</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-age.sql" source="sql" scope="transaction" />
+		<recordset id="query-memberhead.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-age.sql" tag="age-rows" />
+		<print mode="form" recordset="query-memberhead.sql" />
+		<print mode="form" recordset="_request" />
+	</output>
+</config>

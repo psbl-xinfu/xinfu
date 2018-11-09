@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>私教刷课</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+</head>
+<body>
+	<div class="container smrc">
+		<div class="saoma">
+			<h2>私教${fld:name@js}</h2>
+			<img id="qrcode" src="" />
+			<p>扫描教练手机端二维码</p>
+			<span></span>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+var qrcodeid = "", qritv;
+$(document).ready(function(){
+	loadQrcode();
+});
+function loadQrcode(){
+	// 生成二维码
+	getJsonAjaxCall("/action/project/fitness/wx/util/createstaffqrcode?data_type=1&pk_value=${def:user}", true, function(data){
+		if( data && "" != data.qrcode_uri ){
+			$("#qrcode").attr("src", contextPath + data.qrcode_path);
+			qrcodeid = data.qrcode_id;
+			showQrcodeNotice();
+			qritv = setInterval("showQrcodeNotice()", 1000);
+		}else{
+			$("#qrcode").after("二维码生成失败");
+		}
+	});
+}
+function showQrcodeNotice(){
+	getAjaxCall("/action/project/fitness/wx/pt/qianke/queryqrcodestatus?qrcodeid="+qrcodeid, false);
+}
+</script>
+</html>

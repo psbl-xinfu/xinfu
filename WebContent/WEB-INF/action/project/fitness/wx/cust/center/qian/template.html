@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>签课记录</title>
+    <link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+</head>
+<style>
+    .names {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .mybaobiaolisttop{
+        font-size: 26px;
+        line-height: 53px;
+        padding: 0 20px;
+    }
+</style>
+
+<body>
+    <div class="mybaobiaolisttop">
+        <div class="name" style="float: left;font-size: 18px;">
+            总签课次数
+        </div>
+        <div class="num" style="float: right;">${fld:num}次</div>
+
+    </div>
+    <div class="mybaobiaolistbody container">
+        <div class="row">
+            <div class="col-xs-5" style="width: 42%">
+                <p class="biaoti">课名</p>
+            </div>
+            <div class="col-xs-2" style="width:42%;">
+                <p class="biaoti">时间</p>
+            </div>
+            <div class="col-xs-2" style="width:16%">
+                <p class="biaoti">剩余</p>
+            </div>
+
+        </div>
+		<ptlog-rows>
+	        <div class="row">
+	            <div class="col-xs-5" style="width: 42%">
+	                <p class="names">${fld:ptlevelname}</p>
+	            </div>
+	            <div class="col-xs-2" style="width:42%;">
+	                <p>${fld:created@yyyy/MM/dd HH:mm}</p>
+	            </div>
+	            <div class="col-xs-2" style="width:16%;">
+	                <p class="number">${fld:leftcount}</p>
+	            </div>
+	        </div>
+		</ptlog-rows>
+
+    </div>
+
+ <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script>
+ <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script>
+</body>
+
+</html>
+<script type="text/javascript">
+   
+    $(function () {
+   
+    
+    })
+</script>

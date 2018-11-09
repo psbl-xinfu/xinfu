@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_custtype" type="varchar" required="false" label="客户类型" />
+	<parameter id="daochu_specialtype" type="varchar" required="false" label="客户特殊状态" />
+	<parameter id="daochu_f_returntype" type="integer" required="false" label="回访状态" />
+	<parameter id="daochu_thismonthtypeone" type="integer" required="false" label="本月" />
+	<parameter id="daochu_thismonthtypetwo" type="integer" required="false" label="本月" />
+
+	<parameter id="daochu_f_sex" type="integer" required="false" label="筛选性别" />
+	<parameter id="daochu_f_pt" type="varchar" required="false" label="筛选私教" />
+	<parameter id="daochu_f_mc" type="varchar" required="false" label="筛选会籍" />
+	<parameter id="daochu_f_stage" type="varchar" required="false" label="筛选沟通状态" />
+	<parameter id="daochu_f_leave" type="integer" required="false" label="筛选离开原因" />
+	<parameter id="daochu_f_age" type="integer" required="false" label="筛选年龄段" />
+	<parameter id="daochu_f_calltimes" type="integer" required="false" label="筛选通话次数" />
+	<parameter id="daochu_f_unfollow" type="integer" required="false" label="筛选最后未跟进" />
+	<parameter id="daochu_f_mc_status" type="varchar" required="false" label="筛选会籍关注度" />
+	<parameter id="daochu_f_pt_status" type="varchar" required="false" label="筛选视角关注度" />
+	
+	<parameter id="daochu_f_startmonth" type="varchar" required="false" label="生日开始月份" />
+	<parameter id="daochu_f_startday" type="varchar" required="false" label="生日开始日" />
+	<parameter id="daochu_f_endmonth" type="varchar" required="false" label="生日结束月份" />
+	<parameter id="daochu_f_endday" type="varchar" required="false" label="生日结束日" />
+	<parameter id="daochu_f_purpose" type="varchar" required="false" label="健身目的" />
+	<parameter id="daochu_f_participate" type="varchar" required="false" label="是否参加过俱乐部" />
+	<parameter id="daochu_f_ismember" type="varchar" required="false" label="是否曾是本俱乐部会员" />
+	<parameter id="daochu_f_personalhobbit" type="varchar" required="false" label="个人爱好" />
+	<parameter id="daochu_f_marriage" type="varchar" required="false" label="婚姻情况" />
+	<parameter id="daochu_f_children" type="varchar" required="false" label="子女情况" />
+	<parameter id="daochu_f_custtype" type="varchar" required="false" label="0资源1会员" />
+	
+	<parameter id="daochu_startdate" type="varchar" required="false" label="录入日期" />
+	<parameter id="daochu_enddate" type="varchar" required="false" label="录入日期" />
+</validator>

@@ -1,0 +1,20 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"code":"${fld:code@js}",
+		"i_status":"${fld:i_status@js}",
+		"name":"${fld:name@js}",
+		"mobile":"${fld:mobile@js}",
+		"inimoney":"${fld:inimoney}",
+		"normalmoney":"${fld:normalmoney}",
+		"factmoney":"${fld:factmoney}",
+		"salemember":"${fld:salemember@js}",
+		"application_id":"${fld:application_id@js}",
+		"audittime":"${fld:audittime}",
+		"auditby":"${fld:auditby}",
+		"isaudit":"${fld:isaudit}"
+	},
+	</rows>
+	{}
+]}

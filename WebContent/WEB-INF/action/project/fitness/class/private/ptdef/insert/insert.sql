@@ -1,0 +1,32 @@
+insert into cc_ptdef
+(
+    code,
+    ptlevelname,
+    reatetype,
+    ptfee,
+    scale,
+    status,
+    is_delay,
+    remark,
+    times,
+    spacing,
+    created,
+    createdby,
+    org_id
+)
+values 
+(
+	${seq:nextval@seq_cc_ptdef},
+    ${fld:ptlevelname},
+    ${fld:reatetype},
+    ${fld:ptfee},
+    ${fld:scale},
+    ${fld:status},
+    ${fld:is_delay},
+    ${fld:remark},
+    ${fld:times},
+    ${fld:spacing},
+    {ts'${def:timestamp}'},
+    '${def:user}',
+    ${def:org}
+)

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_c_startdate" type="varchar" required="false" label="c_startdate" />
+	<parameter id="daochu_c_startdatee" type="varchar" required="false" label="c_startdatee" />
+	<parameter id="daochu_cust" type="varchar" required="false" label="cust" />
+	<parameter id="daochu_i_status" type="varchar" required="false" label="i_status" />
+	<parameter id="daochu_savestop_type" type="varchar" required="false" label="savestop_type" />
+	<parameter id="daochu_days" type="varchar" required="false" label="days" />
+	<parameter id="daochu_charges" type="varchar" required="false" label="charges" />
+</validator>

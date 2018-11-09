@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_startdate" type="date" required="false" label="startdate" />
+	<parameter id="daochu_enddate" type="date" required="false" label="enddate" />
+	<parameter id="daochu_status" type="varchar" required="false" label="状态" />
+	<parameter id="daochu_cust" type="varchar" required="false" label="会员卡号/姓名/手机号" />
+</validator>

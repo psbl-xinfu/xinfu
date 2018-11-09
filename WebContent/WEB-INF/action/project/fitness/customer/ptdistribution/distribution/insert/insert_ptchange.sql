@@ -1,0 +1,24 @@
+insert into cc_ptchange
+(
+ code,                 
+ cardcode,               
+ customercode,             
+ type,
+  ptid,    
+  status,  
+ createdby,
+created,  
+org_id
+)
+values
+(
+	${seq:nextval@seq_cc_ptchange},
+	${fld:cardcode},	
+	${fld:customercode},
+	'1',
+	 ${fld:pt},
+	'1',
+	'${def:user}',
+	{ts'${def:timestamp}'},
+	'${def:org}'
+)

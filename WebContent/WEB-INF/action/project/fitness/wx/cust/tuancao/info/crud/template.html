@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>课程详情</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="huiyuankcxqbanner">
+            <img src="${def:context}/js/project/fitness/wx/image/kechengbanner.png" class="bannerimg">
+        </div>
+
+<info>
+	<form id="filter"  name="filter">
+		<input type="hidden" name="classlistcode" id="classlistcode" value="${fld:ccode}">
+		<input type="hidden" name="customercode" id="customercode" value="${fld:customercode}">
+	
+	
+        <div class="huiyuankcxqtop">
+            <div class="list">
+                <img src="${def:context}${fld:headpic}" class="touxiangpic fl">
+                <div class="content fl">
+                    <p class="name">${fld:class_name}<span></span><span></span></p>
+                    <p class="time">${fld:times}分钟<span>${fld:ptname}教练</span></p>
+                </div>
+                <!-- <img src="./static/images/tel.png" class="telpic fr"> -->
+               
+                <img src="${def:context}/js/project/fitness/wx/image/huiyuanyuyuesijiao.png" class="yuyuepic fr" style="display: none">
+            
+            
+            </div>
+            <div class="listother">
+                <p class='p1'>时间</p><p class='p2'>${fld:classdate} ${fld:classtime}~${fld:endtime}</p>
+            </div>
+            <div class="listother">
+                <p class='p1'>人数</p><p class='p2'>已约${fld:num}人，可约${fld:limitcount}人</p>
+            </div>
+            <div class="listother">
+                <p class='p1'>状态</p><p class='p2' id="status">${fld:status}</p>
+            </div>
+                <div class="listother">
+                <p class='p1'>&nbsp;</p><p class='p2' >${fld:classdate} ${fld:classtime} 前结束预约</p>
+            </div>        
+            <div class="listother">
+                <p class='p1'>开课</p><p class='p2'  id="p2">${fld:fabu}</p>
+            </div>
+        </div>
+
+        <div class="huiyuankcxqcenter container">
+            <p class="biaoti">课程介绍</p>
+            <p class="neirong">${fld:remark@js}</p>
+        </div>
+       </form>
+   </info>
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	if("${fld:type}"=="pt"){
+    		homept();
+    	}else{
+    		homecust();
+    	}
+    	
+    	var flag=false;
+     	if("${fld:isyuyue}"=='已预约'){
+    		$('.yuyuepic').hide();
+    		flag=true;
+    	}
+    	
+    	if("${fld:status}"!='预约中'){
+    		$('.yuyuepic').hide();
+    		flag=true;
+    	}
+    	
+    	if(flag==false){
+    		$('.yuyuepic').show();
+    	}
+    	
+        var width=$(window).width();
+        if(width<=750){
+            $('.bannerimg').css({'height':width*360/750+'px'});
+        }else{
+            $('.bannerimg').css({'height':'360px'});
+        }
+        
+        
+        
+        $('.yuyuepic').on('click',function(){
+        	insert();
+        })
+    });
+    
+    function insert(){
+    	postAjaxCall("/action/project/fitness/wx/cust/tuancao/info/insert?",'filter',false);
+    }
+</script>

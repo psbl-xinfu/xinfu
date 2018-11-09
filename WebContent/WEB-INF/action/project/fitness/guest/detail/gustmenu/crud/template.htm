@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>客户信息</title>
+</head>
+<body>
+	<header class="header-default" style="margin-bottom:0;"> 客户信息 </header>
+	<div class="am-tabs r-tab-container contract-news"
+		data-am-tabs="{noSwipe: 1}" style="border-bottom:1px solid #505254;">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab cur-nav">
+			<li class="am-active"><a class="three-none" id="basics">基本信息</a></li>
+			<li><a class="three-none" id="fenpei">分配记录</a></li>
+			<li><a class="three-none" id="comm">跟进记录</a></li>
+			<li><a class="three-none" id="visit">到访记录</a></li>
+			<li><a class="three-none" id="change">变更档案</a></li>
+			<li><a class="three-none"  id="writePro">填写问卷</a></li>
+			<li><a class="three-none " id="guesttestresults">体测结果</a></li>
+		</nav>
+
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab cus cur-nav">
+			<li><a class="three-none " id="contract">合同</a></li>
+			<li><a class="three-none " id="cardlist">办卡</a></li>
+			<li><a class="three-none " id="rentlist">租赁柜</a></li>
+			<li><a class="three-none " id="ptprepare">私教</a></li>
+			<li><a class="three-none" id="sales">消费信息</a></li>
+			<li><a class="three-none" id="admission">入场信息</a></li>
+			<li><a class="three-none" id="conclusionabout">团操</a></li>
+			<li><a class="three-none" id="recharge">充值</a></li>
+			<li class="cus"><a class="three-none " id="trainplan">训练计划</a></li>
+		</nav>
+</div>
+		<div id="main"></div>
+	<form class="form-horizonta" role="form" method="post" id="searchForm">
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot"
+		value="${def:actionroot}" />
+	<script language="JavaScript">
+		var cus_code = "";
+		var gust_code = "";
+		var status = "";
+		$(document)
+				.ready(
+						function() {
+							$('li').each(function() {
+								$(this).click(function() {
+									$('li').removeClass('am-active');
+									$(this).addClass('am-active');
+								})
+							})
+
+							cus_code = "${fld:cus_code}"
+							gust_code = "${fld:gust_code}"
+							status = "${fld:status}"
+							if (cus_code != "") {
+								$('.cus').show();
+							} else {
+								$('.cus').hide();
+							}
+
+							$('#basics')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustinfo/crud?menuorgid=${fld:menuorgid}&");
+											})
+							//分配
+							$('#fenpei')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/distributionRecord/crud?");
+											})
+							//跟进
+							$('#comm')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/commRecord/crud?");
+											})
+							//到访
+							$('#visit')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/crud?");
+											})
+							//变更
+							$('#change')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/changeRecord/crud?");
+											})
+							/**会员*/
+
+							//合同
+							$('#contract')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/contractRecord/crud?");
+											})
+							//办卡
+							$('#cardlist')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/cardlist/crud?");
+											})
+							//租柜
+							$('#rentlist')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/rentlist/crud?");
+											})
+
+							//私教
+							$('#ptprepare')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/reservationdetail/crud?");
+											})
+
+							//入场
+							$('#admission')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/admissionRecord/crud?");
+											})
+
+							//团操
+							$('#conclusionabout')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/conclusionaboutRecord/crud?");
+											})
+
+							//充值
+							$('#recharge')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/rechargeRecord/crud?");
+											})
+
+							//消费
+							$('#sales')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/saleRecord/crud?");
+											})
+							//体侧结果
+							$('#testresults')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/testresults/crud?");
+											})
+							//资源体侧结果
+							$('#guesttestresults').on('click',function() {
+								loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/guesttestresults/crud?");
+							})
+											
+							//训练计划
+							$('#trainplan')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/trainplan/crud?");
+											})
+
+							$('#basics').click();
+
+							//填写问卷
+							$("#writePro,#writePro1")
+									.unbind()
+									.on(
+											'click',
+											function() {
+												var url = "${def:context}/action/project/fitness/guest/visitlist/question/crud?vc_guestcode="
+														+ gust_code
+														+ "&vc_customercode="
+														+ cus_code;
+												ccms.dialog.open({
+													url : url,
+													id : "dialogPic",
+													width : 1000,
+													height : 600
+												});
+											});
+						});
+
+		function loadMain(url) {
+			$('#main').load(
+					url + "gust_code=" + gust_code + "&cus_code=" + cus_code
+							+ '&ispubload=true')
+		}
+	</script>
+</body>
+</html>

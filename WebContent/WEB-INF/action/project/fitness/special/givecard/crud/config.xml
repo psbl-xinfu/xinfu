@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		入住管理
+	</summary>
+	
+	<log>true</log>
+
+	<set-request-attribute id="header.title" value="系统应用管理" />
+    <set-request-attribute id="formTitleAddNew" value='新增系统应用'/>
+    <set-request-attribute id="formTitleEdit" value='修改系统应用'/>
+    <set-request-attribute id="formTitleFilter" value='查询系统应用'/>
+	<recordset id="query-base.sql" source="sql" scope="transaction" />
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-base.sql" source="sql" scope="transaction" />
+		<recordset id="query-cardtype.sql" source="sql" scope="transaction" />
+		<recordset id="query-cardrules.sql" source="sql" scope="transaction" />
+		<recordset id="query-head.sql" source="sql" scope="transaction" />
+		<recordset id="query-starttype.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form" recordset="_request"/>
+		<print mode="table" recordset="query-base.sql" tag="card-list"/>
+		<print mode="table" recordset="query-cardrules.sql" tag="e_cardtype-rules" />
+		<print mode="table" recordset="query-cardtype.sql" tag="e_cardtype-list" />
+		<print mode="form" recordset="query-head.sql"/>
+		<print mode="table" recordset="query-starttype.sql" tag="starttype-list" />
+	</output>
+
+</config>

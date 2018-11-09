@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>支付方式</title>
+</head>
+<body>
+	<!--addnew/edit form-->
+	<div class="modal fade" id="modalAddnew" tabindex="-1" role="dialog" style="height:30%;display:none;">
+  	  <div class="modal-dialog">
+   	    <div class="modal-content basic-information dialogbg" style='min-height:0px;height:80%;'>
+   	       <header class="header-default">
+					<span id="formTitle">新增</span>
+					<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+				</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="cnfg_id" name="cnfg_id" value="" />
+				<input type="hidden" id="category" name="category" value=""/>
+				<input type="hidden" id="crud" name="crud" value=""/>		
+				<input type="hidden" id="vc_remark" name="vc_remark" value=""/>	
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li style="display: none;">
+							<label for="">编号</label>
+							<input type="text" placeholder="编号" id="vc_topic" name="vc_topic" value="" maxlength="80"/>	
+						</li>
+						<li>
+							<label for="">支付方式</label>
+							<input type="text" placeholder="支付方式" id="vc_content" name="vc_content" value="" maxlength="80" />	
+						</li>
+					</nav>
+				</div>
+			</form>
+			<footer class="footer-default">
+				<button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+		</div>
+	</div>
+	</div>
+
+	<form role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="id" preserve="true" />
+		<input name="order" type="hidden" value="desc" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<!-- <th>编码</th> -->
+								<th>支付方式</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+								<td>#vc_code#</td>
+								<!-- <td>#vc_topic#</td> -->
+								<td>#vc_content#</td>
+								<td>#vc_status#</td>
+								<td>#btnlink#
+									<button style="display: none;" class="write edit_btn" code="#cnfg_id#" type="button"></button>
+								</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	var search = null;
+	$(document).ready(function() {
+		var obj = $Crud({
+			formId : "formEditor",
+			button : "save_btn",
+			bpkField : "cnfg_id",
+			insertBack : function() {
+				search.searchData();
+			},
+			updateBack : function() {
+				search.searchData();
+			},
+			deleteBack : function() {
+				search.searchData();
+			},
+			addNewBack : function() {
+				$("#crud").val("1");
+				$("#category").val("OtherPayWay");
+				$("#formTitle").html("新增");
+			},
+			editBack : function() {
+				$("#crud").val("2");
+				$("#category").val("OtherPayWay");
+				$("#formTitle").html("修改");
+			},
+			validate : function() {
+				$("#vc_remark").val("0");
+				var flag = $("#formEditor").validate({
+					rules : {
+						vc_topic : {
+							isEnglish : true
+						}
+					},
+					messages : {
+						vc_topic : {
+							isEnglish : "只能输入英文和数字"
+						}
+					}
+				});
+				return flag;
+			},
+			check : function() {
+				return true;
+			}
+		}).init();
+		this.search = search;
+		search = $Search({datagrid : "datagrid",formId : "searchForm",rowpackage:function(obj){
+			var vc_status = obj.vc_status;
+			var btnname = ( vc_status == "已禁用" ? "启用" : "禁用" );
+			var btnclass = ( vc_status == "已禁用" ? "enable_btn" : "disable_btn" );
+			obj.btnlink = '<button class="'+btnclass+'" type="button" code="'+obj.cnfg_id+'">'+btnname+'</button>';
+		},success : function() {
+			$(".edit_btn").unbind().on("click", function(){
+				if($(this).attr("code") != undefined && $(this).attr("code") != ""){
+					obj.edit({id:$(this).attr("code")});
+					
+				}
+			});
+
+			$(".enable_btn").unbind().on("click",function() {
+				var obthis = $(this);
+				if (obthis.attr("code") != undefined && obthis.attr("code") != "") {
+					var uri="${def:context}${def:actionroot}/enable?cnfg_id="+obthis.attr("code")+"&status=1&category=OtherPayWay&crud=4";
+					ajaxCall(uri,{
+						method:"get",
+						progress:true,
+						dataType:"script",
+						success:function(){	
+						}
+					});
+				}
+			});
+			$(".disable_btn").unbind().on("click",function() {
+				var obthis = $(this);
+				if (obthis.attr("code") != undefined && obthis.attr("code") != "") {
+					var uri="${def:context}${def:actionroot}/disable?cnfg_id="+obthis.attr("code")+"&status=0&category=OtherPayWay&crud=4";
+					ajaxCall(uri,{
+						method:"get",
+						progress:true,
+						dataType:"script",
+						success:function(){	
+						}
+					});
+				}
+			});
+		}}).initSearchBtn().searchData(1);
+	});
+	</script>
+</body>
+</html>

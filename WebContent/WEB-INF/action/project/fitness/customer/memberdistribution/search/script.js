@@ -1,0 +1,30 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+			"application":"${fld:application@js}",
+			"img_url":"${fld:img_url}",
+		
+			"mc_code":"${fld:mc_code@js}",
+			"cd_code":"${fld:cd_code@js}",
+			"cd_type":"${fld:cd_type@js}",
+			"i_sex":"${fld:i_sex@js}",
+			"vc_mobile":"${fld:vc_mobile@js}",
+			"cd_status":"${fld:cd_status@js}",
+			"age":"${fld:age}",
+			"vc_mc":"${fld:vc_mc@js}",
+			"indate":"${fld:indate}",
+			"startdate":"${fld:startdate}",
+			"enddate":"${fld:enddate}",
+			"indate":"${fld:indate}",
+			"mc_name":"${fld:mc_name@js}",
+			"mobile":"${fld:mobile@js}",
+			"leave_day":"${fld:leave_day}",
+			"com_count":"${fld:com_count}",
+			"ispublic":"${fld:ispublic}",
+			"imgid":"${fld:imgid}",
+			"com_date":"${fld:com_date}"
+		
+	},
+	</rows>
+	{}
+]}

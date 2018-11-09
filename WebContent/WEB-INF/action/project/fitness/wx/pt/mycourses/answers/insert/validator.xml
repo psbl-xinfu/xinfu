@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="termid" type="varchar" required="true" label="termid" maxlen="210" />
+    <parameter id="term_score" type="varchar" required="true" label="term_score" maxlen="210" />
+</validator>
+

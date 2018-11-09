@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	
+	<parameter id="traincode" type="varchar" required="true" label="traincode" />
+	<parameter id="customercode" type="varchar" required="true" label="customercode" />
+	<parameter id="ptid" type="varchar" required="true" label="ptid" />
+	<parameter id="warmup_mins" type="varchar" required="true" label="热身时间" />
+	<parameter id="aerobic_mins" type="varchar" required="true" label="有氧时间" />
+	<parameter id="run_mileage" type="varchar" required="true" label="跑步里程" />
+
+</validator>

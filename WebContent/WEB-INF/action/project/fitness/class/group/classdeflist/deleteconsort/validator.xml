@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="cdcode" type="varchar" required="true" label="课程编号" maxlen="50" />
+    <parameter id="startdate" type="varchar" required="true" label="删除开始时间" maxlen="50" />
+    <parameter id="enddate" type="varchar" required="true" label="删除结束时间" maxlen="50" />
+</validator>
+
+
+
+
+

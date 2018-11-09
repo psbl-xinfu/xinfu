@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="code" type="varchar" required="true" label="场地预约编号" />
+    <parameter id="normalmoney" type="varchar" required="true" label="实收金额" />
+    <parameter id="pay_detail" type="varchar" required="true" label="支付明细" />
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该预约已付款，不能重复付款" id="normalmoneyspan" sql="nodup.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该预约不能付款,请刷新确认状态" id="normalmoneyspan" sql="nodup-status.sql" />
+</validator>

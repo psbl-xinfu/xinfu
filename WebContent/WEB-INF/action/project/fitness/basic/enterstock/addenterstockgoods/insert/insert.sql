@@ -1,0 +1,24 @@
+insert into cc_enter_stock_goods
+(
+	tuid,
+	enter_stock_id,
+	goodsid,
+	amount,
+	price,
+	money,
+	factmoney,
+	remark,
+	org_id
+)
+values
+(
+	${seq:nextval@seq_cc_goods_price},
+	${fld:enterstockid},
+	${fld:goodsid},
+	${fld:amount},
+	${fld:price},
+	${fld:money},
+	${fld:factmoney},
+	${fld:remark},
+	${def:org}
+)

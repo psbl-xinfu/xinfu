@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>新增沟通记录</title>
+</head>
+<body>
+			<form id="commformEditor" name="commformEditor" method="post">
+				<input type="hidden" id="tuid" name="tuid" value=""/>
+				<input type="hidden" name="code" value="${fld:code}"/>
+				
+				<input type="hidden" name="customercode" value="${fld:customercode}"/>
+				<input type="hidden" name="cust_type" value="${fld:cust_type}"/>
+				<input type="hidden" id="guestcode" name="guestcode" value="${fld:guestcode}"/>
+				<input type="hidden" id="nexttime" name="nexttime" value=""/>
+				<input type="hidden" id="pdate" name="pdate" value=""/>
+				<input type="hidden" id="ptime" name="ptime" value=""/>
+				
+				<input type="hidden" name="preparecode" value="${fld:preparecode}"/>
+				<section class="pup-1-right basic-information basic-dialog dialogbg">
+					<header class="header-default">
+						新增沟通记录
+						<button class="header-close"></button>
+					</header>
+					<article class="pup-1-r-info dialogbg">
+						<p>
+							客户姓名：
+							<span>
+									<input type="hidden" name="name" value="${fld:name}" readonly="readonly" />
+									${fld:name}
+							</span>
+						</p>
+						<p>
+							电话：
+							<span>
+									<input type="hidden" name="mobile" value="${fld:mobile}" readonly="readonly" />
+									${fld:mobile}
+							</span>
+						</p>
+						<p>
+							会籍：
+							<span>
+								${fld:staff_name}
+							</span>
+						</p>
+					</article>
+					
+					<div class="pup-1-r-main" >
+						<ul  style="background: #2F3134">
+							<li >
+								<label for="pup-1-r-m-1" >沟通目的<span style="color: red;">*</span>：</label>
+								<div >
+									<select id="commtarget" name="commtarget" >
+									  <option value="">请选择</option>
+										<rows-target>
+											<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+										</rows-target>
+									</select>
+								</div>
+							</li>
+							
+							
+							<li>
+								<label for="pup-1-r-m-3">沟通阶段<span style="color: red;">*</span>：</label>
+									<select id="stage" name="stage" >
+									  <option value="">请选择</option>
+										<rows-CommStage>
+											<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+										</rows-CommStage>
+									</select>
+							</li>
+							
+							<li>
+								<label for="pup-1-r-m-4">通话状态<span style="color: red;">*</span>：</label>
+									<select id="callstatus" name="callstatus" >
+									  <option value="">请选择</option>
+										<rows-CallStatus>
+											<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+										</rows-CallStatus>
+									</select>
+							</li>
+							
+							<li>
+								<label for="pup-1-r-m-6">关注度评估<span style="color: red;">*</span>：</label>
+									<select id="level" name="level" >
+									  <option value="">请选择</option>
+										<rows-GuestLevel>
+											<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+										</rows-GuestLevel>
+									</select>
+							</li>
+						</ul>
+						<ul  style="background: #2F3134">
+							<li>
+									<label>
+											<input type="radio"  name="commresult"  value="0" />未成功：
+									</label>
+										<select  id="failreason" name="failreason"  >
+										  	<option value="">未成单原因</option>
+											<rows-CommFailResaon>
+												<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+											</rows-CommFailResaon>
+										</select>
+							</li>
+							
+							
+							<li>
+								 <label  style="width: 125px;display: block;margin-left: -6%">
+											<input type="radio"  name="commresult"  value="1" />预约沟通时间：
+									</label>
+									<input    type="text"  id="nextcalltime" name="nextcalltime" style="height: 30px;margin-left: 2px;" placeholder="预约沟通时间" />
+							</li>
+							
+							<li >
+								  <label  style="width: 125px;display: block;margin-left: -6%">
+										<input type="radio"  name="commresult"  value="2"  />预约到店时间：
+									</label>
+										<input type="text" class="am-icon-unsorted" id="preparedate" name="preparedate" style="height: 30px;margin-left: 2px;" placeholder="预约到店时间" />
+							</li>
+						</ul>
+							<p class="ul-header">备注：</p>
+						<ul>
+							<li>
+								<textarea name="remark" id="remark" cols="30" rows="4" placeholder="暂无数据"></textarea>
+							</li>
+						</ul>
+					</div>
+					<footer>
+						<button type="button"  class="my-btn-default" id="save_btn" >保存</button>
+					</footer>
+				</section>
+</form>
+
+
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	selectInit($("#commtarget,#stage,#callstatus,#level,#failreason"));
+	ccms.util.renderRadio("commresult");
+	$("input[name=commresult]:eq(0)").on("ifClicked",function () {    
+		$('#preparedate').val('');
+		$('#nextcalltime').val('');
+	});
+	
+	$("input[name=commresult]:eq(1)").on("ifClicked",function () {    
+		$('#nextcalltime').val('');
+		$('#failreason').val('');
+	});
+	
+	$("input[name=commresult]:eq(2)").on("ifClicked",function () {    
+		$('#preparedate').val('');
+		$('#failreason').val('');
+	});
+	
+	if("${fld:type}"=="1"){
+		$("#handlecard").hide();
+	}
+	$Dialog().datetime($('#preparedate'));
+	$Dialog().datetime($('#nextcalltime'));
+	var obj = $Crud({
+		formId:"commformEditor",
+		button:"save_btn",
+		actionroot:"${def:actionroot}",
+		bpkField:"tuid",
+		insertBack:function(){
+		},
+		updateBack:function(){
+			search.searchData();
+		},
+		deleteBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			$("#formTitle").html("新增");
+		},
+		editBack:function(){
+			$("#formTitle").html("修改");
+		},
+		validate:function(){
+			var flag=$("#commformEditor").validate({
+			rules : {
+				commtarget : { required : true},		
+				commresult : { required : true},	
+				stage : { required : true},		
+				callstatus : { required : true},		
+				level : { required : true} ,		
+			},
+			messages: {
+				commtarget:{
+					required:"请选择！"
+				},
+				commresult:{
+			    	required:"请选择！"
+			    },
+			    stage:{
+			    	required:"请选择！"
+			    },
+			    callstatus:{
+			    	required:"请选择！"
+			    },
+			    level:{
+			    	required:"请选择！"
+			    }
+			}
+		});
+			var commresult = ccms.util.getRadioValue("commresult","commformEditor");
+			if(commresult=="2"){
+				if($("#preparedate").val()==""){
+					ccms.dialog.alert("请选择预约到店日期！");
+					return false;
+				}
+				$("#nexttime").val($("#preparedate").val());
+				//时间分割  
+				var dateval = $("#preparedate").val().split(" ");
+				$("#pdate").val(dateval[0]);
+				$("#ptime").val(dateval[1]);
+			}else if(commresult=="1"){
+				if($("#nextcalltime").val()==""){
+					ccms.dialog.alert("请选择预约沟通日期！");
+					return false;
+				}
+				$("#nexttime").val($("#nextcalltime").val());
+			}else if(commresult=="0"){
+				if($("#failreason").val()==""){
+					ccms.dialog.alert("请选择未成单原因！");
+					return false;
+				}
+			}
+			return flag;
+		},
+		check:function(){
+			return true;
+		}
+	}).init();
+	//办卡页面
+	$("#handlecard").click(function(){
+		ccms.dialog.open({url : "${def:context}/action/project/fitness/contract/newcard/create/form?guestcode="+$("#guestcode").val(), width:'800',height:'600'});
+	})
+});
+</script>
+</body>
+</html>

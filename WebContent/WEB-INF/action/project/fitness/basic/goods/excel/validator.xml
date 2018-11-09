@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_gname" type="varchar" required="false" label="商品名称" />
+	<parameter id="daochu_type" type="varchar" required="false" label="类别" />
+	<parameter id="daochu_goodunit" type="varchar" required="false" label="单位" />
+	<parameter id="daochu_isgifttwo" type="varchar" required="false" label="是否为礼品" />
+</validator>

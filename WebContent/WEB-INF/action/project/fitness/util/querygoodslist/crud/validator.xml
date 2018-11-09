@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="storage_id" type="varchar" required="true" label="仓库" />
+	<parameter id="goodsname" type="varchar" required="true" label="名称/货号" />
+    <parameter id="objid" type="varchar" required="false" label="objid" maxlen="64"/>
+
+    <parameter id="random_number" type="varchar" required="false" label="random_number" maxlen="64"/>
+</validator>

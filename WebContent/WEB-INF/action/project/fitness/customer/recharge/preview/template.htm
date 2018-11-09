@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>查看</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 400px;">
+			<header class="header-default">
+				<span id="formTitle">查看</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 130px;">操作类型：</label>
+							<input type="text" value="${fld:recharge_type}" readonly="readonly" placeholder="操作类型"/>	
+						</li>
+						<li>
+							<label for="" style="width: 130px;">会员编号：</label>
+							<input type="text" value="${fld:customercode}" readonly="readonly" placeholder="会员编号"/>	
+						</li>
+						<li>
+							<label for="" style="width: 130px;">姓名：</label>
+							<input type="text" value="${fld:name}" readonly="readonly" placeholder="姓名"/>	
+						</li>
+						<li>
+							<label for="" style="width: 130px;" id="chargecardtype">本次充值金额：</label>
+							<input type="text" value="${fld:factmoney}" id="factmoney" readonly="readonly" placeholder="本次充值金额"/>	
+						</li>
+						<li id="zengsong">
+							<label for="" style="width: 130px;">本次赠送金额：</label>
+							<input type="text" value="${fld:givemoney}" readonly="readonly" placeholder="本次赠送金额"/>	
+						</li>
+						<li>
+							<label for="" style="width: 130px;">当前金额：</label>
+							<input type="text" value="${fld:moneycash}" readonly="readonly" placeholder="当前金额"/>	
+						</li>
+						<li id="tuifei">
+							<label for="" style="width: 130px;">已退费金额：</label>
+							<input type="text" value="${fld:refund}" readonly="readonly" placeholder="已退费金额"/>	
+						</li>
+						<li class="to100w" style="margin-left: 6%">
+							<label for="">备注</label>
+							<textarea id="remark" cols="50" rows="3" class="my-textarea" name="remark" readonly="readonly" placeholder="备注" maxlength="6000">${fld:remark}</textarea>
+						</li>
+					</nav>
+				</div>
+			</form>
+		</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	if("${fld:recharge}"=="2"){
+		$("#chargecardtype").html("本次退费金额：");
+		$("#zengsong,#tuifei").hide();
+		$("#factmoney").val(-Number("${fld:factmoney}"));
+	}
+});
+</script>
+</body>
+</html>

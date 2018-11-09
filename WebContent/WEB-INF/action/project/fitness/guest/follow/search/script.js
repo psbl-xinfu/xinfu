@@ -1,0 +1,32 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"application_id":"${fld:application_id@js}",
+		"show_order":"${fld:_rowNumber}",
+		"vc_code":"${fld:vc_code@js}",
+		"vc_name":"${fld:vc_name@js}",
+		"vc_level":"${fld:vc_level}",
+		"vc_mobile":"${fld:vc_mobile@js}",
+		"vc_othertel":"${fld:vc_othertel@js}",
+		"i_public":"${fld:i_public@js}",
+		"vc_newmc":"${fld:vc_newmc@js}",
+		"vc_oldmc":"${fld:vc_oldmc@js}",
+		"i_status":"${fld:i_status@js}",
+		"i_type":"${fld:i_type}",
+	    "skill_name":"${fld:skill_name@js}",
+		"vc_fpdate":"${fld:_vc_fpdate}",
+		"i_sex":"${fld:i_sex@js}",
+		"vc_visititime":"${fld:vc_visititime@yyyy-MM-dd}",
+		"vc_callitime":"${fld:vc_callitime}",
+		"count_call":"${fld:count_call}",
+		"i_age":"${fld:i_age}",
+		"vc_itime":"${fld:vc_itime}",
+		"show_guest":"${fld:show_guest@js}",
+		"show_params":"${fld:show_params@js}",
+		"preparedate":"${fld:preparedate@yyyy-MM-dd HH:mm}",
+		"followup":"${fld:followup@js}",
+		"num_days":"${fld:num_days}"
+	},
+	</rows>
+	{}
+]}

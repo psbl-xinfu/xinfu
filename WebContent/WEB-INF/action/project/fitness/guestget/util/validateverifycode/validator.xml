@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="verify_code" type="varchar" required="true" label="图形验证码" maxlen="8" />
+</validator>

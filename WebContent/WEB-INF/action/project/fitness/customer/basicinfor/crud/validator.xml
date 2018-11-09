@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="vc_bianhao" type="varchar" required="false" label="vc_name" maxlen="100" />
+          
+</validator>

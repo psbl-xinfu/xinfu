@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="vc_ptid" type="varchar" required="false" label="私教" />
+	<parameter id="status" type="varchar" required="false" label="status" />
+
+</validator>

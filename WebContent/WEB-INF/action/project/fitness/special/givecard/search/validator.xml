@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="c_startdate" type="date" required="false" label="c_startdate" />
+	<parameter id="c_enddate" type="date" required="false" label="c_enddate" />
+	<parameter id="e_cardtype" type="varchar" required="false" label="vc_type" />
+	<parameter id="cust" type="varchar" required="false" label="cust" />
+	<parameter id="sex" type="integer" required="false" label="vc_type" />
+	<parameter id="vc_type" type="varchar" required="false" label="vc_type" />
+</validator>

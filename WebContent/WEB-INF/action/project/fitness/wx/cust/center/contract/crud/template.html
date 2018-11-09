@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>合同记录</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="huiyuanhtjllistbody">
+        </div>
+    </body>
+    <script type="text/javascript">
+    $(function(){
+    	if("${fld:type}"=="mc"){
+    		homemc();
+    	}else if("${fld:type}"=="pt"){
+    		homept();
+    	}else{
+    		homecust();
+    	}
+    	var str="";
+    	<list>
+    	str+=' <div class="list" code="${fld:code}" code1="${fld:customercode}">'
+    	str+='<div class="content fl">'
+    	str+=' <p class="name">${fld:type}<span>编号</span><span>${fld:code}</span></p>'
+    	str+='<p class="time">${fld:createdate} &nbsp;&nbsp;&nbsp;金额${fld:factmoney} &nbsp;&nbsp;&nbsp;${fld:salemember}</p>' 
+    	str+='</div>'
+/*     	str+='<img   src="'+contextPath+'/js/project/fitness/wx/image/select_jiantou.png" class="select_jiantou fr">'
+ */    	str+='</div>'
+    	</list>
+    	$('.huiyuanhtjllistbody').html(str);
+    })
+    </script>
+</html>

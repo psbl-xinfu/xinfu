@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+    <colname>pt_name,vc_all,date</colname>
+	<sql-template>query-base.sql</sql-template>
+	
+	<!-- excel模板路径 -->
+	<doc-template>/erpclubdoc/template/ptcust_longtermlesson_template.xlsx</doc-template>
+	<!-- 参数对应的字段列表 -->
+	<fields>rowno;vc_cardcode;vc_name;vc_sex;vc_mobile;vc_cardstatusname;c_enddate;vc_iusername;f_leftcount;vc_lastdate;unclassdays</fields>
+	
+	<!-- 从第几行开始填充数据，首行为0 -->
+	<begin-row>1</begin-row>
+
+	<transaction>
+		<classname>transactions.project.fitness.doc.ExcelTemplateReplace</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<on-error>/action/project/fitness/util/error/alert</on-error>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_rsdoc" />
+	</output>
+
+</config>

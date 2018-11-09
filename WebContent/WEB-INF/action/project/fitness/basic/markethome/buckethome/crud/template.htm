@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>斗图帝</title>
+<style>
+.left ul li a {
+font:15px/20px \"宋体\";
+color:black;
+}
+</style>
+</head>
+<body >
+	<div class="am-tabs r-tab-container systems-management " data-am-tabs="{noSwipe: 1}">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab">
+			<li onclick="Activity_setting()"><a  class="three-none" id="Activity_setting">营销活动设置</a></li>
+			<li onclick="Activity_list()"><a  class="three-none">活动列表</a></li>
+			<li onclick="Activity_examine()"><a href="#Data_rankings" class="three-none">内容审核</a></li>
+			</nav>
+	</div>
+		    <!-- 卡号规则 -->
+     		<div src ="" width="100%" height="600px" frameborder="0" id="formEditor_manage">
+     		
+      		</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	$("#Activity_setting").click();
+});
+//营销活动设置
+function Activity_setting(){
+	$("#formEditor_manage").load('/action/project/fitness/basic/markethome/basicimg/set/crud?bannertype=1');
+}
+//活动列表
+function Activity_list(){
+	$("#formEditor_manage").load('/action/project/fitness/basic/markethome/buckethome/list/crud');
+}
+//内容审核
+function Activity_examine(){
+	$("#formEditor_manage").load('/action/project/fitness/basic/markethome/buckethome/card/crud');
+}
+</script>
+</body>
+</html>

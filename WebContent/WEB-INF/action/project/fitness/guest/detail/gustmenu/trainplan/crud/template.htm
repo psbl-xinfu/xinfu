@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>训练计划</title>
+</head>
+<body>
+		<div class="r-tab-cont" style="height: 700px;">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th>会员号</th>
+								<th>会员名称</th>
+								<th>手机号</th>
+								<th>教练</th>
+								<th>训练日期</th>
+								<th>制订日期</th>
+								<th>状态</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+								<td>#cust_code#</td>
+								<td>#cust_name#</td>
+								<td>#mobile#</td>
+								<td>#staff_name#</td>
+								<td>#preparedate#</td>
+								<td>#created#</td>
+								<td>#status#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/trainplan/search?cust_code="+cus_code)
+});
+
+function ajax(url){
+ajaxCall(url,{
+	method: "get",
+	progress: true,
+	dataType: "script",
+	success: function() {
+	}
+});
+}
+</script>
+</body>
+</html>

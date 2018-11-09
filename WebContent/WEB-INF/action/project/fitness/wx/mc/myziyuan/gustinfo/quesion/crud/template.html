@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html >
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>填写问卷</title>
+     	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+     	<style type="text/css">
+     	.p1{
+     	width:80% !important;
+     	margin-left: 8% !important;
+     	}
+     	
+     	.p3{
+     	width:90% !important;
+     	margin-left: 2% !important;
+     	}
+     	
+     	.p2{
+     	margin-left: 14% !important;
+     	}
+     	</style>
+  </head>
+    <body>
+      		<input type="hidden" name="tuid" id="tuid" value="">
+       		<input type="hidden" name="question_bank_id" id="question_bank_id" value="${fld:question_bank_id}">
+        
+
+
+		<form name="formEditor" id="formEditor">
+		    <input type="hidden" id="term_id" name="term_id" value="1005"/>
+		    <input type="hidden" id="pre_class" name="pre_class" value=""/>
+		    <input type="hidden" id="post_class" name="post_class" value=""/>
+			<input type="hidden" id="term_score" name="term_score" value="0"/>
+			<input type="hidden" id="start_time" name="start_time" value="${def:timestamp}"/>
+			
+			<input type="hidden" id="types" name="types" value=""/>
+			<input type="hidden" id="items" name="items" value=""/>
+			<input type="hidden" id="list_scores" name="list_scores" value=""/>
+			<input type="hidden" id="matrix_scores" name="matrix_scores" value=""/>
+			<input type="hidden" id="score_id" name="score_id" value=""/>
+			<input type="hidden" id="relation_id" name="relation_id" value="${fld:guestcode}"/>
+		</form>
+
+
+            
+           <div class="listother" id="rs">
+      
+                    <input type="text"  id="termResult" name="termResult" value=""  readonly="readonly" style="font-size:18px;border: none;background: #F8F8F8">
+            </div>
+        <div class="myziyuangenjincontent">
+            
+    </div>
+    
+    
+            <div class="myziyuangenjinbtn">
+                <img src="${def:context}/js/project/fitness/wx/image/submit2.png" class="tijiao"  id="save"  onclick="saves()">
+            </div>
+    </body>
+</html>
+<script type="text/javascript">
+
+$(function(){
+	homemc();
+	$('#rs').hide();
+	<tuid>
+	$('#tuid').val("${fld:tuid}");
+	</tuid>
+	<term>
+	$('#question_bank_id').val("${fld:question_bank_id}");
+	</term>
+/* 	if($("#tuid").val()==''||$("#tuid").val()==undefined){
+		$("#claRecord").attr('src','${def:context}/action/project/fitness/util/termgen?term_id=1005&relation_id='+$("#guestcode").val());
+	}else{
+		$("#claRecord").attr('src','${def:context}/action/project/fitness/util/termgen?term_id=1005&relation_id='+$("#guestcode").val()+'&score_id='+$("#tuid").val());
+	} */
+	getType();
+})
+
+function getResult(tuid){
+	    	getAjaxCall("/action/project/fitness/wx/mc/myziyuan/gustinfo/quesion/getresult?tuid="+tuid,false);
+}
+
+function getType(){
+	    	getAjaxCall("/action/project/fitness/wx/mc/myziyuan/gustinfo/quesion/gettype?term_id=1005&relation_id="+$("#relation_id").val(),false);
+}
+
+function getAnswer(){
+		getAjaxCall("/action/project/fitness/wx/mc/myziyuan/gustinfo/quesion/getanswer?",false);
+}
+
+function saves(){
+	 getCheckedMenu(); 
+	postAjaxCall("/action/project/fitness/wx/mc/myziyuan/gustinfo/quesion/insert",'formEditor',false);
+}
+
+function getCheckedMenu(){
+	//统计赋值
+	var term_score = 0;
+	// type_id + : + score + ;
+	var types = "";
+	// type_id + : + item_id + : + score + ;
+	var items = "";
+	// item_id + : + list_id + : + score + : + text + ; 
+	var list_scores = "";
+	// item_id + : + list_id + : + matrix_id + : + score + : + text + : + dropdown_value; 
+	var checkObj=$('input:radio:checked,input:checkbox:checked');
+	
+	 for(var i = 0; i < checkObj.length; i++){
+		var score = $(checkObj[i]).attr('answeridscore');
+		term_score+=parseFloat(score)
+	} 
+	$('#term_score').val(term_score);
+	
+	
+	
+	for(var i = 0; i < checkObj.length; i++){
+		var questionid = $(checkObj[i]).attr('question')
+		var type_id =$('.question[question="'+questionid+'"]').attr('typeid')
+		var score = $(checkObj[i]).attr('answeridscore');
+		types+=type_id+":"+score+";";
+	} 
+	types=types.substring(types,types.length-1)
+	$('#types').val(types);
+	
+	
+	for(var i = 0; i < checkObj.length; i++){
+		var questionid = $(checkObj[i]).attr('question')
+		var type_id =$('.question[question="'+questionid+'"]').attr('typeid');
+		var item_id =$('.question[question="'+questionid+'"]').attr('question')
+		var score = $(checkObj[i]).attr('answeridscore');
+		items+=type_id+":"+item_id+":"+score+";";
+	} 
+	items=items.substring(items,items.length-1)
+	$('#items').val(items);
+	
+	
+	for(var i = 0; i < checkObj.length; i++){
+		var questionid = $(checkObj[i]).attr('question')
+		var type_id =$('.question[question="'+questionid+'"]').attr('typeid');
+		var item_id =$('.question[question="'+questionid+'"]').attr('question')
+		var list_id = $(checkObj[i]).val();
+		var score = $(checkObj[i]).attr('answeridscore');
+		var type=$(checkObj[i]).attr('show_type');
+		var text=""
+		if(type==2){
+			 text=$(checkObj[i]).parent().parent().parent().next('div').find('.textinput').val()
+		}else{
+			text="\"\"";
+		}
+		list_scores+=item_id+":"+list_id+":"+score+":"+ text+ ";";
+	} 
+	list_scores=list_scores.substring(list_scores,list_scores.length-1)
+	$('#list_scores').val(list_scores);
+	
+}
+</script>

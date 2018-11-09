@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="c_startdate" type="varchar" required="false" label="c_startdate"/>
+	<parameter id="c_enddate" type="varchar" required="false" label="c_enddate"/>
+	<parameter id="cust" type="varchar" required="false" label="会员号"/>
+	<parameter id="minmoney" type="varchar" required="false" label="minmoney"/>
+	<parameter id="maxmoney" type="varchar" required="false" label="maxmoney"/>
+	<parameter id="recharge_type" type="varchar" required="false" label="recharge_type"/>
+</validator>

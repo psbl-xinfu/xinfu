@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>充值记录</title>
+</head>
+<body>
+		<div class="r-tab-cont" style="height: 700px;">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th >金额</th>
+								<th >备注</th>
+								<th >操作人</th>				
+								<th >操作时间</th>		
+							</tr>
+						</thead>
+				<tbody id="datagrid">
+				</tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+
+$(document).ready(function() {
+			ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/rechargeRecord/search?id="+cus_code)
+});
+
+function ajax(url){
+   	ajaxCall(url,{
+   		method: "get",
+   		progress: true,
+   		dataType: "script",
+   		success: function() {
+   		}
+   	});
+}
+
+</script>
+</body>
+</html>

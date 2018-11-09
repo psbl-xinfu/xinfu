@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>用户管理</title>
+</head>
+<style>
+	.icheckbox_square-blue, .iradio_square-blue {
+transform: scale(0.7);
+}
+#emplist .icheckbox_square-blue{
+    margin-left: 10px;
+	padding-left: 10px;
+}
+</style>
+<body>
+
+	<div class="modal fade" id="modalAddnew1" tabindex="-1" role="dialog" style="height:30%;display:none;">
+  	  <div class="modal-dialog">
+   	    <div class="modal-content basic-information dialogbg" style='min-height:0px;height:80%;'>
+				<header class="header-default">
+					<span>修改密码</span>
+					<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+				</header>
+			<form id="formEditor1" name="formEditor1" class="form-horizontal" role="form" method="post">
+				<input type="hidden" name="tuid" value="" /> 
+				<input type="hidden" name="user_id" value="" />
+				<input type="hidden" name="userlogin" value="" />
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label>用户ID</label>
+							<div class="col-xs-8 col-sm-7 col-md-7 col-lg-7" id="uUserlogin"></div>
+						</li>
+						<li>
+							<label>姓名</label>
+							<div class="col-xs-8 col-sm-7 col-md-7 col-lg-7" id="uName"></div>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label>新密码</label>
+							<input id="passwd" name="passwd" type="password" size="20" maxlength="15" placeholder="新密码"/>
+						</li>
+						<li>
+							<label>确认新密码</label>
+							<input id="confirm" name="confirm" type="password" size="20" maxlength="15" placeholder="确认新密码"/>
+						</li>
+					</nav>
+				</div>
+			</form>
+			<footer class="footer-default">
+				<button type="button" id="saveBtn">保&nbsp;存</button>
+			</footer>
+		</div>
+	</div></div>
+
+	<!--addnew/edit form-->
+	<div class="modal fade " id="modalAddnew"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+			<header class="header-default">
+					<span id="formTitle">新增</span>
+					<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+				</header>
+			<div class="b-i-main">
+				<form id="formEditor" name="formEditor" method="post">
+					<input type="hidden" id="user_id" name="user_id" value="" />
+					<input type="hidden"  id="org_id"  name="org_id" value="${fld:org_id}" preserve="true"/>
+					<input type="hidden" id="_org_id"  name="_org_id" value="" />
+			    	<aside style="float: left">
+						<p>
+							<img id="headpic" src="${def:context}/js/project/fitness/image/SVG/170X220.svg">
+							<span id="upload_btn"></span>
+						</p>
+					 </aside>
+					 <nav>
+						<li>
+							<label>工号</label>
+							<input type="text" id="user_pinyin" name="user_pinyin" value="" maxlength="80" placeholder="工号"/>
+						</li>
+						<li>
+							<label>别名</label>
+							<input type="text" id="name_en" name="name_en" value="" maxlength="80" placeholder="别名"/>
+						</li>
+						<li>
+							<label>登录账号</label>
+							<input type="text" id="userlogin" name="userlogin" value="" maxlength="80" placeholder="登录账号"/>
+						</li>
+						<li>
+							<label>手机</label>
+							<input type="text" id="mobile" name="mobile" value="" maxlength="80" placeholder="手机"/>
+						</li>
+						<li>
+							<label>生日</label>
+							<input type="text" id="birth" name="birth" value="" maxlength="80" placeholder="生日"/>
+						</li>
+						<li>
+							<label>真实姓名</label>
+							<input type="text" id="name" name="name" value="" maxlength="80" placeholder="真实姓名"/>
+						</li>
+						<li>
+							<label>性别</label>
+							男<input type="radio" name="sex" value="1" />&nbsp;&nbsp;
+							女<input type="radio" name="sex" value="0" />
+						</li>
+						<li id="psw">
+							<label>密码</label>
+							<input type="password" id="passwd" name="passwd" value="" maxlength="80" placeholder="密码"/>
+						</li>
+						<li>
+							<label>微信</label>
+							<input type="text" id="wx" name="wx" value="" maxlength="80" placeholder="微信"/>
+						</li>
+						<li>
+							<label>EMAIL</label>
+							<input type="text" id="email" name="email" value="" maxlength="80" placeholder="EMAIL"/>
+						</li>
+						<li></li>
+						<li style="    margin-left: -77px;">
+							<label></label>
+							<input type="checkbox" id="ptnum">全选 已选中<span id="ptselected">0</span>项
+						</li>
+						<li></li>
+						<li style=" width: 527px !important;
+						background: #23282e;">
+							<nav style="width: 600px;display: block;height: 68px;overflow: auto;" id="emplist">
+								<org-list>
+										<input type="checkbox" name="stores" value="${fld:org_id}"/>${fld:org_name}
+								</org-list>
+							</nav>
+						</li>
+						<li>
+							<label>在职状态</label>
+							<select id="status" name="status" class="normal-select">
+								<option value="1">在职</option>
+								<option value="0">离职</option>
+							</select>
+						</li>
+						<li>
+							<label>入职时间</label>
+							<input type="text" id="created" name="created" value="" maxlength="80" placeholder="入职时间" />
+						</li>
+						<li>
+							<label>离职时间</label>
+							<input type="text" id="leav_time" name="leav_time" value="" maxlength="80" placeholder="离职时间"/>
+						</li>
+						<li>
+							<label>数据权限</label>
+							仅查看自己<input type="radio" id="" name="data_limit" checked="checked" value="0" />&nbsp;&nbsp;
+							查看全部<input type="radio" id="" name="data_limit" value="1" />
+						</li>
+						<li>
+							<label>身份证号</label>
+							<input type="text" id="card_no" name="card_no" value="" maxlength="80" placeholder="身份证号"/>
+						</li>
+						<li>
+							<label>毕业学校</label>
+							<input type="text" id="school" name="school" value="" maxlength="80" placeholder="毕业学校"/>
+						</li>
+						<li>
+							<label>籍贯</label>
+							<input type="text" id="origin" name="origin" value="" maxlength="80" placeholder="籍贯"/>
+						</li>
+						<li>
+							<label>银行卡号</label>
+							<input type="text" id="bankcard" name="bankcard" value="" maxlength="80" placeholder="银行卡号"/>
+						</li>
+						<li>
+							<label>学历</label>
+							<input type="text" id="education" name="education" value="" maxlength="80" placeholder="学历"/>
+						</li>
+						<li>
+							<label>紧急联系人</label>
+							<input type="text" id="otherperson" name="otherperson" value="" maxlength="80" placeholder="紧急联系人"/>
+						</li>
+						<li>
+							<label>开户银行</label>
+							<input type="text" id="bankname" name="bankname" value="" maxlength="80" placeholder="开户银行"/>
+						</li>
+						<li>
+							<label>专业</label>
+							<input type="text" id="major" name="major" value="" maxlength="80" placeholder="专业"/>
+						</li>
+						<li>
+							<label>联系人电话</label>
+							<input type="text" id="vc_contact" name="vc_contact" value="" maxlength="80" placeholder="联系人电话"/>
+						</li>
+						<li>
+							<label>居住地址</label>
+							<input type="text" id="address" name="address" value="" maxlength="80" placeholder="居住地址"/>
+						</li>
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注</label>
+							<textarea rows="3"  cols="50" name="remark" id="remark" placeholder="备注" class="my-textarea"></textarea>
+						</li>
+					</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn" class="my-btn-default active" style='width:20%;'>确定</button>
+				</footer>
+			</div>
+		</div>	
+
+	<form role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="staff.created" preserve="true"/>
+		<input name="order" type="hidden" value="desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+						<nav>
+							<li class="inputName">
+								<input type="text" id="staffname" name="staffname" placeholder="请输入管理员名称/登录名/手机号" class="input-default"/>
+							</li>
+							<div>
+									<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+									<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="新增" alt="" data-toggle="modal" id="addnew_btn">
+									<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+								</div>
+						</nav>
+						
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/yulan.svg" title="查看" alt=""id="yulan">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="edit_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="delete_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/chushimima.svg" title="初始密码" alt=""id="resetpwd_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/xiugaimima.svg" title="修改密码" alt=""id="updatepwd_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/lizhi.svg" title="离职" alt=""id="quit">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/fuzhi.svg" title="复职" alt=""id="restoration">
+							</li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background h-43"></div>
+					<table class="">
+						<thead>
+							<tr>
+								<th></th>
+								<th>管理员名称</th>
+							    <th>登录名</th>
+							    <th>电话</th>
+							    <th>负责门店</th>
+							    <th>状态</th>
+							    <th>备注</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr id="list">
+							    <td>#checklink#</td>
+							    <td>#name#</td>
+							    <td>#userlogin#</td>
+		                   	    <td>#mobile#</td>
+				                <td>#org_name#</td>
+				                <td>#status#</td>
+				                <td>#remark#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_staffname" name="daochu_staffname" type="hidden" />
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	searchSelectInit($("#status"));
+	$(".header-close").unbind().on("click",function(){
+		$("#modalAddnew").modal('hide');
+		ccms.util.clearForm('formEditor');
+	});
+	ccms.util.renderRadio("sex");
+	
+	$Dialog().date($('#created'));
+	$Dialog().date($('#birth'));
+	$Dialog().date($('#leav_time'));
+	var obj = $Crud({
+		formId : "formEditor",
+		button : "save_btn",
+		bpkField : "user_id",
+		insertBack : function() {
+			search.searchData();
+		},
+		updateBack : function() {
+			search.searchData();
+		},
+		addNewBack : function() {
+			$("#formTitle").html("新增");
+			$("#userlogin").removeAttr("readonly");
+			ccms.util.setCheckboxValue('data_limit',"0","formEditor");
+			$('#user_pinyin').attr('readonly',false);
+			$('#userlogin').attr('readonly',false);
+			$('#passwd').attr('readonly',false);
+			$('#name').attr('readonly',false);
+			$('#created').val('${def:date}')
+			$('#psw,#save_btn').show();
+		},
+		validate : function() {
+			var flag = $("#formEditor").validate({
+				rules : {
+					mobile:{isMobile:true},
+				},
+			   messages: {
+				    mobile:{isMobile:'请输入正确的手机号！'},
+			   }
+			});
+			return flag;
+		},
+		check : function() {
+			document.formEditor.passwd.value ="123456";	// 默认值.p
+			var _orgid = "";
+			$("input[name=stores]:checked:eq(0)").each(function(idx,ele){
+				_orgid = $(ele).val();
+			});
+			if( "" == _orgid ){
+				ccms.dialog.notice("请至少选择一家门店",2000);
+				return false;
+			}
+			$("#_org_id").val(_orgid);
+			return true;
+		}
+	}).init();
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		ccms.util.renderRadio("stafflist");
+		$("#edit_btn").unbind().on("click", function(){
+			var obthis = getCheckboxValue("stafflist");
+			if(obthis!= ""){
+				var url = "${def:context}${def:actionroot}/edit?id="+obthis
+				ajaxCall(url,{
+					method: "get",
+				   	progress: true,
+				   	dataType: "script",
+					success: function() {
+						$('#modalAddnew').modal("show");
+						$("#formTitle").html("修改");
+						$('#save_btn').show();
+					}
+				});
+			}else{
+				ccms.dialog.notice("请选择!");
+			}
+		});
+		//查看
+		$("#yulan").unbind().on("click", function(){
+			var obthis = getCheckboxValue("stafflist");
+			if(obthis!= ""){
+				var url = "${def:context}${def:actionroot}/edit?id="+obthis
+				ajaxCall(url,{
+					method: "get",
+				   	progress: true,
+				   	dataType: "script",
+					success: function() {
+						$('#modalAddnew').modal("show");
+						$("#formTitle").html("查看");
+						$('#save_btn').hide();
+					}
+				});
+			}else{
+				ccms.dialog.notice("请选择!");
+			}
+		});
+		$("#delete_btn").unbind().on("click", function(){
+			var obthis = getCheckboxValue("stafflist");
+			if(obthis!= ""){
+				$Dialog().confirm("确定要删除吗?", function(){
+					var url = "${def:context}${def:actionroot}/delete?id="+obthis
+					ajaxCall(url,{
+						method: "get",
+					   	progress: true,
+					   	dataType: "script",
+						success: function() {
+							search.searchData(1);
+						}
+					});
+				});
+			}else{
+				ccms.dialog.notice("请选择!");
+			}
+		});
+	}}).initSearchBtn().searchData(1);
+	// 上传头像
+	$("#upload_btn").unbind().on("click",function(){
+		var pkvalue = $("#user_id").val();
+		if( "" == pkvalue ){
+			ccms.dialog.notice("请保存员工信息后再上传头像", 2000);
+		}else{
+			ccms.dialog.open({url: contextPath+"/action/project/fitness/util/attachment/photo/crud?table_code=hr_staff&pk_value="+pkvalue, height: "600", width: "630"});
+		}
+	});
+	//导出
+	$("#daochu_list").unbind().on("click", function(){
+         $("#daochu_staffname").val($("#staffname").val());
+         $("#daochuForm").submit();
+    });	
+	//全选   取消全选
+    $("#ptnum").unbind().on("ifClicked",function(){    //点击事件未选中
+		 if( $(this).prop("checked") ){// 
+			$('input[name=stores]').iCheck('uncheck');
+	    	$("#ptselected").html("0");
+		 }else{
+			$('input[name=stores]').iCheck('check');  //
+			var obthis = getCheckboxValue("stores");
+	    	$("#ptselected").html(obthis.split(",").length);
+		 }
+    });
+	//初始密码
+	$("#resetpwd_btn").unbind().on("click",function(){
+		var obthis = getCheckboxValue("stafflist");
+		if(obthis!= ""){
+			$Dialog().confirm("确定要初始化密码？", function(){
+				var userlogin = $("input[name=stafflist]:checked").attr("code");
+				var url = "${def:context}${def:actionroot}/resetpwd?user_id="+obthis+"&userlogin="+userlogin+"&passwd=123456";
+				ajaxCall(url,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+						$Dialog().notice("密码初始化成功！",2000);
+					}
+				});
+			});
+		}else{
+			ccms.dialog.notice("请选择!");
+		}
+	});
+
+	//修改密码弹框
+	$("#updatepwd_btn").unbind().on("click",function(){
+		var obthis = getCheckboxValue("stafflist");
+		if(obthis!= ""){
+			var url = "${def:context}${def:actionroot}/newpass/form?user_id="+obthis;
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+					$("#modalAddnew1").modal("show");
+				}
+			});
+		}else{
+			ccms.dialog.notice("请选择!");
+		}
+	}); 
+	//修改密码
+	$("#saveBtn").unbind().on("click",function(){
+		$Dialog().confirm("确定要修改密码？", function(){
+			var url = "${def:actionroot}/newpass/update";
+			ajaxCall(url,{
+				method: "post",
+				progress: true,
+				form: "formEditor1",
+				button: "saveBtn",
+				dataType: "script",
+				success: function() {
+					$Dialog().notice("修改成功！",2000);
+					$("#modalAddnew1").modal("hide");
+				}
+			});
+		});
+	}); 
+
+	//离职
+	$("#quit").unbind().on("click",function(){
+		updatestatus("离职", 0);
+	});
+	//复职
+	$("#restoration").unbind().on("click",function(){
+		updatestatus("复职", 1);
+	}); 
+});
+
+//离职、复职
+function updatestatus(name, status){
+	var obthis = getCheckboxValue("stafflist");
+	if(obthis!= ""){
+		$Dialog().confirm("将该 员 工设为"+name+"?", function(){
+			updatestatusConmit(name,obthis,status);
+		});
+	}else{
+		ccms.dialog.notice("请选择!");
+	}
+}
+
+function updatestatusConmit(name,userid,status){
+	var url = "${def:context}${def:actionroot}/updatestatus?user_id="+userid+"&status="+status;
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+			$Dialog().notice(name+"成功！",2000);
+			search.searchData();
+		}
+	});
+}
+</script>
+</body>
+</html>

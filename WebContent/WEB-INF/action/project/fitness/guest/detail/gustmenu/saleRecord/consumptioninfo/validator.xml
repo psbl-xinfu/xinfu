@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="fdate" type="date" required="false" label="fdate" />
+	<parameter id="tdate" type="date" required="false" label="tdate" />
+	<parameter id="datatype" type="varchar" required="false" label="datatype" />
+	<parameter id="id" type="varchar" required="true" label="vc_code"/>
+
+</validator>

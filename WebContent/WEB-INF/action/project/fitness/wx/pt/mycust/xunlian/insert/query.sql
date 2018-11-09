@@ -1,0 +1,1 @@
+select nextval('seq_cc_trainplan')::varchar as code from dual

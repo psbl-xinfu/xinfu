@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_month_date" type="varchar" required="false" label="daochu_month_date" />
+	<parameter id="daochu_pt_name" type="varchar" required="false" label="pt_name" />
+	<parameter id="daochu_custall" type="varchar" required="false" label="daochu_custall" />
+
+</validator>

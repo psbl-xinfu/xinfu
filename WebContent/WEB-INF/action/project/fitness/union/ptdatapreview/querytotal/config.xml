@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-rate.sql" source="sql" scope="transaction" />
+		<recordset id="query-fee.sql" source="sql" scope="transaction" />
+		<recordset id="query-newcust.sql" source="sql" scope="transaction" />
+		<recordset id="query-exper.sql" source="sql" scope="transaction" />
+		<recordset id="query-p1-cust.sql" source="sql" scope="transaction" />
+		<recordset id="query-p1.sql" source="sql" scope="transaction" />
+		<recordset id="query-p2-cust.sql" source="sql" scope="transaction" />
+		<recordset id="query-p2.sql" source="sql" scope="transaction" />
+		<recordset id="query-hkl.sql" source="sql" scope="transaction" />
+		<recordset id="query-yearhkl.sql" source="sql" scope="transaction" />
+		<recordset id="query-monthhkl.sql" source="sql" scope="transaction" />
+		<recordset id="query-ck.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query-rate.sql" />
+		<print mode="form" recordset="query-fee.sql" />
+		<print mode="form" recordset="query-newcust.sql" />
+		<print mode="form" recordset="query-exper.sql" />
+		<print mode="form" recordset="query-p1-cust.sql" />
+		<print mode="form" recordset="query-p1.sql" />
+		<print mode="form" recordset="query-p2-cust.sql" />
+		<print mode="form" recordset="query-p2.sql" />
+		<print mode="form" recordset="query-hkl.sql" />
+		<print mode="form" recordset="query-yearhkl.sql" />
+		<print mode="form" recordset="query-monthhkl.sql" />
+		<print mode="form" recordset="query-ck.sql" />
+	</output>
+
+</config>

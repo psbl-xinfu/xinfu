@@ -1,0 +1,1 @@
+update cc_message set  remind=0 where recuser='${def:user}' and org_id = ${def:org}

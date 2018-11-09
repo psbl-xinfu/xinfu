@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_c_startdate" type="date" required="false" label="c_startdate" />
+	<parameter id="daochu_c_enddate" type="date" required="false" label="c_enddate" />
+	<parameter id="daochu_huiyuanhao" type="varchar" required="false" label="vc_type" />
+	<parameter id="daochu_code" type="varchar" required="false" label="vc_type" />
+</validator>

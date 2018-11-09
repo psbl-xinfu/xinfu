@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		场地导出
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_s_start_date,daochu_s_end_date,daochu_userName</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="日志信息" filename="操作日志信息.xls" header-background="true">
+		<col id="createdby" label="操作人工号" /> 
+		<col id="name" label="操作人" />
+		<col id="pk_value" label="合同编号" />
+		<col id="cname" label="会员名称" />
+		<col id="mobile" label="手机号" />
+		<col id="type" label="操作类型" />
+		<col id="createdate" label="操作时间" />
+	</excel>
+</config>

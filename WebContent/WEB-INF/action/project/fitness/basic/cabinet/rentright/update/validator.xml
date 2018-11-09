@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="cabinetcode2_r" type="varchar" required="true" label="cabinetcode2_r" maxlen="32" />
+    <parameter id="status2_r" type="integer" required="true" label="status2_r" maxlen="32" />
+        <parameter id="physics_status_r" type="integer" required="true" label="status2_r" maxlen="32" />
+</validator>

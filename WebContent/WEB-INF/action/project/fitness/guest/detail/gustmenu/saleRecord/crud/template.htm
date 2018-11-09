@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>消费记录</title>
+<style>
+.r-tab-top{
+	width: 96%;
+    margin-left: 2%;
+    margin-top: 20px;
+}
+.top-left{
+	width:50%;
+	height:300px; 
+	background:#2A2B2E;
+	border-radius: 4px ; 
+	float:left;
+	padding:15px;
+}
+.top-title{
+	font-size:14px;
+	line-height:20px;
+	color:#C8C8C8;
+}
+.top-right{
+	margin-left: 2%;
+    width: 48%;;
+	height:300px; 
+	background:#2A2B2E;
+	border-radius: 4px ; 
+	float:left;
+	padding:15px;
+}
+.top-left-bottom{
+	width:100%;
+}
+.top-left-bottom span:nth-child(2n){
+	margin-left:4%;
+}
+.top-left-bottom span{
+	width:48%;
+	display:inline-block;
+	height:110px;
+	margin-top:14px;
+	font-size:30px;
+	line-height:130px;
+	float:left;
+	oveflow:hidden;
+	text-align:center;
+	position:relative;
+}
+.top-left-bottom span:before{
+	content: "办卡";
+    color: #444444;
+    font-size: 12px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    line-height: 17px;
+}
+.top-left-bottom span:nth-child(2):before{
+	content: "购买私教";
+}
+.top-left-bottom span:nth-child(3):before{
+	content: "商品购买";
+}
+.top-left-bottom span:nth-child(4):before{
+	content: "其他消费";
+}
+.top-left-bottom span:nth-child(1){
+	background:#FFB5B5;
+	color:#F46363;
+}
+.top-left-bottom span:nth-child(2){
+	background:#FFF3B7;
+	color:#F5A623;
+}
+.top-left-bottom span:nth-child(3){
+	background:#CFFFE8;
+	color:#54CF93;
+}
+.top-left-bottom span:nth-child(4){
+	background:#C2E4FF;
+	color:#33A5FF;
+}
+
+.btn-label{
+	color:#FFFFFF;
+	font-size:14px;
+	margin-left:20px;
+	margin-top:20px;
+	cursor:pointer;
+    margin-bottom:20px;
+}
+.btn-label:after{
+	content: "";
+    border-top: 8px solid white;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    width: 0;
+    height: 0;
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 10px;
+	
+}
+.btn-label.up:after{
+    border-bottom: 8px solid white;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-top:none;
+}
+.select-btn{
+	font-size:14px;
+	color:white;
+}
+.select-btn .input1{
+	margin-left:20px;
+}
+.select-btn .input1,
+.select-btn .input2,
+.select-btn .select1{
+	background:#2A2B2E;
+	border-radius: 4px ; 
+	width:110px;
+	height:36px;
+	color:#ffffff;
+	font-size:14px;
+	line-height:36px;
+	padding:0 10px;
+	margin:0 10px;
+	border:none;
+}
+.select-btn .select1{
+	background:none;
+}
+.bootstrap-select:not(.slect-change) > button{
+	background:#2A2B2E !important;
+	color: white !important;
+}
+.search-btn{
+	background:url(${def:context}/js/project/fitness/image/SVG/nav/btn_search.svg) center center / 100% 100% no-repeat;
+	width: 40px;
+    height: 40px;
+    margin-left: 40px;
+    display:inline-block;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+		<div class="r-tab-cont" style="height: 700px;">
+			<div class="r-tab-top clearlr">
+				<div class="top-left">
+					<label class="top-title">消费统计</label>
+					<div class="top-left-bottom clearlr">
+						<span id="newcard">0</span>
+						<span id="pt">0</span>
+						<span id="goods">0</span>
+						<span id="other">0</span>
+					</div>
+				</div>
+				<div class="top-right">
+					<label class="top-title">消费分析</label>
+					<div id="chart">
+						<div class="addTop" code="chartsgroup" data-area="personalhobbies">
+							<div id="consumptioninfoDiv" class="other-full" style="width:460px;height: 460px;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<label class="btn-label" id="btn-label">查看记录详情</label>
+			<div class="select-btn list-con disNone">
+				<input class="input1" type="text" id="startdate" value="2017年1月" readonly="readonly">-
+				<input class="input2" type="text" id="enddate" value="2017年1月" readonly="readonly">
+				<select class="select1" id="paymentstatus">
+					<option value="">全部状态</option>
+					<option value="1">已付清</option>
+					<option value="0">未付清</option>
+				</select>
+				<button class="search-btn"></button>
+			</div>
+			<div class="r-tab-cout-3-b list-con disNone">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th>类型</th>
+								<td>应收</td>
+								<td>已收</td>
+								<th>欠款</th>
+								<th>操作人</th>
+								<th>操作时间</th>
+								<th>状态</th>
+						</thead>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<script language="JavaScript">
+$('#btn-label').on('click',function(){
+	var $this = $(this);
+	if($this.hasClass('up')){
+		$this.removeClass('up');
+		$('.list-con').addClass('disNone');
+	}else{
+		$this.addClass('up');
+		$('.list-con').removeClass('disNone');
+	}
+		
+});
+var consumptioninfoPic = null;
+$(document).ready(function() {
+	searchSelectInit($("#paymentstatus"));
+	var date = new Date();
+	$("#enddate").val(date.format("yyyy-MM"));
+	$Dialog().yearmonth($('#startdate'));
+	$Dialog().yearmonth($('#enddate'));
+	date.setMonth(date.getMonth()-1);
+	$("#startdate").val(date.format("yyyy-MM"));
+	
+	//查询
+	$(".search-btn,#btn-label").click(function(){
+		searchsalerecord();
+	});
+	//消费信息饼图
+	consumptioninfo();
+});
+
+function searchsalerecord(){
+	ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/saleRecord/search?id="+cus_code
+			+"&startdate="+$("#startdate").val()+"&enddate="+$("#enddate").val()+"&paymentstatus="+$("#paymentstatus").val())
+}
+
+function ajax(url){
+   	ajaxCall(url,{
+   		method: "get",
+   		progress: true,
+   		dataType: "script",
+   		success: function() {
+   		}
+   	});
+}
+//会员消费类型
+function consumptioninfo(){
+	consumptioninfoPic = new pieCharts("consumptioninfoDiv");
+	consumptioninfoPic.setConfig({isLegendShow: true, titlename: "会员兴趣爱好"});
+	getAjaxCall("${def:actionroot}/consumptioninfo?fdate=2018-01-01&tdate=2018-05-01&id="+cus_code, false, function(){
+	});
+}
+
+</script>
+</body>
+</html>

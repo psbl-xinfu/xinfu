@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>会员个人中心</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="huiyuangrzxtop">
+            <div class="list">
+                <img id="headpic" src="${def:context}/images/icon_head.png"  class="touxiangpic fl"  >
+                <div class="content fl">
+                    <p class="name" id="name"><span id="sex"></span><span id="mobile"></span></p>
+                    <p class="nicheng">
+                        昵称：
+                        <span id="nicheng"></span>&nbsp;&nbsp;&nbsp;
+                        <img src="${def:context}/js/project/fitness/wx/image/update.png" class="updateimg" id="update">
+                    </p>
+                </div>
+                
+            </div>
+            <div class="listother">
+                <p class='p1'>客服</p><p class='p2' id="mc"></p>
+                  <img src="${def:context}/js/project/fitness/wx/image/xiaoxi.png"  class="bottomimg" id="xiaoxi"  width="20" height="20">
+            </div>
+        </div>
+
+        <div class="huiyuangrzxbottom container">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbht.png" class="bottomimg" id="contract">
+                    <p class="name">合同记录</p>
+                </div>
+                <div class="col-xs-3">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbzg.png" class="bottomimg" id="rent">
+                    <p class="name">租柜记录</p>
+                </div>
+                <div class="col-xs-3">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbtc.png" class="bottomimg" id="tice">
+                    <p class="name">体测记录</p>
+                </div>
+                <div class="col-xs-3">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbxl.png" class="bottomimg" id="xunlianlist">
+                    <p class="name">训练计划</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbcz.png" class="bottomimg" id="recharge">
+                    <p class="name">充值记录</p>
+                </div>
+                <div class="col-xs-3">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbxf.png" class="bottomimg"id="sale">
+                    <p class="name">消费记录</p>
+				</div>
+				<div class="col-xs-3">
+                    <img src="${def:context}/js/project/fitness/wx/image/qianke.png" class="bottomimg"id="qianke">
+                    <p class="name">签课记录</p>
+                </div>
+            </div>
+        </div>
+			<input type="hidden" id="senduser">
+         <div class="huiyuangrzxcenter">
+        </div>
+    </body>
+    
+    <script type="text/javascript">
+    
+    $(function(){
+    	 var userid = "";
+    	homecust();
+    	<info>
+    	$('#sex').before('${fld:name}');
+    	$('#sex').text('${fld:sex}');
+    	$('#mobile').text('${fld:mobile}');
+    	
+    	if('${fld:mc}'=="&nbsp;"||'${fld:mc}'==""){
+    		$('#mc').text('会籍-无');
+    		$('#xiaoxi').hide();
+    	}else{
+    		$('#mc').text('会籍-${fld:mc}');
+    	}
+    	$('#nicheng').html('${fld:nicheng}');
+    	userid="${fld:user_id}";
+    	</info>
+    	loadHeadpic("headpic", userid);
+    	
+    	
+    	var cardstr="";
+    	<card>
+    	cardstr+=' <div class="eachdiv">'
+    	cardstr+=' <div class="top">'
+    	cardstr+='<p class="kaname fl">${fld:cardname}</p>'
+    	cardstr+='<p class="kastyle fl">${fld:cardtype}</p>'
+    	var day="";
+    	if('${fld:startdate}'!=""&&'${fld:startdate}'!="&nbsp;"){
+    		day=DateMinus(new Date().format("yyyy-MM-dd"),'${fld:enddate}')
+    		day+='天'
+    	}
+    	cardstr+=' <p class="katime fr">剩余：'+day+'</p>'
+    	cardstr+=' </div>'
+		 cardstr+='  <div class="textleft">'
+		 cardstr+=' <p class="p1">会籍：${fld:salemember}</p>'
+		 cardstr+=' <p class="p2">启用日期：${fld:startdate}</p>'
+		 cardstr+=' <p class="p3">截止日期：${fld:enddate}<span style="padding-left:15%">${fld:cardstatus}</span></p>'
+		 cardstr+='</div>'
+		 cardstr+='<div class="erweimadiv" >'
+		 cardstr+='<img src="'+contextPath+'/js/project/fitness/wx/image/erweimaruchang.png" class="erweima"  code2="${fld:code}"  code="${fld:cardname}" code1="0">'
+		 cardstr+='<p>二维码入场</p>'
+		 cardstr+='</div>'
+		 cardstr+='</div>'
+		$('#senduser').val('${fld:mc}');
+    	</card>
+			 
+		<pt>
+			cardstr+='<div class="eachdiv on">'
+			cardstr+='<div class="top">'
+			cardstr+='<p class="kaname fl">${fld:ptlevelname}</p>'
+			cardstr+='<p class="kastyle fl">${fld:ptstatus}</p>'
+			cardstr+='<p class="katime fr">剩余：${fld:ptleftcount}节</p>'
+			cardstr+='</div>'
+			cardstr+='<div class="textleft">'
+			cardstr+='<p class="p1">私教：${fld:pt}</p>'
+			cardstr+='<p class="p2">启用日期：${fld:created}</p>'
+			cardstr+='<p class="p3">截止日期：${fld:ptenddate}</p>'
+			cardstr+='</div>'
+			cardstr+='<div class="erweimadiv">'
+			cardstr+='<img src="'+contextPath+'/js/project/fitness/wx/image/erweimaxiaoke.png" class="erweima"   code2="${fld:code}"  code="${fld:pt}" code1="1" codestatus="${fld:status}">'
+			cardstr+='<p>私教消课</p>'
+			cardstr+='</div>'
+			cardstr+=' </div> '
+		</pt>
+			 
+    	$('.huiyuangrzxcenter').html(cardstr);
+    	
+		   $('#update').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/info/crud?customercode=${fld:customercode}"
+		  })
+		  
+		   $('#contract').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/contract/crud?customercode=${fld:customercode}"
+		  })	
+		  
+		   $('#rent').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rentrecord?customercode=${fld:customercode}"
+		  })	
+		  		  
+		  
+		   $('#recharge').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rechargerecord?customercode=${fld:customercode}"
+		  })			  
+			  
+		   $('#sale').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/salerecord?customercode=${fld:customercode}"
+		  })		  
+		  
+	       	$('#xiaoxi').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/messagelist?recuser="+$('#senduser').val();
+		  })	
+		  
+		  
+		  $('#tice').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/tice/crud?customercode=${fld:customercode}&type=cust";
+		  })		  
+		  
+		   $('#xunlianlist').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/pt/mycust/record/crud?customercode=${fld:customercode}&type=cust";
+		  })	
+		  
+		 $('#exit').click(function(){
+        	location.href = '${def:context}/action/project/fitness/wx/exit';
+		});
+		$('#qianke').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/qian?customercode=${fld:customercode}";
+		  })	
+		  	$('.erweima').each(function(){
+		  		$(this).on('click',function(){
+		  			var name=$(this).attr('code');
+		  			var type=$(this).attr('code1');
+		  			var pk_value=$(this).attr('code2');
+		  			var codestatus=$(this).attr('codestatus');
+		  			if(type==0){
+				  		location.href="${def:context}/action/project/fitness/wx/cust/center/erweima/ruchang/crud?pk_value="+pk_value+"&name="+encodeURI(name);
+		  			}else{
+		  				if(codestatus==0){
+		  					ccms.dialog.notice("该课已过期！");
+		  				}else{
+		  					var redirecturi = "", appid = "";
+		  					<service-rows>
+		  					redirecturi = "${fld:access_address}";
+		  					appid = "${fld:appid}";
+		  					</service-rows>
+		  					redirecturi += "${def:context}/action/project/fitness/wx/cust/center/erweima/qianke/crud?pk_value="+pk_value+"&name="+encodeURI(name);;
+					  		location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appid+"&redirect_uri="+redirecturi+"&response_type=code&scope=snsapi_base";
+		  				}
+		  			}
+		  		})
+		  	})
+    })
+   //计算日期相减天数 
+function DateMinus(sDate,eDate){ 
+　　var sdate = new Date(sDate.replace(/-/g, "/")); 
+　　var now = new Date(eDate.replace(/-/g, "/")); 
+　　var days = now.getTime() - sdate.getTime(); 
+　　var day = parseInt(days / (1000 * 60 * 60 * 24)); 
+　　return day; 
+
+}
+    </script>
+</html>

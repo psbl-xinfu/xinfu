@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>转卡合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+
+	<div class="basic-dialog dialogbg" style="height: 700px"> 
+				<header class="header-default">
+				转卡合同
+				</header>
+					<form id="contractForm" name="contractForm" method="post">
+						<input type="hidden" id="contractcode" name="contractcode" value="" preserve="true" />
+						<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+						<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
+						<input type="hidden" id="cardcontractcode" name="cardcontractcode" value="" />
+				<div class="b-i-main">
+					<nav>
+						<li>
+							<label style="width: 120px;">会员：</label>
+							<span  id="custnamespan" ></span>				
+			     		</li>
+						
+						<li>
+							<label style="width: 120px;">电话：</label>
+							<span  id="mobilespan" ></span>
+						</li>
+					
+						<li>
+							<label style="width: 120px;">会员卡号：</label>
+							<select  id="cardcode" name="cardcode" style="display: none;">
+								<option value="">请选择</option>
+								<card-rows>
+								<option value="${fld:cardcode}">${fld:cardcode}</option>
+								</card-rows>
+							</select>
+						</li>
+						<li>
+							<label style="width: 120px;">卡类型：</label>
+							<span id="cardtypespan"></span>
+						</li>
+			     		<div class="b-c-c-support" style="margin-left: 54px;">
+							<p>支持门店：</p>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="more" id="supportorgsspan" style="background: #2F3134;margin-top:-10px">
+							</div>
+						</div>
+						<li>
+							<label style="width: 120px;">有效期：</label>
+							<span id="startdatespan"></span>至<span id="enddatespan"></span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="countspan"></span>
+						</li>							
+						<li>
+							<label style="width: 120px;">会籍顾问：</label>
+							<select id="salemember" name="salemember" style="display: none;">
+								<option value="">请选择</option>
+								<sale-rows>
+								<option value="${fld:userlogin}">${fld:name@js}</option>
+								</sale-rows>
+							</select>
+						</li>						
+						<li>
+						<label style="width: 120px;">第二销售：</label>
+							<select id="salemember1" name="salemember1" style="display: none;">
+								<option value="">请选择</option>
+								<sale2-rows>
+								<option value="${fld:userlogin}">${fld:name@js}</option>
+								</sale2-rows>
+							</select>
+						</li>	
+						<li>
+							<label style="width: 120px;">启用方式：</label>
+							<span>接原卡启用</span>
+						</li>							
+										
+						<li>
+							<label style="width: 120px;">类型：</label>
+							<input type="radio" name="custtype" value="1" style="display: none;" checked="checked" />会员
+							<input type="radio" name="custtype" value="0" style="display: none;" />资源
+						</li>
+											
+						<li>
+							<label style="width: 120px;">转入人：</label>
+							<input type="hidden" id="newcustcode" name="newcustcode" />
+							<input type="text" id="pickcustname" name="pickcustname" maxlength="80"   />
+						</li>							
+								
+						<li>
+							<label style="width: 120px;">启用日期：</label>
+							<input type="hidden" id="startdate" name="startdate" value="" />
+							<span id="newstartdatespan"></span>
+						</li>				
+						
+						<li>
+							<label style="width: 120px;">截止日期：</label>
+							<input type="hidden" id="enddate" name="enddate" value="" />
+							<span id="newenddatespan"></span>
+						</li>							
+						
+						<li>
+							<label style="width: 120px;">转卡手续费：</label>
+							<input type="text" id="normalmoney" name="normalmoney" maxlength="80"   />
+						</li>								
+						
+						<li>
+							<label style="width: 120px;">应收：</label>
+							<span id="normalmoneyspan" style="color: #fdb346;font-size: 16px;font-weight: 600;"></span>
+							<span style="color: #fdb346;font-size: 16px;font-weight: 600;">元</span>
+						</li>						
+					
+				    	<li class="to100w" >
+							<label>备注</label>
+							<textarea id="remark" name="remark" placeholder="暂无数据" class="my-textarea"></textarea>
+						</li>					
+					</nav>
+				</div>
+					<footer class="footer-default">
+						<button class="my-btn-default" type="button" id="save_btn" >保存</button>
+						<button class="my-btn-default active" id="pay_btn" type="button" style="display: none;">收款</button>
+					</footer>
+				</form>
+			</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var istopay = false;
+var currentDate = new Date();
+
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#pay_btn").show();
+	}
+	searchSelectInit($("#salemember,#salemember1,#cardcode"));  
+	$("#salemember").val("${def:user}");
+	$("#salemember").selectpicker("refresh");
+	$("#salemember").selectpicker("render");
+	ccms.util.renderRadio("custtype");
+	getAjaxCall("/action/project/fitness/util/querysupportorgs?cardtype=${fld:cardcode}&objid=supportorgsspan", false);
+	<cust-rows>
+		$("#customercode").val("${fld:code}");
+		$("#guestcode").val("${fld:guestcode}");
+		$("#custnamespan").text("${fld:name@js}");
+		$("#mobilespan").text("${fld:mobile@js}");
+	</cust-rows>
+	
+	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}", true);
+	}
+	
+	// 选择卡
+	$("#cardcode").on("change",function(){
+		getAjaxCall("/action/project/fitness/contract/turn/querycardinfo?cardcode="+$(this).val(), true, function(){
+			/**setcontractfee();*/
+		});
+	});
+		
+	// 转入人
+	$("#pickcustname").on("blur",function(){
+		if( "" != $(this).val() ){
+			if($("input[name=custtype]:checked").val()=="1"){
+				//查询会员
+				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="
+					+$(this).val()+"&objid=newcustcode&objidtwo=pickcustname&random_number="+Math.random(), height:650});
+			}else{
+				//查询资源
+				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestnodeallist/crud?pickcustname="
+					+$(this).val()+"&objid=newcustcode&objidtwo=pickcustname&random_number="+Math.random(), height:650});
+			}
+		}else{
+			$("#newcustcode").val("");
+		}
+	});
+	
+	//资源会员
+	$("input[name=custtype]").on("ifClicked",function () {     
+		$("#newcustcode,#pickcustname").val("");
+	});
+	
+	// 转卡手续费
+	$("#normalmoney").unbind().on("blur",function(){
+		var fee = $(this).val();
+		if( "" == fee ){
+			ccms.dialog.notice("请输入转卡手续费！", 2000);
+			return false;
+		}else if( !isNumber(fee) && !isFloat(fee) ){
+			ccms.dialog.notice("转卡手续费格式错误！", 2000);
+			return false;
+		}
+		/* else if( parseFloat(fee) <= 0.0 ){
+			ccms.dialog.notice("转卡手续费必须为大于0的金额！", 2000);
+			return false;
+		} */
+		$("#normalmoneyspan").text(fee);
+	});
+	
+	// 保存
+	$("#save_btn").unbind().on("click",function(){
+		istopay = false;
+		saveContract();
+	});
+	// 收款
+	$("#pay_btn").unbind().on("click",function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		istopay = true;
+		saveContract();
+	});
+});
+function saveContract(){
+	//判断销售员和第二会籍是否一致
+	if($("#salemember").val()==$("#salemember1").val()){
+		ccms.dialog.notice("会籍顾问和第二销售不能一致！", 3000);
+		return false;
+	}
+	var contractcode = $("#contractcode").val();
+	if( "" != contractcode ){
+		// 判断合同状态
+		getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
+			if( data && Number(data.status) >= 2 ){
+				if( istopay ){
+					topay(contractcode);
+				}else{
+					ccms.dialog.notice("已付款合同不允许修改！", 2000);
+				}
+			}else{
+				postAjaxCall("${def:actionroot}/update", "contractForm", true);	// 未付款合同可修改
+			}
+		});
+	}else{
+		getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", true, function(){
+			if( "" == $("#newcontractcode").val() ){
+				ccms.dialog.notice("合同号生成失败", 2000);
+			}else{
+				postAjaxCall("${def:actionroot}/insert", "contractForm", true);
+			}
+		});
+	}
+}
+function topay(contractcode){
+	var  Obj=parent.document.getElementsByTagName('iframe')     
+	$(Obj).height(630);      
+	location.href = contextPath + "${def:actionroot}/view?contractcode="+contractcode;
+}
+//回调查询方法
+function pickcustCallback(){
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+select 1 from cc_ptdef where ptlevelname=${fld:ptlevelname} and org_id=${def:org}

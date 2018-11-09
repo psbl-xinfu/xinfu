@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/wx/util/validation/alert">
+	
+    <parameter id="contractcode" type="varchar" required="true" label="合同编号" maxlen="128"/>
+	<parameter id="channel" type="varchar" required="true" label="获取渠道" maxlen="10"/>
+	<parameter id="recommendcode" type="varchar" required="false" label="推荐人" maxlen="64"/>
+    <parameter id="ptlevelcode" type="varchar" required="true" label="课程名称" maxlen="64"/>
+	<parameter id="salemember" type="varchar" required="true" label="默认会籍" maxlen="64"/>
+	<parameter id="salemember1" type="varchar" required="false" label="第二会籍" maxlen="64"/>
+    <parameter id="ptcount" type="integer" required="true" label="购买课时"/>
+    <parameter id="ptenddate" type="date" required="true" label="截止日期"/>
+	<parameter id="pt" type="varchar" required="true" label="教练" maxlen="64"/>
+	<parameter id="normalmoney" type="double" required="true" label="应收"/>
+	<parameter id="ptfee" type="double" required="true" label="课程单价"/>
+	<parameter id="remark" type="varchar" required="false" label="备注" maxlen="2000"/>
+
+</validator>

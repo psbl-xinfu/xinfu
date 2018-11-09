@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="cc_mobile" type="varchar" label="cc_mobile" required="true"/>
+	<parameter id="codes" type="varchar" label="codes" required="false"/>
+	<parameter id="customercode" type="varchar" required="false" label="customercode"/>
+	
+</validator>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>每日明细汇报表</title>
+</head>
+<style>
+	.r-tab-cout-3-b{
+	min-height: 482px;
+
+}
+.r-tab-cout-3-b::-webkit-scrollbar {
+		display: block;
+		width: 0px;
+		border-radius: 10px;
+		background: #fff;
+		height: 6px;
+	
+	}
+
+	/* 设置滚动条的样式 */
+
+
+	/* 滚动槽 */
+
+	.r-tab-cout-3-b::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		border-radius: 10px;
+	}
+
+	/* 滚动条滑块 */
+
+	.r-tab-cout-3-b::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background: #ccc;
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	}
+
+	.r-tab-cout-3-b::-webkit-scrollbar-thumb:window-inactive {
+		background: #ccc;
+	}
+</style>
+<body>
+	<form  role="form" method="post" id="searchForm" name="searchForm" class="dialogbg" style="height: 570px;">
+		<header class="header-default">
+			<span id="formTitle">明细</span>
+		</header>
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<input name="date" type="hidden" value="${fld:date}" preserve="true" />
+	
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th class="sortable" nowrap>门店</th>
+								<th class="sortable" nowrap>总收入</th>
+								<th class="sortable" nowrap>销售金额</th>
+								<th class="sortable" nowrap>销售总订单数</th>
+								<th class="sortable" nowrap>新入会单数</th>
+								<th class="sortable" nowrap>升级单数</th>
+								<th class="sortable" nowrap>续约单数</th>
+								<th class="sortable" nowrap>销售定金金额</th>
+								<th class="sortable" nowrap>销售定金单数</th>
+								<th class="sortable" nowrap>访客总数</th>
+								<th class="sortable" nowrap>预约总数</th>
+								<th class="sortable" nowrap>预约出现数</th>
+								<th class="sortable" nowrap>WI</th>
+								<th class="sortable" nowrap>DI</th>
+								<th class="sortable" nowrap>BR</th>
+								<th class="sortable" nowrap>私教业绩</th>
+								<th class="sortable" nowrap>POS业绩</th>
+								<th class="sortable" nowrap>POS单数</th>
+								<th class="sortable" nowrap>新单业绩</th>
+								<th class="sortable" nowrap>新单单数</th>
+								<th class="sortable" nowrap>续课业绩</th>
+								<th class="sortable" nowrap>续课单数</th>
+								<th class="sortable" nowrap>P1预约人数</th>
+								<th class="sortable" nowrap>P1出现人数</th>
+								<th class="sortable" nowrap>私教课预约数</th>
+								<th class="sortable" nowrap>私教课出现数</th>
+								<th class="sortable" nowrap>会员入场数</th>
+								<th class="sortable" nowrap>团操上课人数</th>
+								<th class="sortable" nowrap>BR名单数</th>
+								<th class="sortable" nowrap>营运收入</th>
+								<th class="sortable" nowrap>零售收入</th>
+							</tr>
+						</thead>
+						
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form id="daochuForm"  name="daochuForm">
+		<input type="hidden" id="daochu_start_date" name="daochu_start_date" type="text"/>
+		<input  type="hidden" id="daochu_end_date" name="daochu_end_date" type="text"/>
+		<input type="hidden" id="daochu_skill_name" name="daochu_skill_name" type="text"/>
+	</form>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//查询当前登录人下管理的俱乐部，然后根据俱乐部查询统计记录
+	var url = "${def:context}${def:actionroot}/queryorg";
+	ajaxCall(url,{
+		method : "post",
+		form: "searchForm",
+		progress : true,
+		dataType : "script",
+		success : function() {
+		}
+	});
+});
+</script>
+</body>
+</html>

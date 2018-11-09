@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="s_name" type="varchar" required="false" label="姓名" />
+	<parameter id="s_type" type="varchar" required="false" label="分类" />
+	<parameter id="s_status" type="integer" required="false" label="状态" />
+	<parameter id="s_tong" type="integer" required="false" label="通店" />
+	<parameter id="s_share" type="integer" required="false" label="共享" />
+	<parameter id="s_time" type="integer" required="false" label="时段" />
+	
+</validator>

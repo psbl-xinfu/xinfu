@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_c_startdate" type="date" required="false" label="c_startdate" />
+	<parameter id="daochu_c_enddate" type="date" required="false" label="c_enddate" />
+	<parameter id="daochu_e_cardtype" type="varchar" required="false" label="vc_type" />
+	<parameter id="daochu_cust" type="varchar" required="false" label="姓名手机号会员卡号" />
+	<parameter id="daochu_sex" type="integer" required="false" label="性别" />
+	<parameter id="daochu_vc_type" type="varchar" required="false" label="vc_type" />
+</validator>

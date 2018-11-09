@@ -1,0 +1,28 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "vc_code":"${fld:_rowNumber}",
+		    "radio_link":"${fld:radio_link@js}",
+		    "vc_cardcode":"${fld:cardcode@js}",
+		    "vc_name":"${fld:name@js}",
+		    "vc_type":"${fld:vc_type@js}",
+		    "vc_cardtype":"${fld:cardtype@js}",
+		    "c_startdate":"${fld:startdate}",
+		    "c_enddate":"${fld:enddate}",
+		    "f_money":"${fld:money}",
+		    "vc_remark":"${fld:remark@js}",
+		    "vc_mc":"${fld:vc_mc@js}",
+		    "c_itime":"${fld:created}",
+		    "vc_iuser":"${fld:createdby}",
+		    "c_cardstartdate":"${fld:cardstartdate}",
+		    "vc_iusercard":"${fld:vc_iusercard@js}",
+		    "i_status":"${fld:status@js}",
+		    "i_actualdays":"${fld:i_actualdays}",
+		    "i_prestopdays":"${fld:prestopdays}",
+		    "vc_reason":"${fld:reason@js}",
+		    "opencardway":"${fld:opencardway@js}",
+		    "days":"${fld:days}"
+	},
+	</rows>
+	{}
+]}

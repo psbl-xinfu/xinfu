@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>任务目标</title>
+</head>
+<body>
+	<form method="post" name="formEditor" id="formEditor" class="titlecust">
+	   <input type="hidden" id="taskgoal_id" name="taskgoal_id" value="${fld:taskgoal_id}" preserve="true"/>
+	   <input type="hidden" id = "radios" name = "radios" value="" ></input>
+		<div class="modal-body b-i-main" style="padding: 0;">
+			<nav>
+				<li class="inpRadio">
+					<input type="radio" id = "taskgoal1" name = "taskgoal" value="0" onclick="radioclick()"/>按岗位
+					<input type="radio" id = "taskgoal2"  name = "taskgoal" value="1" onclick="radioclick()"/>按分组
+				</li>
+			</nav>
+		</div>
+	   <div class="banner-top ba1" style="margin-top:15px;padding: 0 0 10px 20px;">
+			<button id="edit_btn" type="button">确定</button>
+	   </div>
+	</form>
+<script language="JavaScript">
+$(document).ready(function() {
+	ccms.util.renderRadio("taskgoal");
+	ccms.util.setCheckboxValue('taskgoal',"${fld:taskgoal}","formEditor");
+
+	
+	$("#edit_btn").click(function updateData(){
+		var taskgoal_id = $("#taskgoal_id").val();
+		var taskgoal = ccms.util.getRadioValue("taskgoal","formEditor");
+		//修改参数
+		var url = "${def:context}${def:actionroot}/update?"+"tuid="+taskgoal_id+"&param_text="+taskgoal;
+		ajaxCall(url,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	   			ccms.dialog.notice("修改成功！", 2000);
+	 		}
+	 	});
+	})
+});
+</script>
+</body>
+</html>

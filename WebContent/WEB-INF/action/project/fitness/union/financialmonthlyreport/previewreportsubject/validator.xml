@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="startdate" type="varchar" required="false" label="日期" />
+	<parameter id="enddate" type="varchar" required="false" label="日期" />
+	<parameter id="org_id" type="varchar" required="false" label="门店" />
+</validator>

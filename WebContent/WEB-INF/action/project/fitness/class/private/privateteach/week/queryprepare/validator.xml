@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="pt" type="varchar" required="false" label="私教" />
+	<parameter id="ptlevelcode" type="varchar" required="false" label="课程" />
+	<parameter id="startweek" type="varchar" required="true" label="开始日期" />
+	<parameter id="endweek" type="varchar" required="true" label="结束日期" />
+
+</validator>

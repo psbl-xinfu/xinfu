@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教合同</title>
+</head>
+<body>
+		<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="c.createdate;c.createtime" preserve="true" />
+				<input name="order" type="hidden" value="desc;desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+			<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="dateTime">
+										<input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
+									</li>
+									<li class="dateTime">
+										<input id="s_end_date" name="s_end_date" type="text"class="input-default"/>
+									</li>
+									
+									<li style="width: 110px;">	
+										<select  id="s_pt" name="s_pt"class="normal-select">
+											<option value="">全部教练</option>
+											<pt-rows>
+												<option value="${fld:userlogin}">${fld:name}</option>
+											</pt-rows>
+										</select> 
+								 	 </li>		
+									<li>	
+										<select  id="s_classes" name="s_classes"class="normal-select">
+											<option value="">全部课程</option>
+											<pt-classes>
+												<option value="${fld:code}">${fld:ptlevelname}</option>
+											</pt-classes>
+										</select> 
+								 	 </li>	
+									<li style="display: none;">
+										<select id="s_skill_name" name="s_skill_name"   >
+											<option value="">全部会籍</option>
+											<staff-rows>
+												<option value="${fld:userlogin}">${fld:name}</option>
+											</staff-rows>
+										</select>
+									</li>
+									<li style="width: 140px;">
+										<select id="statusall" name="statusall" style="display: none;">
+											<option value="">全部状态</option>
+											<option value="3">未付款</option>
+											<option value="4">已付款</option>
+											<option value="6">有欠款</option>
+											<option value="5">已付清</option>
+											<option value="2">审批拒绝</option>
+											<option value="1">未审批</option>
+											<option value="7">还款合同未付款</option>
+										</select>
+									</li>
+									<li style="width: 110px;">
+										<select id="contracttype" name="contracttype" style="display: none;">
+											<option value="">合同类型</option>
+											<option value="1">私教合同</option>
+											<option value="2">定金合同</option>
+											<option value="3">还款合同</option>
+										</select>	
+									</li>
+									<div class="r-c-btnList b-10">
+										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+										<!-- <button type="button" class="r-c-3-btn-2" id="" title="条件筛选"></button> -->
+										<button type="button"  class="r-c-3-btn-3" id="excel" title="导出"></button>
+									</div>														 	 
+								</nav>
+							</div>
+						<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l" style="height: 30px;">
+									<li class="inputNametwo" style="width: 170px;">
+										<input id="s_name"  name="s_name" type="text"   placeholder="姓名/电话/卡号"class="input-default" >
+									</li>	
+									<li class="inputNametwo">
+										<input id="relatecode" name="relatecode" type="text" placeholder="关联合同编号" class="input-default" />
+									</li>	
+								</nav>
+								<nav class="r-c-3-t-b-r">
+									<li><img src="${def:context}/js/project/fitness/image/SVG/nav/yulan.svg" alt="" title="查看" id="preview_btn">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/shoufei.svg" title="还款" alt=""id="repay_contract_btn">
+									</li>
+									<li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="delete">
+									</li>
+									<li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印合同" alt=""id="printcontract">
+									</li>
+								</nav>
+							</div>
+						</div>
+						<!-- 通用表格 -->
+						<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<label class="am-checkbox">
+												<input id="selectAll" type="checkbox" value="" style="display: none;">
+											</label>
+										</th>
+										<th>合同编号</th>
+										<th>合同类型</th>
+										<th>状态</th>
+										<th>姓名</th>
+										<th>手机号</th>
+										<th>课程名称</th>
+										<th>教练</th>
+										<th>购买课时</th>
+										<th>实收金额</th>
+										<th>截止日期</th>
+										<th>销售员1</th>
+										<th>销售员2</th>
+									</tr>
+								</thead>
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+									 <td class="table-checkbox">#application_id#</td> 
+										<td class="mustWrap">#code#</td>
+										<td >#contracttype#</td>
+										<td >#i_status#</td>
+										<td >#name#</td>
+										<td >#mobile#</td>
+										<td >#ptname#</td>										
+										<td >#pt#</td>										
+										<td >#pttotalcount#</td>
+										<td >#factmoney#</td>			
+										<td >#ptenddate#</td>										
+										<td >#salemember#</td>									
+										<td >#salemember1#</td>
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+				<input id="daochu_start_date" name="daochu_start_date" type="text"/>
+				<input id="daochu_end_date" name="daochu_end_date" type="text"/>
+				<input id="daochu_name"  name="daochu_name" type="text"/>
+				<input id="daochu_skill_name" name="daochu_skill_name" type="text"/>
+				<input id="daochu_status" name="daochu_status" type="text"/>
+				<input id="daochu_pt" name="daochu_pt" type="text"/>
+				<input id="daochu_classes" name="daochu_classes" type="text"/>
+				<input id="daochu_relatecode" name="daochu_relatecode" type="text"/>
+				<input id="daochu_statusall" name="daochu_statusall" type="text"/>
+				<input id="daochu_contracttype" name="daochu_contracttype" type="text"/>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	</body>
+	<script language="JavaScript">
+	var search=null;
+$(document).ready(function() {
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
+	searchSelectInit($("#s_skill_name,#s_pt,#s_classes"));
+	selectInit($("#s_status,#statusall,#contracttype"));
+	//批量删除
+	$("#delete").unbind().on("click",function(){
+		deletes();
+	});
+	
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_start_date").val($("#s_start_date").val());
+		$("#daochu_end_date").val($("#s_end_date").val());
+		$("#daochu_name").val($("#s_name").val());
+		$("#daochu_skill_name").val($("#s_skill_name").val());
+		$("#daochu_status").val($("#s_status").val());
+		$("#daochu_pt").val($("#s_pt").val());
+		$("#daochu_classes").val($("#s_classes").val());
+		$("#daochu_relatecode").val($("#relatecode").val());
+		$("#daochu_contracttype").val($("#contracttype").val());
+		$("#daochu_statusall").val($("#statusall").val());
+		$("#daochuForm").submit();
+	});  
+	
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		$("#searchForm #s_name").val("");
+		ccms.util.renderCheckbox("datalist");		
+		//全选   取消全选
+	    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('check');  //
+	    }).on("ifUnchecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('uncheck');  //
+	    });
+	    parent.getNum($('#s_start_date').val(),$('#s_end_date').val());
+}}).initSearchBtn().searchData(1);
+	//打印合同
+	$("#printcontract").click(function(){
+		var obthis = getCheckboxValue("datalist");
+		if(obthis==""){
+			ccms.dialog.notice("请选择合同！");
+			return false;
+		}
+		var len = obthis.split(",").length;
+		if(len>1){
+			ccms.dialog.notice("请选择一个合同！");
+			return false;
+		}
+		var code = $("input[name=datalist]:checked").attr("code");
+		if(code=="2"){
+			var url = "${def:context}${def:actionroot}/printcontract?contractcode="+obthis;
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+				}
+			});
+		}else{
+			ccms.dialog.notice("请付款后再打印合同！");
+		}
+	});
+	// 查看合同
+	$("#preview_btn").unbind().on("click",function(){
+		if( $("input[name=datalist]:checked").length != 1 ){
+			ccms.dialog.notice("请选择一个合同！", 2000);
+			return false;
+		}
+		var contracttype = $("input[name=datalist]:checked").attr("code-cttype");
+		var type = $("input[name=datalist]:checked").attr("code-type");
+		var contractcode = getCheckboxValue("datalist");
+		var relatecode = $("input[name=datalist]:checked").attr("code-relate");
+		var uri = contextPath + getContractUri(contracttype, type, false) + "?contractcode=" + contractcode + "&relatecode=" + relatecode;
+		ccms.dialog.open({url : uri,height:"500"});
+	});
+	// 还款合同
+	$("#repay_contract_btn").unbind().on("click",function(){
+		var contractcode = getCheckboxValue("datalist");
+		var checkednum = contractcode.split(",").length;
+		if( contractcode != "" ){
+			if( checkednum > 1 ){
+				ccms.dialog.notice("请选择一个合同！");
+			}else{
+				getAjaxCall("/action/project/fitness/contract/util/torepay?contractcode="+contractcode, true);
+			}
+		}else{
+			ccms.dialog.notice("请选择一条记录后再操作！");
+		}
+	});
+})
+
+function deletes(){
+	var obthis = getCheckboxValue("datalist");
+	if(obthis!= ""){
+		var len = obthis.split(",").length;
+		var twocount = 0;
+		$("input[name=datalist]:checked").each(function(){
+			if($(this).attr("code")=="1"){
+				twocount++;
+			}
+		});
+		if(len!=twocount){
+			ccms.dialog.notice("只能删除未付款合同！", 3000);
+			return false;
+		}
+		$Dialog().confirm("确定要删除这些合同吗?", function(){
+			var url = "${def:context}${def:actionroot}/batchDelect?id="+obthis;
+			ajaxCall(url,{
+				method: "get",
+				progress: false,
+				dataType: "script",
+				success: function() {
+					ccms.dialog.notice('删除成功！', 2000, function(){
+						search.searchData(1);
+					});
+				}
+			});
+		});
+	}else{
+		ccms.dialog.notice('请选择合同！', 2000, function(){});
+	}
+}
+</script>
+</html>

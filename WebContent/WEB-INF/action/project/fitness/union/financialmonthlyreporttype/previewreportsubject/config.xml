@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		编辑系统应用
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="querymaxgrade.sql" source="sql" scope="transaction" />
+		<recordset id="queryincomereportsubject.sql" source="sql" scope="transaction" />
+		<recordset id="queryspendreportsubject.sql" source="sql" scope="transaction" />
+		<recordset id="queryreportmonthly.sql" source="sql" scope="transaction" />
+		<recordset id="queryincomereportmonthly.sql" source="sql" scope="transaction" />
+		<recordset id="queryspendreportmonthly.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="querymaxgrade.sql" />
+		<print mode="table" recordset="queryincomereportsubject.sql" tag="income-row" />
+		<print mode="table" recordset="queryspendreportsubject.sql" tag="spend-row" />
+		<print mode="table" recordset="queryreportmonthly.sql" tag="reportmonthly-row" />
+		<print mode="table" recordset="queryincomereportmonthly.sql" tag="incomereportmonthly-row" />
+		<print mode="table" recordset="queryspendreportmonthly.sql" tag="spendreportmonthly-row" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

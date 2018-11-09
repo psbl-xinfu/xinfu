@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>_start_date,_end_date,vc_all,thismonthcustone,thismonthcusttwo,thismonthcustthree,
+	f_sex,f_age,f_nofollowstartdate,f_nofollowenddate,f_entrystartdate,
+	f_entryenddate,f_startmonth,f_startday,f_endmonth,f_endday,f_genjintype,f_type,f_mc,
+	f_level,f_purpose,f_stage,f_personalhobbit,f_marriage,f_children,f_leave,f_participate,
+	f_ismember,f_calltimes,f_pt</colname>
+	<sql-template>query-base.sql</sql-template>
+	<paging-recordset>query.sql</paging-recordset>
+	<total-recordset>query-count.sql</total-recordset>
+
+	<transaction>
+		<classname>com.ccms.SearchForJson</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query.sql" tag="rows" />
+		<print mode="form" recordset="query-count.sql" />
+	</output>
+
+</config>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<head>
+    <meta charset="utf-8">
+	<title>发布</title>
+	<meta name="viewport" content="width=320, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- head 中 -->
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/publish.css" />
+</head>
+<body >    
+
+<header class="gg-publish-hd">
+    <span class="icon-back"></span>
+    <span class="type" id="types"></span>
+    <span class="publish-btn">发布</span>
+</header>
+
+<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+    <input type="hidden" id="tuid" name="tuid" />
+    <input type="hidden" id="level" name="level"/>
+    <input type="hidden" id="status" name="status"/>
+    <input type="text" id="title" name="title" class="article-title" placeholder="请输入标题">
+    <textarea class="article-content" id="content" name="content" placeholder="请输入正文" ></textarea>
+    <div class="handle-panel">
+        <span class="icon-setting"></span>
+        <span class="icon-level js-level" id="js-level"></span>
+        <span class="dot red" id="dot"></span>
+        
+        
+        <ul class="level-list" >
+            <li data-color="red"><span class="small-dot red"></span>紧急</li>
+            <li data-color="yellow"><span class="small-dot yellow"></span>关注</li>
+            <li data-color="green"><span class="small-dot green"></span>一般</li>
+        </ul>
+        <ul class="setting-list">
+            <li id="deletetype" ><img   style="vertical-align:middle" src="${def:context}/js/project/fitness/guestget/images/shanchu@2x.png"  height="15" width="15">删除文章</li>
+            <li id="savetype" ><img  style="vertical-align:middle" src="${def:context}/js/project/fitness/guestget/images/shoucang@2x.png" height="15" width="15">保存至文件夹</li>
+            <li id="noedit"><img  style="vertical-align:middle" src="${def:context}/js/project/fitness/guestget/images/fangqi@2x.png" height="15" width="15">放弃编辑</li>
+        </ul>
+    </div>
+</form>
+
+
+${inc:/action/project/fitness/guestget/end}
+
+<!-- body 最后 -->
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/publish.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	
+	
+	
+	//底部选中
+	tabswitch("2");
+	//判断是公告还是话术
+	if("${fld:types}"=="1"){
+		$("#types").html("公告");
+	}else if("${fld:types}"=="2"){
+		$("#js-level,#dot").hide();
+		$("#types").html("话术");
+	}
+	//添加隐藏删除文章
+	if("${fld:tuid}"==""){
+		$("#deletetype").hide();
+	}else{
+		//编辑  1公告 2话术
+		if("${fld:types}"=="1"){
+			var url = "${def:actionroot}/searchnoticedetail?tuid=${fld:tuid}";
+			geturl(url);
+		}else if("${fld:types}"=="2"){
+			var url = "${def:actionroot}/searchfaqdetail?tuid=${fld:tuid}";
+			geturl(url);
+		}
+	}
+	//发布
+	$(".publish-btn").click(function(){
+		$("#status").val(1);
+		validations();
+	});
+	//保存至文件夹
+	$("#savetype").click(function(){
+		$("#status").val(2);
+		validations();
+	});
+	//放弃编辑
+	$("#noedit").click(function(){
+		//添加
+		if($("#tuid").val()==""){
+			//1公告添加 2话术添加
+			if("${fld:types}"=="1"){
+		        location.href = contextPath+"/action/project/fitness/guestget/notice/crud?listtype=1";
+			}else if("${fld:types}"=="2"){
+		        location.href = contextPath+"/action/project/fitness/guestget/notice/crud?listtype=2";
+			}
+		}else{
+			//文件夹
+	        location.href = contextPath+"/action/project/fitness/guestget/favorites/crud";
+		}
+	})
+	//删除文章
+	$("#deletetype").click(function(){
+		//删除  1公告 2话术
+		if("${fld:types}"=="1"){
+			var url = "${def:actionroot}/deletenotice?tuid=${fld:tuid}";
+			geturl(url);
+		}else if("${fld:types}"=="2"){
+			var url = "${def:actionroot}/deletefaq?tuid=${fld:tuid}";
+			geturl(url);
+		}
+	})
+	
+	$('.icon-back').on('click',function(){
+		window.history.go(-1);	
+		})
+});
+
+
+$(document).click(function(e){ 
+	e = window.event || e; // 兼容IE7
+	obj = $(e.srcElement || e.target);
+	if (!$(obj).is(".setting-list,.setting-list *,.icon-setting") ) { 
+		$('.setting-list').hide();
+	} 
+	
+	if (!$(obj).is(".level-list,.level-list *,.icon-level,.js-level") ) { 
+		$('.level-list').hide();
+	} 
+});
+
+function validations(){
+	var title = $("#title").val();
+	if(title==""){
+		$.toptip('请输入标题！', 2000, 'error');
+		return false;
+	}
+	if(title.length>30){
+		$.toptip('标题过长！', 2000, 'error');
+		return false;
+	}
+	var content = $("#content").val();
+	if(content==""){
+		$.toptip('请输入正文！', 2000, 'error');
+		return false;
+	}
+	if("${fld:types}"=="1"){
+		noticeinsert();
+	}else if("${fld:types}"=="2"){
+		faqinsert();
+	}
+}
+
+//公告
+function noticeinsert(){
+	if($("#dot").hasClass('red')){
+		$("#level").val(1);
+	}else if($("#dot").hasClass('yellow')){
+		$("#level").val(2);
+	}else if($("#dot").hasClass('green')){
+		$("#level").val(3);
+	}
+	var url = "";
+	if($("#tuid").val()==""){
+		url = "${def:actionroot}/insertnotice";
+	}else{
+		url = "${def:actionroot}/updatenotice";
+	}
+	ajaxCall(url,{
+		method:"post",
+		form:"formEditor",
+		progress:true,
+		dataType:"script",
+		success:function(){
+			$.toptip('成功！', 2000, 'success');
+			if($("#status").val()=="1"){
+		        location.href = contextPath+"/action/project/fitness/guestget/notice/crud?listtype=1";
+			}else{
+				//文件夹
+		        location.href = contextPath+"/action/project/fitness/guestget/favorites/crud";
+			}
+		}
+	});
+}
+//话术
+function faqinsert(){
+	var url = "";
+	if($("#tuid").val()==""){
+		url = "${def:actionroot}/insertfaq";
+	}else{
+		url = "${def:actionroot}/updatefaq";
+	}
+	ajaxCall(url,{
+		method:"post",
+		form:"formEditor",
+		progress:true,
+		dataType:"script",
+		success:function(){
+			$.toptip('成功！', 2000, 'success');
+			if($("#status").val()=="1"){
+		        location.href = contextPath+"/action/project/fitness/guestget/notice/crud?listtype=2";
+			}else{
+				//文件夹
+		        location.href = contextPath+"/action/project/fitness/guestget/favorites/crud";
+			}
+		}
+	});
+}
+
+
+function geturl(url){
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+</body>
+</html>

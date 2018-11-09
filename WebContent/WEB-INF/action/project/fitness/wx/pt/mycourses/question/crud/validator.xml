@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+			<parameter id="type" type="varchar" required="true" label="type"/>
+			<parameter id="termid" type="varchar" required="true" label="termid"/>
+			<parameter id="courseid" type="varchar" required="true" label="courseid"/>
+			<parameter id="index" type="varchar" required="true" label="index"/>
+			<parameter id="end_date" type="varchar" required="true" label="end_date"/>
+</validator>

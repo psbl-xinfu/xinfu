@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+	
+	<colname></colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="客服回访记录" filename="客服回访记录.xls" header-background="true">
+		<col id="custtypename" label="类型" /> 
+		<col id="name" label="姓名" />
+		<col id="sex" label="性别" />
+		<col id="mobile" label="电话" />
+		<col id="kefu" label="客服" />
+		<col id="mc" label="会籍" />
+		<col id="mcdate" label="会籍最后跟进" />
+		<col id="pt" label="教练" />
+		<col id="ptdate" label="教练最后跟进" />
+		<col id="specialtype" label="客户特殊状态" />
+	</excel>
+</config>

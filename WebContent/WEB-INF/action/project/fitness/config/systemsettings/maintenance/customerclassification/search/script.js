@@ -1,0 +1,11 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"cnfg_id":"${fld:cnfg_id}",
+		"vc_topic":"${fld:vc_topic}",
+		"vc_content":"${fld:vc_content@js}"
+	},
+	</rows>
+	{}
+]}

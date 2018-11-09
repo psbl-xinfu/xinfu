@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>充值</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 460px;">
+			<header class="header-default">
+				<span id="formTitle">充值</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="cust_code" name="cust_code" value="${fld:customercode}" />
+	          	<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 150px;">姓名</label>
+							<input type="text" id="name" name="name" value="" readonly="readonly" placeholder="姓名"/>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">有效期限</label>	
+							<span id="enddate"></span>
+						</li>
+						<li>
+							<label for="" style="width: 150px;">储值金额</label>	
+							<span id="czmoeny"></span>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">运动基金</label>		
+							<span id="ydmoeny"></span>
+						</li>
+						<li>
+							<label for="" style="width: 150px;" id="ctmoney">充值金额</label>	
+							<input type="text" id="moneycash" name="moneycash" value="0" placeholder="金额"/>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">赠送运动基金</label>	
+							<input type="text" id="moneygift" name="moneygift" value="0" placeholder="赠送运动基金"/>
+						</li>
+						<li></li>
+						<li class="to100w" style="margin-left: 6%">
+							<label for="" style="width: 100px;">备注</label>	
+							<textarea id="remark" cols="55" class="my-textarea" placeholder="备注"rows="3" name="remark" ></textarea>
+						</li>
+					</nav>
+				</div>
+				<div id="i_paytypeone">
+	          		<div class="modal-body " id="paymoney" >
+					</div>
+	          		<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label for="" style="width: 150px;">支付方式</label>	
+								<select id="moneytype" >
+									<option value="">请选择</option>
+									<OtherPayWay-list>
+										<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+									</OtherPayWay-list>
+								</select>
+								<label for="" style="width: 100px;">金额</label>	
+								<input type="text" id="money" name="money" />
+								&nbsp;
+								<i class="am-icon-plus" id="addmoney" title="添加"></i>
+							</li>
+						</nav>
+					</div> 
+					
+					<input type="hidden" id="pay_detail" name="pay_detail"/>
+					<input type="hidden" id="fushu" name="fushu"/>
+				</div>
+			<footer class="footer-default">
+   				<button type="button" id="save_btn" style="display: none;">确认收款</button>
+			</footer>
+			</form>
+		</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#save_btn").show();
+	}
+	selectInit($("#moneytype"));
+	//加载会员信息
+	var uri="${def:context}${def:actionroot}/querycustomer?cust=${fld:customercode}";
+   	ajaxCall(uri,{
+   		method: "get",
+   		progress: true,
+   		dataType: "script",
+   		success: function() {
+   		}
+   	});
+	//充值
+    $("#save_btn").click(function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有充值权限！", 2000);
+			return false;
+		}
+ 	   if($("#moneycash").val()=="")$("#moneycash").val("0");
+ 	   if($("#moneygift").val()=="")$("#moneygift").val("0");
+ 	   //充值金额
+ 	   var moneycash = $("#moneycash").val();
+ 	   if(moneycash==0){
+ 			ccms.dialog.alert("请输入充值金额！");
+ 			return false;
+ 	   }
+ 	   if(moneycash<0){
+ 			ccms.dialog.alert("充值金额必须大于等于0！");
+ 			return false;
+ 	   }
+ 	   var moneydetail = "";
+ 		//获取所有支付类型option
+ 		$("#moneytype option").each(function(){  
+ 			if($(this).val()!=""){
+ 				moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+ 			}
+ 			moneydetail = moneydetail.replace("undefined", "0");
+ 		});
+ 		//明细
+ 		$("#pay_detail").val(moneydetail);
+ 		//获取所有支付金额
+ 		var paymoney = 0;
+ 		$("input[name='paytypemoney']").each(function(j,item){
+ 			paymoney+=Number(item.value);
+ 		});
+ 		if(Number(moneycash)!=paymoney){
+ 			ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
+ 			return false;
+ 		}
+ 		//
+ 		$Dialog().confirm("确定要充值吗？",function(){
+ 			var uri="${def:context}${def:actionroot}/insert";
+ 		   	ajaxCall(uri,{
+ 		   		method: "post",
+ 		   		form:"formEditor",
+ 		   		progress: true,
+ 		   		dataType: "script",
+ 		   		success: function() {
+ 					$Dialog().notice("充值成功！",1200,function(){
+ 						ccms.dialog.close();
+ 					});
+ 		   		}
+ 		   	});
+ 		})
+    });
+	//支付方式
+	$("#moneytype").change(function(){
+		document.getElementById("money").focus();
+	});
+   $("#addmoney").click(function(){
+	   	var moneytype = $("#moneytype").val();
+	   	var moneytypetext = $("#moneytype option:selected").text();
+	   	var money = $("#money").val();
+	   	if(moneytype==""){
+	   		ccms.dialog.alert("请选择方式！");
+	   	}else if(money==""){
+	   		ccms.dialog.alert("请输入金额！");
+	   	}else{
+	   		var count = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				   if($(item).attr("code")==moneytype)count++;
+			});
+			if(count==0){
+				$("#paymoney").append("<div style='width:400px;margin-left:5%;float:left;'><li>"+moneytypetext+"<input type='text' value='"+money+"' code='"
+					+moneytype+"' name='paytypemoney' readonly/>元  <img src='/ccms/js/project/fitness/image/SVG/nav/shanchu.svg' onclick='delhour(this)' title='删除'></li></div>");
+				$("#moneytype,#money").val("");
+				$("#moneytype").selectpicker("refresh");
+				$("#moneytype").selectpicker("render");
+			}else
+				ccms.dialog.alert(moneytypetext+"已存在！");
+	   	}
+  });
+});
+function delhour(val){
+	$(val).parent().remove();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>私教课延期记录明细</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 640px;">
+		<header class="header-default">
+			<span id="formTitle">私教课延期记录明细</span>
+		</header>
+		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+       		<div class="modal-body b-i-main">
+				<nav>
+					<li>
+						<label style="width: 130px;">会员姓名：</label>
+						<input type="text" id="name" name="name" value="${fld:name}" readonly="readonly"/>	
+					</li>
+					<li>
+						<label style="width: 130px;">会员电话：</label>
+						<input type="text" id="mobile" name="mobile" value="${fld:mobile}" readonly="readonly"/>	
+					</li>
+					<li>
+						<label style="width: 130px;">课程：</label>
+						<input type="text" id="ptlevelname" name="ptlevelname" value="${fld:ptlevelname}" readonly="readonly"/>
+					</li>
+					<li>
+						<label style="width: 130px;">延期前结束日期：</label>
+						<input type="text" id="yqqdate" name="yqqdate" value="${fld:yqqdate}" readonly="readonly"/>
+					</li>
+					<li>
+						<label style="width: 130px;">延期天数：</label>
+						<input type="text" id="delayday" name="delayday" value="${fld:delayday}" readonly="readonly"/>
+					</li>
+					<li>
+						<label style="width: 130px;">延期后结束日期：</label>
+						<input type="text" id="ptenddate" name="ptenddate" value="${fld:ptenddate}" readonly="readonly"/>
+					</li>
+					<li class="to100w" style="margin-left: 6%">
+						<label>备注：</label>
+						<textarea id="remark" cols="50" rows="1" class="my-textarea" name="remark" readonly="readonly" maxlength="6000">${fld:remark}</textarea>
+					</li>
+				</nav>
+			</div>
+		</form>
+	</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>详情</title>
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/base.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/details.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.css" rel="stylesheet" />
+</head>
+<style>
+    .details_prepare::-webkit-scrollbar {
+        display: none;
+
+    }
+
+    .details_prepare {
+        overflow-x: auto;
+    }
+
+    .details_prepare_list {
+        width: 15.4rem;
+        height: 100%;
+        margin-left: 0.2rem;
+
+    }
+
+    .details_prepare_list>div {
+        float: left;
+    }
+</style>
+
+<body>
+    <div class="details">
+
+        <div class="list_con_left">
+            <img src="${def:context}/action/project/fitness/util/attachment/download?tuid=${fld:imgid}&type=1" onerror="this.src='/ccms/js/project/fitness/wx/image/wx_site/chang.png'"
+                alt="">
+        </div>
+        <div class="list_con_right">
+            <p class="cont_rt_tit">${fld:org_name@js}</p>
+            <div class="adress">
+                <i>
+                    <img src="${def:context}/js/project/fitness/wx/image/wx_site/adress.png" alt="">
+                </i>
+                <span>${fld:address@js}</span>
+            </div>
+            <div class="type">
+                <i>
+                    <img src="${def:context}/js/project/fitness/wx/image/wx_site/type.png" alt="">
+                </i>
+                <span>${fld:contact_phone}</span>
+            </div>
+        </div>
+        <div class="details_tip">注：凡预定后取消预定，不予退款；如有疑问请联系客服</div>
+    </div>
+    <!-- 营业时间 -->
+    <div class="business_hours">
+        营业时间：${fld:business_hours_begin}-${fld:business_hours_end}
+    </div>
+    <div class="business_type">
+        <ul id="sitetypelist">
+        </ul>
+    </div>
+    <!-- 预定 -->
+
+    <div class="details_prepare">
+        <div class="details_prepare_list" id="sitedefdatestr">
+
+        </div>
+    </div>
+    <!-- 其他门店 -->
+    <div class="shop">
+        <div class="list_title">其他门店</div>
+        <div class="list_cont">
+            <ul id="orglist">
+            </ul>
+        </div>
+    </div>
+
+    <script src="${def:context}/js/project/fitness/wx/js/wx_site/rem.js"></script>
+    <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.js"></script>
+    <script>
+        $(function () {
+         
+            //查询其他门店
+            ajaxCall("${def:actionroot}/queryorg?org_id=${fld:org_id}&weixin_userid=${fld:weixin_userid}", {
+                method: "get",
+                dataType: "script",
+                success: function () {}
+            });
+
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 3,
+                spaceBetween: 30,
+                freeMode: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            });
+
+            function homept1() {
+                var str =
+                    '<a  href="${def:context}/action/project/fitness/wx/site/siteindex/crud?weixin_userid=${fld:weixin_userid}" style="position: fixed;border-right:1px solid #ededed; border-top: 1px solid #ededed; left: 0%;bottom:0; background:#fff; width:50%;height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/sy2@2x.png"  style="position: fixed;width:0.4rem;height:0.4rem;left: 18.5%;bottom:0.5rem;"><p  style="position: fixed;left: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">首页</p></a>'
+                $('body').append(str);
+            }
+            homept1();
+
+            function homept2() {
+                var str =
+                    '<a class="active"  href="${def:context}/action/project/fitness/wx/site/mine/crud?weixin_userid=${fld:weixin_userid}" style="position: fixed;right: 0%;bottom:0; border-top:1px solid #ededed; background:#fff; width:50%;height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/wd2@2x.png"  style="position: fixed;width:0.4rem;height:0.4rem;right: 18.5%;bottom:0.5rem;"><p class="active"  style="position: fixed;right: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">我的</p></a>'
+                $('body').append(str);
+            }
+            homept2();
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+select 1 from cc_guest where mobile = ${fld:mobile} and code != ${fld:tuid}

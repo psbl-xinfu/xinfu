@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>前台任务</title>
+</head>
+<body >
+	<div src ="" width="100%" height="600px" frameborder="0" id="pttask">
+	</div>
+<script language="JavaScript">
+$(document).ready(function() {
+	kftask();
+});
+//按员工
+function kftask(){
+	var url = "${def:context}/action/project/fitness/report/business/foregroundtasks/crud";
+	if($("#start_date").val()!=undefined){
+		url+= "?start_date="+$("#start_date").val()+"&end_date="+$("#end_date").val();
+	}
+	$("#pttask").load(url);
+}
+//按分组
+function kftaskgrouping(){
+	var url = "${def:context}/action/project/fitness/report/business/foregroundtasksgrouping/crud";
+	if($("#start_date").val()!=undefined){
+		url+= "?start_date="+$("#start_date").val()+"&end_date="+$("#end_date").val();
+	}
+	$("#pttask").load(url);
+}
+
+</script>
+</body>
+</html>

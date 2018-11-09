@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="incode" type="varchar" required="false" label="卡内码" />
+	<parameter id="cardcode" type="varchar" required="false" label="会员卡号" />
+
+</validator>

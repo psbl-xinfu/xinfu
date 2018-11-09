@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="custall" type="varchar" required="false" label="会员号/名称/手机号" />
+	<parameter id="mc" type="varchar" required="false" label="会籍" />
+</validator>

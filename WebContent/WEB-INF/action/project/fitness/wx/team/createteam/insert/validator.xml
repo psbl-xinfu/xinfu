@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="groupname" type="varchar" required="true" label="团体名称" />
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+    <parameter id="weixinlogin" type="varchar" required="true" label="weixinlogin" />
+    <parameter id="org_id" type="varchar" required="true" label="org_id" />
+</validator>
+
+
+
+
+

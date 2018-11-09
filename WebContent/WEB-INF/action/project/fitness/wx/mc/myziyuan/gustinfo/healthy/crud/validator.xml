@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="guestcode" type="varchar" required="false" label="guestcode" />
+	<parameter id="customercode" type="varchar" required="false" label="customercode" />
+	<parameter id="ptpreparecode" type="varchar" required="false" label="ptpreparecode"/>
+	<parameter id="type" type="varchar" required="false" label="type" />
+	<parameter id="testresultcode" type="varchar" required="false" label="testresultcode" />
+</validator>

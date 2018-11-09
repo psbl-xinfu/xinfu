@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="c_campaign_name" type="varchar" required="true" label="活动名称" maxlen="32" />
+    <parameter id="c_expercardcode" type="varchar" required="true" label="绑定体验卡" maxlen="32" />
+      <parameter id="c_totalnum" type="integer" required="false" label="发放数量" maxlen="32" />
+     <parameter id="c_personnum" type="integer" required="false" label="限领" maxlen="32" />
+     <parameter id="c_validatetype" type="varchar" required="true" label="有效期" maxlen="32" />
+     <parameter id="c_startdate" type="date" required="false" label="开始日" maxlen="32" />
+     <parameter id="c_enddate" type="date" required="false" label="结束日" maxlen="32" />
+     <parameter id="c_rankrules" type="integer" required="true" label="排名规则" maxlen="32" />
+     <parameter id="c_link" type="varchar" required="true" label="链接" maxlen="32" />
+     <parameter id="c_campaignrules" type="varchar" required="true" label="规则" maxlen="32" />     
+        <parameter id="c_code" type="varchar" required="true" label="key" maxlen="32" />     
+</validator>
+

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="tuid" type="integer" required="true" label="tuid"/>
+    <parameter id="subjectname" type="varchar" required="false" label="科目名称"/>
+    <parameter id="formcategory" type="varchar" required="true" label="科目类别"/>
+    <parameter id="showorder" type="integer" required="true" label="显示顺序"/>
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+</validator>

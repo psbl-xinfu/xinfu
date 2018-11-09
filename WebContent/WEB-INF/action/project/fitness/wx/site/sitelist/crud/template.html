@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>门店列表</title>
+	<link href="${def:context}/js/project/fitness/wx/css/wx_site/base.css" rel="stylesheet">
+	<link href="${def:context}/js/project/fitness/wx/css/wx_site/site_list.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="list_cont">
+		<ul id="orglist">
+		</ul>
+	</div>
+	<script src="${def:context}/js/project/fitness/wx/js/wx_site/rem.js"></script>
+	<script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.js"></script>
+	<!-- Swiper JS -->
+	<script>
+		$(function () {
+			//查询门店
+			ajaxCall("${def:actionroot}/queryorg?sitetype=${fld:sitetype}&weixin_userid=${fld:weixin_userid}", {
+				method: "get",
+				dataType: "script",
+				success: function () {}
+			});
+
+		 function homept1() {
+            var str =
+                '<a  href="${def:context}/action/project/fitness/wx/site/siteindex/crud?weixin_userid=${fld:weixin_userid}" style="position: fixed;left: 0%;bottom:0; background:#fff; width:50%;border-right: 1px solid #ededed;border-top: 1px solid #ededed;height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/sy2@2x.png"  style="position: fixed;left: 18.5%;bottom:0.5rem;width:0.4rem;height:0.4rem;"><p  style="position: fixed;left: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">首页</p></a>'
+            $('body').append(str);
+        }
+        homept1();
+
+        function homept2() {
+            var str =
+                '<a class="active"  href="${def:context}/action/project/fitness/wx/site/mine/crud?weixin_userid=${fld:weixin_userid}" style="position: fixed;right: 0%;bottom:0; background:#fff; width:50%;border-top: 1px solid #ededed; height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/wd2@2x.png"  style="position: fixed;right: 18.5%;bottom:0.5rem;width:0.4rem;height:0.4rem;"><p class="active"  style="position: fixed;right: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">我的</p></a>'
+            $('body').append(str);
+        }
+        homept2();
+		})
+	</script>
+</body>
+
+</html>

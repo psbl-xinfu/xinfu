@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="tuid" type="integer" required="true" label="tuid" maxlen="10"/>
+	<parameter id="course_name" type="varchar" required="true" label="course_name" maxlen="128"/>
+	<parameter id="course_desc" type="varchar" required="true" label="course_desc" maxlen="2000"/>
+	<parameter id="grouptuid" type="varchar" required="true" label="分组id" maxlen="2000"/>
+
+</validator>
+
+

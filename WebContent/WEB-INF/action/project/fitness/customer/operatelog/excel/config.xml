@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_c_startdate,daochu_c_enddate,daochu_vc_type</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+
+	<excel recordset="query-base.sql" sheetname="挂失、停卡记录" filename="挂失、停卡记录.xls" header-background="true">
+		<col id="opertype" label="类型" />
+		<col id="relatedetail" label="关键字" />
+		<col id="inimoney" label="原价" />
+		<col id="normalmoney" label="应收金额" />
+		<col id="factmoney" label="实收金额" />
+		<col id="createdby" label="经手人" />
+		<col id="createdate" label="日期" />
+		<col id="createtime" label="时间" />
+		
+	</excel>
+</config>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="item_name" type="varchar" required="true" label="item_name"  maxlen='128'/>
+	<parameter id="item_score" type="double" required="true" label="item_score" />
+	<parameter id="showorder" type="integer" required="true" label="showorder" maxlen='4'/>
+	<parameter id="questionid" type="integer" required="true" label="termid" maxlen='4'/>
+</validator>

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="vc_mc" type="varchar" required="false" label="vc_mc"/>
+    <parameter id="i_public" type="varchar" required="false" label="i_public"/>
+	<parameter id="datetype" type="varchar" required="false" label="datetype"/>
+    <parameter id="startdate" type="varchar" required="false" label="startdate"/>
+    <parameter id="enddate" type="varchar" required="false" label="enddate"/>
+    <parameter id="i_type" type="varchar" required="false" label="i_type"/>
+    <parameter id="kh_zyfpcx" type="varchar" required="false" label="kh_zyfpcx"/>
+</validator>

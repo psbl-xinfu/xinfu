@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		入住管理
+	</summary>
+	
+	<log>true</log>
+
+	<set-request-attribute id="header.title" value="系统应用管理" />
+    <set-request-attribute id="formTitleAddNew" value='新增系统应用'/>
+    <set-request-attribute id="formTitleEdit" value='修改系统应用'/>
+    <set-request-attribute id="formTitleFilter" value='查询系统应用'/>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-week.sql" source="sql" scope="transaction" />
+		<recordset id="query-starttime1.sql" source="sql" scope="transaction" />
+		<recordset id="query-starttime2.sql" source="sql" scope="transaction" />
+		<recordset id="query-endtime1.sql" source="sql" scope="transaction" />
+		<recordset id="query-endtime2.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form"  recordset="_request" />
+		<print mode="table"  recordset="query-week.sql"  tag="rows-week"/>
+		<print mode="table"  recordset="query-starttime1.sql"  tag="rows-starttime1"/>
+		<print mode="table"  recordset="query-starttime2.sql"  tag="rows-starttime2"/>
+		<print mode="table"  recordset="query-endtime1.sql"  tag="rows-endtime1"/>
+		<print mode="table"  recordset="query-endtime2.sql"  tag="rows-endtime2"/>
+	</output>
+
+</config>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="hccode" type="varchar" required="true" label="预约表code" />
+    <parameter id="hcsitedef" type="varchar" required="true" label="更换场地编号" />
+    <parameter id="tcsitechange" type="varchar" required="false" label="场地变更记录" />
+</validator>

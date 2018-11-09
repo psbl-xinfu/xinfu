@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>视频播放</title>
+${inc:/action/project/fitness/home/pub}
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/qcloud/TcPlayer-2.2.0.js"></script>
+</head>
+<body>
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-heading col_main_body_title">
+			<h2 class="panel-title">视频播放</h2>
+		</div>
+		<div id="videoshow" style="width: 100%; height: auto;"></div>
+	</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+
+	<script language="javascript">
+	$(document).ready(function() {
+		var playtime = 0, begints = 0, endts = 0;
+		var player = new TcPlayer('videoshow', {
+			mp4: "http://1255390889.vod2.myqcloud.com/c5fe0291vodgzp1255390889/2e128c279031868223643373770/gPL9zmj6o1kA.mp4",
+			coverpic: {
+				style: "cover",
+				src: "http://1255390889.vod2.myqcloud.com/c5fe0291vodgzp1255390889/2e128c279031868223643373770/9031868223653448488.png"
+			},
+			autoplay: false,	//iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+			width: '480',	//视频的显示宽度，请尽量使用视频分辨率宽度
+			height: '320',	//视频的显示高度，请尽量使用视频分辨率高度
+			/**live: true,	// 是否直播
+			wording: {
+				1: '网络错误，请检查网络配置或者播放链接是否正确',	// (H5提示的错误)
+				2: "视频格式WEB播放器无法解码",	// (H5提示的错误)
+				3: "视频解码错误 ",	// (H5提示的错误)
+				4: "当前系统环境不支持播放该视频格式",	// (H5提示的错误)
+				5: "当前浏览器不支持MSE或者Flash插件未启用",
+				10: "请勿在file协议下使用播放器，可能会导致视频无法播放 ",
+				11: "使用参数有误，请检查播放器调用代码",
+				12: "请填写视频播放地址"
+            },*/
+			listener: function(res){
+				console.log(res);
+				if( res.type ){
+					if( res.type == "error" ){
+						window.setTimeout(function(){
+							player.load();	//进行重连
+						},5000);
+	                }else if( res.type == "play" ){	// 开始播放
+						begints = res.ts;
+					}else if( res.type == "pause" ){	// 暂停
+						begints = res.ts;
+					}else if( res.type == "ended" ){	// 播放完成
+						console.log("总播放 " + playtime/1000 + " 秒");
+					}else if( res.type == "timeupdate" ){	// 播放进度更新
+						endts = res.ts;
+						playtime += endts - begints;
+						begints = endts;
+						console.log("已播放 " + playtime/1000 + " 秒");
+					}
+				}
+			}
+		});
+		          
+	});
+	</script>
+</body>
+</html>

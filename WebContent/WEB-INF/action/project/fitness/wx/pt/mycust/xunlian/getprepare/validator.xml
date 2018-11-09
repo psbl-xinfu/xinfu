@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+		<parameter id="parpreYear" type="varchar" required="true" label="parpreYear" />
+		<parameter id="customercode" type="varchar" required="true" label="customercode" />
+		<parameter id="ptpreparecode_record" type="varchar" required="false" label="ptpreparecode_record" />
+</validator>

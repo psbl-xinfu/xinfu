@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="c_startdate" type="date" required="false" label="c_startdate" />
+	<parameter id="c_enddate" type="date" required="false" label="c_enddate" />
+	<parameter id="code" type="varchar" required="false" label="code" />
+</validator>

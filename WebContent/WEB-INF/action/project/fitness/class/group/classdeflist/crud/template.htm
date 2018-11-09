@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>团操预约</title>
+<head>
+    <style>
+    td{
+        border:1px solid;
+    }
+    button{
+        margin: 5px;
+    }
+    .passed {
+		background-color: #C1C1C1;
+	}
+    </style>
+<body>
+	<form  role="form" method="post" id="searchForm">
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="tc-tab-cout-1 am-tab-panel am-in am-active am-fade three-none" id="tc-tab1">
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="toChange">
+								<p>
+									<span class="am-icon-chevron-left" id="last-week"></span>
+									<span id="last_date"></span>
+									<span>~</span>
+									<span id="next_date"></span>
+									<span class="am-icon-chevron-right" id="next-week"></span>
+								</p>
+							</li>
+							<li>
+								<select id="classcode" name="classcode" style="display: none;">
+									<option value="">课程</option>
+									<classdef-rows>
+										<option value="${fld:code}">${fld:class_name}</option>
+									</classdef-rows>
+								</select>
+							</li>
+							<li>
+								<select id="teacherid" name="teacherid" style="display: none;">
+									<option value="">教练</option>
+									<staff-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows>
+								</select>
+							</li>
+							<li>
+								<select id="classroomcode" name="classroomcode" style="display: none;">
+									<option value="">教室</option>
+									<classroom-rows>
+										<option value="${fld:code}">${fld:classroom_name}</option>
+									</classroom-rows>
+								</select>
+							</li>
+							<div class="r-c-btnList">
+								<button type="button" class="r-c-3-btn-1" id="search" title="查询"></button>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/btn_fabu.svg" title="课程发布" alt=""id="release">
+								<button type="button" class="r-c-3-btn-3" id="coptclasslistweek" title="复制当前周"></button>
+							</div>
+						</nav>
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li class="hasCheck toFlexRow">
+								<span>全选发布课程：</span><input type="checkbox" id="operation" name="operation" style="display: none;"/>
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/dangqianzhou.svg" title="当前周" alt=""id="current-week">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除未发布团课" alt="" id="delnoclass">
+							</li>
+						</nav>
+					</div>
+				</div>	
+				<div class="r-tab-cout-3-t-b">
+					<nav class="sj-1-bottom-2" id="monitor">
+						<li>
+							<p class="top" code="" id="startdate"></p>
+							<nav class="type-list">
+							</nav>
+						</li>
+						<li>
+							<p class="top" code=""></p>
+							<nav class="type-list">
+							</nav>
+						</li>
+						<li>
+							<p class="top" code=""></p>
+							<nav class="type-list">
+							</nav>
+						</li>
+						<li>
+							<p class="top" code=""></p>
+							<nav class="type-list">
+							</nav>
+						</li>
+						<li>
+							<p class="top" code=""></p>
+							<nav class="type-list">
+							</nav>
+						</li>
+						<li>
+							<p class="top" code=""></p>
+							<nav class="type-list">
+							</nav>
+						</li>
+						<li>
+							<p class="top" code="" id="enddate"></p>
+							<nav class="type-list">
+							</nav>
+						</li>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+    <script>
+    $(document).ready(function() {
+    	ccms.util.renderCheckbox("operation");
+		searchSelectInit($("#classcode,#classroomcode,#teacherid"));
+	        var cells = $("#monitor>li>p");
+	        var clen = cells.length;
+            var currentFirstDate;
+            var formatDate = function(date){
+                var year = date.getFullYear()+'年';
+                var month = (date.getMonth()+1)+'月';
+                var day = date.getDate()+'日';
+                var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()];
+                return week;
+            };
+            var addDate= function(date,n){       
+                date.setDate(date.getDate()+n);        
+                return date;
+            };
+            var setDate = function(date){
+                var week = date.getDay();
+                date = addDate(date,week*-1);
+                currentFirstDate = new Date(date);
+                for(var i = 0;i<clen;i++){
+                    cells[i].innerHTML = formatDate(i==0 ? date : addDate(date,1));
+                    $(cells[i]).attr("code",date.format("yyyy-MM-dd"));
+                }
+            };
+            //上一周
+            document.getElementById('last-week').onclick = function(){
+                setDate(addDate(currentFirstDate,-7));         
+            };
+            //下一周
+            document.getElementById('next-week').onclick = function(){
+                setDate(addDate(currentFirstDate,7));
+            };
+            //当前周
+            document.getElementById('current-week').onclick = function(){
+                setDate(addDate(new Date(),0));
+            };
+            setDate(new Date());
+            //查询数据
+    		$("#search,#last-week,#next-week,#current-week").click(function(){
+    			searchPrepare();
+    		});
+            //初始加载数据
+    		searchPrepare();
+            
+            //课程发布
+            $("#release").click(function(){
+            	var obthis = getCheckboxValue("classdefchk");
+            	if(obthis!= ""){
+            		ccms.dialog.confirm("确定发布团课吗？！", function() {
+            			var url="${def:context}${def:actionroot}/updatestatus?code="+obthis;
+            			ajaxCall(url,{
+            				method:"GET",
+            				progress:true,
+            				dataType:"script",
+            				success:function(){
+            				}
+            			});
+            		});
+            	}else{
+            		ccms.dialog.notice("请选择!");
+            	}
+            });
+    		//全选   取消全选
+    	    $("#operation").unbind().on("ifClicked",function(){    //点击事件未选中
+    			 if( $(this).prop("checked") ){// 
+    				$('input[name=classdefchk]').iCheck('uncheck');
+    				$(".tcimg").hide();
+    			 }else{
+    				$('input[name=classdefchk]').iCheck('check');  //
+    				$(".tcimg").show();
+    			 }
+    	    });
+    		//复制当前周
+    		$("#coptclasslistweek").click(function(){
+        		ccms.dialog.open({url : '${def:context}${def:actionroot}/copyclasslistweek?startdate='+$("#startdate").attr("code")+"&enddate="+$("#enddate").attr("code"), width:'800',height:400});
+    		});
+        });
+		//删除
+		function deleteclassdef(code, status){
+			var sval = "";
+			if(status==1){
+				sval = "该团课已发布，";
+			}
+			ccms.dialog.confirm(sval+"确定删除吗？！", function() {
+	    		ajaxCall("${def:actionroot}/delete?code="+code,{
+	    			method:"get",
+	    			progress:true,
+	    			dataType:"script",
+	    			success:function(){	
+	    				ccms.dialog.notice("删除成功！", 2000, function(){
+	    					searchPrepare();
+	    				});
+	    			}
+	    		});
+			});
+		}
+		//删除未发布团课
+		$("#delnoclass").click(function(){
+        	var obthis = getCheckboxValue("classdefchk");
+        	if(obthis!= ""){
+        		ccms.dialog.confirm("确定要删除未发布团课吗？！", function() {
+        			var url="${def:context}${def:actionroot}/deletenoclass?code="+obthis;
+        			ajaxCall(url,{
+        				method:"GET",
+        				progress:true,
+        				dataType:"script",
+        				success:function(){
+    	    				ccms.dialog.notice("删除成功！", 2000, function(){
+    	    					searchPrepare();
+    	    				});
+        				}
+        			});
+        		});
+        	}else{
+        		ccms.dialog.notice("请选择未发布团课!");
+        	}
+		});
+    	// 查询选择周的预约记录
+    	function searchPrepare(){
+			$("#val").find("td").html("");
+    		var vcpt = $("#pt").val();
+    		var startdate = $("#startdate").attr("code");
+    		var enddate = $("#enddate").attr("code");
+    		$("#last_date").html(startdate);
+    		$("#next_date").html(enddate);
+    		var ptlevelcode = $("#ptlevelcode").val();
+    		ajaxCall("${def:actionroot}/queryprepare?startdate="+startdate+"&enddate="+enddate+
+    				"&classcode="+$("#classcode").val()+"&classroomcode="+$("#classroomcode").val()+"&teacherid="+$("#teacherid").val(),{
+    			method:"get",
+    			progress:true,
+    			dataType:"script",
+    			success:function(){	
+    				$("#monitor>li>nav").each(function(){
+                    	var codedate = $(this).prev().attr("code");
+                    	$(this).append("<li class='addNew' code='"+codedate+"'><span class='am-icon-plus-circle'></span>新增团课</li>");
+    				});
+                	//新增
+                	$(".addNew").click(function(){
+                		if((new Date($(this).attr("code"))).format('yyyy-MM-dd')>=(new Date()).format('yyyy-MM-dd')){
+                			ccms.dialog.open({url : '${def:context}${def:actionroot}/form?classdate='+$(this).attr("code"), width:'800',height:500});
+                		}else{
+                			ccms.dialog.alert("当前日期不能新增！");
+                		}
+                	});
+    			}
+    		});
+    	}
+    	//修改
+    	function editdef(code){
+    		ccms.dialog.open({url : '${def:context}${def:actionroot}/form?code='+code, width:900,height:500});
+    	}
+    	//课程人数
+    	function personcount(code){
+    		ccms.dialog.open({url : '${def:context}${def:actionroot}/personcount?code='+code, width:'900',height:400});
+    	}
+    	//考勤
+    	function classkqcode(code){
+    		ccms.dialog.open({url : '${def:context}${def:actionroot}/classkqcode?code='+code, width:900,height:400});
+    	}
+    	//课程复制
+    	function coptclassdef(code){
+    		ccms.dialog.open({url : '${def:context}${def:actionroot}/copyclassdef?code='+code, width:'900',height:500});
+    	}
+    	//详情
+    	function detail(code){
+    		ccms.dialog.open({url : '${def:context}${def:actionroot}/detail/crud?code='+code, width:1100,height:600});
+    	}
+    	//删除同类预约团操
+    	function consort(cdcode, classname){
+    		ccms.dialog.confirm("确定删除课程为：("+classname+")同类本周未发布的课程吗？！", function() {
+        		var startdate = $("#startdate").attr("code");
+        		var enddate = $("#enddate").attr("code");
+	    		ajaxCall("${def:actionroot}/deleteconsort?cdcode="+cdcode+
+	    				"&startdate="+startdate+"&enddate="+enddate,{
+	    			method:"get",
+	    			progress:true,
+	    			dataType:"script",
+	    			success:function(){	
+	    			}
+	    		});
+    		});
+    	}
+    </script>
+</head>
+</html>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="code" type="varchar" required="true" label="code" />
+    <parameter id="sitename" type="varchar" required="true" label="场地名称" />
+    <parameter id="sitetype" type="varchar" required="true" label="场地类型" />
+    <parameter id="opening_date" type="varchar" required="true" label="开场时间" />
+    <parameter id="closed_date" type="varchar" required="true" label="闭场时间" />
+    <parameter id="block_price" type="varchar" required="true" label="包场价格（元/小时）" />
+    <parameter id="block_maxnum" type="varchar" required="true" label="包场最大人数" />
+    <parameter id="group_price" type="varchar" required="true" label="拼场价格（元/小时）" />
+    <parameter id="group_minnum" type="varchar" required="true" label="拼场最小人数" />
+    <parameter id="group_maxnum" type="varchar" required="true" label="拼场最大人数" />
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="闭场时间不能小于等于开场时间" id="closed_date" sql="nodup-date.sql" />
+    
+</validator>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教分配及跟进</title>
+
+</head>
+<body>
+	<div id='filter_panel' style='display:none;' class="dialogbg"></div>
+<!--会员留言-->
+      <div class="modal fade" id="myModalLabel"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+			<header class="header-default">
+				<span id="formTitle">会员留言</span>
+			<span class="header-close" onclick="$('.close').click()"></span> <!--关闭按钮无效，调用函数触发旧按钮点击事件-->
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style='display:none;'>&times;</button>
+			</header>
+			<form id="messageForm" name="messageForm" method="post">
+				<div class="b-i-main">
+						<input type="hidden" id="vc_code" name="vc_code" value=""/>
+					<nav>
+						<li class="to100w" >
+							<label for="">会员留言</label>
+							<textarea  style="width: 600px;background: rgb(42, 48, 56)" id="mc_message" name="" placeholder="暂无数据" class="my-textarea" rows="" cols="4"></textarea>
+						</li> 
+					</nav>
+				</div>
+				<footer class="footer-default">
+					<button id="save_message" type="button">保存</button>
+				</footer>
+			</form>
+		</div>
+	</div>
+		<form  role="form" method="post" id="searchForm">
+			<input name="sort" type="hidden" value="c.created" preserve="true" />
+			<input name="order" type="hidden" value="desc" preserve="true" />
+			<input name="pageNo" type="hidden" value="" preserve="true" />
+			<input name="totalPages" type="hidden" value="" preserve="true" />
+			<input name="period_day" id="period_day" type="hidden" value="${fld:period_day}" preserve="true" />
+			<!-- 条件筛选开始 -->
+			<input id="filterconditionscolumn" type="hidden" 
+			value="f_pt,f_sex,f_age,f_nofollowstartdate,f_nofollowenddate,f_entrystartdate,f_entryenddate,f_startmonth,f_startday,f_endmonth,f_endday,f_genjintype,f_type,f_mc,f_level,f_purpose,f_stage,f_personalhobbit,f_marriage,f_children,f_leave,f_participate,f_ismember,f_protection,f_calltimes,f_distributioncount"/>
+			<div id="filterconditionshtml">
+			</div>
+			<div class="am-tabs-bd r-tab-cont">
+				<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+					<div class="tab-cout-nav">
+						<div class="tab-cout-nav-t yyc_tab-cout-nav-t">
+							<nav class="tab-nav-my">
+								<li style="width: 200px;">
+									<input type="text" id="custall" name="custall" placeholder="会员号/卡号/姓名/手机" class="input-default"/>							
+				 			 	</li>	
+								<li style="width: 200px;">
+									<input type="text" id="not_comeday" name="not_comeday" placeholder="未沟通天数" class="input-default"/>							
+							  	</li>		
+								<li>
+									<select id="personal_train" name="personal_train" style="display: none;">
+										<option value="">选择分配状态</option>
+										<option value="0">待分配</option>
+										<option value="1">已分配</option>
+										<option value="3">过期</option>
+										<option value="4">成交</option>
+									</select>
+								</li>		 	
+								<li>			
+									<select id="ptstatus" name="ptstatus" style="display: none;">
+										<option value="">会员PT状态</option>
+										<option value="1">未预约</option>
+										<option value="2">已预约</option>
+										<option value="3">免费I</option>
+										<option value="4">免费II</option>
+									</select>
+								</li>	 	
+							  <div class="r-c-btnList">
+									<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+									<button type="button" class="r-c-3-btn-2" id="filter_btn" title="条件筛选"></button>
+									 <button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+								</div>
+							</nav>
+						</div>
+						<div class="tab-cout-nav-b">
+							<nav class="r-c-3-t-b-l">
+								
+								<li>
+						    	 	<button  type="button"id="change_btn">分配</button>
+								</li>	
+						    	 <li>
+						    	 	<button  type="button"id="search_record">跟进</button>
+								</li>
+						    	 <li>
+						    	 	<button  type="button"id="speak_btn">会员留言</button>
+								</li>	
+							</nav>
+							<nav class="r-c-3-t-b-r">		
+								<li>
+									<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
+								</li>
+							</nav>
+						</div>
+					</div>
+					<div class="r-tab-cout-3-b">
+						<div class="to-change-background h-43"></div>
+						<table> 
+							<thead>
+								<tr>
+									<th class="table-checkbox">
+										<label class="am-checkbox">
+											<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;">
+										</label>
+									</th>
+									<th>照片</th>
+									<th>保护期</th>
+									<th>私教</th>
+									<th>会籍</th>
+									<th>剩余课时</th>
+									<th>姓名</th>
+									<th>性别</th>										
+									<th>手机</th>	
+									<th>教练最进跟进</th>	
+									<th>最近入场日期</th>	
+									<th>会员截止日期</th>	
+								</tr>
+							</thead>
+							
+							<tbody id="datagridTemplate" style="display: none">
+								<tr>
+								 	<td class="table-checkbox">#customercheck#</td> 
+								 	<td>
+										<div class="hoverToshow" style="position: relative;display: flex; align-items: center;justify-content: center;">
+											<img src="#imgpath#"  height="50" width="50">
+											<div class="hoverhowTable"  style="position: absolute;top: 0;width: 50px; height: 50px;background: rgba(42，48，56,.5);display: none; align-items: center;justify-content: center;">
+												<img onclick="pictures('#code#')" src="${def:context}/js/project/fitness/image/SVG/paizhao.svg">
+											</div>
+										</div>
+									</td>
+									<td >#num_days#</td>
+									<td >#vc_pt#</td>
+									<td >#vc_mc#</td>
+									<td >#ptleftcount#</td>
+									<td >#name#</td>
+									<td >#sex#</td>		
+									<td >#mobile#</td>		
+									<td >#pt_date#</td>		
+									<td >#member_end#</td>			
+									<td >#come_date#</td>	
+								</tr>
+							</tbody>
+							<tbody id="datagrid">
+							</tbody>
+						</table>
+						<div class="pageDiv">
+							<ul class="pagination">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+			<input id="daochu_custall" name="daochu_custall" type="text" />
+			<input id="daochu_not_comeday" name="daochu_not_comeday" type="text" />
+			<input id="daochu_personal_train" name="daochu_personal_train" type="text" />
+			<input id="daochu_ptstatus" name="daochu_ptstatus" type="text" />
+			<input id="daochu_period_day" name="daochu_period_day"  type="text"/>
+			<div id="daochufilterconditionshtml">
+			</div>
+		</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+		var search = null;
+		$(document).ready(function() {
+			//筛选条件
+			var filterconditionscolumn = $("#filterconditionscolumn").val().split(",");
+			var filterconditionshtml = "";
+			$.each(filterconditionscolumn,function(i, val){
+				filterconditionshtml+="<input name='"+val+"' id='"+val+"' type='hidden' class='filterconditions' />";
+			});
+			$("#filterconditionshtml").html(filterconditionshtml);
+			//结束
+			
+			//确认分配
+			$("#invalid_btn").on("click",function() {
+				postAjaxCall("${def:context}/action/project/fitness/customer/ptdistribution/distributioninsert", "formEditor", false,function(){
+					search.searchData(1);
+				})
+			});
+			//分配
+			$("#change_btn").unbind().on("click",function(){
+				var customercodes =  getCheckboxValue("datalist");
+				if(customercodes==""){
+					alert("请选择会员进行操作");
+				}else{
+					ccms.dialog.open({url : '${def:context}${def:actionroot}/distribution/crud?customercode='+customercodes, width:'1000',height:'600'});
+				}
+			});
+			//跟进
+			$("#search_record").unbind().on('click',function(){
+				var leng=$('input[name="datalist"]:checked').length
+				var target_id=$('input[name="datalist"]:checked').val();
+				if(leng!=1){
+					ccms.dialog.notice("请选中一条进行操作!");
+					return false;
+				}
+				if(target_id!=""){
+							top.ccms.dialog.open({url : '${def:context}${def:actionroot}/custcomm?customercode='+target_id+'&cust_type=1', width:'1170',height:'600'});
+				}else{
+					ccms.dialog.notice("请选择会员!");
+				}
+			});
+			//会员留言
+			$("#speak_btn").unbind().on("click",function(){
+		 		var code=$('input[name="datalist"]:checked').val();
+				if(code==''||code==null){
+					ccms.dialog.notice("请选会员进行留言!");
+				}else{   
+					$("#myModalLabel").modal('show')
+				}
+			});
+			//确认会员留言
+			$("#save_message").click(function(){
+				insertMsg();
+			})	
+		//条件筛选
+		$("#filter_btn").unbind().on('click',function(){
+			ccms.dialog.open({url : "${def:context}${def:actionroot}/filter", width:1000, height:670});
+		})
+			
+		$("#look").unbind().on("click", function(){
+			var obthis = getCheckboxValue("datalist");
+			if(obthis==""){
+				ccms.dialog.alert("请选择！")
+			}else{
+				ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='+1+'&customercode='+obthis+"&status=",width:1200,height:700});
+			}
+		});
+		//导出
+		$("#daochu_list").unbind().on("click", function(){
+	         $("#daochu_custall").val($("#custall").val());
+	         $("#daochu_not_comeday").val($("#not_comeday").val());
+	         $("#daochu_personal_train").val($("#personal_train").val());
+	         $("#daochu_ptstatus").val($("#ptstatus").val());
+	         $("#daochu_period_day").val($("#period_day").val());
+	 		//筛选导出条件开始
+	     	var filterconditionscolumn = $("#filterconditionscolumn").val().split(",");
+	     	var daochufilterconditionshtml = "";
+	     	$.each(filterconditionscolumn,function(i, val){
+	     		daochufilterconditionshtml+="<input name='daochu_"+val+"' id='daochu_"+val+"' value='"+$("#"+val).val()+"' type='text' class='filterconditions' />";
+	     	});
+	     	$("#daochufilterconditionshtml").html(daochufilterconditionshtml);
+			//筛选导出条件结束
+	         $("#daochuForm").submit();
+        });	
+		this.search = search;
+		search = $Search({
+			datagrid : "datagrid",
+			formId : "searchForm",
+			rowpackage: function(obj){
+				if( "" != obj.imgid ){
+					obj.imgpath = "${def:context}/action/project/fitness/util/attachment/download?tuid="+obj.imgid+"&type=1";
+				}else{
+					obj.imgpath = "${def:context}/js/project/fitness/image/SVG/50X50.svg";
+				}
+			},
+			success : function() {
+			$("#searchForm #custall").val("");
+			
+				ccms.util.renderCheckbox("datalist");
+				$("#selectAll").unbind().on("ifClicked",function(){    
+					 if( $(this).prop("checked") ){// 
+						$('input[name=datalist]').iCheck('uncheck');
+					 }else{
+						$('input[name=datalist]').iCheck('check');  //
+					 }
+			   });
+			}
+		}).initSearchBtn().searchData(1);
+		
+		selectInit($("#mc_name,#personal_train,#ptt,#skill_name,#ptstatus"));
+	});
+	
+
+function insertMsg(){
+	var divobj = $("#checkedNodesDiv");
+	var codes=$('input[name=datalist]');
+	var mc_message=$('#mc_message').val();
+	divobj.empty();
+	for(var i = 0; i < codes.length; i++){
+		var obj = codes[i].value;
+    	divobj.append('<input type="hidden" name="mc_code" value="' + obj + '" />');
+    	divobj.append('<input type="hidden" name="mc_message" value="' + mc_message + '" />');
+	}
+	var uri="${def:context}/action/project/fitness/customer/memberinfo/insertmsg";
+	   ajaxCall(uri,{
+		   	method: "post",
+		   	form:"messageForm",
+		   	progress: false,
+		   	dataType: "script",
+		   	success: function() {
+		   		ccms.dialog.notice("留言成功!");
+		   		$('#myModalLabel').modal('hide');
+		   		$('#mc_message').val('');
+		   		search.searchData(1);
+		   		}
+		   	}); 
+}
+//拍照
+function pictures(code){
+	ccms.dialog.open({url: contextPath+"/action/project/fitness/util/attachment/photo/crud?table_code=cc_customer&pk_value="+code, height: "600", width: "630"});
+}
+	</script>
+</body>
+</html>

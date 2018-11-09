@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        ${inc:/action/project/fitness/wx/pub}
+        <title>我的课程</title>
+        <style type="text/css">
+        	.querstiondiv{
+        	height: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 5%;
+            margin-top: 10px;
+        	}
+        	
+        	li{
+        	 font-size: 16px;
+        	 list-style: none;
+        	 margin-left: 10%;
+        	  margin-top: 10px;
+        	}
+        </style>
+</head>
+<body>
+	
+		<form id="formEditor" name="formEditor" method="post">
+			<div id="checkedNodesDiv" style="display: none" ></div>
+			
+			<input type="hidden" name="termid" id="termid" value="${fld:termid}">
+			<input   type="hidden"  name="term_score" id="term_score" value="">
+		</form>
+	
+	
+	<div id="main"></div>
+	<div style="margin-top: 50px">
+           <img  style="width: 80%;height: 50px;margin-left:10%"  src="/ccms/js/project/fitness/wx/image/submit2.png" class="tijiao" id="save" onclick="saves()">
+	</div>
+	
+</body>
+<script type="text/javascript">
+$(function(){
+	var str="";
+	var index=0;
+	<question>
+		index++
+		str+='<div class="querstiondiv"   type="${fld:question_type}"  code="${fld:tuid}">'+index+' ${fld:question_name}'
+		str+='</div>'
+			if("${fld:question_type}"==2){
+				str+='<div class="answers"><li><input  style="margin-left:-5%;" type="text"   class="input"     score="${fld:question_score}" ></li></div>'
+			}
+	</question>
+	
+	$('#main').html(str);
+	
+	
+	$('.querstiondiv').each(function(){
+		var id=$(this).attr('code');
+		getlist(id);
+	})
+	
+	
+	if("${fld:type}"=="mc"){
+		homemc()
+	}else{
+		homept()
+	}
+	
+})
+
+	function getlist(id){//获选项
+	    	getAjaxCall("/action/project/fitness/wx/pt/mycourses/answers/getlist?id="+id, false);    	
+	}
+	
+	function saves(){//保存
+		optionInfo();
+		postAjaxCall("/action/project/fitness/wx/pt/mycourses/answers/insert", "formEditor",false);    	
+	}
+	
+	
+	var inputscrore;
+	var divobj=$('#checkedNodesDiv');
+	function optionInfo(){//获总分
+		var inputObjs=$('.input');
+		var radioObjs=$('.radio');
+		var checkboxObjs=$('.checkbox');
+		//获得总分
+		inputscrore=0;
+		getScore(inputObjs,1);
+		getScore(radioObjs,0);
+		getScore(checkboxObjs,0);
+		$('#term_score').val(inputscrore);
+		
+		divobj.empty();
+		//获得题目id
+		getQustion();
+		//获得答案id
+		getAnswer();
+		//获得问题分数
+		getQustionSocre();
+	}
+	
+	function getScore(Objs,type){
+		 for(var i=0;i<Objs.length;i++){
+				var obj=Objs[i]
+				if(type==1){
+					if($(obj).val()!=""){
+						inputscrore+=Number($(obj).attr('score'));
+					}
+				}else{
+					if($(obj).is(':checked')){
+						inputscrore+=Number($(obj).attr('score'));
+					}
+				}
+			}
+	}
+	
+	
+	function getQustion(){
+		var querstiondiv=$('.querstiondiv');
+		
+		for(var i = 0; i < querstiondiv.length; i++){
+			 var qObj= querstiondiv[i];
+			 var type = $(qObj).attr('type')
+			 if(type==2){
+				var textObj=$(qObj).next().find('input');
+				if($(textObj).val()!=""){
+			    	divobj.append('<input type="text" name="questionid" value="' +  $(textObj).parent().parent().prev().attr('code') + '" />');
+				}
+			 }else{
+				 var manyObj=$(qObj).next().find('input');
+				 var flag=true
+				 $(manyObj).each(function(){
+					 if($(this).is(':checked')){
+						 if(flag){
+						    	divobj.append('<input type="text" name="questionid" value="' +  $(manyObj).parent().parent().parent().prev().attr('code') + '" />');
+								flag=false;
+						 }
+					 }
+				 });
+				 
+			 }
+		}
+	}
+	
+	
+	
+	function getAnswer(){
+	var querstiondiv=$('.querstiondiv');
+		
+		for(var i = 0; i < querstiondiv.length; i++){
+			 var qObj= querstiondiv[i];
+			 var type = $(qObj).attr('type')
+				if(type==2){//text 类型
+					var textObj=$(qObj).next().find('input');
+					if($(textObj).val()!=""){
+				    	divobj.append('<input type="text" name="answerid" value="" />');
+					}
+				}else{
+					 var manyObj=$(qObj).next().find('input');
+					 var answerid="";
+					 $(manyObj).each(function(){
+						 if($(this).is(':checked')){
+							answerid+=$(this).attr('tuid')+';'
+						 }
+					 });
+							answerid=answerid.substring(0,answerid.length-1)
+					    	divobj.append('<input type="text" name="answerid" value="'+answerid+'" />');
+				}
+		}
+	}
+	
+	
+	function getQustionSocre(){
+		var querstiondiv=$('.querstiondiv');
+		for(var i = 0; i < querstiondiv.length; i++){
+			 var qObj= querstiondiv[i];
+			 var type = $(qObj).attr('type')
+			if(type==2){//text 类型
+				var textObj=$(qObj).next().find('input');
+				if($(textObj).val()!=""){
+			    	divobj.append('<input type="text" name="questionscore" value="'+$(textObj).attr('score')+'" />');
+				}
+			}else{
+				 var manyObj=$(qObj).next().find('input');
+				 var manyScore=0;
+				 $(manyObj).each(function(){
+					 if($(this).is(':checked')){
+						 manyScore+=Number($(this).attr('score'));
+					 }
+				 });
+				 
+			    	divobj.append('<input type="text" name="questionscore" value="'+manyScore+'" />');
+			}
+		}
+		
+	}
+	
+
+	function goQuestion(){
+       	location.href="${def:context}/action/project/fitness/wx/pt/mycourses/question/crud?termid=${fld:termid}&type=${fld:type}&courseid=${fld:courseid}&index=${fld:index}&end_date=${fld:end_date}";
+	}
+</script>
+</html>

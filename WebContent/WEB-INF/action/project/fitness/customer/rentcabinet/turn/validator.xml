@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="cabinetrentid" type="varchar" required="true" label="储物柜使用记录id"/>
+	<parameter id="c_newcabinetcode" type="varchar" required="true" label="c_newcabinetcode"/>
+	<parameter id="c_group" type="varchar" required="true" label="c_group"/>
+	<parameter id="c_remark" type="varchar" required="false" label="c_remark"/>
+	<parameter id="c_cabinettuid" type="varchar" required="true" label="c_cabinettuid"/>
+</validator>

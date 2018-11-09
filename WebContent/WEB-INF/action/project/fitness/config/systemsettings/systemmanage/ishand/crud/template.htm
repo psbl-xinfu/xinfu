@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>入场规则</title>
+</head>
+<body>
+	<form method="post" name="formEditor" id="formEditor" class="titlecust">
+	   <input type="hidden" id="hand_id" name="hand_id" value="${fld:hand_id}" preserve="true"/>
+	   <input type="hidden" id="automaticentry_id" name="automaticentry_id" value="${fld:automaticentry_id}" preserve="true"/>
+	   <input type="hidden" id="custallcard_id" name="custallcard_id" value="${fld:custallcard_id}" preserve="true"/>
+	   <input type="hidden" id="delaytime_id" name="delaytime_id" value="${fld:delaytime_id}" preserve="true"/>
+		<div class="modal-body b-i-main" style="padding: 0;">
+			<nav>
+				<li class="inpRadio" style="margin-left: 30px;">
+					入场刷卡是否必须输入手牌号：
+					<input type="radio" name="ishand" value="1" />是
+					<input type="radio" name="ishand" value="0"/>否
+				</li>
+			</nav>
+		</div>
+		<div class="modal-body b-i-main" style="padding: 0;">
+			<nav>
+				<li class="inpRadio" style="margin-left: 30px;">
+					是否自动入场：
+					<input type="radio" name="isautomaticentry" value="1" />是
+					<input type="radio" name="isautomaticentry" value="0"/>否
+					
+				</li>
+				<li style="margin-left: 30px;display: none;" id="rcdelaytime">
+					入场延迟时间：<input type="text" id="delaytimevalue" name="delaytimevalue" value="${fld:delaytimevalue}" />秒
+				</li>
+			</nav>
+		</div>
+		<div class="modal-body b-i-main" style="padding: 0;">
+			<nav>
+				<li class="inpRadio" style="margin-left: 30px;">
+					入场是否查询会员所有卡：
+					<input type="radio" name="custallcard" value="1" />是
+					<input type="radio" name="custallcard" value="0"/>否
+				</li>
+			</nav>
+		</div>
+	   <div class="banner-top ba1" style="margin-top:15px;padding: 0 0 10px 20px;">
+			<button id="edit_btn" type="button">确定</button>
+	   </div>
+	</form>
+<script language="JavaScript">
+$(document).ready(function() {
+	ccms.util.renderRadio("ishand");
+	ccms.util.renderRadio("isautomaticentry");
+	ccms.util.renderRadio("custallcard");
+	ccms.util.setCheckboxValue('ishand',"${fld:handvalue}","formEditor");
+	ccms.util.setCheckboxValue('isautomaticentry',"${fld:automaticentryvalue}","formEditor");
+	ccms.util.setCheckboxValue('custallcard',"${fld:custallcardvalue}","formEditor");
+	if("${fld:delaytimevalue}"=="1"){
+		$("#rcdelaytime").show();
+	}
+	//控制入场延迟时间显示或隐藏
+	$("input[name=isautomaticentry]").on("ifClicked",function () {     
+		if($(this).val()=="1"){
+			$("#rcdelaytime").show();
+		}else{
+			$("#rcdelaytime").hide();
+		}
+	});
+	
+	$("#edit_btn").click(function updateData(){
+		var hand_id = $("#hand_id").val();
+		var automaticentry_id = $("#automaticentry_id").val();
+		var custallcard_id = $("#custallcard_id").val();
+		var ishand = ccms.util.getRadioValue("ishand","formEditor");
+		var custallcard = ccms.util.getRadioValue("custallcard","formEditor");
+		var isautomaticentry = ccms.util.getRadioValue("isautomaticentry","formEditor");
+		var delaytime_id = $("#delaytime_id").val();
+		var delaytimevalue = $("#delaytimevalue").val();
+		//修改参数
+		var handurl = "${def:context}${def:actionroot}/update?"+"tuid="+hand_id+"&param_text="+ishand;
+		updateconfig(handurl);
+		var automaticentryurl = "${def:context}${def:actionroot}/update?"+"tuid="+automaticentry_id+"&param_text="+isautomaticentry;
+		updateconfig(automaticentryurl);
+		var custallcardurl = "${def:context}${def:actionroot}/update?"+"tuid="+custallcard_id+"&param_text="+custallcard;
+		updateconfig(custallcardurl);
+		var delaytimeurl = "${def:context}${def:actionroot}/update?"+"tuid="+delaytime_id+"&param_text="+delaytimevalue;
+		updateconfig(delaytimeurl);
+		ccms.dialog.notice("修改成功！", 2000);	
+	})
+});
+function updateconfig(url){
+	ajaxCall(url,{
+   		method: "get",
+   		progress: true,
+   		dataType: "script",
+   		success: function() {
+ 		}
+ 	});
+}
+</script>
+</body>
+</html>

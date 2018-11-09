@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="feedback_id" type="integer" required="false" label="fbtype" />
+	<parameter id="actualfollowstaff" type="varchar" required="false" label="customer_code"/>
+	<parameter id="remark_1" type="varchar" required="false" label="remark_1"/>
+	<parameter id="remark_2" type="varchar" required="false" label="remark_2"/>
+	<parameter id="nextfollowtime" type="varchar" required="false" label="complaint_userid"/>
+	<parameter id="unfollow_reason" type="integer" required="false" label="complaint_skill"/>
+	<parameter id="status" type="varchar" required="false" label="complaint_item"/>
+</validator>

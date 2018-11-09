@@ -1,0 +1,1 @@
+$("#limit_num").val("${fld:limit_num}");

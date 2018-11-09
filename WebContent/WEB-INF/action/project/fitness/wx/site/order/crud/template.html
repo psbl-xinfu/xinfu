@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>订单</title>
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/base.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/order.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="orderlist">
+	</div>
+<script src="${def:context}/js/project/fitness/wx/js/wx_site/rem.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.js"></script>
+<script>
+    $(function () {
+    	//查询我的订单
+    	ajaxCall("${def:context}/action/project/fitness/wx/site/order/queryorder?weixin_userid=${fld:weixin_userid}", {
+            method: "post",
+            form:"yyformEditor",
+            dataType: "script",
+            success: function () {
+            }
+     	});
+
+
+    })
+</script>
+</body>
+
+</html>

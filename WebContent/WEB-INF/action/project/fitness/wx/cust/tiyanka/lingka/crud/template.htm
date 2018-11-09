@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>体验卡领取</title>
+        	<link href="${def:context}/js/project/fitness/css/tiyanka/base.css" rel="stylesheet" />
+        	 <link href="${def:context}/js/project/fitness/css/tiyanka/tiyanka.css" rel="stylesheet" />
+        	 <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/html2canvas/html2canvas.js"></script>
+        	  <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/html2canvas/html2canvas-util.js"></script>
+    </head>
+<body >
+	<div class="containter bg" id="contentDiv" style="height: 700px">
+		<div class="comm-widht bg">
+			<div class="con-top">
+				<span class="con-name">${fld:org_name}</span>
+				<span class="con-tel">电话：${fld:contact_phone}</span>
+				<span class="con-address">地址：${fld:address}</span>
+				<span class="con-type">${fld:ename}</span>
+				<img class="info-img" src="${def:context}/js/project/fitness/image/tiyanka/info.png">
+				<span class="info-name">${fld:name}</span>
+				<span class="info-no">${fld:expercardcode}</span>
+				<span class="con-desc">前往会所出示此码，即可免费体验服务</span>
+				<span class="con-time"></span>
+			</div>
+			<div class="con-bottom">
+				<span class="con-title">使用说明</span>
+				<div class="con-desc" id="remark" style="white-space:pre-line">
+				</div>
+			</div>
+		</div>
+		<button class="btn-download"></button>
+	</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	if('${fld:enddate}'==""){
+	$('.con-time').text('长期有效');
+	}else{
+		$('.con-time').text('有效期：${fld:startdate}至${fld:enddate}');
+	}
+	$('#remark').html("${fld:useremark@js}")
+	html2canvasInit({container: document.body, objid: "contentDiv", removeOld: true});
+})
+</script>
+</html>

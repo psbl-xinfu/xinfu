@@ -1,0 +1,25 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"application_id":"${fld:application_id@js}",
+		"show_order":"${fld:_rowNumber}",
+		"custtypename":"${fld:custtypename@js}",
+		"code":"${fld:code@js}",
+		"application_id":"${fld:application_id@js}",
+		"name":"${fld:name@js}",
+		"sex":"${fld:sex@js}",
+		"age":"${fld:age}",
+		"mobile":"${fld:mobile@js}",
+		"pt":"${fld:pt@js}",
+		"mc":"${fld:mc@js}",
+		"specialtype":"${fld:specialtype@js}",
+	    "level":"${fld:level@js}",
+		"ptstatus":"${fld:ptstatus@js}",
+		"mcstatus":"${fld:mcstatus@js}",
+		"ptdate":"${fld:ptdate}",
+		"kefu":"${fld:kefu}",
+		"mcdate":"${fld:mcdate}"
+	},
+	</rows>
+	{}
+]}

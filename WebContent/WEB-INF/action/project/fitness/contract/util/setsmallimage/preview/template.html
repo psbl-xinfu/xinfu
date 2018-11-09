@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/finess/home/pub}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>图片预览</title>
+</head>
+<body style="background-color: #F5F5F5">
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body text-center">
+			<img src="${def:context}/action/ccms/attachment/download?id=${fld:upload_id}&&type=1" />
+		</div>
+		<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="cust" type="varchar" required="false" label="会员编号、姓名手机号" />
+	<parameter id="ptdefcode" type="varchar" required="false" label="课程" />
+	<parameter id="pt" type="varchar" required="false" label="私教" />
+	
+</validator>

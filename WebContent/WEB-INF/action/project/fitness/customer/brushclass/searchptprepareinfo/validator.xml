@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="ptpcode" type="varchar" required="true" label="私教课程预约记录编号"/>
+</validator>

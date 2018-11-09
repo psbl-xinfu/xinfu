@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="startdate" type="varchar" required="false" label="时间" />
+	<parameter id="enddate" type="varchar" required="false" label="时间" />
+	<parameter id="cust" type="varchar" required="false" label="卡号/名称/手机号" />
+</validator>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="code" type="varchar" required="true" label="团操课种" />
+	<parameter id="classtime" type="varchar" required="true" label="时间" />
+
+</validator>

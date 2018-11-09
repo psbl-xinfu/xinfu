@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="vc_code" type="varchar" required="true" label="vc_code" maxlen="500"/>
+    <parameter id="vc_name" type="varchar" required="true" label="vc_name" maxlen="500"/>
+    <parameter id="i_status" type="varchar" required="false" label="i_status" />
+    <parameter id="i_sex" type="varchar" required="false" label="i_sex" maxlen="500"/>
+    <parameter id="c_birthdate" type="varchar" required="false" label="c_birthdate"  maxlen="500"/>
+    <parameter id="vc_club" type="varchar" required="false" label="vc_club"  maxlen="500"/>
+    <parameter id="vc_rank" type="varchar" required="false" label="vc_rank" maxlen="500"/>
+    <parameter id="vc_email" type="varchar" required="false" label="vc_email" maxlen="500"/>
+    <parameter id="vc_idnumber" type="varchar" required="false" label="vc_idnumber" maxlen="500"/>
+    <parameter id="vc_nation" type="varchar" required="false" label="vc_nation" maxlen="500"/>
+    <parameter id="vc_hometel" type="varchar" required="false" label="vc_hometel" maxlen="500"/>
+    <parameter id="vc_addr" type="varchar" required="false" label="vc_addr" maxlen="500"/>
+    <parameter id="vc_officetel" type="varchar" required="false" label="vc_officetel" maxlen="500"/>
+    <parameter id="vc_zip" type="varchar" required="false" label="vc_zip" maxlen="500"/>
+    <parameter id="vc_mobile" type="varchar" required="false" label="vc_mobile" maxlen="500"/>
+    <parameter id="vc_contact" type="varchar" required="false" label="vc_contact" maxlen="500"/>
+    <parameter id="vc_company" type="varchar" required="false" label="vc_company" maxlen="500"/>
+    <parameter id="vc_jobtype" type="varchar" required="false" label="vc_jobtype"  maxlen="500"/>
+    <parameter id="vc_illnessrec" type="varchar" required="false" label="vc_illnessrec" maxlen="500"/>
+    <parameter id="vc_hobby" type="varchar" required="false" label="vc_hobby" maxlen="500"/>
+    <parameter id="vc_pt" type="varchar" required="false" label="vc_pt" maxlen="500"/>
+    <parameter id="vc_mc" type="varchar" required="false" label="vc_mc" maxlen="500"/>
+    <parameter id="vc_hiddencustomercode" type="varchar" required="false" label="vc_hiddencustomercode" maxlen="500"/>
+    <parameter id="f_moneyleft" type="varchar" required="false" label="f_moneyleft" maxlen="500"/>
+    <parameter id="vc_emcontact1" type="varchar" required="false" label="vc_emcontact1" maxlen="500"/>
+    <parameter id="vc_emcontact2" type="varchar" required="false" label="vc_emcontact2" maxlen="500"/>
+    <parameter id="vc_remark" type="varchar" required="false" label="vc_remark" maxlen="500"/>
+</validator>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="cc_type" type="varchar" required="true" label="渠道来源"/>
+	<parameter id="sex" type="varchar" required="true" label="性别"/>
+	<parameter id="mobile" type="varchar" required="true" label="手机号"/>
+	<parameter id="guest" type="varchar" required="true" label="资源编号/姓名/手机号"/>
+	<parameter id="guest_code" type="varchar" required="false" label="资源编号"/>
+    <parameter id="posptid" type="varchar" required="false" label="POS教练" />
+</validator>

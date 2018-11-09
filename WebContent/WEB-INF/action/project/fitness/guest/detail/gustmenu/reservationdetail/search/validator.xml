@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="cust_code" type="varchar" required="true" label="会员号" />
+	<parameter id="startdate" type="varchar" required="true" label="开始日期" />
+	<parameter id="enddate" type="varchar" required="true" label="结束日期" />
+	<parameter id="ptid" type="varchar" required="false" label="私教" />
+	<parameter id="ptdefcode" type="varchar" required="false" label="课程" />
+	
+</validator>

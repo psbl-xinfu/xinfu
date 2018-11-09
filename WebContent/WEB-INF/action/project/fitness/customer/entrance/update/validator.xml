@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="cardcode" type="varchar" required="true" label="会员卡code" />
+	<parameter id="unionorgid" type="varchar" required="true" label="org_id"/>
+</validator>

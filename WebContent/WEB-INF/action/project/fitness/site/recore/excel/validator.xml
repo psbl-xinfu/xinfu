@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_searchsitetype" type="varchar" required="false" label="场地类型" />
+	<parameter id="daochu_searchstatus" type="varchar" required="false" label="场地状态" />
+	<parameter id="daochu_start_prepare_date" type="varchar" required="false" label="预约日期" />
+	<parameter id="daochu_end_prepare_date" type="varchar" required="false" label="预约日期" />
+	<parameter id="daochu_sitecode" type="varchar" required="false" label="场地" />
+</validator>

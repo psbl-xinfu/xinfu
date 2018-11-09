@@ -1,0 +1,38 @@
+insert into cc_market_campaign
+(
+code,
+campaign_name,
+expercardcode,
+totalnum,
+personnum,
+validatetype,
+startdate,
+enddate,
+rankrules,
+link,
+campaignrules,
+status,
+createdby,
+created,
+org_id,
+campaigntype
+)
+values 
+(
+${seq:nextval@seq_cc_market_campaign},
+${fld:c_campaign_name},
+null,
+null,
+null,
+ ${fld:c_validatetype},
+ ${fld:c_startdate},
+ ${fld:c_enddate}, 
+null, 
+ ${fld:c_link}, 
+  ${fld:c_campaignrules}, 
+ ${fld:c_status},
+'${def:user}',
+{ts'${def:timestamp}'},
+${def:org},
+ 1
+)

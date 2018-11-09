@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>租柜合同</title>
+</head>
+<body>
+		<div class="r-tab-cont" style="height: 700px;">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th >合同编号</th>
+								<th >卡号</th>
+								<th >姓名</th>				
+								<th >手机号</th>		
+								<th >柜子编号</th>
+								<th >实收金额</th>
+								<th >租用开始日期</th>
+								<th>租用截止日期</th>
+								<th >备注</th>
+								<th >所属前台</th>
+								<th >所属会籍</th>
+							</tr>
+						</thead>
+				<tbody id="datagrid">
+				</tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	$(document).ready(function() {
+		ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/rentlist/search?cust_code="+cus_code)
+	});
+
+	function ajax(url){
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+		}
+	});
+	}
+</script>
+</body>
+</html>

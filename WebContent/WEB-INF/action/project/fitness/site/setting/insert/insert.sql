@@ -1,0 +1,36 @@
+insert into cc_sitedef
+(
+	code,
+	sitename,
+	sitetype,
+	status,
+	opening_date,
+	closed_date,
+	block_price,
+	block_maxnum,
+	group_price,
+	group_minnum,
+	group_maxnum,
+	createdby,
+	created,
+	remark,
+	org_id
+)
+values
+(
+	${seq:nextval@seq_cc_sitedef},
+	${fld:sitename},
+	${fld:sitetype},
+	1,
+	${fld:opening_date},
+	${fld:closed_date},
+	${fld:block_price},
+	${fld:block_maxnum},
+	${fld:group_price},
+	${fld:group_minnum},
+	${fld:group_maxnum},
+	'${def:user}',
+	{ts '${def:timestamp}'},
+	${fld:remark},
+	${def:org}
+)

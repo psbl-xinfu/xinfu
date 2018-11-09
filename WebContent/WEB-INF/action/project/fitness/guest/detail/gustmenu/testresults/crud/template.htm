@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>体测结果</title>
+</head>
+<style>
+</style>
+<body>
+		<div class="r-tab-cont" style="height: 700px;">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr>
+							    <th>会员编号</th>
+							    <th>会员姓名</th>
+							    <th>手机</th>
+							    <th>体测教练</th>
+							    <th>预约日期</th>
+							    <th>体测日期</th>
+							    <th>备注</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr id="list">
+								<td>#custcode#</td>
+								<td>#name#</td>
+								<td>#mobile#</td>
+								<td>#pt_name#</td>
+								<td>#preparedate#</td>
+								<td>#created#</td>
+								<td>#remark#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/testresults/search?cust_code="+cus_code)
+});
+
+function ajax(url){
+ajaxCall(url,{
+	method: "get",
+	progress: true,
+	dataType: "script",
+	success: function() {
+	}
+});
+}
+</script>
+</body>
+</html>

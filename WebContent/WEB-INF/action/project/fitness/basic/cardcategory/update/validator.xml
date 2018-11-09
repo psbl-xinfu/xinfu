@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_code" type="varchar" required="true" label="vc_name" maxlen="32" />
+   	<parameter id="vc_name" type="varchar" required="flase" label="vc_name" maxlen="32" />
+    <parameter id="i_priority" type="integer" required="flase" label="i_priority" maxlen="32" />
+     <parameter id="vc_remark" type="varchar" required="false" label="vc_remark" maxlen="32" />
+	<parameter id="union_id" type="integer" required="false" label="union_id" maxlen="100" />
+</validator>

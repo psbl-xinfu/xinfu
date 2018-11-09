@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_vc_tempcabinet,daochu_to_mc,daochu_c_startdate</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+
+	<excel recordset="query-base.sql" sheetname="在场会员" filename="在场会员记录.xls" header-background="true">
+		<col id="cardcode" label="会员卡号" />
+		<col id="vc_type" label="卡类型" />
+		<col id="name" label="姓名" />
+		<col id="cabinettempcode" label="手牌号" />
+		<col id="vc_inusername" label="会籍" />
+		<col id="intime" label="入场日期" />
+		<col id="week" label="星期" />
+		<col id="intime" label="入场时间" />
+		<col id="lefttime" label="离场时间" />
+		<col id="enddate" label="截止日期" />
+	</excel>
+</config>

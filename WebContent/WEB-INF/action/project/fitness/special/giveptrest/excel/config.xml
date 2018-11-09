@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		赠课
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_c_startdate,daochu_c_enddate,daochu_code,daochu_ptdeftype</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="赠课记录" filename="赠课记录.xls" header-background="true">
+		<col id="cust_code" label="会员号" /> 
+		<col id="cust_name" label="会员姓名" />
+		<col id="pttotalcount" label="赠送节数" />
+		<col id="ptlevelname" label="课程" />
+		<col id="pt_name" label="私人教练" />
+		<col id="ptnormalmoney" label="应收金额" />
+		<col id="ptmoney" label="实收金额" />
+		<col id="remark" label="备注" />
+		<col id="staff_name" label="操作人" />
+		<col id="created" label="操作时间" />
+	</excel>
+</config>

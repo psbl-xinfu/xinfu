@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	<colname>daochu_vc_fastcode,daochu_i_status</colname>
+	
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="单次消费项目" filename="单次消费项目.xls" header-background="true">
+		<col id="code" label="编号" />
+		<col id="fastcode" label="快速码" />
+		<col id="name" label="名称"/>
+		<col id="type" label="类型" />
+		<col id="unit" label="单位" />
+		<col id="price" label="单价" />
+		<col id="commission" label="提成金额" />
+		<col id="remark" label="备注" />
+		<col id="status" label="状态" />
+		<col id="isliliao" label="是否理疗" />
+	</excel>
+</config>

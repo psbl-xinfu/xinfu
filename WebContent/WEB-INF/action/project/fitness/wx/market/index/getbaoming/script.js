@@ -1,0 +1,17 @@
+﻿if("${fld:status}"==1){
+	ccms.dialog.notice("报名时间已截止");
+}else{
+	if("${fld:isbaoming}"==0){//未报名
+		if("${fld:totalnum}"!=""){//报名有限制
+			if("${fld:totalnum}"<"${fld:num}"){//报名小于已报名
+				ccms.dialog.notice("报名人数已超出");
+			}else{
+				goRnroll();
+			}
+		}else{//无限制
+			goRnroll();
+		}
+	}else{
+		ccms.dialog.notice("已报名不能再次报名");
+	}
+}

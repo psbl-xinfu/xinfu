@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="start_date" type="varchar" required="false" label="start_date"/>
+	<parameter id="end_date" type="varchar" required="false" label="end_date"/>
+	<parameter id="pt" type="varchar" required="false" label="教练"/>
+	<parameter id="ptlevelcode" type="varchar" required="false" label="课程编号"/>
+
+	<parameter id="status" type="varchar" required="false" label="状态"/>
+</validator>

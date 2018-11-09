@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_vc_all,daochu_pt_name,daochu_ptlevelname,daochu_overdue</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="私教余额查询记录" filename="私教余额查询记录.xls" header-background="true">
+		<col id="cust_code" label="会员编号" /> 
+		<col id="vc_name" label="姓名" />
+		<col id="vc_ptlevelname" label="私教类型" />
+		<col id="i_pttype" label="来源" /> 
+		<col id="f_pttotalcount" label="原始节数" />
+		
+		<col id="f_ptfee" label="原价" />
+		<col id="f_ptfactfee" label="成交价" />
+		<col id="f_ptleftcount" label="剩余节数" /> 
+		<col id="totalfee" label="应收金额" />
+		<col id="ptmoney" label="实收金额" />
+		<col id="pt_name" label="私教" />
+		<col id="c_itime" label="购买时间" />
+		<col id="vc_ptenddate" label="到期时间" />
+		<col id="buyday" label="已购课天数" />
+	</excel>
+
+
+</config>

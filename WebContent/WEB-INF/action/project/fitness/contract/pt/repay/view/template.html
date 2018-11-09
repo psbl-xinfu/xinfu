@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>私教还款合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+	<div class="basic-dialog  dialogbg" style="height: 400px">
+		<header class="header-default">
+		私教还款合同
+		</header>
+		<form id="contractForm" name="contractForm" method="post">
+			<input type="hidden" id="contractcode" name="contractcode" value="${fld:code}" preserve="true" />
+			<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}" preserve="true" />
+			<input type="hidden" id="normalmoney" name="normalmoney" value="${fld:normalmoney}" preserve="true"/>
+			<input type="hidden" id="factmoney" name="factmoney" value="" />
+			<input type="hidden" id="paydetail" name="paydetail" value="" />
+			<div class="b-i-main">
+				<nav>
+					<li>
+						<label style="width: 120px;">会员：</label>
+						<span id="custnamespan">${fld:custname@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">电话：</label>
+						<span id="mobilespan">${fld:custmobile@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">销售员：</label>
+						<span id="salememberspan">${fld:salemembername@js}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<span id="salemember1span">${fld:salemembername1@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">教练：</label>
+						<span id="ptspan">${fld:ptname@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">获课渠道：</label>
+						<span id="channelspan">${fld:sourcename@js}</span>
+		     		</li>
+					<li id="recommendDiv" style="display:none;">
+						<label style="width: 120px;">推荐人：</label>
+						<span id="recommendnamespan">${fld:recommendname@js}</span>
+						<span id="recommendmobilespan">${fld:recommendmobile@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">课程名称：</label>
+						<span id="ptlevelnamespan">${fld:ptlevelname@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">课程单价：</label>
+						<span id="ptfeespan">${fld:ptfee}元/节</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">购买课时：</label>
+						<span id="ptcountspan">${fld:ptcount}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">截止日期：</label>
+						<span id="ptenddatespan">${fld:ptenddate}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">应收：</label>
+						<span id="normalmoneyspan">${fld:normalmoney}</span>元
+		     		</li>
+					<li>
+						<label style="width: 120px;">实收：</label>
+						<span id="factmoneyspan" style="color: #fdb346;font-size: 16px;font-weight: 600;">${fld:factmoney}元</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">备注：</label>
+						<span id="remarkspan">${fld:remark@js}</span>
+		     		</li>
+					<li id="paydiv" style="margin-left: 5%"></li>
+		     		<li></li>
+		     		<li id="paymethodDiv" style="margin-left: 5%">
+		     			<nav>
+		     				<li style="width: 800px">
+								<select class="normal-select" id="paymethod" name="paymethod" >
+									<option value="">请选择支付方式</option>
+								</select>
+								<input id="paymoney" name="paymoney" placeholder="请输入支付金额"  style="margin-left: 10%"/>
+								<i class="am-icon-plus" id="addpay_btn" title="添加"></i>
+		     				</li>
+		     			</nav>
+		     		</li>		
+		     		<li></li>
+		     	</nav>
+		     </div>
+			<div class="b-i-main">
+				<nav>
+					<li>
+						<label style="width: 120px;">办理人：</label>
+						<span id="createdbyspan">${fld:createdby}</span>
+		     		</li>	
+					<li>
+						<label style="width: 120px;">办理时间：</label>
+						<span id="createdatespan">${fld:createdate}&nbsp;${fld:createtime}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">收款人：</label>
+						<span id="collectbyspan">${fld:collectby}</span>
+		     		</li>	
+					<li>
+						<label style="width: 120px;">收款时间：</label>
+						<span id="collectdatespan">${fld:collectdate}&nbsp;${fld:collecttime}</span>
+		     		</li>
+				</nav>
+			</div>
+			<footer class="footer-default" id="paybtnDiv">
+				<button type="button" id="save_btn" style="display: none;">确认支付</button>
+			</footer>
+			</form>
+		</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var paytotal = 0;	//已 支付金额
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#save_btn").show();
+	}
+	// 加载支付方式
+	searchSelectInit($("#paymethod"));
+	loadPayType("paymethod", function(){
+		if( Number("${fld:status}") >= 2 ){
+			var arr = "${fld:pay_detail}".split(";");
+			$("#paymethod").find("option").each(function(idx,ele){
+				if( "" != $(ele).attr("code") ){
+					if(arr[idx-1]!=""&&arr[idx-1]!=undefined){
+						if(parseInt(arr[idx-1])!=0){
+							addShowPaymethod($(ele).val(), arr[idx-1], $(ele).text(), true);
+						}
+					}
+				}
+			});
+			$("#paymethodDiv").hide();
+			$("#paybtnDiv").hide();
+		}else{
+			$("#paymethodDiv").show();
+			$("#paybtnDiv").show();
+		}
+	});
+	
+	// 添加支付方式
+	$("#addpay_btn").unbind().on("click",function(){
+		var paymethod = $("#paymethod").val();
+		var paymoney = $("#paymoney").val();
+		if( "" == paymethod ){
+			ccms.dialog.notice("请选择支付方式", 2000);
+			return false;
+		}else if( "" == paymoney || !(isFloat(paymoney) || isNumber(paymoney)) || Number(paymoney) <= 0 ){
+			ccms.dialog.notice("请输入支付金额", 2000);
+			return false;
+		}
+		var mobj = $("#paydiv").find("[code1="+paymethod+"]");
+		if( mobj.length > 0 ){
+			var _paymoney = (parseFloat(paymoney) + parseFloat(mobj.attr("code2"))).toFixed(2);
+			$("#paymethod").find("option:selected").attr("code", _paymoney);
+			mobj.attr("code2", _paymoney);
+			mobj.find("[name=fee]").text(_paymoney);
+		}else{
+			$("#paymethod").find("option:selected").attr("code", paymoney);
+			addShowPaymethod(paymethod, paymoney, $("#paymethod").find("option:selected").text(), false);
+		}
+		paytotal = (parseFloat(paytotal) + parseFloat(paymoney)).toFixed(2);
+		$("#factmoneyspan").text(paytotal);
+	});
+	
+	// 支付
+	$("#save_btn").unbind().on("click",function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		if( parseFloat("${fld:normalmoney}") != parseFloat(paytotal) ){
+			ccms.dialog.notice("实付金额不等于应收金额，还款合同应一次付清，请确认！", 2000);
+		}else{
+			pay();
+		}
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+	<colname>daochu_skill_name,daochu_startdate,daochu_enddate</colname>
+	<sql-template>query-base.sql</sql-template>
+	
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="撞单查询记录" filename="撞单查询记录.xls" header-background="true">
+		<col id="guestname" label="潜在会员姓名" /> 
+		<col id="name" label="会员姓名" />
+		<col id="contractcode" label="合同号" />
+		<col id="mobile" label="手机号" /> 
+		<col id="idate" label="成交日期" />
+		
+		<col id="guest_mc" label="潜在客户会籍" />
+		<col id="customer_mc" label="成交会籍" />
+		<col id="guestcode" label="潜在客户编号" /> 
+		<col id="customercode" label="客户编号" />
+	</excel>
+
+</config>

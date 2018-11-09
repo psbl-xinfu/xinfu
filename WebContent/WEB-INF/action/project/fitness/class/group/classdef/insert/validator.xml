@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="class_name" type="varchar" required="true" label="class_name" maxlen="500" />
+    <parameter id="class_ename" type="varchar" required="false" label="class_ename" maxlen="500" />
+    <parameter id="times" type="integer" required="false" label="times" maxlen="32" />
+    <parameter id="class_bgcolor" type="varchar" required="false" label="class_bgcolor" maxlen="20" />
+    <parameter id="islimitroom" type="integer" required="false" label="islimitroom" maxlen="20" />
+    <parameter id="classroomcode" type="varchar" required="false" label="classroomcode" maxlen="200" />
+    <parameter id='isprepare' type="integer" required="false" label="isprepare" maxlen="500" />
+    <parameter id='allowbook' type="integer" required="false" label="allowbook" maxlen="32" />
+    <parameter id='allowbeginbook' type="integer" required="false" label="allowbeginbook" maxlen="32" />
+ 	<parameter id='classinfo' type="varchar" required="false" label="classinfo" maxlen="500" />
+ 	<parameter id='status' type="integer" required="false" label="status"/>
+ 	<parameter id='mincount' type="integer" required="false" label="mincount" />
+ 	<parameter id='isallowbeginbook' type="varchar" required="false" label="isallowbeginbook" />
+ 	
+   <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="不能大于可容纳人数" id="limit_num" sql="norep.sql" />
+</validator>
+
+
+
+
+

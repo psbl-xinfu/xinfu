@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>单次消费</title>
+</head>
+<body>
+	<div class="panel-default col_mainInner dialogbg" style="height: 445px;">
+			<header class="header-default">
+				<span id="formTitle">新增</span>
+			</header>
+		<div class="panel-body col_main_body basic-dialog dialogbg">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          		<div class="modal-body b-i-main">
+				<input type="hidden" id="vc_code" name="vc_code" value=""/>
+				<input type="hidden" id="item_name" name="item_name" value=""/>
+				<input type="hidden" id="unit" name="unit"/>
+				<input type="hidden" id="price" name="price"/>
+				<input type="hidden" id="fastcode" name="fastcode"/>
+				<input type="hidden" id="name" name="name"/>
+				<input type="hidden" id="pay_detail" name="pay_detail"/>
+				<input type="hidden" id="opertype" name="opertype" value=""/>
+				<input type="hidden" id="customer_code" name="customer_code" value="${fld:custcode}"/>
+				<input type="hidden" id="vc_passwd" name="vc_passwd" value=""/><div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label>项目</label>
+							<select id="item_insert" name="item_insert" style="display: none;">
+								<option value="">请选择</option>
+								<item-list>
+								   <option value="${fld:code}" code1="${fld:unit}" code2="${fld:price}" code3="${fld:fastcode}">${fld:name}</option>
+								</item-list>
+							</select>
+						</li>
+						<li>
+							<label>单价</label>
+							<input type="text" id="f_price" name="f_price" value="" maxlength="80" placeholder="单价" readonly/>
+						</li>
+						<li>
+							<label>单位</label>
+							<input type="text" id="vc_unit" name="vc_unit" value="" maxlength="80" placeholder="单位" readonly/>
+						</li>
+						<li>
+							<label>销售员</label>			
+							<select id="salename_insert" name="salename_insert" style="display: none;">
+								<option value="">请选择</option>
+								<saleman-list>
+								   <option value="${fld:userlogin}">${fld:salename}</option>
+								</saleman-list>
+							</select>
+						</li>
+						<li>
+							<label>数量</label>
+							<input type="text" id="f_amount" name="f_amount" value="0" placeholder="数量" maxlength="80"/>
+						</li>
+						<li></li>
+						<li>
+							<label>选择会员卡折扣</label>			
+							<select id="cardcode" name="cardcode" style="display: none;">
+								<option value="">请选择</option>
+								<carddiscount-list>
+								   <option value="${fld:discount}">${fld:name}</option>
+								</carddiscount-list>
+							</select>
+						</li>
+						<li>
+							<label>折扣金额</label>
+							<input type="text" id="vc_rebate" name="vc_rebate" value="0" placeholder="折扣金额" maxlength="80"/>
+						</li>
+						<li>
+							<label>总金额</label>
+							<input type="text" id="f_money" name="f_money" value="" placeholder="总金额" maxlength="80" readonly/>
+						</li>
+						<li>
+							<label>应收金额</label>
+							<input type="text" id="f_normalmoney" name="f_normalmoney" placeholder="应收金额" value="" readonly maxlength="80"/>
+						</li>
+						<li>
+							<label>姓名</label>
+							<input type="text" id="customername" name="customername" placeholder="姓名" value="${fld:cust_name}" maxlength="80" readonly/>
+						</li>
+						<li>
+							<label>电话</label>
+							<input type="text" id="mobile" name="mobile" placeholder="电话" value="${fld:mobile}" maxlength="80" readonly/>
+						</li>
+						<li id="i_paytypefour">
+							<label>支付方式</label>
+							<span id="zffs"></span>
+						</li>
+						<li id="i_paytypethree">
+							<label>支付方式</label>
+							<input type="radio" name="i_paytype" value="1" checked="checked" style="display: none;" />
+						   	现金/银行卡支付
+							<input type="radio" name="i_paytype" value="2" style="display: none;" />
+							储值卡支付
+							<span>
+							<input type="radio" id="typetrhee" name="i_paytype" value="3" style="display: none;" />
+							挂账</span>
+						</li>
+						<li id="i_paytypetwo">
+							<label>支付方式</label>
+							<input type="radio" name="f_paycardmoneyleft" value="1" checked="checked" style="display: none;" />
+						   	现金储值&nbsp;${fld:moneycash}<input type="hidden" id="moneycash" value="${fld:moneycash}"/>
+							<input type="radio" name="f_paycardmoneyleft" value="2" style="display: none;" />
+							运动基金&nbsp;${fld:moneygift}<input type="hidden" id="moneygift" value="${fld:moneygift}"/>
+						</li>
+						
+						
+						<div id="i_paytypeone">
+			          		<div class="modal-body " id="paymoney"  style="margin-left: 5%;height: 30px">
+							</div>
+			          		<div class="modal-body b-i-main">
+								<nav>
+									<li>
+										<label>方式</label>
+										<select id="moneytype" class="normal-select">
+											<option value="">请选择</option>
+											<OtherPayWay-list>
+												<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+											</OtherPayWay-list>
+										</select>
+										
+											<label>金额</label>
+										<input type="text" id="money" name="money" placeholder="金额"/>
+										&nbsp;
+										<i class="am-icon-plus" id="addmoney" title="添加"></i>
+									</li>
+								</nav>
+							</div>
+						</div> 
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注</label>
+							<textarea id="remark" name="remark" class="my-textarea" placeholder="备注"></textarea>
+						</li>
+					</nav></div>
+				</div>
+			<footer class="footer-default">
+				<button type="button" id="consumptionpay">付&nbsp;款</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#i_paytypefour").hide();
+	searchSelectInit($("#moneytype,#item_insert,#salename_insert,#cardcode"))
+	//页面点击事件
+	 $(document).click(function(){ 
+		$(".error").html("");
+	 }); 
+	//付款
+	$("#consumptionpay").click(function(){
+		var i_paytype = ccms.util.getRadioValue("i_paytype", "formEditor");
+		var f_normalmoney = $("#f_normalmoney").val();//应收金额
+		
+		if(i_paytype==1){
+			$('#opertype').val(59);
+		}else if(i_paytype==2){
+			$('#opertype').val(60);
+		}else{
+			$('#opertype').val(99);
+		}
+		
+		
+		if(i_paytype=="1"){
+			var paymoney = 0;
+			//获取所有支付金额
+			$("input[name='paytypemoney']").each(function(j,item){
+				paymoney+=Number(item.value);
+			});
+			if(paymoney!=f_normalmoney){
+				ccms.dialog.alert("支付金额与应收金额不相同，请确认！");
+			}else{
+				var moneydetail = "";
+				//获取所有支付类型option
+		         $("#moneytype option").each(function(){  
+					if($(this).val()!=""){
+		        		moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+		        	}
+			        moneydetail = moneydetail.replace("undefined", "0");
+		         });
+				//明细
+				$("#pay_detail").val(moneydetail);
+				//付款
+				
+				insertsingleitem();
+			}
+		}else if(i_paytype=="2"){
+			var f_paycardmoneyleft = ccms.util.getRadioValue("f_paycardmoneyleft", "formEditor");
+			//判断是现金储值或者运动基金
+			if(f_paycardmoneyleft=="1"){
+				f_paycardmoneyleft=$("#moneycash").val();
+			}else{
+				f_paycardmoneyleft=$("#moneygift").val();
+			}
+			if(Number(f_normalmoney)>Number(f_paycardmoneyleft)){
+				ccms.dialog.alert("储值金额不足，请确认！");
+			}else{
+				//付款
+				insertsingleitem();
+			}
+		}else{
+			//付款
+			insertsingleitem();
+		}
+	});
+	//支付方式
+	$("#moneytype").change(function(){
+		document.getElementById("money").focus();
+	});
+	//单价f_price  数量f_amount  折扣价cardcode 
+	//折扣金额vc_rebate 总金额f_money 应收金额f_normalmoney
+	//根据会员卡类型打折
+	$("#cardcode").change(function(){
+	   	var f_money=$("#f_money").val();
+		//根据会员卡类型设置折扣进行打折
+		if($("#cardcode").val()!=""){
+			$("#vc_rebate").val((Number($("#cardcode").val())).toFixed(2));
+			f_money = f_money-Number($("#cardcode").val());
+		}
+		$("#f_normalmoney").val(f_money.toFixed(2));
+	});
+	
+	$("#i_paytypetwo").hide();
+	//选择项目加载事件
+	$("#item_insert").change(function(){
+		var vc_unit = $('#item_insert option:selected').attr('code1');
+		var f_price = $('#item_insert option:selected').attr('code2');
+		var fastcode = $('#item_insert option:selected').attr('code3');
+		var textVlue  =$('#item_insert option:selected').text();
+		$("#unit").val(vc_unit);//单位：表cc_singleitemdef字段unit
+		$("#price").val(f_price);//单价：表cc_singleitemdef字段price
+		$("#fastcode").val(fastcode);//'快速码：表cc_singleitemdef字段fastcode'
+		$("#name").val(textVlue);//名称：表cc_singleitemdef字段name
+		var vc_rebate=$("#vc_rebate").val();
+		var f_amount=$("#f_amount").val();
+		$("#f_price").val(f_price);
+		$("#vc_unit").val(vc_unit);
+		getTotalPrice(f_amount,f_price,vc_rebate);
+	});
+   //数量和进货价格相乘得出金额blur事件
+   	$("#f_amount,#vc_rebate").blur(function(){
+	   	var f_amount=$("#f_amount").val();
+	   	var f_price=$("#f_price").val();
+	   	var vc_rebate=$("#vc_rebate").val();
+		getTotalPrice(f_amount,f_price,vc_rebate);
+   	});
+   
+   $("input[name=i_paytype]").on("ifClicked",function(){
+		 if($(this).val()=="1"){
+			$("#i_paytypeone").show();
+			$("#i_paytypetwo").hide();
+			$("#paymoney").html("");
+			$("#money").val("");
+			$("#moneytype").val("");
+			$("#consumptionpay").html("付款");
+		 }else if($(this).val()=="2"){
+			$("#i_paytypeone").hide();
+			$("#i_paytypetwo").show();
+			$("#consumptionpay").html("付款");
+		 }else if($(this).val()=="3"){
+			$("#i_paytypeone,#i_paytypetwo").hide();
+			$("#consumptionpay").html("挂账");
+		 }
+   })
+   
+   $("#addmoney").click(function(){
+	   	var moneytype = $("#moneytype").val();
+	   	var moneytypetext = $("#moneytype option:selected").text();
+	   	var money = $("#money").val();
+	   	if(moneytype==""){
+	   		ccms.dialog.alert("请选择方式！");
+	   	}else if(money==""){
+	   		ccms.dialog.alert("请输入金额！");
+	   	}else{
+	   		var count = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				   if($(item).attr("code")==moneytype)count++;
+			});
+			if(count==0){
+				$("#paymoney").append(
+						"<li style='margin-left:15px;float:left'><span><span>"+moneytypetext+"：</span><span>"+money+"元</span></span>"
+					+"<input type='hidden' value='"+money+"' code='"+moneytype+"'  name='paytypemoney'/>"
+					+ '<img   onclick="delhour(this)" style="margin-left:2px;margin-top:3px" height="12" width="12"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+				);
+				
+				$("#moneytype,#money").val("");
+				$("#moneytype").selectpicker("refresh");
+				$("#moneytype").selectpicker("render");
+			}
+			else
+				ccms.dialog.alert(moneytypetext+"已存在！");
+	   	}
+   });
+   //
+	var singleitemcode = "${fld:singleitemcode}";
+	//查看或付款
+	if(singleitemcode!=""){
+		$("#formTitle").html("查看");
+		var url = "${def:actionroot}/querysingleitem?singleitemcode="+singleitemcode;
+		ajaxCall(url,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});
+	}
+});
+//计算
+function getTotalPrice(f_amount,f_price,vc_rebate){
+	if(f_amount==""){f_amount=0;$("#f_amount").val("0");}
+	if(f_price=="")f_price=0;
+	if(vc_rebate==""){vc_rebate=0;$("#vc_rebate").val("0");}
+	//金额
+	var money = parseFloat(f_amount)*parseFloat(f_price);
+	//打折后金额
+	var f_normalmoney = parseFloat(f_amount)*parseFloat(f_price)-parseFloat(vc_rebate);
+	if(vc_rebate>money){
+		f_normalmoney=money;
+		$("#vc_rebate").val("0");
+		ccms.dialog.alert("折扣金额不能大于总金额！");
+	}
+	$("#f_money").val(money.toFixed(2));
+	$("#f_normalmoney").val(f_normalmoney.toFixed(2));
+}
+function delhour(val){
+	$(val).parent().remove();
+}
+//付款
+function insertsingleitem(){
+	var url = "${def:actionroot}";
+	if($("#vc_code").val()==""){
+		url+= "/insert";
+	}else{
+		url+= "/update";
+	}
+	ajaxCall(url,{
+		method: "post",
+		progress: true,
+		form:"formEditor",
+		dataType: "script",
+		success: function() {
+		}
+	});
+}
+</script>
+</body>
+</html>

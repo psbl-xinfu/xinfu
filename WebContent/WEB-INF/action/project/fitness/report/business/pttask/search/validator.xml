@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="start_date" type="date" required="true" label="时间"/>
+	<parameter id="end_date" type="date" required="true" label="时间"/>
+	<parameter id="skill_name" type="varchar" required="false" label="会籍"/>
+	<parameter id="target_type" type="integer" required="true" label="目标类型：0岗位目标 1分组目标"/>
+</validator>

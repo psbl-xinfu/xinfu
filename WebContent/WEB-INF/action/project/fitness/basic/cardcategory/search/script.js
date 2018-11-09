@@ -1,0 +1,12 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "vc_code":"${fld:vc_code@js}",
+		    "vc_name":"${fld:vc_name@js}",
+		    "i_priority":"${fld:i_priority}",
+		    "application_id":"${fld:application_id@js}",
+		    "vc_remark":"${fld:vc_remark@js}"
+	},
+	</rows>
+	{}
+]}

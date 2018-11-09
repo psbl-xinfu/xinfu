@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	    <recordset id="query-item.sql" source="sql" scope="transaction" />
+	    <recordset id="query-saleman.sql" source="sql" scope="transaction" />
+	    <recordset id="query-OtherPayWay.sql" source="sql" scope="transaction" />
+	    <recordset id="query-customer.sql" source="sql" scope="transaction" />
+	    <recordset id="query-carddiscount.sql" source="sql" scope="transaction" />
+	</transaction>
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query-item.sql" tag="item-list"/>
+		<print mode="table" recordset="query-saleman.sql" tag="saleman-list"/>
+		<print mode="table" recordset="query-OtherPayWay.sql" tag="OtherPayWay-list"/>
+		<print mode="form" recordset="query-customer.sql"/>
+		<print mode="table" recordset="query-carddiscount.sql" tag="carddiscount-list"/>
+		<print mode="form" recordset="_request"/>
+	</output>
+
+</config>

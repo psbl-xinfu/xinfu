@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="tuid" type="integer" required="true" label="主键" maxlen="10" />
+	<parameter id="incode" type="varchar" required="true" label="卡内码" maxlen="64" />
+	<parameter id="cardcode" type="varchar" required="true" label="会员卡号" maxlen="64"/>
+	<parameter id="remark" type="varchar" required="false" label="备注" maxlen="256"/>
+	
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
+		on-error-label="该内码已使用，请重新检查" id="incode" sql="nodup-incode.sql" />
+	
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
+		on-error-label="该卡号已对应其他内码，请重新检查" id="cardcode" sql="nodup-cardcode.sql" />
+</validator>

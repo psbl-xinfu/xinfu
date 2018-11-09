@@ -1,0 +1,13 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "checklink":"${fld:checklink@js}",
+		    "goods_name":"${fld:goods_name@js}",
+		    "amount":"${fld:amount}",
+		    "price":"${fld:price}",
+		    "money":"${fld:money}",
+		    "factmoney":"${fld:factmoney}"
+	},
+	</rows>
+	{}
+]}

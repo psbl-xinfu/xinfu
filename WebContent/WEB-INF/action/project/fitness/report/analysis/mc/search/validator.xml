@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="listfdate" type="date" required="false" label="listfdate" />
+	<parameter id="listtdate" type="date" required="false" label="listtdate" />
+	<parameter id="mc" type="varchar" required="false" label="mc"/>
+</validator>

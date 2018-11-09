@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>停卡收款</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 560px;">
+		<header class="header-default">
+			<span id="formTitle">预览</span>
+		</header>
+		<div class="r-tab-cout-3-b">
+			<div class="to-change-background h-43"></div>
+			<table class="">
+				<thead id="report_subject">
+				</thead>
+			</table>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	var url="${def:context}${def:actionroot}/previewreportsubject";
+	ajaxCall(url,{
+		method:"GET",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+});
+</script>
+</body>
+</html>

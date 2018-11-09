@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_code" type="varchar" required="false" label="vc_name" maxlen="32" />
+   	   <parameter id="vc_fastcode" type="varchar" required="true" label="vc_name" maxlen="32" />
+       <parameter id="vc_name" type="varchar" required="true" label="i_priority" maxlen="32" />
+        <parameter id="vc_type" type="varchar" required="false" label="vc_remark" maxlen="32" />
+         <parameter id="vc_unit" type="varchar" required="false" label="vc_name" maxlen="32" />
+       <parameter id="f_price" type="varchar" required="false" label="i_priority" maxlen="32" />
+        <parameter id="f_commission" type="varchar" required="false" label="vc_remark" maxlen="32" />
+         <parameter id="vc_remark" type="varchar" required="false" label="vc_name" maxlen="500" />
+        <parameter id="i_isliliao" type="integer" required="false" label="vc_remark" maxlen="32" />
+        <parameter id="i_status" type="integer" required="false" label="vc_remark" maxlen="32" />
+</validator>

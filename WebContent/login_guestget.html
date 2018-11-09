@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>资源宝</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="./js/project/fitness/image/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="./js/project/fitness/wx/css/custom.css" rel="stylesheet" />
+<link rel="stylesheet" href="./js/project/fitness/wx/js/weui/css/weui.min.css">
+<link rel="stylesheet" href="./js/project/fitness/wx/js/weui/css/jquery-weui.css">
+<link rel="stylesheet" href="./js/project/fitness/wx/css/login/login.css">
+<link rel="stylesheet" href="./js/project/fitness/wx/css/custom.css" />
+<script language="javascript">
+	var contextPath = "/ccms";
+	if (top.frames.length!=0) { if (window.location.href.replace) top.location.replace(self.location.href);
+	else top.location.href = self.document.href; }
+</script>
+</head>
+
+<body ontouchstart>
+	
+	<form role="form" class="form-horizontal" name="formLogin" id="formLogin" method="post">
+		<input type="hidden" name="uri" value="/action/project/fitness/guestget/home">
+		<input type="hidden" id="passwd_mw" name="passwd_mw" value="" />
+		<div class="divform">
+			<div class="title">欢迎来到资源宝</div>
+			<div class="line"></div>
+			<img src="./js/project/fitness/wx/image/login/LOGO.png" class="logoimg">
+			<div class="everyone">
+				<img src="./js/project/fitness/wx/image/login/user.png" class="iconimg" />
+				<input type="text" id="userlogin" name="userlogin" placeholder="请输入用户名" class="inputtxt" value="" />
+			</div>
+	
+			<div class="everyone">
+				<img src="./js/project/fitness/wx/image/login/pwd.png" class="iconimg" /> 
+				<input type="password" id="passwd" name="passwd" placeholder="请输入密码" class="inputtxt" value="" />
+			</div>
+	
+			<div class="everytwo">
+				<img src="./js/project/fitness/wx/image/login/submitbtn.png" id="submitbtn" />
+			</div>
+			<div class="everytwo">
+				<!--a href="" class="setmima">忘记密码</a--> 
+				<a href="./action/project/fitness/guestget/register/form" class="adduser">注册新用户</a>
+			</div>
+			<div id="tipMsg" style="display:none;"></div>
+		</div>
+	</form>
+
+	<script src="./js/jquery/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="./js/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./js/bootstrap/js/bootbox.min.js"></script>
+	<script type="text/javascript" src="./js/ccms/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="./js/project/fitness/js/ccms.js"></script>
+	<script type="text/javascript" src="./js/ccms/common.js"></script>
+	<script src="./js/project/fitness/wx/js/weui/js/fastclick.js"></script>
+	<script>
+	$(function() {
+		FastClick.attach(document.body);
+	});
+	</script>
+	<script src="./js/project/fitness/wx/js/weui/js/jquery-weui.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$("#userlogin").focus();
+		
+		$('#submitbtn').click(function(){
+			$("#tipMsg").empty();
+			$("#passwd_mw").val($("#passwd").val());
+			if( "" == $("#userlogin").val() ){
+				$.alert('请输入用户名');
+				return false;
+			}else if( "" == $("#passwd").val() ){
+				$.alert('请输入密码');
+				return false;
+			}
+			var url = contextPath + "/action/security/login";
+			ajaxCall(url, {
+				form: "formLogin",
+				dataType: "script",
+				button: "submitbtn",
+				method: "POST",
+				progress: true,
+				success: function(){
+					if( "" != $("#tipMsg").html() ){
+						$.alert($("#tipMsg").html());
+					}
+				}
+			});
+		});
+
+		$(document).keydown(function(event) {
+			if (event.keyCode == "13") {
+				$("#submitbtn").click();
+			}
+		});
+    });
+</script>
+</body>
+</html>

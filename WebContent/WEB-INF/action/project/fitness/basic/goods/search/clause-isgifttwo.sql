@@ -1,0 +1,1 @@
+ AND isgift = ${fld:isgifttwo}

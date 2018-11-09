@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>导入资源</title>
+</head>
+<body>
+	<script language="javascript">
+		var failedRow = "";
+		<failed-rows>
+			failedRow += '<tr><td class="text-center">${fld:row_number}</td><td class="text-center">${fld:validate_error}</td></tr>';
+		</failed-rows>
+		var resultcode = "${fld:resultcode}";
+		if( "1" == resultcode ){
+			parent.tClass.uploadOk(failedRow);
+		}else{
+			parent.tClass.uploadError("${fld:resulterror}");
+		}
+	</script>
+</body>
+</html>

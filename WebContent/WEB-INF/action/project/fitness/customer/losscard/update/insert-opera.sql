@@ -1,0 +1,23 @@
+insert into cc_operatelog(
+	code,
+	org_id,
+	opertype,
+	relatedetail,
+	createdate,
+	createtime,
+	createdby,
+	remark,
+	status
+)
+values 
+(
+	${seq:nextval@seq_cc_operatelog},
+    ${def:org},
+    '04',
+    ${fld:customercode}||';'||${fld:cardcode},
+    '${def:date}',
+    '${def:time}',
+    '${def:user}',
+    ${fld:remark},
+    1
+)

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="courseid" type="integer" required="true" label="courseid"/>
+	<parameter id="courseskillid" type="integer" required="true" label="courseskillid"/>
+	<parameter id="groupid" type="integer" required="true" label="groupid"/>
+	
+</validator>

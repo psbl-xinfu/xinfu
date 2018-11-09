@@ -1,0 +1,53 @@
+<!DOCTYPE>
+<html >
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>健康档案</title>
+</head>
+<body>
+	<!--addnew/edit form-->
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<!-- <div id="planChartDiv" style="height:360px;width:99.5%;"></div> -->
+			<div id="testChartDiv" style="height:360px;width:99.5%;"></div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script type="text/javascript" src="${def:context}/js/echarts-2.2.7/echarts.js"></script>
+	<script language="JavaScript">
+		$(document).ready(function() {
+			var vc_custcode = parent.$("#vc_code").val();
+			if(vc_custcode==null || vc_custcode==undefined){
+				vc_custcode="${fld:vc_code}";
+			}
+			var curdate = new Date();
+			// 开始时间取30天前
+			var fdate = (addDate(new Date().format("yyyy-MM-dd"), -30)).format("yyyy-MM-dd");
+			require.config({
+				paths: {
+					echarts: '${def:context}/js/echarts-2.2.7/build/dist'
+				}
+			});
+			// // 训练计划
+			// var uri = "${def:context}${def:actionroot}/plangraphs?vc_custcode=" + vc_custcode + "&fdate=" + fdate;
+			// creategraphs(uri, function(){
+				// 体测结果
+				uri = "${def:context}${def:actionroot}/testgraphs?vc_custcode=" + vc_custcode + "&fdate=" + fdate;
+				creategraphs(uri);
+			// });
+		});
+		function creategraphs(uri,callback){
+			ajaxCall(uri, {
+				method : "get",
+				progress : true,
+				dataType : "script",
+				success : function() {
+					if( undefined != callback ){
+						callback();
+					}
+				}
+			});
+		}
+	</script>
+</body>
+</html>

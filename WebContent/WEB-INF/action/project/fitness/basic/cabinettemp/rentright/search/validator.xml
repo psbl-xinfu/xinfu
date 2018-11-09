@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="s_name_r" type="varchar" required="false" label="s_name" maxlen="32" />
+     <parameter id="s_groupid_r" type="varchar" required="false" label="s_groupid_r" maxlen="32" />
+   <parameter id="s_status_r" type="varchar" required="false" label="s_tatus_r" maxlen="32" />
+</validator>

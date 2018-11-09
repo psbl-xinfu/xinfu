@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>true</log>
+    <request-encoding>UTF-8</request-encoding>
+
+	<colname>gptuid,goodsnum,price,tdmoney,goodid;gptuid,goodsnum,price,tdmoney,goodid;</colname>
+	<sql-template>insert-leave_stock_goods.sql;update-goods_stock.sql;</sql-template>
+	<transaction>
+		<classname>com.ccms.InsertMaster</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-GoodsReceipts.sql" source="sql" scope="transaction" /> 
+	</transaction>
+
+	<query>insert-leave_stock.sql</query>
+	<query>update-custmoney.sql</query>
+	<query>insert-operatelog.sql</query>
+	<query>insert-finance.sql</query>
+	<query>insert-message.sql</query>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query-GoodsReceipts.sql"/>
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

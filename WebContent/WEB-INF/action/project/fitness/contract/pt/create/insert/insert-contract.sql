@@ -1,0 +1,46 @@
+INSERT INTO cc_contract(
+	code
+	,contracttype
+	,type
+	,poptype
+	,status
+	,salemember
+	,salemember1
+	,isaudit
+	,createdby
+	,createdate
+	,createtime
+	,customercode
+	,relatedetail
+	,inimoney
+	,normalmoney
+	,remark
+	,recommendcode
+	,org_id
+	,source
+) VALUES(
+	${fld:newcontractcode}
+	,0
+	,2
+	,31
+	,1
+	,${fld:salemember}
+	,${fld:salemember1}
+	,0
+	,'${def:user}'
+	,'${def:date}'
+	,'${def:time}'
+	,${fld:customercode}
+	,concat(
+		${fld:customercode},';',${fld:ptlevelcode},';',${fld:ptcount},';',${fld:ptenddate}::varchar,';'
+		,${fld:ptfee},';','${def:org}',';',COALESCE(${fld:salemember1},''),';',${fld:salemember},';',${fld:pt},';'
+		,(SELECT name FROM hr_staff WHERE userlogin = ${fld:pt} AND org_id = ${def:org}),';',${fld:channel},';'
+		,COALESCE(${fld:recommendcode},''),';',${fld:normalmoney}-${fld:ptamount},';',${fld:ptamount},';'
+	)
+	,${fld:normalmoney}
+	,${fld:normalmoney}-${fld:ptamount}
+	,${fld:remark}
+	,${fld:recommendcode}
+	,${def:org}
+	,${fld:channel}
+)

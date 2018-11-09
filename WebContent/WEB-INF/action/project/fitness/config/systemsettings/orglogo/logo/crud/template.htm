@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>俱乐部logo</title>
+</head>
+<body>
+<div>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body sz-xtgl">
+			<form method="post" name="formEditor" id="formEditor" class="titlecust">
+			<input type="hidden" id="iscardcodelimit_id" name="iscardcodelimit_id" value="${fld:iscardcodelimit_id}" preserve="true"/>
+		   	<input type="hidden" id="whichseventype_id" name="whichseventype_id" value="${fld:whichseventype_id}" preserve="true"/>
+		   	<input type="hidden" id = "radios" name = "radios" value="" ></input>
+			<div class="xt-1-div hasRadio">
+			  		
+			</div>
+		<div class="banner-top ba1" style="margin-top:15px;">
+			<button type="button" onclick="pictures('hr_org_big')">大logo</button>
+			<button type="button" onclick="pictures('hr_org_small')">小logo</button>
+		</div>
+	</form>
+</div>
+</div>
+</div>
+<script language="JavaScript">
+//logo
+function pictures(type){
+	ccms.dialog.open({url: contextPath+"/action/project/fitness/util/attachment/photo/crud?table_code="+type+"&pk_value=${def:org}", height: "600", width: "630"});
+}
+</script>
+</body>
+</html>

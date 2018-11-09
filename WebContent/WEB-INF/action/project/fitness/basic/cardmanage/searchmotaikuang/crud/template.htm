@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>选取数据</title>
+</head>
+<body>
+<div class="panel panel-default col_mainInner">
+	<div class="panel-heading col_main_body_title text-center">
+		<h2 class="panel-title">卡类型信息</h2>
+	</div>
+	<div class="panel-body col_main_body">
+		<form class="form-horizontal" role="form" method="post" id="searchForm" name="searchForm">
+			<input name="sort" type="hidden" value="id" preserve="true"/>
+			<input name="order" type="hidden" value="desc" preserve="true" /> 
+			<input name="pageNo" type="hidden" value="" preserve="true" /> 
+			<input name="totalPages" type="hidden" value="" preserve="true" />
+			<div class="form-group">
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">						
+					<input type="text" class="form-control" id="vc_code" name="vc_code" value="" maxlength="80" placeholder="请输入卡名称"/>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+					<button class="btn btn-info btn-md" type="button" id="search_btn">查询</button>
+				</div>
+			</div>
+		</form>
+		<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="sortable" code="vc_code">编号</th>
+						<th class="sortable" code="vc_name">卡名称</th>
+							<th class="sortable" code="vc_name">状态</th>
+					</tr>
+				</thead>
+				<tbody id="datagridTemplate" style="display: none">
+					<tr code1="#vc_name#" code="#vc_code#" 
+					code2="#i_membercount#" code3="#i_type#" code4="#vc_isoffseason#" code5="#i_daycount#" code6="#i_allowcount#" code7="#f_limitswimtime#" code8="#i_freebathcount#" code9="#f_scale#" 
+					code10="#i_giveday#" code11="#i_ptcount#" code12="#i_universal#" code13="#i_clubcount#" code14="#vc_groupcode#" code15="#i_savedaycount#" code16="#vc_remark#" code17="#i_count#" 
+						code18="#f_money#"  code20="#f_moneyleft#" code21="#vc_cardtype#" code22="#f_cardfees#"  code23="#vc_item#" code24="#i_status#"    
+					id="selectItem" class="selectItem"style="cursor:pointer;" title="选择">
+						<td class="text-center">#vc_code#</td>
+						<td class="text-center">#vc_name#</td>
+							<td class="text-center">#i_status#</td>
+					</tr>
+				</tbody>
+				<tbody id="datagrid">
+				</tbody>
+			</table>
+		<div class="pageDiv">
+			<ul class="pagination"></ul>
+		</div>
+	</div>
+</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var onthis=this;
+$(document).ready(function(){
+	onthis.selectItem = function(vc_code,vc_name,i_membercount,i_type,vc_isoffseason,i_daycount,i_allowcount,f_limitswimtime,i_freebathcount,f_scale
+			,i_giveday,i_ptcount,i_universal,i_clubcount,vc_groupcode,i_savedaycount,vc_remark,i_count,f_money,f_moneyleft,f_cardfees,vc_item,vc_cardtype,i_status) {
+		//$("#formEditor_contRecord").contents().find("#vc_code").val(vc_code);
+		parent.$("#vc_code").val(vc_code);
+		parent.$("#vc_name").val(vc_name);
+		parent.$("#i_membercount").val(i_membercount);
+		parent.$("#vc_name1").val(vc_cardtype);
+		parent.$("#i_status").val(i_status); 
+		parent.$("#i_membercount").attr('disabled',true);<!---->
+		parent.$("#vc_code").attr('readonly',true);<!--ID-->
+		parent.$("#vc_name1").attr('disabled',true);<!---->
+		
+		
+		
+		parent.$("#formEditor_contRecord").contents().find("#i_daycount").val(i_daycount);
+		parent.$("#formEditor_contRecord").contents().find("#i_allowcount").val(i_allowcount);
+		if(i_allowcount==1){
+			parent.$("#formEditor_contRecord").contents().find('#youyong3').show();
+			parent.$("#formEditor_contRecord").contents().find("#count_one").show();
+		}
+		parent.$("#formEditor_contRecord").contents().find("#f_limitswimtime").val(f_limitswimtime);
+		parent.$("#formEditor_contRecord").contents().find("#i_freebathcount").val(i_freebathcount);
+		
+		parent.$("#formEditor_contRecord").contents().find("#f_scale").val(f_scale);
+		parent.$("#formEditor_contRecord").contents().find("#i_giveday").val(i_giveday);
+		parent.$("#formEditor_contRecord").contents().find("#i_ptcount").val(i_ptcount);
+		parent.$("#formEditor_contRecord").contents().find("#i_universal").val(i_universal);
+		parent.$("#formEditor_contRecord").contents().find("#i_clubcount").val(i_clubcount);
+		parent.$("#formEditor_contRecord").contents().find("#vc_groupcode").val(vc_groupcode);
+		parent.$("#formEditor_contRecord").contents().find("#i_savedaycount").val(i_savedaycount);
+		parent.$("#formEditor_contRecord").contents().find("#vc_remark").val(vc_remark);
+		parent.$("#formEditor_contRecord").contents().find("#i_count").val(i_count);
+		parent.$("#formEditor_contRecord").contents().find("#f_money").val(f_money);
+		parent.$("#formEditor_contRecord").contents().find("#f_moneyleft").val(f_moneyleft);
+		parent.$("#formEditor_contRecord").contents().find("#f_cardfee").val(f_cardfees); 
+		parent.$("#formEditor_contRecord").contents().find("#i_type").val(i_type); 
+		
+	   	parent.$("#formEditor_contRecord")[0].contentWindow.setisoffseason(vc_isoffseason);
+	   	parent.$("#formEditor_contRecord")[0].contentWindow.setitem(vc_item,i_allowcount,i_universal,i_type);
+	   	parent.$("#formEditor_contRecord")[0].contentWindow.leixing(i_type);
+	   	parent.$("#formEditor_contRecord")[0].contentWindow.huixian(vc_item,i_type);
+	   	parent.$("#formEditor_contRecord")[0].contentWindow.huixian2();
+	   
+	   
+	   	parent.$("#formEditor_contRecord").contents().find(".check").attr('disabled',true);<!---->
+	   	parent.$("#formEditor_contRecord").contents().find("#vc_isoffseason").attr('disabled',true);<!---->
+		$("#i_type").attr('disabled',true);<!---->
+		parent.$("#formEditor_contRecord").contents().find("#i_universal").attr('disabled',true);<!---->
+		parent.$("#formEditor_contRecord").contents().find("#i_allowcount").attr('disabled',true);<!--限时?-->
+
+		parent.$("#formEditor_contRecord").contents().find("#f_limitswimtime").attr('readonly',true);<!--几次-->
+		parent.$("#formEditor_contRecord").contents().find("#i_freebathcount").attr('readonly',true);<!--洗浴几次-->
+		
+		parent.$("#formEditor_contRecord").contents().find("#vc_remark").attr('readonly',true);<!--备注-->
+		parent.$("#formEditor_contRecord").contents().find("#i_ptcount").attr('readonly',true);<!--免费课节-->
+		parent.$("#formEditor_contRecord").contents().find("#i_savedaycount").attr('readonly',true);<!--可存卡-->
+		parent.$("#formEditor_contRecord").contents().find("#i_giveday").attr('readonly',true);<!--额外赠送天-->
+		parent.$("#formEditor_contRecord").contents().find("#f_scale").attr('readonly',true);<!--提成-->
+		parent.$("#formEditor_contRecord").contents().find("#f_cardfee").attr('readonly',true);<!--卡价格-->
+		parent.$("#formEditor_contRecord").contents().find("#vc_groupcode").attr('readonly',true);<!--通组-->
+		parent.$("#formEditor_contRecord").contents().find("#i_clubcount").attr('readonly',true);<!--通店-->
+		parent.$("#formEditor_contRecord").contents().find("#f_moneyleft").attr('readonly',true);<!--现金-->
+		parent.$("#formEditor_contRecord").contents().find("#f_money").attr('readonly',true);<!--基金-->
+		parent.$("#formEditor_contRecord").contents().find("#vc_name").attr('readonly',true);<!--名字-->
+		parent.$("#formEditor_contRecord").contents().find("#i_daycount").attr('readonly',true);<!--有效天-->
+		parent.$("#formEditor_contRecord").contents().find("#i_count").attr('readonly',true);<!--有效次-->
+		parent.closeDialog();	
+	},
+	$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		$("#btn_reset").unbind().on("click",function(){
+			document.searchForm.model_id.value='';
+		});
+		$(".selectItem").unbind().on("click",function(){
+			var vc_name=$(this).attr("code1");
+			var vc_code=$(this).attr("code");
+			var i_membercount=$(this).attr("code2");
+			var i_type=$(this).attr("code3");
+			var vc_isoffseason=$(this).attr("code4");
+			var i_daycount=$(this).attr("code5");
+			var i_allowcount=$(this).attr("code6");
+			var f_limitswimtime=$(this).attr("code7");
+			var i_freebathcount=$(this).attr("code8");
+			var f_scale=$(this).attr("code9");
+			var i_giveday=$(this).attr("code10");
+			var i_ptcount=$(this).attr("code11");
+			var i_universal=$(this).attr("code12");
+			var i_clubcount=$(this).attr("code13");
+			var vc_groupcode=$(this).attr("code14");
+			var i_savedaycount=$(this).attr("code15");
+			var vc_remark=$(this).attr("code16");
+			var i_count=$(this).attr("code17");
+			var f_money=$(this).attr("code18");
+			var f_moneyleft=$(this).attr("code20");
+			var vc_cardtype=$(this).attr("code21");
+			var f_cardfees=$(this).attr("code22");
+			var vc_item=$(this).attr("code23");
+			var i_status=$(this).attr("code24");
+
+			onthis.selectItem(vc_code,vc_name,i_membercount,i_type,vc_isoffseason,i_daycount,i_allowcount,f_limitswimtime,i_freebathcount,f_scale
+					,i_giveday,i_ptcount,i_universal,i_clubcount,vc_groupcode,i_savedaycount,vc_remark,i_count,f_money,f_moneyleft,f_cardfees,vc_item,vc_cardtype,i_status); 
+		});
+	}}).initSearchBtn().searchData(1);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <title>个人中心</title>
+        <link href="${def:context}/js/project/fitness/wx/css/sijiao.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        <div class="gerentop">
+            <img id="headpic" src="" class="touxiangpic img-circle" >
+            <p class="name text-center"><span class='name_span'></span><img src="${def:context}/js/project/fitness/wx/image/nvpic.png" class="sexpic"></p><!--如果是男，则为nanpic.png-->
+            <p class="tel text-center"></p>
+            <div class="gerencenter container">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <p class="number" id="yuyue">0</p>
+                        <p class="names" >预约</p>
+                    </div>
+                
+                    <div class="col-xs-4">
+                        <p class="number messageamount" id="xiaoxi">0</p>
+                        <p class="names">消息</p>
+                    </div>
+                    
+                    <div class="col-xs-4">
+                        <p class="number" id="tixing">0</p>
+                        <p class="names">沟通提醒</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gerencontent">
+            <div class="listothers"  id="task">
+                <div class='d1 fl'>查看任务</div>
+                <div class='d3 fr'><img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png"></div>
+            </div>
+            
+<!--             <div class="listothers">
+                <div class='d1 fl'>业绩报表</div>
+                <div class='d3 fr'><img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png"></div>
+            </div>   -->       
+            <div class="listothers" id='fenxi'>
+                <div class='d1 fl'>客源分析</div>
+                <div class='d3 fr'><img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png"></div>
+            </div>
+         <!--     <div class="listothers" id='password'>
+                <div class='d1 fl'>修改密码</div>
+                <div class='d3 fr'><img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png"></div>
+            </div> -->
+             <div class="listothers" id='exit'>
+                <div class='d1 fl'>退出当前帐号</div>
+                <div class='d3 fr'><img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png"></div>
+            </div>
+        </div>  
+
+        
+        
+       
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homemc();
+        var width=$(window).width();
+        if(width<=750){
+            $('.gerentop').css({'height':width*410/750+'px'});
+            $('.gerencontent').css({'margin-top':width*130/750+'px'});
+        }else{
+            $('.gerentop').css({'height':'205px'});
+            $('.gerencontent').css({'margin-top':'130px'});
+        }
+
+        $('#exit').click(function(){
+        	location.href = '${def:context}/action/project/fitness/wx/exit';
+        });
+
+        $('#headpic').click(function(){
+        	location.href='${def:context}${def:actionroot}/info/crud';
+        })
+        
+            
+        $('#tixing').click(function(){
+        	location.href='${def:context}${def:actionroot}/tixing/crud';
+        })
+        
+        $('#yuyue').click(function(){
+        	location.href='${def:context}${def:actionroot}/prapre/crud';
+        })
+        
+       $('#task').click(function(){
+        	location.href='${def:context}${def:actionroot}/task/crud?skilltype=2';
+        })
+        
+       $('#xiaoxi').click(function(){
+        	location.href='${def:context}${def:actionroot}/message/crud';
+        })
+        
+         $('#fenxi').click(function(){
+        	location.href='${def:context}${def:actionroot}/fenxi/crud';
+        })
+        <yuyue>
+        if("${fld:num}"==0){
+        	   $('#tixing').text("${fld:count}");
+        }else{
+        	   $('#yuyue').text("${fld:count}");
+        }
+        </yuyue>
+        
+        <info>
+            showInfo('${fld:name}','${fld:sex}','${fld:mobile}',"${fld:messageamount}"
+            ,"${fld:remindmessage}");
+            $('#headpic').attr('src',contextPath+"${fld:headpic}");
+        </info>
+        
+    });
+    
+    function showInfo(name,sex,mobile,messageamount,remindmessage)
+    {
+    	$('.name_span').text(name);
+    	$('.tel').text(mobile);
+    	$('.messageamount').text(messageamount); //消息总数
+    	if(remindmessage<=20&&remindmessage>0) //需提醒消息数
+    	{
+    		$('.messageamount').append("<span class='remindmessage'>"+String(remindmessage)+"</span>");
+    	}
+    	else if(remindmessage>20) //大于20显示20+
+    	{
+    		$('.messageamount').append("<span class='remindmessage'>20+</span>");
+    	}
+    	if(sex=='男') //性别
+    	{
+    		 $('.sexpic').attr('src',"${def:context}/js/project/fitness/wx/image/nanpic.png");
+    	}
+    	else if(sex=='女')
+    	{
+    		 $('.sexpic').attr('src',"${def:context}/js/project/fitness/wx/image/nvpic.png");
+    	}
+    	else //性别未知
+    	{
+    		 $('.sexpic').css('display','none');
+    	}
+    }
+</script>

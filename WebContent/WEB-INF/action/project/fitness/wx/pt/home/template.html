@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <title>私教首页</title>
+        <link href="${def:context}/js/project/fitness/wx/css/sijiao.css" rel="stylesheet">
+         <link href="${def:context}/js/project/fitness/wx/css/swiper.min.css" rel="stylesheet">
+        <style>
+            body{background-color: #FFF;}
+        </style>
+    </head>
+    <body>
+        <!-- Swiper -->
+        <div class="swiper-container"id="swiper1">
+            <div class="swiper-wrapper">
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        
+        <div class="sijiaotop">
+            <div class="topone fl">
+                <p class="name">本月销售业绩</p>
+                <p class="baifenbi" id="orderfee_target">100%</p>
+                <p class="shuliang" id="contractprice_monnum">0</p>
+            </div>
+            <div class="toptwo fr">
+                <p class="name">本月跟进任务</p>
+                <p class="baifenbi" id="follow_target">100%</p>
+                <p class="shuliang" id="genjin_monnum">0</p>
+            </div>
+            <div class="topthree"></div>
+        </div>
+        
+        <div class="sijiaotiao"></div>
+
+        <div class="sijiaocenter container">
+            <div class="row">
+                <div class="col-xs-3">
+                    <p class="number log"  >0</p>
+                    <p class="name">本周签课</p>
+                    <div class="line"></div>
+                </div>
+                <div class="col-xs-3">
+                    <p class="number log">0</p>
+                    <p class="name">本周上课</p>
+                    <div class="line"></div>
+                </div>
+                <div class="col-xs-3">
+                    <p class="number" id="todaynum">0</p>
+                    <p class="name">今日上课</p>
+                    <div class="line"></div>
+                </div>
+                <div class="col-xs-3">
+                    <p class="number" id="yuyue">0</p>
+                    <p class="name">今日预约</p>
+                </div>
+               
+            </div>
+            
+        </div>
+
+        <div class="sijiaotiao"></div>
+
+        <div class="sijiaobottom container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/sijiaokebiao.png" class="bottomimg" id="ptkebiao">
+                    <p class="name">私教课表</p>
+                </div>
+                <div class="col-xs-4" id="qianke">
+                    <img src="${def:context}/js/project/fitness/wx/image/sijiaoqianke.png" class="bottomimg" id="qianke">
+                    <p class="name">私教签课</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/huiyuantuancao.png" class="bottomimg" id="tuancao">
+                    <p class="name">团操课表</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/myhuiyuan.png" class="bottomimg" id="mycust">
+                    <p class="name">我的会员</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/qianzaiziyuan.png" class="bottomimg" id="myziyuan">
+                    <p class="name">潜在资源</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/hetongbanli.png" class="bottomimg" id="contract">
+                    <p class="name">合同办理</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/peixunxuexi.png" class="bottomimg" id="mycourse">
+                    <p class="name">培训学习</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/gerenzhongxin.png" class="bottomimg" id="personal">
+                    <p class="name">个人中心</p>
+                </div>
+              <div class="col-xs-4" id="yiji" style="display: none">
+                        <img src="${def:context}/js/project/fitness/wx/image/baobiao@2x.png" class="bottomimg" id="report">
+                        <p class="name">业绩报表</p>
+                </div>               
+            </div>
+        </div>
+
+        
+        <script src="${def:context}/js/project/fitness/wx/js/swiper-4.0.7/js/swiper.min.js"></script>
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+      	if("${fld:skill_name}"=="私教经理"){
+    		$('#yiji').show();
+    	}
+    	getAjaxCall("/action/project/fitness/wx/basic/bannerorg", false, function(){});
+    	loadptclass();
+    	setInterval(function(){	// 5分钟执行一次
+    		loadptclass();
+    	},5*60*1000);
+    	
+    	getRepot();
+        var width=$(window).width();
+        if(width<=750){
+            $('.bannerimg').css({'height':width*320/750+'px'});
+            $('.sijiaotop').css({'height':width*195/750+'px'});
+            $('.sijiaobottom').css({'height':width*660/750+'px'});
+        }else{
+            $('.bannerimg').css({'height':'320px'});
+            $('.sijiaotop').css({'height':'195px'});
+            $('.sijiaobottom').css({'height':'660px'});
+        }
+
+        $('#mycust').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/pt/mycust/crud";
+        })
+        $('#myziyuan').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/myziyuan/crud";
+        })
+        $('#personal').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/personal/crud";
+        })
+        $('#contract').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/pt/ptpeplelist/crud";
+        })
+        $('#mycourse').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/mycourses/crud?type=pt";
+        })
+     	 $('#qianke').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/qianke/crud";
+        })
+   
+       $('#ptkebiao').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/course/crud";
+        })
+       $('#tuancao').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/tuancao/list/crud";
+        })  
+       $('#report').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/report/crud";
+        })
+    });
+    function getRepot(){
+    	 var target_date=new Date().format("yyyy-MM");
+  	getAjaxCall("/action/project/fitness/wx/mc/home/gettask/getcode?skilltype=1&target_date="+target_date,false);
+    }
+    function loadptclass(){
+    	getAjaxCall("/action/project/fitness/wx/pt/home/loadptclass", false);
+    }
+</script>

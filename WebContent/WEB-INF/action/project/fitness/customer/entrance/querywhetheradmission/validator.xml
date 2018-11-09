@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="cardtype" type="varchar" required="true" label="卡类型编号" />
+</validator>

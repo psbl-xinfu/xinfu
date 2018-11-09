@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="s_name" type="varchar" required="false" label="接受者姓名" />
+</validator>

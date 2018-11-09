@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+       <parameter id="adjourndays" type="integer" required="true" label="延期天数"/>
+       <parameter id="remark" type="varchar" required="false" label="备注"/>
+       <parameter id="cardcode" type="varchar" required="true" label="会员卡号"/>
+       <parameter id="customercode" type="varchar" required="true" label="会员号"/>
+       <parameter id="cardenddate" type="varchar" required="true" label="延期前截止日期"/>
+       <parameter id="cardstartdate" type="varchar" required="true" label="延期前开始日期"/>
+       <parameter id="cardstatus" type="varchar" required="true" label="会员卡当时状态"/>
+       
+</validator>
+

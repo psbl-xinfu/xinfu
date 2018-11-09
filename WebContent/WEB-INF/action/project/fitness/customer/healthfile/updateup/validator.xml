@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="vc_code" type="varchar" required="true" label="vc_code" maxlen="500"/>
+    <parameter id="vc_name" type="varchar" required="true" label="vc_name" maxlen="500"/>
+    <parameter id="i_status" type="varchar" required="false" label="i_status" />
+    <parameter id="i_sex" type="varchar" required="false" label="i_sex" maxlen="500"/>
+    <parameter id="c_birthdate" type="varchar" required="false" label="c_birthdate"  maxlen="500"/>
+    <parameter id="vc_club" type="varchar" required="false" label="vc_club"  maxlen="500"/>
+</validator>

@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="vi_vc_code" type="varchar" required="false" label="vi_vc_code" maxlen="20" />
+</validator>

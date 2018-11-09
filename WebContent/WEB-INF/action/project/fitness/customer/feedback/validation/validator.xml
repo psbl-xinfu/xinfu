@@ -1,0 +1,7 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<validator >
+    <parameter id="name" type="varchar" required="false" label="客户名" maxlen="200" />
+    <parameter id="mobile" type="varchar" required="true" label="电话" maxlen="64" />
+    <parameter id="feedbackid" type="integer" required="false" label="投诉编号" maxlen="64" />
+    <parameter id="customercode" type="varchar" required="false" label="客户编号" maxlen="1000" />
+</validator>

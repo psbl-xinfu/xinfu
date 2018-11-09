@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>会籍任务</title>
+</head>
+<body>
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="pageSize" type="hidden" value="10000" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="dateTime">
+								<input id="start_date" name="start_date" type="text" value="${fld:start_date}" class="input-default"/>
+							</li>
+							<li class="dateTime">
+								<input id="end_date" name="end_date" type="text" value="${fld:end_date}" class="input-default"/>
+							</li>
+							<li>
+								<select id="skill_name" name="skill_name">
+									<option value="">全部会籍</option>
+									<staff-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows>
+								</select>
+							</li>
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<button type="button"  class="r-c-3-btn-3" id="excel" title="导出"></button>
+							</div>
+						</nav>
+					</div>
+					<div class="tab-cout-nav-b">
+						<nav class="r-c-3-t-b-r">
+							 <li>
+					    	 	<button  type="button"id="stafftype">按员工维度</button>
+							</li>
+							 <li>
+					    	 	<button  type="button"id="zutype">按组维度</button>
+							</li>
+						</nav>
+						<nav class="r-c-3-t-b-r">
+						</nav>
+					</div>
+				</div>
+						<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th colspan="3">资源获取量</th>
+								<th colspan="3">跟进量（资源）</th>
+								<th colspan="3">回访量（会员）</th>
+								<th colspan="3">预约量</th>
+								<th colspan="3">预约到访量</th>
+								<th colspan="3">成单量</th>
+								<th colspan="3">成单额</th>
+							</tr>
+							<tr>
+								<th>排名</th>
+								<th>会籍</th>
+								<th>资源总量</th>
+								<th>会员总量</th>
+								<th>数量</th>
+								<th>任务</th>
+								<th>完成率</th>
+								<th>数量</th>
+								<th>任务</th>
+								<th>完成率</th>
+								<th>数量</th>
+								<th>任务</th>
+								<th>完成率</th>
+								<th>数量</th>
+								<th>任务</th>
+								<th>完成率</th>
+								<th>数量</th>
+								<th>任务</th>
+								<th>完成率</th>
+								<th>数量</th>
+								<th>任务</th>
+								<th>完成率</th>
+								<th>销售额</th>
+								<th>任务</th>
+								<th>完成率</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+								<td style="width:8%">#show_order#</td>
+								<td style="width:8%">#staff_name#</td>
+								<td style="width:8%">#guestnum#</td>										
+								<td style="width:8%">#custnum#</td>										
+								<td style="width:8%">#guest_target#</td>
+								<td style="width:8%">#rwguest_target#</td>										
+								<td style="width:8%">#zycomplete#</td>									
+								<td style="width:8%">#follow_target#</td>
+								<td style="width:8%">#rwfollow_target#</td>										
+								<td style="width:8%">#gjcomplete#</td>									
+								<td style="width:8%">#call_target#</td>
+								<td style="width:8%">#rwcall_target#</td>										
+								<td style="width:8%">#hfcomplete#</td>									
+								<td style="width:8%">#prepare_target#</td>
+								<td style="width:8%">#rwprepare_target#</td>										
+								<td style="width:8%">#yycomplete#</td>									
+								<td style="width:8%">#visit_target#</td>
+								<td style="width:8%">#rwvisit_target#</td>										
+								<td style="width:8%">#dfcomplete#</td>									
+								<td style="width:8%">#ordernum_target#</td>
+								<td style="width:8%">#rwordernum_target#</td>										
+								<td style="width:8%">#cdlcomplete#</td>									
+								<td style="width:8%">#orderfee_target#</td>
+								<td style="width:8%">#rworderfee_target#</td>						
+								<td style="width:8%">#cdecomplete#</td>				
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+						<tr>
+							<td style="width:8%" colspan="2">总计：</td>
+							<td style="width:8%" id="guestnum"></td>										
+							<td style="width:8%" id="custnum"></td>										
+							<td style="width:8%" id="guest_target"></td>
+							<td style="width:8%" id="rwguest_target"></td>										
+							<td style="width:8%" id="zycomplete"></td>									
+							<td style="width:8%" id="follow_target"></td>
+							<td style="width:8%" id="rwfollow_target"></td>										
+							<td style="width:8%" id="gjcomplete"></td>									
+							<td style="width:8%" id="call_target"></td>
+							<td style="width:8%" id="rwcall_target"></td>										
+							<td style="width:8%" id="hfcomplete"></td>									
+							<td style="width:8%" id="prepare_target"></td>
+							<td style="width:8%" id="rwprepare_target"></td>										
+							<td style="width:8%" id="yycomplete"></td>									
+							<td style="width:8%" id="visit_target"></td>
+							<td style="width:8%" id="rwvisit_target"></td>										
+							<td style="width:8%" id="dfcomplete"></td>									
+							<td style="width:8%" id="ordernum_target"></td>
+							<td style="width:8%" id="rwordernum_target"></td>										
+							<td style="width:8%" id="cdlcomplete"></td>									
+							<td style="width:8%" id="orderfee_target"></td>
+							<td style="width:8%" id="rworderfee_target"></td>										
+							<td style="width:8%" id="cdecomplete"></td>
+						</tr>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+			
+	<form id="daochuForm"  name="daochuForm">
+		<input type="hidden" id="daochu_start_date" name="daochu_start_date" type="text"/>
+		<input  type="hidden" id="daochu_end_date" name="daochu_end_date" type="text"/>
+		<input type="hidden" id="daochu_skill_name" name="daochu_skill_name" type="text"/>
+		<input type="hidden" id="daochu_target_type" name="daochu_target_type" type="text"/>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	$Dialog().date($('#start_date'));
+	$Dialog().date($('#end_date'));
+	if("${fld:start_date}"==""){
+		$("#start_date").val(new Date().format("yyyy-MM-01"));
+	}else{
+		$("#start_date").val("${fld:start_date}");
+	}
+	if("${fld:end_date}"==""){
+		$("#end_date").val("${def:date}");
+	}else{
+		$("#end_date").val("${fld:end_date}");
+	}
+	searchSelectInit($("#skill_name"));
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_start_date").val($("#start_date").val());
+		$("#daochu_end_date").val($("#end_date").val());
+		$("#daochu_skill_name").val($("#skill_name").val());
+		var url = "${def:context}${def:actionroot}/excel"
+		ajaxCall(url,{
+			method: "post",
+			progress: true,
+			form:'daochuForm',
+			dataType: "script",
+			success: function() {
+			}
+		});
+	});  
+	
+ 	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		var guestnum=0,custnum=0,guest_target=0,rwguest_target=0,follow_target=0,rwfollow_target=0,
+		call_target=0,rwcall_target=0,prepare_target=0,rwprepare_target=0,visit_target=0,rwvisit_target=0,
+		ordernum_target=0,rwordernum_target=0,orderfee_target=0,rworderfee_target=0;
+		$("#datagrid tr").each(function(){
+			guestnum+=parseInt($(this).find("td").eq(2).html());//资源总量
+			custnum+=parseInt($(this).find("td").eq(3).html());//会员总量
+			guest_target+=parseInt($(this).find("td").eq(4).html());//资源获取量数量
+			rwguest_target+=parseInt($(this).find("td").eq(5).html());//资源获取量任务
+			follow_target+=parseInt($(this).find("td").eq(7).html());//跟进量数量
+			rwfollow_target+=parseInt($(this).find("td").eq(8).html());//跟进量任务
+			call_target+=parseInt($(this).find("td").eq(10).html());//回访量数量
+			rwcall_target+=parseInt($(this).find("td").eq(11).html());//回访量任务
+			prepare_target+=parseInt($(this).find("td").eq(13).html());//预约量数量
+			rwprepare_target+=parseInt($(this).find("td").eq(14).html());//预约量任务
+			visit_target+=parseInt($(this).find("td").eq(16).html());//到访量数量
+			rwvisit_target+=parseInt($(this).find("td").eq(17).html());//到访量任务
+			ordernum_target+=parseInt($(this).find("td").eq(19).html());//成单量数量
+			rwordernum_target+=parseInt($(this).find("td").eq(20).html());//成单量任务
+			orderfee_target+=parseInt($(this).find("td").eq(22).html());//成单额数量
+			rworderfee_target+=parseInt($(this).find("td").eq(23).html());//成单额任务
+		});
+		$("#guestnum").html(guestnum);
+		$("#custnum").html(custnum);
+		$("#guest_target").html(guest_target);
+		$("#rwguest_target").html(rwguest_target);
+		if(rwguest_target==0){$("#zycomplete").html('0.00%');}else{$("#zycomplete").html(Number(guest_target/rwguest_target*100).toFixed(2)+"%");}
+		$("#follow_target").html(follow_target);
+		$("#rwfollow_target").html(rwfollow_target);
+		if(rwfollow_target==0){$("#gjcomplete").html('0.00%');}else{$("#gjcomplete").html(Number(follow_target/rwfollow_target*100).toFixed(2)+"%");}
+		$("#call_target").html(call_target);
+		$("#rwcall_target").html(rwcall_target);
+		if(rwcall_target==0){$("#hfcomplete").html('0.00%');}else{$("#hfcomplete").html(Number(call_target/rwcall_target*100).toFixed(2)+"%");}
+		$("#prepare_target").html(prepare_target);
+		$("#rwprepare_target").html(rwprepare_target);
+		if(rwprepare_target==0){$("#yycomplete").html('0.00%');}else{$("#yycomplete").html(Number(prepare_target/rwprepare_target*100).toFixed(2)+"%");}
+		$("#visit_target").html(visit_target);
+		$("#rwvisit_target").html(rwvisit_target);
+		if(rwvisit_target==0){$("#dfcomplete").html('0.00%');}else{$("#dfcomplete").html(Number(visit_target/rwvisit_target*100).toFixed(2)+"%");}
+		$("#ordernum_target").html(ordernum_target);
+		$("#rwordernum_target").html(rwordernum_target);
+		if(rwordernum_target==0){$("#cdlcomplete").html('0.00%');}else{$("#cdlcomplete").html(Number(ordernum_target/rwordernum_target*100).toFixed(2)+"%");}
+		$("#orderfee_target").html(orderfee_target);
+		$("#rworderfee_target").html(rworderfee_target);
+		if(rworderfee_target==0){$("#cdecomplete").html('0.00%');}else{$("#cdecomplete").html(Number(orderfee_target/rworderfee_target*100).toFixed(2)+"%");}
+	}}).initSearchBtn().searchData(1); 
+	
+	//按员工
+	$("#stafftype").click(function(){
+		mctask();
+	});
+	//按分组
+	$("#zutype").click(function(){
+		mctaskgrouping();
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="class_query.sql" source="sql" scope="transaction" />
+		<recordset id="coursename_classamount_query.sql" source="sql" scope="transaction" />
+		<recordset id="learning_person_amount_query.sql" source="sql" scope="transaction" />
+		<recordset id="cover_url_query.sql" source="sql" scope="transaction" />
+		<recordset id="class_process_query.sql" source="sql" scope="transaction" />
+		<recordset id="course_desc_query.sql" source="sql" scope="transaction" />
+		<recordset id="term_query.sql" source="sql" scope="transaction" />
+		<recordset id="term_check.sql" source="sql" scope="transaction" />
+		<recordset id="last-log.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>tamplate.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="class_query.sql" tag="class-rows" />
+		<print mode="table" recordset="coursename_classamount_query.sql" tag="coursename-classamount-rows" />
+		<print mode="table" recordset="learning_person_amount_query.sql" tag="person-amount-rows" />
+		<print mode="table" recordset="cover_url_query.sql" tag="cover-url" />
+		<print mode="table" recordset="class_process_query.sql" tag="class-process" />
+		<print mode="table" recordset="course_desc_query.sql" tag="course-desc" />
+		<print mode="table" recordset="term_query.sql" tag="term-rows" />
+		<print mode="table" recordset="term_check.sql" tag="term-check-rows" />
+		<print mode="table" recordset="last-log.sql" tag="last-log-rows" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

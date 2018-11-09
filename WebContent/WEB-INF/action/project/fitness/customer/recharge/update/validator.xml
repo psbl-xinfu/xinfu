@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="cust_code" type="varchar" required="true" label="会员code" maxlen="32" />
+	<parameter id="moneycash" type="double" required="true" label="退费金额" maxlen="32" />
+	<parameter id="remark" type="varchar" required="false" label="备注" maxlen="32" />
+	<parameter id="pay_detail" type="varchar" required="true" label="支付明细" maxlen="32" />
+	<parameter id="name" type="varchar" required="false" label="会员姓名" maxlen="32" />
+	
+	<parameter id="vc_code" type="varchar" required="true" label="vc_code" maxlen="32" />
+	<parameter id="fushu" type="varchar" required="true" label="fushu" maxlen="32" />
+	
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="退款失败！余额不足！" id="moneycash" sql="noRep-money.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="退款失败！请确认最大退费值！" id="moneycash" sql="noRep.sql" />
+</validator>
+

@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochu_start_date,daochu_end_date,daochu_salename_query,daochu_xiaoshouyuan,daochu_shouyinyuan,daochu_yewuleixing</colname>
+
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="收银流水" filename="收银流水.xls" header-background="true">
+		<col id="c_adate" label="收银日期" />
+		<col id="sv_salesname" label="销售1" />
+		<col id="sv_salesname2" label="销售2" />
+		<col id="vc_cardcode" label="卡号" />
+		<col id="vc_customername" label="姓名" />
+		<col id="categories" label="收入分类" />
+		<col id="vc_typename" label="收入类型" />
+		<col id="f_premoney" label="预收款" />
+		<col id="f_money" label="收入" />
+		<col id="f_moneyleft" label="欠款" />
+		<col id="vc_ausername" label="收银" />
+		<col id="vc_code" label="收银号" />
+	</excel>
+
+</config>
+

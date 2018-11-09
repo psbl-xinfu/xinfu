@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="grade" type="varchar" required="true" label="当前等级"/>
+	<parameter id="showorder" type="integer" required="true" label="当前顺序"/>
+	<parameter id="tuid" type="integer" required="true" label="tuid"/>
+	<parameter id="category" type="integer" required="true" label="category"/>
+</validator>

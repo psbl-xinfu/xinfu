@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+		入场刷卡规则
+	</summary>
+	
+	<log>false</log>
+    <transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-ishand.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-isautomaticentry.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-custallcard.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-delaytime.sql" source="sql" scope="transaction" /> 
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form" recordset="query-ishand.sql"/>
+		<print mode="form" recordset="query-isautomaticentry.sql"/>
+		<print mode="form" recordset="query-custallcard.sql"/>
+		<print mode="form" recordset="query-delaytime.sql"/>
+	</output>
+
+</config>

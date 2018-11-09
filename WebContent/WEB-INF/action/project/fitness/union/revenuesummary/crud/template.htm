@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/analysis-org.js" type="text/javascript"></script>
+<title>营收汇总</title>
+<style>
+
+	.bb-tab-cout-8 .f-s-t-top>div {
+    float: left;
+    margin: 20px 8px 10px;
+}
+</style>
+</head>
+<body>
+		<div class="bb-tab-cout-2 bb-tab-cout-8 am-tab-panel three-none" id="bb-tab8">
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<li>
+							<div class="my-selected">
+								<select id="datatype" name="datatype" style="display: none;">
+									<option value="0" selected>按天</option>
+									<option value="1">按周</option>
+									<option value="2">按月</option>
+								</select>
+							</div>
+						</li>
+						<li style="margin-left:55px;">
+							<select id="org_id" name="org_id" style="display: none;">
+								<option value="">全部门店</option>
+								<org-list>
+									<option value="${fld:org_id}">${fld:org_name}</option>
+								</org-list>
+							</select>
+						</li>
+						<button id="searchAll" class="freshen">刷新</button>
+					</nav>
+				</div>
+				
+				<div class="f-s-t-top" style="display: block;">
+					<div>
+						<header>总营收</header>
+						<span class="count" id="income"></span>
+						<p>环比
+							<i id="monthincomerate"></i>
+						</p>
+					</div>
+					<div>
+						<header>会籍合同</header>
+						<span class="count" id="cardcontract"></span>
+						<p>环比
+							<i id="monthcardcontractrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>私教合同</header>
+						<span class="count" id="ptcontract"></span>
+						<p>环比
+							<i id="monthptcontractrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>租柜合同</header>
+						<span class="count" id="cabcontract"></span>
+						<p>环比
+							<i id="monthcabcontractrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>会员储值</header>
+						<span class="count" id="cardmoney"></span>
+						<p>环比
+							<i id="monthcardmoneyrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>商品销售</header>
+						<span class="count" id="goods"></span>
+						<p>环比
+							<i id="monthgoodsrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>单次消费</header>
+						<span class="count" id="singleitem"></span>
+						<p>环比
+							<i id="monthsingleitemrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>营运收入</header>
+						<span class="count" id="other"></span>
+						<p>环比
+							<i id="monthotherrate"></i>
+						</p>
+					</div>
+			</div>
+			</div>
+			
+			<div class="bb-tab-cout-1-bottom">
+				<!-- 营收额 折线图-->
+				<div class="addTop" data-role="mc" style="">
+					<header>
+						<span>营收额</span>
+					</header>
+					<nav>
+						<div class="nav-li-group"></div>
+						<li>
+							<button data-area="revenuesummary" data-type="bar" name="changeMagicType"></button>
+							<button data-area="revenuesummary" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="revenuesummary" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="revenuesummarydaterangespan"></p></div>
+					<div id="revenuesummaryDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 营收额 饼图-->
+				<div class="addTop" code="chartsgroup" data-area="singleconsumption">
+					<header>
+						<span>营收额</span>
+					</header>
+					<nav>
+						<div class="nav-li-group"></div>
+						<li>
+							<button data-area="revenuepie" data-type="pie" name="changeMagicType" class="active"></button>
+							<button data-area="revenuepie" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="revenuepiedaterangespan"></p></div>
+					<div id="revenuepieDiv" class="other-full"></div>
+				</div>
+			</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var revenue = null, revenuepiePic = null;
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	searchSelectInit($("#org_id,#datatype"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	// 循环图表
+	$("div[code=chartsgroup]").each(function(i,ele){
+		var darea = $(this).data("area");
+		$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		$("button[name=changeMagicType][data-area="+darea+"]").attr("data-idx", i);
+		$("button[name=changeMagicType][data-area="+darea+"]").unbind().on("click",function(){
+			$(this).siblings(".active").removeClass("active");
+			$(this).addClass("active");
+		});
+	});
+	
+	/** 顶部搜索 */
+	$("#searchAll").unbind().on("click",function(){
+		getAjaxCall("${def:actionroot}/querytotal?fdate="+$("#fdate").val()+"&tdate="+$("#tdate").val()
+				+"&org_id="+$("#org_id").val(), true);
+		
+		/** 营收额折线图 **/
+		revenue = new revenuesummary();
+		revenue.loadData();
+
+		/** 营收额 饼图**/
+		revenuepiePic = new pieCharts("revenuepieDiv");
+		revenuepiePic.setConfig({isLegendShow: true, titlename: "营收额"});
+		getAjaxCall("${def:actionroot}/loaddata/financeitem?fdate="+$("#fdate").val()+"&tdate="+$("#tdate").val()
+				+"&datatype=bar"+"&org_id="+$("#org_id").val(), true);
+	});
+	$("#searchAll").click();
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/base.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/site_home.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="home_top">
+        <!-- banner Swiper  -->
+        <div class="swiper-container" style="box-shadow:1px 0.1rem 0.6rem #d0f2fb9e;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="${def:context}/js/project/fitness/wx/image/wx_site/banner@2x.png"
+                        alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="${def:context}/js/project/fitness/wx/image/wx_site/banner@2x.png"
+                        alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img src="${def:context}/js/project/fitness/wx/image/wx_site/banner@2x.png"
+                        alt="">
+                </div>
+
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+        <!-- 列表 -->
+        <div class="swiper-container-list list_type">
+            <ul>
+            	<sitetype-list>
+	                <li onclick="sitetypeinfo('${fld:param_value}')">
+	                    <div>
+                            <img src="${def:context}/js/project/fitness/wx/image/wx_site/moren.png" alt="默认图">
+                        </div>
+	                    <span>${fld:param_text@js}</span>
+	                </li>
+            	</sitetype-list>
+            </ul>
+        </div>
+
+
+    </div>
+    <!-- 门店列表 -->
+    <div class="shop">
+        <div class="list_title">门店列表</div>
+
+        <div class="list_cont">
+            <ul id="orglist">
+            </ul>
+        </div>
+    </div>
+<script src="${def:context}/js/project/fitness/wx/js/wx_site/rem.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.js"></script>
+<!-- Swiper JS -->
+<script>
+$(function () {
+    function homept1() {
+            var str =
+                '<a  href="${def:context}/action/project/fitness/wx/site/siteindex/crud?weixin_userid=${fld:weixin_userid}" style="position: fixed;left: 0%;bottom:0;border-right:1px solid #ededed; background:#fff;border-top:1px solid #ededed;  width:50%;height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/sy1@2x.png"  style="position: fixed;left: 18.5%;bottom:0.5rem;width:0.4rem;height:0.4rem;"><p  style="position: fixed;left: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem;  color: #01BAFF !important;">首页</p></a>'
+            $('body').append(str);
+        }
+        homept1();
+
+        function homept2() {
+            var str =
+                '<a class="active"  href="${def:context}/action/project/fitness/wx/site/mine/crud?weixin_userid=${fld:weixin_userid}" style="position: fixed;right: 0%;bottom:0; background:#fff; width:50%;border-top:1px solid #ededed; height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/wd2@2x.png"  style="position: fixed;right: 18.5%;bottom:0.5rem;width:0.4rem;height:0.4rem;" ><p class="active"  style="position: fixed;right: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">我的</p></a>'
+            $('body').append(str);
+        }
+        homept2();
+	//查询门店
+	ajaxCall("${def:actionroot}/queryorg?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}",{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+    var swiper = new Swiper('.swiper-container', {
+        pagination: {
+            el: '.swiper-pagination',
+            dynamicBullets: true,
+        },
+    });
+})
+
+//门店列表
+function sitetypeinfo(sitetype){
+	location.href="${def:context}/action/project/fitness/wx/site/sitelist/crud?sitetype="
+			+sitetype+"&weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}";
+}
+</script>
+</body>
+
+</html>

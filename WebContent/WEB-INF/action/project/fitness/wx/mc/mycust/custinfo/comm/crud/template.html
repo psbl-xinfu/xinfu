@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html >
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>会员新增跟进</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        	<style type="text/css">
+        	.lablewidth{
+        	width: 140px !important;
+        	text-align: right
+        	}
+        	</style>
+        	</head>
+    <body>
+        
+       <form id="formEditor" name="formEditor">
+       	<input type="hidden" name="guestcode" id="guestcode" value="${fld:guestcode}">
+     	<input type="hidden" name="customercode"  id="customercode"value="${fld:customercode}"/>
+		<input type="hidden" name="cust_type" value="${fld:cust_type}"/>
+		<input type="hidden" name="preparecode" value="${fld:preparecode}"/>
+		<input type="hidden" id="nexttime" name="nexttime" value=""/>
+		<input type="hidden" id="pdate" name="pdate" value=""/>
+		<input type="hidden" id="ptime" name="ptime" value=""/>
+		<input type="hidden" id="mobile" name="mobile" value=""/>
+       	
+       	
+       <div class="myhuiyuangenjintop">
+                <div class="list">
+                <img id="headpic" src="" class="touxiangpic fl">
+                <div class="content fl">
+                    <p class="name" id="name"><span id="sex"></span><span id="mobile_t"></span></p>
+                    <p class="time"  id="lasttime"></p>
+                </div>
+                <a  id="tel" href=""><img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"></a>
+            </div>
+        </div>   
+
+
+
+        <div class="myhuiyuangenjinbanner container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="name" id="enddate"></p>
+                </div>
+                <div class="centerone"></div>
+            </div>
+        </div>  
+
+
+
+       <div class="myhuiyuangenjincontent">
+            <div class="listother">
+                <p class='p1'>通话人</p>
+                <p class='p3'>
+                    <select class="form-control"  id="createdby" name="createdby"> 
+	                    <mc>
+	                    	  <option value="${fld:userlogin}">${fld:name}</option>
+	                    </mc>
+                    </select>
+                    
+                </p>
+            </div>
+            
+             <div class="listother">
+                <p class='p1'>通话方式</p>
+                <p class='p3'>
+					<select id="commway" name="commway" class="form-control" >
+						  <option value="">--请选择--</option>
+							<rows-commway>
+								<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+							</rows-commway>
+					</select>
+                </p>
+            </div>           
+            
+            
+            <div class="listother">
+                <p class='p1'>通话目的</p>
+                <p class='p3'>
+						<select  class="form-control" id="commtarget" name="commtarget">
+						  <option value="">--请选择--</option>
+							<rows-target>
+								<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+							</rows-target>
+						</select>
+                </p>
+            </div>
+            <div class="listother">
+                <p class='p1'>沟通阶段</p>
+                <p class='p3'>
+						<select id="stage" name="stage"  class="form-control" >
+							  <option value="">--请选择--</option>
+								<rows-CommStage>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</rows-CommStage>
+							</select>
+                </p>
+            </div>
+            <div class="listother">
+                <p class='p1'>通话状态</p>
+                <p class='p3'>
+    							<select id="callstatus" name="callstatus" class="form-control" >
+								  <option value="">--请选择--</option>
+									<rows-CallStatus>
+										<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+									</rows-CallStatus>
+								</select>
+                </p>
+            </div>
+            
+            
+            <div class="listother">
+                <p class='p1'>通话结果</p>
+            </div>    
+            
+            
+            <div class="selectdiv">
+            
+            
+                <div class="radio">
+                    <label class="lablewidth"> 
+                        <input type="radio" name="commresult"  value="1">
+                        <span>预约通话时间</span>
+                    </label>
+                    <input type="text" name="nextcalltime"  class="form-control timeinput" id="nextcalltime" data-date-format="yyyy-mm-dd hh:ii">
+                </div>
+                <div class="radio">
+                   <label class="lablewidth" style="text-align: left"> 
+                        <input type="radio" name="commresult" value="0" >
+                        <span>未成功</span>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label  class="lablewidth">
+                        <span>未成功原因</span>
+                    </label>
+  		      			<select  id="failreason" name="failreason"class="form-control"    >
+						  	<option value="">请选择</option>
+							<rows-CommFailResaon>
+								<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+							</rows-CommFailResaon>
+						</select>
+                </div>
+                
+                <div class="radio">
+                     <label  class="lablewidth">
+                        <span>关注度评估</span>
+                    </label>
+                		<select id="level" name="level"  class="form-control">
+							<rows-GuestLevel>
+								<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+							</rows-GuestLevel>
+                    </select>
+                </div>
+            </div>
+
+            <div class="list">
+                <p class='p1 fl'>备注</p>
+                <p class='p2 fl'><textarea class="form-control" rows="3" placeholder="请写入备注" id="remark" name="remark"></textarea></p>
+            </div>
+        </div>
+       </form>
+            <div class="myhuiyuangenjinbtn">
+                <img src="${def:context}/js/project/fitness/wx/image/submit2.png" class="tijiao"  id="save">
+            </div>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homemc();
+     	<info>
+    	$('#sex').before('${fld:name}');
+    	$('#sex').text('${fld:sex}');
+    	$('#mobile_t').text('${fld:mobile}');
+    	$('#mobile').val('${fld:mobile}');
+    	$('#enddate').text('截止日期：${fld:enddate}');
+    	
+    	var lasttime="${fld:lasttime}"
+    	if(lasttime=='&nbsp;'){
+    		lasttime=""
+    	}
+    		$('#lasttime').text('最近跟进：'+lasttime);
+    		$('#tel').attr('href','tel:${fld:mobile}');
+    		$('#headpic').attr('src',contextPath+"${fld:headpic}");
+    	</info>
+    	
+    	
+    	$('#createdby').val('${def:user}');
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#nextcalltime").mobiscroll($.extend(opt['datetime'], opt['default']));
+
+        
+        
+    	$("input[name=commresult]:eq(0)").on("ifClicked",function () {    
+    		$('#nextcalltime').val('');
+    	});
+    	
+    	$("input[name=commresult]:eq(1)").on("ifClicked",function () {    
+    		$('#nextcalltime').val('');
+    		$('#failreason').val('');
+    	});
+    	
+    	$("input[name=commresult]:eq(2)").on("ifClicked",function () {    
+    		$('#failreason').val('');
+    	});
+        
+        
+    	$('#save').on('click',function(){
+    		
+    		
+     		if($('#commway').val()==""){
+    			ccms.dialog.notice("通话方式不能为空");
+    			return false;
+    		}
+
+    		if($('#commtarget').val()==""){
+    			ccms.dialog.notice("通话目的不能为空");
+    			return false;
+    		}
+    		if($('#stage').val()==""){
+    			ccms.dialog.notice("沟通阶段不能为空");
+    			return false;
+    		}
+    		if($('#callstatus').val()==""){
+    			ccms.dialog.notice("通话状态不能为空");
+    			return false;
+    		} 
+    		
+    		 var commresult=$('input:radio[name="commresult"]:checked').val();
+    		 
+    		if(commresult!=0&&commresult!=1){
+    			ccms.dialog.notice("通话结果不能为空");
+    			return false;
+    		}
+    		
+    		var commresult = ccms.util.getRadioValue("commresult","formEditor");
+			if(commresult=="1"){
+				if($("#nextcalltime").val()==""){
+					ccms.dialog.notice("请选择预约沟通日期！");
+					return false;
+				}
+				$("#nexttime").val($("#nextcalltime").val());
+			}else if(commresult=="0"){
+				if($("#failreason").val()==""){
+					ccms.dialog.notice("请选择未成单原因！");
+					return false;
+				}
+			}
+    		
+    		var url = "${def:context}${def:actionroot}/insert"
+    			ajaxCall(url,{
+    				method: "post",
+    				progress: true,
+    				form:'formEditor',
+    				dataType: "script",
+    				success: function() {
+    				}
+    			});
+    	})
+    });
+</script>

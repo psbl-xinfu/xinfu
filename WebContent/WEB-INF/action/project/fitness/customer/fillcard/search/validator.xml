@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="startdate" type="varchar" required="false" label="startdate" />
+	<parameter id="enddate" type="varchar" required="false" label="enddate" />
+	<parameter id="cust" type="varchar" required="false" label="cust" />
+	<parameter id="status" type="varchar" required="false" label="status" />
+</validator>

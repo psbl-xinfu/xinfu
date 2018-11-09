@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>到访记录</title>
+</head>
+
+<body>
+			<div class="am-tabs-bd r-tab-cont" style="height: 700px;">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-38"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th>来访时间</th>
+										<th>接待会籍</th>
+										<th>状态</th>
+										<th>备注</th>
+										<th>操作员</th>
+										<th>操作时间</th>
+									</tr>
+								</thead>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+
+$(document).ready(function() {
+	if(cus_code!=""){
+		ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/search_cus?id="+cus_code);
+	}else{
+		ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/search_guest?id="+gust_code)
+	}
+});
+
+function ajax(url){
+   	ajaxCall(url,{
+   		method: "get",
+   		progress: true,
+   		dataType: "script",
+   		success: function() {
+   		}
+   	});
+}
+
+</script>
+</body>
+</html>

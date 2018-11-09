@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_start_date" type="date" required="false" label="开始日期" />
+	<parameter id="daochu_end_date" type="date" required="false" label="结束日期" />
+	<parameter id="daochu_custcode" type="varchar" required="true" label="daochu_custcode" />
+</validator>

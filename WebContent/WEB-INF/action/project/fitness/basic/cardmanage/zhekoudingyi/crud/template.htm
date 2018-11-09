@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>基本信息</title>
+</head>
+<body style="width: 100%">
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<div id="zhekoudingyi">
+					<input type="hidden" id="in_vc_code" name="in_vc_code" value="${fld:in_vc_code}" />
+					<input type="hidden" id="qingchu" name="qingchu" />
+					<div class="Visiting">
+						<div class="banner-top ba1">
+							<label>&nbsp;&nbsp;点&nbsp;&nbsp;&nbsp;&nbsp;餐</label>&nbsp; 
+							<input type="text" id="f_mealdiscount" name="f_mealdiscount" value="" size ="10" />
+							<label>%</label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -8%">
+							<label>&nbsp;&nbsp;饮&nbsp;&nbsp;&nbsp;&nbsp;品</label>&nbsp; 
+							<input type="text" id="f_drinkdiscount" name="f_drinkdiscount" value="" size ="10" />
+							<label>%</label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -8%">
+							<label>&nbsp;&nbsp;单次消费</label>&nbsp;
+							<input type="text" id="f_singlediscount" name="f_singlediscount" value="" size ="10" />
+							<label>%</label>
+						</div>
+					</div>
+
+					<div class="Visiting" style="clear: both">
+						<div class="banner-top ba1">
+							<label>&nbsp;&nbsp;健&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身</label>&nbsp;
+							<input type="text" id="f_jsdiscount" name="f_jsdiscount" value="" size ="10" />
+							<label>%</label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -8%">
+							<label>&nbsp;&nbsp;游&nbsp;&nbsp;&nbsp;&nbsp;泳</label>&nbsp; 
+							<input type="text" id="f_swimdiscount" name="f_swimdiscount" value="" size ="10" />
+							<label>%</label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -8%">
+							<label>&nbsp;&nbsp;团操扣费</label>&nbsp;
+							<input type="text" id="f_classdiscount" name="f_classdiscount" value="" size ="10" />
+							<label>%</label>
+						</div>
+					</div>
+
+					<div class="Visiting" style="clear: both">
+						<div class="banner-top ba1">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp; <label></label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -5%">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp; <label></label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -0.7%">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;</label>&nbsp;
+							<label></label>
+						</div>
+					</div>
+
+					<div class="Visiting" style="clear: both; margin-left: -4px">
+						<div class="banner-top ba1">
+							<label>&nbsp;&nbsp;说&nbsp;&nbsp;明&nbsp;&nbsp;</label>&nbsp; <label></label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -5%">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp; <label></label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -0.7%">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;
+							<label></label>
+						</div>
+					</div>
+
+					<div class="Visiting" style="clear: both">
+						<div class="banner-top ba1">
+							<label>&nbsp;使&nbsp;用&nbsp;现&nbsp;金&nbsp;储&nbsp;值&nbsp;,&nbsp;运&nbsp;动&nbsp;基&nbsp;金&nbsp;,&nbsp;专&nbsp;项&nbsp;基&nbsp;金&nbsp;,
+								&nbsp;支&nbsp;付&nbsp;可&nbsp;享&nbsp;受&nbsp;以&nbsp;上&nbsp;折&nbsp;扣</label>&nbsp;
+							<label></label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -5%">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp; 
+							<label></label>
+						</div>
+						<div class="banner-top ba1" style="margin-left: -0.7%">
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;
+							<label></label>
+						</div>
+					</div>
+				</div>
+
+				<div class="banner-top ba1" style="float:left;margin-left:520px;margin-top:-185px;">
+					<table class="table table-bordered">
+						<tr>
+							<td width="30px">商品销售</td>
+							<td>
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th nowrap>序号</th>
+											<th nowrap>仓库</th>
+											<th nowrap>折扣(%)</th>
+										</tr>
+									</thead>
+									<tbody id="discount_datagrid">
+									</tbody>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+		$(function() {
+			huixian();
+
+			isreadonly(true);
+
+			parent.$('#bianji').unbind().on("click", function() {
+				$('#qingchu').val(1);
+				isreadonly(false);
+			});
+
+			parent.$('#baocun').unbind().on("click", function() {
+				var flag = true;
+				$("input[name=f_discount]").each(function(idx,ele){
+					var _discount = $(this).val();
+					if( "" != _discount ){
+						if( false == ( (isNumber(_discount) || isFloat(_discount)) ) ){
+							flag = false;
+							ccms.dialog.notice("折扣值格式不合法", 2000, function(){
+								$(this).focus();
+							});
+						}
+					}
+				});
+				if( !flag ){
+					return false;
+				}
+				var uri = "${def:context}${def:actionroot}/update";
+				ajaxCall(uri, {
+					method : "post",
+					form : "formEditor",
+					progress : true,
+					dataType : "script",
+					success : function() {
+						ccms.dialog.notice("修改成功")
+						$('#qingchu').val(0)
+					}
+				});
+			});
+
+			parent.$('#xinzeng').unbind().on("click", function() {
+				ccms.dialog.notice("此页面只能编辑");
+			})
+
+			parent.$('#liulan').unbind().on("click", function() {
+				ccms.dialog.notice("请返回基本设置");
+			})
+
+			parent.$('#qingkong').unbind().on("click", function() {
+				if ($('#qingchu').val() != 1) {
+					ccms.dialog.notice("请先点击修改");
+				} else {
+					$('#f_mealdiscount').val(0);
+					$('#f_drinkdiscount').val(0);
+					$('#f_jsdiscount').val(0);
+					$('#f_swimdiscount').val(0);
+					$('#f_singlediscount').val(0);
+					$('#f_classdiscount').val(0);
+				}
+			})
+		})
+
+		function huixian() {
+			var in_vc_code = $('#in_vc_code').val();
+			var uri = "${def:context}${def:actionroot}/edit?in_vc_code=" + in_vc_code;
+			ajaxCall(uri, {
+				method : "get",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
+		}
+
+		parent.$('#zhuangtaigaibian').unbind().on("click", function() {
+			ccms.dialog.notice("请点击基本设置")
+		})
+		
+		function isreadonly(bol){
+			$('#f_mealdiscount').attr('readonly', bol);
+			$('#f_drinkdiscount').attr('readonly', bol);
+			$('#f_jsdiscount').attr('readonly', bol);
+			$('#f_swimdiscount').attr('readonly', bol);
+			$('#f_singlediscount').attr('readonly', bol);
+			$('#f_classdiscount').attr('readonly', bol);
+		}
+	</script>
+</body>
+</html>

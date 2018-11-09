@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="tuid" type="varchar" required="false" label="tuid" />
+    <parameter id="weixin_userid" type="varchar" required="false" label="weixin_userid" />
+    <parameter id="org_id" type="varchar" required="true" label="org_id" />
+</validator>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		体验卡入场刷卡
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<!-- 出入场记录 -->
+	<query>insert-inleft.sql</query>
+	<!-- 手牌 -->
+	<query>update-cabinettemp.sql</query>
+	<!-- 计次卡每次刷卡减去次数 -->
+	<query>update-cardnowcount.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

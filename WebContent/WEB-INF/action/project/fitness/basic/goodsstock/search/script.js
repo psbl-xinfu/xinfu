@@ -1,0 +1,12 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"checklink":"${fld:checklink@js}",
+		"quantity":"${fld:quantity}",
+		"storage_name":"${fld:storage_name@js}",
+		"goods_name":"${fld:goods_name@js}",
+		"totalprice":"${fld:totalprice}"
+	},
+	</rows>
+	{}
+]}

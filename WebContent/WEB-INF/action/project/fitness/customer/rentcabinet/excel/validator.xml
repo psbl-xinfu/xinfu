@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochus_start_date" type="date" required="false" label="s_start_date"/>
+	<parameter id="daochus_end_date" type="date" required="false" label="s_end_date"/>
+	<parameter id="daochus_group" type="integer" required="false" label="s_group"/>
+	<parameter id="daochus_code" type="varchar" required="false" label="s_code"/>
+	<parameter id="daochus_name" type="varchar" required="false" label="s_name"/>
+</validator>

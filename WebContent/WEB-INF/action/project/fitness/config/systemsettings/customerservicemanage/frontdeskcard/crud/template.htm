@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>积分管理</title>
+<style type="text/css">
+.pl_2{ padding-left:10px; padding-top:10px; font-weight:bold; color:#555}
+.titlecust{
+  margin-top: 20px;
+}
+.day{
+   text-align:center;
+   width:45px;
+}
+</style>
+</head>
+<body>
+	<form class="form-horizontal" role="form" method="post" id="searchForm" name ="searchForm">
+		<input type="hidden" id="isoneortworcard_id" name="isoneortworcard_id" value="${fld:isoneortworcard_id}"/>
+		<input type="hidden" id="isusetempcabinet_id" name="isusetempcabinet_id" value="${fld:isusetempcabinet_id}"/>
+		<input type="hidden" id="ismustprepare_id" name="ismustprepare_id" value="${fld:ismustprepare_id}"/>	
+		<input type="hidden" id="isprintcount_id" name="isprintcount_id" value="${fld:isprintcount_id}"/>
+		<input type="hidden" id="isprintpos_id" name="isprintpos_id" value="${fld:isprintpos_id}"/>
+		<input type="hidden" id="foreremind_id" name="foreremind_id" value="${fld:foreremind_id}"/>	
+		<input type="hidden" id="isrefreshcard_id" name="isrefreshcard_id" value="${fld:isrefreshcard_id}"/>
+		<input type="hidden" id="isprintlable_id" name="isprintlable_id" value="${fld:isprintlable_id}"/>
+		<div class="modal-body b-i-main">
+			<nav>
+				<li class="m-t-b-10 inpRadio" style="padding-left: 0px;">
+					前台刷卡次数
+			   	    <input type = "radio"  id = "isoneortworcard" name="isoneortworcard" class = "pl_2" value="1"/>
+			   	    	一次
+				    <input type = "radio" id = "isoneortworcard" name="isoneortworcard" class = "pl_2" value="2"/>
+				   		两次
+				</li>
+				<!-- <li></li>
+				<li class="m-t-b-10 hasCheck">
+					<input type = "hidden" value="1" id="isusetempcabinet" name="isusetempcabinet" class="pl_2"/>
+					<input type = "checkbox" value="1" id="isusetempcabinet1" name="isusetempcabinet1" class="pl_2"/>
+					前台刷卡必须输入手牌
+				</li> -->
+				<li></li>
+				<li class="m-t-b-10 hasCheck">
+					<input type = "hidden" value="1" id="ismustprepare" name="ismustprepare" class="pl_2"/>
+					<input type = "checkbox" value="1" id="ismustprepare1" name="ismustprepare1" class="pl_2"/>
+					前台刷卡必须预约
+				</li>
+				<li></li>
+				<li class="m-t-b-10 hasCheck">
+					<input type = "hidden" value="1" id="isprintcount" name="isprintcount" class="pl_2"/>
+					<input type = "checkbox" value="1" id="isprintcount1" name="isprintcount1" class="pl_2"/>
+					前台刷卡时，如果会员的是次卡，打印POS小票显示扣次记录
+				</li>				
+				<!-- <li class="m-t-b-10"></li>
+				<li class="m-t-b-10 hasCheck">
+					<input type = "hidden" value="1" id="isprintpos" name="isprintpos" class="pl_2"/>
+					<input type = "checkbox" value="1" id="isprintpos1" name="isprintpos1" class="pl_2"/>
+					前台刷卡时，如果会员的是储值卡，打印POS小票显示扣费记录
+				</li> -->
+				<li class="m-t-b-10"></li>
+				<li class="m-t-b-10" style="margin-left: -10px;">
+					<input type="text" id = "foreremind" name = "foreremind" value="${fld:foreremind}" class="day input-1"/>
+					天未锻炼前台刷时会提示
+				</li>
+				<li></li>
+				<li class="m-t-b-10 inpRadio" style="padding-left: 0px;">
+					是否允许手工输入卡号:
+			   	    <input type = "radio" id="isrefreshcard"  name="isrefreshcard" class = "pl_2" value="0"/>
+					 否
+				    <input type = "radio" id="isrefreshcard" name="isrefreshcard" class = "pl_2" value="1"/>
+				   	是
+				</li>
+				<li></li>
+				<li class="m-t-b-10 inpRadio" style="padding-left: 0px;">
+					是否打印条码:
+			   	    <input type = "radio" id="isprintlable"  name="isprintlable" class = "pl_2" value="0"/>
+					否
+				    <input type = "radio" id="isprintlable" name="isprintlable" class = "pl_2" value="1"/>
+					是
+				</li>
+				<li></li>
+			</nav>
+		</div>
+	   <div class="banner-top ba1" style="margin-top:15px;padding: 0 0 10px 15px;">
+			 <button id="edit_btn" type="button"  >确定</button>
+	   </div>
+	</form>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+function queryradiodateisoneortworcard(){
+	ccms.util.setCheckboxValue('isoneortworcard',"${fld:isoneortworcard}","searchForm");
+}
+function queryradiodateisrefreshcard(){
+	ccms.util.setCheckboxValue('isrefreshcard',"${fld:isrefreshcard}","searchForm");
+}
+function queryradiodateisprintlable(){
+	ccms.util.setCheckboxValue('isprintlable',"${fld:isprintlable}","searchForm");
+}
+
+
+function queryradiodateisusetempcabinet(){
+	ccms.util.setMulitCheckboxValue('isusetempcabinet1',"${fld:isusetempcabinet}","searchForm");
+	$("#isusetempcabinet").val("${fld:isusetempcabinet}");
+	
+}
+
+function queryradiodateismustprepare(){
+	ccms.util.setMulitCheckboxValue('ismustprepare1',"${fld:ismustprepare}","searchForm");
+	$("#ismustprepare").val("${fld:ismustprepare}");
+}
+
+function queryradiodateisprintcount(){
+	ccms.util.setMulitCheckboxValue('isprintcount1',"${fld:isprintcount}","searchForm");
+	$("#isprintcount").val("${fld:isprintcount}");
+}
+
+function queryradiodateisprintpos(){
+	ccms.util.setMulitCheckboxValue('isprintpos1',"${fld:isprintpos}","searchForm");
+	$("#isprintpos").val("${fld:isprintpos}");
+}
+$(document).ready(function() {
+	ccms.util.renderCheckbox("isusetempcabinet1");
+	ccms.util.renderCheckbox("ismustprepare1");
+	ccms.util.renderCheckbox("isprintcount1");
+	ccms.util.renderCheckbox("isprintpos1");
+	ccms.util.renderRadio("isoneortworcard");
+	ccms.util.renderRadio("isrefreshcard");
+	ccms.util.renderRadio("isprintlable");
+	queryradiodateisoneortworcard();
+	queryradiodateisrefreshcard();
+	queryradiodateisprintlable();
+	queryradiodateisusetempcabinet();
+	queryradiodateismustprepare();
+	queryradiodateisprintcount();
+	queryradiodateisprintpos();
+
+	//手牌是否输入
+	$("#isusetempcabinet1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#isusetempcabinet").val("1");
+		}else{
+			$("#isusetempcabinet").val("0");
+		}
+	});
+
+	$("#ismustprepare1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#ismustprepare").val("1");
+		}else{
+			$("#ismustprepare").val("0");
+		}
+	});
+
+	$("#isprintcount1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#isprintcount").val("1");
+		}else{
+			$("#isprintcount").val("0");
+		}
+	});
+
+	$("#isprintpos1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#isprintpos").val("1");
+		}else{
+			$("#isprintpos").val("0");
+		}
+	});
+	$("#edit_btn").click(function updateData(){	
+		if(Number($("#foreremind").val())>=0){
+			var uri = "${def:context}${def:actionroot}/update?";
+			//修改参数
+			url(uri+"tuid="+$("#foreremind_id").val()+"&param_text="+$("#foreremind").val());
+			url(uri+"tuid="+$("#ismustprepare_id").val()+"&param_text="+$("#ismustprepare").val());
+			url(uri+"tuid="+$("#isoneortworcard_id").val()+"&param_text="+ccms.util.getRadioValue("isoneortworcard", "searchForm"));
+			url(uri+"tuid="+$("#isprintcount_id").val()+"&param_text="+$("#isprintcount").val());
+			url(uri+"tuid="+$("#isprintlable_id").val()+"&param_text="+ccms.util.getRadioValue("isprintlable", "searchForm"));
+			url(uri+"tuid="+$("#isprintpos_id").val()+"&param_text="+$("#isprintpos").val());
+			url(uri+"tuid="+$("#isrefreshcard_id").val()+"&param_text="+ccms.util.getRadioValue("isrefreshcard", "searchForm"));
+			url(uri+"tuid="+$("#isusetempcabinet_id").val()+"&param_text="+$("#isusetempcabinet").val());
+			ccms.dialog.alert("修改成功！");
+		}else{
+			ccms.dialog.notice("未锻炼天数提醒不能为负数,请输入正确的格式！",2000);
+		}
+	})
+
+	function url(uri){
+		ajaxCall(uri,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	 		}
+	 	});
+	}
+});
+</script>
+</body>
+</html>

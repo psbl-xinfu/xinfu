@@ -1,0 +1,1 @@
+AND s.tuid = ${fld:storagetuid}

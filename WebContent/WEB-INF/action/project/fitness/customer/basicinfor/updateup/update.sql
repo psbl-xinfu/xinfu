@@ -1,0 +1,26 @@
+update cc_customer set 
+    name=${fld:vc_name},
+    sex=${fld:i_sex},
+    birthdate=${fld:c_birthdate},
+    rank=${fld:vc_rank},
+	email=${fld:vc_email},
+    idnumber=${fld:vc_idnumber},
+    nation=${fld:vc_nation},
+    hometel=${fld:vc_hometel},
+    addr=${fld:vc_addr},
+    officetel=${fld:vc_officetel},
+	zip=${fld:vc_zip},
+	mobile=${fld:vc_mobile},
+    contact=${fld:vc_contact},
+    company=${fld:vc_company},
+    jobtype=${fld:vc_jobtype},
+    illnessrec=${fld:vc_illnessrec},
+    hobby=${fld:vc_hobby},
+	pt=${fld:vc_pt},
+	mc=${fld:vc_mc},
+    guestcode=${fld:vc_hiddencustomercode},
+    emcontact1=${fld:vc_emcontact1},
+    emcontact2=${fld:vc_emcontact2},
+	remark=${fld:vc_remark}
+where
+  	code=${fld:vc_code} and org_id = ${def:org}

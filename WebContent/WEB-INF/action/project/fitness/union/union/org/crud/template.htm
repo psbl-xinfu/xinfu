@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>通店组定义</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 450px;">
+		<header class="header-default">
+			<span id="formTitle">通店组定义</span>
+		</header>
+		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			<input type="hidden" id="tuid" name="tuid" value="" />
+			<input type="hidden" id="unionid" name="unionid" value="${fld:unionid}" />
+			<div class="modal-body b-i-main">
+				<nav>
+					<li>
+						<label>俱乐部</label>
+					</li>
+					<li></li>
+				</nav>
+				<nav>
+					<org-rows>
+					<li style="width: 200px;">
+						<input type="checkbox" name="org_id" value="${fld:org_id}" style="display: none;" />${fld:org_name@js}
+					</li>
+					</org-rows>
+				</nav>
+			</div>
+			<footer class="footer-default">
+				<button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+		</form>
+	</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+		$(document).ready(function() {
+			<unionorg-rows>
+			ccms.util.setCheckboxValue("org_id", "${fld:club_id}", "formEditor");
+			</unionorg-rows>
+			var obj = $Crud({
+				formId : "formEditor",
+				button : "save_btn",
+				bpkField : "tuid",
+				insertBack : function() {
+					ccms.dialog.notice("保存成功", 2000, function(){
+						ccms.dialog.close();
+					});
+				},
+				deleteBack : function() {
+					
+				},
+				addNewBack : function() {
+					$("#formTitle").html("设置通店俱乐部");
+				},
+				editBack : function() {
+					$("#formTitle").html("修改");
+				},
+				validate : function() {
+					var flag = $("#formEditor").validate({
+						rules : {},
+						messages : {}
+					});
+					return flag;
+				},
+				check : function() {
+					return true;
+				}
+
+			}).init();
+			$("#cancel_btn").unbind().on("click",function(){
+				ccms.dialog.close();
+			});
+		});
+	</script>
+</body>
+</html>

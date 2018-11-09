@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-ptdefcount.sql" source="sql" scope="transaction" />
+		<recordset id="query-guestnum.sql" source="sql" scope="transaction" />
+		<recordset id="query-tiyancount.sql" source="sql" scope="transaction" />
+		<recordset id="query-guestprepare.sql" source="sql" scope="transaction" />
+	    <recordset id="query-orderfeetarget.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-cardmoney.sql" source="sql" scope="transaction"/>
+	</transaction>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query-ptdefcount.sql" />
+		<print mode="form" recordset="query-guestnum.sql" />
+		<print mode="form" recordset="query-tiyancount.sql" />
+		<print mode="form" recordset="query-guestprepare.sql" />
+		<print mode="table" recordset="query-orderfeetarget.sql" tag="orderfeetarget-rows" />
+		<print mode="table" recordset="query-cardmoney.sql" tag="cardmoney-rows" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

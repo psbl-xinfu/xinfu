@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_cust,daochu_c_startdate,daochu_i_status,daochu_savestop_type,daochu_days,daochu_charges</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="停取卡记录" filename="停取卡记录.xls" header-background="true">
+		<col id="cardcode" label="卡号" /> 
+		<col id="cardtype" label="卡类型" />
+		<col id="name" label="姓名" />
+		<col id="status" label="状态" />
+		<col id="startdate" label="停卡日期" />
+		<col id="enddate" label="开启日期" />
+		<col id="prestopdays" label="预停" />
+		<col id="i_actualdays" label="实停" />
+		<col id="money" label="费用" />
+		<col id="opencardway" label="开卡方式" />
+		<col id="days" label="距离开启天数" />
+		<col id="created" label="操作日期" />
+	</excel>
+</config>

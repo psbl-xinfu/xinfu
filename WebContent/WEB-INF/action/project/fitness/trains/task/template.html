@@ -1,0 +1,258 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<title>课程任务</title>
+		${inc:/action/project/fitness/home/pub}
+	</head>
+	<body>
+	 
+		<!-- 培训 视频 type3 -->
+		<div class="train-video ">
+				<section data-am-widget="accordion" class="sidebar sidebar-2 t-v-tab am-accordion am-accordion-gapped course_groups" data-am-accordion='{  }'>
+					<!--  am-active 默认显示的效果 -->
+					<div class="train-header">
+						学习进度
+						<nav>
+							<li>
+								已完成课时数：<span class='finished_class_count'>0</span>
+							</li>
+							<li>
+								未完成课时数：<span class='not_finished_class_count'>0</span>
+							</li>
+							<li>
+								课程评测得分：<span class='course_term_score'>0</span>
+							</li>
+						</nav>
+					</div>
+				</section>
+				<section class="t-v-r-list" id='video_list_box'>
+					
+				</section>
+				
+				<iframe seamless style='display:none;' id='subpage' src="" marginheight="0" marginwidth="0" frameborder="0" width="100%"height="100%" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen="true"   ></iframe>
+
+		</div>
+	    	
+		
+		
+		
+	
+			
+	<class-amount-rows>
+				<div class='class_amount_data' courseid=${fld:courseid} class_amount=${fld:count}></div>
+	</class-amount-rows>
+			<div class='process_data_list' style='display:none;'>
+	<progress-rows>
+				<div class='process_data' courseid=${fld:courseid} process=${fld:count} xuexizhong=''></div>
+	</progress-rows>
+	
+	<xuexizhong-rows>
+				<div class='xuexizhong_data' courseid=${fld:courseid} process=${fld:count}></div>
+	</xuexizhong-rows>
+			</div>
+	<class-total-amount-rows>
+			<div class='all_course_amount' course_amount=${fld:count}></div>
+	</class-total-amount-rows>
+	<!--<script src="${def:context}/js/project/fitness/trains/std/js/jquery.min.js"></script>-->
+	
+	
+	<script type="text/javascript" src="${def:context}/js/project/fitness/js/amazeui.min.js"></script>
+	<script>
+		$('.changeTab').off('click').on('click', function () {
+			$('.conL').toggleClass('small');
+		})
+	</script>
+	    
+		<script>
+			$('document').ready(function(){ //模拟点击，让课程列表展开。
+				$('.am-accordion-title.group_name').click();
+				if($(".am-accordion-content p[finished_status=0]").length==0){
+					$(".am-accordion-content p[finished_status=1]").eq(0).click();
+				}else if($(".am-accordion-content p[finished_status=1]").length==0){
+					$(".am-accordion-content p[finished_status=2]").eq(0).click();
+				}else{
+					$(".am-accordion-content p[finished_status=0]").eq(0).click();
+				}
+			});
+		   
+		
+		
+			$('#video_list_box').css('display','flex');
+		
+		
+			$('.rate_learning').on('mouseover',function(){
+				$('.rate_learning_info_box').css('display','inline-block');
+			})
+			$('.rate_learning').on('mouseout',function(){
+				$('.rate_learning_info_box').css('display','none');
+			})
+			
+			$(document).on('click','.video_box',function(){
+				var html="<iframe class='t-v-r-list' style='display:none;' id='subpage' src=''></iframe>";
+				$(".train-video").append(html); //重新添加细节子页面元素
+				var iframe_src=$(this).attr('iframe_src');
+				var h=$('html').css('height');
+				$('#subpage').attr('src',iframe_src);
+				$('#subpage').css('display','block').css('height',h);
+				$('#video_list_box').css('display','none');
+			})
+			
+			
+			var FINISHED_COURSE_AMOUNT=0;//已经完成的
+			var HAS_FINISHED_DOT_ICO_URL='${def:context}/js/project/fitness/trains/image/solid_dot.ico';//完成进度实心圆点icon
+		    loadGroupCourseList();
+		    loadProcess();
+		    calculateProcessData();
+		    <term-score-rows>
+		    	$('.course_term_score').text(${fld:term_score});
+		    </term-score-rows>
+			loadGroupProcess();
+		 //已学习课时   
+		   
+		    
+		    		
+		    		
+			function loadGroupCourseList()
+			{
+				var group_list=new Array();
+				var groupid_temp=null;//中间变量
+				<group-course-rows> //获取数据
+					var course_list=new Array();
+					course_list.push(${fld:groupid});
+					course_list.push('${fld:groupname@js}');
+					course_list.push(${fld:courseid});
+					course_list.push('${fld:course_name@js}');
+					group_list.push(course_list);
+				</group-course-rows>
+				for(var i=0;i<group_list.length;i++)//分组
+				{
+					if(group_list[i][0]!=groupid_temp)
+					{
+						groupid_temp=group_list[i][0];
+						loadGroup(group_list[i][0],group_list[i][1]);
+						loadCourse(groupid_temp,group_list[i][2],group_list[i][3]);
+					}
+					else
+					{
+						loadCourse(groupid_temp,group_list[i][2],group_list[i][3]);
+					}
+					
+				}
+			}
+			
+			function loadGroup(groupid,name) //加载组
+		    {
+				var html="<dl class='am-accordion-item course_group ' "+groupid+"' >"+
+				'<dt class="am-accordion-title group_name">'+
+				name+
+				'</dt>'+
+				'<dd class="am-accordion-bd am-collapse">'+
+					'<div class="am-accordion-content" id="groupid_is_'+groupid+'">'+
+					'</div>'+
+				"</dd>"+
+				"</dl>";
+				$('.course_groups').append(html);
+			}
+			
+			function loadCourse(groupid,courseid,name)//加载课程
+			{
+			   var html="<p class='course_name_text course_name-li' code='"+String(courseid)+"' id='courseid_"+String(courseid)+"' finished_status='0'>"+
+					name+
+					"</p>"
+			   $('#groupid_is_'+String(groupid)).append(html);
+			}
+		
+			function loadProcess() //加载课程学习进度
+			{
+				$('.process_data').each(function(){
+					var course_id=$(this).attr('courseid');
+					var course_process=$(this).attr('process');
+					var class_amount=$('.class_amount_data[courseid='+course_id+']').attr('class_amount')
+					var obj=$(".course_name-li#courseid_"+course_id);
+					if(class_amount==course_process) //如果等于则视为完成
+					{
+					    var obj_class=obj.attr('class');
+						obj_class+=' has';
+						obj.attr('class',obj_class);
+						obj.prepend("<i class='am-icon-check-circle'></i>");
+						obj.attr('finished_status','2');//课程完成情况改为属性为已完成
+						FINISHED_COURSE_AMOUNT++; //已完成课程数加1
+					}
+					if(class_amount!=course_process&course_process!=0) //学习中
+					{
+						obj.attr('finished_status','1');//
+					}
+				})
+				$('.xuexizhong_data').each(function(){
+					var course_id=$(this).attr('courseid');
+					var xuexizhong_process=$(this).attr('process');
+					//var class_amount=$('.class_amount_data[courseid='+course_id+']').attr('class_amount')
+					var obj=$(".course_name-li#courseid_"+course_id);
+					if(xuexizhong_process!=undefined&xuexizhong_process!=0) //学习中
+					{
+						obj.attr('finished_status','1');//
+					}
+				})
+			}
+			
+			 
+			function loadGroupProcess() //加载组学习进度
+			{
+				$('.course_group').each(function(){
+					if(checkGroupProcess(this))
+					{
+						$(this).find('.am-accordion-title.group_name').prepend("<i class='am-icon-check-circle'></i>");
+					}else{
+						
+					}
+				});
+			}
+			
+			function checkGroupProcess(_this) //检查组的课程的学习进度
+			{   
+			    var status=true;
+				$(_this).find('.course_name_text').each(function(){
+					if($(this).attr('finished_status')=='2')
+					{
+					  
+					}else{
+						status=false;
+						return status;
+					}
+				});
+				return status;
+			}
+			
+			
+			function calculateProcessData() //计算并显示已完成课时，未完成课时
+			{
+				var all_course_amount=parseInt($('.all_course_amount').attr('course_amount'));
+				var class_count=0; //完成课时数
+				$('.process_data').each(function(){
+					class_count=class_count+parseInt($(this).attr('process'));
+				})
+				FINISHED_COURSE_AMOUNT=class_count;
+				$('.finished_class_count').text(String(FINISHED_COURSE_AMOUNT));
+				$('.not_finished_class_count').text(String(all_course_amount-FINISHED_COURSE_AMOUNT));
+			}
+			
+			$('.course_name_text').unbind().on('click',function(){
+				$('#subpage').remove(); //移除旧的子页面元素
+				$("#video_list_box").css('display','block');
+				$("#subpage").css('display','none');
+				var courseid=$(this).attr('code');
+				var url = "${def:context}/action/project/fitness/trains/task/classmenu?courseid="+courseid;
+				ajaxCall(url,{
+					method: "get",
+					progress: false,
+					dataType: "script",
+					success: function() {
+						
+					}
+				});
+			})
+			
+			
+		</script>
+	</body>
+</html>

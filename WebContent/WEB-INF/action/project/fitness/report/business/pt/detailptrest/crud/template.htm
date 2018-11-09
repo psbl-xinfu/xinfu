@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教课</title>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm" class="dialogbg" style="height: 570px;">
+		<header class="header-default">
+			<span id="formTitle"></span>
+		</header>
+		<input name="skill" type="hidden" value="${fld:skill}" preserve="true" />
+		<input name="startdate" type="hidden" value="${fld:startdate}" preserve="true" />
+		<input name="enddate" type="hidden" value="${fld:enddate}" preserve="true" />
+		<input name="type" type="hidden" value="${fld:type}" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr style="display: none;" id="thtype1">
+								<th>姓名</th>
+							    <th>手机</th>
+							    <th>课程名称</th>
+							    <th>刷课时间</th>
+							</tr>
+							<tr style="display: none;" id="thtype2">
+								<th>姓名</th>
+							    <th>手机</th>
+							    <th>课程名称</th>
+							    <th>刷课时间</th>
+							</tr>
+							<tr style="display: none;" id="thtype5">
+								<th>姓名</th>
+							    <th>手机</th>
+							    <th>课程名称</th>
+							    <th>刷课时间</th>
+							</tr>
+							<tr style="display: none;" id="thtype3">
+								<th>合同编号</th>
+								<th>课程名称</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>购买节数</th>
+							    <th>剩余节数</th>
+							    <th>金额</th>
+							</tr>
+							<tr style="display: none;" id="thtype4">
+								<th>合同编号</th>
+								<th>课程名称</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>购买节数</th>
+							    <th>剩余节数</th>
+							    <th>金额</th>
+							</tr>
+							<tr style="display: none;" id="thtype6">
+								<th>课程名称</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>赠课节数</th>
+							    <th>剩余节数</th>
+							    <th>金额</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr style="display: none;" id="tdtype1">
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#ptlevelname#</td>
+				                <td>#created#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype2">
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#ptlevelname#</td>
+				                <td>#created#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype5">
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#ptlevelname#</td>
+				                <td>#created#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype3">
+				                <td>#code#</td>
+				                <td>#ptlevelname#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#pttotalcount#</td>
+				                <td>#ptleftcount#</td>
+				                <td>#ptmoney#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype4">
+				                <td>#code#</td>
+				                <td>#ptlevelname#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#pttotalcount#</td>
+				                <td>#ptleftcount#</td>
+				                <td>#ptmoney#</td>
+							</tr>
+							<tr style="display: none;" id="tdtype6">
+				                <td>#ptlevelname#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#pttotalcount#</td>
+				                <td>#ptleftcount#</td>
+				                <td>#ptmoney#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	if("${fld:type}"=="1"){
+		$("#formTitle").html("上课数据体验课记录");
+	}else if("${fld:type}"=="2"){
+		$("#formTitle").html("上课数据收费课记录");
+	}else if("${fld:type}"=="3"){
+		$("#formTitle").html("新购课记录");
+	}else if("${fld:type}"=="4"){
+		$("#formTitle").html("续课记录");
+	}else if("${fld:type}"=="5"){
+		$("#formTitle").html("上课数据赠课记录");
+	}else if("${fld:type}"=="6"){
+		$("#formTitle").html("赠课记录");
+	}
+	$("#thtype${fld:type},#tdtype${fld:type}").show();
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+	}}).initSearchBtn().searchData(1);
+});
+</script>
+</body>
+</html>

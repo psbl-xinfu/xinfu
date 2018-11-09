@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="testcode" type="varchar" required="true" label="testcode"/>
+    
+    <parameter id="height" type="double" required="false" label="身高"/>
+    <parameter id="weight" type="double" required="false" label="体重"/>
+    <parameter id="fat" type="double" required="false" label="脂肪"/>
+    <parameter id="weight_index" type="double" required="false" label="体重指数"/>
+    <parameter id="thigh_circumference" type="double" required="false" label="大腿围"/>
+    <parameter id="crus_circumference" type="double" required="false" label="小腿围"/>
+    <parameter id="lung_capacity" type="double" required="false" label="肺活量"/>
+    <parameter id="static_heart" type="double" required="false" label="静态心率"/>
+    <parameter id="muscle" type="double" required="false" label="肌肉"/>
+    <parameter id="bone" type="double" required="false" label="骨骼"/>
+    <parameter id="moisture_content" type="double" required="false" label="水分"/>
+    <parameter id="body_fat" type="double" required="false" label="体脂比"/>
+    <parameter id="systolic" type="double" required="false" label="血压收缩压"/>
+    <parameter id="pressure" type="double" required="false" label="血压舒张压"/>
+    <parameter id="cardiopulmonary_test" type="double" required="false" label="心肺功能测试"/>
+    <parameter id="abdomen_muscles" type="double" required="false" label="腹部肌肉力量测试"/>
+    <parameter id="upper_limb_muscles" type="double" required="false" label="上肢肌肉力量测试"/>
+    <parameter id="lower_limb_muscles" type="double" required="false" label="下肢肌肉力量测试"/>
+    <parameter id="flexibility" type="double" required="false" label="柔韧性测试"/>
+    <parameter id="equilibria" type="double" required="false" label="equilibria"/>
+</validator>

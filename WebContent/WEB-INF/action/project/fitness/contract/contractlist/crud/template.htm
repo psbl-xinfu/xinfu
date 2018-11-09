@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>合同信息</title>
+</head>
+<body>
+	<div class="am-tabs r-tab-container contract-news " data-am-tabs="{noSwipe: 1}">
+				<nav class="c-n-nav am-tabs-nav am-nav am-nav-tabs">
+					<li class="am-active" id="card">
+						<a class="three-none" >
+							<span >办卡合同</span>
+							<span id="cardnum"></span>
+						</a>
+					</li>
+					<li id="upgrade">
+						<a class="three-none" >
+							<span  >升级合同</span>
+							<span id="upgradenum"></span>
+						</a>
+
+					</li>
+					<li id="pt">
+						<a class="three-none"  >
+							<span >私教合同</span>
+							<span id="ptnum"></span>
+						</a>
+
+					</li>
+					<li id="retreat">
+						<a class="three-none"  >
+							<span >退卡合同</span>
+							<span id="retreatnum"></span>
+						</a>
+
+					</li>
+					<li id="continued">
+						<a class="three-none" >
+							<span >续卡合同</span>
+							<span id="continuenum"></span>
+						</a>
+
+					</li>
+					<li id="turn" >
+						<a class="three-none" >
+							<span  >转卡合同</span>
+							<span id="turnnum"></span>
+						</a>
+
+					</li>
+					<li id="rent">
+						<a class="three-none" >
+							<span >租柜合同</span>
+							<span id="rentnum"></span>
+						</a>
+					</li>
+				</nav>
+			</div>
+			
+			<!--div id="main"  ></div-->
+			<iframe id="main" src="" width="100%" height="700px" frameborder="no" border="0" scrolling="yes"></iframe>
+		<form class="form-horizonta" role="form" method="post" id="searchForm"></form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+$(document).ready(function() {
+	//办卡
+	$('#card').on('click',function(){
+		loadMain("${def:context}/action/project/fitness/contract/contractlist/cardlist/crud");
+	})
+	//升级
+	$('#upgrade').on('click',function(){
+		loadMain("${def:context}/action/project/fitness/contract/contractlist/upgradelist/crud");
+	})
+	//私教
+	$('#pt').on('click',function(){
+		loadMain("${def:context}/action/project/fitness/contract/contractlist/ptlist/crud");
+	})	
+	//退卡
+	$('#retreat').on('click',function(){
+		loadMain("${def:context}/action/project/fitness/contract/contractlist/retreatlist/crud");
+	})	
+	//续卡
+	$('#continued').on('click',function(){
+		loadMain("${def:context}/action/project/fitness/contract/contractlist/continuedlist/crud");
+	})	
+	//转卡
+	$('#turn').on('click',function(){
+		loadMain("${def:context}/action/project/fitness/contract/contractlist/turnlist/crud");
+	})	
+	//租柜
+	$('#rent').on('click',function(){
+		loadMain("${def:context}/action/project/fitness/contract/contractlist/rentlist/crud");
+	})	
+	
+	$('nav li:eq(0)').click();
+}); 
+
+
+function loadMain(url){
+	/**$('#main').load(url+"?ispubload=true");*/
+	$("#main").empty();
+	$("#main").attr("src", url);
+}
+
+function getNum(s_start_date,s_end_date){
+	var url = "${def:context}${def:actionroot}/getnum?s_start_date="+s_start_date+"&s_end_date="+s_end_date;
+		ajaxCall(url,{
+			method: "post",
+			progress: true,
+			form:'formEditor',
+			dataType: "script",
+			success: function() {
+			}
+		});
+}
+
+</script>
+</body>
+</html>

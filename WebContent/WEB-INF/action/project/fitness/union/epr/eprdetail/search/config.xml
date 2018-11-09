@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	    <recordset id="query-br.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-class.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-goodsincome.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-income.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-inleft.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-p1finished.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-p1prepare.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-prepare.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-pt.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-ptprepare.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-sales.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-visit.sql" source="sql" scope="transaction"/>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query-br.sql" />
+		<print mode="form" recordset="query-class.sql" />
+		<print mode="form" recordset="query-goodsincome.sql" />
+		<print mode="form" recordset="query-income.sql" />
+		<print mode="form" recordset="query-inleft.sql" />
+		<print mode="form" recordset="query-p1finished.sql" />
+		<print mode="form" recordset="query-p1prepare.sql" />
+		<print mode="form" recordset="query-prepare.sql" />
+		<print mode="form" recordset="query-pt.sql" />
+		<print mode="form" recordset="query-ptprepare.sql" />
+		<print mode="form" recordset="query-sales.sql" />
+		<print mode="form" recordset="query-visit.sql" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

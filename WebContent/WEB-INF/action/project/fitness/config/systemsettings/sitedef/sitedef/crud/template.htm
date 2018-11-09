@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>场地最低消费时间</title>
+</head>
+<body>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form method="post" name="formEditor" id="formEditor" class="titlecust">
+			   <input type="hidden" id="sitedefid" name="sitedefid" value="${fld:tuid}" preserve="true"/>
+			   <input type="hidden" id="sitedateid" name="sitedateid" value="${fld:sitedateid}" preserve="true"/>
+				<div class="xt-1-di">
+					<label for="ccc" style="color: white;">场地最低消费时间</label>
+			   	 	<input class="input-2"type="text" id="sitedefvalue" name="sitedefvalue" value="${fld:param_value}"/>
+					<span style="color: white;">小时</span>
+				</div>
+				<div class="xt-1-div">
+					<label for="ccc" style="color: white;">场地预约保留时间</label>
+			   	 	<input class="input-2" type="text" id="sitedatevalue" name="sitedatevalue" value="${fld:sitedate_value}"/>
+					<span style="color: white;">分钟</span>
+				</div>
+				<button class="my-btn-default active" id="edit_btn" type="button">确定</button>
+			</form>
+		</div>
+	</div>
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#sitedefvalue").blur(function () {
+		var num = $(this).val();
+		if (isNaN(num)) {
+			$(this).val("2");
+		} else {
+			num = Number(num).toFixed(0);
+			if(num>24){
+				num=2;
+			}
+			$(this).val(num);
+		}
+	});
+	$("#sitedate").blur(function () {
+		var num = $(this).val();
+		if (isNaN(num)) {
+			$(this).val("30");
+		}else if(parseInt(num)<1){
+			$(this).val("30");
+		}else{
+			$(this).val(parseInt(num));
+		}
+	});
+	//修改
+	$("#edit_btn").click(function updateData(){
+		var sitedefvalue = $("#sitedefvalue").val();
+		var sitedefid = $("#sitedefid").val();
+		//场地预约保留时间
+		var sitedateid = $("#sitedateid").val();
+		var sitedatevalue = $("#sitedatevalue").val();
+		//修改参数
+		var sitedefurl = "${def:context}${def:actionroot}/update?tuid="+sitedefid+"&param_text="+sitedefvalue;
+		geturl(sitedefurl);
+		var sitedateurl = "${def:context}${def:actionroot}/update?tuid="+sitedateid+"&param_text="+sitedatevalue;
+		geturl(sitedateurl);
+	});
+
+});
+
+function geturl(url){
+	ajaxCall(url,{
+   		method: "get",
+   		progress: true,
+   		dataType: "script",
+   		success: function() {
+   			ccms.dialog.notice("修改成功！", 2000);
+ 		}
+ 	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="storageid" type="varchar" required="true" label="仓库" />
+    <parameter id="goodsid" type="varchar" required="true" label="商品" />
+    <parameter id="price" type="double" required="true" label="销售价格" />
+    <parameter id="staff_price" type="double" required="true" label="员工价格" />
+    <parameter id="remark" type="varchar" required="false" label="价格说明" />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="该仓库已定义该商品价格！" id="storageid" sql="noRep.sql" />
+</validator>
+
+
+
+
+

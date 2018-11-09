@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="cardcode" type="varchar" required="true" label="会员卡号"/>
+    <parameter id="startdate" type="varchar" required="true" label="会员卡开始日期"/>
+    <parameter id="enddate" type="varchar" required="true" label="会员卡结束日期"/>
+    <parameter id="status" type="varchar" required="true" label="会员状态"/>
+    <parameter id="starttype" type="varchar" required="true" label="卡启用方式"/>
+    <parameter id="stopdays" type="varchar" required="true" label="已停卡天数"/>
+    <parameter id="nowcount" type="varchar" required="false" label="次卡剩余次数"/>
+    <parameter id="remark" type="varchar" required="false" label="备注"/>
+</validator>
+
+

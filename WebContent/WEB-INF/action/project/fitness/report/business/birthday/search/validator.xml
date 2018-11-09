@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="custall" type="varchar" required="false" label="custall"/>
+	<parameter id="s_skill_name" type="varchar" required="false" label="s_skill_name"/>
+	<parameter id="s_birthday_status" type="integer" required="false" label="s_birthday_status"/>
+</validator>

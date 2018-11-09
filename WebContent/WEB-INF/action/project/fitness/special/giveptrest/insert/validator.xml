@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+       <parameter id="customercode" type="varchar" required="true" label="会员号"/>
+       <parameter id="cust_name" type="varchar" required="true" label="会员名称"/>
+       <parameter id="mobile" type="varchar" required="false" label="手机号"/>
+       <parameter id="pt" type="varchar" required="true" label="私教"/>
+       <parameter id="defcode" type="varchar" required="true" label="课程"/>
+       <parameter id="pttotalcount" type="integer" required="true" label="赠送节数"/>
+       <parameter id="scale" type="double" required="false" label="上课提成"/>
+       <parameter id="price" type="double" required="true" label="实收金额"/>
+       <parameter id="ptenddate" type="varchar" required="true" label="结束日期"/>
+       <parameter id="remark" type="varchar" required="false" label="备注"/>
+       
+</validator>
+

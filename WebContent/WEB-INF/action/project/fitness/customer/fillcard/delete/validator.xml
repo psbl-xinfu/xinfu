@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="id" type="varchar" required="true" label="ID"/>
+	
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="不能删除，请确认状态！" id="delete_btn" sql="noRep.sql" />
+</validator>

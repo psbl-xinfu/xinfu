@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochu_custall,daochu_start_date,daochu_end_date,daochu_isaudit,daochu_skill_name,daochu_type</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="审批合同列表" filename="审批合同列表.xls" header-background="true">
+		<col id="code" label="合同编号" />
+		<col id="i_status" label="付款状态"/>
+		<col id="isaudit" label="审批状态" />
+		<col id="name" label="姓名" />
+		<col id="mobile" label="手机号" />
+		<col id="inimoney" label="原价" />
+		<col id="normalmoney" label="应收金额" />
+		<col id="salemember" label="销售人员" />
+		<col id="auditby" label="审批人" />
+		<col id="audittime" label="审批时间" />
+	</excel>
+
+</config>

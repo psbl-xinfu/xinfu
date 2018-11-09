@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_custall,daochu_not_comeday,daochu_ptstatus,daochu_personal_train,daochu_f_sex,daochu_f_age,daochu_f_nofollowstartdate,daochu_f_nofollowenddate,
+	daochu_f_startmonth,daochu_f_startday,daochu_f_endmonth,daochu_f_endday,daochu_f_genjintype,daochu_f_entrystartdate,daochu_f_entryenddate,
+	daochu_f_pt,daochu_f_mc,daochu_f_type,daochu_f_purpose,daochu_f_personalhobbit,daochu_f_marriage,daochu_f_children,daochu_f_leave,daochu_f_protection,
+	daochu_f_calltimes,daochu_f_distributioncount,daochu_f_stage</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="私教分配及跟进记录" filename="私教分配及跟进记录.xls" header-background="true">
+		<col id="num_days" label="保护期" /> 
+		<col id="vc_pt" label="私教" />
+		<col id="vc_mc" label="会籍" />
+		<col id="ptleftcount" label="剩余课时" />
+		<col id="name" label="姓名" />
+		<col id="sex" label="性别" />
+		<col id="mobile" label="手机" />
+		<col id="pt_date" label="教练最新跟进" />
+		<col id="member_end" label="最新入场日期" />
+		<col id="come_date" label="会员截止日期" />
+	</excel>
+</config>

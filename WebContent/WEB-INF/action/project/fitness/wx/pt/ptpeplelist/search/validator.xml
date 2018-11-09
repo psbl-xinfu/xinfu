@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+		<parameter id="s_stime" type="varchar" required="false" label="s_stime " />
+		<parameter id="s_etime" type="varchar" required="false" label="s_etime " />
+		<parameter id="s_sex" type="varchar" required="false" label="s_sex " />
+		<parameter id="s_type" type="varchar" required="false" label="s_type " />
+		<parameter id="s_age" type="varchar" required="false" label="s_age " />
+		<parameter id="s_name" type="varchar" required="false" label="s_name " />
+</validator>

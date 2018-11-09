@@ -1,0 +1,7 @@
+select userlogin,name 
+from hr_staff 
+inner join (select user_id from hr_staff_skill 
+	inner join (select skill_id from hr_skill where skill_scope = '0' and org_id = ${def:org}) skill
+	on skill.skill_id = hr_staff_skill.skill_id
+) hs on hs.user_id = hr_staff.user_id
+where status = 1 and org_id = ${def:org}

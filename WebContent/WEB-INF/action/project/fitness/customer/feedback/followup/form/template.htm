@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>新增客诉处理记录</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+
+		<form id="followupForm" name="followupForm" method="post">
+						<input type="hidden" id="feedback_id" name="feedback_id" value='${fld:feedbackid}'/>
+				<section class="pup-1-right basic-information basic-dialog dialogbg">
+					<header class="header-default">
+						新增沟通记录
+						<button class="header-close"></button>
+					</header>
+					<article class="pup-1-r-info dialogbg">
+						<p>
+							客户姓名：
+							<span>
+									<input type="hidden" name="name" value="${fld:name}" readonly="readonly" />
+									${fld:name}
+							</span>
+						</p>
+						<p>
+							电话：
+							<span>
+									<input type="hidden" name="mobile" value="${fld:mobile}" readonly="readonly" />
+									${fld:mobile}
+							</span>
+						</p>
+						</article>
+					
+					<div class="pup-1-r-main" >
+						<ul>
+							<li >
+								<label style="margin-left: -32%;" for="pup-1-r-m-1" >处理人：</label>
+
+								<div >
+									<select id='actualfollowstaff' name='actualfollowstaff' disabled="disabled">
+									    <option value='${fld:staffuserlogin}'>${fld:staffname}</option>
+									</select>
+								</div>
+							</li>
+							</ul>  	
+							<ul>
+							
+							<li>
+								 <label  style="width: 125px;display: block;margin-left: -63%">
+										<input type='radio'   value='2' name='status'></input>填写沟通结果：
+									</label>
+							
+							</li>
+							<li>
+								<!-- <input type="text" class="" id="remark_1" name="remark_1" style="height: 72px;
+								width: 100%;display:block;margin-left: 20px; overflow: scroll;"	placeholder="" />  -->
+								<textarea name="remark_1" id="remark_1" cols="30" rows="4" placeholder=""></textarea>
+							</li>
+							
+								
+						</ul>
+						<ul>
+							<li>
+								 <label  style="width: 125px;display: block;margin-left: -88%">
+											<input type="radio"   value='3' name='status'/>
+							未成功：
+									</label>
+								
+								
+							</li>
+						
+
+							<li>	
+								<div class="ul-header">预约通话时间：</div>	<input    type="text"  id="nextfollowtime" name="nextfollowtime" style="height: 30px;margin-left: 20px;" placeholder="选择日期" />
+							</li>
+						</ul>
+						<ul>
+					<li>
+						<label  style="width: 125px;display: block;    margin-left: -82%;">
+							<input type="radio"  name="status"  value="4"  />不做处理：
+						</label>
+					</li>
+					
+				
+						<span class="ul-header">原因：</span><select id='unfollow_reason'  name='unfollow_reason'>
+							<option value=''>请选择</option>
+							<op-u-r><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-u-r>
+						</select>
+						<p class="ul-header" style="    margin-left: -28%;">备注：</p>
+						<li>
+							<textarea name="remark_2" id="remark_2" cols="30" rows="4" placeholder="暂无数据"></textarea>
+						</li>
+					</ul>	
+						<ul>
+							
+						</ul>
+					</div>
+					<footer>
+						<button type="button"  class="my-btn-default" id="save_btn" >保存</button>
+					</footer>
+				</section>
+</form>
+
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {	
+	ccms.util.renderRadio("status");
+	$('#remark_2').attr('readonly',true);
+	 selectInit($("#actualfollowstaff,#unfollow_reason"));
+	$("input[name=status]:eq(0)").on("ifClicked",function () {    
+		$('#nextfollowtime').val('');
+		$('#unfollow_reason').val('');
+		$('#remark_2').attr('readonly',true);
+		$('#remark_1').val('');
+	});
+	
+	$("input[name=status]:eq(1)").on("ifClicked",function () {    
+		$('#unfollow_reason').val('');
+		$('#remark_1').val('');
+		$('#remark_2').attr('readonly',true);
+	});
+	
+	$("input[name=status]:eq(2)").on("ifClicked",function () {    
+		$('#remark_1').val('');
+		$('#nextfollowtime').val('');
+		$('#remark_2').attr('readonly',false);
+	});
+
+		    
+		 $('#save_btn').unbind().on('click',function(){
+			 followup();
+		 })
+		  
+		 $Dialog().date($('#nextfollowtime'));
+		    
+		 function followup(){
+			var url="${def:context}/action/project/fitness/customer/feedback/followup/update/";
+			ajaxCall(url,{
+			method: "post",
+			form:'followupForm',
+			progress: true,
+			dataType: "script",
+			success: function() {}
+		  })
+		}
+});
+
+	
+</script>
+</body>
+</html>

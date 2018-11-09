@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html style='height:100%;'>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>修改销售员</title>
+</head>
+<body style='height:100%;'>
+  <div class='dialogbg' style='height:100%;'>
+	<div class="panel-default col_mainInner" style='height:100%;'>
+			<header class="header-default">
+				<span id="formTitle">修改销售员</span>
+			</header>
+		<div class="panel-body col_main_body basic-dialog dialogbg" style="margin-top: 20px;">
+	
+		<form id="getMoneyForm" name="getMoneyForm" class="form-horizontal" role="form" method="post">
+			<input type="hidden" id="vc_contractcode" name="vc_contractcode" value="${fld:vc_code}" />
+			<div class="modal-body b-i-main">
+					<li>
+						<label>会籍顾问：</label>
+						<select id="vc_salemember" name="vc_salemember" style="display: none;">
+							<option value="">请选择</option>
+							<rows1>
+							<option value="${fld:userlogin}">${fld:name}</option>
+							</rows1>
+						</select>
+					</li>
+					<li>
+						<label>第二销售员：</label>
+						<select id="vc_salemember1" name="vc_salemember1" style="display: none;">
+							<option value="">请选择</option>
+							<rows2>
+							<option value="${fld:userlogin}">${fld:name}</option>
+							</rows2>
+						</select>
+					</li>
+			</div>
+			<footer class="footer-default">
+				<button type="button" id="saveBtn" >保存</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+  </div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script type="text/javaScript">
+	$(document).ready(function() {
+		searchSelectInit($("#vc_salemember,#vc_salemember1"));
+		$("td").attr('nowrap','nowrap');
+		setSelectValue($("#vc_salemember"), "${fld:vc_salemember}");
+		setSelectValue($("#vc_salemember1"), "${fld:vc_salemember1}");
+		
+		$("#closeBtn").unbind().on("click",function(){
+			ccms.dialog.close();
+		});
+	
+		$("#saveBtn").unbind().on("click", function(){
+			if($("#vc_salemember").val()==""){
+				ccms.dialog.notice("请选择会籍顾问！", 3000);
+				return false;
+			}
+			if($("#vc_salemember").val()==$("#vc_salemember1").val()){
+				ccms.dialog.notice("会籍顾问与第二销售员不能一致！", 3000);
+				return false;
+			}
+			var payuri = "${def:context}${def:actionroot}/update";
+			ajaxCall(payuri,{
+				method:"post",
+				form:"getMoneyForm",
+				progress:true,
+				dataType:"script",
+				success:function(){	
+					ccms.dialog.notice("修改成功", 2000, function(){
+						parent.searchContract();
+						ccms.dialog.close();
+					});
+				}
+			});
+		});
+		
+	});
+	</script>
+</body>
+</html>

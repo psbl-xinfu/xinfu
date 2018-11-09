@@ -1,0 +1,18 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+	    	"application_id":"${fld:application_id@js}",
+		    "vc_code":"${fld:code@js}",
+		    "vc_type":"${fld:type@js}",
+		    "vc_unit":"${fld:unit@js}",
+		    "f_price":"${fld:price}",
+		    "f_commission":"${fld:commission}",
+		    "vc_remark":"${fld:remark@js}",
+		    "i_status":"${fld:status@js}",
+		    "i_isliliao":"${fld:isliliao@js}",
+		    "vc_name":"${fld:name@js}",
+			"vc_fastcode":"${fld:fastcode@js}"
+	},
+	</rows>
+	{}
+]}

@@ -1,0 +1,16 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"tuid":"${fld:tuid}"
+		,"skill_name":"${fld:skill_name}"
+		,"course_name":"${fld:course_name}"
+		,"begin_date":"${fld:begin_date}"
+		,"end_date":"${fld:end_date}"
+		,"createdby":"${fld:createdby}"
+		,"created":"${fld:created}"
+		,"updatedby":"${fld:updatedby}"
+		,"updated":"${fld:updated}"
+	},
+	</rows>
+	{}
+]}

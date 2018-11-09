@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html id='upload_cover_html'>
+<head>
+<title>视频上传</title>
+${inc:/action/project/fitness/home/pub}
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/qcloud/ugcUploader.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/qcloud/qcloud.js"></script>
+<link  rel='stylesheet' href='${def:context}/js/project/fitness/trains/css/common.css'/>
+</head>
+<body>
+<body id='upload_cover_body'>
+<div id='upload_cover_div'  class="dialogbg">
+	<div class="basic-information " id='upload_cover_dialog'>
+		<header class="header-default">
+			<span>视频上传</span>
+		</header>
+	<!-- 上传界面 -->
+	<div class="b-i-main" id="ugcUpload">
+		<form name="uploadform" id="uploadform" method="post" >
+			<nav class='my_nav_width_20p'>
+				<li>
+					<label>选择本地文件：</label>
+					<input class="btn btn-info btn-md" type="button" value="添加视频" id="addvideo" />
+					<input style="display:none;" class="ugc" type="file" name="videofile" size="30" /><span id="videofilespan"></span>
+				</li>
+				
+				<li>
+					<label></label>
+					<input class="btn btn-info btn-md" type="button" value="添加封面" id="addcover" />
+					<input style="display:none;" class="ugc" type="file" name="coverfile" size="30" /><span id="coverfilespan"></span>
+				</li>
+
+				<li>
+					<input class="btn btn-info btn-md" type="button" value="上传" id="submit_btn" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input class="btn btn-info btn-md" type="button" value="重置" id="reset_btn" />
+				</li>
+			</nav>
+			<div class='my_upload_msg' id="uploadmsg" class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xs-offset-4 col-sm-offset-4 col-md-offset-4 col-lg-offset-4" style="color:red;">
+			</div>
+			<input type="hidden" id="fileid" name="fileid" value="" />
+			<input type="hidden" id="videoname" name="videoname" value="" />
+			<input type="hidden" id="videourl" name="videourl" value="" />
+			<input type="hidden" id="coverurl" name="coverurl" value="" />
+		</form>
+	</div>
+  </div>
+</div>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+
+<script language="javascript">
+$(document).ready(function(){
+	var videoFile, coverFile;
+	ccms.qcloud.initConfig({debug : true});
+	
+	$("#addvideo").unbind().on("click", function(){
+		$("#ugcUpload").find("input[type=file][name=videofile]").click();
+	});
+	$("#ugcUpload").find("input[type=file][name=videofile]").unbind().change(function(){
+		videoFile = this.files[0];
+		$("#videofilespan").text(videoFile.name);
+	});
+	$("#addcover").unbind().on("click", function(){
+		$("#ugcUpload").find("input[type=file][name=coverfile]").click();
+	});
+	$("#ugcUpload").find("input[type=file][name=coverfile]").unbind().change(function(){
+		coverFile = this.files[0];
+		$("#coverfilespan").text(coverFile.name);
+	});
+	$("#submit_btn").unbind().on("click", function(){
+		if (document.uploadform.videofile.value == "") {
+			ccms.dialog.notice("请先选择上传的视频文件！", 2000);
+			return false;
+		}
+		ccms.qcloud.upload(videoFile, coverFile, function(res){
+			if( res ){
+				$("#fileid").val(undefined != res.fileId ? res.fileId : "");
+				$("#videoname").val(undefined != res.videoName ? res.videoName : "");
+				$("#videourl").val(undefined != res.videoUrl ? res.videoUrl : "");
+				$("#coverurl").val(undefined != res.coverUrl ? res.coverUrl : "");
+				if(res.message) {
+					ccms.dialog.notice("上传失败：" + res.message, 2000);
+				}else{
+					$("#uploadmsg").empty();
+					ccms.dialog.notice("上传成功", 2000, function(){
+						try{
+							parent.$("#${fld:fileid}").val($("#fileid").val());
+							parent.$("#${fld:videourlid}").val($("#videourl").val());
+							parent.$("#${fld:coverurlid}").val($("#coverurl").val());
+							var videoname = $("#videoname").val();
+							var len = videoname.lastIndexOf(".");
+							parent.$("#${fld:videoname}").val(videoname.substring(0,len));
+							ccms.dialog.close();
+						}catch(e){}
+					});
+				}
+			}
+		});
+	});
+	$("#reset_btn").unbind().on("click", function(){
+		$("#uploadform")[0].reset();
+		$("#videofilespan").empty();
+		$("#coverfilespan").empty();
+		$("#uploadmsg").empty();
+		videoFile = null;
+		coverFile = null;
+	});
+});
+</script>
+</body>
+</html>

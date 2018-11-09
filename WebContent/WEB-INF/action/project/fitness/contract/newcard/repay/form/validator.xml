@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="relatecode" type="varchar" label="relatecode" required="true" /><!-- 主合同编号 -->
+	<parameter id="contractcode" type="varchar" label="contractcode" required="false" />
+</validator>

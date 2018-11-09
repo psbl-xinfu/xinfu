@@ -1,0 +1,21 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+			"tuid":"${fld:tuid}",
+		    "results_money":"${fld:results_money}",
+		    "task_money":"${fld:task_money}",
+		    "completion":"${fld:completion}",
+		    "market_class_num":"${fld:market_class_num}",
+		    "pt_inventory_num":"${fld:pt_inventory_num}",
+		    "pt_teaching_num":"${fld:pt_teaching_num}",
+		    "site_target_num":"${fld:site_target_num}",
+		    "site_target_deal_num":"${fld:site_target_deal_num}",
+		    "site_target_deal_rate":"${fld:site_target_deal_rate}",
+		    "pt_expire_num":"${fld:pt_expire_num}",
+		    "pt_renewal_num":"${fld:pt_renewal_num}",
+		    "pt_renewal_rate":"${fld:pt_renewal_rate}",
+		    "name":"${fld:name@js}"
+	},
+	</rows>
+	{}
+]}

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	    <recordset id="query-customer.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-salemember.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-cabinetgroup.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-config-deposit.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-skillscopenum.sql" source="sql" scope="transaction"/>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-customer.sql" tag="cust-rows"/>
+		<print mode="table" recordset="query-salemember.sql" tag="sale-rows"/>
+		<print mode="table" recordset="query-salemember.sql" tag="sale2-rows"/>
+		<print mode="table" recordset="query-cabinetgroup.sql" tag="cabinetgroup-rows"/>
+		<print mode="table" recordset="query-config-deposit.sql" tag="deposit-rows"/>
+		<print mode="form" recordset="query-skillscopenum.sql" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

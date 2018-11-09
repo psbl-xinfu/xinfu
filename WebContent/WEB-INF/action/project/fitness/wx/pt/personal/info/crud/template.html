@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        ${inc:/action/project/fitness/wx/pub}
+        <title>我的信息</title>
+        <link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet">
+                	<script type="text/javascript" src="${def:context}/js/ccms/jweixin-1.js"></script>
+        
+    </head>
+    <body>
+        <div class="myxinxitop">
+            <div class="listothers">
+                <div class='d1 fl'>头像</div>
+                 <div class='d3 fr' id="head">
+                    <img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png" class="select_jiantou">
+                    <img  id="headpic" src="" class="touxiang img-circle">
+                </div>
+            </div>
+        </div>
+
+        <div class="myxinxicontent">
+            <div class="listothers">
+                <div class='d2 fl'>昵称</div>
+                <div class='d4 fr'>
+                    <!-- <img src="${def:context}/js/project/fitness/wx/css/select_jiantou.png" class="select_jiantou"> -->
+                    <input type="text" name="nicheng" id='nicheng'  class="form-control textindex" placeholder="翠花">
+                </div>
+            </div>
+            <div class="listothers">
+                <div class='d2 fl'>性别</div>
+                <div class='d4 fr'>
+                    <!-- <img src="${def:context}/js/project/fitness/wx/css/select_jiantou.png" class="select_jiantou"> -->
+                    <select class="form-control select_op" id="sex" name="sex">
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="myxinxicontent">
+            <div class="listothers">
+                <div class='d2 fl'>真实姓名</div>
+                <div class='d4 fr'>
+                    <!-- <img src="${def:context}/js/project/fitness/wx/css/select_jiantou.png" class="select_jiantou"> -->
+                    <input type="text" name="name" id='name'  class="form-control textindex" placeholder="张双">
+                </div>
+            </div>
+            <div class="listothers">
+                <div class='d2 fl'>手机号</div>
+                <div class='d4 fr'>
+                    <!-- <img src="${def:context}/js/project/fitness/wx/css/select_jiantou.png" class="select_jiantou"> -->
+                    <input type="number" name="mobile" id='mobile' oninput="if(value.length>11)value=value.slice(0,11)"  class="form-control textindex" placeholder="13938113811">
+                </div>
+            </div>
+        </div>
+        
+   	 <div class="myxinxicontent">
+            <div class="listothers">
+                <div class='d2 fl'>修改密码<span></span></div>
+                <div class='d4 fr'>           
+                </div>
+            </div>
+        </div>
+        
+        
+  <script>
+  var userid = "";
+   $(function(){
+		homept();
+	    <info>
+	    	$('#nicheng').val('${fld:name}');
+	    	$('#mobile').val('${fld:mobile}');
+	    	$('#name').val('${fld:name}');
+	    	$('#sex').val('${fld:sex}');
+	    	userid = "${fld:user_id}";
+	    </info>
+	    loadHeadpic("headpic", userid);
+	      $('.myxinxicontent').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/basic/setpsw/crud?type=pt";
+        });
+        
+        
+       	wx.config({
+   		    debug: false,
+   		    appId:  "${fld:appid}",
+   		    timestamp: ${fld:timestamp},
+   		    nonceStr: "${fld:noncestr}",
+   		    signature: "${fld:signature}",
+   		    jsApiList: [ 'chooseImage','uploadImage']
+   		});
+	      
+	      
+	      
+   		wx.ready(function(){
+   			$("#head").on("click",function(){
+   	    		wx.chooseImage({
+   	    		    count: 1, // 默认9
+   	    		    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+   	    		    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+   	    		    success: function (res) {
+   	    		        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+   	    		        uploadImage(localIds);
+   	    		    }
+   	    		});
+   	    	});
+    	});
+    })
+    
+    function uploadImage(localIds){
+    	wx.uploadImage({
+    	    localId:localIds.toString() , // 需要上传的图片的本地ID，由chooseImage接口获得
+    	    isShowProgressTips: 1, // 默认为1，显示进度提示
+    	    success: function (res) {
+    	        var media_id = res.serverId; // 返回图片的服务器端ID
+    	        var url = "/action/project/fitness/wx/cust/center/info/updateImg?user_id="+userid+"&field_name=headpic&media_id="+media_id+"&org_id=${def:org}";
+    			ajaxCall(url,{
+    				method: "get",
+    				progress: true,
+    				dataType: "script",
+    				success: function() {
+    					loadHeadpic("headpic", userid);
+    				}
+    		    });
+    	    }
+    	});
+    }
+    
+  </script>    
+    </body>
+</html>
+

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+    <title>免费申请试用</title>
+    <!-- head 中 -->
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/css/login.css" />
+	<link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/custom.css" />
+</head>
+<body>
+
+<header class="login-hd">
+	<h1>
+		<p class="tl">用户分级管理</p>
+		<p class="tr">精准定位分析</p>
+	</h1>
+	<div class="animate-box">
+		<span class="icon-friendly wave-pt wave-pt-1"></span>
+		<span class="icon-print wave-pt wave-pt-2"></span>
+		<span class="icon-lock wave-pt wave-pt-3"></span>
+		<span class="icon-daodian wave-pt wave-pt-4"></span>
+		<span class="icon-gfp wave-pt wave-pt-5"></span>
+		<span class="icon-shoufei wave-pt wave-pt-6"></span>
+		<span class="icon-cm wave-pt wave-pt-7"></span>
+		<span class="line line-1"></span>
+		<span class="line line-2"></span>
+		<span class="line line-3"></span>
+		<span class="line line-4"></span>
+		<span class="line line-5"></span>
+		<span class="wave"></span>
+	</div>
+</header>
+<section class="login-box">
+	<form id="regForm" name="regForm" method="post">
+		<h2>免费申请试用</h2>
+		<div class="form-group">
+			<span class="icon-brand"></span>
+			<input class="form-text" type="text" name="company_name" id="company_name" required="required" placeholder="请输入品牌名称">
+			<span class="icon-cancel"></span>
+		</div>
+		<div class="form-group" id="city_1">
+			<span class="icon-location"></span>
+			<select class="prov" id="province" name="province">
+				<option value="">请选择省</option>
+			</select>
+			<select class="city" id="city" name="city">
+				<option value="">请选择市/区</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<span class="icon-user"></span>
+			<input class="form-text" type="text" required="required" name="name" id="name" placeholder="请输入姓名">
+			<span class="icon-cancel"></span>
+		</div>
+		<div class="form-group">
+			<span class="icon-phone"></span>
+			<input class="form-text" type="text" required="required" name="mobile" id="mobile" placeholder="请输入手机号">
+			<span class="icon-cancel"></span>
+		</div>
+
+		<div class="form-group msgcode-group">
+			<span class="icon-verification"></span>
+			<input class="form-text" type="text" required="required" name="imgcode" id="imgcode" placeholder="请输入图形验证码" id="shapeCodeInput">
+			<span class="icon-cancel"></span>
+			<div class="shape-code">
+				<img src="" alt="" class="imgCode" onClick="getVerifyImg()" id="verifyImg" style="width: 85px;">
+			</div>
+		</div>
+		<div class="form-group msgcode-group">
+			<span class="icon-verification"></span>
+			<input class="form-text" type="text" required="required" name="captcha_code" id="captcha_code" placeholder="请输入短信验证码">
+			<div class="msg-code" id="divCode" onclick="Getcode()">获取验证码</div>
+		</div>
+
+		<div class="submit-btn" id="submitbtn">确定</div>
+		<p class="tips">已有帐号，返回<a href="https://demo.gymjam.cn/">登录</a></p>
+	</form>
+</section>
+
+
+<a href="#" class="download-browser">
+	<span class="icon-browser"></span>
+	<span>专用浏览器下载</span>
+</a>
+<!-- body 最后 -->
+<script type="text/javascript" src="${def:context}/js/jquery/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/ccms.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var console = window.console || { log: function() {} };
+var contextPath = "${def:context}";
+var errimg = 0;
+$(document).ready(function() {
+	/** 加载省市 */
+	getSelectDomain("province", "Province", "", "");
+	$("#province").unbind().on("change",function(){
+		getSelectDomain("city", "City", "Province", $(this).val());
+	});
+	/** 加载图形验证码 */
+	getVerifyImg();
+    /** 提交 */
+	$('#submitbtn').click(function(){
+		var company_name = $('#company_name').val();
+		if( company_name == "" || company_name == "单位名称" ){
+			alert("请输入品牌名称！");
+			return false;
+		}
+		var province = $('#province').val();
+		if( province == "" ){
+			alert("请选择省！");
+			return false;
+		}
+		var city = $('#city').val();
+		if( city == "" ){
+			alert("请选择市(区)！");
+			return false;
+		}
+		var name = $('#name').val();
+		if( name == "" || name == "姓名" ){
+			alert("请输入姓名！");
+			return false;
+		}
+		/** 图形验证码输错超过5次，自动刷新验证码 */
+		if( errimg > 5 ){
+			getVerifyImg();
+			errimg = 0;
+			$('#img_code').val("");
+		}
+		if( !checkMobile() ){
+			return false;
+		}
+		/** 验证图形验证码 */
+		validateVerifycode(function(){
+			/** 验证短信验证码 */
+			validateCaptchacode(function(){
+				var url = "/action/project/fitness/public/application/insert";
+				ajaxCall(url,{
+					method: "post",
+					form: "regForm",
+					button: "submitbtn",
+					progress: true,
+					dataType: "script",
+					success: function(data) {
+					    $("#regForm input").val("");
+					    $("#regForm select").val("");
+						/** 加载图形验证码 */
+						getVerifyImg();
+					},
+		   			error: function(){
+					    alert("注册失败！");
+		   			}
+				});
+			});
+		});
+	});
+
+});
+
+
+
+
+//获取手机验证码
+function Getcode(){
+	if( !checkMobile() ){
+		return false;
+	}
+	/** 验证图形验证码 */
+	validateVerifycode(function(){
+		RemainTime();
+		// 表单提交
+		var url = "${def:context}/service/captcha/get?mobile="+$("#mobile").val();
+		ajaxCall(url,{
+			method: "get",
+			progress: true,
+			dataType: "script",
+			success: function(data) {
+			}
+		});
+	});
+}
+
+/** 验证手机号码 */
+function checkMobile(){
+	var mobile = $('#mobile').val();
+	if( mobile == "" || mobile == "手机" ){
+		alert("请输入手机号！");
+		$('.divform').css({'margin-top':'40px'});
+		setTimeout(function(){$('.divform').css({'margin-top':'15px'});},2000);
+		return false;
+	}else if( !IsMibile(mobile) ){
+		alert("请输入正确的手机号！");
+		return false;
+	}
+	return true;
+}
+
+var iTime = 59;
+function RemainTime(){
+	var iSecond,sSecond="",sTime="";
+	if (iTime >= 0){
+		iSecond = parseInt(iTime%60);
+		if (iSecond >= 0){
+			sSecond = iSecond + "秒";
+		}
+		sTime="<span style='color:#41434C'>" + sSecond + "</font>";
+		if(iTime==0){
+			clearTimeout(Account);
+			sTime='获取验证码';
+			document.getElementById('divCode').innerHTML= sTime;
+			$('#divCode').attr({'onClick':'Getcode()'});
+			iTime = 59;
+		}else{
+			Account = setTimeout("RemainTime()",1000);
+			iTime=iTime-1;
+			document.getElementById('divCode').innerHTML= "请等待"+sTime;
+			$('#divCode').attr({'onClick':'false'});
+		}
+	}else{
+		sTime='<font size="1">没有倒计时</font>';
+	}
+}
+
+//手机号码匹配
+function IsMibile(s){
+	var flg=false;
+	var field13=/^13\d{9}$/g;
+	var field15=/^15\d{9}$/g;
+	var field17=/^17\d{9}$/g;
+	var field18=/^18\d{9}$/g;
+	if((field13.exec(s))||(field15.exec(s))||(field17.exec(s))||(field18.exec(s))) {
+		flg=true;
+	} else {
+		flg=false;
+	}
+	return flg;
+}
+
+/** 验证图形验证码 */
+var isverify = false;
+function validateVerifycode(callback){
+	isverify = false;
+	var verifycode = $("#imgcode").val();
+	if( undefined == verifycode || "" == verifycode ){
+		alert("请输入图形验证码！");
+		return false;
+	}
+		var url = "/action/project/fitness/guestget/util/validateverifycode?verify_code=" + verifycode;
+		ajaxCall(url,{
+			method: "get",
+			progress: true,
+			async: false,
+			dataType: "script",
+			success: function(data) {
+			}
+		});
+		if( false == isverify ){
+			alert("图形验证码不正确！");
+		}
+		if( isverify && undefined != callback ){
+			callback(isverify);	
+		}
+}
+
+/** 获取图形验证码*/
+function getVerifyImg(){
+	$("#verifyImg").attr("src", "${def:context}/service/captcha/image?code=" + Math.random());
+}
+
+/** 验证短验证码 */
+function validateCaptchacode(callback){
+	isverify = false;
+	var captcha_code = $("#captcha_code").val();
+	if( undefined == captcha_code || "" == captcha_code ){
+		alert("请输入短信验证码！");
+		return false;
+	}
+		var url = "/action/project/fitness/guestget/util/validatecaptchacode?mobile="+$("#mobile").val()+"&captcha_code=" + captcha_code;
+		ajaxCall(url,{
+			method: "get",
+			progress: true,
+			async: false,
+			dataType: "script",
+			success: function(data) {
+			}
+		});
+		if( false == isverify ){
+			alert("短信验证码不正确！");
+		}
+		if( isverify && undefined != callback ){
+			callback(isverify);	
+		}
+}
+/** 获取域值 */
+function getSelectDomain(objid, namespace, parent_namespace, parent_domain_value, callback){
+	if( undefined == objid || "" == objid ){
+		alert("Parameter id can not be null.");
+		return false;
+	}else if( undefined == namespace || "" == namespace ){
+		alert("Parameter namespace can not be null.");
+		return false;
+	}
+	parent_namespace = (undefined != parent_namespace ? parent_namespace : "");
+	parent_domain_value = (undefined != parent_domain_value ? parent_domain_value : "");
+	var uri = "/action/project/fitness/guestget/util/getdomain";
+	uri += "?id=" + objid + "&namespace=" + namespace + "&parent_namespace=" + parent_namespace + "&parent_domain_value=" + parent_domain_value;
+	return ajaxCall(uri,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+			if( undefined != callback ){
+				callback();
+			}
+		}
+	});
+}
+</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        ${inc:/action/project/fitness/wx/pub}
+        <title>我的课程</title>
+        <link href="${def:context}/js/project/fitness/wx/css/courses/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/courses/courseDetails.css" rel="stylesheet">
+                	<script type="text/javascript" src="${def:context}/js/ccms/jweixin-1.js"></script>
+        
+    </head>
+ <body>
+	<div class="containter bg">
+		<div class="header">
+			<img class="cour-img" src="${fld:coverurl}" >
+			 <video style="display: none" id="myVideo" src="${fld:videourl}" controls="controls" preload="auto" width="100%" x-webkit-airplay="true" webkit-playsinline="true"></video>
+		</div>
+		<div class="cour-title clearlr">
+			<span class="active" code="summary">概述</span>
+			<span code="schedule">课件</span>
+			<span code="test">评测</span>
+		</div>
+		<div class="cour-content">
+			<div class="summary">
+			${fld:remark}
+			</div>
+			
+			
+			<div class="schedule disNone">
+			</div>
+			
+			<div class="test disNone">
+			</div>
+			
+			
+			
+			
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+    var video_ele=document.getElementById('myVideo');
+	$(function(){
+		if("${fld:type}"=="mc"){
+			homemc()
+		}else{
+			homept()
+		}
+		
+		var str="";
+		var index=0;
+		<course>
+			var rectnum=rectNum(index);
+			str+='<div class="sch-details">'
+			str+='<label class="sch-d-t up">第'+rectnum+'章  ${fld:course_name}</label>'
+			if(index==0){
+				str+='<ul class=""  code="${fld:courseid}" courseskill="${fld:tuid}" group="${fld:groupid}">'
+			}else{
+				str+='<ul class="disNone"  code="${fld:courseid}" courseskill="${fld:tuid}" group="${fld:groupid}" >'
+			}
+			str+='</ul>'
+			str+='</div>'
+			index++;
+	</course>
+		$('.schedule').html(str);
+		
+		var termstr="";
+		var index2=0;
+		<term>
+		if("${fld:termid}"!=""&&"${fld:termid}"!="&nbsp;"){
+			var rectnum=rectNum(index2);
+			termstr+='<div class="test-details">'
+			termstr+='<label class="sch-d-t up">第'+rectnum+'章  ${fld:course_name}</label>'
+			termstr+='<div class="sch-d-c">'
+			termstr+='<label class="sch-title">&nbsp; </label> '
+			termstr+='<label class="total-time">总分：${fld:total_score}</label>'
+			termstr+='<label class="study-time">得分：${fld:term_score}</label>'
+			termstr+='<span class="btn-video"  onclick="goQuestion(${fld:termid},${fld:courseid},'+index2+',\'${fld:end_date}\')">进入测试</span>'
+			termstr+='</div>'
+			termstr+='</ul>'
+			termstr+='</div> '
+			index2++;
+		}
+		</term>
+		$('.test').html(termstr);
+		
+		$('.cour-title span').on('click',function(){
+			var $this = $(this);
+			var code =  $this.attr('code');
+			if($this.hasClass('active')){
+				return;
+			}
+			$this.addClass('active').siblings().removeClass('active');
+			$('.cour-content').find('.'+code).removeClass('disNone').siblings().addClass('disNone');
+		});
+		
+		$('.sch-d-t').on('click',function(){
+			var $this = $(this);
+			/*已经隐藏*/
+			if($this.next().hasClass('disNone')){
+				$('ul').addClass('disNone');
+				$this.next().removeClass('disNone');
+			}else{
+				$('ul').addClass('disNone');
+			}
+		});
+		
+		$('ul').each(function(){
+			getlist($(this).attr('code'), $(this).attr("courseskill"), $(this).attr("group"));
+		})
+	})
+	
+	
+	
+	
+	function getlist(courseid, courseskillid, groupid){//获得所有课节
+	    	getAjaxCall("/action/project/fitness/wx/pt/mycourses/calsslist/getlist?courseid="+courseid+"&courseskillid="+courseskillid+"&groupid="+groupid, false);    	
+	}
+	
+	function rectNum(num){//课程序号
+		 var upperCaseNumber = [ '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+		 var numstr="";
+			for(var i=0;i<num.toString().length;i++){
+				numstr+=upperCaseNumber[num.toString().charAt(i)]
+			}
+		return numstr;
+	}
+	
+    function secToMin(sec) //秒转分
+    {
+    	var min=Math.floor(sec/60)
+    	var min2=(sec%60);
+    	return min+'分'+min2+'秒';
+    }
+    
+    //视频播放逻辑
+   		var COURSEID="";
+   		var CLASSID="";
+   		var COURSE_SKILL_ID="";
+   		var SKILL_ID="";
+    	var STATUS="";
+		var VIDEO_OBJ=null;
+		var TIMER=null;
+	    video_ele.onended=function(){     
+	    	clearInterval(TIMER);
+	    	if(STATUS!='2')  //视频播放结束,检查学习状态，不是已完成状态则更改记录
+	    	{
+	    		statusSetFinished(VIDEO_OBJ,COURSEID,CLASSID,COURSE_SKILL_ID,SKILL_ID);
+	    	}
+	    }
+	    
+		
+    function bofang(obj,url,courseid,classid,course_skill_id,skill_id,currentsecond) //视频点击
+    {
+    	$('#myVideo').attr('src',url);
+    	video_ele.play();
+    	$('.cour-img').hide();
+    	$('#myVideo').show();
+    	
+    	COURSEID=courseid	 	;
+    	CLASSID=classid;
+    	COURSE_SKILL_ID=course_skill_id;
+    	SKILL_ID=skill_id;
+    	VIDEO_OBJ=obj;
+   		 
+    	STATUS=$(obj).attr('code');
+   		if(STATUS==""||STATUS==null){
+   			statusSetLearning(obj,courseid,classid,course_skill_id,skill_id);
+   		}
+   		if(currentsecond==null||currentsecond==""){
+   			currentsecond=0;
+   		}
+   		video_ele.currentTime=parseInt(currentsecond);
+   		TIMER=setInterval("sendCurrentSecond("+courseid+","+classid+","+course_skill_id+","+skill_id+")",5000);
+    }
+    
+    
+    function statusSetLearning(videoObj,courseid,classid,course_skill_id,skill_id) //状态设为学习中
+    {	
+		getAjaxCall("/action/project/fitness/wx/pt/mycourses/calsslist/learning?courseid="+String(courseid)+"&classid="+String(classid)+"&course_skill_id="+String(course_skill_id)+"&skill_id="+String(skill_id), false);    	
+		$(videoObj).attr('code','1');
+    }
+    
+    
+    function statusSetFinished(videoObj,courseid,classid,course_skill_id,skill_id) //状态设为已完成
+    {	
+		getAjaxCall("/action/project/fitness/wx/pt/mycourses/calsslist/finished?courseid="+String(courseid)+"&classid="+String(classid)+"&course_skill_id="+String(course_skill_id)+"&skill_id="+String(skill_id), false);    	
+		$(videoObj).attr('code','2');
+    }
+    
+    function sendCurrentSecond(courseid,classid,course_skill_id,skill_id) //记录当前位置
+    {	
+    	var currentsecond=parseInt(video_ele.currentTime);
+		getAjaxCall("/action/project/fitness/wx/pt/mycourses/calsslist/updatetime?courseid="+String(courseid)+"&classid="+String(classid)+"&course_skill_id="+String(course_skill_id)+"&skill_id="+String(skill_id)+"&currentsecond="+currentsecond, false);    	
+    
+    }
+    
+	
+	function goQuestion(termid,courseid,index2,end_date){
+       	location.href="${def:context}/action/project/fitness/wx/pt/mycourses/question/crud?termid="+termid+"&type=${fld:type}"+"&courseid="+courseid+"&index="+index2+"&end_date="+end_date;
+	}
+	</script>
+</body>
+
+</html>
+
+
+

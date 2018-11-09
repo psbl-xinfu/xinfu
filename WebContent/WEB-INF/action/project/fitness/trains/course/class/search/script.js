@@ -1,0 +1,13 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"tuid":"${fld:tuid}"
+		,"class_name":"${fld:class_name}"
+		,"course_name":"${fld:course_name}"
+		,"videoname":"${fld:videoname}"
+		,"updatedby":"${fld:updatedby}"
+		,"updated":"${fld:updated}"
+	},
+	</rows>
+	{}
+]}

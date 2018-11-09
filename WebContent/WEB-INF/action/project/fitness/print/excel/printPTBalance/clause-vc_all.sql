@@ -1,0 +1,1 @@
+ AND (c.vc_name like '%'||${fld:vc_all}||'%' or t.vc_cardcode = ${fld:vc_all})

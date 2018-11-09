@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		转课记录导出
+	</summary>
+
+	<log>false</log>
+	
+	<!-- 这个对应的是clause-daochu_cust,clause-后面的名字一定要对应，也要和htm中界面的id对应 -->
+	<colname>daochu_startdate,daochu_enddate,daochu_ptdefcode,daochu_pt,daochu_cust</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="转课记录" filename="转课记录.xls" header-background="true">
+		<col id="isunion" label="是否通店转课" />
+		<col id="old_name" label="原姓名" /> 
+		<col id="new_name" label="新姓名" />
+		<col id="ptlevelname" label="私教类型" />
+		<col id="ptcount" label="节数" />
+		<col id="new_ptname" label="前教练" />
+		<col id="old_ptname" label="后教练" />
+		<col id="trtime" label="转课时间" />
+	</excel>
+
+</config>

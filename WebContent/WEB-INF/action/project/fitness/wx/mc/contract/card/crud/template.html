@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>办卡合同</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        	<style type="text/css">
+        	#supportorgsspan{
+        		color:#9b9b9b  !important;
+        		font-size: 14px;
+        		line-height: 34px;
+        		float: right;
+        	}
+        	
+        	
+        	.hetongxqcontent .listothers .d2{
+        	width: 46%
+        	}
+        	</style>
+    </head>
+    
+    <body>
+    <form id="contractForm"  name="contractForm">
+    		<input type="hidden" id="contractcode" name="contractcode" value="" preserve="true" />
+			<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+			<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
+			<input type="hidden" id="guestcode" name="guestcode" value="" preserve="true" />
+			<input type="hidden" id="recommendcode" name="recommendcode" value="" />
+			<input type="hidden" id="count" name="count" value="" />
+			<input type="hidden" id="daycount" name="daycount" value="" />
+			
+			<input type="hidden" id="enddate" name="enddate" value="" />
+			<input type="hidden" id="startdate" name="startdate" value="" />
+    
+    
+        <div class="hetongxqtop">
+            <img id="headpic" src="" class="touxiangpic img-circle">
+            <p class="name text-center" id="name"></p>
+            <p class="tel text-center"id="mobile"></p>
+        </div>
+
+         <div class="hetongxqcontent">
+            <div class="listother">
+                <p class='p1'>推荐人</p>
+                <p class='p2 ' ><input type="text"  id="recommend" name="recommend"  class="textinput"   ></p>
+            </div>
+
+            
+            <div class="listothers">
+                <div class='d1 fl'>销售员</div>
+                <div class='d2 fr'>
+                    <select class="form-control" name="salemember" id="salemember">
+                       <mc>
+                      	 	<option value="${fld:userlogin}">${fld:name}</option>
+                       </mc>
+                    </select>
+                </div>
+            </div>
+            
+         <div class="listothers">
+                <div class='d1 fl'>第二会籍</div>
+                <div class='d2 fr'>
+                    <select class="form-control" name="salemember1" id="salemember1">
+                    <option value="">请选择</option>
+                       <mc1>
+                      	 	<option value="${fld:userlogin}">${fld:name}</option>
+                       </mc1>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="listothers">
+                <div class='d1 fl'>卡类型</div>
+                <div class='d2 fr'>
+             	  <select id="cardtype" name="cardtype"  class="form-control" >
+     			        <option value="">请选择</option>
+                       <cardtype>
+                      <option   value="${fld:code}" code="${fld:cardfee}" codeday="${fld:daycount}" codegiveday="${fld:giveday}" codept="${fld:ptcount}">${fld:name@js}</option>
+                       </cardtype>
+                    </select>
+                </div>
+            </div>
+            
+		  <div class="listothers">
+                <div class='d1 fl'>支持门店</div>
+                <div class='d2 fr' >
+                	<span id="supportorgsspan"   ></span>
+                </div>
+            </div>
+            
+            
+              <div class="listothers">
+                <div class='d1 fl'>启用方式</div>
+                <div class='d2 fr'>
+                  <select class="form-control" name="starttype" id="starttype" >
+                  <option value="">请选择</option>
+	         		<starttype-rows>
+						<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+					</starttype-rows>
+					</select>
+                </div>
+            </div>
+            
+                <div>
+                    <label class="lablewidth"> 
+                    </label>
+                    <input   style="text-align: right"  type="text" name="startdate1"  class="form-control timeinput" id="startdate1" data-date-format="yyyy-mm-dd hh:ii" placeholder="开始日期"disabled="disabled">
+                </div>
+            
+                 <div>
+                    <label class="lablewidth"> 
+                    </label>
+                    <input   style="text-align: right"  type="text" name="enddate1"  class="form-control timeinput" id="enddate1" data-date-format="yyyy-mm-dd hh:ii" placeholder="结束日期" disabled="disabled">
+                </div>           
+            
+            
+            
+             <div class="listother" >
+                <p class='p2'style="margin-left: 5%">赠送免费私教课时</p>
+                <p class='p2 ' ><input type="text"  id="ptcount" name="ptcount"  class="textinput"   value="0"></p>
+            </div>
+            
+              <div class="listother" >
+                <p class='p2' style="margin-left: 5%">赠送入会天数</p>
+                <p class='p2 ' ><input type="text"  id="giveday" name="giveday"  class="textinput"  value="0" ></p>
+            </div>
+        </div>
+        
+        <div class="hetongxqcontent">
+               <div class="listother">
+                <p class='p1'>原价</p>
+                <p class='p2 ' ><input type="text"  id="inimoney" name="inimoney"  class="textinput"   ></p>
+            </div>
+
+            
+            <div class="listothers">
+                <div class='d1 fl'>优惠活动</div>
+                <div class='d2 fr'>
+                    <select class="form-control"  id="campaigncode" name="campaigncode">
+                    </select>
+                </div>
+            </div>
+            
+            <div class="listother">
+                <p class='p1'>折扣金额</p>
+                <p class='p2 ' ><input type="text"  id="discountmoney" name="discountmoney"  class="textinput" value="0"  ></p>
+            </div>
+        </div>  
+
+        <div class="xuanzefenqi">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" id="isstage" name="isstage">分期支付
+                </label>
+            </div>
+            
+            
+            
+        </div> 
+
+        <div class="hetongxqcontent " >
+          	<div class="listother fenqi ">
+                <p class='p1'>账单分期</p>
+                <p class='p2 ' ><input type="text"  id="stage_times" name="stage_times"  class="textinput"   ></p>
+            </div>
+            
+<!--             <div class="listotherss fenqi">
+                <div class='d1 fl'>本期付款</div>
+                <div class='d3 fr'><p class="jiaqian text-right" id="stagemoney_t"></p></div>
+	          	<p class='p2 ' ><input type="text" id="stagemoney" name="stagemoney" value="" class="textinput" ></p>
+            </div> -->
+            
+             <div class="listother fenqi ">
+                <p class='p1'>本期付款</p>
+                <p class='p2 ' ><input type="text"  id="stagemoney" name="stagemoney"  class="textinput"   ></p>
+            </div>
+            
+          <div class="listother fenqi ">
+                <p class='p1'>剩余</p>
+                <p class='p2 ' ><input type="text"  id="shengyuqi" name="shengyuqi"  class="textinput"   readonly="readonly" value="1"></p>
+            </div>
+            
+            <div class="listother fenqi ">
+                <p class='p1'>每期还款</p>
+                <p class='p2 ' ><input type="text"  id="meiqiprice" name="meiqiprice"  class="textinput"  readonly="readonly" value=""></p>
+            </div>        
+            
+            <div class="listother">
+                <p class='p1'>应收</p>
+                <p class='p2 ' ><input type="text"  id="normalmoney" name="normalmoney"  class="textinput"   style="color: #FDB346;font-weight: bold;font-size: 18px"></p>
+            </div>
+        </div>     
+           
+        <div class="hetongxqcontent" >
+            <div class="list">
+                <p class='p1'>备注</p>
+                <p class='p2'><textarea class="form-control" rows="3" placeholder="请写入备注" id="remark" name="remark"></textarea></p>
+            </div>
+        </div>
+   <!-- 	  <div class="hetongxqbtn">
+            <img src="${def:context}/js/project/fitness/wx/image/tijiao.png" class="tijiao" id="save">
+        </div> -->
+        
+        
+            
+      <div class="gy-save"  id="save" >
+   	  	提&nbsp;交
+     </div>
+        
+        
+        
+		</form>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+var istopay = false;
+var discount = 1.00;	// 折扣比例
+var cardfee = 0, days = 0, giveday = 0, ptcount = 0 ;
+var stagetimes = 1;
+var currentDate = new Date();
+    $(function(){
+    	//赠送入会天数移入事件，如为0则清空
+    	$("#giveday").mouseover(function (){  
+    		if($(this).val()=="0"){
+    			$(this).val("");
+    		}
+        })
+    	homemc();
+    	
+    	
+    	$('.fenqi').hide();
+    	var num="${fld:num}";	
+    	$('#ptcount').attr('readonly',true);
+    	$('#inimoneyspan').attr('readonly',true);
+    	$('#normalmoney').attr('readonly',true);
+    	$('#inimoney').attr('readonly',true);
+    	
+    	$('#salemember').val('${def:user}');
+    	
+    		// 分期付款
+	$("input[name=isstage]").unbind().on("ifChecked", function(){
+		stagetimes = 2;
+		$('.fenqi').show();
+		$("#stage_times").val(stagetimes);
+		setcontractfee();
+	});
+    		
+	$("input[name=isstage]").on("ifUnchecked", function(){
+		stagetimes = 1;
+		$('.fenqi').hide();
+		$("#stage_times").val(stagetimes);
+	});
+    
+	
+	
+	// 分期次数
+/* 	$("#stage_times").unbind().on("blur",function(){
+		var _stagetimes = $(this).val();
+		if( "" != _stagetimes && isNumber(_stagetimes) && parseInt(_stagetimes) >= 2 ){
+			stagetimes = parseInt(_stagetimes);
+		}else{
+			stagetimes = 2;
+			ccms.dialog.notice("分期次数必须为大于1的整数", 2000);
+		}
+		$(this).val(stagetimes);
+		
+		$("#shengyuqi").val(stagetimes-1);
+		var yingshouprice=$("#normalmoney").val();
+		var benqiprice=$("#stagemoney").val();
+		var finalprice=(yingshouprice-benqiprice)/(stagetimes-1)
+		$("#meiqiprice").val(finalprice.toFixed(3));
+	}); */
+	
+	
+	
+	
+	
+	$("#stage_times").bind('input propertychange', function() {  
+		var _stagetimes = $(this).val();
+		if(_stagetimes!=""){
+		
+		if( "" != _stagetimes && isNumber(_stagetimes) && parseInt(_stagetimes) >= 2 ){
+			stagetimes = parseInt(_stagetimes);
+		}else{
+			stagetimes = 2;
+			ccms.dialog.notice("分期次数必须为大于1的整数", 2000);
+		}
+		
+		
+		$(this).val(stagetimes);
+		
+		$("#shengyuqi").val(stagetimes-1);
+		var yingshouprice=$("#normalmoney").val();
+		var benqiprice=$("#stagemoney").val();
+		var finalprice=(yingshouprice-benqiprice)/(stagetimes-1)
+		$("#meiqiprice").val(finalprice.toFixed(3));
+		}
+	});  
+	
+	
+	// 本期付款
+	$("#stagemoney").unbind().on("blur",function(){
+		var stagemoney = $(this).val();
+		if( "" == stagemoney || ( "" == stagemoney && !isFloat(stagemoney) && !isNumber(stagemoney)) ){
+			ccms.dialog.notice("请输入有效的本期付款金额", 2000);
+			return false;
+		}else if( parseFloat(stagemoney) >= parseFloat(normalmoney) ){
+			ccms.dialog.notice("本期付款金额不能超过应付金额", 2000);
+			return false;
+		}
+		
+		var yingshouprice=$("#normalmoney").val();
+		var benqiprice=$("#stagemoney").val();
+		var stagetimes=$("#stage_times").val();
+				
+		var finalprice=(yingshouprice-benqiprice)/(stagetimes-1)
+		$("#meiqiprice").val(finalprice.toFixed(3));
+		
+	});
+	
+	
+	
+	// 修改折扣金额
+	$("#discountmoney").unbind().on("blur",function(){
+		var discountmoney = 0;
+		if( "" != $(this).val() && (isFloat($(this).val()) || isNumber($(this).val()))){
+			discountmoney = parseFloat($(this).val()).toFixed(2);
+		}
+		$(this).val(discountmoney);
+		$("#campaigncode").val("");
+		setcontractfee();
+	});
+    	<cust>
+    	if(num==1){
+    		$('#headpic').attr('src',contextPath+"${fld:headpic}");
+    		$('#name').text("${fld:name}");
+    		$('#mobile').text("${fld:mobile}");
+    		$("#customercode").val("${fld:code}");
+    		$("#guestcode").val("${fld:guestcode}");
+    	}
+    	</cust>
+    	
+    	<gust>
+    	if(num==0){
+    		$('#headpic').attr('src',contextPath+"${fld:headpic}");
+    		$('#name').text("${fld:name}");
+    		$('#mobile').text("${fld:mobile}");
+    		$("#customercode").val("");
+    		$("#guestcode").val("${fld:code}");
+    	}
+		</gust>
+    	
+    	getAjaxCall("/action/project/fitness/wx/basic/querycampaign?cardtype=", false);    
+    	getAjaxCall("/action/project/fitness/wx/basic/querysupportorgs?cardtype="+$('#cardtype').val()+"&objid=supportorgsspan", false);
+    
+    	
+    	
+    	
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		 theme: 'android-ics light', //皮肤样式
+                 display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10, //结束年份
+            onSelect:function(valueText,inst){
+            	currentDate = new Date(valueText);
+            	setvaliddate();
+    		}
+        };
+
+        $("#startdate1").mobiscroll($.extend(opt['date'], opt['default']));
+        $("#enddate1").mobiscroll($.extend(opt['date'], opt['default']));
+        
+    	// 根据卡类型加载活动
+    	$("#cardtype").on("change",function(){
+    		if($(this).val()!=""){
+        		$("#starttype").val("0");
+    		}else{
+        		$("#starttype").val("");
+    		}
+    		getAjaxCall("/action/project/fitness/wx/basic/querycampaign?cardtype="+$(this).val(), false);
+    		var cardtypeobj = $("#cardtype").find("option:selected");
+    		cardfee = cardtypeobj.attr("code");
+    		cardfee = ("" != cardfee && (isFloat(cardfee) || isNumber(cardfee)) ? parseFloat(cardfee) : 0.00);
+    		days = cardtypeobj.attr("codeday");
+    		days = ("" != days && isNumber(days) ? parseInt(days) : 0);
+    		giveday = cardtypeobj.attr("codegiveday");
+    		giveday = ("" != days && isNumber(giveday) ? parseInt(giveday) : 0);
+    		ptcount = cardtypeobj.attr("codept");
+    		ptcount = ("" != days && isNumber(ptcount) ? parseInt(ptcount) : 0);
+    		$("#daycount").val(days);
+    		$("#giveday").val(giveday);
+    		$("#ptcount").val(ptcount);
+    		$("#inimoney").val(cardfee);
+    		setcontractfee();
+    		setvaliddate();
+    		var id=$(this).val();
+    		getAjaxCall("/action/project/fitness/wx/basic/querysupportorgs?cardtype="+id+"&objid=supportorgsspan", false);
+    	});      
+        
+    	// 根据活动
+    	$("#campaigncode").on("change",function(){
+    		var discountStr = $("#campaigncode").find("option:selected").attr("code-discount");
+    		if( discountStr == "" || (!isNumber(discountStr) && !isFloat(discountStr)) ){
+    			discount = 1.00;
+    		}else{
+    			discount = parseFloat(discountStr).toFixed(2);
+    		}
+    		setcontractfee();
+    	});      
+        
+    	$('#recommend').on('blur',function(){
+    		if($(this).val()!=""){
+    			getCustome($(this).val());
+    		}
+    	});
+    	
+    	$('#save').on('click',function(){
+    		if( $("input[name=isstage]").is(':checked') ){
+    			if($("#stage_times").val()==""){
+    				ccms.dialog.notice("分期次数必须大于1的整数", 2000);
+    				return false;
+    			}
+    		}
+    		
+    		saveContract();
+    	});
+    	// 卡启用方式
+    	$("#starttype").on("change",function(){
+    		setvaliddate();
+    	});
+    });
+    
+	// 免费赠送天数
+	$("#giveday").unbind().on("blur",function(){
+		if( "" != $(this).val() && isNumber($(this).val()) ){
+			giveday = parseInt($(this).val());
+		}else{
+			giveday = 0;
+		}
+		$(this).val(giveday);
+		setvaliddate();
+	});
+    
+ // 根据启用方式重写卡有效时间
+    function setvaliddate(){
+    	var starttype = $("#starttype").val();
+    	if( "1" == starttype ){	// 首次训练启用
+    		$("#startdate1").val("");
+    		$("#enddate1").val("");
+    		$("#startdate").val("");
+    		$("#enddate").val("");
+    		$("#startdate1").attr("disabled",true);
+    	}else if( "2" == starttype ){	// 固定时间启用
+    		$("#startdate1").attr("disabled",false);
+    		$("#startdate1").val(addDate(currentDate, 1).format("yyyy-MM-dd"));
+    		$("#enddate1").val(addDate(currentDate, days+giveday+1).format("yyyy-MM-dd"));
+    		$("#startdate").val(addDate(currentDate, 1).format("yyyy-MM-dd"));
+    		$("#enddate").val(addDate(currentDate, days+giveday+1).format("yyyy-MM-dd"));
+    	}else{	// 当天启用
+    		$("#startdate1").datetimepicker('remove');
+    		$("#startdate1").attr("disabled",true);
+    		$("#startdate1").val(currentDate.format("yyyy-MM-dd"));
+    		$("#enddate1").val(addDate(currentDate, days+giveday).format("yyyy-MM-dd"));
+    		$("#startdate").val(currentDate.format("yyyy-MM-dd"));
+    		$("#enddate").val(addDate(currentDate, days+giveday).format("yyyy-MM-dd"));
+    	}
+    }
+ // 计算卡结束日期
+ /*    function setendate(){
+    	$("#enddate").val(addDate($("#startdate").val(), days+giveday).format("yyyy-MM-dd"));
+    } */
+  
+ 
+ 
+ 
+    function saveContract(){
+    	var contractcode = $("#contractcode").val();
+    	if( "" != contractcode ){
+    		// 判断合同状态
+    		getJsonAjaxCall("/action/project/fitness/wx/basic/querycontractstatus?contractcode="+contractcode, "true", function(data){
+    			if( data && Number(data.status) >= 2 ){
+    				if( istopay ){
+    					topay(contractcode);
+    				}else{
+    					ccms.dialog.notice("已付款合同不允许修改！", 2000);
+    				}
+    			}else{
+    				postAjaxCall("${def:actionroot}/update", "contractForm", false);	// 未付款合同可修改
+    			}
+    		});
+    	}else{
+    		getAjaxCall("/action/project/fitness/wx/basic/getnewcontractcode", true, function(){
+    			
+    			if( "" == $("#newcontractcode").val() ){
+    				ccms.dialog.notice("合同号生成失败", 2000);
+    			}else if( "" == $("#customercode").val() ){
+    				postAjaxCall("${def:actionroot}/insertnew", "contractForm", false);
+    			}else{
+    				postAjaxCall("${def:actionroot}/insert", "contractForm", false);
+    			}
+    		});
+    	}
+    }
+    
+ // 计算合同费用
+    function setcontractfee(){
+    	// 原价
+    	$("#inimoney").val(cardfee);
+    	// 应收
+    	var normalmoney = 0;
+    	// 折扣金额
+    	var discountfee = 0;
+    	if( "" == $("#campaigncode").val() && parseFloat($("#discountmoney").val()) > 0 ){	// 特批折扣合同
+    		discountfee = $("#discountmoney").val();
+    		normalmoney = (cardfee - discountfee).toFixed(2);
+    	}else{
+    		normalmoney = (cardfee*discount).toFixed(2);
+    		discountfee = (cardfee-normalmoney).toFixed(2);
+    	}
+    	$("#discountmoney").val(discountfee);
+    	$("#normalmoney").val(normalmoney);
+    	$("#normalmoneyspan").text(normalmoney);
+    	// 分期付款
+    	if( $("input[name=isstage]").is(':checked') ){
+    		var stagemoney = (parseFloat(normalmoney)/parseFloat(stagetimes)).toFixed(2);
+    		$("#stagemoney").val(stagemoney);	// 本期付款
+    		
+    		$("#meiqiprice").val(stagemoney);	// 本期付款
+    	}else{
+    		$("#stagemoney").val("");	// 本期付款
+    		$("#meiqiprice").val("");	// 本期付款
+    	}
+    }
+ 
+    function getCustome(code){
+    	var url = "${def:context}${def:actionroot}/getCustome?code="+code;
+    		ajaxCall(url,{
+    			method: "get",
+    			progress: true,
+    			dataType: "script",
+    			success: function() {
+    			}
+    		});
+    }
+</script>

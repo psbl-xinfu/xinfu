@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_contractcode" type="varchar" required="true" label="合同编号"/>
+	<parameter id="f_cash" type="double" required="false" label="现金"/>
+	<parameter id="f_pos" type="double" required="false" label="刷卡"/>
+	<parameter id="f_check" type="double" required="false" label="支票"/>
+	<parameter id="f_other" type="double" required="false" label="其他"/>
+	<parameter id="i_discounttype" type="varchar" required="true" label="折扣类型"/>
+	<parameter id="f_normalmoney" type="double" required="true" label="应收"/>
+	<parameter id="f_factmoney" type="double" required="true" label="实收"/>
+	<parameter id="old_remark" type="varchar" required="false" label="备注"/>
+	<parameter id="vc_remark" type="varchar" required="false" label="备注"/>
+	<parameter id="old_adate" type="varchar" required="true" label="收款日期"/>
+	<parameter id="c_adate" type="varchar" required="true" label="收款日期"/>
+	<parameter id="vc_cardcode" type="varchar" required="true" label="会员卡号"/>
+	<parameter id="pay_detail" type="varchar" required="true" label="支付明细" />
+</validator>
+
+

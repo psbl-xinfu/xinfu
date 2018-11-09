@@ -1,0 +1,24 @@
+insert into  cc_message(
+	tuid,
+	senduser,
+	sendusername,
+	recuser,
+	recusername,
+	status,
+	remind,
+	sendtime,
+	content,
+	org_id
+)
+values(
+	${seq:nextval@seq_cc_message},
+	'${def:user}',
+	'${def:user}',
+	${fld:customercode},
+	${fld:cust_name},
+	1,
+	0,
+	{ts'${def:timestamp}'},
+	'旧卡号是'||';'||${fld:cardcode}||';'||'办理补卡业务',
+	${def:org}
+)

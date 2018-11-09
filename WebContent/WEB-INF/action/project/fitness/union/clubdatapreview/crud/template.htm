@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/analysis-org.js" type="text/javascript"></script>
+<title>俱乐部数据预览</title>
+</head>
+<body>
+	<div class="am-tabs-bd r-tab-cont">
+		<div class="bb-tab-cout-1 am-tab-panel am-in am-active am-fade three-none">
+			
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<li>
+							<div class="my-selected">
+								<select id="datatype" name="datatype" style="display: none;">
+									<option value="0" selected>按天</option>
+									<option value="1">按周</option>
+									<option value="2">按月</option>
+								</select>
+							</div>
+						</li>
+						<li style="margin-left:55px;">
+							<select id="org_id" name="org_id" style="display: none;">
+								<option value="">全部门店</option>
+								<org-list>
+									<option value="${fld:org_id}">${fld:org_name}</option>
+								</org-list>
+							</select>
+						</li>
+						<button id="searchAll" class="freshen">刷新</button>
+					</nav>
+				</div>
+			</div>
+			
+			<div class="bb-tab-cout-1-bottom">
+				<!-- 每日营业收入 -->
+				<div class="addTop" data-role="mc" style="">
+					<header>
+						<span>每日营业收入</span>
+					</header>
+					<nav>
+						<div class="nav-li-group"></div>
+						<li>
+							<button data-area="operatingincome" data-type="bar" name="changeMagicType"></button>
+							<button data-area="operatingincome" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="operatingincome" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="operatingincomedaterangespan"></p></div>
+					<div id="operatingincomeDiv" class="other-full"></div>
+				</div>
+				<!-- 综合到访量 -->
+				<div class="addTop" data-role="mc" style="">
+					<header>
+						<span>综合到访量</span>
+					</header>
+					<nav>
+						<div class="nav-li-group"></div>
+						<li>
+							<button data-area="comprehensiveclosing" data-type="bar" name="changeMagicType"></button>
+							<button data-area="comprehensiveclosing" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="comprehensiveclosing" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="comprehensiveclosingdaterangespan"></p></div>
+					<div id="comprehensiveclosingDiv" class="other-full"></div>
+				</div>
+				<!-- 综合成交率(POS、P1、P2) -->
+				<div class="addTop" data-role="mc" style="">
+					<header>
+						<span>综合成交率(POS、P1、P2)</span>
+					</header>
+					<nav>
+						<div class="nav-li-group"></div>
+						<li>
+							<button data-area="comprehensiveclosingtype" data-type="bar" name="changeMagicType"></button>
+							<button data-area="comprehensiveclosingtype" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="comprehensiveclosingtype" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="comprehensiveclosingtypedaterangespan"></p></div>
+					<div id="comprehensiveclosingtypeDiv" class="other-full"></div>
+				</div>
+				<!-- 合同欠款 -->
+				<div class="addTop" data-role="mc" style="">
+					<header>
+						<span>合同欠款</span>
+					</header>
+					<nav>
+						<div class="nav-li-group"></div>
+						<li>
+							<button data-area="contractbalance" data-type="bar" name="changeMagicType"></button>
+							<button data-area="contractbalance" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="contractbalance" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="contractbalancedaterangespan"></p></div>
+					<div id="contractbalanceDiv" class="other-full"></div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var income = null, closing=null, closingtype=null, contract = null;
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	searchSelectInit($("#org_id,#datatype"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	// 循环图表
+	$("div[code=chartsgroup]").each(function(i,ele){
+		var darea = $(this).data("area");
+		$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		$("button[name=changeMagicType][data-area="+darea+"]").attr("data-idx", i);
+		$("button[name=changeMagicType][data-area="+darea+"]").unbind().on("click",function(){
+			$(this).siblings(".active").removeClass("active");
+			$(this).addClass("active");
+		});
+	});
+	
+	/** 顶部搜索 */
+	$("#searchAll").unbind().on("click",function(){
+		/** 每日营业收入 **/
+		income = new operatingincome();
+		income.loadData();
+		/** 综合到访量 **/
+		closing = new comprehensiveclosing();
+		closing.loadData();
+		/** 综合成交率(POS、P1、P2) **/
+		closingtype = new comprehensiveclosingtype();
+		closingtype.loadData();
+		/** 合同欠款**/
+		contract = new contractbalance();
+		contract.loadData();
+	});
+	$("#searchAll").click();
+
+});
+</script>
+</body>
+</html>

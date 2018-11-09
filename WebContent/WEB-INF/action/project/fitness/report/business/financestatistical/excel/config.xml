@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		收入汇总
+	</summary>
+	
+	<log>false</log>
+	<colname>daochu_startdate,daochu_enddate</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="收入汇总" filename="收入汇总.xls" header-background="true">
+		<col id="type" label="项目" />
+		<col id="item" label="类别" />
+		<col id="num" label="业务笔数"/>
+		<col id="premoney" label="预收款" />
+		<col id="money" label="收入" />
+		<col id="totalmoney" label="合计" />
+		<col id="moneyleft" label="欠款" />
+
+	</excel>
+</config>

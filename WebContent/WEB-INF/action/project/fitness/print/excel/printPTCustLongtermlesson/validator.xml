@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="pt_name" type="varchar" required="false" label="pt_name"/>
+	<parameter id="vc_all" type="varchar" required="false" label="vc_all"/>
+	<parameter id="date" type="varchar" required="false" label="日期" />
+	<custom-validator 
+		classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="vc_all" 
+		rule="contains" 
+		ifnull="%" />
+</validator>

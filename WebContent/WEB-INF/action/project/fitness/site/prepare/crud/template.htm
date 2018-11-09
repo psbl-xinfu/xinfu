@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>场地预订</title>
+    ${inc:/action/project/fitness/home/pub}
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/css/site.css">
+</head>
+<style>
+    body {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .icheckbox_square-blue {
+		margin-top: -2px;
+		margin-right: 2px;
+    margin-left: 6px;
+    }
+    .cha li {
+        width: 130px;
+        height: 50px;
+        margin-top: 1px;
+        border-radius: 3px;
+        background: #21343F;
+    }
+    .datetimepicker-dropdown-bottom-right:after {
+        top: -6px;
+        left: 161px;
+    }
+    .datetimepicker {
+        margin-top: 10px;
+    }
+    .bclx_wrap .btn-group .dropdown-toggle{
+        border-radius: 5px;
+    left: 0;
+    top: 2px;
+    }
+    .b-i-main .cdyd_int .lx .iradio_square-blue{
+        float: initial;
+    }
+    .cdydlx div {
+    width: 286px;}
+	.guding li{
+	    background: #21343F;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    width: 130px;
+    border-radius: 3px;
+    margin-top: 1px;
+	}
+</style>
+
+<body>
+    <!-- 场地预定头部 -->
+    <div class="tab-cout-nav cout-nav ">
+        <div id="last-week" class="cd_top_left cd_to">
+            <img src="${def:context}/js/project/fitness//image/cd_img/icon (3).png" alt="">
+        </div>
+        <div id="next-week" class="cd_top_right cd_to">
+            <img src="${def:context}/js/project/fitness//image/cd_img/icon (3).png" alt="">
+        </div>
+        <div class="cd_top_jin" id="current-week">
+            <img src="${def:context}/js/project/fitness//image/cd_img/icon (1).png" alt="">
+        </div>
+        <table id="monitor" class="cd_top_cont_wrap">
+            <tr>
+                <td class="cd_data" code=""></td>
+                <td class="cd_data" code=""></td>
+                <td class="cd_data" code=""></td>
+                <td class="cd_data" code=""></td>
+                <td class="cd_data" code=""></td>
+                <td class="cd_data" code=""></td>
+                <td class="cd_data" code=""></td>
+            </tr>
+        </table>
+    </div>
+    <!-- 场地预定 尾部 -->
+    <div class="tab-cout-nav cdlx">
+        <div class="bclx_wrap">
+            <select id="sitetype" name="sitetype" style="display: none;">
+                <option value="">场地类型</option>
+                <sitetype-list>
+                	<option value="${fld:param_value}">${fld:param_text}</option>
+                </sitetype-list>
+            </select>
+            <button class='bclx_search'></button>
+            <button class='bclx_add'></button>
+			<input type="hidden" id="minhour" name="minhour" />
+			<input type="hidden" id="maxhour" name="maxhour" />
+            <span class="cdlx_bc">
+            	<span class="bklx bkyd">不可预订</span>
+                <span>包场：</span>
+                <span class="bklx cany">可预订</span>
+                <span class="bklx bc_yzy grey">已占用</span>
+                <span>拼场：</span>
+                <span class="bklx yellow">可预订</span>
+                <span class="bklx zongse pc_yzd">已拼满</span>
+                <span>休息中：</span>
+                <span class="bklx gz">guzhang</span>
+		</div>
+		<div style="width: 100%;height: auto;min-height: 400px;overflow: scroll;margin-top: 20px;position: relative;">
+		<div style="position: absolute; z-index: 9;top: 0px;">
+				<ul class="guding" style="background: #2e353c;" id="titlestr">
+				</ul>
+			</div>
+        <div id="scroll" style="overflow: auto;width: 100%;position: absolute;    min-height: 400px;">
+		
+            <table style="widows: 100%; table-layout:fixed;margin:0;" class="cdlx_list">
+                <thead>
+                    <tr class="cdlc_title" id="sitedefhour">
+                    </tr>
+                </thead>
+                <tbody class="list_body" id="sitedeflist">
+                </tbody>
+            </table>
+		</div>
+	</div>
+    </div>
+    
+    <!-- 场地状态 -->
+    <div class="modal cd_zt" id="modalAddnew" tabindex="-2">
+        <div id="a" class="basic-information modal-dialog dialogbg">
+            <header class="header-default">
+                <span id="formTitle1">场地状态</span>
+                <span for="modalAddnew" formid="formEditor" class="header-close"></span>
+            </header>
+            <div class="b-i-main">
+                <form id="setformEditor" name="setformEditor" method="post" style="color:#848588;">
+                    <input type="hidden" id="site_timelimitcode" name="site_timelimitcode" value="" />
+                    <input type="hidden" id="sitecode" name="sitecode" value="" />
+                    <input type="hidden" id="timelimitcode" name="timelimitcode" value="" />
+                    <nav>
+                        <li style="color:14px;" id="sitedefkxname">
+                        </li>
+                        <div style="color:14px; width: 80%;width: 87%;
+						margin-left: 28px;" id="sitekxdate">
+                        </div>
+                        <div>
+                            <li id="select_status">
+                                <label>选择状态：</label>
+                                <div class="cdxz">
+                                    <input type="radio" name="choose_way" value="1">
+                                    <span>包场</span>最大人数：<span id="bcnum"></span>人，包场价格：<span id="bcprice"></span>元
+                                </div>
+                            </li>
+                            <li style="padding-left: 87px;"> 
+                            	<div class="cdxz">
+                                    <input type="radio" name="choose_way" value="2">
+                                    <span>拼场</span>人数：<span id="pcminnum"></span>至<span id="pcmaxnum"></span>
+                                    	人，拼场价格：<span id="pcprice"></span>元/人
+                                </div>
+                            </li>
+                            <li style="padding-left: 87px;"> 
+                            	<div class="cdxz">
+                                    <input type="radio" name="choose_way" value="0">
+                                    <span>休息中</span>
+                                </div>
+                            </li>
+                        </div>
+                    </nav>
+                    (*拼场结束时人数少于最少人数值是拼场失败)
+                </form>
+            </div>
+            <footer class="footer-default">
+                <button id="setsave_btn" class="active">确定</button>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- 场地预定 -->
+    <div class="modal cd_yd" id="modalAddnew" tabindex="-2">
+        <div id="a" class="basic-information modal-dialog dialogbg">
+            <header class="header-default">
+                <span id="formTitle1">场地预定</span>
+                <span for="modalAddnew" formid="formEditor" class="header-close"></span>
+            </header>
+            <div class="b-i-main">
+                <div class="modal create_info" id="modalAddnew" tabindex="-2" style="display:none;    display: block;
+				z-index: 34;
+				background: rgba;
+				background: rgba(42, 48, 56, 0.8);
+				background: rgba(000,000,000,0.);
+				width: 100%;
+				height: 700px;outline: none;
+				position: absolute;">
+                    <div class=" basic-information modal-dialog dialogbg create_info_son" style="z-index: 9;    background: #374352;opacity: 1;
+                    width: 43%;    top: 24px;">
+                        <header class="header-default" style="width: 100%;">
+                            <span id="formTitle1">创建团体</span>
+                            <span for="modalAddnew" formid="formEditor" class="header1-close"></span>
+                        </header>
+                        <div class="b-i-main">
+                        <label>创建团体名称：</label>
+                        <span class="cdyd_int" style="    padding-right: 30px;">
+                        <input type="text" id="groupname" name="groupname" value="" maxlength="80" placeholder="团体名称" /></span>
+                        </div>
+                        <footer class="footer-default" style="margin-top:50px;">
+                            <button id="guestgroupsure" type="button" class="createTeam">确定</button>
+                        </footer>
+                    </div>
+                </div>
+                <form id="yyformEditor" name="yyformEditor" method="post">
+                    <input type="hidden" id="bcorpc" name="bcorpc" value="" />
+                    <input type="hidden" id="prepare_date" name="prepare_date" value="" />
+				    <div id="yyinputname">
+				    </div>
+                    <div class="cdyd_int">
+                        <div class="lx" style="width: 836px; ">
+                            <label style="margin-left: 30px;">类型：</label>
+                            <input style="float: initial;" type="radio" name="customertype" value="1" /><span>会员</span>
+                           	<input  style="float: initial;" type="radio" name="customertype" value="0" /><span>资源</span>
+                           	<input  style="float: initial;" type="radio" name="customertype" value="3" /><span>散客</span>
+                            <input class="guestcust" type="hidden" id="pkvalue" name="pkvalue" value="" />
+                            <label class="guestcust" style="margin-left: 266px;">编号/姓名/手机号：</label>
+							<input class="guestcust" type="text" id="guest" name="guest" value="" maxlength="80" placeholder="编号/姓名/手机号" />
+                            <label class="sanke" style="margin: 17px 0 17px 30px;">散客：</label>
+                            <input class="sanke" type="text" id="customername" name="customername" value="" maxlength="80" placeholder="散客" />
+                            <label class="sanke" style="margin-left: 30px;">手机号：</label>
+                            <input class="sanke" type="text" id="mobile" name="mobile" value="" maxlength="80" placeholder="手机号" />
+                            <label class="guestcust troup" style="color: #848588; display:inline-block;margin: 10px 0 28px 23px;">团队预定：</label>
+                            <select class="guestcust troup" id="guestgroup" name="guestgroup">
+                                <option value="">请选择</option>
+                            </select>
+                            <div id="createTeam" class="createTeam guestcust troup" style="float:right;margin: 10px 90px 28px 0px;">创建团队</div>
+                        </div>                    
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                    <div id="bao_cdyd" class="cdyd_int">
+                        <label style="float:left;">预定场地：</label>
+                        <div class="cdydlx" id="yysitedef" style=" width: 806px;">
+                        </div>
+                    </div>
+                    <div class="yxz">已选择
+                        <span class="times" id="yytime">0</span>个场次，共
+                        <span class="price" id="yyprice">0</span>元
+                    	<input type="hidden" id="yyinputprice" name="yyinputprice" value="" />
+                    </div>
+                </form>
+            </div>
+            <footer class="footer-default">
+                <button id="yysave_btn" type="button">确定预约</button>
+            </footer>
+        </div>
+    </div>
+    <!-- 调场 -->
+    <div class="modal cd_tc" id="modalAddnew" tabindex="-2">
+        <div id="a" class="basic-information modal-dialog dialogbg">
+            <header class="header-default">
+                <span id="formTitle1">调场</span>
+                <span for="modalAddnew" formid="tcformEditor" class="header-close"></span>
+            </header>
+            <div class="b-i-main">
+                <form id="tcformEditor" name="tcformEditor" method="post">
+                    <input type="hidden" id="hccode" name="hccode" value="" />
+                    <div class="cdyd_int">
+                        <div>
+                            <label>当前场地：</label>
+                            <span id="hcsiteusedetail"></span>
+                            <span class="tc_kyd">*调场成功后，当前场地状态自动更改为：“可预订”</span>
+                        </div>
+                    </div>
+                    <div id="bao_cdyd" class="cdyd_int">
+                        <label style="float:left;">选择调场场地：</label>
+                        <div class="">
+                            <select id="hcsitedef" name="hcsitedef">
+                            	<option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cdyd_int" style="margin-top:-67px">
+                        <div class="" style="width:100%">
+                            <div class="r-tab-cout-3-b ">
+                                <div class="to-change-background h-43"></div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>客户类型</th>
+                                            <th>客户姓名</th>
+                                            <th>客户电话</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cddatagridTemplate">
+                                        
+                                    </tbody>
+                                </table>
+                                <div class="pageDiv">
+                                    <ul class="pagination">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<div>
+						<label>调场备注：</label>
+						<textarea rows="10" cols="55" placeholder="调场备注" class="my-textarea" id="tcsitechange" name="tcsitechange"></textarea>	
+					</div>
+                </form>
+            </div>
+            <footer class="footer-default">
+                <button id="hcsave_btn">确定</button>
+            </footer>
+
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+		searchSelectInit($("#sitetype,#guestgroup,#hcsitedef"));
+		ccms.util.renderRadio("choose_way");
+		ccms.util.renderRadio("customertype");
+		
+        // 模态框
+        $(".header-close").unbind().on("click", function () {
+            $(".modal").css('display', 'none');
+        });
+
+        $(".my-btn-default").unbind().on("click", function () {
+            $(".modal").css('display', 'none');
+        });
+
+        $('.modal').mouseup(function (e) {
+            var _con = $('.basic-information');
+            if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+                $(".modal").css('display', 'none');
+            }
+        })
+        $(".modal").on("click",'#createTeam', function () {
+        	//判断是否已选定会员或资源
+        	if($("#pkvalue").val()==""){
+        		ccms.dialog.notice("请输入编号/姓名/手机号", 3000);
+        		return false;
+        	}
+        	$("#groupname").val("");
+            $(".create_info").css('display', 'block');
+		});
+		$('.create_info').mouseup(function (e) {
+			
+            var _con = $('.create_info_son');
+            if (!_con.is(e.target) && _con.has(e.target).length === 0) {
+			
+                $(".create_info").css('display', 'none');
+            }
+        })
+        $(".create_info").on("click",'.header1-close', function () {
+            $(".create_info").css('display', 'none');
+        });
+        $(".create_info").on("click",'#sure', function () {
+            $(".create_info").css('display', 'none');
+        });
+        // 场地状态
+
+        $(".bclx_add").unbind().on("click", function () {
+			$(".create_info").css('display', 'none');
+			var obthis = getCheckboxValue("sitedecode");
+			if(obthis==""){
+				ccms.dialog.notice("请选择！", 2000);
+				return false;
+			}
+			var str = "", yycount = 0, yyprice = 0, pcount = 0, bcount = 0;
+			$("input[name=sitedecode]:checked").each(function(){
+				str+="<div>"+$(this).attr("codestr")+"<span onclick='removeyy(this)'>×</span>"
+				+"<input type='hidden' name='siteyycode' value='"+$(this).val()+"' code='"+$(this).attr("code")
+				+"' codestatus='"+$(this).attr("codestatus")+"' codeprice='"+$(this).attr("codeprice")+"' /></div>";
+				yycount++;
+				yyprice=(Number(yyprice)+Number($(this).attr("codeprice"))).toFixed(2);
+				//判断包场或拼场
+				if($(this).attr("codestatus")=="1"){
+					bcount++;
+				}
+				if($(this).attr("codestatus")=="2"){
+					pcount++;
+				}
+			});
+			if(bcount>0&&pcount>0){
+				ccms.dialog.notice("拼场和包场不能同时预定！", 2000);
+				return false;
+			}
+			//1包场2拼场
+			$("#bcorpc").val("2");
+			if(bcount>0){
+				$("#bcorpc").val("1");
+			}
+			if($("#bcorpc").val()=="2"){
+				$(".troup").hide();
+			}
+			$("#yytime").html(yycount);
+			$("#yyprice").html(yyprice);
+			$("#yyinputprice").val(yyprice);
+			$("#yysitedef").html(str);
+			$("#yyinputname").html("");
+    		$("#pkvalue,#guest,#customername,#mobile").val("");
+    		$(".guestcust").show();
+    		$("#guestgroup").html("<option value=''>请选择</option>");
+    		$("#guestgroup").selectpicker("refresh");
+    		$("#guestgroup").selectpicker("render");
+			$("#prepare_date").val($("#monitor").find(".now").attr("code"));
+			ccms.util.setCheckboxValue("customertype", "1", "yyformEditor");
+			$(".sanke").hide();
+            $('.cd_yd').css('display', 'block');
+        })
+        //预约会员资源散客切换
+		$("input[name=customertype]").on("ifClicked",function () { 
+			$("#pkvalue,#guest").val("");
+			if($(this).val()=="3"){
+				$(".sanke").show();
+				$(".guestcust").hide();
+			}else{
+				$(".sanke").hide();
+				$(".guestcust").show();
+				/* if($("#bcorpc").val()=="2"){
+					$(".troup").hide();
+				}else{
+					$(".troup").show();
+				} */
+			}
+		});
+        
+        //散客判断手机号码是否存在
+        $("#mobile").blur(function(){
+    		ajaxCall("${def:actionroot}/querymobile?mobile="+$(this).val(),{
+				method:"get",
+				dataType:"script",
+				success:function(){
+				}
+			});
+        });
+        
+        //预约
+        $("#yysave_btn").click(function(){
+			$("#yyinputname").html("");
+    		var nocount = 0;
+    		var guesttype = getRadioValue("customertype");
+    		//散客
+    		if(guesttype=="3"){
+    			if($("#customername").val()==""){
+        			ccms.dialog.notice("请输入散客姓名！", 2000);
+    				return false;
+    			}
+    			if($("#mobile").val()==""){
+        			ccms.dialog.notice("请输入手机号！", 2000);
+    				return false;
+    			}
+    		}else{
+    			if($("#pkvalue").val()==""){
+        			ccms.dialog.notice("请输入编号/姓名/手机号！", 2000);
+    				return false;
+    			}
+    		}
+        	var begintime = parseInt($("#minhour").val());	// 起始时间
+    		var endtime = parseInt($("#maxhour").val());	// 结束时间
+    		var yysitedecode = "";
+    		$("input[name=sitedecode]:checked").parent().parent().parent().each(function(){
+    			yysitedecode+=$(this).attr("code")+" ";
+    		});
+    		//循环场地
+    		var yyarr = quchongstr(yysitedecode).split(" ");
+    		var datanum = 0;
+    		for(var k = 0;k<yyarr.length;k++){
+        		var btimeStr = ",";
+    			$("input[name=siteyycode][code="+yyarr[k]+"]").each(function(){
+    				btimeStr+=$(this).val()+",";
+    			});
+        		var ftime = null, ttime = null;
+    			var bcstarttime = "", bcendtime = "";
+        		for(var i = begintime; i <= endtime; i++){
+        			//包场
+        			if( null == ftime && btimeStr.indexOf(","+i+",") >= 0 ){
+        				ftime = i;
+        				bcstarttime = ftime;
+        				$("#yyinputname").append("<input type='hidden' class='yyinput' name='yystarttime' value='"+bcstarttime+":00:00' />");
+        			}
+        			if( null != ftime && null == ttime && btimeStr.indexOf(","+i+",") < 0 ){
+        				ttime = i;
+        				bcendtime = ttime;
+        				$("#yyinputname").append("<input type='hidden' class='yyinput' name='yyendtime' value='"+bcendtime+":00:00' />");
+        				$("#yyinputname").append("<input type='hidden' class='yyinput' name='yydetialsitedef' value='"+yyarr[k]+"' />");
+        				if((parseInt(bcstarttime)+parseInt("${fld:yyparam_value}"))>parseInt(bcendtime)){
+        					nocount++;
+        				}
+        				//查询该时间段是否已被预约
+        				ajaxCall("${def:actionroot}/querysiteusenum?sitecode="+yyarr[k]+"&starttime="
+        						+bcstarttime+":00:00&endtime="+bcendtime+":00:00&prepare_date="+$("#monitor").find(".now").attr("code"),{
+        					method:"get",
+        					dataType:"json",
+        					async:false,
+        					success:function(data){
+        						datanum += parseInt(data.num);
+        					}
+        				});
+        				ftime = null;
+        				ttime = null;
+        			}
+        		}
+    		}
+    		//包场
+    		if($("#bcorpc").val()=="1"){
+        		//判断是时间段
+        		if(nocount>0){
+        			ccms.dialog.notice("每个时间最少预约${fld:yyparam_value}个时间段", 2000);
+        			return false;
+        		}
+        		//判断当前预约时间段是否已预约
+        		if(datanum>0){
+        			ccms.dialog.notice("选择时段存在已售完，请刷新！", 2000);
+        			return false;
+        		}
+    		}
+    		ajaxCall("${def:actionroot}/insert",{
+				method:"post",
+				form:"yyformEditor",
+				dataType:"script",
+				success:function(){
+	    			ccms.dialog.notice("成功！", 2000, function(){
+	    				searchsitedef();
+	    	            $('.cd_yd').css('display', 'none');
+	    			});
+				}
+			});
+        });
+        
+        var cells = document.getElementById('monitor').getElementsByTagName('td');
+        var clen = cells.length;
+        var currentFirstDate;
+
+        var nowDay = new Date().getDay();
+        var nowdate = new Date();
+        var formatDate = function (date) {
+            var year = date.getFullYear() + '年';
+            var month = (date.getMonth() + 1) + '月';
+            var day = date.getDate() + '日';
+            var week = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][date.getDay()];
+            var now_Date = week + '<br>' + month + day;
+            return now_Date;
+        };
+        var addDate = function (date, n) {
+            date.setDate(date.getDate() + n);
+            return date;
+        };
+        var setDate = function (date) {
+            $(".cd_data").unbind().on("click", function () {
+                $(".cd_data").removeClass("now");
+                $(this).addClass("now")
+    			searchsitedef();
+            })
+            if (String(date) == String(nowdate)) {
+                $(".cd_data").eq(nowDay - 1).addClass("now");
+            }
+            var week = date.getDay() - 1;
+            date = addDate(date, week * -1);
+            currentFirstDate = new Date(date);
+            for (var i = 0; i < clen; i++) {
+            	var d = (i == 0 ? date : addDate(date, 1));
+            	$(cells[i]).attr("code", d.format("yyyy-MM-dd"));
+                cells[i].innerHTML = formatDate(d);
+            }
+        };
+        $("#last-week").unbind().on("click", function () {
+            setDate(addDate(currentFirstDate, -7));
+			searchsitedef();
+        });
+        $("#next-week").unbind().on("click", function () {
+            setDate(addDate(currentFirstDate, 7));
+			searchsitedef();
+        });
+        //当前周
+        $("#current-week").unbind().on("click", function () {
+            setDate(addDate(new Date(),0));
+            $(".cd_data").removeClass("now");
+            $(".cd_data[code="+new Date().format("yyyy-MM-dd")+"]").addClass("now");
+			searchsitedef();
+        });
+        setDate(new Date());
+
+    	searchsitedef();
+    	//查询
+		$(".bclx_search").click(function(){
+			searchsitedef();
+		});
+    	
+    	//设置场地状态
+    	$("#setsave_btn").click(function(){
+    		$(this).attr("disabled", true);
+    		var choose_way = getRadioValue("choose_way");
+    		//是否已选择状态
+    		if(choose_way==""){
+    			ccms.dialog.notice("请选择状态！", 2000);
+        		$(this).attr("disabled", false);
+    			return false;
+    		}
+    		//更新当前时段状态
+    		if($("#site_timelimitcode").val()==""){
+    			//所有未设置状态
+        		if(choose_way!="0"&&choose_way!=""){
+        			//判断是否已选择时间段
+        			var obthis = getCheckboxValue("sitecheckbox");
+        			if(obthis==""){
+        				ccms.dialog.notice("请选择时间段！");
+                		$(this).attr("disabled", false);
+        				return false;
+        			}
+        			$("#timelimitcode").val(choose_way);
+            		$(this).attr("disabled", false);
+        			ajaxCall("${def:actionroot}/setsitedefstatus",{
+        				method:"post",
+        				form:"setformEditor",
+        				dataType:"script",
+        				success:function(){
+        	    			ccms.dialog.notice("成功！", 2000, function(){
+        	    				searchsitedef();
+        	    				$(".modal").css('display', 'none');
+        	    			});
+        				}
+        			});
+        		}else{
+            		$(this).attr("disabled", false);
+        			ccms.dialog.notice("成功！", 2000, function(){
+        				searchsitedef();
+        				$(".modal").css('display', 'none');
+        			});
+        		}
+    		}else{
+        		$(this).attr("disabled", false);
+    			ajaxCall("${def:actionroot}/updatesitedefstatus",{
+    				method:"post",
+    				form:"setformEditor",
+    				dataType:"script",
+    				success:function(){
+    	    			ccms.dialog.notice("成功！", 2000, function(){
+    	    				searchsitedef();
+    	    				$(".modal").css('display', 'none');
+    	    			});
+    				}
+    			});
+    		}
+    	});
+
+    	//查询会员资源
+    	$("#guest").blur(function(){
+    		$("#pkvalue").val("");
+    		var guest = $(this).val();
+    		var guesttype = getRadioValue("customertype");
+    		if(guesttype==""){
+    			ccms.dialog.notice("请选择类型！", 2000);
+    			return false;
+    		}
+    		if(undefined==guest||guest ==""){
+    			ccms.dialog.notice("请输入资源/会员！", 2000);
+    		}else{
+    			if(guesttype=="0"){
+    				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlist/crud?pickcustname="+guest+"&objid=pkvalue&objidtwo=guest&random_number="+Math.random()});
+    			}else{
+    				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+guest+"&objid=pkvalue&objidtwo=guest&random_number="+Math.random()});
+    			}
+    		}
+    	})
+    	//创建团体
+    	$("#guestgroupsure").click(function(){
+    		var guestpkvalue = $("#pkvalue").val();
+    		if(guestpkvalue==""){
+    			ccms.dialog.notice("请输入资源/会员！");
+    			return false;
+    		}
+    		ajaxCall("${def:actionroot}/insertguestgroup?groupname="+$("#groupname").val()+"&customertype="+getRadioValue("customertype")+"&pkvalue="+guestpkvalue,{
+    			method:"get",
+    			dataType:"script",
+    			success:function(){
+    	            $(".create_info").css('display', 'none');
+    			}
+    		});
+    	});
+    	
+    	//调场
+    	$("#hcsave_btn").click(function(){
+    		var hcsitedef = $("#hcsitedef").val();
+    		//判断是否选择调场场地
+    		if(hcsitedef==""){
+    			ccms.dialog.notice("请选择调场场地！", 2000)
+    			return false;
+    		}
+    		var hour = 0, hcendtime = 0;
+    		ajaxCall("${def:actionroot}/querysiteusedetailtime?code="+$("#hccode").val()
+    				+"&prepare_date="+$("#monitor").find(".now").attr("code"),{
+				method:"get",
+				dataType:"json",
+				async:false,
+				success:function(data){
+					hour = data.hour;
+					hcendtime = data.endtime;
+				}
+			});
+    		//小于1说明预约时间全部已上课
+    		if(hour<1){
+    			ccms.dialog.notice("该场地已使用完，不能调场！", 3000);
+    			return false;
+    		}
+    		var hccount = 0;
+    		//循环要调场的时间
+    		for(var i = (hcendtime-hour);i<hcendtime;i++){
+    			ajaxCall("${def:actionroot}/querysitetimelimittc?sitecode="+hcsitedef
+    					+"&limittime="+i+":00:00&hccode="+$("#hccode").val(),{
+    				method:"get",
+    				dataType:"json",
+    				async:false,
+    				success:function(data){
+    					if(data.num>0){
+    						hccount++;
+    					}
+    				}
+    			});
+    		}
+    		//判断是否可以调场
+    		if(parseInt(hour)!=parseInt(hccount)){
+    			ccms.dialog.notice("该调场场地不能调场！", 3000);
+    			return false;
+    		}
+    		//调场
+    		ajaxCall("${def:actionroot}/updatesitecode",{
+				method:"post",
+				form:"tcformEditor",
+				dataType:"script",
+				success:function(){
+	    			ccms.dialog.notice("调场成功！", 2000, function(){
+	    				searchsitedef();
+	    				$(".modal").css('display', 'none');
+	    			});
+				}
+			});
+    	});
+    })
+//查询场地
+function searchsitedef(){
+    $("#sitedeflist").html("");
+	//查询场地等
+	ajaxCall("${def:actionroot}/querysitedef?sitetype="+$("#sitetype").val()
+			+"&prepare_date="+$("#monitor").find(".now").attr("code"),{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+//预定remove
+function removeyy(data){
+	$(data).parent().remove()
+	var rcount = 0, rprice = 0;
+	$("input[name=siteyycode]").each(function(){
+		rcount++;
+		rprice=(Number(rprice)+Number($(this).attr("codeprice"))).toFixed(2);
+	});
+	$("#yytime").html(rcount);
+	$("#yyprice").html(rprice);
+}
+/*字符串去重*/
+function quchongstr(str){
+	var a = str.match(/\S+/g);//等价于str.split(/\s+/g)//  \s空白符，\S非空白符
+	a.sort();
+	for(var i=a.length-1;i>0;i--){
+		if(a[i]==a[i-1]){
+			a.splice(i,1);
+		}
+	}
+	return a.join(" ");
+}
+//回调查询方法
+function pickcustCallback(){
+	ajaxCall("${def:actionroot}/queryguestgroup?customertype="+getRadioValue("customertype")+"&pkvalue="+$("#pkvalue").val(),{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+</html>

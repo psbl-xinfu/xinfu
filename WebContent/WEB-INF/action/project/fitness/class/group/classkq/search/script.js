@@ -1,0 +1,15 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"vc_code":"${fld:code@js}",
+		"vc_content":"${fld:rules_name@js}",
+		"i_isrules":"${fld:isrules@js}",
+		"deduction":"${fld:deduction}",
+		"vc_remark":"${fld:remark@js}",
+		"i_status":"${fld:status@js}",
+		"checklink":"${fld:checklink@js}"
+	},
+	</rows>
+	{}
+]}

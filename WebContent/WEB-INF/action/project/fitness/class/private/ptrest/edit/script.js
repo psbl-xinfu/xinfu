@@ -1,0 +1,14 @@
+﻿document.formEditor.vc_code.value = "${fld:code@js}";
+document.formEditor.vc_ptlevelcode.value = "${fld:ptlevelcode@js}";
+document.formEditor.f_ptleftcount.value = "${fld:ptleftcount}";
+document.formEditor.vc_ptenddate.value = "${fld:ptenddate}";
+document.formEditor.vc_usercode.value = "${fld:cardcode@js}";
+document.formEditor.vc_iuser.value = "${fld:iuser@js}";
+document.formEditor.f_ptfee.value = "${fld:ptfee}";
+document.formEditor.f_ptfactfee.value = "${fld:ptfactfee}";
+document.formEditor.f_scale.value = "${fld:scale}";
+document.formEditor.vc_addname.value = "${fld:name@js}";
+document.formEditor.i_pttype.value = "${fld:pttype}";
+document.formEditor.f_pttotalcount.value = "${fld:pttotalcount}";
+document.formEditor.f_ptnormalmoney.value = "${fld:ptnormalmoney}";
+document.formEditor.f_ptmoney.value = "${fld:ptmoney}";

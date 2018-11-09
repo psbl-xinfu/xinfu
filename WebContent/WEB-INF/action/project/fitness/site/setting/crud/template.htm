@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+	${inc:/action/project/fitness/home/pub}
+	<title>场地设定</title>
+</head>
+<style>
+	.b-i-main nav li input {
+		background: rgba(40, 46, 52, 1);
+		height: 32px;
+		text-align: center;
+		width: 70px;
+		text-indent: 0em;
+		border-radius: 6px;
+		transition: all .3s ease;
+		margin-right: 8px;
+	}
+
+	.b-i-main nav li .li_span {
+		width: 100px;
+		padding: 0 0 0 30px;
+	}
+
+	.b-i-main nav .pinchang input {
+		background: rgba(40, 46, 52, 1);
+		height: 32px;
+		text-align: center;
+		width: 70px;
+		text-indent: 0em;
+		border-radius: 6px;
+		transition: all .3s ease;
+		margin-right: 8px;
+	
+	}
+	.b-i-main nav li{
+position: relative;
+	}
+	.error {
+		position: absolute;
+    top: 8px;
+    right: 26px;
+	}
+	.pinchang{
+		position: relative;
+	}
+	#pc_red .error {
+		position: absolute;
+		top: 8px;
+		left: 0 !important;
+		width: 28px !important;
+	}
+</style>
+<body>
+	<!-- 添加场地 -->
+	<div class="modal" id="modalAddnew" tabindex="-1">
+		<div class="basic-information modal-dialog dialogbg">
+		<header class="header-default">
+			<span id="formTitle">新增</span>
+			<span class="header-close"></span>
+		</header>
+		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			<input type="hidden" id="code" name="code" value="" />
+			<div class="modal-body b-i-main">
+				<nav class="tab-nav-my">
+					<li>
+						<label style="width: 120px;">场地类型：</label>
+						<div class="my-selected">
+							<select id="sitetype" name="sitetype" style="display: none;">
+								<option value="">请选择</option>
+								<sitetype-list>
+									<option value="${fld:param_value}">${fld:param_text}</option>
+								</sitetype-list>
+							</select>
+						</div>
+					</li>
+					<li>
+						<label style="width: 120px;">场地名称：</label>
+						<input type="text" id="sitename" name="sitename" value="" maxlength="80" placeholder="场地名称" style="width: 150px;" />
+					</li>
+					<li>
+						<label style="width: 120px;">开场时间：</label>
+						<div class="my-selected">
+							<select id="opening_date" name="opening_date" style="display: none;">
+								<option value="">请选择</option>
+								<hour-list>
+									<option value="${fld:domain_value}:00:00">${fld:domain_text_cn}</option>
+								</hour-list>
+							</select>
+						</div>
+					</li>
+					<li>
+						<label style="width: 120px;">闭场时间：</label>
+						<div class="my-selected">
+							<select id="closed_date" name="closed_date" style="display: none;">
+								<option value="">请选择</option>
+								<hour-list>
+									<option value="${fld:domain_value}:00:00">${fld:domain_text_cn}</option>
+								</hour-list>
+							</select>
+						</div>
+					</li>
+					<li id="pc_red">
+						<label style="width: 120px;">包场：</label>
+						<span class="li_span">包场价格：</span>
+						<input type="text" id="block_price" name="block_price" value="" maxlength="80" placeholder="包场价格" />元
+						<span class="li_span">最大人数：</span>
+						<input type="text" id="block_maxnum" name="block_maxnum" value="" maxlength="80" placeholder="最大人数" />
+					</li>
+					<div id="pc_red" class="pinchang">
+						<label style="    color: #848588;
+								width: 120px;
+								text-align: right;
+								margin-right: 44px;">拼场：</label>
+						<span class="li_span">拼场价格：</span>
+						<input style="width: 70px;" type="text" id="group_price" name="group_price" value="" maxlength="80" placeholder="拼场价格"
+						/>元/人
+						<span class="li_span" style="width:50px;    margin-left: 35px;">人数：</span>
+						<input style="width: 70px;" type="text" id="group_minnum" name="group_minnum" value="" maxlength="80" placeholder="人数"
+						/>人&nbsp;&nbsp;至
+						<input style="width: 70px;" type="text" id="group_maxnum" name="group_maxnum" value="" maxlength="80" placeholder="人数"
+						/>人
+					</div>
+					<li class="to100w" style="margin-left: 6%;    margin-top: 6%;">
+						<label>备注：</label>
+						<textarea rows="10" cols="55" placeholder="备注" class="my-textarea" id="remark" name="remark"></textarea>	
+					</li>
+				</nav>
+			</div>
+			<footer class="footer-default" style="margin-top: 55px;">
+				<button type="button" id="save_btn">保存</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+
+	<form role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="created" preserve="true" />
+		<input name="order" type="hidden" value="desc" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none">
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t swgl-tk">
+						<nav>
+							<li>
+								<select id="searchsitetype" name="searchsitetype" style="display: none;">
+									<option value="">场地类型</option>
+									<sitetypetwo-list>
+										<option value="${fld:param_value}">${fld:param_text}</option>
+									</sitetypetwo-list>
+								</select>
+							</li>
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addnew_btn">
+								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+							</div>
+						</nav>
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" alt="" id="see" title="查看">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" alt="" id="edit_btn" title="修改">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" alt="" id="delete_btn" title="删除">
+							</li>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+				<table class="">
+					<thead>
+						<tr>
+							<th>
+								<input type="checkbox" name="checkall" id="checkall" style="display: none;" />
+							</th>
+							<th>场地</th>
+							<th>场地类型</th>
+							<th>场地状态</th>
+							<th>开场时间</th>
+							<th>闭场时间</th>
+						</tr>
+					</thead>
+					<tbody id="datagridTemplate" style="display: none">
+						<tr>
+							<td>#checklink#</td>
+							<td>#sitename#</td>
+							<td>#sitetype#</td>
+							<td>#status#</td>
+							<td>#opening_date#</td>
+							<td>#closed_date#</td>
+						</tr>
+					</tbody>
+					<tbody id="datagrid">
+					</tbody>
+				</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_searchsitetype" name="daochu_searchsitetype" type="text" />
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	var search = null;
+	$(document).ready(function () {
+		searchSelectInit($("#searchsitetype,#sitetype,#checkall,#opening_date,#closed_date"));
+		var obj = $Crud({
+			formId: "formEditor",
+			button: "save_btn",
+			bpkField: "code",
+			insertBack: function () {
+				search.searchData();
+			},
+			updateBack: function () {
+				search.searchData();
+			},
+			deleteBack: function () {
+				search.searchData();
+			},
+			addNewBack: function () {
+				$("#save_btn").show();
+				setSelectValue($("#sitetype"), "");
+				setSelectValue($("#opening_date"), "");
+				setSelectValue($("#closed_date"), "");
+				$("#formTitle").html("新增");
+			},
+			editBack: function () {
+			},
+			validate: function () {
+				var flag = $("#formEditor").validate({
+					rules: {
+					},
+					messages: {
+					}
+				});
+				return flag;
+			},
+			check: function () {
+				return true;
+			}
+		}).init();
+		this.search = search;
+		search = $Search({				
+			datagrid: "datagrid", formId: "searchForm", success: function () {
+				ccms.util.renderCheckbox("sitedefcheckbox");
+				//修改
+				$("#edit_btn").unbind().on("click", function () {
+					$("#formTitle").html("修改");
+					$("#save_btn").show();
+					var obthis = getCheckboxValue("sitedefcheckbox");
+					var count = obthis.split(",").length;
+					if (obthis != "") {
+						if (count > 1) {
+							ccms.dialog.notice("只能选择1条记录!");
+						} else {
+							obj.edit({ code: obthis });
+						}
+					} else {
+						ccms.dialog.notice("请选择!");
+					}
+				});
+				//查看
+				$("#see").unbind().on("click", function () {
+					$("#formTitle").html("查看");
+					var obthis = getCheckboxValue("sitedefcheckbox");
+					var count = obthis.split(",").length;
+					if (obthis != "") {
+						if (count > 1) {
+							ccms.dialog.notice("只能选择1条记录!");
+						} else {
+							obj.edit({ code: obthis });
+							$("#save_btn").hide();
+						}
+					} else {
+						ccms.dialog.notice("请选择!");
+					}
+				});
+				//删除
+				$("#delete_btn").unbind().on("click", function () {
+					var obthis = getCheckboxValue("sitedefcheckbox");
+					var count = obthis.split(",").length;
+					if (obthis != "") {
+						$Dialog().confirm("确定要删除该数据吗?", function () {
+							obj.del({ code: obthis });
+						});
+					} else {
+						ccms.dialog.notice("请选择!");
+					}
+				});
+			}	
+		}).initSearchBtn().searchData(1);
+		//导出
+		$("#daochu_list").unbind().on("click", function () {
+			$("#daochu_searchsitetype").val($("#searchsitetype").val());
+			$("#daochuForm").submit();
+		});
+		//全选   取消全选
+		$("#checkall").unbind().on("ifClicked", function () {    //点击事件未选中
+			if ($(this).prop("checked")) {// 
+				$('input[name=sitedefcheckbox]').iCheck('uncheck');
+			} else {
+				$('input[name=sitedefcheckbox]').iCheck('check');  //
+			}
+		});
+		//最大人数、人数
+		$("#block_maxnum,#group_minnum,#group_maxnum").blur(function () {
+			var num = $(this).val();
+			if (isNaN(num)) {
+				$(this).val("");
+			} else {
+				$(this).val(Number(num).toFixed(0));
+			}
+		});
+		//包场价格、拼场价格
+		$("#block_price,#group_price").blur(function () {
+			var num = $(this).val();
+			if (isNaN(num)) {
+				$(this).val("");
+			} else {
+				$(this).val(Number(num).toFixed(2));
+			}
+		});
+		$(".header-close").unbind().on("click", function () {
+			$("#modalAddnew").modal('hide');
+			ccms.util.clearForm('formEditor');
+		});
+	});
+	</script>
+</body>
+</html>

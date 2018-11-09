@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>transactions.project.fitness.report.EPRReport</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+	
+	<query>query-sales.sql</query>
+	<query>query-visit.sql</query>
+	<query>query-prepare.sql</query>
+	<query>query-pt.sql</query>
+	<query>query-p1prepare.sql</query>
+	<query>query-p1finished.sql</query>
+	<query>query-ptprepare.sql</query>
+	<query>query-inleft.sql</query>
+	<query>query-class.sql</query>
+	<query>query-br.sql</query>
+	<query>query-income.sql</query>
+	<query>query-goodsincome.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="_rs" tag="rows" />
+	</output>
+
+</config>

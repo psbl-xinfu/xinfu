@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="ptlevelname" type="varchar" required="true" label="课程名称" maxlen="32" />
+    <parameter id="ptfee" type="double" required="true" label="课时费" maxlen="200" />
+    <parameter id="reatetype" type="varchar" required="true" label="是否赠课" maxlen="200"/>
+    <parameter id="scale" type="double" required="true" label="课时费提成" maxlen="64" />
+    <parameter id="status" type="integer" required="true" label="是否启用" maxlen="128" />
+     <parameter id="is_delay" type="integer" required="false" label="是否延期" maxlen="128" />
+     <parameter id="times" type="integer" required="true" label="课程时长" maxlen="128" />
+     <parameter id="remark" type="varchar" required="false" label="备注" maxlen="128" />
+     <parameter id="spacing" type="integer" required="true" label="预约间隔" maxlen="128" />
+     
+	<!-- 姓名需要验证是否重复 -->
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="ptlevelname" sql="norep.sql" />
+</validator>
+

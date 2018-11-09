@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>会员卡管理</title>
+</head>
+<body>
+	<!--addnew/edit form-->
+	<div class="modal fade" id="modalAddnew" tabindex="-1" role="dialog" >
+  	  <div class="modal-dialog">
+   	    <div class="modal-content" style="width: ;margin: 0 auto;">
+   	      <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="formTitle">新增</h4>
+          </div>
+          <div class="modal-body">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			
+			</form>
+		  </div>
+		  <div class="modal-footer">
+		    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-8 col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-lg-offset-2">
+			  <button type="button" id="save_btn" class="btn btn-info btn-md">确&nbsp;定</button>
+			  <button type="button" id="reset_btn" class="btn btn-info btn-md">重&nbsp;置</button>
+			  <button type="button" class="btn btn-info btn-md" data-dismiss="modal">取&nbsp;消</button>
+		    </div>
+	      </div>
+	    </div>
+      </div>
+    </div>
+
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form id="searchForm" name="searchForm" class="form-horizontal" role="form" method="post">
+				
+				<div  id='jibenshezhi' class="" style="border: 0px solid blue;">
+					<input  type="hidden" name="vc_code" id="vc_code" value=""/>
+					<input  type="hidden" name="vc_name" id="vc_name" value=""/>
+					<input  type="hidden" name="i_status" id="i_status" value=""/>
+					<input  type="hidden" name="i_membercount" id="i_membercount" value=""/>
+					<input  type="hidden" name="vc_name1" id="vc_name1" value=""/>
+					<input  type="hidden" name="vt" id="vt" value=""/>
+					<input  type="hidden" name="bianji" id="bianji" value=""/>
+					<input  type="hidden"   name="in_vc_code" id="in_vc_code" value="${fld:vc_code}"/>
+					<input  type="hidden"   name="hui_name" id="hui_name" value=""/>
+					
+					<div  class="banner-top ba3" style="border: 0px solid red" >
+						<label  >卡类别</label>
+				 		<select name="i_type" id="i_type" >
+				      		<option value="0">时效卡</option>
+				      		<option value="1">记次卡</option>
+					      	<option value="2">基金卡</option>
+					    </select>
+					</div>
+					<div class="banner-top ba3" style="border: 0px solid red;width: ">					
+						<label>是否为淡季卡</label>      
+						是<input type="radio" id="vc_isoffseason" class="" name="vc_isoffseason" value="1" />
+						&nbsp;&nbsp;
+						否<input type="radio" id="vc_isoffseason" class="" name="vc_isoffseason" value="0"  />		
+					</div>										
+				</div>
+				<div class='' style="clear: both;">
+					<div id="a1"  class="banner-top ba2">
+						<label class="fund">运动基金</label>
+						<input type="text" class="fundone" id="f_money" name="f_money" value="0" maxlength="80"  />
+						<label class=" a3" >元</label>
+					</div>
+					<div id="stored" class="banner-top ba2">
+						<label  class="a7" >现金储值</label>
+						<input type="text" class="a8" id="f_moneyleft" name="f_moneyleft" value="0" maxlength="80" />
+			    		<label class="a9" >元</label>
+				    </div>
+				   <div id="effective_day"  class="banner-top ba2" style="width: ;border: 0px solid red;">
+			  			<label  class="a10" >有效天数</label>
+						<input type="text" class="a11" id="i_daycount" name="i_daycount" value="1" maxlength="80" />
+						<label  class='a12'>天</label>
+					</div>
+					<div id='effective_count' class="banner-top ba2">
+						<label >有效次数</label>
+						<input type="text" class="" id="i_count" name="i_count" value="0" maxlength="80" />
+						<label >次</label>
+					</div>
+				</div>
+				<div class="" style="clear: both ;">
+					<ul class="nav nav-tabs" style="margin-left: ">
+						<li onclick="setBasicInfor()"><a href="#basInfor" data-toggle="tab" id="basicInfor">可消费项目</a></li>
+					</ul>
+				</div>
+				<div class="form-group" style="margin-left: 0px;border: 0px solid red">
+					<label style="width:100px;border:0px solid red;position: relative;margin-top: 1px;" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label " >
+					<input  class="check"  type="checkbox" id="jianshen" value="0"  name="vc_item" /> 健身</label>
+		 			<label style="width:120px;border:0px solid red;margin-left: -0px" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 control-label ">
+		 			<input class="check"  type="checkbox" id="yujia" value="0" name="vc_item" />高温瑜伽</label> 
+				</div>
+				<div class="form-group" style="margin-left: 0px;border: 0px solid red;margin-left: -23px">
+					<label style="width:120px;border:0px solid red;" class="col-xs-3 col-sm-3 col-md-3 col-lg-3 control-label ">
+		 			<input  class="check"   type="checkbox" id="youyong" value="0" name="vc_item" />游泳</label> 
+				 	<div  id="huixianyouyong"  style="left:14%">
+				        <label id="allow" class='control-label' style="margin-left: 0px;" >允许</label>
+					    <select id="i_allowcount"  name='i_allowcount'  onchange="qiehuan2(this)"  >
+					 		<option value="0">不限</option>
+					 		<option value="1">次</option>
+					 	</select>
+					</div>	
+				    <div id="youyong3" style="position: absolute;top:46.5%;left:28%"> <label id="count_one" style="margin-top: 0px; " >次/天,限制 <input  id='f_limitswimtime'  name="f_limitswimtime" class='' style="width: 50px;" type="text" value="1"/>时/次</label></div>
+				</div>
+				<div class="form-group" style="margin-left: 0px;border: 0px solid red">
+					<label style="width:100px;border:0px solid red;margin-left:;margin-top:0px;" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label ">
+						 <input  class="check"   type="checkbox" id="xiyu" value="0" name="vc_item" class="xiyu" /> 洗浴</label>
+					<div  id=""  style="left:14%">
+						<label id='freebath' class='control-label' style="">免费洗浴</label>
+							 <input  id='i_freebathcount'  name="i_freebathcount"  style="width: 50px;" type="text" value="0"/>
+						<label id='count_two' class='' style="margin-top: 6px;" >次/天</label>
+					</div>	
+				</div>
+				<div class="" style="border: px solid red ;">
+					<div  class="banner-top ba3">
+						<label>卡价格</label>
+						<input type="text" class="" id="f_cardfee" name="f_cardfee" value="1" maxlength="80" / >
+						<label>元</label>
+					</div>
+					<div  class="banner-top ba3" style="margin-left: -70px">
+						<label >提成比例</label>
+						<input type="text" class="" id="f_scale" name="f_scale" value="0" maxlength="80" / >
+					</div>
+					<div  class="banner-top ba5" style="border: 0px solid red;">
+						<label >额外赠送</label>
+						<input type="text" class="" id="i_giveday" name="i_giveday" value="0" maxlength="80"  />
+						<label >天</label>
+						赠送
+						<input type="text" class="" id="i_ptcount" name="i_ptcount" value="0" maxlength="80" />
+						<label >节免费课</label>
+					</div>
+					<div  class="banner-top ba3" style="margin-left: 6px">
+						<label style="margin-left: -5px">可存卡</label>
+						<input type="text" class="" id="i_savedaycount" name="i_savedaycount" value="0" maxlength="80" />
+						<label >天</label>	
+					</div>
+				</div>
+				<div class="" style="border: 0px solid red ;clear: both ">
+					<div  class="banner-top ba3">
+						<label >通用性</label>
+						<select class="" name='i_universal' id='i_universal'  onchange="tongyongxing(this)"  >
+					         <option value="0">单店卡</option>
+					         <option value="1">全国通用卡</option>
+					         <option value="2">地区通用卡</option>
+					         <option value="3">全球通用卡</option>
+					     </select>
+					</div>
+					<div  class="banner-top ba3" style="margin-left: -160px;">
+						<label id="clubcount_count" style="width:80px;border: 0px solid red;margin-left: -10px;display: block" class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label  tongdianshu1">通店数</label>
+						<input type="text" class="" id="i_clubcount" name="i_clubcount" value="0" maxlength="80"  style="margin-top: 4px"/>
+					</div>
+					<div  class="banner-top ba3" style="margin-left: -160px">
+						<label id="groupcode_count" style="width:80px;border: 0px solid red;margin-left: -10px;display: block"class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label  tongdianzu1" >通店组</label>
+						<input type="text" class="" id="vc_groupcode" name="vc_groupcode" value="0" maxlength="80" style="margin-top: 4px"/>
+					</div>
+				</div>
+					
+				<div class="form-group" style="margin-left: -29.4%;clear: both; ">
+					<label class="col-xs-2 col-sm-3 col-md-3 col-lg-3 control-label col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 " >备注</label>
+					<div class="col-xs-8 col-sm-7 col-md-7 col-lg-7" style="margin-left: -18px">						
+						  <textarea class="form-control" rows="3" name="vc_remark" id="vc_remark" ></textarea>
+					</div>
+				</div>
+				</iframe>
+			</form>
+		</div>
+		
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//隐藏
+	selectInit($("#i_type,#i_allowcount,#i_universal"));
+	ishide();
+
+	$(".check").attr('disabled',true);<!---->
+	isdisabled(true);
+	parent.$("#vc_code").attr('readonly',true);<!--ID-->
+	
+	if($('#in_vc_code').val()!=''){
+		ed($('#in_vc_code').val());
+	}
+	
+	var search=null;
+	var obj = $Crud({
+		formId:"formEditor",
+		button:"save_btn",
+		bpkField:"vc_code",
+		insertBack:function(){
+			search.searchData();
+		},
+		updateBack:function(){
+			search.searchData();
+		},
+		deleteBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			$("#formTitle").html("新增");
+			$(".tongdianshu2,.tongdianshu1,.tongdianzu1,.tongdianzu2").hide();
+		},
+		editBack:function(){
+			$("#formTitle").html("修改");
+			if($('#check').is(" :checked")){
+				$('.youyong1,.youyong2,.youyong3,.youyong4,#count_one,.f_limitswimtime,.youyong6').show();
+			}
+			if($('#xiyu').is(" :checked")){
+				$('.xiyu1,.xiyu2,.xiyu3').toggle();
+			}
+			if($('#i_universal').val()==1){
+				$(".tongdianzu1,.tongdianzu2").show();
+			}
+			if($('#i_universal').val()==2){
+				$(".tongdianshu1,.tongdianshu2").show();
+			}
+		},
+		validate:function(){
+			var flag=$("#formEditor").validate({
+				rules : {
+			    mobile : { isMobile : true},		
+				idcard : {isIDCard : true} 
+				},
+			messages: {
+				mobile:{
+					isMobile:"请输入正确的电话号码！"
+				},
+			    idcard:{
+			    	isIDCard:"请输入正确的身份证号！"
+			    }
+			}
+		});
+			return true;
+		}
+	}).init();
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		$(".edit_btn").unbind().on("click", function(){
+			if($(this).attr("code") != undefined && $(this).attr("code") != ""){
+				obj.edit({id:$(this).attr("code")});
+			}
+		});
+		$(".delete_btn").unbind().on("click", function(){
+			var obthis = $(this);
+			$Dialog().confirm("确定要删除该条数据吗?", function(){
+				if(obthis.attr("code") != undefined && obthis.attr("code") != ""){
+					obj.del({id:obthis.attr("code")});
+				}
+			});
+		});
+	}}).initSearchBtn().searchData(1);
+		
+});
+//卡类型 样式控制
+$("#i_type").change(function(){
+	var a=$("#i_type option:selected").val();
+	leixing(a);
+});
+//iteyp 切换
+function leixing(a){
+	if(a=='0'){
+		$('#fund,#stored,#effective_day').show();
+		$("#effective_count").hide();
+		$("#i_allowcount").attr("disabled",true);
+		$("#i_allowcount").val(0);
+		if(parent.$('#vc_code').val()==''){
+			$("#i_daycount").val(1);
+		}
+		if(parent.$('#vc_code').val()==''){
+			$("#i_count").val(0);
+		}
+		$("#count_one").hide();
+		$("#f_limitswimtime").val(1);
+	}else if(a=='1'){
+			$('#fund,#fundone,#stored').hide();
+			$('#effective_day,#effective_count').show();
+			$("#i_allowcount").attr("disabled",false);
+			$("#f_money,#f_moneyleft").val(0);
+			if(parent.$('#vc_code').val()==''){
+				$("#i_daycount").val(1);
+			}
+			if(parent.$('#vc_code').val()==''){
+				$("#i_count").val(0);
+			}
+		}else{
+			$('#fund,#fundone,#stored,#effective_count').hide();
+			$('#effective_day').show();
+			$("#i_allowcount").attr("disabled",false);
+			$("#f_money,#f_moneyleft").val(0);
+			if(parent.$('#vc_code').val()==''){
+				$("#i_count").val(0);
+			}
+			if(parent.$('#vc_code').val()==''){
+				$("#i_daycount").val(1);
+			}
+		}
+}
+
+//游泳 洗浴 样式控制
+$(function(){
+	$("#youyong").on("ifChecked",function () { 
+		  if($("#i_type").val()=='0'){
+				$('#allow,#i_allowcount').show();
+				$('#i_allowcount').attr('disabled',true);
+		  }else{
+				$('#allow,#i_allowcount').show();
+				$('#i_allowcount').attr('disabled',false);
+		  }
+			if($("#i_type").val()==0){
+				$("#i_allowcount").attr('disabled',true);
+			}else{
+				$("#i_allowcount").attr('disabled',false);
+			}
+	  });
+	  
+		$("#youyong").on("ifUnchecked",function () { 
+				$('#allow,#i_allowcount,#count_one').hide();
+				$('#allow,#i_allowcount').val(0);
+				$("#f_limitswimtime").val(1);
+				if($("#i_type").val()==0){
+					$("#i_allowcount").attr('disabled',true);
+				}else{
+					$("#i_allowcount").attr('disabled',false);
+				}
+		});
+		
+		parent.$("#vc_name").on("blur",function () {    
+			var  tuid=parent.$('#vc_name').val();
+			var uri="${def:context}${def:actionroot}/getcardname?tuid="+tuid;
+		   	ajaxCall(uri,{
+		   		method: "get",
+		   		progress: false,
+		   		dataType: "script",
+		   		success: function() {
+		   			if($('#hui_name').val()==tuid){
+		   				ccms.dialog.notice('卡名称已存在');
+		   				parent.$("#vc_name").val('');
+		   			}
+	   			}
+	   		});
+		})
+		
+		$("#xiyu").on("ifClicked",function () {      
+			$('#freebath,#i_freebathcount,#count_two').toggle();
+			$('#i_freebathcount').val(1);
+		});
+		$("#xiyu").on("ifUnchecked",function () {      
+			$('#i_freebathcount').val(0);
+		});
+})
+
+$('#i_freebathcount').blur(function(){
+	if($("#xiyu").val()!=0){
+	var i_freebathcount=$('#i_freebathcount').val();
+	var reg =/^\+?[1-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(i_freebathcount)&&i_freebathcount!=null){
+		ccms.dialog.notice("免费洗浴次/天必须是大于等于1的整数!");
+		$('#i_freebathcount').val(0);
+	}else{
+		return true;
+	}
+	}
+}); 	
+
+//卡类别切换
+function tongyongxing(obj){
+	var type=obj.options[obj.selectedIndex].value;
+	showtongyongxing(type);
+}
+function showtongyongxing(type){
+	var vc_code=$().val()
+	if(type=='1'){
+		$("#groupcode_count,#vc_groupcode").show();
+		$("#clubcount_count,#i_clubcount").hide();
+		$("#i_clubcount").val(0);
+		if($('#vc_groupcode').val()>0){
+			$('#vc_groupcode').attr('readonly',true)
+		}else{
+			$('#i_clubcount,#vc_groupcode').attr('readonly',false)
+		}
+	}else if(type=='2'){
+		$("#groupcode_count,#vc_groupcode").hide();
+		$("#vc_groupcode").val(0);
+		$("#clubcount_count,#i_clubcount").show();
+		if($('#i_clubcount').val()>0){
+			$('#i_clubcount').attr('readonly',true)
+		}else{
+			$('#i_clubcount,#vc_groupcode').attr('readonly',false)
+		}
+	}else{
+		$("#groupcode_count,#vc_groupcode,#clubcount_count,#i_clubcount").hide();
+		$('#vc_groupcode,#i_clubcount').val(0);
+		$('#i_clubcount,#vc_groupcode').attr('readonly',false)
+	}
+}
+//不限/次切换
+function qiehuan2(i_allowcount){
+	var i_allowcount=i_allowcount.options[i_allowcount.selectedIndex].value;                                                      
+		if(i_allowcount=='0'){
+			$('#count_one').hide();
+		}else{
+			$('#count_one').show();
+		}
+	}
+//新增样式控制
+parent.$("#xinzeng").unbind().on("click",function(){
+		ccms.util.clearForm('searchForm');
+		$('#bianji').val(1)
+		
+		parent.$("#i_status").val('有效');
+		//清空
+		isclear();
+		var i_type=$('#i_type').val()
+		showtongyongxing(i_type);
+		var i_universal=$('#i_universal').val()
+		leixing(i_universal);
+		
+		setItemClick();
+		
+		//隐藏
+		ishide();
+		
+		$(".check").attr('disabled',false);<!---->
+		isdisabled(false);
+});
+
+//浏览
+/* parent.$("#liulan").unbind().on("click",function(){
+	var url = contextPath+"${def:actionroot}/search_motaikuang/crud";
+	ccms.dialog.open({url:url,id:"dialogPic",width:600,height:500});
+}); */
+/* function closeDialog(){
+	ccms.dialog.close("dialogPic");
+} */
+//编辑
+parent.$("#bianji").unbind().on("click",function(){
+	
+	var vc_code=parent.$('#vc_code').val();
+	if(vc_code==''){
+			ccms.dialog.notice("请先浏览");
+			return false;
+	}
+	$('#bianji').val(1)
+	$("input[name=vc_item]").attr('disabled',false);
+	isdisabled(false);
+})
+//保存
+parent.$("#baocun").unbind().on("click",function(){
+	if($('#bianji').val()!='1'){
+		ccms.dialog.notice('请先点击编辑')
+		return false;
+	}
+	var selectitem='';
+	selectitem += $('#jianshen').val() + ';';
+	selectitem += $('#yujia').val() + ';';
+	selectitem += $('#youyong').val() + ';';
+	selectitem += $('#xiyu').val() + ';';
+	
+	$('#vt').val(selectitem);
+	
+	var vc_code=parent.$('#vc_code').val();
+	var vc_name=parent.$('#vc_name').val();
+	if(vc_code!==''&&vc_name!=''){
+		$('#vc_code').val(parent.$('#vc_code').val());
+		$('#vc_name').val(parent.$('#vc_name').val());
+		$('#i_status').val(parent.$('#i_status').val());
+		$('#i_membercount').val(parent.$('#i_membercount').val());
+		$('#vc_name1').val(parent.$('#vc_name1').val());
+		   var uri="${def:context}${def:actionroot}/update";
+		   ajaxCall(uri,{
+		   	method: "post",
+		   	form:"searchForm",
+		   	progress: true,
+		   	dataType: "script",
+	   		success: function() {
+				ccms.dialog.notice("修改成功")
+				$('#bianji').val('')
+				$(".check").attr('disabled',true);
+				//
+				isdisabled(true);
+	   		}
+	   	});
+	}else if(vc_name=''){
+		ccms.dialog.notice("名字不能为空");
+		return false;
+	}else{
+	//通店组判断非空
+	   if($('#i_universal').val()==1){
+			var score=$("#vc_groupcode").val();
+			if(score==''){
+				ccms.dialog.notice("通店组不能为空");
+				return false;
+			}
+		}else if($('#i_universal').val()==2){
+			var score=$("#i_clubcount").val();
+			if(score==''){
+				ccms.dialog.notice("通店数不能为空");
+				return false;
+			}
+		}//名字判断非空
+		else if(parent.$('#vc_name').val()==''){
+				ccms.dialog.notice("名字不能为空");
+				return false;
+		}
+		var selectitems='';
+		selectitems += $('#jianshen').val() + ';';
+		selectitems += $('#yujia').val() + ';';
+		selectitems += $('#youyong').val() + ';';
+		selectitems+= $('#xiyu').val() + ';';
+		
+		$('#vt').val(selectitems);
+		$('#vc_name').val(parent.$('#vc_name').val());
+		$('#i_status').val(parent.$('#i_status').val());
+		$('#i_membercount').val(parent.$('#i_membercount').val());
+		$('#vc_name1').val(parent.$('#vc_name1').val());
+		//ccms.dialog.notice(i_count);
+			 var uri="${def:context}${def:actionroot}/insert";
+			   ajaxCall(uri,{
+			   	method: "post",
+			   	form:"searchForm",
+			   	progress: true,
+			   	dataType: "script",
+			   	success: function() {
+			   		ccms.dialog.notice("新增成功");
+			   		$('#bianji').val('')
+					$(".check").attr('disabled',true);<!---->
+					isdisabled(true);
+			   		}
+			  }); 
+			  
+	}
+});
+
+$('#i_count').blur(function(){
+	var i_count=$('#i_count').val();
+	 var reg =/^\+?[0-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(i_count)&&i_count!=null){
+		ccms.dialog.notice("有效次数必须是大于等于0的整数!");
+		$('#i_count').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#i_daycount').blur(function(){
+	var i_daycount=$('#i_daycount').val();
+	var reg =/^\+?[1-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(i_daycount)&&i_daycount!=null){
+		ccms.dialog.notice("有效天数必须是大于等于1的整数!");
+		$('#i_daycount').val(1);
+	}else{
+		return true;
+	}
+}); 
+
+$('#i_savedaycount').blur(function(){
+	var i_savedaycount=$('#i_savedaycount').val();
+	var reg =/^\+?[0-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(i_savedaycount)&&i_savedaycount!=null){
+		ccms.dialog.notice("可存卡天数必须是大于等于0的整数!");
+		$('#i_savedaycount').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#i_giveday').blur(function(){
+	var i_giveday=$('#i_giveday').val();
+	var reg =/^\+?[0-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(i_giveday)&&i_giveday!=null){
+		ccms.dialog.notice("额外赠送天数必须是大于等于0的整数!");
+		$('#i_giveday').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#i_ptcount').blur(function(){
+	var i_ptcount=$('#i_ptcount').val();
+	var reg =/^\+?[0-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(i_ptcount)&&i_ptcount!=null){
+		ccms.dialog.notice("赠送免费课节数必须是大于等于0的整数!");
+		$('#i_ptcount').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#f_scale').blur(function(){
+	var f_scale=$('#f_scale').val();
+	var reg =/^[0-9]\d*(\.\d+)?$/
+	 if(!reg.test(f_scale)&&f_scale!=null){
+		ccms.dialog.notice("提成比例必须是大于等于0的数!");
+		$('#f_scale').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#i_clubcount').blur(function(){
+	var i_clubcount=$('#i_clubcount').val();
+	var reg =/^\+?[0-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(i_clubcount)&&i_clubcount!=null){
+		ccms.dialog.notice("通店数必须是大于等于0的整数!");
+		$('#i_clubcount').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#vc_groupcode').blur(function(){
+	var vc_groupcode=$('#vc_groupcode').val();
+	var reg =/^\+?[0-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(vc_groupcode)&&vc_groupcode!=null){
+		ccms.dialog.notice("通店数必须是大于等于0的整数!");
+		$('#vc_groupcode').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#f_limitswimtime').blur(function(){
+	var f_limitswimtime=$('#f_limitswimtime').val();
+	var reg =/^\+?[1-999999999999]\d*$/;//有效次数必须是大于0的整数
+	 if(!reg.test(f_limitswimtime)&&f_limitswimtime!=null){
+		ccms.dialog.notice("限制/限时必须是大于等于1的整数!");
+		$('#f_limitswimtime').val(1);
+	}else{
+		return true;
+	}
+}); 	
+	
+
+$('#f_moneyleft').blur(function(){
+	var f_moneyleft=$('#f_moneyleft').val();
+	var reg =/^[0-9]\d*(\.\d+)?$/
+	 if(!reg.test(f_moneyleft)&&f_moneyleft!=null){
+		ccms.dialog.notice("现金储值金额必须是大于等于0的数!");
+		$('#f_moneyleft').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+$('#f_money').blur(function(){
+	var f_money=$('#f_money').val();
+	var reg =/^[0-9]\d*(\.\d+)?$/
+	 if(!reg.test(f_money)&&f_money!=null){
+		ccms.dialog.notice("运动基金金额必须是大于等于0的数!");
+		$('#f_money').val(0);
+	}else{
+		return true;
+	}
+}); 
+
+
+$('#f_cardfee').blur(function(){
+	var f_cardfee=$('#f_cardfee').val();
+	var reg =/^[0-9]\d*(\.\d+)?$/
+	 if(!reg.test(f_cardfee)&&f_cardfee!=null){
+		ccms.dialog.notice("卡价格必须是大于等于0的数!");
+		$('#f_cardfee').val(1);
+	}else{
+		return true;
+	}
+}); 
+
+//清空
+parent.$("#qingkong").unbind().on("click",function(){
+	ccms.util.clearForm('searchForm');
+	//清空
+	isclear();
+	0);
+
+	//隐藏
+	ishide();
+})
+//拼接
+function pinjie(vc_item,searchForm){
+ var obj;   
+	    obj=document.forms[searchForm].elements[vc_item];
+	    if(obj!=null){
+			var str = "";
+	        var i;
+			if(obj.length){
+				for(i=0;i<obj.length;i++){
+					if(obj[i].checked){
+						str += obj[i].value+";";
+					}
+				}
+				if(str.length > 0){
+					str = str.substring(0,str.length-1);
+				}
+			}else{
+				if(obj.checked){
+					str = obj.value;
+				}
+			}
+			return str;
+	    }
+} 
+function setisoffseason(isoffseason){
+	ccms.util.setCheckboxValue('vc_isoffseason',isoffseason,'searchForm');
+}
+function setitem(item,allowcount,universal,type){
+	showtongyongxing(universal);
+	leixing(type);
+	var s = (item+"").split(";");
+	for(var b=0;b<s.length;b++){
+		switch (b){
+		case 0:
+			if(s[b]=='0'){
+				$('#jianshen').iCheck('uncheck');
+				$('#jianshen').val('0');
+			}else{
+				$('#jianshen').iCheck('check');
+				$('#jianshen').val('1');
+			}
+			break;
+		case 1:
+			if(s[b]=='0'){
+				$('#yujia').iCheck('uncheck');
+				$('#yujia').val('0');
+			}else{
+				$('#yujia').iCheck('check');
+				$('#yujia').val('1');
+			}
+			break;
+		case 2:
+			if(s[b]=='0'){
+				$('#youyong').iCheck('uncheck');
+				$('#youyong').val('0');
+			}else{
+				$('#youyong').iCheck('check');
+				$('#youyong').val('1');
+		}
+			break;
+		case 3:
+			if(s[b]=='0'){
+				$('#xiyu').iCheck('uncheck');
+				$('#xiyu').val('0');
+		}else{
+				$('#xiyu').iCheck('check');
+				$('#xiyu').val('1');
+			}
+			break;
+		}
+		
+		setItemClick();
+		
+	    //通用性
+		if(b==3&&s[b]=='1'){
+			 $('#freebath,#i_freebathcount,#count_two').show();
+		} 
+	}
+}
+
+function setItemClick(){
+    $('#jianshen').on('ifChecked', function(event){  
+    	$('#jianshen').val('1');
+      }); 
+    $('#jianshen').on('ifUnchecked', function(event){  
+    	$('#jianshen').val('0');
+      }); 
+    $('#yujia').on('ifChecked', function(event){  
+    	$('#yujia').val('1');
+      }); 
+    $('#yujia').on('ifUnchecked', function(event){  
+    	$('#yujia').val('0');
+      }); 
+    $('#youyong').on('ifChecked', function(event){  
+    	$('#youyong').val('1');
+		if($('#i_allowcount').val()==1){
+			$('#youyong3,#count_one').show();
+			$('#i_allowcount').attr('disabled',false);
+		}
+
+      }); 
+    $('#youyong').on('ifUnchecked', function(event){  
+    	$('#youyong').val('0');
+      }); 
+    $('#xiyu').on('ifChecked', function(event){  
+    	$('#xiyu').val('1');
+      }); 
+    $('#xiyu').on('ifUnchecked', function(event){  
+    	$('#xiyu').val('0');
+      }); 
+
+}
+function huixian(item,type){
+	var s = (item+"").split(";");
+		if(s[2]=='1'){
+			$('#huixianyouyong').show();
+			$('#youyong3').hide();
+			$('#i_allowcount').attr('disabled',true);
+			if(type!=0){
+				$('#youyong3,#count_one').show();
+				$('#i_allowcount').attr('disabled',false);
+			}
+		}
+}
+function huixian2(){
+	
+	if($('#huixianyouyong').attr('disabled',true)){
+		$('#i_allowcount').attr('disabled',true);
+	}else{
+		$('#i_allowcount').attr('disabled',false);
+	}
+}
+
+parent.$('#zhuangtaigaibian').unbind().on("click",function(){
+	var vc_code = parent.$('#vc_code').val();
+	if(vc_code==''){
+		ccms.dialog.notice("请先新增或者浏览");
+	}else{
+	   	var uri="${def:actionroot}/updatezhuangtai?vc_code="+vc_code;
+	   	ajaxCall(uri,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	   			var vc_code=parent.$('#vc_code').val();
+	   			var uri="${def:context}${def:actionroot}/huixianzhuangtai?vc_code="+vc_code;
+	   		   	ajaxCall(uri,{
+	   		   		method: "get",
+	   		   		progress: true,
+	   		   		dataType: "script",
+	   		   		success: function() {
+	   		   		ccms.dialog.notice("修改状态成功");
+	   		   			window.location.href = window.location.href;
+	   		   		}
+	   		   	});
+	   		}
+	   	});
+	}
+})
+
+function ed(in_vc_code){
+	var uri="${def:context}${def:actionroot}/querycardtype?in_vc_code="+in_vc_code;
+   	ajaxCall(uri,{
+   		method: "get",
+   		progress: true,
+   		dataType: "script",
+   		success: function() {
+   		}
+   	});
+}
+
+//隐藏
+function ishide(){
+	$("#vc_groupcode,#groupcode_count,#i_clubcount,#effective_count,#allow,#i_allowcount,#count_one,#freebath,#i_freebathcount,#count_two,#clubcount_count").hide();
+}
+
+function isdisabled(bol){
+	$("#vc_isoffseason,#i_type,#i_universal,#i_allowcount,#f_limitswimtime,#i_freebathcount,#vc_remark,#i_ptcount,#i_savedaycount,#i_giveday").attr('disabled',bol);<!---->
+	parent.$("#vc_name1").attr('disabled',bol);<!---->
+	parent.$("#i_membercount").attr('disabled',bol);<!---->
+	
+	$("#f_scale,#f_cardfee,#vc_groupcode,#i_clubcount,#f_moneyleft,#f_money,#i_daycount,#i_count").attr('readonly',bol);<!--提成-->
+	parent.$("#vc_name").attr('readonly',bol);<!--名字-->
+}
+
+function isclear(){
+	parent.$("#vc_code").val('');
+	parent.$("#vc_name").val('');
+	parent.$("#i_membercount").val(0);
+	parent.$("#vc_name1").val(0);
+
+	$("#i_daycount,#f_limitswimtime,#i_freebathcount,#f_cardfee").val(1);
+	$("#i_count,#i_savedaycount,#i_giveday,#vc_remark,#i_ptcount,#f_scale,#i_clubcount,#vc_groupcode,#i_allowcount,#f_moneyleft,#f_money").val(0);
+
+	$("#i_status").val('有效');
+}
+
+</script>
+</body>
+</html>

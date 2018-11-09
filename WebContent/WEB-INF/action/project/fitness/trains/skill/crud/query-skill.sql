@@ -1,0 +1,1 @@
+SELECT skill_id,skill_name FROM hr_skill where org_id = ${def:org}

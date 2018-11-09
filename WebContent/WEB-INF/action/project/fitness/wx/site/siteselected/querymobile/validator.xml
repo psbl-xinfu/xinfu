@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="mobile" type="varchar" required="true" label="手机号码" />
+    <parameter id="org_id" type="varchar" required="true" label="org_id" />
+</validator>

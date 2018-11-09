@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>会员卡管理</title>
+</head>
+<body>
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form id="searchForm" name="searchForm" class="form-horizontal" role="form" method="post">
+				<input  type="hidden" name="vt" id="vt" value=""/>
+				
+				<div class="form-group" style="margin-left: 0px;border: 0px solid red">
+					<button class="btn btn-info btn-sm" type="button" id="liulan">浏览</button>
+					<button class="btn btn-info btn-sm" type="button" id="qingkong">清空</button>
+					<button class="btn btn-info btn-sm" type="button"  id="xinzeng">新增</button>
+					<button class="btn btn-info btn-sm " type="button" id="bianji" >编辑</button>
+					<button class="btn btn-info btn-sm " type="button" code="#vc_code#"  id="baocun" >保存</button>
+					<button class="btn btn-info btn-sm zhuangtai_btn"  type="button"  id="zhuangtaigaibian">状态改变</button>
+				</div>
+			
+				<div class=" " style="border: 0px solid red;height: 0px">
+					<div class="banner-top ba1" style="border: 0px solid red">
+						<label >编号</label>
+						<input  id="vc_code" name="vc_code" value="" maxlength="80" />
+					</div>	
+						
+					<div class="banner-top ba1">
+						<label>状态</label>
+						<input  id="i_status" name="i_status" value="有效" maxlength="80" readonly="readonly"/>
+					</div>
+					
+					<div class="banner-top ba1">
+						<label >名称</label>
+						<input  id="vc_name" name="vc_name" value="" maxlength="80" />
+					</div>
+				
+					<div class="banner-top ba1">		
+						<label >卡属性</label>
+						 <select name='i_membercount' id="i_membercount"  >
+					         <option value="0">普通卡</option>
+					         <option value="1">家庭卡主卡</option>
+					         <option value="2">家庭卡A</option>
+					         <option value="3">家庭卡B</option>
+					         <option value="4">家庭卡辅卡</option>
+					         <option value="5">团体班卡</option>
+					         <option value="6">体验卡</option>
+					          <option value="7">散客卡</option>
+					          <option value="8">操课卡</option>
+					      </select>
+					</div>
+						
+					<div class="banner-top ba1" style="width: ">			
+						<label >卡分类</label>
+						<select name="vc_name1"  id="vc_name1"  >
+				      		 <card-list>
+						          <option value="${fld:vc_code}">${fld:vc_name}</option>
+						     </card-list>
+					     </select>
+					</div>
+			</div>	
+				<br/>
+				<div class="" style="border: 0px solid red;clear: both">
+					<ul class="nav nav-tabs" style="margin-left: 0px">
+						<li onclick="setBasicInfor()"><a href="#basInfor" data-toggle="tab" id="basicInfor">基本设置</a></li>
+						<li onclick="shiduanshezhi()"><a href="#contRecord" data-toggle="tab">时段设置</a></li>
+						<li onclick="setContractRecord()"><a href="#admRecord" data-toggle="tab">折扣定义</a></li>
+					</ul>
+				</div>
+				
+				<iframe src ="" width="100%" height="450px" name="conteactRecord" frameborder="0" id="formEditor_contRecord" style="border: 0px solid red">
+				
+				</iframe>
+			</form>
+		</div>
+		
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	setBasicInfor();
+	var search=null;
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		$(".edit_btn").unbind().on("click", function(){
+			if($(this).attr("code") != undefined && $(this).attr("code") != ""){
+				obj.edit({id:$(this).attr("code")});
+			}
+		});
+		$(".delete_btn").unbind().on("click", function(){
+			var obthis = $(this);
+			$Dialog().confirm("确定要删除该条数据吗?", function(){
+				if(obthis.attr("code") != undefined && obthis.attr("code") != ""){
+					obj.del({id:obthis.attr("code")});
+				}
+			});
+		});
+	}}).initSearchBtn().searchData(1);
+		
+});
+
+function setContractRecord(){
+	var	in_vc_code=$('#vc_code').val();
+	if(in_vc_code==''){
+		ccms.dialog.notice("请先浏览");
+		return false;
+	}else{
+		$("#zhekoudingyi").show();
+		$("#shiduanshezhi,#jibenshezhi,#basInfor,#admRecord,#claRecord,#comRecord,#healthFile,#Investigation").hide();
+		$("#formEditor_contRecord").attr("src","${def:context}${def:actionroot}/zhekoudingyi/crud?in_vc_code="+in_vc_code);
+	}
+}
+
+function setBasicInfor(){
+	if($('#vc_code').val()!=''){
+		var vc_code=$('#vc_code').val()
+		$("#jibenshezhi").show();
+		$("#shiduanshezhi,#zhekoudingyi").hide();
+		$("#formEditor_contRecord").attr("src","${def:context}${def:actionroot}/crud?vc_code="+vc_code);
+		alert(url);
+		url(url);
+	}else{
+		$("#jibenshezhi").show();
+		$("#shiduanshezhi,#zhekoudingyi").hide();
+		$("#formEditor_contRecord").attr("src","${def:context}${def:actionroot}/crud");
+	}
+}
+
+function shiduanshezhi(){
+	var	in_vc_code=$('#vc_code').val();
+	if(in_vc_code==''){
+		ccms.dialog.notice("请先浏览");
+		return false;
+	}else{
+		$("#shiduanshezhi").show();
+		$("#jibenshezhi,#zhekoudingyi").hide();
+		$("#formEditor_contRecord").attr("src","${def:context}${def:actionroot}/shiduanshezhi/crud?in_vc_code="+in_vc_code);
+	}
+}
+
+$("#liulan").unbind().on("click",function(){
+	var url = contextPath+"${def:actionroot}/searchmotaikuang/crud";
+	ccms.dialog.open({url:url,id:"dialogPic",width:600,height:500});
+});
+
+function closeDialog(){
+	ccms.dialog.close("dialogPic");
+}
+</script>
+</body>
+</html>

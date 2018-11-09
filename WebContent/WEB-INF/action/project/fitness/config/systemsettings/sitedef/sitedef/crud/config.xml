@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+		场地最低消费时间
+	</summary>
+	
+	<log>false</log>
+    <transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+	    <recordset id="query-SitedefMinimumConsumptionDate.sql" source="sql" scope="transaction" />
+	    <recordset id="query-Sitedate.sql" source="sql" scope="transaction" />  
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form" recordset="query-SitedefMinimumConsumptionDate.sql"/>
+		<print mode="form" recordset="query-Sitedate.sql"/>
+	</output>
+
+</config>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<body>    
+
+<script language="JavaScript">
+$(document).ready(function() {
+	//判断权限 1大队长2组长3组员
+	if("${fld:usertype}"=="1"){
+        location.href = contextPath+"/action/project/fitness/guestget/datacenter/crud";
+	}else if("${fld:usertype}"=="2"){
+        location.href = contextPath+"/action/project/fitness/guestget/index/crud";
+	}else if("${fld:usertype}"=="3"){
+        location.href = contextPath+"/action/project/fitness/guestget/index/crud";
+	}
+});
+</script>
+</body>
+</html>

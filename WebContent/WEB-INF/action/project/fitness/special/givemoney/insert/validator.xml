@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+       <parameter id="customercode" type="varchar" required="true" label="会员号"/>
+       <parameter id="cust_name" type="varchar" required="true" label="会员名称"/>
+       <parameter id="mobile" type="varchar" required="false" label="手机号"/>
+       <parameter id="remark" type="varchar" required="false" label="备注"/>
+       <parameter id="moneycash" type="double" required="false" label="moneycash"/>
+       <parameter id="moneygift" type="double" required="false" label="moneygift"/>
+       <parameter id="givemoneycash" type="double" required="true" label="赠送金额"/>
+       <parameter id="givemoneygift" type="double" required="false" label="赠送运动基金"/>
+       
+</validator>
+

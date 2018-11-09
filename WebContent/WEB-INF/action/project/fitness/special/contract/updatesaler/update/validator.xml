@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_contractcode" type="varchar" required="true" label="合同编号"/>
+	<parameter id="vc_salemember" type="varchar" required="true" label="会籍"/>
+	<parameter id="vc_salemember1" type="varchar" required="false" label="第二销售员"/>
+
+</validator>
+
+

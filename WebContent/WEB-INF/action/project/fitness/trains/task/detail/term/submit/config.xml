@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+    <colname>item_id,question_id,term_score_id,remark</colname>
+	<sql-template>submit_term.sql</sql-template>
+
+	<transaction>
+		<classname>com.ccms.InsertMaster</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+	
+	<query>question_grade.sql</query>
+	<query>update_end_time.sql</query>
+	<query>term_grade.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+	</output>
+
+</config>

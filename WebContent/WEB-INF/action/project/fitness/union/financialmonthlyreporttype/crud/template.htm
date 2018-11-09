@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>财务报表</title>
+<style type="text/css">
+.r-tab-cout-3-b{
+overFlow-y:hidden;
+overflow:auto;
+}
+
+::-webkit-scrollbar {
+    display: block !important;
+    background: white
+}
+::-webkit-scrollbar-thumb  
+{  
+    background: #CDC9C9
+}
+</style>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="rm.created" preserve="true"/>
+		<input name="order" type="hidden" value="desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		
+		<div class="financial-statements">
+			<div class="f-s-t">
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="dateTime">
+								<input type="text" id="date" name="date" class="input-default"/>
+							</li>
+							<button class="freshen" type="button" id="search_btn">刷新</button>
+							<button type="button" class="save toSaveTable1" id="addreport_monthly" title="保存"></button>
+							<button type="button" class="write toChangeTable1" id="updatereport_monthly" title="修改"></button>
+						</nav>
+						<div class="r-c-btnList">
+							<!-- <button title="搜索" class="r-c-3-btn-1"></button>
+							<button title="筛选" class="r-c-3-btn-2"></button>
+							<button title="导出" class="r-c-3-btn-3"></button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<article class="r-tab-cout-3-b">
+				<table class="">
+						<thead id="report_subject">
+						</thead>
+						<tbody id="report_monthly">
+				</table>
+			</article>
+		</div>
+	</form>
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#date").val(new Date().format("yyyy"));
+	$Dialog().year($('#date'));
+
+	reportmonthly($("#date").val());
+	$("#search_btn").click(function(){
+		$("#report_subject,#report_monthly").html("");
+		reportmonthly($("#date").val());
+	})
+	
+	//隐藏保存按钮
+	$("#addreport_monthly").hide();
+	
+	$("#updatereport_monthly").unbind().click(function(){
+		//点击修改显示保存按钮隐藏修改按钮
+		$("#addreport_monthly,.minput").show();
+		$(".mspan,#updatereport_monthly").hide();
+	});
+	//保存
+	$("#addreport_monthly").click(function(){
+		var url="${def:context}${def:actionroot}/insert";
+	   	ajaxCall(url,{
+		   	method: "post",
+	   		progress: true,
+		   	form: "searchForm",
+	   		dataType: "script",
+		   	success: function() {
+				$("#addreport_monthly,.minput").hide();
+				$("#updatereport_monthly,.mspan").show();
+				$("#search_btn").click();
+	   		}
+	   	});
+	});
+	
+});
+//查询
+function reportmonthly(date){
+	var url="${def:context}${def:actionroot}/previewreportsubject?date="+date;
+	ajaxCall(url,{
+		method:"GET",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="tuid" type="integer" required="false" label="tuid"/>
+	<parameter id="s_date" type="date" required="true" label="s_date"/>
+</validator>

@@ -1,0 +1,1 @@
+(select memberhead as cardhead from hr_org where org_id = ${def:org})

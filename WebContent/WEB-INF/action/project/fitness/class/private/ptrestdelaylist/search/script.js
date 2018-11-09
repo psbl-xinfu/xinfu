@@ -1,0 +1,15 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "checklink":"${fld:checklink@js}",
+		    "name":"${fld:name@js}",
+		    "mobile":"${fld:mobile@js}",
+		    "ptlevelname":"${fld:ptlevelname@js}",
+		    "delayday":"${fld:delayday}",
+		    "ptenddate":"${fld:ptenddate@yyyy-MM-dd}",
+		    "remark":"${fld:remark@js}",
+		    "yqqdate":"${fld:yqqdate@yyyy-MM-dd}"
+	},
+	</rows>
+	{}
+]}

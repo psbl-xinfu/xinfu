@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>会籍管理</title>
+<style>
+.left ul li a {
+font:15px/20px \"宋体\";
+color:black;
+}
+.r-tab li.am-active a{
+ color:#c8c8c8 !important;
+}
+</style>
+</head>
+	<div class="am-tabs systems-management dialogbg" data-am-tabs="{noSwipe: 1}">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="twopage">
+			<li class='sub_li' onclick="Private_teach_pact()"><a href="#private_Teach_pact" class="three-none" id="private_teach_pact">私教合同</a></li>
+			<li class='sub_li' onclick="Private_teach_order()"><a href="#private_Teach_order" class="three-none" >私教预约</a></li>
+			<li class='sub_li' onclick="Private_teach_class()"><a href="#private_Teach_class" class="three-none" >私教上课</a></li>
+		</nav>
+	</div>
+	     		<div src ="" width="100%" height="600px" frameborder="0" id="private_teach">
+       			</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	$("#private_teach_pact").click();
+
+	//子集菜单效果
+    $('#twopage .sub_li').parent().css('background-color','transparent');
+	$('#twopage .sub_li').children().attr('style','color:#c8c8c8;');
+	$('#twopage .sub_li').eq(0).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	$('#twopage .sub_li').on('click',function(){
+		$('#twopage .sub_li').attr('style','');
+		$(this).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	})
+});
+//设置全部客户资源档案
+function Private_teach_pact(){
+	$("#private_teach").load("${def:context}${def:actionroot}/privateteachpact/crud?ispubload=true");
+}
+//设置客户资源业务规则
+function Private_teach_order()
+{
+	$("#private_teach").load("${def:context}${def:actionroot}/privateteachorder/crud?ispubload=true");
+}
+//设置合同管理
+function Private_teach_class()
+{
+	$("#private_teach").load("${def:context}${def:actionroot}/privateteachclass/crud?ispubload=true");
+}
+</script>
+</body>
+</html>

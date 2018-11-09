@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+
+    <request-encoding>UTF-8</request-encoding>
+
+	<colname>id;id;id;id;id</colname>
+	<sql-template>insert-operatelog.sql;insert-finance.sql;update.sql;update-cabinetrent.sql;update-cabinetrentstatus.sql</sql-template>
+
+	<transaction>
+		<classname>com.ccms.InsertMaster</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+	</output>
+
+</config>

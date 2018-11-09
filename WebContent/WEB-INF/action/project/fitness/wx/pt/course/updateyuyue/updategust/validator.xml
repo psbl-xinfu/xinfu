@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/wx/util/validation/alert">
+	<parameter id="code" type="varchar" required="true" label="cc_ptrest表主键" />
+	<parameter id="hour" type="varchar" required="true" label="预约时间" />
+	<parameter id="minute" type="varchar" required="false" label="预约时间" />
+	<parameter id="pdate" type="varchar" required="true" label="预约日期" />
+	<parameter id="customercode" type="varchar" required="true" label="客户编号" />
+
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   		on-error-label="该门店正在放假中，不能预约！" id="vc_pt" sql="nodup-date.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="该预约不在门店上班时间内或超过门店上班时间，不能再次预约！" id="vc_pt" sql="nodup-work.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="该课程已过期，不能预约！" id="vc_pt" sql="nodup-ptstatus.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="该课程剩余课时不足，请确认是否有预约中课时！" id="vc_pt" sql="nodup-num.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="预约日期必须大于等于当前日期，预约时间必须当天内" id="vc_pt" sql="nodup-time.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="该时间段已预约或上课中，不能再次预约！" id="vc_pt" sql="nodup-workdate.sql" />
+</validator>

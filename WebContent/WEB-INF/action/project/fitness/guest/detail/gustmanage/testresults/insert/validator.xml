@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="vc_code" type="varchar" required="false" label="vc_code"/>
+    <parameter id="guestid" type="varchar" required="true" label="guestid"/>
+    <parameter id="i_height" type="integer" required="false" label="i_height"/>
+    <parameter id="c_idate" type="date" required="false" label="c_idate"/>
+    <parameter id="i_age" type="integer" required="false" label="i_age"/>
+    <parameter id="i_sex" type="varchar" required="false" label="i_sex"/>
+    <parameter id="c_itime" type="varchar" required="false" label="c_itime"/>
+    <parameter id="f_weight" type="varchar" required="false" label="f_weight"/>
+    <parameter id="f_skeletal_muscle" type="varchar" required="false" label="f_skeletal_muscle"/>
+    <parameter id="f_boday_fat" type="varchar" required="false" label="f_boday_fat"/>
+    <parameter id="f_bmi" type="varchar" required="false" label="f_bmi"/>
+    <parameter id="f_pbf" type="varchar" required="false" label="f_pbf"/>
+    <parameter id="f_whr" type="varchar" required="false" label="f_whr"/>
+    <parameter id="f_kcal" type="varchar" required="false" label="f_kcal"/>
+    <parameter id="i_health" type="integer" required="false" label="i_health"/>
+</validator>
+

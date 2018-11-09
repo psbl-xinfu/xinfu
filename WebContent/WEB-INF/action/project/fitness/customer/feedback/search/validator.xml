@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="fbtype" type="varchar" required="false" label="类型" />
+	<parameter id="thismonth" type="varchar" required="false" label="本月分配" />
+	<parameter id="thismonth_un" type="varchar" required="false" label="本月未处理" />
+	<parameter id="startdate" type="varchar" required="false" label="查询时间" />
+	<parameter id="enddate" type="varchar" required="false" label="查询时间" />
+	
+	<parameter id="f_status" type="varchar" required="false" label="处理状态" />
+	<parameter id="f_isanonymous" type="varchar" required="false" label="筛选匿名" />
+	<parameter id="f_complainttype" type="varchar" required="false" label="筛选投诉类型" />
+	<parameter id="f_complaint_userid" type="varchar" required="false" label="筛选投诉员工" />
+	<parameter id="f_complaint_skill" type="varchar" required="false" label="筛选投诉岗位" />
+	<parameter id="f_complaint_item" type="varchar" required="false" label="筛选投诉项目" />
+	<parameter id="f_complaint_envir" type="varchar" required="false" label="筛选投诉环境" />
+	<parameter id="f_evalstar" type="varchar" required="false" label="筛选评价" />
+	
+</validator>

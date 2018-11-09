@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="customercode" type="varchar" required="false" label="客户code" maxlen="200" />
+    <parameter id="cust_type" type="varchar" required="true" label="资源/会员(0资源1会员)" maxlen="64" />
+    <parameter id="guestcode" type="varchar" required="false" label="资源编号" maxlen="64" />
+     
+    <parameter id="specialtype" type="varchar" required="true" label="0到访未成交、1过期未续费、2私教预约未成功" maxlen="64" />
+</validator>

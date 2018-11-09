@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/jscolor/jscolor.js"></script>
+<style type="text/css">
+#left div{
+	float:left;
+	height: 30px;
+	line-height:30px;
+	margin-left: 5px;
+}
+
+#left .lefts{
+	width: 30%;
+	text-align: right;
+}
+#left .rights{
+	width: 60%;
+	text-align: left;
+}
+#left .all{
+	width: 90%
+}
+</style>
+<title>体验卡设置</title>
+</head>
+<body >
+  	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog  dialogbg">
+				<header class="header-default">
+					<span id="formTitle">体验卡设置</span>
+					<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+				</header>
+				<div class="b-i-main">
+					<form id="messageForm" name="messageForm" method="post">
+						<input type="hidden" id="c_code"  name="c_code">
+					    <input type="hidden" id="c_img"  name="c_img">
+					    <input type="hidden" id="c_covervalue"  name="c_covervalue">
+				
+				
+		<div style="position: relative ;width: 40%;color: white"id="left" >
+					<div class="all" style="text-align: center;">${fld:org_name}</div>
+					<div class="lefts">电话:</div> <div class="rights"  id="l_phone"></div>
+					<div class="lefts">地址:</div> <div class="rights"  id="l_addr"></div>
+					<div class="lefts">体验卡名称:</div> <div class="rights" id="l_cardname"></div>
+					<div class="lefts">体验卡说明:</div> <div class="rights"  id="l_descr"></div>
+					<div class="lefts">有效期:</div> <div class="rights"  id="l_date"></div>
+					
+					<div class="all" style="height: 100px" >
+						<div id="l_img" style="height: 80px;width: 70;margin-left:37%" ></div>
+					</div>
+					<div class="all"  style="text-align: center;">会员姓名</div>
+					<div class="all"  style="text-align: center;">1234567890123456</div>
+					<div class="all"  style="text-align: center;">会员出示此码，即可获得体验服务</div>
+					<div class="lefts" style="height: 200px">使用说明:</div> <div class="rights"style="height: 200px"  id="l_usedescr"></div>
+			</div>
+					
+				<nav>
+						<li>
+							<label for="">俱乐部名称</label>
+							<input type="text"  id="c_name" name="c_name" value="${fld:org_name}"  preserve="true"  readonly="readonly"/>
+						</li>
+						
+						<li>
+							<label for="">卡片封面</label>
+							<input type="radio" name="c_covertype" checked="checked" value="0" />
+							<label for="">背景色</label>
+							<input type="text" class="color"   readonly="readonly" id="color" />		
+						</li>
+						
+						<li>
+						<label for=""></label>
+						<input type="radio"  class="form-control" name="c_covertype" checked="checked" value="1" />
+						<button type="button" id="img_btn" >上传图片</button>	
+						</li>
+						
+						<div id="img_div"  >
+							<label for=""></label>
+							<div   id="img" >
+								
+							</div>
+						</div>
+					
+						<li>
+							<label for="">体验卡名称</label>
+								<input type="text"  id="c_cardname" name="c_cardname" />
+<!-- 							<input type="text"  id="c_cardname" name="c_cardname" value="${fld:org_name}"  preserve="true"  readonly="readonly"/>
+ -->						</li>
+						
+						<li>
+							<label for="">体验说明</label>
+							<input type="text"  id="c_descr" name="c_descr" value="" maxlength="80"/>
+						</li>				
+						
+						<li>
+							<label for="">客服电话</label>
+							<input type="text"  id="c_contact_phone" name="c_contact_phone" value="" maxlength="80"/>
+						</li>						
+						
+						<li>
+							<label for="">俱乐部地址</label>
+							<input type="text"  id="c_address" name="c_address" value="" maxlength="80"/>
+						</li>		
+										
+						<li >
+							<label for="">体验卡类型</label>
+								时效<input type="radio"  name="c_expertype" checked="checked" value="0" />
+		 				</li>		
+		 				
+		 				<li>
+		 					记次<input type="radio"  name="c_expertype" value="1" />			
+		 				</li>
+		 				
+		 				<li>
+		 					<label for=""></label>
+		 					私教免费课<input type="radio" name="c_expertype" value="2" />		
+		 				</li>
+		 				
+		 				
+						<li>
+							<label for="">使用限制</label>
+							<input type="text"  id="c_experlimit" name="c_experlimit" value="" maxlength="80"/>
+							<span id="today">天</span>
+						</li>			 				
+		 				
+		 				
+						<li>
+							<label for="">有效期</label>
+							长期有效<input type="radio" name="c_validatetype" checked="checked" value="0" />
+						</li>					 				
+		 				
+		 				
+		 				<li>
+							<label for=""></label>
+							活动期间有效<input type="radio" name="c_validatetype" checked="checked" value="0" />
+						</li>	
+		 				
+		 				
+						<li>
+							<label for=""></label>
+							指定时间有效<input type="radio" class="form-control" name="c_validatetype" value="2" />	
+						</li>			 				
+		 				
+		 				<li>
+		 				<label for=""></label>
+		 				<input type="text"  id="c_startdate" name="c_startdate" value="" maxlength="80" placeholder="开始日期"/>
+		 				<input type="text"    id="c_enddate"  name="c_enddate" value="" maxlength="80" placeholder="结束日期"/>
+		 				</li>
+		 				
+						<li>
+							<label for="">是否填写手机号</label>
+							<select id="c_isneddmobile" name="c_isneddmobile"  class="input-default">
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</li>	
+						
+		 				
+						<li>
+							<label for="">使用说明</label>
+							<input type="text"  id="c_useremark" name="c_useremark" value="" maxlength="80"/>
+						</li>						
+								 		
+						<li>
+							<label for="">启用状态</label>
+							<select id="c_status" name="c_status"  class="input-default"  disabled="disabled">
+								<option value="2">未启用</option>
+								<option value="1">启用</option>
+								<option value="0">无效</option>
+							</select>
+						</li>									 		
+						<nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn" class="my-btn-default active" style='width:20%;'>保存</button>
+				</footer>
+			</div>
+		</div> 
+
+
+
+		<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="created" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+		<div class="r-tab-cont " style="height: 700px">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="r-tab-cout-3-t">
+							<div class="r-tab-cout-3-t-t">
+								<nav>
+									<li class="w-200">
+										<input id="s_name" name="s_name" type="text"class="input-default" placeholder="卡名称"/>
+									</li>
+									
+									<li>
+										<div class="my-selected">
+											<select id="s_status" name="s_status"class="normal-select">
+												<option value="">全部状态</option>
+												<option value="0">无效</option>
+												<option value="1">启用</option>
+												<option value="2">未启用</option>
+											</select>
+										</div>
+									</li>
+									<div class="r-c-btnList">
+											<button type="button" class="r-c-3-btn-1" id="search_btn"></button>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" alt="" data-toggle="modal" id="addnew_btn">
+										</div>
+								</nav>
+								
+								
+							</div>
+						
+					<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+									
+								</nav>
+								<nav class="r-c-3-t-b-r">	
+									 <li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/yulan.svg" alt=""id="see_btn">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/kaiqi.svg" title='启用' alt="" id="start_btn">
+									</li>
+							    	 <li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/jinyong.svg" title='禁用' alt="" id="disable_btn">
+									</li>
+									 <li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" alt=""id="edit_btn">
+									</li>
+									<li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" alt=""id="delete_btn">
+									</li>
+								</nav>
+							</div>
+						</div>
+						<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<label class="am-checkbox">
+												<input id="selectAll"  name="datalist"  type="checkbox" value=""  >
+											</label>
+										</th>
+										<th>体验卡名称</th>
+										<th>体验卡类型</th>
+										<th>使用限制</th>
+										<th>有效期</th>
+										<th>卡状态</th>
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+									 <td class="table-checkbox">#application_id#</td> 
+										<td >#name#</td>
+										<td >#cardtype#</td>
+										<td >#experlimit#</td>										
+										<td >#validatetype#</td>										
+										<td >#status#</td>
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	var search=null;
+$(document).ready(function() {
+	selectInit($("#c_isneddmobile,#c_status,#s_status"));
+	$Dialog().date($('#c_startdate'));
+	$Dialog().date($('#c_enddate'),function(){
+		if($("#c_startdate").val()!=''){
+			$('#l_date').text($("#c_startdate").val()+'至'+$("#c_enddate").val());
+		}
+	});
+	$('#img_div').hide();
+	$(".header-close").unbind().on("click",function(){
+		$("#modalAddnew").modal('hide');
+		ccms.util.clearForm('messageForm');
+	});
+	//批量启用
+	$("#start_btn").unbind().on("click",function(){
+		updateStatus(1);
+	});
+	//批量禁用
+	$("#disable_btn").unbind().on("click",function(){
+		updateStatus(2);
+	}); 
+	//给左侧赋值
+	$("#c_contact_phone").unbind().on("blur",function(){
+		$('#l_phone').text($("#c_contact_phone").val());
+	});
+	
+	$("#c_address").unbind().on("blur",function(){
+		$('#l_addr').text($("#c_address").val());
+	});	
+	
+	$("#c_cardname").unbind().on("blur",function(){
+		$('#l_cardname').text($("#c_cardname").val());
+	});	
+	
+	$("#c_descr").unbind().on("blur",function(){
+		$('#l_descr').text($("#c_descr").val());
+	});	
+	
+	$("#c_useremark").unbind().on("blur",function(){
+		$('#l_usedescr').text($("#c_useremark").val());
+	});	
+	
+	
+	$("input[name=c_expertype]:eq(0)").on("ifClicked",function () {     
+		$('#today').text('天');
+	});
+	
+	$("input[name=c_expertype]:eq(1)").on("ifClicked",function () {     
+		$('#today').text('时');
+	});
+	
+	$("input[name=c_expertype]:eq(2)").on("ifClicked",function () {     
+		$('#today').text('节');
+	});
+	
+	//图片上传
+	$("#img_btn").unbind().on("click",function(){
+		$('input[name=c_covertype]:eq(1)').iCheck('check');
+		ccms.dialog.open({url : '${def:context}/action/project/fitness/attachment/crud?pk_value=&table_code=cc_expercard', width:'750',height:'400'});
+	});
+	
+	var obj = $Crud({
+		formId:"messageForm",
+		button:"save_btn",
+		bpkField:"c_code",
+		insertBack:function(){
+			search.searchData();
+		},
+		updateBack:function(){
+			search.searchData();
+		},
+		deleteBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			$("#formTitle").html("新增");
+			$(".color").removeAttr("style"); 
+			$('#foot').show();
+			clearnForm();
+			
+		},
+		editBack:function(){
+			$("#formTitle").html("修改");
+		},
+		validate:function(){
+			if($("input[name=c_covertype]:checked").val()==1){
+				$('#c_covervalue').val($('#c_img').val());
+			}else{
+				$('#c_covervalue').val($('#color').val());
+			}
+			var flag=$("#messageForm").validate({
+		});
+			return flag;
+		}
+	}).init();
+	
+	
+	this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+			$("table").css("table-layout","auto");
+	},success:function(){
+		ccms.util.renderCheckbox("datalist");
+		//全选   取消全选
+	    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('check');  //
+	    }).on("ifUnchecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('uncheck');  //
+	    });
+		
+		$("#edit_btn").unbind().on("click", function(){
+			var obthis = getCheckboxValue("datalist");
+			var len=$('input[name=datalist]:checked').length
+			if(obthis!=""&&len==1){
+				ccms.util.clearForm('messageForm');
+				clearnForm();
+				$('#foot').show();
+				obj.edit({id:obthis});
+			}else{
+				alert("请选择一个活动卡！")
+			}
+		});	
+		
+		$("#see_btn").unbind().on("click", function(){
+			var obthis = getCheckboxValue("datalist");
+			var len=$('input[name=datalist]:checked').length
+			if(obthis!=""&&len==1){
+				ccms.util.clearForm('messageForm');
+				clearnForm();
+				$('#foot').hide();
+				obj.edit({id:obthis});
+			}else{
+				alert("请选择一个活动卡！")
+			}
+		});	
+		
+		$("#delete_btn").unbind().on("click", function(){
+			var obthis = getCheckboxValue("datalist");
+			if(obthis!=""){
+				$Dialog().confirm("确定要删除吗？",function(){
+					obj.del({id:obthis});
+				});
+			}else{
+				alert("请选择活动卡！")
+			}
+		});
+}}).initSearchBtn().searchData(1);
+})
+
+function clearnForm(){
+	$('#img_div').hide();
+	$('#img').html('');
+	$('#l_img').html('');
+	$('#l_phone').text('');
+	$('#l_addr').text('');
+	$('#l_cardname').text('');
+	$('#l_descr').text('');
+	$('#l_date').text('');
+	$('#l_usedescr').text('');
+}
+
+ function	updateStatus(num){
+	var obthis = getCheckboxValue("datalist");
+	if(obthis!= ""){
+		$Dialog().confirm("确定要进行此操作吗?", function(){
+			var url = "${def:context}${def:actionroot}/updatestatus?id="+obthis+"&c_status="+num;
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+					alert("操作成功！");
+					search.searchData(1);
+				}
+			});
+		});
+	}else{
+		alert("请选活动卡！")
+	}
+} 
+ 
+function uploadOk(id){
+	$('#img_div').show();
+	$('#img').html(
+			'<img src="'+contextPath+'/action/ccms/attachment/download?id='+id+'&type=1&t='+new Date().getTime()+'" height="250" width="98%">'
+			)
+	$('#l_img').html(
+		'<img src="'+contextPath+'/action/ccms/attachment/download?id='+id+'&type=1&t='+new Date().getTime()+'" height="80" width="100">'
+		)
+	$('#c_img').val(id);
+}
+</script>
+</body>
+</html>

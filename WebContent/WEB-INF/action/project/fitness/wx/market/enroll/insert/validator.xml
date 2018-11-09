@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	 <parameter id="cusstname" type="varchar" required="true" label="cusstname" maxlen="32" />
+    <parameter id="mobile" type="varchar" required="true" label="mobile" maxlen="32" />
+    <parameter id="enrollname" type="varchar" required="true" label="enrollname" maxlen="32" />
+    <parameter id="descr" type="varchar" required="true" label="descr" maxlen="32" />
+</validator>
+

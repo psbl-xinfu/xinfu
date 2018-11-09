@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<head>
+	<title>客户列表</title>
+	<meta name="viewport" content="width=320, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<!-- head 中 -->
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/jquery-weui_custom.min.css">
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/weui.min.css">
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/menu.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/add.css" />
+    
+</head>
+<body >    
+
+<header class="gg-menu-top">
+	<div class="menu-search">
+		<input type="text" id="search" name="search" placeholder="输入客户姓名/电话搜索">
+		<span class="icon-search"></span>
+	</div>
+	<span class="icon-filter js-filter-btn"></span>
+</header>
+
+
+<div class="gg-menu-bt" id="guestinfos"  >
+</div>
+
+
+${inc:/action/project/fitness/guestget/end}
+
+<!-- 遮罩 -->
+<div class="gg-mask"></div>
+<!-- 筛选窗 -->
+<div class="gg-filter-dlg">
+	<span class="icon-close filter-dlg-close"></span>
+	<form role="form" method="post" id="searchForm" name="searchForm">
+		<input type="hidden" name="usertype" value="${fld:usertype}">
+		<input type="hidden" name="name" id="name">
+		<input type="hidden" name="team_id" id="team_id">
+		<input type="hidden" name="intentions" id="intentions">
+		<input type="hidden" name="sexs" id="sexs">
+		<input type="hidden" name="ages" id="ages">
+		<input type="hidden" name="communications" id="communications">
+		<input type="hidden" name="userlogin" id="userlogin">
+		<h1>筛选条件</h1>
+		<h2>资源收集日期</h2>
+		<div class="calendar-wrap">
+			<div class="calendar-cell">
+				<span class="icon-date"></span>
+				<input class="calendar-input" id="startdate" name="startdate" type="text" value="">
+			</div>
+			至
+			<div class="calendar-cell">
+			<span class="icon-date"></span>
+			<input class="calendar-input" id="enddate" name="enddate" type="text" value="${def:date}">
+		</div>
+		</div>
+
+		<i class="hr"></i>
+		<h2>意向强度</h2>
+
+		<div class="form-checkbox">
+	        <label for="strong">
+	            <input type="checkbox" name="intention" value="1" id="strong" class="checkbox-tag" >
+	            <span class="checkbox-checked">高关注</span>
+	        </label>
+	        <label for="general"><input type="checkbox" name="intention" value="2" id="general" class="checkbox-tag">
+	            <span class="checkbox-checked">普通</span>
+	        </label>
+	        <label for="weak"><input type="checkbox" name="intention" value="3" id="weak" class="checkbox-tag">
+	            <span class="checkbox-checked">不关注</span>
+	        </label>
+		</div>
+		<i class="hr"></i>
+		<h2>性别</h2>
+
+		<div class="form-checkbox">
+	        <label for="man">
+	            <input type="checkbox" name="sex" value="1" id="man" class="checkbox-tag" >
+	            <span class="checkbox-checked">男</span>
+	        </label>
+	        <label for="woman"><input type="checkbox" name="sex" value="0" id="woman" class="checkbox-tag">
+	            <span class="checkbox-checked">女</span>
+	        </label>
+		</div>
+
+		<i class="hr"></i>
+		<h2>年龄区间</h2>
+		<div class="form-checkbox" style="text-align: left;">
+        	<age-rows>
+		        <label>
+		            <input type="checkbox" name="age" value="${fld:domain_value}" class="checkbox-tag" >
+		            <span class="checkbox-checked">${fld:domain_text_cn}</span>
+		        </label>
+            </age-rows>
+		</div>
+
+		<i class="hr"></i>
+		<h2>沟通情况</h2>
+		<div class="form-checkbox">
+        	<commstage-rows>
+		        <label>
+		            <input type="checkbox" name="communication" value="${fld:domain_value}" class="checkbox-tag" >
+		            <span class="checkbox-checked">${fld:domain_text_cn}</span>
+		        </label>
+	        </commstage-rows>
+		</div>
+		
+		<div id="groupcheckbox" style="display: none;">
+			<i class="hr"></i>
+			<h2>分组</h2>
+			<div class="form-checkbox">
+	        	<team-rows>
+			        <label>
+			            <input type="checkbox" name="team" value="${fld:team_id}" class="checkbox-tag" >
+			            <span class="checkbox-checked">${fld:team_name}</span>
+			        </label>
+		        </team-rows>
+			</div>
+		</div>
+		<div id="groupusercheckbox" style="display: none;">
+			<i class="hr"></i>
+			<h2>组员</h2>
+			<div class="form-checkbox" id="groupuser">
+			</div>
+		</div>
+		
+	    <div class="form-radio" style="display: none;" id="demandcheckbox">
+	        <p class="cb-cell-hd">需求</p>
+	   
+	       <div class="cb-cell-bd" id='demands'>
+                <input type="hidden" name="demand" id="demand">
+	        	<demand-rows>
+		            <label>
+		                <span class="radio-checked  radio_blue"><input type="checkbox" name="demandcb" value="${fld:domain_value}" class="radio-tag">
+		                ${fld:domain_text_cn}</span>
+		            </label>
+		        </demand-rows>
+		    </div> 
+	    </div>
+
+		<div class="reset-btn">重置</div>
+		<div class="sure-btn">确定</div>
+	</form>
+</div>
+
+<!-- body 最后 -->
+<script src="${def:context}/js/project/fitness/guestget/js/util.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/common/jquery-weui.min.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/menu.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	$('.radio_blue').click(function(){
+		$(this).toggleClass("w1");
+	})
+	//1018
+	if("${fld:org_id}"=="1018"){
+		$("#demandcheckbox").show();
+	}
+	//底部选中
+	tabswitch("3");
+	//判断权限 1大队长2组长3组员
+	if("${fld:usertype}"=="1"){
+		$("#groupcheckbox").show();
+	}else if("${fld:usertype}"=="2"){
+		var url="${def:actionroot}/searchuser";
+		ajaxCall(url,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){
+			}
+		});
+	}
+	$("#startdate").val(new Date().format("yyyy-MM-01"));
+	guestsearch();
+	$(".icon-search").click(function(){
+		//头部输入框填充form表单
+		$("#name").val($("#search").val());
+		guestsearch();
+	});
+    // 确定
+    $('.sure-btn').on('click', function(){
+		var obthis = getCheckboxValue("demandcb");
+		$("#demand").val(obthis);
+		$("#intentions").val(getCheckboxValue("intention"));
+		$("#sexs").val(getCheckboxValue("sex"));
+		$("#ages").val(getCheckboxValue("age"));
+		$("#team_id").val(getCheckboxValue("team"));
+		$("#communications").val(getCheckboxValue("communication"));
+		$("#userlogin").val(getCheckboxValue("groupuser"));
+    	$(".gg-filter-dlg,.gg-mask").hide();
+		//头部输入框填充form表单
+		$("#name").val($("#search").val());
+		guestsearch();
+    });
+    
+    $(".reset-btn").click(function(){
+    	$("input[name=demandcb]").attr("checked", false);
+    	$('.radio_blue').removeClass("w1");
+    });
+});
+//查询
+function guestsearch(){
+	var url="${def:actionroot}/searchguestinfo";
+	ajaxCall(url,{
+		method:"post",
+		form:"searchForm",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+</body>
+</html>

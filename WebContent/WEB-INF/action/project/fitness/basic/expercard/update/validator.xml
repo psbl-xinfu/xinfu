@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="c_code" type="varchar" required="true" label="c_code"/>
+    <parameter id="c_cardname" type="varchar" required="true" label="卡名称" maxlen="32" />
+     <parameter id="c_contact_phone" type="varchar" required="true" label="客服电话" maxlen="32" />
+     <parameter id="c_address" type="varchar" required="true" label="俱乐部地址" maxlen="32" />
+     <parameter id="c_expertype" type="integer" required="true" label="卡类型" maxlen="32" />
+     <parameter id="c_experlimit" type="integer" required="true" label="使用限制" maxlen="32" />
+     <parameter id="c_validatetype" type="integer" required="true" label="有效期" maxlen="32" />
+     <parameter id="c_enddate" type="varchar" required="flase" label="开始日" maxlen="32" />
+     <parameter id="c_startdate" type="varchar" required="flase" label="结束日" maxlen="32" />     
+    <parameter id="c_useremark" type="varchar" required="true" label="使用说明" maxlen="8000" />
+      <parameter id="m_code" type="varchar" required="true" label="活动编号" maxlen="32" />
+                 <parameter id="c_name" type="varchar" required="true" label="俱乐部" maxlen="32" />        
+      
+	<!-- 姓名需要验证是否重复 -->
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+			on-error-label="该名已经存在,请重新命名" id="c_cardname" sql="norep.sql" />
+	<!-- 验证活动是否跟卡时间 -->
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+			on-error-label="指定时间不在活动时间范围内，请确认！" id="validatetypethree" sql="norep-expercard.sql" />
+</validator>

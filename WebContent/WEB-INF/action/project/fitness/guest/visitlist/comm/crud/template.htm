@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>沟通记录</title>
+</head>
+<body>
+
+	<div class="panel panel-default col_mainInner" >
+		<div class="panel-body col_main_body">
+			<form   class="form-horizontal" role="form" method="post" id="searchForm">
+			<input name="sort" type="hidden" value="com.created" preserve="true"/>
+			<input name="order" type="hidden" value="desc" preserve="true" /> 
+			<input name="pageNo" type="hidden" value="" preserve="true" /> 
+			<input name="totalPages" type="hidden" value="" preserve="true" />
+			<div class="Visiting">
+				<div class="banner-top ba3">
+					<select class="select2" id="createdby" name="createdby">
+						<option value="">--会籍--</option>
+						<rows-ptdef>
+							<option value="${fld:userlogin}">${fld:name_en}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${fld:name}</option>
+						</rows-ptdef>
+					</select>
+				</div>
+				<div class="banner-top ba2">
+					 <button class="btn btn-info btn-sm" type="button"id="search_btn">查询</button>
+					<button class="btn btn-info btn-sm" type="button" id="search_reset_btn">清空</button>
+				</div>
+			</div>
+			</form>
+		
+			<table class="table table-bordered"  style="margin-top: 55px;">
+				<thead>
+					<tr>
+						<th class="sortable" code="cust_type" nowrap>客户类型</th>
+					    <th class="sortable" code="name" nowrap>客户名称</th>
+					    <th class="sortable" code="commtarget" nowrap>沟通目标</th>
+					     <th class="sortable" code="commresult" nowrap>沟通结果</th>
+					    <th class="sortable" code="nexttime" nowrap>下次通话/预约到店时间</th>
+					    <th class="sortable" code="reason" nowrap>未成交/免打扰原因</th>
+					    <th class="sortable" code="remark" nowrap>通话备注</th>
+					    <th class="sortable" code="createdby" nowrap>会籍</th>
+					    <th class="sortable" code="created" nowrap>操作时间</th>
+					</tr>
+				</thead>
+				<tbody id="datagridTemplate" style="display: none">
+					<tr id="list">
+						<td class="text-center" nowrap>#cust_type#</td>
+		                <td class="text-center" nowrap>#name#</td>
+		                <td class="text-center" nowrap>#commtarget#</td>
+		                <td class="text-center" nowrap>#commresult#</td>
+		                <td class="text-center" nowrap>#nexttime#</td>
+		                <td class="text-center" nowrap>#reason#</td>
+		                <td class="text-center" nowrap>#remark#</td>
+		                <td class="text-center" nowrap>#createdby#</td>
+		                <td class="text-center" nowrap>#created#</td>
+					</tr>
+				</tbody>
+				<tbody id="datagrid">
+				</tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	searchSelectInit($("#createdby"));
+	$(".select2").select2({  
+	    width: '100%' 
+	}); 
+	var search=null;
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+	}}).initSearchBtn().searchData(1);
+});
+</script>
+</body>
+</html>

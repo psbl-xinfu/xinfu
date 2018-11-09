@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="startdate" type="varchar" required="true" label="当前周开始时间" />
+	<parameter id="enddate" type="varchar" required="true" label="当前周结束时间" />
+
+ </validator>

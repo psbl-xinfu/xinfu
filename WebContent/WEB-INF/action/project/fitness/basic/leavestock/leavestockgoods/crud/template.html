@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>商品付款</title>
+<link href="${def:context}/js/project/fitness/css/contract1.css" rel="stylesheet">
+<style type="text/css">
+.bg{
+background: rgba(42, 48, 56, -1.2) !important
+}
+</style>
+</head>
+    <body style="font-size: 14px">
+	<form id="goodsForm" name="goodsForm" class="form-horizontal dialogbg" role="form" method="post" style="height: 600px;">
+		<header class="header-default">
+			<span>商品付款</span>
+		</header>
+      	<!-- 商品销售 -->
+				<div class="am-tabs r-tab-container goodsSale">
+					<div class="sec-1">
+						<label for="id">编号：</label>
+						<input type="text" name="leave_stockid" readonly="readonly" id="leave_stockid" value="${fld:tuid}" title="编号" placeholder="编号" />
+						<input type="hidden" name="tuid" id="tuid" value="${fld:tuid}" />
+						<label for="total">合计：</label>
+						<input type="hidden" id="ystotal" name="ystotal" value="${fld:normalmoney}" />
+						<input type="text" id="total" name="total" class="total" readonly="readonly" value="${fld:factmoney}" title="合计" placeholder="合计" />
+						<label for="id">状态：</label>
+						<label class="status">未支付</label>
+						<span class="fr sec-btn btn-save" id="save_btn" title="付款" style="display: none;    width: 45px;"></span>
+					</div>
+					<div class="sec-2">
+						<div class="sec-bottom r-tab-cout-3-b">
+							<table>
+								<thead>
+									<tr>
+										<th>品名</th>
+										<th>规格</th>
+										<th>单位</th>
+										<th>单价</th>
+										<th>数量</th>
+										<th>实收金额</th>
+									</tr>
+								</thead>
+								<tbody id="goodslist">
+									<leave_stock_goods-rows>
+										<tr>
+											<td>${fld:goods_name}</td>
+											<td>${fld:standard}</td>
+											<td>${fld:unit}</td>
+											<td>${fld:price}</td>
+											<td>${fld:amount}</td>
+											<td>${fld:factmoney}</td>
+										</tr>
+									</leave_stock_goods-rows>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="sec-3">
+						<div class="sec-3-left fl" style="height: 263px"><div class="sec-3-left-title">			
+								<label class="am-checkbox">
+									会员信息
+								</label>
+							</div>
+							<div class="form-control bg" style="border: none;">
+								<div class="cont-div">
+									<label class="cont-label">卡号：</label>
+									<input type="text" id="cardcode" name="cardcode" readonly="readonly" value="${fld:cardcode}" title="卡号" placeholder="卡号">
+								</div>
+								<div class="cont-div">
+									<label class="cont-label">手机号：</label>
+									<input type="text" id="mobile" title="手机号" placeholder="现金储值" value="${fld:mobile}" readonly="readonly">
+									<input type="hidden" id="custcode" name="custcode" value="${fld:custcode}">
+								</div>
+								<div class="cont-div">
+									<label class="cont-label">姓名：</label>
+									<input type="text" id="custname" title="姓名" placeholder="姓名" value="${fld:custname}" readonly="readonly">
+								</div>
+							</div>
+						</div>
+						<div class="sec-3-right fl">
+							<label class="sec-3-right-title">付款方式</label>
+							<div class="sec-3-right-con">
+								<div class="top">
+									<label class="am-checkbox">
+										<input type="radio" name="othertype" value="2" checked="checked" style="display: none;">储值卡支付
+									</label>
+									<input type="radio" name="othermoney" value="1" checked="checked" style="display: none;">现金储值
+									<input id="moneycash" name="moneycash" value="${fld:moneycash}" type="text" title="现金储值" placeholder="现金储值" readonly="readonly">
+									<input type="radio" name="othermoney" value="2" style="display: none;">运动基金
+									<input id="moneygift" name="moneygift" type="text" value="${fld:moneygift}" title="运动基金" placeholder="运动基金" readonly="readonly">
+								</div>
+								<div class="bottom  ">
+									<input type="hidden" name="pay_detail" id="pay_detail">
+									<label class="am-checkbox">
+										<input type="radio" name="othertype" value="1" style="display: none;">其他支付方式
+									</label>
+								
+									<div class="my-selected" style="margin-top: 5px">
+										<select placeholder='请选择支付方式' id="moneytype" name="moneytype" style="display: none;">
+											<option value="">支付方式</option>
+											<OtherPayWay-rows>
+												<option value="${fld:cnfg_id}">${fld:content}</option>
+											</OtherPayWay-rows>
+										</select>
+									</div>
+									
+									<div class="form-control bg" style="width:300px ;border: none;">
+										<div class="cont-div" style="width:1000px ;">
+											<label class="cont-label" style="width: 50px;float: left;margin-top: 7px">金额：</label>
+											<input type="text" id="money" name="money" title="金额" placeholder="金额" style="margin-top: -3px;width: 15%;float: left;margin-left: -0px"/>
+										</div>
+									</div>
+										
+									<span class="btn-add" id='addmoney' style="position:absolute ;margin-left: 10px;margin-top: -20px"></span>
+									<div class="bottom-con" id="paymoney" style="height: 55px">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="sec-4">
+						<label>操作员：</label>
+						<input type="text" value="${fld:createdby}" readonly="readonly" style="width: 100px;">
+						<label>操作日期：</label>
+						<input type="text" value="${fld:created}" readonly="readonly" style="width: 100px;">
+						<label>收款人员：</label>
+						<input type="text" value="${fld:staff_name}" readonly="readonly" style="width: 100px;">
+						<label>收款人日期：</label>
+						<input type="text" value="${def:date}" readonly="readonly" style="width: 100px;">
+					</div>
+				</div>
+     </form>
+    </body>
+<script type="text/javascript">
+$(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#save_btn").show();
+	}
+	searchSelectInit($("#moneytype"));
+	ccms.util.renderRadio("othertype");
+	ccms.util.renderRadio("othermoney");
+
+	//付款方式切换
+	$("input[name=othertype]").unbind().on("ifClicked",function(){  
+		 if($(this).val()=="1"){
+			 $("input[name=othermoney]").iCheck('disable');
+		 }else if($(this).val()=="2"){
+			 $("#paymoney").html("");
+			 $("input[name=othermoney]").iCheck('enable');
+		 }
+	});
+
+   $("#addmoney").click(function(){
+	   	var moneytype = $("#moneytype").val();
+	   	var moneytypetext = $("#moneytype option:selected").text();
+	   	var money = $("#money").val();
+	   	if(moneytype==""){
+	   		ccms.dialog.notice("请选择支付方式！", 2000);
+	   	}else if(money==""){
+	   		ccms.dialog.notice("请输入金额！", 2000);
+	   	}else{
+	   		var count = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				   if($(item).attr("code")==moneytype)count++;
+			});
+			if(count==0){
+				$("#paymoney").append("<div class='num'>"+moneytypetext+"："+money+"元<input type='hidden' value='"+money
+						+"' code='"+moneytype+"'  name='paytypemoney'/><span class='btn-remove' onclick=delhour(this)></span></div>");
+				$("#moneytype,#money").val("");
+				$("#moneytype").selectpicker("refresh");
+				$("#moneytype").selectpicker("render");
+			}else
+				ccms.dialog.notice(moneytypetext+"已存在！", 2000);
+	   	}
+  });
+	//购买
+	$("#save_btn").click(function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		if(getCheckboxValue("othertype")=="1"){
+		   var moneydetail = "";
+			//获取所有支付类型option
+			$("#moneytype option").each(function(){  
+				if($(this).val()!=""){
+					moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+				}
+				moneydetail = moneydetail.replace("undefined", "0");
+			});
+			//明细
+			$("#pay_detail").val(moneydetail);
+			//获取所有退费金额
+			var paymoney = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				paymoney+=Number(item.value);
+			});
+			if(Number($("#total").val())!=paymoney){
+				ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
+				return false;
+			}
+			payment();
+		}else{
+			payment();
+		}
+	});
+
+	$("#money").blur(function(){
+		var money = $(this).val();
+		if(isNaN(money)){
+			money = 0;
+		}
+		money = Number(money).toFixed(2);
+		$(this).val(money <0 ? 0 : money);
+	});
+});
+
+function payment(){
+	var url = "${def:context}${def:actionroot}/payment";
+	ajaxCall(url,{
+	   	method: "post",
+	   	form:"goodsForm",
+	   	progress: true,
+	   	dataType: "script",
+	   	success: function() {
+		}
+	});
+}
+
+</script>
+</html>

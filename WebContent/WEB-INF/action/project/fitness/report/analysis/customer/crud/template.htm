@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<title>会员分析</title>
+</head>
+<body>
+	<div class="am-tabs-bd r-tab-cont">
+		<div class="bb-tab-cout-1 am-tab-panel am-in am-active am-fade three-none">
+			
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<button id="searchAll" class="freshen">刷新</button>
+					</nav>
+				</div>
+			</div>
+			
+			<div class="bb-tab-cout-1-bottom">
+				<!-- 会籍漏斗 -->
+				<div class="addTop full-div" code="funnelgroup" data-area="mc">
+					<header>
+						<span>会籍漏斗</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" id="mcfdate" name="mcfdate" value="" data-name="fdate" data-area="mc" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" id="mctdate" name="mctdate" value="" data-name="tdate" data-area="mc" class="input-default" /></li>
+						</div>
+					</nav>
+					<div><p id="mcdaterangespan"></p></div>
+					<div class="other-full">
+						<div class="other-half" id="mcFunnelDiv" style="height:260px;"></div>
+						<div class="other-half" id="mcTrendDiv" style="height:260px;"></div>
+					</div>
+				</div>
+				
+				<!-- 私教漏斗 -->
+				<div class="addTop full-div" code="funnelgroup" data-area="pt">
+					<header>
+						<span>私教漏斗</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" id="ptfdate" name="ptfdate" value="" data-name="fdate" data-area="pt" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" id="pttdate" name="pttdate" value="" data-name="tdate" data-area="pt" class="input-default" /></li>
+						</div>
+					</nav>
+					<div><p id="ptdaterangespan"></p></div>
+					<div class="other-full">
+						<div class="other-half" id="ptFunnelDiv" style="height:260px;"></div>
+						<div class="other-half" id="ptTrendDiv" style="height:260px;"></div>
+					</div>
+				</div>
+				
+				<!-- 会籍分析 -->
+				<div class="addTop" code="chartsgroup" data-area="mcstaff">
+					<header>
+						<span>会籍分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="mcstaff" id="mcstafffdate" name="mcstafffdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="mcstaff" id="mcstafftdate" name="mcstafftdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="mcstaff" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="mcstaff" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="mcstaffdaterangespan" class="ftdate"></p></div>
+					<div id="mcstaffDiv" class="other-full"></div>
+					<div id="mcstaffDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 会员剩余有效期分析 -->
+				<div class="addTop" code="chartsgroup" data-area="cust">
+					<header>
+						<span>会员剩余有效期分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group"></div>
+						<li>
+							<button data-area="cust" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="cust" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="custdaterangespan" class="ftdate"></p></div>
+					<div id="custDiv" class="other-full"></div>
+					<div id="custDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 获客渠道分析 -->
+				<div class="addTop" code="chartsgroup" data-area="guesttype">
+					<header>
+						<span>获客渠道分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="guesttype" id="guesttypefdate" name="guesttypefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="guesttype" id="guesttypetdate" name="guesttypetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="guesttype" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="guesttype" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="guesttypedaterangespan" class="ftdate"></p></div>
+					<div id="guesttypeDiv" class="other-full"></div>
+					<div id="guesttypeDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 会员年龄分析 -->
+				<div class="addTop" code="chartsgroup" data-area="custage">
+					<header>
+						<span>会员年龄分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="custage" id="custagefdate" name="custagefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="custage" id="custagetdate" name="custagetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="custage" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="custage" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="custagedaterangespan" class="ftdate"></p></div>
+					<div id="custageDiv" class="other-full"></div>
+					<div id="custageDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 私教购买分析 -->
+				<div class="addTop" code="chartsgroup" data-area="ptbuy">
+					<header>
+						<span>私教购买分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="ptbuy" id="ptbuyfdate" name="ptbuyfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="ptbuy" id="ptbuytdate" name="ptbuytdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="ptbuy" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="ptbuy" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="ptbuydaterangespan" class="ftdate"></p></div>
+					<div id="ptbuyDiv" class="other-full"></div>
+					<div id="ptbuyDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 会员兴趣爱好分析 -->
+				<div class="addTop" code="chartsgroup" data-area="personalhobbies">
+					<header>
+						<span>会员兴趣爱好分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="personalhobbies" id="personalhobbiesfdate" name="personalhobbiesfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="personalhobbies" id="personalhobbiestdate" name="personalhobbiestdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="personalhobbies" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="personalhobbies" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="personalhobbiesdaterangespan" class="ftdate"></p></div>
+					<div id="personalhobbiesDiv" class="other-full"></div>
+					<div id="personalhobbiesDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 会员婚姻状况分析 -->
+				<div class="addTop" code="chartsgroup" data-area="maritalstatus">
+					<header>
+						<span>会员婚姻状况分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="maritalstatus" id="maritalstatusfdate" name="maritalstatusfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="maritalstatus" id="maritalstatustdate" name="maritalstatustdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="maritalstatus" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="maritalstatus" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="maritalstatusdaterangespan" class="ftdate"></p></div>
+					<div id="maritalstatusDiv" class="other-full"></div>
+					<div id="maritalstatusDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				<!-- 未续费原因-->
+				<div class="addTop" code="chartsgroup" data-area="custreason">
+					<header>
+						<span>未续费原因</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="custreason" id="custreasonfdate" name="custreasonfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="custreason" id="custreasontdate" name="custreasontdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="custreason" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="custreason" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="custreasondaterangespan" class="ftdate"></p></div>
+					<div id="custreasonDiv" class="other-full"></div>
+					<div id="custreasonDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				<!-- 续会量-->
+				<div class="addTop" code="chartsgroup" data-area="custrenewal">
+					<header>
+						<span>续会量</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="custrenewal" id="custrenewalfdate" name="custrenewalfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="custrenewal" id="custrenewaltdate" name="custrenewaltdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="custrenewal" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="custrenewal" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="custrenewaldaterangespan" class="ftdate"></p></div>
+					<div id="custrenewalDiv" class="other-full"></div>
+					<div id="custrenewalDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				<!-- 会员活跃度 -->
+				<div class="addTop" code="chartsgroup" data-area="custactive">
+					<header>
+						<span>会员活跃度</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="custactive" id="custactivefdate" name="custactivefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="custactive" id="custactivetdate" name="custactivetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="custactive" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="custactive" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="custactivedaterangespan" class="ftdate"></p></div>
+					<div id="custactiveDiv" class="other-full"></div>
+					<div id="custactiveDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 私教活跃度 -->
+				<div class="addTop" code="chartsgroup" data-area="ptactive">
+					<header>
+						<span>私教活跃度</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="ptactive" id="ptactivefdate" name="ptactivefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="ptactive" id="ptactivetdate" name="ptactivetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="ptactive" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="ptactive" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="ptactivedaterangespan" class="ftdate"></p></div>
+					<div id="ptactiveDiv" class="other-full"></div>
+					<div id="ptactiveDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var chartsArr = [];
+var mcFunnel = null, mcTrend = null, personalhobbiesendPic = null, maritalstatusendPic = null, ptbuyendPic = null;
+var ptFunnel = null, ptTrend = null, custageendPic = null, guesttypeendPic = null,custendPic = null;
+var mcPic = null, custreasonPic = null, custrenewalPic = null, custactivePic = null, ptactivePic = null;
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	// 循环图表
+	$("div[code=chartsgroup]").each(function(i,ele){
+		var darea = $(this).data("area");
+		$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		$("button[name=changeMagicType][data-area="+darea+"]").attr("data-idx", i);
+		// 视图模式
+		//$("button[name=changeMagicType][data-area="+darea+"].active").removeClass("active");
+		//$("button[name=changeMagicType][data-area="+darea+"][data-type=line]").addClass("active");
+		$("button[name=changeMagicType][data-area="+darea+"]").unbind().on("click",function(){
+			$(this).siblings(".active").removeClass("active");
+			$(this).addClass("active");
+			//changeMagicType($(this).attr("data-idx"), dataArea+"Div", $(this).data("type"));
+		});
+	});
+	// 漏斗图+趋势图
+	$("div[code=funnelgroup]").each(function(i,ele){
+		var darea = $(this).data("area");
+		// 初始化筛选条件
+		$("#"+darea+"fdate").val(new Date().format("yyyy-MM-01"));
+		$("#"+darea+"tdate").val(new Date().format("yyyy-MM-dd"));
+		$("#"+darea+"daterangespan").html($("#"+darea+"fdate").val() + " ~ " + $("#"+darea+"tdate").val());
+		// 选择区域日期后刷新区域charts
+		ccms.dialog.date($("#"+darea+"fdate,#"+darea+"fdate"), function(){
+			loadFunnel(darea);
+		});
+	});
+	
+	/** 顶部搜索 */
+	$("#searchAll").unbind().on("click",function(){
+		$("#mcfdate,#ptfdate").val($("#fdate").val());
+		$("#pttdate,#mctdate").val($("#tdate").val());
+		$(".ftdate").html($("#fdate").val() + " ~ " + $("#tdate").val());
+
+		$("div[code=chartsgroup]").each(function(i,ele){
+			var darea = $(this).data("area");
+			$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		});
+		$("input[id$=fdate]").not("#fdate").each(function(idx,ele){
+			$(ele).val($("#fdate").val());
+		});
+		$("input[id$=tdate]").not("#tdate").each(function(idx,ele){
+			$(ele).val($("#tdate").val());
+		});
+		$("select[id$=datatype]").not("#datatype").each(function(idx,ele){
+			$(ele).val($("#datatype").val());
+		});
+		// 会籍漏斗+趋势
+		loadFunnel("mc");
+		// 私教漏斗+趋势
+		loadFunnel("pt");
+		// 会籍分析
+		loadMCPie();
+		
+		// 会员剩余有效期分析
+		custenddate();
+
+		// 获客渠道分析
+		guesttype();
+
+		// 会员年龄分析
+		custAge();
+		
+		// 私教购买分析
+		ptbuyend();
+		
+		// 会员兴趣爱好分析
+		personalhobbit();
+		
+		// 会员婚姻状况分析
+		maritalstatusend();
+		
+		//未续费原因
+		custreason();
+		//续会量
+		custrenewal();
+		//会员活跃度
+		custactive();
+		//私教活跃度
+		ptactive();
+	});
+	$("#searchAll").click();
+
+	//饼图、饼图列表切换
+	$(".pielistbtn").unbind().on("click",function(){
+		var name = $(this).attr("data-area");
+		var datatype = $(this).attr("data-type");
+		if(datatype=="pie"){
+			$("#"+name+"Divlist").hide();
+			$("#"+name+"Div").show();
+			$("[data-area="+name+"][data-type=list]").removeClass("active");
+			$("[data-area="+name+"][data-type=pie]").addClass("active");
+		}else if(datatype=="list"){
+			$("#"+name+"Divlist").show();
+			$("#"+name+"Div").hide();
+			$("[data-area="+name+"][data-type=pie]").removeClass("active");
+			$("[data-area="+name+"][data-type=list]").addClass("active");
+		}
+	})
+
+	/** 各图表区域日期变更事件 */
+	$("input[data-name=fdate],input[data-name=tdate]").each(function(idx,ele){
+		ccms.dialog.date($(ele), function(){
+			var dataarea = $(ele).attr("data-area");
+			refreshSingleCharts(dataarea);
+		});
+	});
+});
+//年龄分析
+function custAge(){
+	custageendPic = new pieCharts("custageDiv");
+	custageendPic.setConfig({isLegendShow: true, titlename: "会员年龄"});
+	getAjaxCall("${def:actionroot}/loaddata/custage?fdate="+$("#custagefdate").val()+"&tdate="+$("#custagetdate").val(), false, function(){
+	});
+}
+//获客渠道
+function guesttype(){
+	guesttypeendPic = new pieMultipleCharts("guesttypeDiv");
+	getAjaxCall("${def:actionroot}/loaddata/guesttype?fdate="+$("#guesttypefdate").val()+"&tdate="+$("#guesttypetdate").val(), false, function(){
+	});
+}
+//会员兴趣爱好
+function personalhobbit(){
+	personalhobbiesendPic = new pieCharts("personalhobbiesDiv");
+	personalhobbiesendPic.setConfig({isLegendShow: true, titlename: "会员兴趣爱好"});
+	getAjaxCall("${def:actionroot}/loaddata/personalhobbit?fdate="+$("#personalhobbiesfdate").val()+"&tdate="+$("#personalhobbiestdate").val(), false, function(){
+	});
+}
+//婚姻状况
+function maritalstatusend(){
+	maritalstatusendPic = new pieCharts("maritalstatusDiv");
+	maritalstatusendPic.setConfig({isLegendShow: true, titlename: "会员婚姻状况"});
+	getAjaxCall("${def:actionroot}/loaddata/maritalstatusend?fdate="+$("#maritalstatusfdate").val()+"&tdate="+$("#maritalstatustdate").val(), false, function(){
+	});
+}
+//未续费原因
+function custreason(){
+	custreasonPic = new pieCharts("custreasonDiv");
+	custreasonPic.setConfig({isLegendShow: true, titlename: "未续费原因"});
+	getAjaxCall("${def:actionroot}/loaddata/custreason?fdate="+$("#custreasonfdate").val()+"&tdate="+$("#custreasontdate").val(), false, function(){
+	});
+}
+// 会员剩余有效期分析
+function custenddate(){
+	custendPic = new pieCharts("custDiv");
+	custendPic.setConfig({isLegendShow: true, titlename: "会员剩余有效期"});
+	getAjaxCall("${def:actionroot}/loaddata/custenddate?fdate="+$("#fdate").val()+"&tdate="+$("#tdate").val(), false, function(){
+	});
+}
+// 私教购买分析
+function ptbuyend(){
+	ptbuyendPic = new pieCharts("ptbuyDiv");
+	ptbuyendPic.setConfig({isLegendShow: true, titlename: "私教购买"});
+	getAjaxCall("${def:actionroot}/loaddata/ptbuyend?fdate="+$("#ptbuyfdate").val()+"&tdate="+$("#ptbuytdate").val(), false, function(){
+	});
+}
+
+// 漏斗+趋势
+function loadFunnel(type){
+	var titlename = ( "pt" == type ? "私教漏斗图" : "会籍漏斗图" );
+	var funnelObj = null, trendObj = null;
+	// 漏斗图
+	funnelObj = new funnelCharts(type+"FunnelDiv");
+	funnelObj.setConfig({title: titlename, isTitleShow: false, isLegendShow: false});
+	// 趋势图
+	trendObj = new lineCharts(type+"TrendDiv");
+	trendObj.setConfig({isLegendShow: true, boundaryGap: false});
+	if( "pt" == type ){
+		ptFunnel = funnelObj;
+		ptTrend = trendObj;
+	}else{
+		mcFunnel = funnelObj;
+		mcTrend = trendObj;
+	}
+	var fdate = $("#"+type+"fdate").val();
+	var tdate = $("#"+type+"tdate").val();
+	var uri = "${def:actionroot}/loaddata/query"+type+"?fdate="+fdate+"&tdate="+tdate;
+	getAjaxCall(uri, false, function(){
+		$("#"+type+"daterangespan").html(fdate + " ~ " + tdate);
+	});
+}
+function loadMCPie(){
+	// 会籍分析
+	mcPic = new pieMultipleCharts("mcstaffDiv");
+	mcPic.setConfig({isLegendShow: true, legendData: ["潜在资源","会员","过期会员","男","女","未知"]});
+	getAjaxCall("${def:actionroot}/loaddata/querycustmc?fdate="+$("#mcstafffdate").val()+"&tdate="+$("#mcstafftdate").val(), false, function(){
+	});
+}
+//续会量
+function custrenewal(){
+	custrenewalPic = new pieCharts("custrenewalDiv");
+	custrenewalPic.setConfig({isLegendShow: true, titlename: "续会量"});
+	getAjaxCall("${def:actionroot}/loaddata/custrenewal?fdate="+$("#custrenewalfdate").val()+"&tdate="+$("#custrenewaltdate").val(), false, function(){
+	});
+}
+//会员活跃度
+function custactive(){
+	custactivePic = new pieCharts("custactiveDiv");
+	custactivePic.setConfig({isLegendShow: true, titlename: "会员活跃度"});
+	getAjaxCall("${def:actionroot}/loaddata/custactive?fdate="+$("#custactivefdate").val()+"&tdate="+$("#custactivetdate").val(), false, function(){
+	});
+}
+//私教活跃度
+function ptactive(){
+	ptactivePic = new pieCharts("ptactiveDiv");
+	ptactivePic.setConfig({isLegendShow: true, titlename: "私教活跃度"});
+	getAjaxCall("${def:actionroot}/loaddata/ptactive?fdate="+$("#ptactivefdate").val()+"&tdate="+$("#ptactivetdate").val(), false, function(){
+	});
+}
+
+/** 刷新单个图表 */
+function refreshSingleCharts(dataarea){
+	if( undefined != dataarea && "" != dataarea ){
+		if( "mcstaff" == dataarea){	/** 会籍分析 */
+			loadMCPie();
+		}else if( "guesttype" == dataarea){	/** 获客渠道 * */
+			guesttype();
+		}else if( "custage" == dataarea){	/** 年龄分析 * */
+			custAge();
+		}else if( "ptbuy" == dataarea){	/** 私教购买分析 * */
+			ptbuyend();
+		}else if( "personalhobbies" == dataarea){	/** 会员兴趣爱好 * */
+			personalhobbit();
+		}else if( "maritalstatus" == dataarea){	/** 婚姻状况  **/
+			maritalstatusend();
+		}else if( "custreason" == dataarea){	/** 未续费原因  **/
+			custreason();
+		}else if( "custrenewal" == dataarea){	/** 续会量  **/
+			custrenewal();
+		}else if( "custactive" == dataarea){	/** 会员活跃度  **/
+			custactive();
+		}else if( "ptactive" == dataarea){	/** 私教活跃度  **/
+			ptactive();
+		}
+		
+		$("#"+dataarea+"daterangespan").html($("#"+dataarea+"fdate").val() + " ~ " + $("#"+dataarea+"tdate").val());
+	}
+}
+</script>
+</body>
+</html>

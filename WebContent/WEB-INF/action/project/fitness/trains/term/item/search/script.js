@@ -1,0 +1,14 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"tuid":"${fld:tuid}"
+		,"item_name":"${fld:item_name}"
+		,"item_score":"${fld:item_score}"
+		,"createdby":"${fld:createdby}"
+		,"created":"${fld:created}"
+		,"updatedby":"${fld:updatedby}"
+		,"updated":"${fld:updated}"
+	},
+	</rows>
+	{}
+]}

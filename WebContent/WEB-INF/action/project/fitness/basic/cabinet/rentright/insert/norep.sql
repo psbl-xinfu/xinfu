@@ -1,0 +1,1 @@
+select 1 from cc_cabinet where cabinetcode=${fld:startcode_r} 

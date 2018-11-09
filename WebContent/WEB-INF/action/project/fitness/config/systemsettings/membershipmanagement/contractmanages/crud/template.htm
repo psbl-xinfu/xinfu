@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>合同管理</title>
+</head>
+<body>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+	<form method="post" name="formEditor" id="formEditor" class="titlecust">
+		<input type="hidden" id="cardrate_id" name="cardrate_id" value="${fld:cardrate_id}" preserve="true"/>
+		<input type="hidden" id="duse_id" name="duse_id" value="${fld:duse_id}" preserve="true"/>
+		<input type="hidden" id="people_id" name="people_id" value="${fld:people_id}" preserve="true"/>
+		<input type="hidden" id="skillscope_id" name="skillscope_id" value="${fld:skillscope_id}" preserve="true"/>
+	  	<div class="xt-1-div m-t-b-10">
+			<label for="ccc" style="color: white;">合同默认入会费用</label>
+	    	<input type="text" id="dues" name="dues" value="${fld:dues}" class = "day input-2"/>
+			<span style="color: white;">元，（系统会有折扣，自动将该费用折算掉）</span>
+		</div>
+	  	<div class="xt-1-div m-t-b-10 hasRadio" style="color: white;">
+			<label for="ccc" style="color: white;">合同显示销售员数量</label>
+		     <input type="radio"  name = "peoplecount" value="1" />1个
+		     <input type="radio"  name = "peoplecount" value="2" />2个
+			<span style="color: white;">（俩个人一起完成该合同，业绩提成一人一半）</span>
+		</div>
+	  	<div class="xt-1-div m-t-b-10">
+			<label for="ccc" style="color: white;">续卡享受折扣</label>
+	     	<input type="text" id="cardrate" name = "cardrate" value="${fld:cardrate}" class = "day input-2"/>
+			<span style="color: white;">%</span>
+		</div>
+	  	<div class="xt-1-div m-t-b-10">
+			<label for="ccc" style="color: white;">未收款合同系统保留时间</label>
+	     	<input type="text" id="contract_value" name = "contract_value" value="${fld:contract_value}" class = "day input-2"/>
+			<span style="color: white;">天</span>
+		</div>
+	  	<div class="xt-1-div m-t-b-10" style="color: white;">
+			<label for="ccc" style="color: white;">可收款岗位</label>
+			<input id="selectAll" name="selectAll" type="checkbox" value="" style="display: none;">全选
+	     	<input type="checkbox" name="skill_scope" value="0" />前台
+	     	<input type="checkbox" name="skill_scope" value="1" />PT
+	     	<input type="checkbox" name="skill_scope" value="2" />MC
+	     	<input type="checkbox" name="skill_scope" value="3" />水吧
+	     	<input type="checkbox" name="skill_scope" value="4" />系统管理员
+	     	<input type="checkbox" name="skill_scope" value="5" />财务
+	     	<input type="checkbox" name="skill_scope" value="6" />人力
+	     	<input type="checkbox" name="skill_scope" value="7" />运营
+	     	<input type="checkbox" name="skill_scope" value="8" />团操教练
+		</div>
+   <div class="banner-top ba1" style="margin-top:15px;">
+		 <button id="edit_btn" type="button"  >确定</button>
+   </div>
+</form></div></div>
+<script language="JavaScript">
+function queryradiodate(){
+	ccms.util.setCheckboxValue('peoplecount',"${fld:peoplecount}","formEditor");
+}
+$(document).ready(function() {
+	ccms.util.renderRadio("peoplecount");
+	ccms.util.renderCheckbox("skill_scope");
+	ccms.util.renderCheckbox("selectAll");
+	queryradiodate();
+
+	//全选   取消全选
+    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+		$('input[name=skill_scope]').iCheck('check');  //
+    }).on("ifUnchecked",function(){    //点击事件未选中
+		$('input[name=skill_scope]').iCheck('uncheck');  //
+    });
+    var skillscope = "${fld:skillscope}".split(",");
+   	for (var i = 0; i < skillscope.length; i++) {
+   		if(skillscope[i]!="")
+   	    	$("input[name=skill_scope][value="+skillscope[i]+"]").iCheck('check');   
+   	}
+
+	$("#edit_btn").click(function updateData(){
+		if(Number($("#dues").val())>=0 ){
+			if(Number($("#cardrate").val())>=0){
+				if(Number($("#contract_value").val())>=0){
+					var contract_value = parseInt($("#contract_value").val());
+					$("#contract_value").val(contract_value);
+					var cardrate = $("#cardrate").val();
+					var cardrate_id = $("#cardrate_id").val();
+					var dues = $("#dues").val();
+					var duse_id = $("#duse_id").val();
+					var peoplecount = ccms.util.getRadioValue("peoplecount", "formEditor");
+					var people_id = $("#people_id").val();
+					
+					var skillscope_id = $("#skillscope_id").val();
+					var skill_scopeval = getCheckboxValue("skill_scope");
+					var uri = "${def:context}${def:actionroot}/update?";
+					//修改参数
+					url(uri+"tuid="+cardrate_id+"&param_text="+cardrate);
+					url(uri+"tuid="+duse_id+"&param_text="+dues);
+					url(uri+"tuid="+people_id+"&param_text="+peoplecount);
+					url(uri+"tuid=${fld:contract_id}&param_text="+contract_value);
+					url(uri+"tuid="+skillscope_id+"&param_text="+skill_scopeval);
+					ccms.dialog.alert("修改成功！");
+				}else{
+					ccms.dialog.notice("未收款合同系统保留时间只能为大于等于0的整数!",2000);
+					return false;
+				}
+			}else{
+				ccms.dialog.notice("享受折扣不能为负数，请输入正确格式!",2000);
+			}
+		}else{
+			ccms.dialog.notice("入会费不能为负数，请输入正确格式！",2000);
+		}
+	})
+	
+	function url(uri){
+		ajaxCall(uri,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	 		}
+	 	});
+	}
+});
+</script>
+</body>
+</html>

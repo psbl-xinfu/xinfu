@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        ${inc:/action/project/fitness/wx/pub}
+        <title>会员详情</title>
+        <link href="${def:context}/js/project/fitness/wx/css/sijiao.css" rel="stylesheet">
+        
+    </head>
+    <body>
+       <op-huiyuanmsg>   
+        <div class="sijiaohuiyuanmsgtop">
+            <div class="list">
+                <img src="${def:context}${fld:headpic}" class="touxiangpic fl">
+                <div class="content fl">
+                       <p class="name">${fld:name}<span>${fld:sex}</span><span id="mobile">${fld:mobile}</span></p>
+                    <p class="time">最近跟进：${fld:lasttime}</p>
+                </div>
+               <a href="tel:${fld:mobile}" > <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"></a>
+                <img src="${def:context}/js/project/fitness/wx/image/xiaoxi.png" class="xiaoxipic fr" id="xiaoxi">
+            </div>
+            <div class="listother">
+                <p class='p1'>关注度</p><p class='p2'>${fld:level}</p>
+            </div>
+            <div class="listother">
+                <p class='p1'>客服</p><p class='p2'>会籍-${fld:salemember}</p>
+            </div>
+            <div class="listother">
+                <p class='p1'>合同有效期</p><p class='p2'>${fld:startdate} ~ ${fld:enddate}</p>
+            </div>
+            <div class="listother">
+                <p class='p1'>客户来源</p><p class='p2'>${fld:type}</p>
+            </div>
+        </div>
+        
+        <input  type="hidden" id="code" value="${fld:code}">
+       </op-huiyuanmsg>
+        <div class="sijiaohuiyuanmsgcenter container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqtc.png" class="centerimg" id="healthy">
+                    <p class="name">新增体测</p>
+                </div>
+             
+                <div class="col-xs-6">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqgj.png" class="centerimg" id="comm">
+                    <p class="name">新增跟进</p>
+                </div>
+             
+                <div class="col-xs-6" id="pt" style="display: none">
+                    <img src="${def:context}/js/project/fitness/wx/image/xunlianjihua.png" class="centerimg"id="xunlian">
+                    <p class="name">训练计划</p>
+                </div>
+                <a href='${def:context}${def:actionroot}/addyuyue/crud?customercode=${fld:customercode}'>
+                    <div class="col-xs-6">
+                        <img src="${def:context}/js/project/fitness/wx/image/xinzengyuyue.png" class="centerimg">
+                        <p class="name">新增预约</p>
+                    </div>
+                </a>
+                <div class="centerone"></div>
+                <div class="centertwo"></div>
+                <div class="centerthree"></div>
+                <div class="centerfour"></div>
+            </div>
+            
+        </div>
+
+        <div class="sijiaohuiyuanmsgbottom container">
+            <div class="row">
+                <div class="col-xs-3" id="card">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbhyk.png" class="bottomimg" >
+                    <p class="name">会员卡</p>
+                </div>
+                <div class="col-xs-3" id="commrecord">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbgj.png" class="bottomimg" >
+                    <p class="name">跟进记录</p>
+                </div>
+                <div class="col-xs-3"  id="tice">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbtc.png" class="bottomimg">
+                    <p class="name">体测记录</p>
+                </div>
+                <div class="col-xs-3" id="xunlianlist">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbxl.png" class="bottomimg">
+                    <p class="name">训练计划</p>
+                </div>
+            </div>
+           <div class="row">
+                <div class="col-xs-3" id="contract">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbht.png" class="bottomimg">
+                    <p class="name">合同记录</p>
+                </div>
+                <div class="col-xs-3" id="rent">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbzg.png" class="bottomimg">
+                    <p class="name">租柜记录</p>
+                </div>
+                <div class="col-xs-3" id="recharge">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbcz.png" class="bottomimg">
+                    <p class="name">充值记录</p>
+                </div>
+                
+                
+                                <div class="col-xs-3" id="sale">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbxf.png" class="bottomimg">
+                    <p class="name">消费记录</p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <script type="text/javascript">
+        $(function(){
+        	homept();
+        	if("${fld:type}"!=""){
+        		$('#pt').show()
+        	}else{
+        		$('#pt').hide();
+        	}
+        	
+        $('#comm').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/pt/mycust/comm/crud?guestcode="
+        		+"&customercode=${fld:customercode}"
+        		+"&preparecode="
+    			+"&cust_type=2";
+        })
+    	
+         $('#healthy').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/pt/mycust/healthy/crud?guestcode="
+        			+"&customercode=${fld:customercode}";
+        })
+        
+        $('#card').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/cardlist/crud?customercode=${fld:customercode}&type=pt";
+        })
+        
+        $('#commrecord').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/followrecord?customercode=${fld:customercode}&type=pt";
+        })
+        
+        $('#contract').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/cust/center/contract/crud?&customercode=${fld:customercode}&type=pt";
+        });    
+        
+		   $('#rent').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rentrecord?customercode=${fld:customercode}&type=pt";
+		  })	
+		  		  
+		   $('#recharge').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rechargerecord?customercode=${fld:customercode}&type=pt";
+		  })			  
+			  
+		   $('#sale').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/salerecord?customercode=${fld:customercode}&type=pt";
+		  })		  
+		  
+			 $('#xiaoxi').on('click',function(){
+			  		location.href="${def:context}/action/project/fitness/wx/mc/personal/message/list?recuser="+$('#code').val();
+			  })	
+			  
+			  $('#tice').on('click',function(){
+			  		location.href="${def:context}/action/project/fitness/wx/cust/center/tice/crud?customercode=${fld:customercode}&type=pt";
+			  })		
+			   $('#xunlian').on('click',function(){
+			  		location.href="${def:context}/action/project/fitness/wx/pt/mycust/xunlian/crud?customercode=${fld:customercode}&type=pt";
+			  })		
+			 
+			  $('#xunlianlist').on('click',function(){
+			  		location.href="${def:context}/action/project/fitness/wx/pt/mycust/record/crud?customercode=${fld:customercode}&type=pt";
+			  })		
+    })
+     </script>
+    </body>
+</html>

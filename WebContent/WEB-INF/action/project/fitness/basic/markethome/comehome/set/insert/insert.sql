@@ -1,0 +1,20 @@
+insert into hr_org_banner
+(
+ tuid,
+ attachid,
+ linkurl,
+ createdby,
+ created,
+ org_id,
+ bannertype
+)
+values 
+(
+	${seq:nextval@seq_hr_org_banner},
+	 ${fld:c_img},
+	  ${fld:c_link},
+	 '${def:user}',
+	{ts'${def:timestamp}'},
+	${def:org},
+	1
+)

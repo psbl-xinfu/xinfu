@@ -1,0 +1,28 @@
+insert into cc_classroom
+(
+	code,
+	classroom_name,
+	area,
+	room_type,
+	limit_num,
+	remark,
+	ispreparedevice,
+	status,
+	createdby,
+	created,
+	org_id
+)
+values
+(
+	${seq:nextval@seq_cc_classroom},
+	${fld:name},
+	${fld:f_area},
+	${fld:vc_type},
+	${fld:i_limit},
+	${fld:vc_remark},
+	${fld:vc_ispreparedevice},
+	${fld:status},
+	'${def:user}',
+	{ts'${def:timestamp}'},
+	${def:org}
+)

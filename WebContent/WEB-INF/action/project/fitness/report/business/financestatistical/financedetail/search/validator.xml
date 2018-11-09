@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="type" type="varchar" required="true" label="收入类型大类"/>
+	<parameter id="item" type="varchar" required="true" label="小类"/>
+	<parameter id="startdate" type="varchar" required="true" label="startdate"/>
+	<parameter id="enddate" type="varchar" required="true" label="enddate"/>
+</validator>

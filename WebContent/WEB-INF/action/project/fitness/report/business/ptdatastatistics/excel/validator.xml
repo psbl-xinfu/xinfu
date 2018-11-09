@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_datemonth" type="varchar" required="false" label="年月" />
+	<parameter id="daochu_pt" type="varchar" required="false" label="私教" />
+</validator>
+

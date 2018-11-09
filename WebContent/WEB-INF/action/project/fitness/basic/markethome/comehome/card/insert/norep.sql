@@ -1,0 +1,1 @@
+select 1 from cc_expercard where name=${fld:c_cardname}

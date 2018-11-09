@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_name" type="varchar" required="false" label="daochu_name" />
+	<parameter id="daochu_skill_name" type="varchar" required="false" label="daochu_skill_name" />
+	<parameter id="daochu_end_date" type="date" required="false" label="daochu_end_date" />
+	<parameter id="daochu_start_date" type="date" required="false" label="daochu_start_date" />
+	<parameter id="daochu_type" type="varchar" required="false" label="daochu_status" />
+	<parameter id="daochu_relatecode" type="varchar" required="false" label="关联合同编号"/>
+	<parameter id="daochu_statusall" type="varchar" required="false" label="状态"/>
+</validator>

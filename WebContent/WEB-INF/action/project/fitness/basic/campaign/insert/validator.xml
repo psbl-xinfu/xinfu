@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="vc_code" type="varchar" required="false" label="vc_code" maxlen="32" />
+    <parameter id="camp_name" type="varchar" required="true" label="camp_name" maxlen="10" />
+    <parameter id="startdate" type="date" required="false" label="startdate"/>
+    <parameter id="enddate" type="date" required="false" label="enddate" maxlen="32" />
+    <parameter id="discount" type="double" required="false" label="discount" maxlen="64" />
+    <parameter id="vc_cardtype" type="varchar" required="false" label="vc_cardtype" maxlen="20" />
+    <parameter id="vc_remark" type="varchar" required="false" label="vc_remark" maxlen="20" />
+<!-- 姓名需要验证是否重复
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="stu_name" sql="norep.sql" />
+ -->
+</validator>

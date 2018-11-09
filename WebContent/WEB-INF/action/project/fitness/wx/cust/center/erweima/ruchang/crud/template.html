@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>扫码入场</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+</head>
+<body>
+	<div class="container smrc">
+		<div class="saoma">
+			<h2 id="name"></h2>
+			<img id="qrcode" />
+			<p>请将二维码置于读码器进行扫描</p>
+			<span id="result">正在等待入场确认</span>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+var qrcodeid = "", qritv;
+$(function(){
+	$('#name').text(decodeURI("${fld:name}"));
+	loadQrcode();
+})
+function loadQrcode(){
+	// 生成二维码
+	getJsonAjaxCall("/action/project/fitness/wx/util/createqrcode?data_type=0&pk_value=${fld:pk_value}", true, function(data){
+		if( data && "" != data.qrcode_uri ){
+			$("#qrcode").attr("src", contextPath + data.qrcode_path);
+			qrcodeid = data.qrcode_id;
+			showQrcodeNotice();
+			qritv = setInterval("showQrcodeNotice()", 1000);
+		}else{
+			$("#qrcode").after("二维码生成失败");
+		}
+	});
+}
+function showQrcodeNotice(){
+	getAjaxCall("/action/project/fitness/wx/cust/center/erweima/ruchang/queryqrcodestatus?qrcodeid="+qrcodeid, false);
+}
+</script>
+</html>

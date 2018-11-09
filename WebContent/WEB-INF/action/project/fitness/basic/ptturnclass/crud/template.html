@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教转课</title>
+<link href="${def:context}/js/project/fitness/css/contract1.css" rel="stylesheet">
+<style type="text/css">
+.bg{
+background: rgba(42, 48, 56, -1.2) !important
+}
+</style>
+</head>
+    <body style="font-size: 14px">
+	<form id="ptrestForm" name="ptrestForm" class="form-horizontal" role="form" method="post">
+		<input type="hidden" id="type" value="1" />
+      	<!-- 私教转课 -->
+				<div class="am-tabs r-tab-container goodsSale">
+					<div class="sec-1">
+						<label for="id">会员编号/姓名/手机号：</label>
+						<input type="text" name="custall" id="custall" title="会员编号/姓名/手机号" placeholder="会员编号/姓名/手机号" style="width: 160px;" />
+						<input type="hidden" name="custcode" id="custcode" />
+						<label for="id">转课给其他会员 ：</label>
+						<input type="text" name="newcustname" id="newcustname" title="会员编号/姓名/手机号" placeholder="会员编号/姓名/手机号" style="width: 160px;" />
+						<input type="hidden" name="newcustcode" id="newcustcode" />
+						<button type="button" id="savebtn">转课</button>
+					</div>
+					<div class="sec-2">
+						<div class="sec-top">
+							<label for="depot">通店：</label>
+							<div class="my-selected" >
+								<select id="org_id" name="org_id" style="display: none;">
+									<org-rows>
+										<option value="${fld:org_id}">${fld:org_name}</option>
+									</org-rows>
+								</select>
+							</div>
+							<label for="depot">转课教练：</label>
+							<div class="my-selected" >
+								<select id="turnclasspt" name="turnclasspt" style="display: none;">
+									<option value="">全部教练</option>
+									<pt-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</pt-rows>
+								</select>
+							</div>
+							<label for="name">转课节数：</label>
+							<input type="text" id="ptclasscount" name="ptclasscount" value="1" title="转课节数" placeholder="转课节数" />
+						</div>
+						<div class="sec-bottom r-tab-cout-3-b">
+							<table>
+								<thead>
+									<tr>
+										<th class="table-checkbox">操作</th>
+										<th>序号</th>
+										<th>私教类型</th>
+										<th>私教课总节数</th>
+										<th>私教课剩余节数</th>
+										<th>应收金额</th>
+										<th>实收金额</th>
+										<th>原单价</th>
+										<th>实收单价</th>
+										<th>提成金额</th>
+										<th>私教</th>
+										<th>结束日期</th>
+										<th>来源</th>
+									</tr>
+								</thead>
+								<tbody id="ptrestlist">
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="sec-4">
+						<label>操作员：</label>
+						<input type="text" value="${fld:staff_name}" readonly="readonly">
+						<label>操作日期：</label>
+						<input type="text" value="${def:date}" readonly="readonly">
+					</div>
+				</div>
+     </form>
+    </body>
+<script type="text/javascript">
+$(function(){
+	//页面点击事件
+	$(document).click(function(){ 
+		$(".error").html("");
+	}); 
+	searchSelectInit($("#turnclasspt,#org_id"));
+	setSelectValue($("#org_id"), "${def:org}");
+	//查询转课人
+	$("#custall").blur(function(){
+		$("#type").val("1");
+		if($(this).val()!=""){
+			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryzkcustlist/crud?pickcustname="
+					+$(this).val()+"&org_id=${def:org}&objid=custcode&objidtwo=custall&random_number="+Math.random()});
+		}else{
+			$("#ptrestlist").html("");
+			$("#custcode").val("");
+		}
+	});
+	//查询要转课人
+	$("#newcustname").blur(function(){
+		$("#type").val("2");
+		if($(this).val()!=""){
+			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryzkcustlist/crud?pickcustname="
+					+$(this).val()+"&org_id="+$("#org_id").val()+"&objid=newcustcode&objidtwo=newcustname&random_number="+Math.random()});
+		}else{
+			$("#newcustcode").val("");
+		}
+	});
+	
+	//转课节数
+	$("#ptclasscount").blur(function(){
+		var ptclasscount = $(this).val();
+		if(isNaN(ptclasscount)||ptclasscount==""){
+			ptclasscount=1;
+		}else{
+			ptclasscount = parseInt(ptclasscount);
+		}
+		$("#ptclasscount").val((ptclasscount <1 ? 1 : ptclasscount));
+	})
+	
+	//转课
+	$("#savebtn").click(function(){
+		if($("#custcode").val()==""){
+			ccms.dialog.notice("请输入会员编号/姓名/手机号！", 2000);
+			return false;
+		}
+		if($("#newcustcode").val()==""){
+			ccms.dialog.notice("请输入转课给其他会员 ！", 2000);
+			return false;
+		}
+		if(getCheckboxValue("ptrestcode")==""){
+			ccms.dialog.notice("请选择私教课 ！", 2000);
+			return false;
+		}
+		if($("#ptclasscount").val()==""){
+			ccms.dialog.notice("请输入转课节数 ！", 2000);
+			return false;
+		}
+		/* if($("#custcode").val()==$("#newcustcode").val()){
+			ccms.dialog.notice("不能转课给自己！", 2000);
+			return false;
+		} */
+		if($("#org_id").val()!="${def:org}"&&$("#turnclasspt").val()==""){
+			ccms.dialog.notice("请选择转课教练！", 2000);
+			return false;
+		}
+		var url = "${def:actionroot}/insert";
+		ajaxCall(url,{
+			method:"post",
+			form:"ptrestForm",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+				ccms.dialog.notice("成功！", 2000, function(){
+					location.href=location.href;
+				});
+			}
+		});
+	});
+	
+	//通店选择查询教练等
+	$("#org_id").change(function(){
+		var url = "${def:actionroot}/queryorgpt?org_id="+$(this).val();
+		ajaxCall(url,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+				$("#newcustcode,#newcustname").val("");
+			}
+		});
+	});
+	
+});
+function pickcustCallback(){
+	if($("#type").val()=="1"){
+		var url = "${def:actionroot}/queryptrest?custcode="+$("#custcode").val();
+		ajaxCall(url,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});
+	}
+}
+</script>
+</html>

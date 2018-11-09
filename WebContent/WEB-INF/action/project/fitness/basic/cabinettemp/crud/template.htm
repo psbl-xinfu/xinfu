@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>手牌管理</title>
+</head>
+<body>
+			<form  role="form" method="post" id="searchForm">
+				<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="inputName">
+										<input type="text" id="vc_name" name="vc_name" placeholder="会员卡号/姓名/手机号" class="input-default"/>							
+					 			 	</li>		
+									<li> 			 	
+									<div class="my-selected">
+										<select id="s_status" name="s_status"  class="normal-select">
+												<option value="">全部状态</option>
+												<option value="0">空闲</option>
+												<option value="1">已占用</option>
+												<option value="2">无效</option>
+												<option value="3">其他</option>
+												<option value="4">正常</option>
+												<option value="5">损坏</option>
+										</select>
+									</div>
+								  </li>		
+								  <div class="r-c-btnList">
+									<button type="button" class="r-c-3-btn-1" id="search" title="查询"></button>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/btn_yijianqingchang.svg" alt="" title="一键清场" data-toggle="modal" id="update">
+								</div>					
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<div class="swgl-w">
+					<div id="left" ></div>
+					<div id="right" ></div>
+			</div>
+
+	<script language="JavaScript">
+$(document).ready(function() {
+		 initleft();
+		 initright();
+		 selectInit($("#s_status"));
+	  $('#search').click(function(){
+		  $('#s_name_r').val($('#vc_name').val());
+		  $('#s_status_r').val($('#s_status').val())
+		  $('#s_groupid_r').val('');
+		  searchRightList();
+	  });
+	  
+	  //一键清场
+	$('#update').click(function(){
+		$Dialog().confirm("确定要清场吗？", function(){
+			var url = "${def:context}${def:actionroot}/updates?"
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+					ccms.dialog.notice("操作成功！", 2000, function(){
+						searchRightList();
+						searchleftList();
+					});
+				}
+		 	})
+		})
+	})
+})
+function initleft(){
+	  $('#left').load("${def:context}/action/project/fitness/basic/cabinettemp/rentleft/crud?ispubload=true");
+}
+function initright(){
+	$('#right').load("${def:context}/action/project/fitness/basic/cabinettemp/rentright/crud?ispubload=true"); 
+}
+</script>
+</body>
+</html>

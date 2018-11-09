@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>训练计划</title>
+	  ${inc:/action/project/fitness/wx/pub}
+	  	    <link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/record1.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/base.css" rel="stylesheet" />
+</head>
+<body>
+	<input type="hidden" id="inaction" name="inaction" value=""/>
+	<input type="hidden" id="ptpreparecode_record" name="record" value="${fld:ptpreparecode_record}"/>
+	
+	<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="custcode" name="custcode" value="${fld:customercode}"/>
+				<input type="hidden" id="traincode" name="traincode" value=""/>
+				<input type="hidden" id="ptpreparecode" name="ptpreparecode" value=""/>
+				<input type="hidden" id="pdcode" name="pdcode" value=""/>
+				<input type="hidden" id="ptid" name="ptid" value="${def:user}"/>
+				
+				<input type="hidden" id="trainingsite1" name="trainingsite1" value=""/>
+				<input type="hidden" id="largecategories1" name="largecategories1" value=""/>
+				<input type="hidden" id="action1" name="action1" value=""/>
+				<input type="hidden" id="details1" name="details1" value=""/>
+				<input type="hidden" id="group" name="group" value=""/>
+				<div id="checkedNodesDiv" style="display: none;"></div>
+	<div class="containt">
+		<div class="con-1">
+			<div class="section">
+				<span class="train-time" style="width: 30%;float: left">预约日期：	</span>
+				<input  style="background-color:transparent;color:white;float: left;width: 50%" class="train-time" type="text" name="datetimepicker"  id="datetimepicker"  placeholder="请选择日期" value=""  >
+				<span class="course">课程：</span>
+				<span class="coach">执行教练：${fld:name}</span>
+				<span class="duration">时长：</span>
+				<button class="btn-begin" type="button">执行</button>
+				<button class="btn-remove" type="button">删除</button>
+			</div>
+		</div>
+		
+		<div class="con-2">
+			<div class="section"><span>热身时间：<input style="text-align: right;width: 190px;height:30px;line-height:30px"   type="text" id="warmup_mins"   name="warmup_mins" value=""><span style="margin-left: 10px">min</span></span></div>
+			<div class="section"><span>有氧时间：<input style="text-align: right;width: 190px;height:30px;line-height:30px"   type="text" id="aerobic_mins"   name="aerobic_mins" value=""><span style="margin-left: 10px">min</span></span></div>
+			<div class="section"><span>跑步里程：<input style="text-align: right;width: 190px;height:30px;line-height:30px"   type="text" id="run_mileage"   name="run_mileage" value=""><span style="margin-left:10px">km</span></span></div>
+		</div>
+		
+		<div id="template">
+		</div>
+	
+	<div class="btn-add" id="btn-addActive">新增动作</div>
+	</div>
+</form>
+
+<div class="dialog disNone"  id="actionDiv">
+		<div class="content">
+			<div class="header clearlr" >
+			</div>
+			<div class="con clearlr">
+				<label class="brief">细节：</label>
+				<label class="group fl">分组：</label>
+				<div class="fl clearlr">
+					<span class="btn-minus fl" id="btn-minus"></span>
+					<input style="text-align: center"  class="group-input fl" type="text" id="group-input"  name="group-input"  value="1">
+					<span class="btn-add fl"id="btn-add"></span>
+				</div>
+			</div>
+			<div class="btn-bottom clearlr">
+				<button class="btn-cancel fl" id="btn-cancel">取消</button>
+				<button class="btn-confirm fl">确定</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="dialog disNone" id="custlist">
+		<div class="content" style="font-size: 16px">
+			<li style="margin-left: 41.5%;font-weight: bold">请选择课程</li>
+			<div id="datas" >
+			</div>
+			<div class="btn-bottom clearlr">
+				<button class="btn-cancel" style="margin-left: 29%" >取消</button>
+			</div>
+		</div>
+	</div>
+	
+	
+		<form id="groupForm" name="groupForm" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="cc_code" name="cc_code" value=""/>
+				<input type="hidden" id="cc_num" name="cc_num" value=""/>
+				<input type="hidden" id="cc_weight" name="cc_weight" value=""/>
+				<input type="hidden" id="cc_custfeel" name="cc_custfeel" value=""/>
+		</form>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+  <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+   <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script>
+   <script type="text/javascript">
+   var status="";
+   $(function(){
+	<stu-rows>
+	   status+='<option value="${fld:domain_value}">${fld:domain_text_cn}</option>'
+	</stu-rows>
+	   
+		if("${fld:type}"=="mc"){
+			homemc();
+		}else if("${fld:type}"=="pt"){
+			homept();
+		}else{
+			homecust();
+		}
+		
+		if("${fld:preparedate}"!=""){
+			$('#datetimepicker').val("${fld:preparedate}");
+		}
+		
+	   var currYear = (new Date()).getFullYear();  
+	    var opt={};
+	    opt.date = {preset : 'date'};
+	    opt.datetime = {preset : 'datetime'};
+	    opt.time = {preset : 'time'};
+	    opt.default = {
+    		theme: 'android-ics light', //皮肤样式
+            display: 'bottom', //显示方式 
+	        mode: 'scroller', //日期选择模式
+	        dateFormat: 'yy-mm-dd',
+	        timeFormat: 'HH:ii:ss',
+	        lang: 'zh',
+	        showNow: true,
+	        nowText: "今天",
+	        startYear: currYear - 50, //开始年份
+	        endYear: currYear + 10,      
+	        onSelect:function(valueText,inst){
+	        	prepareShow();
+			} //结束年份
+	    };
+	    $("#datetimepicker").mobiscroll( $.extend(opt['date'], opt['default']) );
+	    getaction();
+		
+		//动作表单事件
+		$('#btn-add').on('click',function(){
+			var num=Number($('#group-input').val());
+			if(num>=10){
+				$('#group-input').val(10);
+			}else{
+				$('#group-input').val(num+=1);
+			}
+		});
+		
+		$('#btn-minus').on('click',function(){
+			var num=Number($('#group-input').val());
+			if(num<=1){
+				$('#group-input').val(1);
+			}else{
+				$('#group-input').val(num-=1);
+			}
+		});
+		
+		$('#group-input').on('blur',function(){
+			var num=Number($('#group-input').val());
+			if(num<1||num==""){
+				$('#group-input').val(1);
+			}
+			if(num>10){
+				$('#group-input').val(10);
+			}
+		});
+		
+		//执行
+		$('.btn-begin').on('click',function(){
+			var action=$('#template').find('.con-3').length;
+			var group= $('#template').find('.con-group').length;
+			var valueObj=$('input[name=num]');
+			
+			var values=""
+			$(valueObj).each(function(){
+				if(values==""){
+					values=$(this).val();
+				}
+			})
+			
+			if(action==0||group==0||values==""||values==null){
+				ccms.dialog.notice("没有有效的训练计划或有效组");
+				return false;
+			}
+			
+			
+			var groupcodes="";//拼接无效组id
+			$('.con-group .clearlr').each(function(){
+				if($(this).find('input:eq(0)').val()==""){
+					groupcodes+=$(this).attr('code')+',';
+				}
+			})
+			
+			var detailecodes="";//拼接无效动作
+			$('.con-3').each(function(){
+				if($(this).next().find('.con-group').length==0){
+					detailecodes+=$(this).attr('code')+',';
+				}
+			});
+			
+			//拼接无效动作2
+			$('.con-4').each(function(){
+				var inpusObj=$(this).find('input:eq(0)');
+				
+				var actionval2=""
+				$(inpusObj).each(function(){
+					actionval2=$(this).val();
+				});
+				
+				if(actionval2==""){
+					detailecodes+=$(this).prev().attr('code')+";";
+				}
+			})
+			
+			 if( window.confirm("执行后不能修改，确定执行？") ){
+					if(groupcodes!=""){
+						groupcodes=groupcodes.substring(0,groupcodes.length-1);
+						var uri="/action/project/fitness/wx/pt/mycust/xunlian/implement/deletegroup?groupcodes="+groupcodes;
+						   ajaxCall(uri,{
+						   	method: "get",
+						   	progress: false,
+						   	dataType: "script",
+						 	async:false,
+						   	success: function() {
+						   	}
+						  });
+					}
+					
+					if(detailecodes!=""){
+						detailecodes=detailecodes.substring(0,detailecodes.length-1);
+						var uri="/action/project/fitness/wx/pt/mycust/xunlian/implement/deletedetaile?detailecodes="+detailecodes;
+						   ajaxCall(uri,{
+						   	method: "get",
+						   	progress: false,
+						   	dataType: "script",
+						 	async:false,
+						   	success: function() {
+						   	}
+						  });
+					}
+				 
+					if($('#traincode').val()!=""){
+						getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/implement/updatetrain?code="+$('#traincode').val(),true);
+					}
+			 }
+		});
+		
+		
+		$('.btn-remove').on('click',function(){
+			
+			if($('#traincode').val()!=""){
+				 if( window.confirm("确定要删除整个训练计划？") ){
+						getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/deletetrainplan?code="+$('#traincode').val(),true);
+				 }
+			}else{
+				ccms.dialog.notice("没有可删除的训练计划");
+			}
+			
+		});
+		//保存动作
+		$('.btn-confirm').on('click',function(){
+			var action1=$("select[name=trainingsite]") .find("option:selected").val();
+			var action2=$("select[name=largecategories]") .find("option:selected").val();
+			var action3=$("select[name=action]") .find("option:selected").val();
+			var action4=$('.brief').text();
+			
+			var warmup_mins=$('#warmup_mins').val();
+			var aerobic_mins=$('#aerobic_mins').val();
+			var run_mileage=$('#run_mileage').val();
+			
+			if(warmup_mins==""||aerobic_mins==""||run_mileage==""){
+				ccms.dialog.notice("请完成热身、有氧、跑步设置");
+				return false;
+			}
+			
+			
+			if(action1==""||action2==""||action3==""||action4==""){
+				ccms.dialog.notice("请填写完整动作");
+			}else{
+				$('#trainingsite1').val(action1);
+				$('#largecategories1').val(action2);
+				$('#action1').val(action3);
+				action4=action4.substring(3,action4.length)
+				$('#details1').val(action4);
+				
+				var divobj = $("#checkedNodesDiv");
+				var num=Number($('#group-input').val());
+				$('#group').val(num);
+				divobj.empty();
+				
+				for(var i = 1; i <=num;	 i++){
+			    	divobj.append('<input type="text"  name="groups" value="'+i+'" />');
+				}
+				
+				$("#actionDiv").addClass('disNone');
+				if($('#traincode').val()==null||$('#traincode').val()==""){
+					postAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/insert?",'formEditor',false);
+				}else{
+					postAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/update?",'formEditor',false);
+				}
+			}
+		});
+	$('#btn-addActive').on('click',function(){
+			$("#actionDiv").removeClass('disNone');
+	 		if($('#ptpreparecode').val()==""){
+				ccms.dialog.notice("请先选择具体预约时间");
+				$("#actionDiv").addClass('disNone');
+			}else{
+				$("#actionDiv").removeClass('disNone');
+			} 
+		});
+		
+		//取消事件
+		$(".btn-cancel").on('click',function(){
+			$("#actionDiv,#custlist").addClass('disNone');
+			//清空器材表单
+			clearn();
+		});
+		
+		if("${fld:ptpreparecode_record}"!=""){
+			record();
+		}
+   })
+   //记录
+   function record(){
+		getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/getprepare?customercode=${fld:customercode}"
+				+"&parpreYear="+$('#datetimepicker').val()
+				+"&ptpreparecode_record=${fld:ptpreparecode_record}"
+				,false);
+	 }
+   
+   //预约列表
+   function prepareShow(){
+		$("#custlist").removeClass('disNone');
+		getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/getprepare?customercode=${fld:customercode}"
+				+"&parpreYear="+$('#datetimepicker').val()
+				+"&ptpreparecode_record=${fld:ptpreparecode_record}"
+				,false);
+  }
+   
+   //获得训练弹窗
+    function getaction(){
+		getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/getaction?",false);
+  } 
+    
+  //新增动作后
+   function gettemplatelist(){
+		getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/gettemplatelist?traincode="+$('#traincode').val()
+				+"&custcode="+$('#custcode').val()
+				+"&pdcode="+$('#pdcode').val()
+				+"&datetimepicker="+$('#datetimepicker').val()
+				,false);
+  }  
+    
+    //删除动作
+   function deleteAction(code){
+	   if( window.confirm("确定删除该动作？") ){
+	   	getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/delete?code="+code,false,function(){
+	   		var divs=$('#template').find('.con-3').not($('#list'+code));
+	   		$('#list'+code).next().remove();		
+	   		$('#list'+code).remove();
+		   	var index=0;
+			   $(divs).each(function(){
+				   index++;
+				   $(this).find('.title').text('训练计划'+index);
+			   })
+	  	 	});
+	   }
+  }
+    
+   //修改组
+   function updateGroup(code){
+	   var num=$('#group'+code).find('input:eq(0)').val();
+	   var weight=$('#group'+code).find('input:eq(1)').val();
+	   var custfeel=$('#group'+code).find('select:eq(0)').val();
+	   if(num==""||weight==""||custfeel==""||custfeel==null){
+		   ccms.dialog.notice("请填写完整");
+	   }else{
+		   $('#cc_num').val(num);
+		   $('#cc_weight').val(weight);
+		   $('#cc_custfeel').val(custfeel);
+		   $('#cc_code').val(code);
+			postAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/updategroup?",'groupForm',false,function(){
+				ractFinal(code,0);
+			});
+	   }
+   }
+    //删除组
+   function deleteGroup(code){
+	   var len=  $('#con-group'+code).parent().find('.con-group').not('#con-group'+code);
+	   if(len.length==0){
+		   mst="删除后该训练计划为0组？"
+	   }else{
+		   mst="确定删除该组？";
+	   }
+    	
+	   if( window.confirm(mst) ){
+		   getAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/deletegroup?code="+code,false,function(){
+			   var divs=$('#group'+code).parent().parent().children('div').not($('#con-group'+code))
+			    ractFinal(code,1);
+			   
+			    $('#group'+code).parent().remove();
+			   var index=0;
+			   $(divs).each(function(){
+				   index++;
+				   $(this).find('.num').text('第'+index+'组');
+			   })
+		   });
+	   }
+  }  
+    
+    //修改、删除组时计算最大参数
+   function ractFinal(code,type){
+	   var num=0;
+	   var weight=null;
+	   
+	   if(type==1){
+		   num=  $('#con-group'+code).parent().find('.con-group').not('#con-group'+code).find('input[name=num]');
+		   weight=  $('#con-group'+code).parent().find('.con-group').not('#con-group'+code).find('input[name=weight]');
+		   $('#con-group'+code).parent().parent().parent().prev().find('.d-d').children('span').eq(0).text("分组"+num.length);
+	   }else{
+		   num= $('#con-group'+code).parent().find('input[name=num]');
+		   weight=$('#con-group'+code).parent().find('input[name=weight]');
+	   }
+	   
+	   var maxmun=0;
+	   $(num).each(function(){
+		   if($(this).val()!=""){
+			   if(parseFloat(maxmun)<parseFloat($(this).val())){
+				   maxmun=$(this).val();
+			   }else{
+				   maxmun=maxmun;
+			   }
+		   }
+	   });
+	   
+	   var maxweight=0;
+	   $(weight).each(function(){
+		   if($(this).val()!=""){
+			   if(parseFloat(maxweight)<parseFloat($(this).val())){
+				   maxweight=$(this).val();
+			   }else{
+				   maxweight=maxweight;
+			   }
+		   }
+	   });
+	   
+	   if(maxmun==0){
+		   maxmun="";
+	   }
+	   if(maxweight==0){
+		   maxweight="";
+	   }
+	   $('#con-group'+code).parent().parent().parent().prev().find('.d-d').children('span').eq(1).text("最大数量："+maxmun);
+	   $('#con-group'+code).parent().parent().parent().prev().find('.d-d').children('span').eq(2).text("最大重量："+maxweight);
+   }
+    
+    //清理action
+    function clearn(){
+    	$('select[name=largecategories]').val('');
+    	$('select[name=action]').val('');
+    	$('#details').val('');
+    }
+    function clearn1(){
+    	$('input[name=action]').val('');
+    	$('#details').val('');
+    }
+    //绑定展开事件
+    function showBind(){  
+ 	$('.btn-open').off('click').on('click',function(){
+ 		var code=$(this).attr('code');
+		$(this).addClass('disNone');
+ 		$('#list'+code).find('.btn-close').removeClass('disNone');
+ 		$('#list'+code).find('.con-4').addClass('disNone');
+ 		$('#list'+code).next('div').addClass('disNone');
+	});
+	
+ 	
+	$('.btn-close').off('click').on('click',function(){
+		var code=$(this).attr('code');
+		$(this).addClass('disNone');
+		 $('#list'+code).find('.btn-open').removeClass('disNone');
+		 $('#list'+code).find('.con-4').removeClass('disNone');
+		 $('#list'+code).next('div').removeClass('disNone');
+	}); 
+   } 
+    
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"radiolink":"${fld:radiolink@js}",
+		"vc_code":"${fld:vc_code@js}",
+		"vc_name":"${fld:vc_name@js}",
+		"vc_cardtypename":"${fld:vc_cardtype@js}",
+		"i_sex":"${fld:i_sex@js}",
+		"vc_mobile":"${fld:vc_mobile@js}",
+		"c_birthdate":"${fld:c_birthdate}",
+		"i_age":"${fld:i_age}",
+		"vc_newsale":"${fld:vc_newsale@js}",
+		"vc_idnumber":"${fld:vc_idnumber@js}",
+		"vc_contracttype":"${fld:vc_contracttype@js}",
+		"cardtype_name":"${fld:cardtype_name@js}",
+		"vc_contractcode":"${fld:vc_contractcode@js}"
+			
+	},
+	</rows>
+	{}
+]}

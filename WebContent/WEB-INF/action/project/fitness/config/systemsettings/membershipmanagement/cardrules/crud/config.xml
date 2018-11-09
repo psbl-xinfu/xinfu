@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+		入住管理
+	</summary>
+	
+	<log>false</log>
+
+    
+    <transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-busySeasonEnd.sql" source="sql" scope="transaction" />
+		<recordset id="query-busySeasonStart.sql" source="sql" scope="transaction" />
+		<recordset id="query-cardreissue.sql" source="sql" scope="transaction" />
+		<recordset id="query-maxstopcardmonth.sql" source="sql" scope="transaction" />
+		<recordset id="query-savecardday.sql" source="sql" scope="transaction" />
+		<recordset id="query-savecardway.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-stopcardmethod.sql" source="sql" scope="transaction" />
+		<recordset id="query-stopcardmonthcost.sql" source="sql" scope="transaction" />
+		<recordset id="query-surpassdaycost.sql" source="sql" scope="transaction" />
+		<recordset id="query-turncardcost.sql" source="sql" scope="transaction" />  
+		<recordset id="query-turncardway.sql" source="sql" scope="transaction" />
+		<recordset id="query-upday.sql" source="sql" scope="transaction" /> 
+		
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form" recordset="query-busySeasonEnd.sql"  />
+		<print mode="form" recordset="query-busySeasonStart.sql"  />
+		<print mode="form" recordset="query-cardreissue.sql"  />
+		<print mode="form" recordset="query-maxstopcardmonth.sql"/>
+		<print mode="form" recordset="query-savecardday.sql"  />
+		<print mode="form" recordset="query-savecardway.sql" />
+		<print mode="form" recordset="query-stopcardmethod.sql"  />
+		<print mode="form" recordset="query-stopcardmonthcost.sql"  />
+		<print mode="form" recordset="query-surpassdaycost.sql" />
+		<print mode="form" recordset="query-turncardcost.sql" />
+		<print mode="form" recordset="query-turncardway.sql" />
+		<print mode="form" recordset="query-upday.sql" />
+	</output>
+
+</config>

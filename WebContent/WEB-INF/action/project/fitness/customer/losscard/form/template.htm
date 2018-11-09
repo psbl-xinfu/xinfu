@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>挂失</title>
+</head>
+<body>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body" style="margin-top: 20px;">
+				<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+					 <input type="hidden" id="i_status" name="i_status" value="" />
+					 <input type="hidden" id="vc_customercode" name="vc_customercode" value="" />
+                     <input type="hidden" id="vc_code" name="vc_code" value="" />
+                     <input type="hidden" id="vc_club" name="vc_club" value="" />
+		          	<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label for="">卡号/姓名：</label>
+								<input type="text" id="cardname" name="cardname" value="" placeholder="卡号/姓名"/>
+								<button class="btn btn-info btn-sm" type="button" id="seabutton">查询</button>
+							</li>
+							<li>
+								<label for="">姓名：</label>
+								<input type="text" id="xvc_name" name="xvc_name" value="" readonly="readonly" placeholder="姓名" />
+							</li>
+						</nav>
+					</div>
+		          	<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label for="">卡类型：</label>
+								<input type="text" id="vc_cardtype" name="vc_cardtype" value="" readonly="readonly" placeholder="卡类型" />
+							</li>
+							<li>
+								<label for="">有效期限：</label>
+								<input type="text" id="c_enddate" name="c_enddate" value="" readonly="readonly" placeholder="有效期限" />
+								<span id="daysremain_span">剩余天数</span>:
+								<input type="text" id="daysremain" name="daysremain" value="" readonly="readonly" placeholder="剩余天数" />
+							</li>
+						</nav>
+					</div>
+		          	<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label for="">备注：</label>
+								<textarea id="vc_remark" cols="72" rows="3" placeholder="备注" name="vc_remark" value="" maxlength="6000"></textarea>
+							</li>
+						</nav>
+					</div>
+				<footer class="footer-default">
+   					<button type="button" id="save_btnn">挂&nbsp;失</button>
+				</footer>
+			</form>
+		</div>
+	</div>
+</div> 
+				
+<script language="JavaScript">
+	$(document).ready(function() {
+		$("#seabutton").unbind().on("click", function(){
+			$("#xvc_name").val("");
+			$("#vc_cardtype").val("");
+			$("#c_enddate").val("");
+			$("#daysremain").val("");
+			$("#vc_remark").val("");
+		    var uri="${def:context}${def:actionroot}/cardSearch";
+				ajaxCall(uri,{
+				method: "post",
+				form: "formEditor",
+				progress: true,
+				dataType: "script",
+				success: function() {
+				   	var xvc_name=$("#xvc_name").val();
+					if(xvc_name==""){
+						ccms.dialog.notice("无此人相关记录！",2000);
+						return false;
+					}
+				}
+			});
+	     });
+		$("#save_btnn").unbind().on('click',function(){
+			var xvc_name=$("#xvc_name").val();
+		    var i_status=$("#i_status").val();
+			if(xvc_name==""){
+				ccms.dialog.notice("无此人相关记录！不能执行挂失操作",2000);
+				return false;
+			}
+			if(i_status=='4'){
+				ccms.dialog.notice("此卡挂失中，不能进行挂失操作！",2000);
+				return false;
+			}
+			if(i_status=='0'){
+				ccms.dialog.notice("此卡无效，不能进行挂失操作！",2000);
+				return false;
+			}
+			if(i_status=='2'){
+				ccms.dialog.notice("此卡未启用，不能进行挂失操作！",2000);
+				return false;
+			}
+			if(i_status=='3'){
+				ccms.dialog.notice("此卡存卡中，不能进行挂失操作！",2000);
+				return false;
+			}
+			if(i_status=='5'){
+				ccms.dialog.notice("此卡停卡中，不能进行挂失操作！",2000);
+				return false;
+			}
+			if(i_status=='6'){
+				ccms.dialog.notice("此卡已过期，不能进行挂失操作！",2000);
+				return false;
+			}
+			if(i_status=='1'){
+			    var uri="${def:context}${def:actionroot}/statusUpdate";
+			    ajaxCall(uri,{
+				method: "post",
+				progress: true,
+				form:'formEditor',
+				dataType: "script",
+				success: function() {
+					ccms.dialog.notice("挂失成功！",2000);
+					ccms.util.clearForm('formEditor');
+				  }
+			  });
+			}
+		});
+	     $("#reset_btn").unbind().on('click',function(){
+	    	 ccms.util.clearForm('formEditor');
+	     });
+	     $("#solut_btn").unbind().on('click',function(e){
+	    	 var thisobj = $(this);
+	 		e.preventDefault();
+	 		thisobj.unbind();
+	 			thisobj.attr('url',$Base64.encode("/action/project/fitness/customer/operatelog/crud?zhuangtai="+'03'));
+	 			thisobj.attr('title',"挂失查询");
+				thisobj.attr('addtabs','chuwugui_tuigui_chaxun_03');
+	 			thisobj.addtabs();
+	 			thisobj.click();
+	     });
+	     $("#search_btn").unbind().on('click',function(){
+	    	 ccms.util.clearForm('formEditor');
+	     });
+	});
+	</script>
+</body>
+</html>

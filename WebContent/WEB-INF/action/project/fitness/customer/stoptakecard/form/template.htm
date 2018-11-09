@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>停卡收款</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 560px;">
+			<header class="header-default">
+				<span id="formTitle">停卡收款</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}" />
+                <input type="hidden" id="vc_code" name="vc_code" value="${fld:code}" />
+          		
+          			<div class="panel-body col_main_body basic-dialog dialogbg">
+          		
+          		
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 130px;">卡号/姓名/手机号：</label>
+							<input type="text" id="cust" name="cust" value="${fld:customercode}" readonly="readonly" placeholder="卡号/姓名/手机号"/>	
+						</li>
+						<li>
+							<label for="" style="width: 130px;">姓名：</label>
+						<input type="text" id="cust_name" name="cust_name" value="${fld:cust_name}" readonly="readonly" placeholder="姓名"/>
+						</li>
+						<li>
+							<label for="" style="width: 130px;">手机号：</label>
+						<input type="text" id="mobile" name="mobile" value="${fld:mobile}" readonly="readonly" placeholder="手机号" />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">卡类型：</label>
+							<select id="cardcode" name="cardcode" class="normal-select">
+								<option value="${fld:cardcode}">${fld:cardtype}</option>
+							</select>
+						</li>
+						<li>
+							<label for="" style="width: 130px;">有效期限：</label>
+							<span id="carddate">${fld:startdate}~${fld:enddate}</span>
+							<input type="hidden" id="cardstartdate" name="cardstartdate" value="${fld:startdate}" />
+							<input type="hidden" id="cardenddate" name="cardenddate" value="${fld:enddate}" />
+							<input type="hidden" id="daysremain" name="daysremain" value="${fld:nowcount}" />
+							<input type="hidden" id="cardtype" name="cardtype" value="${fld:cardtype}" />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">起停日期：</label>
+							<input type="text" id="stopcarddate" name="stopcarddate" value="${fld:stopstartdate}" readonly="readonly" placeholder="起停日期" />
+						</li>
+						<li>
+							<label for="" style="width: 130px;">预停卡天数：</label>
+							<input type="text" id="prestopdays" name="prestopdays" value="${fld:prestopdays}" readonly="readonly" placeholder="预停卡天数"/>
+						</li>
+						<li>
+							<label for="" style="width: 130px;">手续费（元）：</label>
+							<input type="text" id="savemoney" name="savemoney" value="${fld:money}" readonly="readonly" placeholder="手续费"/>
+						</li>
+						<li>
+							<label for="" style="width: 130px;">停卡原因：</label>
+							<input type="text" id="reason" name="reason" value="${fld:reason}" readonly="readonly" placeholder="停卡原因"/>
+						</li>
+						<li class="to100w" style="margin-left: 6%">
+							<label for="">备注：</label>
+							<textarea id="remark" cols="50" rows="3" class="my-textarea" name="remark" readonly="readonly" placeholder="备注" maxlength="6000">${fld:remark}</textarea>
+						</li>
+					</nav>
+				</div>
+				
+				<div id="i_paytypeone"  style="margin-left: -30%">
+	          		<div class="modal-body " id="paymoney" style="margin-left: 6%;height: 30px"  >
+					</div>
+	          		<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label for="">支付方式</label>
+								<select id="moneytype" class="normal-select">
+									<option value="">请选择</option>
+									<OtherPayWay-list>
+										<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+									</OtherPayWay-list>
+								</select>
+								<label for="">金额</label>
+								<input type="text" id="money" name="money" placeholder="金额" />
+								&nbsp;
+								<i class="am-icon-plus" id="addmoney" title="添加"></i>
+							</li>
+						</nav>
+					</div>
+					<input type="hidden" id="pay_detail" name="pay_detail"/>
+				</div>
+			<footer class="footer-default" style="margin-top: 20px">
+				<button type="button" id="save_btn" style="display: none;">确认收款</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#save_btn").show();
+	}
+	selectInit($("#cardcode,#moneytype"));
+	var types = "${fld:types}";
+	if(types!="10"){
+		$("#formTitle").html("查看");
+		$("#i_paytypeone,#save_btn").hide();
+	}
+	$("#save_btn").click(function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+	   var moneydetail = "";
+		//获取所有支付类型option
+		$("#moneytype option").each(function(){  
+			if($(this).val()!=""){
+				moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+			}
+			moneydetail = moneydetail.replace("undefined", "0");
+		});
+		//明细
+		$("#pay_detail").val(moneydetail);
+		//获取所有退费金额
+		var paymoney = 0;
+		$("input[name='paytypemoney']").each(function(j,item){
+			paymoney+=Number(item.value);
+		});
+		if(Number($("#savemoney").val())!=paymoney){
+			ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
+			return false;
+		}
+		var url = "${def:context}${def:actionroot}/update";
+		ajaxCall(url,{
+		   	method: "post",
+		   	form:"formEditor",
+		   	progress: true,
+		   	dataType: "script",
+		   	success: function() {
+			}
+		}); 
+	});
+
+	$("#money").blur(function(){
+		var money = $(this).val();
+		if(isNaN(money)){
+			money = 0;
+		}
+		money = Number(money).toFixed(2);
+		$(this).val(money <0 ? 0 : money);
+	});
+	//支付方式
+	$("#moneytype").change(function(){
+		document.getElementById("money").focus();
+	});
+
+	   $("#addmoney").click(function(){
+		   	var moneytype = $("#moneytype").val();
+		   	var moneytypetext = $("#moneytype option:selected").text();
+		   	var money = $("#money").val();
+		   	if(moneytype==""){
+		   		ccms.dialog.alert("请选择方式！");
+		   	}else if(money==""){
+		   		ccms.dialog.alert("请输入金额！");
+		   	}else{
+		   		var count = 0;
+				$("input[name='paytypemoney']").each(function(j,item){
+					   if($(item).attr("code")==moneytype)count++;
+				});
+				if(count==0){
+					$("#paymoney").append(
+							"<li style='margin-left:25px;float:left'><span><span>"+moneytypetext+"：</span><span>"+money+"元</span></span>"
+						+"<input type='hidden' value='"+money+"' code='"+moneytype+"'  name='paytypemoney'/>"
+						+ '<img   onclick="delhour(this)" style="margin-left:5px;margin-top:-2px" height="20" width="45"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+					);
+					
+					$("#moneytype,#money").val("");
+					$("#moneytype").selectpicker("refresh");
+					$("#moneytype").selectpicker("render");
+				}else
+					ccms.dialog.alert(moneytypetext+"已存在！");
+		   	}
+	  });
+});
+function delhour(val){
+	$(val).parent().remove();
+}
+</script>
+</body>
+</html>

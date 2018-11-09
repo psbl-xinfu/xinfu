@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>系统管理</title>
+<style>
+.left ul li a {
+font:15px/20px \"宋体\";
+color:black;
+}
+
+.r-tab li.am-active a{
+ color:#c8c8c8 !important;
+}
+</style>
+</head>
+<body >
+	<div class="am-tabs systems-management dialogbg" data-am-tabs="{noSwipe: 1}">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="twopage">
+			<li class='sub_li' onclick="cruddomain('educated', '教育程度')"><a href="#educated" class="three-none" id="educated">教育程度</a></li>
+			<li class='sub_li' onclick="cruddomain('StuSense', '学员感觉')"><a href="#stusense" class="three-none" id="stusense">学员感觉</a></li>
+			<li class='sub_li' onclick="cruddomain('communicationTarget', '沟通目标')"><a href="#communicationTarget" class="three-none" id="communicationTarget">沟通目标</a></li>
+			<li class='sub_li' onclick="cruddomain('GuestLevel', '关注度评估')"><a href="#GuestLevel" class="three-none" id="GuestLevel">关注度评估</a></li>
+			<li class='sub_li' onclick="cruddomain('CommStage', '全部沟通阶段')"><a href="#CommStage" class="three-none" id="CommStage">全部沟通阶段</a></li>
+			<li class='sub_li' onclick="cruddomain('commway', '沟通方式')"><a href="#commway" class="three-none" id="commway">沟通方式</a></li>
+			<li class='sub_li' onclick="cruddomain('CommFailResaon', '未成功原因')"><a href="#CommFailResaon" class="three-none" id="CommFailResaon">未成功原因</a></li>
+			<li class='sub_li' onclick="cruddomain('CallStatus', '通话状态')"><a href="#CallStatus" class="three-none" id="CallStatus">通话状态</a></li>
+			<li class='sub_li' onclick="cruddomain('Age', '年龄')"><a href="#Age" class="three-none" id="Age">年龄</a></li>
+			<li class='sub_li' onclick="cruddomain('Source', '私教获客渠道')"><a href="#Source" class="three-none" id="Source">私教获客渠道</a></li>
+			<li class='sub_li' onclick="cruddomain('FeedbackUnfollowReason', '不处理原因')"><a href="#FeedbackUnfollowReason" class="three-none" id="FeedbackUnfollowReason">不处理原因</a></li>
+			<li class='sub_li' onclick="cruddomain('StartType', '卡启用方式')"><a href="#StartType" class="three-none" id="StartType">卡启用方式</a></li>
+			<li class='sub_li' onclick="cruddomain('LargeCategories', '器械类')"><a href="#LargeCategories" class="three-none" id="LargeCategories">器械类</a></li>
+			<li class='sub_li' onclick="cruddomain('TrainingSite', '训练部位')"><a href="#TrainingSite" class="three-none" id="TrainingSite">训练部位</a></li>
+			<li class='sub_li' onclick="cruddomain('Children', '子女')"><a href="#Children" class="three-none" id="Children">子女</a></li>
+			<!-- <li class='sub_li' onclick="cruddomain('Province', '省')"><a href="#Province" class="three-none" id="Province">省</a></li>
+			<li class='sub_li' onclick="cruddomain('City', '城市')"><a href="#City" class="three-none" id="City">城市</a></li> -->
+		</nav>	
+	</div>
+	    <!-- 卡号规则 -->
+   		<div src ="" width="100%" height="600px" frameborder="0" id="formEditor_manage">
+		</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	$("#educated").click();
+
+	//子集菜单效果
+    $('#twopage .sub_li').parent().css('background-color','transparent');
+	$('#twopage .sub_li').children().attr('style','color:#c8c8c8;');
+	$('#twopage .sub_li').eq(0).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	$('#twopage .sub_li').on('click',function(){
+		$('#twopage .sub_li').attr('style','');
+		$(this).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	})
+});
+//教育程度
+function cruddomain(namespace, name){
+	$("#formEditor_manage").load("${def:context}${def:actionroot}/cruddomain/crud?namespace="+namespace+"&name="+name);
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<title>产品分析</title>
+</head>
+<body>
+	<div class="am-tabs-bd r-tab-cont">
+		<div class="bb-tab-cout-1 am-tab-panel am-in am-active am-fade three-none">
+			
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<button id="searchAll" class="freshen">刷新</button>
+					</nav>
+				</div>
+			</div>
+			
+			<div class="bb-tab-cout-1-bottom">
+				
+				<!-- 会员卡销售量分析 -->
+				<div class="addTop" code="chartsgroup" data-area="cardsales">
+					<header>
+						<span>会员卡销售量分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="cardsales" id="cardsalesfdate" name="cardsalesfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="cardsales" id="cardsalestdate" name="cardsalestdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="cardsales" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="cardsales" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="cardsalesdaterangespan"></p></div>
+					<div id="cardsalesDiv" class="other-full"></div>
+					<div id="cardsalesDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 会员销售金额分析 -->
+				<div class="addTop" code="chartsgroup" data-area="cardsalesamount">
+					<header>
+						<span>会员销售金额分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="cardsalesamount" id="cardsalesamountfdate" name="cardsalesamountfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="cardsalesamount" id="cardsalesamounttdate" name="cardsalesamounttdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="cardsalesamount" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="cardsalesamount" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="cardsalesamountdaterangespan"></p></div>
+					<div id="cardsalesamountDiv" class="other-full"></div>
+					<div id="cardsalesamountDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 私教销售量分析 -->
+				<div class="addTop" code="chartsgroup" data-area="ptsales">
+					<header>
+						<span>私教销售量分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="ptsales" id="ptsalesfdate" name="ptsalesfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="ptsales" id="ptsalestdate" name="ptsalestdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="ptsales" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="ptsales" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="ptsalesdaterangespan"></p></div>
+					<div id="ptsalesDiv" class="other-full"></div>
+					<div id="ptsalesDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 私教销售金额分析  -->
+				<div class="addTop" code="chartsgroup" data-area="ptsalesamount">
+					<header>
+						<span>私教销售金额分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="ptsalesamount" id="ptsalesamountfdate" name="ptsalesamountfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="ptsalesamount" id="ptsalesamounttdate" name="ptsalesamounttdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="ptsalesamount" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="ptsalesamount" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="ptsalesamountdaterangespan"></p></div>
+					<div id="ptsalesamountDiv" class="other-full"></div>
+					<div id="ptsalesamountDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 团操上课分析 -->
+				<div class="addTop" code="chartsgroup" data-area="group">
+					<header>
+						<span>团操上课分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="group" id="groupfdate" name="groupfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="group" id="grouptdate" name="grouptdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="group" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="group" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="groupdaterangespan"></p></div>
+					<div id="groupDiv" class="other-full"></div>
+					<div id="groupDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 单次消费项目分析 -->
+				<div class="addTop" code="chartsgroup" data-area="singleconsumption">
+					<header>
+						<span>单次消费项目分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="singleconsumption" id="singleconsumptionfdate" name="singleconsumptionfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="singleconsumption" id="singleconsumptiontdate" name="singleconsumptiontdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="singleconsumption" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="singleconsumption" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="singleconsumptiondaterangespan"></p></div>
+					<div id="singleconsumptionDiv" class="other-full"></div>
+					<div id="singleconsumptionDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 场地 -->
+				<div class="addTop" code="chartsgroup" data-area="siteType">
+					<header>
+						<span>场地</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="siteType" id="siteTypefdate" name="siteTypefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="siteType" id="siteTypetdate" name="siteTypetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="siteType" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="siteType" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="siteTypedaterangespan"></p></div>
+					<div id="siteTypeDiv" class="other-full"></div>
+					<div id="siteTypeDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+	
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var ptsalesendPic = null, ptsalesamountendPic = null, classgroupPic = null, siteTypePice = null;
+var cardsalesPic = null, cardsalesamountPic = null, singleconsumptionendPic = null;
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	// 循环图表
+	$("div[code=chartsgroup]").each(function(i,ele){
+		var darea = $(this).data("area");
+		$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		$("button[name=changeMagicType][data-area="+darea+"]").attr("data-idx", i);
+		// 视图模式
+		//$("button[name=changeMagicType][data-area="+darea+"].active").removeClass("active");
+		//$("button[name=changeMagicType][data-area="+darea+"][data-type=line]").addClass("active");
+		$("button[name=changeMagicType][data-area="+darea+"]").unbind().on("click",function(){
+			$(this).siblings(".active").removeClass("active");
+			$(this).addClass("active");
+			//changeMagicType($(this).attr("data-idx"), dataArea+"Div", $(this).data("type"));
+		});
+	});
+	
+	/** 顶部搜索 */
+	$("#searchAll").unbind().on("click",function(){
+		$("div[code=chartsgroup]").each(function(i,ele){
+			var darea = $(this).data("area");
+			$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		});
+		$("input[id$=fdate]").not("#fdate").each(function(idx,ele){
+			$(ele).val($("#fdate").val());
+		});
+		$("input[id$=tdate]").not("#tdate").each(function(idx,ele){
+			$(ele).val($("#tdate").val());
+		});
+		$("select[id$=datatype]").not("#datatype").each(function(idx,ele){
+			$(ele).val($("#datatype").val());
+		});
+		//会员卡销售量分析
+		loadcardsalesPie();
+		//会员销售金额分析
+		loadcardsalesamountPie();
+		
+		// 私教销售量分析
+		ptsalesend();
+
+		// 私教销售金额分析
+		ptsalesamountend();
+
+		// 团操上课分析
+		classgroup();
+
+		// 单次消费项目分析
+		single();
+		
+		// 场地
+		siteType();
+		
+	});
+	$("#searchAll").click();
+	//饼图、饼图列表切换
+	$(".pielistbtn").unbind().on("click",function(){
+		var name = $(this).attr("data-area");
+		var datatype = $(this).attr("data-type");
+		if(datatype=="pie"){
+			$("#"+name+"Divlist").hide();
+			$("#"+name+"Div").show();
+			$("[data-area="+name+"][data-type=list]").removeClass("active");
+			$("[data-area="+name+"][data-type=pie]").addClass("active");
+		}else if(datatype=="list"){
+			$("#"+name+"Divlist").show();
+			$("#"+name+"Div").hide();
+			$("[data-area="+name+"][data-type=pie]").removeClass("active");
+			$("[data-area="+name+"][data-type=list]").addClass("active");
+		}
+	})
+	
+	/** 各图表区域日期变更事件 */
+	$("input[data-name=fdate],input[data-name=tdate]").each(function(idx,ele){
+		ccms.dialog.date($(ele), function(){
+			var dataarea = $(ele).attr("data-area");
+			refreshSingleCharts(dataarea);
+		});
+	});
+});
+//单次消费项目分析
+function single(){
+	singleconsumptionendPic = new pieCharts("singleconsumptionDiv");
+	singleconsumptionendPic.setConfig({isLegendShow: true, titlename: "单次消费项目分析"});
+	getAjaxCall("${def:actionroot}/loaddata/singleconsumption?fdate="+$("#singleconsumptionfdate").val()+"&tdate="+$("#singleconsumptiontdate").val(), false, function(){
+	});
+}
+//私教销量
+function ptsalesend(){
+	ptsalesendPic = new pieCharts("ptsalesDiv");
+	ptsalesendPic.setConfig({isLegendShow: true, titlename: "私教销售量"});
+	getAjaxCall("${def:actionroot}/loaddata/ptsalesend?fdate="+$("#ptsalesfdate").val()+"&tdate="+$("#ptsalestdate").val(), false, function(){
+	});
+}
+//私教销售金额分析
+function ptsalesamountend(){
+	ptsalesamountendPic = new pieCharts("ptsalesamountDiv");
+	ptsalesamountendPic.setConfig({isLegendShow: true, titlename: "私教销售金额"});
+	getAjaxCall("${def:actionroot}/loaddata/ptsalesamountend?fdate="+$("#ptsalesamountfdate").val()+"&tdate="+$("#ptsalesamounttdate").val(), false, function(){
+	});
+}
+//团操上课分析
+function classgroup(){
+	classgroupPic = new pieCharts("groupDiv");
+	classgroupPic.setConfig({isLegendShow: true, titlename: "团操上课分析"});
+	getAjaxCall("${def:actionroot}/loaddata/classgroup?fdate="+$("#groupfdate").val()+"&tdate="+$("#grouptdate").val(), false, function(){
+	});
+}
+
+function loadcardsalesPie(){
+	//会员卡销售量分析
+	cardsalesPic = new pieMultipleCharts("cardsalesDiv");
+	getAjaxCall("${def:actionroot}/loaddata/cardsales?fdate="+$("#cardsalesfdate").val()+"&tdate="+$("#cardsalestdate").val(), false, function(){
+	});
+}
+function loadcardsalesamountPie(){
+	//会员销售金额分析
+	cardsalesamountPic = new pieMultipleCharts("cardsalesamountDiv");
+	getAjaxCall("${def:actionroot}/loaddata/cardsalesamount?fdate="+$("#cardsalesamountfdate").val()+"&tdate="+$("#cardsalesamounttdate").val(), false, function(){
+	});
+}
+
+//场地
+function siteType(){
+	siteTypePic = new pieCharts("siteTypeDiv");
+	siteTypePic.setConfig({isLegendShow: true, titlename: "场地"});
+	getAjaxCall("${def:actionroot}/loaddata/sitetype?fdate="+$("#siteTypefdate").val()+"&tdate="+$("#siteTypetdate").val(), false, function(){
+	});
+}
+
+/** 刷新单个图表 */
+function refreshSingleCharts(dataarea){
+	if( undefined != dataarea && "" != dataarea ){
+		if( "cardsales" == dataarea){	/** 会员卡销售量分析 */
+			loadcardsalesPie();
+		}else if( "cardsalesamount" == dataarea){	/** 会员销售金额分析 */
+			loadcardsalesamountPie();
+		}else if( "ptsales" == dataarea){	/** 私教销量分析 */
+			ptsalesend();
+		}else if( "ptsalesamount" == dataarea){	/** 私教销售金额分析 */
+			ptsalesamountend();
+		}else if( "group" == dataarea){	/** 团操上课分析 */
+			classgroup();
+		}else if( "singleconsumption" == dataarea){	/** 单次消费项目分析 */
+			single();
+		}
+		$("#"+dataarea+"daterangespan").html($("#"+dataarea+"fdate").val() + " ~ " + $("#"+dataarea+"tdate").val());
+	}
+}
+</script>
+</body>
+</html>

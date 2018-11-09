@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="group_course_query.sql" source="sql" scope="transaction" />
+		<recordset id="progress_query.sql" source="sql" scope="transaction" />
+		<recordset id="xuexizhong_query.sql" source="sql" scope="transaction" />
+		<recordset id="class_amount_query.sql" source="sql" scope="transaction" />
+		<recordset id="class_total_amount_query.sql" source="sql" scope="transaction" />
+		<recordset id="term_score_query.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="group_course_query.sql" tag="group-course-rows" />
+		<print mode="table" recordset="progress_query.sql" tag="progress-rows" />
+		<print mode="table" recordset="xuexizhong_query.sql" tag="xuexizhong-rows" />
+		<print mode="table" recordset="class_amount_query.sql" tag="class-amount-rows" />
+		<print mode="table" recordset="class_total_amount_query.sql" tag="class-total-amount-rows"/>
+		<print mode="table" recordset="term_score_query.sql" tag="term-score-rows"/>
+	</output>
+
+</config>

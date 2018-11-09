@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="campaign_name" type="varchar" required="true" label="活动名称" maxlen="32" />
+    <parameter id="startdate" type="varchar" required="true" label="开始日期" maxlen="32" />
+    <parameter id="enddate" type="varchar" required="true" label="结束日期" maxlen="32" />
+      
+     <parameter id="votetype" type="integer" required="false" label="投票类型" maxlen="32" />
+     <parameter id="votenum" type="integer" required="false" label="votenum" maxlen="32" />
+     <parameter id="campaignrules" type="varchar" required="false" label="campaignrules" maxlen="8000" />
+     <parameter id="remark" type="varchar" required="false" label="remark" maxlen="8000" />
+     
+     <parameter id="enrollfdate" type="varchar" required="true" label="排名规则" maxlen="32" />
+     <parameter id="enrolltdate" type="varchar" required="true" label="链接" maxlen="32" />
+     <parameter id="voteremark" type="varchar" required="false" label="voteremark" maxlen="8000" />  
+     <parameter id="totalnum" type="integer" required="false" label="totalnum" maxlen="32" />
+    
+     <parameter id="logoid" type="varchar" required="false" label="logoid" maxlen="32" />
+<!-- 姓名需要验证是否重复 -->
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="c_campaign_name" sql="norep.sql" />
+</validator>
+

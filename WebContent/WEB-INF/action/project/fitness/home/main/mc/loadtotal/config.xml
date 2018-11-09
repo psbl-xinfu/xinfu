@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-newcard.sql" source="sql" scope="transaction" />
+		<recordset id="query-newguest.sql" source="sql" scope="transaction" />
+		<recordset id="query-cttnremind.sql" source="sql" scope="transaction" />
+		<recordset id="query-birthremind.sql" source="sql" scope="transaction" />
+		<recordset id="query-myguest.sql" source="sql" scope="transaction" />
+		<recordset id="query-mycust.sql" source="sql" scope="transaction" />
+	</transaction>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query-newcard.sql" />
+		<print mode="form" recordset="query-newguest.sql" />
+		<print mode="form" recordset="query-cttnremind.sql" />
+		<print mode="form" recordset="query-birthremind.sql" />
+		<print mode="form" recordset="query-myguest.sql" />
+		<print mode="form" recordset="query-mycust.sql" />
+	</output>
+
+</config>

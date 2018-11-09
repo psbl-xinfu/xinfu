@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>收入汇总</title>
+</head>
+<body>
+		<form  role="form" method="post" id="searchForm">
+			<input name="sort" type="hidden" value="type;item" preserve="true" />
+			<input name="order" type="hidden" value="asc;asc" preserve="true" />
+			<input name="pageNo" type="hidden" value="" preserve="true" />
+			<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+			<div class="am-tabs-bd r-tab-cont">
+				<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+					<div class="tab-cout-nav">
+						<div class="tab-cout-nav-t">
+							<nav class="tab-nav-my">
+								<li class="dateTime">
+							  		<input id="startdate" name="startdate" type="text" class="input-default"/>
+								</li>
+								<li class="dateTime">
+							  		<input id="enddate" name="enddate" type="text" class="input-default"/>
+								</li>
+								<div >
+									<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+									<button class="r-c-3-btn-3" id="excel" type="button" title="导出"></button>
+								</div>
+							</nav>
+						</div>
+					</div>
+						<!-- 通用表格 -->
+					<div class="r-tab-cout-3-b">
+						<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>项目</th>
+										<th>类别</th>
+										<th>业务笔数</th>
+										<th>预收款</th>
+										<th>收入</th>
+										<th>合计</th>
+										<th>欠款</th>
+									</tr>			
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										<td style="width:8%">#show_order#</td>
+										<td style="width:8%">#type#</td>
+										<td style="width:8%">#item#</td>										
+										<td style="width:8%"><a href="javascript:;" onclick="detail(#ftype#,#fitem#)">#num#</a></td>										
+										<td style="width:8%">#premoney#</td>
+										<td style="width:8%">#money#</td>										
+										<td style="width:8%">#totalmoney#</td>									
+										<td style="width:8%">#moneyleft#</td>		
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+				<input id="daochu_startdate" name="daochu_startdate" type="text"/>
+				<input id="daochu_enddate" name="daochu_enddate" type="text"/>
+			</form>
+			<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	</body>
+	<script language="JavaScript">
+	var search=null;
+$(document).ready(function() {
+	$("#startdate").val(new Date().format("yyyy-MM-01")); 
+	$("#enddate").val("${def:date}"); 
+	$Dialog().date($('#startdate,#enddate'));
+	
+ 	this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+    	ccms.util.renderRadio("datalist");		
+	}}).initSearchBtn().searchData(1); 
+		
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_startdate").val($("#startdate").val());
+		$("#daochu_enddate").val($("#enddate").val());
+		$("#daochuForm").submit();
+	});  
+})
+//详情
+function detail(ftype, fitem){
+	ccms.dialog.open({url : "${def:context}${def:actionroot}/financedetail/crud?item="
+			+fitem+"&type="+ftype+"&startdate="+$("#startdate").val()+"&enddate="+$("#enddate").val(), height: 600});
+}
+</script>
+</body>
+</html>

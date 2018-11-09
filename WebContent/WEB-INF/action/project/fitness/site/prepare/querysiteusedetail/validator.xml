@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="sitecode" type="varchar" required="true" label="code" />
+    <parameter id="limittime" type="varchar" required="true" label="时段" />
+    <parameter id="prepare_date" type="varchar" required="true" label="预约日期" />
+    <parameter id="prepare_type" type="varchar" required="true" label="prepare_type" />
+</validator>

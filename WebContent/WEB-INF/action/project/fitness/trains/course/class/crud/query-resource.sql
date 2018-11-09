@@ -1,0 +1,1 @@
+SELECT tuid,videoname FROM et_resource where status = 1

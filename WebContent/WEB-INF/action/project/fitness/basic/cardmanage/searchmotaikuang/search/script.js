@@ -1,0 +1,28 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"vc_code":"${fld:code@js}",
+		"vc_name":"${fld:name@js}",
+		"i_membercount":"${fld:membercount}",
+		"i_type":"${fld:type}",
+		"vc_isoffseason":"${fld:isoffseason@js}",
+		"i_daycount":"${fld:daycount}",
+		"i_allowcount":"${fld:allowcount}",
+		"f_limitswimtime":"${fld:limitswimtime}",
+		"i_freebathcount":"${fld:freebathcount}",
+		"f_scale":"${fld:scale}",
+		"i_giveday":"${fld:giveday}",
+		"i_ptcount":"${fld:ptcount}",
+		"i_savedaycount":"${fld:savedaycount}",
+		"vc_remark":"${fld:remark@js}",
+		"i_count":"${fld:count}",
+		"f_liliaomoney":"${fld:liliaomoney}",
+		"f_moneyleft":"${fld:moneyleft}",
+		"vc_cardtype":"${fld:vc_cardtype@js}",
+		"vc_item":"${fld:item@js}",
+		"i_status":"${fld:i_status@js}",
+		"f_cardfees":"${fld:f_cardfees@js}"
+	},
+	</rows>	
+	{}
+]}

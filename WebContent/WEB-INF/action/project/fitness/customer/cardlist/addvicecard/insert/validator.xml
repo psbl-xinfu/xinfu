@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="name" type="varchar" required="true" label="姓名"/>
+	<parameter id="mobile" type="varchar" required="true" label="手机号"/>
+	<parameter id="sex" type="varchar" required="false" label="性别"/>
+	<parameter id="age" type="varchar" required="false" label="年龄"/>
+	<parameter id="cardtype" type="varchar" required="false" label="证件类型"/>
+	<parameter id="card" type="varchar" required="false" label="身份证号码"/>
+	<parameter id="urgent" type="varchar" required="false" label="紧急联系人"/>
+	<parameter id="othertel" type="varchar" required="false" label="紧急联系人手机号"/>
+	<parameter id="cardcode" type="varchar" required="true" label="会员卡号"/>
+	<parameter id="incode" type="varchar" required="false" label="卡内码"/>
+	<parameter id="relatecode" type="varchar" required="true" label="主卡卡号"/>
+	<parameter id="remark" type="varchar" required="false" label="备注"/>
+	<parameter id="relatemobile" type="varchar" required="true" label="主卡手机号"/>
+</validator>
+

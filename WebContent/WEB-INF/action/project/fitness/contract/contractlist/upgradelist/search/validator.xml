@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="s_start_date" type="date" required="false" label="s_start_date"/>
+	<parameter id="s_end_date" type="date" required="false" label="s_end_date"/>
+	<parameter id="s_skill_name" type="varchar" required="false" label="s_skill_name"/>
+	<parameter id="s_status" type="integer" required="false" label="s_status"/>
+	<parameter id="s_name" type="varchar" required="false" label="s_name"/>
+	<parameter id="s_type" type="varchar" required="false" label="s_type"/>
+	<parameter id="statusall" type="varchar" required="false" label="状态"/>
+	<parameter id="relatecode" type="varchar" required="false" label="关联合同编号"/>
+</validator>

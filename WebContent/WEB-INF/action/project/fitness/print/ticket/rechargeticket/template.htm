@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+    <title>查看</title>
+
+    <style>
+        * {
+            width: 300px;
+        }
+
+        body {
+            position: absolute;
+            text-align: left;
+            font-family: "宋体";
+        }
+
+        .hr1 {
+            margin-bottom: 8px;
+            border-top: 4px solid #000;
+        }
+
+        .hr2 {
+            border-top: 1px solid #000;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 40px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .context {
+            font-size: 16px;
+            left: 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 30px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="col_mainInner dialogbg" style="height: 400px;">
+    <form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+
+        <hr class="hr1"/>
+        <div class="title">健身俱乐部系统</div>
+        <hr class="hr1"/>
+        <div class="subtitle">充值凭条</div>
+        <div class="context">
+            <div>会员编号：${fld:customercode}</div>
+            <div>会员姓名：${fld:name}</div>
+            <div>充值金额：${fld:}</div>
+            <div>赠送金额：${fld:}</div>
+            <div>当前金额：${fld:}</div>
+            <div>操作员&nbsp：${fld:}</div>
+            <div>收款时间：${fld:customercode}</div>
+        </div>
+        <hr class="hr2"/>
+        <div>Member Signature</div>
+        <div>会员签字：</div>
+        <br/>
+        <br/>
+        <br/>
+        <div>请会员确认无误后签字，谢谢！</div>
+        <div>Please sign in after confirming</div>
+        <div>thank you!</div>
+        <hr class="hr1"/>
+        <div class="title"></div>
+        <hr class="hr1"/>
+
+    </form>
+</div>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}"/>
+<script language="JavaScript">
+    $(document).ready(function () {
+        window.print();
+        setTimeout("ccms.dialog.close('dyxp1')", 50); // 没这句,就会弹出两边.不知道为什么
+    });
+</script>
+</body>
+</html>

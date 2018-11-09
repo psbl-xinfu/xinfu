@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="prestopdays" type="varchar" required="true" label="停卡天数"/>
+    <parameter id="customercode" type="varchar" required="false" label="会员号"/>
+    <parameter id="cust_name" type="varchar" required="true" label="会员名称"/>
+    <parameter id="cardcode" type="varchar" required="true" label="会员卡号"/>
+    <parameter id="stopcarddate" type="varchar" required="true" label="开始停用日期"/>
+    <!-- <parameter id="prestopdays" type="varchar" required="false" label="停卡天数"/> -->
+    <parameter id="reason" type="varchar" required="false" label="停卡原因"/>
+    <parameter id="remark" type="varchar" required="false" label="备注"/>
+    <parameter id="cardstartdate" type="varchar" required="false" label="cardstartdate"/>
+    <parameter id="cardenddate" type="varchar" required="false" label="cardenddate"/>
+    <parameter id="daysremain" type="varchar" required="false" label="daysremain"/>
+    <parameter id="cardtype" type="varchar" required="false" label="卡类型"/>
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该会员卡不能停卡，请确认会员卡状态！" id="cardcode" sql="noRep.sql" />
+</validator>
+
+

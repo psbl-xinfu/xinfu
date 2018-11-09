@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+	<title>合同办理</title>
+	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+	<style type="text/css">
+	.name{
+	margin-left: 10px !important;
+	}
+	</style>
+	</head>
+    <body>
+        
+       
+        <div class="hetongindex container">
+            <div class="row"  id="card">
+                <div class="col-xs-10">
+                    <p class="name" >办卡合同</p>
+                </div>
+                <div class="col-xs-2">
+                    <img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png" >
+                </div>
+            </div>
+            <div class="row" id="pt">
+                <div class="col-xs-10">
+                    <p class="name">私教合同</p>
+                </div>
+                <div class="col-xs-2">
+                    <img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png"  >
+                </div>
+            </div>
+            <div class="row" id="shenpi">
+                <div class="col-xs-10">
+                    <p class="name">待审批合同</p>
+                </div>
+                <div class="col-xs-2">
+                    <img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png">
+                </div>
+            </div>
+        </div>   
+        <script type="text/javascript">
+        $(function(){
+        	homemc();
+            $('#card').on('click',function(){
+            	location.href="${def:context}/action/project/fitness/wx/mc/contract/cardpeplelist/crud";
+            })
+            
+        	$('#pt').on('click',function(){
+            	location.href="${def:context}/action/project/fitness/wx/mc/contract/ptpeplelist/crud";
+            })
+            
+            
+             $('#shenpi').on('click',function(){
+            	location.href="${def:context}/action/project/fitness/wx/mc/contract/shenpi/crud";
+            })
+            
+            
+        })
+        
+        </script>
+    </body>
+</html>
+

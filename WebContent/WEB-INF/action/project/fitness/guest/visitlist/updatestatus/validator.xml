@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="code" type="varchar" required="true" label="资源预约记录code" maxlen="20" />
+</validator>
