@@ -479,11 +479,12 @@ public class SecurityFilterForWeixin implements Filter{
 						res.sendRedirect(loginPage);
 						return;
 					} else {
+						
 						loginRs.first();
 						int enabled = loginRs.getInt("enabled");
-						if (enabled == 0) {
-							throw new Throwable("账号已停用");
-						}
+						/*if (enabled == 0) {
+							throw new Throwable("账号已停用"+weixin_userid);
+						}*/
 						String sqlLog = getLocalResource("/transactions/project/weixin/login/insert-loginlog.sql");
 						t.setTemplate(sqlLog);
 						sqlLog = t.getSql(loginRs);

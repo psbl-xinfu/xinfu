@@ -210,14 +210,8 @@ $(document).ready(function() {
 				ccms.dialog.notice("未上课记录无法打印小票！");
 				return false;
 			}else{
-				var uri="${def:context}/action/project/fitness/print/ticket/ptdetailprepareprint?pk_value="+target_id+"&print_type="+_status;
-				ajaxCall(uri,{
-					method: "get",
-					progress: true,
-					dataType: "script",
-					success: function() {
-					}
-				});
+				ccms.dialog.open({url:"${def:context}/action/project/fitness/print/ticket/ptdetailprepareprint?pk_value="+target_id+"&print_type="+_status});
+				
 			}
 		}else{
 			ccms.dialog.notice("请选择会员!");

@@ -4,7 +4,7 @@ name,
 mobile,
 
 (SELECT param_text FROM cc_config WHERE category = 'GuestType' 
-and param_value::int = type) as type,
+and param_value::int =cc_guest.type and org_id=cc_guest.org_id) as type,
 
 (select name from hr_staff where userlogin=cc_guest.mc and org_id = ${def:org}) as mc,--销售员
 (

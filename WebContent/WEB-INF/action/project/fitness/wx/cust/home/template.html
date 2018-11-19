@@ -112,6 +112,7 @@ var customercode='';
         	<servicetwo>
             var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/site/crud";
            	location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+			alert(location.href) ;         
            	</servicetwo>
         })
         
