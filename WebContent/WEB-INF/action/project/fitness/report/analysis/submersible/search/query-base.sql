@@ -21,7 +21,7 @@ inner join (
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('2', '4')  and fk.userlogin = mc 
+ 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = mc 
  		)
 		and (case when ${fld:listmc} is null then 1=1 else mc = ${fld:listmc} end)
 		group by mc
@@ -40,7 +40,7 @@ inner join (
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('2', '4')  and fk.userlogin = mc 
+ 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = mc 
  		)
 		and (case when ${fld:listmc} is null then 1=1 else mc = ${fld:listmc} end)
 		group by mc
@@ -59,7 +59,7 @@ inner join (
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('2', '4')  and fk.userlogin = cc_guest_prepare.createdby 
+ 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = cc_guest_prepare.createdby 
  		)
 		and (case when ${fld:listmc} is null then 1=1 else createdby = ${fld:listmc} end)
 		group by createdby
@@ -78,7 +78,7 @@ inner join (
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('2', '4')  and fk.userlogin = cc_guest_prepare.createdby 
+ 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = cc_guest_prepare.createdby 
  		)
 		and (case when ${fld:listmc} is null then 1=1 else createdby = ${fld:listmc} end)
 		group by createdby
@@ -88,7 +88,7 @@ where h.status = 1 and h.userlogin = (case when ${fld:listmc} is null then h.use
 and exists(
 	select 1 from hr_skill k 
 	inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
-	where k.skill_scope in ('2', '4') and org_id = ${def:org}
+	where k.skill_scope in ('1','2', '4') and org_id = ${def:org}
 	and fk.user_id=h.user_id
 )
 and h.org_id = ${def:org}
