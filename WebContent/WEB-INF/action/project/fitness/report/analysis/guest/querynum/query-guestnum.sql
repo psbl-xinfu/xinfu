@@ -17,7 +17,7 @@ from
 		and exists(
 	 			select 1 from hr_skill k 
 	 			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
-	 			where k.skill_scope in ('2', '4') and fk.userlogin = cc_guest.mc 
+	 			where k.skill_scope in ('1','2', '4') and fk.userlogin = cc_guest.mc 
 	 		)
  		group by to_char(created, 'yyyy-MM') 
 	 	
@@ -35,7 +35,7 @@ from
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('2', '4')  and fk.userlogin = c.salemember 
+ 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = c.salemember 
  		)
 		and (case when ${fld:mc} is null then 1=1 else c.salemember = ${fld:mc} end)
  		group by to_char(createdate, 'yyyy-MM') 
@@ -55,7 +55,7 @@ from
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('2', '4')  and fk.userlogin = c.salemember1 
+ 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = c.salemember1 
  		)
 		and (case when ${fld:mc} is null then 1=1 else c.salemember1 = ${fld:mc} end)
  		group by to_char(createdate, 'yyyy-MM') 
