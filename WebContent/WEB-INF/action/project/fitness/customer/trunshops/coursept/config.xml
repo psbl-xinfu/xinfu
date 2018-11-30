@@ -2,7 +2,7 @@
 <config>
 
 	<summary>
-		私教转课
+		会员跨店
 	</summary>
 	
 	<log>false</log>
@@ -12,8 +12,7 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-	    <recordset id="query-course.sql" source="sql" scope="transaction"/>
-	    <recordset id="query.sql" source="sql" scope="transaction"/>
+	     <recordset id="query.sql" source="sql" scope="transaction"/> 
 	</transaction>
 
 	<output>
@@ -22,8 +21,8 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="query-course.sql" tag="course-rows"/>
-		<print mode="table" recordset="query.sql" tag="rows"/>
+		<!--  <print mode="form" recordset="query.sql" /> -->
+		<print mode="table" recordset="query.sql" tag="rows"/> 
 	</output>
 
 </config>

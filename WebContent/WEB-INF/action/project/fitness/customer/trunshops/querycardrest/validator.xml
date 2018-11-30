@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
 	<parameter id="custcode" type="varchar" required="true" label="会员编号" />
-	<parameter id="org_id" type="varchar" required="true" label="org_id" />
 </validator>

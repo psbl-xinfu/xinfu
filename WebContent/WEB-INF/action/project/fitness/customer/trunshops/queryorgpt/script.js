@@ -1,5 +1,5 @@
 
-var ptstr = "<option value=''>全部教练</option>";
+var ptstr = "<option value=''>全部会籍</option>";
 <rows>
 	console.log("${fld:name}");
 	ptstr+="<option value='${fld:userlogin}'>${fld:name}</option>"

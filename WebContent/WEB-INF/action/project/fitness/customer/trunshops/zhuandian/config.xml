@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+	
+    <request-encoding>UTF-8</request-encoding>
+
+	<colname>customercode,ptjsons,mcjsons,createdby,orgjsons;courseid,ptid,codeid,orgid;orgcode,customercode;mcid,orgcode,customercode;orgcode,customercode</colname>
+	<sql-template>insert_storerecord.sql;update_ptrestpt.sql;update_card.sql;update_contract.sql;update_customer.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.customer.zhuangdian</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+	</output>
+
+</config>

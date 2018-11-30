@@ -29,10 +29,10 @@ background: rgba(42, 48, 56, -1.2) !important
 									</org-rows>
 								</select>
 							</div>
-							<label for="depot">转课教练：</label>
+							<label for="depot">转店会籍：</label>
 							<div class="my-selected" >
 								<select id="turnclasspt" name="turnclasspt" style="display: none;">
-									<option value="">全部教练</option>
+									<option value="">全部会籍</option>
 									<pt-rows>
 										<option value="${fld:userlogin}">${fld:name}</option>
 									</pt-rows>
@@ -47,36 +47,59 @@ background: rgba(42, 48, 56, -1.2) !important
 										<th>序号</th>
 										<th>卡号</th>
 										<th>姓名</th>
-										<th>手机号</th>
-										<th>私教课总节数</th>
-										<th>私教课剩余节数</th>
-										<th>类型</th>
-										<th>状态</th>
-										<th>私教</th>
-										<th>结束日期</th>
+										<th>合同编号</th>
+										<th>合同类型</th>
+										<th>卡类型</th>
+										<th>卡状态</th>
+										<th>销售员</th>
+										<th>有效期</th>
+									</tr>
+								</thead>
+								<tbody id="cardrestlist">
+								</tbody>
+							</table>
+							<table>
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>私教类型</th>
+										<th>私练</th>
+										<th>转店后课程</th>
+										<th>转店后私练</th>
+										<th>总课时</th>
+										<th>剩余课时</th>
+										<th>有效期</th>
 										<th>来源</th>
 									</tr>
 								</thead>
+								
 								<tbody id="ptrestlist">
+									
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<div class="sec-4">
 						<label>操作员：</label>
-						<input type="text" value="${fld:staff_name}" readonly="readonly">
+						<input id="czy" type="text"  value="${fld:staff_name}" readonly="readonly">
 						<label>操作日期：</label>
 						<input type="text" value="${def:date}" readonly="readonly">
 					</div>
 				</div>
      </form>
+     <form class="form-horizonta" role="form" method="post" id="updateform"
+		name="updateform" >
+		<input id="customercode" name="customercode"  type="hidden"/>
+		<input id="createdby" name="createdby"  type="hidden"/>
+		<input id="mcid" name="mcid"  type="hidden"/>
+		<input id="orgcode" name="orgcode"  type="hidden"/>
+		<div id="gcode">
+		</div>
+	</form>
     </body>
 <script type="text/javascript">
+var bin="";
 $(function(){
-	//页面点击事件
-	/* $(document).click(function(){ 
-		$(".error").html("");
-	});  */
 	searchSelectInit($("#turnclasspt,#org_id"));
 	setSelectValue($("#org_id"), "${def:org}");
 	//查询会员
@@ -91,43 +114,33 @@ $(function(){
 			ccms.dialog.open({url : "${def:context}/action/project/fitness/customer/trunshops/trunshop/crud?pickcustname="
 					+custall+"&org_id=${def:org}&objid=custcode&objidtwo=custall&random_number="+Math.random()});
 		}else{
+			$("#cardrestlist").html("");
 			$("#ptrestlist").html("");
 			$("#custcode").val("");
 		}
 	});
-	//转店
-	$("#savebtn").click(function(){
-		var url = "${def:actionroot}/insert";
-		ajaxCall(url,{
-			method:"post",
-			form:"ptrestForm",
-			progress:true,
-			dataType:"script",
-			success:function(){	
-				ccms.dialog.notice("成功！", 2000, function(){
-					location.href=location.href;
-				});
-			}
-		});
-	});
 	
-	//通店选择查询教练等
-	$("#org_id").change(function(){
-		var url = "${def:actionroot}/queryorgpt?org_id="+$(this).val();
+});
+
+function pickcustCallback(){
+	if($("#type").val()=="1"){
+		var url = "${def:actionroot}/queryptrest?custcode="+$("#custcode").val()+
+		"&org_id="+$("#org_id").val();
 		ajaxCall(url,{
 			method:"get",
 			progress:true,
 			dataType:"script",
 			success:function(){	
-				$("#newcustcode,#newcustname").val("");
 			}
 		});
-	});
+	}
 	
-});
-function pickcustCallback(){
+}
+
+
+function pickcardCallback(){
 	if($("#type").val()=="1"){
-		var url = "${def:actionroot}/queryptrest?custcode="+$("#custcode").val();
+		var url = "${def:actionroot}/querycardrest?custcode="+$("#custcode").val();
 		ajaxCall(url,{
 			method:"get",
 			progress:true,
@@ -139,6 +152,120 @@ function pickcustCallback(){
 }
 
 
+document.onkeydown=function(event){
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+	if(e && e.keyCode==13){ // enter 键
+		$("#querybtn").click();
+	 	return false;
+
+	}
+}
+
+
+
+$("#trunbtn").unbind().on("click",function(){
+	if($("#custall").val()==""){
+		ccms.dialog.notice("请输入会员编号/姓名/手机号！", 2000);
+	}else if($("#org_id").val()=="${def:org}"){
+		ccms.dialog.notice("已在本店,请选择要转的店！", 2000);
+	}else if($("#turnclasspt").val()==""||""==$("#turnclasspt").val()){
+		ccms.dialog.notice("请选择会籍！", 2000);
+	} else{
+		var bin="";
+		var ben="";
+		var codes="";
+		var prids="";
+		var ptjsons="[";
+			    for (var i = 1; i <= count; i++) { 
+			    	if(i!=count){
+			    		bin +=$("#"+"course"+i).val();
+			    		bin +=(",");
+			    		ben +=$("#"+"jiao"+i).val();
+			    		ben +=(",")
+			    		codes +=$("#"+"ids"+i).val();
+			    		codes +=(",");
+			    		ptjsons+="{"+'"code":'+'"'+$("#"+"prid"+i).val()+'"'+","+ '"yuankc":' +'"'+$("#"+"ptlevelcode"+i).val()+'"' +","+'"xiankc":'+'"'+$("#"+"course"+i).val()+'"'+
+			    			","+'"yuanpt":'+'"'+$("#"+"ypid"+i).val()+'"'+","+'"xianpt":'+'"'+$("#"+"jiao"+i).val()+'"'+"},";
+			    	}else{
+			    		bin +=$("#"+"course"+i).val();
+			    		ben +=$("#"+"jiao"+i).val();
+			    		codes +=$("#"+"ids"+i).val();
+			    		ptjsons+="{"+'"code":'+'"'+$("#"+"prid"+i).val()+'"'+","+ '"yuankc":' +'"'+$("#"+"ptlevelcode"+i).val()+'"' +","+'"xiankc":'+'"'+$("#"+"course"+i).val()+'"'+
+		    			","+'"yuanpt":'+'"'+$("#"+"ypid"+i).val()+'"'+","+'"xianpt":'+'"'+$("#"+"jiao"+i).val()+'"'+"}]";
+			    	}
+			    	
+			   	}
+			    var mcjsons="[";
+			    for (var j = 1; j <= cardcount; j++) { 
+			    	if(j!=cardcount){
+			    		mcjsons+="{"+'"concode":'+'"'+$("#"+"htcode"+j).val()+'"'+","+ '"yuanmc":' +'"'+$("#"+"salemember"+j).val()+'"' +","+'"xianmc":'+'"'+$("#turnclasspt").val()+'"'+"},";
+			    	}else{
+			    		mcjsons+="{"+'"concode":'+'"'+$("#"+"htcode"+j).val()+'"'+","+ '"yuanmc":' +'"'+$("#"+"salemember"+j).val()+'"' +","+'"xianmc":'+'"'+$("#turnclasspt").val()+'"'+"}]";
+			    	}
+			    	
+			   	}
+			    var orgjsons="[{"+'"yuanorgid":'+'"'+"${def:org}"+'"'+","+'"xianorgid":'+'"'+$("#org_id").val()+'"'+"}]";
+			    $("#orgcode").val($("#org_id").val());
+			    $("#mcid").val($("#turnclasspt").val());
+			    $("#customercode").val($("#custcode").val());
+			    $("#createdby").val($("#czy").val());
+			    
+			    var ids=codes.split(",");
+			    var courseids=bin.split(",");
+			    var ptids=ben.split(",");
+			    var orgid=$("#org_id").val();
+			    var divobj = $("#gcode");
+			    divobj.empty();
+			    var courseid="";
+			    var ptid="";
+			    var yz="";
+			    if(count!=0){
+				    for(var b = 0; b < ptids.length; b++){
+				    	yz = ptids[b];
+						if(yz=="null"||yz==""){
+							ccms.dialog.notice("请选择教练！", 2000);
+							return false;
+						} 
+						
+					} 
+			    }if(count==0&&cardcount==0){
+			    	ccms.dialog.notice("该会员卡已过期！", 2000);
+			    	return false;
+			    }
+			    if(yz!="null"){
+			    	  for(var v = 0; v < ids.length; v++){
+							var codeid = ids[v];
+							courseid = courseids[v];
+							ptid = ptids[v];
+					    	divobj.append('<input type="hidden" name="courseid" value="' + courseid + '" />');
+					    	divobj.append('<input type="hidden" name="ptid" value="' + ptid + '" />');
+							divobj.append('<input type="hidden" name="orgid" value="' + orgid + '" />');
+					    	divobj.append('<input type="hidden" name="codeid" value="' + codeid + '" />');
+						}
+					    divobj.append('<input type="hidden"  name="ptjsons" value='+ptjsons+' />');
+					    divobj.append('<input type="hidden"  name="mcjsons" value=' + mcjsons + ' />');
+					    divobj.append('<input type="hidden"  name="orgjsons" value=' + orgjsons + ' />');
+
+					    $Dialog().confirm("确定要转店吗？",function(){
+							var url = "${def:context}${def:actionroot}/zhuandian";
+							ajaxCall(url,{
+						   		method: "post",
+						   		form:"updateform",
+						   		progress: true,
+						   		dataType: "script",
+						   		success: function(data) {
+									$Dialog().notice("转店成功！",2000);
+									url3="${def:context}${def:actionroot}/crud"
+									search.searchData(1);
+									//ccms.dialog.open({url:url3});
+								}
+							});
+						});
+			    }
+			  
+		 }
+	
+});
 
 </script>
 </html>

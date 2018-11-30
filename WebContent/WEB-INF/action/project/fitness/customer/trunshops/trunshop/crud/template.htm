@@ -69,6 +69,7 @@ $(document).ready(function() {
 		if($("#datagrid tr").length==1){
 			parent.$("#${fld:objid}").val($("#datagrid tr td").eq(0).html());
 			parent.$("#${fld:objidtwo}").val($("#datagrid tr td").eq(1).html());
+			parent.pickcardCallback();
 			parent.pickcustCallback();
 			ccms.dialog.close();
 		}
@@ -78,8 +79,9 @@ $(document).ready(function() {
 function custinfo(code, name){
 	parent.$("#${fld:objid}").val(code);
 	parent.$("#${fld:objidtwo}").val(name);
+	parent.pickcardCallback();
 	parent.pickcustCallback();
-	ccms.dialog.close();
+	ccms.dialog.close();	
 }
 </script>
 </body>

@@ -1,0 +1,1 @@
+select DISTINCT code,ptlevelname from cc_ptdef where  org_id = ${fld:org_id}

@@ -1,11 +1,69 @@
 
 var ptrestlist = "", count = 0;
+var ids="";
 <rows>
 	count++;
+	
 	ptrestlist+="<tr>"
-			+"<td>"+count+"</td><td>${fld:code}</td><td>${fld:name}</td><td>${fld:mobile}</td>"
-			+"<td>${fld:pttotalcount}</td><td>${fld:ptleftcount}</td><td>${fld:type}</td><td>${fld:status}</td>"
-			+"<td>${fld:ptname}</td><td>${fld:enddate}</td><td>${fld:pttype}</td>";
+		+"<input id='ids"+count+"' name='ids'  type='hidden' value='${fld:prid}'/>"+
+		"<input id='ptlevelcode"+count+"' name='ptlevelcode'  type='hidden' value='${fld:ptlevelcode}'/>"+
+		"<input id='ypid"+count+"' name='ypid'  type='hidden' value='${fld:ptid}'/>"+
+		"<input id='prid"+count+"' name='prid'  type='hidden' value='${fld:prid}'/>"+
+			"<td>"+count+"</td>" +
+			"<td>${fld:ptlevelname}</td>" +
+			"<td>${fld:ptname}</td>" +
+			"<td class='course'>" +
+			"<select id='course"+count+"' onchange='courseid("+count+")' name='course'>"+
+					"<course-rows>"+
+							"<option value='${fld:code}'>${fld:ptlevelname}</option>"+    
+					"</course-rows>"+
+			"</select></td>"+
+			"<td>" +
+			"<select id='jiao"+count+"' class='jiao' style='width:60%''>"+
+			"</select></td>"+
+			"<td>${fld:pttotalcount}</td>" +
+			"<td>${fld:ptleftcount}</td>"+
+			"<td>${fld:ptenddate}</td>" +
+			"<td>${fld:pttype}</td>"+
+			"</tr>";
 </rows>
+// searchSelectInit($("#course"));
 $("#ptrestlist").html(ptrestlist);
+$("#org_id").change(function(){
+	var url = "${def:actionroot}/queryorgpt?org_id="+$(this).val();
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){	
+			$("#newcustcode,#newcustname").val("");
+			pickcustCallback();
+		}
+	});
+	
+});
+
+
+
+function courseid(count){
+	     var bin = "${def:context}${def:actionroot}/coursept?org_id="+$("#org_id").val()+
+			"&code=" + $("#"+"course"+count).val();
+	     			$.ajax({
+	    	          url : bin,
+	    	          type : "get",
+	    	          success : function(data) {
+	    	        	  var ptstr = "<option value=''>全部教练</option>";
+	    	        	  ptstr+=data;
+	    	        	  $("#"+"jiao"+count).html(ptstr);
+	    	          	}
+	     		});
+	 }
+	
+
+
 ccms.util.renderRadio("ptrestcode");
+
+
+
+
+
