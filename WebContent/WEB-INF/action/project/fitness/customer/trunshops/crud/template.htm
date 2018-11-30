@@ -253,12 +253,13 @@ $("#trunbtn").unbind().on("click",function(){
 						   		form:"updateform",
 						   		progress: true,
 						   		dataType: "script",
-						   		success: function(data) {
-									$Dialog().notice("转店成功！",2000);
-									url3="${def:context}${def:actionroot}/crud"
-									search.searchData(1);
-									//ccms.dialog.open({url:url3});
-								}
+						   		success: function() {
+								  url3="${def:context}${def:actionroot}/crud";
+						   			 $Dialog().notice("转店成功！",1000,function(){
+						   				document.location.reload();	
+									}); 
+								  
+						   		}
 							});
 						});
 			    }
@@ -266,6 +267,15 @@ $("#trunbtn").unbind().on("click",function(){
 		 }
 	
 });
-
+function getAjaxCall(uri){
+	return ajaxCall(uri, {
+		method : "post",
+		progress : true,
+		dataType : "script",
+		success : function() {
+			
+		}
+	});
+}
 </script>
 </html>
