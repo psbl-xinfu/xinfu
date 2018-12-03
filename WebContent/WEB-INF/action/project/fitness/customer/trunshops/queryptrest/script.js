@@ -38,6 +38,7 @@ $("#org_id").change(function(){
 		success:function(){	
 			$("#newcustcode,#newcustname").val("");
 			pickcustCallback();
+			pickcardCallback();
 		}
 	});
 	

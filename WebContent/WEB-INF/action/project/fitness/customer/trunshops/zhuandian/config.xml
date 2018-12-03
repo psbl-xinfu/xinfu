@@ -8,8 +8,20 @@
 	
     <request-encoding>UTF-8</request-encoding>
 
-	<colname>customercode,ptjsons,mcjsons,createdby,orgjsons;courseid,ptid,codeid,orgid;orgcode,customercode;mcid,orgcode,customercode;orgcode,customercode</colname>
-	<sql-template>insert_storerecord.sql;update_ptrestpt.sql;update_card.sql;update_contract.sql;update_customer.sql</sql-template>
+<colname>
+	customercode,ptjsons,mcjsons,createdby,orgjsons;
+	cardcode,cardtypeid,cardorgid;
+	mcid,customercode,orgcode;
+	orgcode,customercode;
+	courseid,ptid,codeid,orgid;
+</colname>
+<sql-template>
+	insert_storerecord.sql;
+	update_card.sql;
+	update_contract.sql;
+	update_customer.sql;
+	update_ptrestpt.sql
+</sql-template>
 
 	<transaction>
 		<classname>transactions.project.fitness.customer.zhuangdian</classname>

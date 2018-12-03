@@ -50,6 +50,7 @@ background: rgba(42, 48, 56, -1.2) !important
 										<th>合同编号</th>
 										<th>合同类型</th>
 										<th>卡类型</th>
+										<th>转店后卡类型</th>
 										<th>卡状态</th>
 										<th>销售员</th>
 										<th>有效期</th>
@@ -122,6 +123,30 @@ $(function(){
 	
 });
 
+function pickcardCallback(){
+	if($("#type").val()=="1"){
+		var url = "${def:actionroot}/querycardrest?custcode="+$("#custcode").val()+"&org_id="+$("#org_id").val();
+		ajaxCall(url,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+				 for(i=1;i<=cardcount;i++){
+					var yuan = $("#yuan"+i).val();
+					
+					if(yuan==1){
+						$("#xiancardname"+i).html($("#jicitd"+i).html());
+					}else{
+						$("#xiancardname"+i).html($("#shixiaotd"+i).html());
+					} 
+				} 
+			}
+		});
+		
+	}
+}
+
+
 function pickcustCallback(){
 	if($("#type").val()=="1"){
 		var url = "${def:actionroot}/queryptrest?custcode="+$("#custcode").val()+
@@ -138,18 +163,10 @@ function pickcustCallback(){
 }
 
 
-function pickcardCallback(){
-	if($("#type").val()=="1"){
-		var url = "${def:actionroot}/querycardrest?custcode="+$("#custcode").val();
-		ajaxCall(url,{
-			method:"get",
-			progress:true,
-			dataType:"script",
-			success:function(){	
-			}
-		});
-	}
-}
+
+
+
+		
 
 
 document.onkeydown=function(event){
@@ -175,7 +192,43 @@ $("#trunbtn").unbind().on("click",function(){
 		var ben="";
 		var codes="";
 		var prids="";
+		var cardtypelist="";
 		var ptjsons="[";
+		 var mcjsons="[";
+		    var sts="";
+		    var yuan = "";
+		    var xian="";
+		    var cardcodelist="";
+		    for (var j = 1; j <= cardcount; j++) { 
+		    	if(j!=cardcount){
+		    		yuan=$("#yuan"+j).val();
+		    		cardcodelist+=$("#cardcode"+j).text();
+		    		cardcodelist+=(",");
+		    		if(yuan==1){
+		    			cardtypelist +=$("#"+"jici"+j).val();
+			    		cardtypelist +=(",");
+			    		xian=$("#"+"jici"+j).val();
+		    		}else {
+		    			cardtypelist +=$("#"+"shixiao"+j).val();
+			    		cardtypelist +=(",");
+			    		xian=$("#"+"shixiao"+j).val();
+		    		}
+		    		mcjsons+="{"+'"concode":'+'"'+$("#"+"htcode"+j).val()+'"'+","+ '"yuanmc":' +'"'+$("#"+"salemember"+j).val()+'"' +","+'"xianmc":'+'"'+$("#turnclasspt").val()+'"'
+		    		+","+'"cardcode":'+'"'+$("#cardcode"+j).text()+'"'+","+'"yuancardtypeid":'+'"'+$("#cardtypecode"+j).val()+'"'+","+'"xiancardtypeid":'+'"'+xian+'"'+"},";
+		    	}else{
+		    		cardcodelist+=$("#cardcode"+j).text();
+		    		if(yuan==1){
+		    			cardtypelist +=$("#"+"jici"+j).val();
+		    			xian=$("#"+"jici"+j).val();
+		    		}else {
+		    			cardtypelist +=$("#"+"shixiao"+j).val();
+		    			xian=$("#"+"shixiao"+j).val();
+		    		}
+		    		mcjsons+="{"+'"concode":'+'"'+$("#"+"htcode"+j).val()+'"'+","+ '"yuanmc":' +'"'+$("#"+"salemember"+j).val()+'"' +","+'"xianmc":'+'"'+$("#turnclasspt").val()+'"'+
+		    		","+'"cardcode":'+'"'+$("#cardcode"+j).text()+'"'+","+'"yuancardtypeid":'+'"'+$("#cardtypecode"+j).val()+'"'+","+'"xiancardtypeid":'+'"'+xian+'"'+"}]";
+		    	}
+		    	
+		   	}
 			    for (var i = 1; i <= count; i++) { 
 			    	if(i!=count){
 			    		bin +=$("#"+"course"+i).val();
@@ -195,15 +248,8 @@ $("#trunbtn").unbind().on("click",function(){
 			    	}
 			    	
 			   	}
-			    var mcjsons="[";
-			    for (var j = 1; j <= cardcount; j++) { 
-			    	if(j!=cardcount){
-			    		mcjsons+="{"+'"concode":'+'"'+$("#"+"htcode"+j).val()+'"'+","+ '"yuanmc":' +'"'+$("#"+"salemember"+j).val()+'"' +","+'"xianmc":'+'"'+$("#turnclasspt").val()+'"'+"},";
-			    	}else{
-			    		mcjsons+="{"+'"concode":'+'"'+$("#"+"htcode"+j).val()+'"'+","+ '"yuanmc":' +'"'+$("#"+"salemember"+j).val()+'"' +","+'"xianmc":'+'"'+$("#turnclasspt").val()+'"'+"}]";
-			    	}
-			    	
-			   	}
+			   
+			    
 			    var orgjsons="[{"+'"yuanorgid":'+'"'+"${def:org}"+'"'+","+'"xianorgid":'+'"'+$("#org_id").val()+'"'+"}]";
 			    $("#orgcode").val($("#org_id").val());
 			    $("#mcid").val($("#turnclasspt").val());
@@ -211,14 +257,27 @@ $("#trunbtn").unbind().on("click",function(){
 			    $("#createdby").val($("#czy").val());
 			    
 			    var ids=codes.split(",");
+			    alert(cardtypelist);
+			    alert(cardcodelist);
+			    var cardtypes=cardtypelist.split(",");
 			    var courseids=bin.split(",");
 			    var ptids=ben.split(",");
 			    var orgid=$("#org_id").val();
 			    var divobj = $("#gcode");
+			    var cardcodes=cardcodelist.split(",");
+			    var cardorgid=$("#org_id").val();
 			    divobj.empty();
+			    for(var s = 0; s < cardcodes.length; s++){
+					var cardcode = cardcodes[s];
+					var cardtypeid=cardtypes[s];
+			    	divobj.append('<input type="hidden" name="cardcode" value="' + cardcode + '" />');
+			    	divobj.append('<input type="hidden" name="cardtypeid" value="' + cardtypeid + '" />');
+			    	divobj.append('<input type="hidden" name="cardorgid" value="' + cardorgid + '" />');
+			    }
 			    var courseid="";
 			    var ptid="";
 			    var yz="";
+			    
 			    if(count!=0){
 				    for(var b = 0; b < ptids.length; b++){
 				    	yz = ptids[b];
@@ -228,7 +287,8 @@ $("#trunbtn").unbind().on("click",function(){
 						} 
 						
 					} 
-			    }if(count==0&&cardcount==0){
+			    }
+			    if(count==0&&cardcount==0){
 			    	ccms.dialog.notice("该会员卡已过期！", 2000);
 			    	return false;
 			    }
@@ -267,15 +327,6 @@ $("#trunbtn").unbind().on("click",function(){
 		 }
 	
 });
-function getAjaxCall(uri){
-	return ajaxCall(uri, {
-		method : "post",
-		progress : true,
-		dataType : "script",
-		success : function() {
-			
-		}
-	});
-}
+
 </script>
 </html>

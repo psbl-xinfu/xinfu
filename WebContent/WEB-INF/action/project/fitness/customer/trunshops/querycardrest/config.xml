@@ -12,6 +12,8 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
+	    <recordset id="query-shixiao.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-jici.sql" source="sql" scope="transaction"/>
 	    <recordset id="query.sql" source="sql" scope="transaction"/>
 	</transaction>
 
@@ -21,6 +23,8 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
+		<print mode="table" recordset="query-shixiao.sql" tag="shixiao-rows"/>
+		<print mode="table" recordset="query-jici.sql" tag="jici-rows"/>
 		<print mode="table" recordset="query.sql" tag="rows"/>
 	</output>
 

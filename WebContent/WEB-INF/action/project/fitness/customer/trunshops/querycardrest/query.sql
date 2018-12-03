@@ -1,4 +1,5 @@
 select
+	card.cardtype as  cardtypecode,
 	card.code,
 	cust.org_id,
 	con.code as htcode,
@@ -21,7 +22,9 @@ cardtype.name as cardname,
 		when card.status=5 then '停卡中'
 		when card.status=6 then '过期'
 	end) as status,--状态
-card.enddate
+card.enddate,
+cardtype.type as yuan
+
 from cc_contract con 
 left join cc_card card on card.contractcode=con.code
 left join cc_customer cust on cust.code=con.customercode
