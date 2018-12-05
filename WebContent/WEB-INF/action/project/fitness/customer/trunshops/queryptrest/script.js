@@ -13,13 +13,13 @@ var ids="";
 			"<td>${fld:ptlevelname}</td>" +
 			"<td>${fld:ptname}</td>" +
 			"<td class='course'>" +
-			"<select id='course"+count+"' onchange='courseid("+count+")' name='course'>"+
+			"<select id='course"+count+"' onchange='courseid("+count+")' name='course' style='background: #282e34 !important;border: none!important;outline: none!important;color: #969da4 !important;box-shadow: none!important;width:60%'>"+
 					"<course-rows>"+
 							"<option value='${fld:code}'>${fld:ptlevelname}</option>"+    
 					"</course-rows>"+
 			"</select></td>"+
 			"<td>" +
-			"<select id='jiao"+count+"' class='jiao' style='width:60%''>"+
+			"<select id='jiao"+count+"' class='jiao' style='background: #282e34 !important;border: none!important;outline: none!important;color: #969da4 !important;box-shadow: none!important;width:60%'>"+
 			"</select></td>"+
 			"<td>${fld:pttotalcount}</td>" +
 			"<td>${fld:ptleftcount}</td>"+
