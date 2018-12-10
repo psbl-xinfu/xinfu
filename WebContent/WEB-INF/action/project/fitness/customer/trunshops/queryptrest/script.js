@@ -19,7 +19,7 @@ var ids="";
 					"</course-rows>"+
 			"</select></td>"+
 			"<td>" +
-			"<select id='jiao"+count+"' class='jiao' style='background: #282e34 !important;border: none!important;outline: none!important;color: #969da4 !important;box-shadow: none!important;width:60%'>"+
+			"<select id='jiao"+count+"' class='jiao' style='background: #282e34 !important;border: none!important;outline: none!important;color: #969da4 !important;box-shadow: none!important;width:100%'>"+
 			"</select></td>"+
 			"<td>${fld:pttotalcount}</td>" +
 			"<td>${fld:ptleftcount}</td>"+
