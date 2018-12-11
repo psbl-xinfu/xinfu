@@ -11,7 +11,7 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-	    <recordset id="query-cardtype.sql" source="sql" scope="transaction"/>
+	 <!--    <recordset id="query-cardtype.sql" source="sql" scope="transaction"/> -->
 	    <recordset id="query-salemember.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-customer.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-card-contract.sql" source="sql" scope="transaction"/>
@@ -24,7 +24,7 @@
 		<template>template.html</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
-		<print mode="table" recordset="query-cardtype.sql" tag="cardtype-rows"/>
+		<!-- <print mode="table" recordset="query-cardtype.sql" tag="cardtype-rows"/> -->
 		<print mode="table" recordset="query-salemember.sql" tag="sale-rows"/>
 		<print mode="table" recordset="query-salemember.sql" tag="sale2-rows"/>
 		<print mode="table" recordset="query-salemember.sql" tag="mc-rows"/>

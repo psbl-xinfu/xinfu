@@ -21,7 +21,7 @@ INSERT INTO cc_card(
 ) 
 SELECT 
 	get_arr_value(t.relatedetail, 1)
-	,1
+	,-1
 	,t.customercode
 	,get_arr_value(t.relatedetail, 3)	-- cardtype
 	,(CASE get_arr_value(t.relatedetail, 5) WHEN '' THEN NULL ELSE get_arr_value(t.relatedetail, 5) END)::date	-- startdate
@@ -31,7 +31,7 @@ SELECT
 	,t.normalmoney	-- factmoney
 	,(SELECT d.count FROM cc_cardtype d WHERE d.code = get_arr_value(t.relatedetail, 3) AND d.org_id = t.org_id)
 	,(SELECT d.count FROM cc_cardtype d WHERE d.code = get_arr_value(t.relatedetail, 3) AND d.org_id = t.org_id)
-	,2
+	,7
 	,{ts '${def:timestamp}'}
 	,'${def:user}'
 	,t.remark
