@@ -78,7 +78,7 @@ $(function () {
         }
         homept2();
 	//查询门店
-	ajaxCall("${def:actionroot}/queryorg?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}",{
+	ajaxCall("${def:actionroot}/queryorg?org_id=${fld:org_id}",{
 		method:"get",
 		dataType:"script",
 		success:function(){
