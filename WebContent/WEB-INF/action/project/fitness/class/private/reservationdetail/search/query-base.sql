@@ -16,7 +16,7 @@ SELECT
 	,d.ptlevelname as vc_ptlevelname
 	,d.ptfee as f_ptfee
 	,d.scale as f_scale
-	,pr.ptleftcount::integer as f_leftcount
+	,(case when p.status=2 then  g.leftcount::integer else pr.ptleftcount::integer end)  as f_leftcount
 	,(select name from hr_staff where hr_staff.userlogin = p.createdby) as vc_iuser 
 	,(
 		case when g.ptid is not null and g.ptid != '' then (select name from hr_staff where hr_staff.userlogin = g.ptid)
