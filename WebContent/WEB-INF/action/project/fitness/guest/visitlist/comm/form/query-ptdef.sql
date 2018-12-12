@@ -12,7 +12,7 @@ union
 
 select 
 	distinct so.user_id,
-	so.userlogin,a
+	so.userlogin,
 	(select name from hr_staff where userlogin = so.userlogin) as name,
 	(select name from hr_staff where userlogin = so.userlogin) as name_en
 from hr_staff_org so
