@@ -34,7 +34,7 @@ ${inc:/action/project/fitness/home/pub}
 							<select  id="cardcode" name="cardcode" style="display: none;">
 								<option value="">请选择</option>
 								<card-rows>
-								<option value="${fld:cardcode}">${fld:cardcode}</option>
+								<option value="${fld:cardcode}" codetype="${fld:type}">${fld:cardcode}</option>
 								</card-rows>
 							</select>
 						</li>
@@ -80,11 +80,8 @@ ${inc:/action/project/fitness/home/pub}
 						</li>							
 						<li>
 							<label style="width: 120px;">续卡类型：</label>
-							<select id="cardtype" name="cardtype" style="display: none;">
-								<option value="">请选择</option>
-								<cardtype-rows>
-								<option value="${fld:code}" code="${fld:cardfee}" codeday="${fld:daycount}" codegiveday="${fld:giveday}" codept="${fld:ptcount}">${fld:name@js}</option>
-								</cardtype-rows>
+							<select id="cardtype" title="请选择" name="cardtype">
+								
 							</select>
 						</li>
 						
@@ -190,6 +187,19 @@ function setcontractfee(){
 	$("#discountmoney").val(discountfee);
 	$("#normalmoney").val(normalmoney);
 	$("#normalmoneyspan").text(normalmoney);
+	
+}
+
+function cardtype(){
+	var typeobj=$("#cardcode").find("option:selected");
+	var type=typeobj.attr("codetype");
+	var url="${def:context}${def:actionroot}/cardtype?type="+type;
+	$.ajax({
+        url : url,
+        type : "get",
+        success : function() {
+        }
+	});
 }
 //根据启用方式重写卡有效时间
 function setvaliddate(){
@@ -223,7 +233,8 @@ $(document).ready(function(){
 	if(parseInt("${fld:skillscopenum}")>0){
 		$("#pay_btn").show();
 	}
-	selectInit($("#cardcode,#starttype,#campaigncode"));
+	
+	selectInit($("#cardcode,#starttype,#campaigncode,#cardtype"));
 	searchSelectInit($("#salemember,#salemember1,#mc,#cardtype"));  
 	setSelectValue($("#salemember"), "${def:user}");
 	setSelectValue($("#mc"), "${def:user}");
@@ -248,6 +259,7 @@ $(document).ready(function(){
 	$("#cardcode").on("change",function(){
 		getAjaxCall("/action/project/fitness/contract/continue/querycardinfo?cardcode="+$(this).val(), true, function(){
 			setcontractfee();
+			cardtype();
 		});
 	});
 
