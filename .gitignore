@@ -6,9 +6,10 @@ Thumbs.db
 # Build Files #
 
 bin
-target
-build/
+#target
+#build/
 .gradle
+WebContent/WEB-INF/class/*
 
 # Eclipse Project Files #
 
