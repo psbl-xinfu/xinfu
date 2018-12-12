@@ -43,7 +43,6 @@ public class JsSignature extends GenericTransaction {
 		if( null != sid && sid.length() > 0 && null != code && code.length() > 0 ){
 			try{
 				weixin_userid = WeixinUtil.getWeixinUserIdForService(appid, secret, code);
-				System.out.println("id======"+weixin_userid);
 			}catch(Throwable e){
 			}
 		}
