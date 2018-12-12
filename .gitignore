@@ -6,7 +6,7 @@ Thumbs.db
 # Build Files #
 
 bin
-target
+#target
 #build/
 .gradle
 WebContent/WEB-INF/class/*
