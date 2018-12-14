@@ -1,7 +1,7 @@
 select
 	 concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" code="',
 	(select  p.status from cc_guest_prepare p where  p.guestcode = g.code and p.org_id=${def:org}   order by p.code desc limit 1) 
-	::varchar,'','" code1="',g.status::varchar,'" value="',g.code::varchar,'','" > </label>') as application_id,
+	::varchar,'','" code1="',g.status::varchar,'" value="',g.mobile::varchar,'','" > </label>') as application_id,
 	g.code as vc_code,
 	g.name as vc_name,
 	(case g.sex when '0' then '女' when '1' then '男' when '2' then '未知' else '' end) as i_sex,

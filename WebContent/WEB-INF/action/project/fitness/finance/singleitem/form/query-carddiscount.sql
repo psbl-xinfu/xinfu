@@ -8,4 +8,4 @@ select
 from
 	cc_card card
 where card.isgoon = 0 and status = 1 and org_id = ${def:org}
-and card.customercode = ${fld:custcode}
+and card.customercode = (select code from cc_customer where mobile=${fld:mobile}) 
