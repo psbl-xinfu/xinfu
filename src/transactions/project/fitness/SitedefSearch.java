@@ -104,15 +104,33 @@ public class SitedefSearch extends GenericTransaction {
 						}
 					}
 					
-					sitedeflist+="<td class='"+color+"' code='"+code+"'><div class='prices'>"+pricesstr+"</div>"
-							+"<span style='display:none;' class='yi_bj'></span><div class='tc_yy'>";
-					//已预约不显示CheckBox和设置
-					if(!szstr.equals("1")){
-						sitedeflist+="<input type='checkbox' name='sitedecode' value='"+j+"' code='"+code+"' codestr='"+str+"'"
-			            +" codestatus='"+choose_way+"' codeprice='"+price+"' class='kkk' style='margin-top:-3px;'>"
-			            +"<span class='sheding' site_timelimitcode='"+site_timelimitcode+"'></span>";
+					String querydatetime = getLocalResource(basepath + "query-date.sql");
+					String strtime = "";
+					if(j<10){
+						strtime = "0"+j;
 					}else{
-						sitedeflist+="<span class='huanchang' code='"+code+"' time='"+j+"'></span>";
+						strtime = j+"";
+					}
+					querydatetime = getSQL(querydatetime, null);
+					querydatetime = StringUtil.replace(querydatetime, "${fld:datetime}", 
+							"'"+inputParams.getString("prepare_date")+" "+strtime+":00:00'");
+					Recordset rcdatetime = db.get(querydatetime);
+					rcdatetime.next();
+					System.out.println(inputParams.getString("prepare_date")+" "+strtime+":00:00"+"-------"+rcdatetime.getString("status"));
+					
+					if(rcdatetime.getString("status").equals("1")&&color!="greyb"){
+						sitedeflist+="<td><div>";
+					}else{
+						sitedeflist+="<td class='"+color+"' code='"+code+"'><div class='prices'>"+pricesstr+"</div>"
+								+"<span style='display:none;' class='yi_bj'></span><div class='tc_yy'>";
+						//已预约不显示CheckBox和设置
+						if(!szstr.equals("1")){
+							sitedeflist+="<input type='checkbox' name='sitedecode' value='"+j+"' code='"+code+"' codestr='"+str+"'"
+				            +" codestatus='"+choose_way+"' codeprice='"+price+"' class='kkk' style='margin-top:-3px;'>"
+				            +"<span class='sheding' site_timelimitcode='"+site_timelimitcode+"'></span>";
+						}else{
+							sitedeflist+="<span class='huanchang' code='"+code+"' time='"+j+"'></span>";
+						}
 					}
 					sitedeflist+="</div></td>";
 				}
