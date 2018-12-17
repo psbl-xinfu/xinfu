@@ -116,6 +116,7 @@ public class SitedefSearch extends GenericTransaction {
 							"'"+inputParams.getString("prepare_date")+" "+strtime+":00:00'");
 					Recordset rcdatetime = db.get(querydatetime);
 					rcdatetime.next();
+					System.out.println(inputParams.getString("prepare_date")+" "+strtime+":00:00"+"-------"+rcdatetime.getString("status"));
 					
 					if(rcdatetime.getString("status").equals("1")&&color!="greyb"){
 						sitedeflist+="<td class='bkydb'><div>";
