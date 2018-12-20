@@ -137,8 +137,10 @@ function pickcardCallback(){
 					
 					if(yuan==1){
 						$("#xiancardname"+i).html($("#jicitd"+i).html());
+						$("#jicitd"+i).remove();
 					}else{
 						$("#xiancardname"+i).html($("#shixiaotd"+i).html());
+						$("#shixiaotd"+i).remove();
 					} 
 				} 
 			}
@@ -230,6 +232,7 @@ $("#trunbtn").unbind().on("click",function(){
 		    	}
 		    	
 		   	}
+		    var relatedetails="";
 			    for (var i = 1; i <= count; i++) { 
 			    	if(i!=count){
 			    		bin +=$("#"+"course"+i).val();
@@ -238,11 +241,38 @@ $("#trunbtn").unbind().on("click",function(){
 			    		ben +=(",")
 			    		codes +=$("#"+"ids"+i).val();
 			    		codes +=(",");
+			    		relatedetails +=$("#relatedetailyi"+i).val() +";"+$("#"+"course"+i).val()+";"+
+			    		$("#relatedetailsan"+i).val()+";"+
+			    		$("#relatedetailsi"+i).val()+";"+
+			    		$("#relatedetailwu"+i).val()+";"+
+			    		$("#relatedetailliu"+i).val()+";"+
+			    		$("#relatedetailqi"+i).val()+";"+
+			    		$("#turnclasspt").val()+";"+
+			    		$("#"+"jiao"+i).val()+";"+
+			    		$("#jiao"+i).find("option:selected").text()+";"+
+			    		$("#relatedetailshiyi"+i).val()+";"+
+			    		$("#relatedetailshier"+i).val()+";"+
+			    		$("#relatedetailshisan"+i).val()+";"+
+			    		$("#relatedetailshisi"+i).val()+";";
+			    		relatedetails +=(",");
 			    		ptjsons+="{"+'"code":'+'"'+$("#"+"prid"+i).val()+'"'+","+ '"yuankc":' +'"'+$("#"+"ptlevelcode"+i).val()+'"' +","+'"xiankc":'+'"'+$("#"+"course"+i).val()+'"'+
 			    			","+'"yuanpt":'+'"'+$("#"+"ypid"+i).val()+'"'+","+'"xianpt":'+'"'+$("#"+"jiao"+i).val()+'"'+"},";
 			    	}else{
 			    		bin +=$("#"+"course"+i).val();
 			    		ben +=$("#"+"jiao"+i).val();
+			    		relatedetails +=$("#relatedetailyi"+i).val() +";"+$("#"+"course"+i).val()+";"+
+			    		$("#relatedetailsan"+i).val()+";"+
+			    		$("#relatedetailsi"+i).val()+";"+
+			    		$("#relatedetailwu"+i).val()+";"+
+			    		$("#relatedetailliu"+i).val()+";"+
+			    		$("#relatedetailqi"+i).val()+";"+
+			    		$("#turnclasspt").val()+";"+
+			    		$("#"+"jiao"+i).val()+";"+
+			    		$("#jiao"+i).find("option:selected").text()+";"+
+			    		$("#relatedetailshiyi"+i).val()+";"+
+			    		$("#relatedetailshier"+i).val()+";"+
+			    		$("#relatedetailshisan"+i).val()+";"+
+			    		$("#relatedetailshisi"+i).val()+";";
 			    		codes +=$("#"+"ids"+i).val();
 			    		ptjsons+="{"+'"code":'+'"'+$("#"+"prid"+i).val()+'"'+","+ '"yuankc":' +'"'+$("#"+"ptlevelcode"+i).val()+'"' +","+'"xiankc":'+'"'+$("#"+"course"+i).val()+'"'+
 		    			","+'"yuanpt":'+'"'+$("#"+"ypid"+i).val()+'"'+","+'"xianpt":'+'"'+$("#"+"jiao"+i).val()+'"'+"}]";
@@ -250,7 +280,6 @@ $("#trunbtn").unbind().on("click",function(){
 			    	
 			   	}
 			   
-			    
 			    var orgjsons="[{"+'"yuanorgid":'+'"'+"${def:org}"+'"'+","+'"xianorgid":'+'"'+$("#org_id").val()+'"'+"}]";
 			    $("#orgcode").val($("#org_id").val());
 			    $("#mcid").val($("#turnclasspt").val());
@@ -265,6 +294,7 @@ $("#trunbtn").unbind().on("click",function(){
 			    var divobj = $("#gcode");
 			    var cardcodes=cardcodelist.split(",");
 			    var cardorgid=$("#org_id").val();
+			    var relatedetailss=relatedetails.split(",");
 			    divobj.empty();
 			    for(var s = 0; s < cardcodes.length; s++){
 					var cardcode = cardcodes[s];
@@ -296,10 +326,12 @@ $("#trunbtn").unbind().on("click",function(){
 							var codeid = ids[v];
 							courseid = courseids[v];
 							ptid = ptids[v];
+							var relatedetail= relatedetailss[v];
 					    	divobj.append('<input type="hidden" name="courseid" value="' + courseid + '" />');
 					    	divobj.append('<input type="hidden" name="ptid" value="' + ptid + '" />');
 							divobj.append('<input type="hidden" name="orgid" value="' + orgid + '" />');
 					    	divobj.append('<input type="hidden" name="codeid" value="' + codeid + '" />');
+					    	divobj.append('<input type="hidden" name="relatedetail" value="' + relatedetail + '" />');
 						}
 					    divobj.append('<input type="hidden"  name="ptjsons" value='+ptjsons+' />');
 					    divobj.append('<input type="hidden"  name="mcjsons" value=' + mcjsons + ' />');

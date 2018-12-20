@@ -1,3 +1,8 @@
-<rows>
-"<option value='${fld:ptuserlogin}'>${fld:yuanptname}</option>"
+[
+ <rows>
+ {
+	"code":"${fld:ptuserlogin@js}",
+	"actions":"${fld:yuanptname@js}"},
 </rows>
+{}
+]

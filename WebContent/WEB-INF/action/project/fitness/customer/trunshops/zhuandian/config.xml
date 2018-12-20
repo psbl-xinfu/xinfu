@@ -11,16 +11,24 @@
 <colname>
 	customercode,ptjsons,mcjsons,createdby,orgjsons;
 	cardcode,cardtypeid,cardorgid;
-	mcid,customercode,orgcode;
+	mcid,customercode,orgcode,relatedetail;
 	orgcode,customercode;
 	courseid,ptid,codeid,orgid;
+	orgcode,customercode;
+	orgcode,customercode;
+	orgcode,customercode;
+	mcid,customercode,orgcode
 </colname>
 <sql-template>
 	insert_storerecord.sql;
 	update_card.sql;
 	update_contract.sql;
 	update_customer.sql;
-	update_ptrestpt.sql
+	update_ptrestpt.sql;
+	update_cardcode.sql;
+	update_finance.sql;
+	update_operatelog.sql;
+	update_cardcontract.sql
 </sql-template>
 
 	<transaction>
