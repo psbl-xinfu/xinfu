@@ -200,7 +200,7 @@ body {
 }
 
 .bkyd {
-	background: gray;
+	background: #333333;
 }
 
 .cany {
@@ -212,7 +212,7 @@ body {
 }
 
 .grey {
-    background: #7996A5;
+    background: #beccd3;
 }
 
 .yellow {
@@ -233,7 +233,7 @@ body {
 }
 
 .cdlx_list .bkydb {
-    background: gray;
+    background: #333333;
 }
 
 .cdlx_list .canyb {
@@ -241,7 +241,7 @@ body {
 }
 
 .cdlx_list .greyb {
-    background: #7996A5;
+    background: #beccd3;
 }
 
 .cdlx_list .yellowb {
