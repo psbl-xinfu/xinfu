@@ -1,4 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
-    <parameter id="mobile" type="varchar" required="true" label="客户手机号" />
+    <parameter id="custcode" type="varchar" required="true" label="客户编号" />
 </validator>
