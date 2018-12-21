@@ -420,9 +420,6 @@ color: red !important;
 										<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="edit_btn">
 								</li>
 								<li>
-										<img src="${def:context}/js/project/fitness/image/SVG/nav/dcxf.svg" title="单次消费" alt=""id="singleitem">
-								</li>
-								<li>
 									<img src="${def:context}/js/project/fitness/image/SVG/btn/tice.svg" title="体测" alt=""id="test_btn">
 								</li>
 							</nav>
@@ -705,24 +702,6 @@ $(document).ready(function() {
 		         $("#daochuForm").submit();
 	   	     });
 			}}).initSearchBtn().searchData(1);
-		//单次消费
-		$("#singleitem").click(function(){
-			var obthis = getCheckboxValue("datalist");
-			alert(obthis);
-			var count = obthis.split(",").length;
-			if(obthis!= ""){
-				if(count>1){
-					ccms.dialog.notice("只能选择一个会员!");
-				}else{
-					ccms.dialog.open({url : '${def:context}/action/project/fitness/finance/singleitem/crud?mobile='+obthis,height:'600'});
-				}
-			}else{
-				ccms.dialog.notice("请选择!");
-			}
-		});
-		
-		
-		
 	//家庭住址
  	getSelectDomain("province", "Province");
 	$("#province").change(function(){
