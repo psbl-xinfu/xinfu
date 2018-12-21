@@ -203,8 +203,8 @@ $("#trunbtn").unbind().on("click",function(){
 		    var xian="";
 		    var cardcodelist="";
 		    for (var j = 1; j <= cardcount; j++) { 
+		    	yuan=$("#yuan"+j).val();
 		    	if(j!=cardcount){
-		    		yuan=$("#yuan"+j).val();
 		    		cardcodelist+=$("#cardcode"+j).text();
 		    		cardcodelist+=(",");
 		    		if(yuan==1){
@@ -232,6 +232,9 @@ $("#trunbtn").unbind().on("click",function(){
 		    	}
 		    	
 		   	}
+		    alert("jici=="+$("#jici1").val());
+		    alert("shixiao=="+$("#shixiao1").val());
+		    alert(xian);
 		    var relatedetails="";
 			    for (var i = 1; i <= count; i++) { 
 			    	if(i!=count){

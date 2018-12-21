@@ -2,7 +2,7 @@ select
 	concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" code="',
 		(select  p.status from cc_guest_prepare p where  p.guestcode = r.code and p.org_id=${def:org}   order by p.code desc limit 1)::varchar,'','"
 	code1="',r.status::varchar,'','"
-	value="',r.mobile::varchar,'','" ></label>') as application_id,
+	value="',r.code::varchar,'','" ></label>') as application_id,
 	r.code,
 	(select t.tuid from t_attachment_files t where t.pk_value = r.code and t.table_code = 'cc_customer' and t.org_id= ${def:org} order by t.tuid desc limit 1) as imgid,
 	r.name as vc_name,
