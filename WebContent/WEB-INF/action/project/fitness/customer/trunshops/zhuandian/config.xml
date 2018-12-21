@@ -12,7 +12,7 @@
 	customercode,ptjsons,mcjsons,createdby,orgjsons;
 	cardcode,cardtypeid,cardorgid;
 	mcid,customercode,orgcode,relatedetail;
-	orgcode,customercode;
+	orgcode,customercode,mcid;
 	courseid,ptid,codeid,orgid;
 	orgcode,customercode;
 	orgcode,customercode;
