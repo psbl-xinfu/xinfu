@@ -17,7 +17,7 @@ select
 		  when sd.status=2 then '已开场' 
 		  when sd.status=3 then '已离场' 
 		  when sd.status=4 then '已爽约' 
-		  when sd.status=5 then '已付款' 
+		  when sd.status=5 then '已付全款' 
 	end) as status,
 	sd.starttime,
 	sd.endtime,
@@ -26,7 +26,7 @@ select
 		  when sd.customertype=2 then '团队' 
 		  when sd.customertype=3 then '散客' 
 	end) as customertype,
-	(case when sd.paystatus=0 then '未付款' when sd.paystatus=1 then '已付款' end) as paystatus,
+	(case when sd.paystatus=0 then '已付押金' when sd.paystatus=1 then '已付全款' end) as paystatus,
 	to_char(prepare_starttime, 'HH24:mi') as prepare_starttime,
 	to_char(prepare_endtime, 'HH24:mi') as prepare_endtime,
 	(case when sd.prepare_type=1 then '包场' when sd.prepare_type=2 then '拼场' end) as prepare_type

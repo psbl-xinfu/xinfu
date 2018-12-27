@@ -9,7 +9,7 @@
 
     <request-encoding>UTF-8</request-encoding>
 
-	<colname>yydetialsitedef,yystarttime,yyendtime;yydetialsitedef,yystarttime,yyendtime</colname>
+	<colname>yydetialsitedef,yystarttime,code,bcorpc,customertype,guestgroup,customername,mobile,bcstarttime,bcendtime,prepare_date,remark,yyinputprice,deposit</colname>
 	<sql-template>insert-guest.sql;insert.sql</sql-template>
 
 	<transaction>

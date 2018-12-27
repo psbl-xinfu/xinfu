@@ -42,7 +42,7 @@
         float: initial;
     }
     .cdydlx div {
-    width: 286px;}
+    width: 46%;}
 	.guding li{
 	    background: #21343F;
     text-align: center;
@@ -239,6 +239,7 @@
                     </div>
                     <div class="yxz">已选择
                         <span class="times" id="yytime">0</span>个场次，共
+                        <span class="groupidnumber" id="groupidnumber">1</span>人，总共
                         <span class="price" id="yyprice">0</span>元
                     	<input type="hidden" id="yyinputprice" name="yyinputprice" value="" />
                     </div>
@@ -315,12 +316,8 @@
 		searchSelectInit($("#sitetype,#guestgroup,#hcsitedef"));
 		ccms.util.renderRadio("choose_way");
 		ccms.util.renderRadio("customertype");
-		
-        // 模态框
-        $(".header-close").unbind().on("click", function () {
-            $(".modal").css('display', 'none');
-        });
-
+       
+       
         $(".my-btn-default").unbind().on("click", function () {
             $(".modal").css('display', 'none');
         });
@@ -354,8 +351,10 @@
         $(".create_info").on("click",'#sure', function () {
             $(".create_info").css('display', 'none');
         });
+       
         // 场地状态
-
+		var siteprice = 0;
+        var siteshuliang=0 ;
         $(".bclx_add").unbind().on("click", function () {
 			$(".create_info").css('display', 'none');
 			var obthis = getCheckboxValue("sitedecode");
@@ -369,6 +368,7 @@
 				+"<input type='hidden' name='siteyycode' value='"+$(this).val()+"' code='"+$(this).attr("code")
 				+"' codestatus='"+$(this).attr("codestatus")+"' codeprice='"+$(this).attr("codeprice")+"' /></div>";
 				yycount++;
+				siteprice=(Number($(this).attr("codeprice"))).toFixed(2);
 				yyprice=(Number(yyprice)+Number($(this).attr("codeprice"))).toFixed(2);
 				//判断包场或拼场
 				if($(this).attr("codestatus")=="1"){
@@ -378,6 +378,7 @@
 					pcount++;
 				}
 			});
+			
 			if(bcount>0&&pcount>0){
 				ccms.dialog.notice("拼场和包场不能同时预定！", 2000);
 				return false;
@@ -390,6 +391,7 @@
 			if($("#bcorpc").val()=="2"){
 				$(".troup").hide();
 			}
+			siteshuliang=yycount;
 			$("#yytime").html(yycount);
 			$("#yyprice").html(yyprice);
 			$("#yyinputprice").val(yyprice);
@@ -512,17 +514,37 @@
         			return false;
         		}
     		}
-    		ajaxCall("${def:actionroot}/insert",{
-				method:"post",
-				form:"yyformEditor",
-				dataType:"script",
-				success:function(){
-	    			ccms.dialog.notice("成功！", 2000, function(){
-	    				searchsitedef();
-	    	            $('.cd_yd').css('display', 'none');
-	    			});
-				}
-			});
+    		/* var guest = $("#guest").val();
+    		var guesttype = getRadioValue("customertype");
+    		alert("用户编号"+$("#pkvalue").val());
+    	 	alert("场地编号、、、="+yyarr);
+    		alert("用户名应该拿用户编号--"+guest);
+    		alert("资源还是会员状态=="+guesttype);
+    		alert("日期===="+$("#monitor").find(".now").attr("code")); 
+    		
+    		alert("包场还是拼场"+$("#bcorpc").val());
+    		alert("团体编号"+$("#guestgroup").val());
+    		alert("团体名称"+$("#guestgroup option:selected").text());
+    		alert("手机号=="+$("#tdmobile").val());*/
+    		var customername="";
+    		if($("#customername").val()==""||$("#customername").val()==null){
+    			customername=$("#guest").val();
+    		}else{
+    			customername=$("#customername").val();
+    		}
+    		ccms.dialog.open({url : "${def:context}/action/project/fitness/site/prepare/payform?bcorpc="
+    			+$("#bcorpc").val()+"&guestgroup="+$("#guestgroup").val()+
+    			"&pkvalue="+$("#pkvalue").val()+
+    			"&customername="+customername+
+    			"&mobile="+$("#mobile").val()+
+    			"&prepare_date="+$("#monitor").find(".now").attr("code")+
+    			"&yyinputprice="+$("#yyprice").text()+
+    			"&bcstarttime="+bcstarttime+
+    			"&bcendtime="+bcendtime+
+    			"&customertype="+getRadioValue("customertype")+
+    			"&yyarr="+yyarr+
+    			"&guestgroupname="+$("#guestgroup option:selected").text()
+    		});
         });
         
         var cells = document.getElementById('monitor').getElementsByTagName('td');
@@ -733,6 +755,36 @@
 				}
 			});
     	});
+    	 // 模态框
+        $(".header-close").unbind().on("click", function () {
+            $(".modal").css('display', 'none');
+            $("#groupidnumber").html(1);
+   		 	$("#yyprice").html(siteprice*siteshuliang);
+        });
+        
+    	$("#guestgroup").change(function(){
+    		/* alert(siteprice);
+    		alert(yycount); */
+    		var bp = $("#bcorpc").val();
+    		var urlbp="${def:context}${def:actionroot}/querynumpricebin?groupid="+$("#guestgroup").val();
+    		ajaxCall(urlbp,{
+    			method:"get",
+    			dataType:"json",
+    			success:function(date){	
+    				if(bp=="1"){
+    					$("#yytime").html(siteshuliang);
+    					$("#groupidnumber").html(date.groupidnumber);
+    					$("#yyprice").html(siteprice*siteshuliang);	
+    				}else{
+    					$("#yytime").html(siteshuliang);
+    					$("#groupidnumber").html(date.groupidnumber);
+    					$("#yyprice").html(siteprice*siteshuliang*date.groupidnumber);	
+    				}
+    			}
+    		});
+    		
+    	});
+
     })
 //查询场地
 function searchsitedef(){
@@ -757,6 +809,9 @@ function removeyy(data){
 	$("#yytime").html(rcount);
 	$("#yyprice").html(rprice);
 }
+
+
+
 /*字符串去重*/
 function quchongstr(str){
 	var a = str.match(/\S+/g);//等价于str.split(/\s+/g)//  \s空白符，\S非空白符

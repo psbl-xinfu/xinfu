@@ -45,8 +45,8 @@ ${inc:/action/project/fitness/home/pub}
 									<option value="2">已开场</option>
 									<option value="3">已离场</option>
 									<option value="4">已爽约</option>
-									<option value="6">未付款</option>
-									<option value="5">已付款</option>
+									<option value="6">已付押金</option>
+									<option value="5">已付全款</option>
 								</select>
 							</li>
 							<div>
@@ -167,7 +167,26 @@ $(document).ready(function() {
 		});
 		//付款
 		$("#pay").unbind().on("click", function(){
-			siteusedetailbycode("payform", "2");
+			
+			var obthis = getCheckboxValue("siteusedetailcheckbox");
+			var count = obthis.split(",").length;
+			if(obthis!= ""){
+				if(count>1){
+					ccms.dialog.notice("只能选择1条记录!", 2000);
+				}else{
+					 if($("input[name=siteusedetailcheckbox]:checked").attr("status")=='3'){ 
+						siteusedetailbycode("payform", "2");
+						
+				 	}else if($("input[name=siteusedetailcheckbox]:checked").attr("status")=='2'){
+						ccms.dialog.notice("该预约未签退，请确认状态!", 2000);
+					}else{
+						ccms.dialog.notice("该预约未签到，请确认状态!", 2000);
+					} 
+					
+				}
+			}else{
+				ccms.dialog.notice("请选择!", 2000);
+			}
 		});
 		//签到
 		$("#signin").unbind().on("click", function(){
@@ -179,20 +198,20 @@ $(document).ready(function() {
 					if($(this).attr("code")!="1"){
 						statusone++;
 					}
-					//判断是否已付款
+					/* //判断是否已付款
 					if($(this).attr("paystatus")!="1"){
 						statustwo++;
-					}
+					} */
 				});
 				if(statusone>0){
 					ccms.dialog.notice("该预约不能签到，请确认状态!", 3000);
 					return false;
 				}
-				if(statustwo>0){
+/* 				if(statustwo>0){
 					ccms.dialog.notice("该预约存在未付款，不能签到!", 3000);
 					return false;
 				}
-				signin("签到", obthis, "2");
+ */				signin("签到", obthis, "2");
 			}else{
 				ccms.dialog.notice("请选择!", 2000);
 			}

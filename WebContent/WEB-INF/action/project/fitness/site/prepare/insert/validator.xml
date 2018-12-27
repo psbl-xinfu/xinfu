@@ -3,11 +3,16 @@
     <parameter id="bcorpc" type="varchar" required="true" label="1包场2拼场" />
     <parameter id="guestgroup" type="varchar" required="false" label="团体编号" />
     <parameter id="pkvalue" type="varchar" required="false" label="会员资源编号" />
-    <parameter id="customername" type="varchar" required="false" label="会员姓名" />
+    <parameter id="customername" type="varchar" required="false" label="会员姓名" maxlen="200" />
     <parameter id="mobile" type="varchar" required="false" label="会员手机号" />
     <parameter id="prepare_date" type="varchar" required="true" label="预约日期" />
-    <parameter id="yyinputprice" type="varchar" required="true" label="金额" />
+    <parameter id="yyinputprice" type="varchar" required="true" label="总金额" />
     <parameter id="customertype" type="varchar" required="true" label="类型" />
+    <parameter id="sitecode" type="varchar" required="true" label="场地编号" />
+    <parameter id="bcstarttime" type="varchar" required="true" label="预约时间" />
+    <parameter id="bcendtime" type="varchar" required="true" label="结束时间" />
+    <parameter id="deposit" type="varchar" required="true" label="押金" />
+    <parameter id="remark" type="varchar" required="false" label="备注" />
  	
 </validator>
 

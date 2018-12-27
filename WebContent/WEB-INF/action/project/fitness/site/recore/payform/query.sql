@@ -17,16 +17,29 @@ select
 	end) as status,
 	to_char(sd.prepare_starttime, 'HH24:mi') as prepare_starttime,
 	to_char(sd.prepare_endtime, 'HH24:mi') as prepare_endtime,
-	sd.starttime,
-	sd.endtime,
+	to_char(sd.starttime, 'HH24:mi') as starttime,
+	to_char(sd.endtime, 'HH24:mi') as endtime,
 	sd.remark,
 	sd.premoney,
 	sd.pretimes,
 	sd.times,
-	sd.inimoney,
-	sd.normalmoney,
-	sd.factmoney
-from cc_siteusedetail sd
+	(select to_char((sd.endtime::time-sd.starttime::time), 'HH')) as hours,
+	((select to_char((sd.endtime::time-sd.starttime::time), 'MI'))::float/60) as minutes,
+--	(case when sd.prepare_type='1' then (select ) 
+	--) as 
+	sd.inimoney,--原价
+	(sd.normalmoney-sd.deposit) as normalmoney,
+	sd.factmoney,
+	sd.deposit,
+	to_char((sd.endtime-sd.starttime), 'HH24:mi') as totaltime,
+	(case when sd.prepare_type = '1' then sdef.block_price
+	when sd.prepare_type = '2' then sdef.group_price end) as price,
+	(case when sd.prepare_type = '1' then '(包场)'
+	when sd.prepare_type = '2' then '(拼场)' end) as bpprice,
+	sd.prepare_type,
+	(case when sd.customertype='2' then (select count(groupid) as groupidnumber from cc_guest_group_member where groupid=sd.guestgroupid )
+	else '1' end) as thenumber
+	from cc_siteusedetail sd
 left join cc_sitedef sdef on sd.sitecode = sdef.code and sd.org_id = sdef.org_id
 left join cc_customer cust on sd.customercode = cust.code and sd.org_id = cust.org_id
 left join cc_guest guest on sd.customercode = guest.code and sd.org_id = guest.org_id
