@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	${inc:/action/project/fitness/home/pub}
+</head>
+<style>
+	.bootstrap-select:not(.slect-change) .caret {
+    border-top: 7px dashed;
+    border-bottom: 1px;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    top: 42%!important;
+    padding: 0;
+}
+	.slect div{
+float: left;
+width: 280px;
+height: 30px;
+line-height: 30px;
+	}
+	.modal-body input{
+		height: 35px;
+    text-align: center;
+    color: #fff;
+    margin: 10px 10px;
+	}
+</style>
+<body>
+	<form id="payForm" name="payForm" method="get">
+		<input type="hidden" id="sitecode" name="sitecode" value="${fld:sitecode}" />
+		<input type="hidden" id="bcorpc" name="bcorpc" value="${fld:bcorpc}" />
+		<input type="hidden" id="guestgroup" name="guestgroup" value="${fld:guestgroup}" />
+		<input type="hidden" id="pkvalue" name="pkvalue" value="${fld:pkvalue}" />
+		<input type="hidden" id="customername" name="customername" value="${fld:customername}" />
+		<input type="hidden" id="mobile" name="mobile" value="${fld:mobile}" />
+		<input type="hidden" id="prepare_date" name="prepare_date" value="${fld:prepare_date}" />
+		<input type="hidden" id="yyinputprice" name="yyinputprice" value="${fld:yyinputprice}" />
+		<input type="hidden" id="customertype" name="customertype" value="${fld:customertype}" />
+		<input type="hidden" id="bcstarttime" name="bcstarttime" value="${fld:bcstarttime}:00:00"/>
+		<input type="hidden" id="bcendtime" name="bcendtime" value="${fld:bcendtime}:00:00" />
+		<input type="hidden" id="deposit" name="deposit" value="" />
+		<div class="business-card-contract  dialogbg " style="width: 100%;height: 600px">
+			<header class="header-default">
+				<p>付款</p>
+			</header>
+			<section class="b-c-c-main dialogbg	">
+				<header>
+					<p>客户姓名：
+						<span>${fld:customername}</span>
+					</p>
+					<p style="margin-left: 100px;">电话：
+						<span>${fld:mobile}</span>
+					</p>
+					<p>团队：
+						<span>${fld:guestgroupname}</span>
+					</p>
+				</header>
+				<div class="b-c-c-input-group">
+					<div class="label-p-input" style="width:806px;">
+						<label for="b-c-c-g-1">所选场地：</label>
+						<span>${fld:sitename}-${fld:prepare_date}  ${fld:bcstarttime}:00-${fld:bcendtime}:00</span>
+					</div>
+				</div>
+				<div class="b-c-c-5-6">总金额：
+					<span>${fld:yyinputprice}</span>
+					<input type="hidden" id="inimoney" name="inimoney" value="${fld:yyinputprice}" />
+				</div>
+				<div class="b-c-c-10">
+					<p>备注</p>
+					<textarea id="remark" name="remark" placeholder="备注" class="my-textarea"></textarea>
+				</div>
+				<div class="b-c-c-10">
+					<input type="hidden" id="pay_detail" name="pay_detail" value="" />
+	          	
+					<nav>
+						<li>
+							<label>支付方式：</label>
+							<select id="moneytype">
+								<option value="">请选择</option>
+								<OtherPayWay-list>
+									<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+								</OtherPayWay-list>
+							</select>
+							<label style="margin-left: 45px;">押金金额</label>
+							<input type="text" id="money" name="money" style="background: rgba(40, 46, 52, 1);
+								height: 32px;
+								text-indent: 1em;
+								width: 160px;" placeholder="金额" /> &nbsp;
+							<i class="am-icon-plus" id="addmoney" title="添加"></i>
+						</li>
+					</nav>
+					<div class="modal-body" id="paymoney" >
+					</div>
+				</div>
+				<footer class="footer-default">
+					<button class="my-btn-default active" id="pay_btn" type="button">收款</button>
+				</footer>
+			</section>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	searchSelectInit($("#moneytype"));
+	$("#deposit").val();
+	//页面点击事件
+	 $(document).click(function(){ 
+		$(".error").html("");
+	 }); 
+	//支付方式
+	$("#moneytype").change(function(){
+		document.getElementById("money").focus();
+	});
+	$("#addmoney").click(function(){
+	   	var moneytype = $("#moneytype").val();
+	   	var moneytypetext = $("#moneytype option:selected").text();
+	   	var money = $("#money").val();
+	   	
+	   	if(moneytype==""){
+	   		ccms.dialog.alert("请选择方式！");
+	   	}else if(money==""){
+	   		ccms.dialog.alert("请输入金额！");
+	   	}else{
+	   		var count = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				   if($(item).attr("code")==moneytype)count++;
+			});
+			if(count==0){
+				/* $("#paymoney").append("<div style='width:400px;margin-left:5%;float:left;'><li>"+moneytypetext+"<input type='text' value='"+money+"' code='"
+					+moneytype+"' name='paytypemoney' readonly/>元  <img src='/ccms/js/project/fitness/image/SVG/nav/shanchu.svg' onclick='delhour(this)' title='删除'></li></div>"); */
+
+				$("#paymoney").append(
+						"<li style='margin-left:25px;float:left'><span><span>"+moneytypetext+"：</span><span>"+money+"元</span></span>"
+					+"<input type='hidden' value='"+money+"' code='"+moneytype+"'  name='paytypemoney'/>"
+					+ '<img   onclick="delhour(this)" style="margin-left:5px;margin-top:-2px" height="20" width="45"   src="'
+					+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+				);
+				$("#moneytype,#money").val("");
+				$("#moneytype").selectpicker("refresh");
+				$("#moneytype").selectpicker("render");
+			}else
+				ccms.dialog.alert(moneytypetext+"已存在！");
+	   	}
+	});
+	
+	//收款
+    $("#pay_btn").click(function(){
+ 	   var moneydetail = "";
+ 		//获取所有支付类型option
+ 		$("#moneytype option").each(function(){  
+ 			if($(this).val()!=""){
+ 				moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+ 			}
+ 			moneydetail = moneydetail.replace("undefined", "0");
+ 		});
+ 		//明细
+ 		$("#pay_detail").val(moneydetail);
+ 		//获取所有支付金额
+ 		var paymoney = 0;
+ 		$("input[name='paytypemoney']").each(function(j,item){
+ 			paymoney+=Number(item.value);
+ 		});
+ 		$("#deposit").val(paymoney);
+ 		//
+ 		$Dialog().confirm("确定要收款吗？",function(){
+ 			var url="${def:context}${def:actionroot}/pay";
+ 		   	ajaxCall(url,{
+ 		   		method: "get",
+ 		   		form:"payForm",
+ 		   		progress: true,
+ 		   		dataType: "script",
+ 		   		success: function() {
+		 		   	$Dialog().notice("预约成功！",1000,function(){
+		 		   	parent.document.location.reload();
+		 		   	ccms.dialog.close();
+		 		   /* 	$(".modal").css('display', 'none');
+		 			document.location.reload(); */
+		 		   		/* alert("fsdfsd");
+		 		   		parent.crud.searchData(1);
+		 		   		document.location.reload();	 */
+					});
+ 		   		}
+ 		   /* 
+			 */
+ 		   	});
+ 		})
+ 	
+ 		//ccms.dialog.open({url : "${def:context}${def:actionroot}/crud"});
+    });
+});
+function delhour(val){
+	$(val).parent().remove();
+}
+</script>
+</body>
+</html>
