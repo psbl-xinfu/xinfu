@@ -1,0 +1,1 @@
+select count(groupid) as groupidnumber from cc_guest_group_member where groupid=${fld:groupid}  
