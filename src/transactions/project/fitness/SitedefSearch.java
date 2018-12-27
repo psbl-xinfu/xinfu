@@ -79,17 +79,28 @@ public class SitedefSearch extends GenericTransaction {
 					if(choose_way==null){
 						choose_way="0";
 					}
+					
+					String _number = StringUtil.replace(getLocalResource(basepath+"query-number.sql"), "${prepare_date}", "'"+prepare_date+"'");
+					_number = StringUtil.replace(_number, "${choose_way}", choose_way);
+					_number = StringUtil.replace(_number, "${numtime}", "'"+j+":00:00'");
+					_number = getSQL(_number, null);
+					Recordset _rsmobile = db.get(_number);
+					_rsmobile.next();
+					String theumber=_rsmobile.getString("theumber");
+					if(theumber==null||theumber=="") {
+						theumber="0";
+					}
 					if(choose_way.equals("1")){
 						//包场
 						color = "canyb";
 						pricesstr = block_maxnum+"人 "+block_price+"元";
-						str="（包）"+sitename+"-"+prepare_date+"-"+j+":00";
+						str="（包）"+sitename+"-"+prepare_date+"-"+j+":00"+" "+"(已约" + theumber + "人)";
 						price=block_price;
 					}else if(choose_way.equals("2")){
 						//拼场
 						color = "yellowb";
 						pricesstr = group_minnum+"/"+group_maxnum+"人 "+group_price+"元";
-						str="（拼）"+sitename+"-"+prepare_date+"-"+j+":00";
+						str="（拼）"+sitename+"-"+prepare_date+"-"+j+":00"+" "+"(已约" + theumber + "人)";
 						price=group_price;
 					}
 					//查询是否已预约
