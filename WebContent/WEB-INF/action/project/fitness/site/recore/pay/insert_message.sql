@@ -22,7 +22,7 @@ values
 		(select name from cc_customer where code = 
 		(select customercode from cc_siteusedetail where code = ${fld:code} and org_id = ${def:org}) and org_id = ${def:org}) else null
 	end),
-	concat('场地付款支付金额：', ${fld:normalmoney}),
+	concat('场地付款支付金额：', ${fld:factmoney}),
 	0,
 	{ts'${def:timestamp}'},
 	${def:org}

@@ -30,7 +30,7 @@ values
 	${fld:remark},
 	1,
 	'场地押金付款',
-	${fld:deposit},
+	${fld:yyinputprice},
 	${fld:deposit},
 	${fld:pay_detail},
 	${def:org},

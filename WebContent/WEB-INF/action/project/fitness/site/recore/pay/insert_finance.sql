@@ -31,7 +31,7 @@ values
 	1,
 	'场地付款',
 	${fld:normalmoney},
-	${fld:normalmoney},
+	${fld:factmoney},
 	${fld:pay_detail},
 	${def:org},
 	(case when (select customertype from cc_siteusedetail where code = ${fld:code} and org_id = ${def:org}) in (1,2) then 

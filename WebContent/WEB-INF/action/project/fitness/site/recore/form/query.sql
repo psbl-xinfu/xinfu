@@ -33,7 +33,10 @@ select
 	sd.normalmoney,
 	sd.factmoney,
 	sitechange,
-	(select groupname from cc_guest_group where tuid = sd.guestgroupid and org_id = sd.org_id) as groupname
+	(select groupname from cc_guest_group where tuid = sd.guestgroupid and org_id = sd.org_id) as groupname,
+	sd.deposit,
+	sd.starttime,
+	sd.endtime
 from cc_siteusedetail sd
 left join cc_sitedef sdef on sd.sitecode = sdef.code and sd.org_id = sdef.org_id
 left join cc_customer cust on sd.customercode = cust.code and sd.org_id = cust.org_id
