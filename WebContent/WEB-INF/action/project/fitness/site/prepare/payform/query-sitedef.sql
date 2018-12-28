@@ -15,7 +15,7 @@ select DISTINCT
 	${fld:bcstarttime} as bcstarttime,
 	${fld:bcendtime} as bcendtime,
 	(case when  ${fld:guestgroupname}='请选择'then '' 
-	else ${fld:guestgroupname} end) as guestgroupname
+	else ${fld:guestgroupname} end) as guestgroupname 
 	 from cc_sitedef 
 	 where code=${fld:yyarr}  
 

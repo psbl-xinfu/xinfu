@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
-    <parameter id="pay_detail" type="varchar" required="true" label="支付明细" />
+    <parameter id="pay_detail" type="varchar" required="false" label="支付明细" />
     <parameter id="remark" type="varchar" required="false" label="备注" />
      <parameter id="deposit" type="varchar" required="false" label="押金" />
-     <parameter id="sitecode" type="varchar" required="true" label="场地编号" />
+     <parameter id="sitecode" type="varchar" required="false" label="场地编号" />
       <parameter id="bcorpc" type="varchar" required="true" label="1包场2拼场" />
       <parameter id="customername" type="varchar" required="false" label="会员姓名" maxlen="200" />
       <parameter id="guestgroup" type="varchar" required="false" label="团体编号" />
@@ -13,7 +13,7 @@
    <parameter id="bcstarttime" type="varchar" required="true" label="预约时间" />
     <parameter id="bcendtime" type="varchar" required="true" label="结束时间" />
    <parameter id="prepare_date" type="varchar" required="true" label="预约日期" />
-   <parameter id="yyinputprice" type="varchar" required="true" label="总金额" />
+   <parameter id="yyinputprice" type="varchar" required="false" label="总金额" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
    	on-error-label="该预约已付款，不能重复付款" id="normalmoneyspan" sql="nodup.sql" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 

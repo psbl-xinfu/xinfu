@@ -163,31 +163,22 @@ $(document).ready(function() {
  			paymoney+=Number(item.value);
  		});
  		$("#deposit").val(paymoney);
+ 		 
  		//
  		$Dialog().confirm("确定要收款吗？",function(){
  			var url="${def:context}${def:actionroot}/pay";
  		   	ajaxCall(url,{
  		   		method: "get",
  		   		form:"payForm",
- 		   		progress: true,
  		   		dataType: "script",
  		   		success: function() {
 		 		   	$Dialog().notice("预约成功！",1000,function(){
-		 		   	parent.document.location.reload();
-		 		   	ccms.dialog.close();
-		 		   /* 	$(".modal").css('display', 'none');
-		 			document.location.reload(); */
-		 		   		/* alert("fsdfsd");
-		 		   		parent.crud.searchData(1);
-		 		   		document.location.reload();	 */
+		 		   		parent.document.location.reload();
+		 		   		ccms.dialog.close(); 
 					});
  		   		}
- 		   /* 
-			 */
  		   	});
  		})
- 	
- 		//ccms.dialog.open({url : "${def:context}${def:actionroot}/crud"});
     });
 });
 function delhour(val){

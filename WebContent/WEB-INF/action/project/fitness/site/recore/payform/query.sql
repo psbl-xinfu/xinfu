@@ -23,7 +23,7 @@ select
 	sd.premoney,
 	sd.pretimes,
 	sd.times,
-	(select to_char((sd.endtime::time-sd.starttime::time), 'HH')) as hours,
+	(select to_char((sd.endtime::time-sd.starttime::time), 'HH24')) as hours,
 	((select to_char((sd.endtime::time-sd.starttime::time), 'MI'))::float/60) as minutes,
 --	(case when sd.prepare_type='1' then (select ) 
 	--) as 

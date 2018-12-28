@@ -14,11 +14,11 @@
 		<jdbc-log>false</jdbc-log>
 	</transaction>
 
+	<query>insert-guest.sql</query>
+	<query>insert.sql</query>
+	<query>insert_message.sql</query>
 	<query>insert_operatelog.sql</query>
 	<query>insert_finance.sql</query>
-	<query>insert_message.sql</query>
-	<query>insert.sql</query>
-	<query>insert-guest.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>

@@ -36,6 +36,7 @@ line-height: 30px;
 		<input type="hidden" id="deposit" name="deposit" value="${fld:deposit}" />
 		<input type="hidden" id="prepare_type" name="prepare_type" value="${fld:prepare_type}" />
 		<input type="hidden" id="thenumber" name="thenumber" value="${fld:thenumber}" />
+		<input type="hidden" id="factmoney" name="factmoney" value="" />
 		<div class="business-card-contract  dialogbg " style="width: 100%;height: 600px">
 			<header class="header-default">
 				<p>付款</p>
@@ -146,6 +147,7 @@ $(document).ready(function() {
 		//转换总共时间
 		var hours = parseInt($("#hours").val())+parseFloat($("#minutes").val());
 		var inimoneys =(hours*$("#price").val()*$("#thenumber").val()).toFixed(2);
+		
 		$("#inimoneys").text(inimoneys);
 		$("#inimoney").val(inimoneys);
 		
@@ -236,10 +238,8 @@ $(document).ready(function() {
  		$("input[name='paytypemoney']").each(function(j,item){
  			paymoney+=Number(item.value);
  		});
- 		if(Number($("#normalmoney").val())!=paymoney){
- 			ccms.dialog.alert("实收金额与应收金额不相同，请确认！");
- 			return false;
- 		}
+ 		alert(paymoney);
+ 		$("#factmoney").val(paymoney);
  		//
  		$Dialog().confirm("确定要收款吗？",function(){
  			var uri="${def:context}${def:actionroot}/pay";
