@@ -25,10 +25,10 @@ if(count==1){
 		});
 	}
 }
-
 //当前查询到1条记录以上则根据条件再次查找所有的记录
 if(count==1){
 	//statustype等于2说明是二维码刷卡   /** ${fld:custallcardvalue}入场是否查询会员所有卡  后台设置入场规则有设置  **/
+	
 	if(statustype=="2"||"${fld:custallcardvalue}"=="0"){
 		var url="${def:context}${def:actionroot}/searchcard?custall="+custall+"&cardcode="+cardcode+"&unionorgid="
 			+unionorgid+"&checkedcard="+cardcode;
@@ -44,8 +44,8 @@ if(count==1){
 		$("#searchhtml").show();
 	}else{
 		//进入说明当前刷卡不是二维码刷卡并且后台设置查询多卡
-		$("#unionorgid").val("${def:org}");
-		ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustcardocdelist/crud?pickcustname="
+		//$("#unionorgid").val("${def:org}");
+		ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustcardocdelistinout/crud?pickcustname="
 				+"${fld:custall}&objid=cust_code&objidtwo=custall&random_number="+Math.random(), id:"rc1001", height:650});
 	}
 }else{
