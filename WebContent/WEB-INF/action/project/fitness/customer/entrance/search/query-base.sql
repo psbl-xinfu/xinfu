@@ -14,15 +14,7 @@
 		inleft.lefttime,
 		inleft.code as leftcode,
 		inleft.remark,
-		concat('星期', (case 
-			when extract(DOW FROM inleft.intime)=1 then '一'
-			when extract(DOW FROM inleft.intime)=2 then '二'
-			when extract(DOW FROM inleft.intime)=3 then '三'
-			when extract(DOW FROM inleft.intime)=4 then '四'
-			when extract(DOW FROM inleft.intime)=5 then '五'
-			when extract(DOW FROM inleft.intime)=6 then '六'
-			when extract(DOW FROM inleft.intime)=0 then '日'
-		end)) as week,
+		inleft.signednumber,
 		--concat((select (inleft.intime::date + ('1 d')::interval))::date, ' 00:00:00')::date as presencedate,
 		card.startdate,
 		card.enddate,
@@ -66,15 +58,7 @@ union
 		inleft.lefttime,
 		inleft.code as leftcode,
 		inleft.remark,
-		concat('星期', (case 
-			when extract(DOW FROM inleft.intime)=1 then '一'
-			when extract(DOW FROM inleft.intime)=2 then '二'
-			when extract(DOW FROM inleft.intime)=3 then '三'
-			when extract(DOW FROM inleft.intime)=4 then '四'
-			when extract(DOW FROM inleft.intime)=5 then '五'
-			when extract(DOW FROM inleft.intime)=6 then '六'
-			when extract(DOW FROM inleft.intime)=0 then '日'
-		end)) as week,
+		inleft.signednumber,
 		null as startdate,
 		null as enddate,
 		inleft.lefttime as jslefttime,
@@ -112,15 +96,7 @@ union
 		inleft.lefttime,
 		inleft.code as leftcode,
 		inleft.remark,
-		concat('星期', (case 
-			when extract(DOW FROM inleft.intime)=1 then '一'
-			when extract(DOW FROM inleft.intime)=2 then '二'
-			when extract(DOW FROM inleft.intime)=3 then '三'
-			when extract(DOW FROM inleft.intime)=4 then '四'
-			when extract(DOW FROM inleft.intime)=5 then '五'
-			when extract(DOW FROM inleft.intime)=6 then '六'
-			when extract(DOW FROM inleft.intime)=0 then '日'
-		end)) as week,
+		inleft.signednumber,
 		elist.startdate,
 		elist.enddate,
 		inleft.lefttime as jslefttime,

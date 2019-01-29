@@ -9,6 +9,7 @@ insert into cc_inleft
 	indate,--入场日期
 	itemtype,--健身
 	bringother,--带朋友入场
+	signednumber,
     org_id--俱乐部编号
 )
 values
@@ -22,6 +23,8 @@ values
 	'${def:date}',
 	0,
 	0,
+	(case when (select type from cc_cardtype where code=${fld:cardtype})=0 then 1 
+	else ${fld:nowcount} end),
 	${def:org}
 )
 
