@@ -406,7 +406,9 @@ ${inc:/action/project/fitness/home/pub}
 			     $("#daochu_zhuangtai").val($("#zhuangtai").val());
 			     $("#daochuForm").submit();
 			});	
-			
+			var mobile= $('#mobile').on('blur',function(){
+				checkTel($('#mobile').val(),"mobile");
+			})
 			var obj = $Crud({
 				formId : "formEditor",
 				button : "save_btn",
@@ -430,17 +432,15 @@ ${inc:/action/project/fitness/home/pub}
 					$("#isclasstype").hide();
 					$("#passwdli").children().show();
 				},
-				validate : function() {
-					var flag = $("#formEditor").validate({
-						rules : {
-							mobile:{isMobile:true},
-						},
-					   messages: {
-						    mobile:{isMobile:'请输入正确的手机号！'},
-					   }
+			 validate : function() {
+					var flag = 
+						$("#formEditor").validate({
+							function(){
+								checkTel($('#mobile').val(),"mobile");
+							}
 					});
 					return flag;
-				},
+				}, 
 				check : function() {
 					return true;
 				}
@@ -557,6 +557,15 @@ function edit(userid){
 	});
 }		
 
+function checkTel(value,str){
+    var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+    var isMob=/(^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^1[3578]\d{9}$)|(^1\d{10}$)/;
+    var value= value
+    if(!isMob.test(value)&&!isPhone.test(value)){
+    	ccms.dialog.notice("请输入正确手机号或电话号!");
+	    	 $('#'+str).val('');
+	    }
+   }
 //离职、复职
 function updatestatus(status){
 	var obthis = getCheckboxValue("datalist");

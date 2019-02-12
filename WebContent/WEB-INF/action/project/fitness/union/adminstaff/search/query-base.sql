@@ -16,15 +16,16 @@ and exists(
 	where skill.skill_scope = '4' and ss.user_id = staff.user_id
 )
 --并且属于该门店
-and (
-	exists(
-		select 1 from hr_org g where g.org_id = ${def:org} or pid = ${def:org}
-	) or exists(
-		select 1 from hr_org org 
-		inner JOIN hr_staff_org s on s.org_id = org.org_id
-		where (org.org_id=${def:org} or org.pid=${def:org}) and org.is_deleted=0
-		and s.user_id = staff.user_id
-	)
-)
+and staff.org_id=${def:org}
+--(
+--	exists(
+--		select 1 from hr_org g where g.org_id = ${def:org} or pid = ${def:org}
+--	) or exists(
+--		select 1 from hr_org org 
+--		inner JOIN hr_staff_org s on s.org_id = org.org_id
+--		where (org.org_id=${def:org} or org.pid=${def:org}) and org.is_deleted=0
+--		and s.user_id = staff.user_id
+--	)
+--)
 ${filter}
 ${orderby}

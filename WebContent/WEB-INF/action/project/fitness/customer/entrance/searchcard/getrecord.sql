@@ -18,7 +18,14 @@ select
 	card.cardtype,
 	(case when ((card.status = 1 and card.startdate<={d '${def:date}'} and card.enddate>={d '${def:date}'}) or (card.status = 2 and starttype=1)) then '1' else '2' end) as cardstatus
 from cc_customer cust
-inner join cc_card card on card.customercode = cust.code and cust.org_id = card.org_id
+inner join (select c.* from cc_card  c
+LEFT JOIN cc_cardtype ctype on c.cardtype=ctype.code
+LEFT JOIN cc_cardcategory cgory on ctype.cardcategory=cgory.code
+left join t_union cunion on cgory.union_id=cunion.tuid
+where c.customercode=${fld:custall} and  (case when ${fld:unionorgid}=${def:org} then c.org_id=${def:org}
+ else cunion.tuid is not NULL
+ end)
+) card on card.customercode = cust.code and cust.org_id = card.org_id
 where (case when ${fld:cardcode} is null then cust.code = ${fld:custall} else card.code = ${fld:cardcode} end)
 and cust.org_id = ${fld:unionorgid} and card.isgoon = 0 --and card.status in (1, 2, 4, 5)  
 --and card.startdate<={d '${def:date}'} and card.enddate>={d '${def:date}'}
