@@ -60,8 +60,11 @@
         <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
 		<script type="text/javascript">
 		$(function(){
+			// modified by leo 190213 修正私教访问体侧返回不正确
 			if("${fld:type}"=="mc"){
 				homemc();
+			}else if("${fld:type}"=="pt"){
+				homept();	
 			}else{
 				homecust();
 			}
@@ -112,8 +115,8 @@
 				    	})
 			    		codes=codes.substring(codes,codes.length-1);
 				    	// modified by leo 190213 修正会籍调用对比详情页返回问题
-						if("${fld:type}"=="mc"){
-							duibiInfoMc(codes);
+						if("${fld:type}"=="mc"||"${fld:type}"=="pt"){
+							duibiInfoMc(codes,"${fld:type}");
 						}else{
 					    	duibiInfo(codes);
 						}
@@ -137,8 +140,8 @@
 	  	location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?codes="+codes;
 	}
 	// add by leo 190213 会籍查看增加识别
-	function duibiInfoMc(codes){
-	  	location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?type=mc&codes="+codes;
+	function duibiInfoMc(codes,type){
+	  	location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?type="+type+"&codes="+codes;
 	}
 
 		</script>

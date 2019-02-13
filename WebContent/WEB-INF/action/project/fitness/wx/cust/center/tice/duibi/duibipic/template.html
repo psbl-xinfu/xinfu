@@ -165,13 +165,14 @@ $(function(){
 		}
 	}else{
 		$('.share').eq(0).show();
-		// modified by leo 190213 修正私教查看问题
+		// modified by leo 190213 修正会籍、私教访问体侧返回不正确
 		if("${fld:type}"=="mc"){
 			homemc();
+		}else if("${fld:type}"=="pt"){
+			homept();	
 		}else{
 			homecust();
 		}
-		// homecust();
 	}
 	
 	var num=0;
