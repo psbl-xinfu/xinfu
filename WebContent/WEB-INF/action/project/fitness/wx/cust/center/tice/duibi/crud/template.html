@@ -111,7 +111,13 @@
 				    		codes+=$(this).attr('code')+';';
 				    	})
 			    		codes=codes.substring(codes,codes.length-1);
-				    	duibiInfo(codes);
+				    	// modified by leo 190213 修正会籍调用对比详情页返回问题
+						if("${fld:type}"=="mc"){
+							duibiInfoMc(codes);
+						}else{
+					    	duibiInfo(codes);
+						}
+						// duibiInfo(codes);
 			    	}else{
 			    		ccms.dialog.notice("只能对比两条记录！");
 			    	}
@@ -129,6 +135,10 @@
 	
 	function duibiInfo(codes){
 	  	location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?codes="+codes;
+	}
+	// add by leo 190213 会籍查看增加识别
+	function duibiInfoMc(codes){
+	  	location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?type=mc&codes="+codes;
 	}
 
 		</script>

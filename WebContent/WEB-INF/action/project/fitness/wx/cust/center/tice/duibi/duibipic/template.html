@@ -165,7 +165,13 @@ $(function(){
 		}
 	}else{
 		$('.share').eq(0).show();
-		homecust();
+		// modified by leo 190213 修正私教查看问题
+		if("${fld:type}"=="mc"){
+			homemc();
+		}else{
+			homecust();
+		}
+		// homecust();
 	}
 	
 	var num=0;
@@ -301,7 +307,9 @@ $(function() {
  	wx.config({
 		debug: false,
 		appId:  "${fld:appid}",
-		timestamp: ${fld:timestamp},
+		// modified by leo 190213 修正js报错
+		timestamp: "${fld:timestamp}",
+		// timestamp: ${fld:timestamp},
 		nonceStr: "${fld:noncestr}",
 		signature: "${fld:signature}",
 		jsApiList : [ 'checkJsApi','onMenuShareTimeline',"onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone",
