@@ -15,11 +15,10 @@ from
 cc_ptprepare
 where
 code=
-(select preparecode from  cc_ptlog where  ptrestcode=${fld:ptrestcode} and  cc_ptlog.org_id=${def:org}  
+(select max(preparecode) from  cc_ptlog where  ptrestcode=${fld:ptrestcode} and  cc_ptlog.org_id=${def:org}  
 	and customercode=
 				(select code from cc_customer where mobile=
 					(select mobile  from hr_staff where userlogin='${def:user}' and hr_staff.org_id=${def:org})
 					and cc_customer.org_id=${def:org}
-				)
-order by 	code desc)
+				))
 and org_id=${def:org}
