@@ -60,8 +60,11 @@
 </body>
 <script type="text/javascript">
 $(function(){
+	// modified by leo 190213 修正私教访问体侧返回不正确
 	if("${fld:type}"=="mc"){
 		homemc();
+	}else if("${fld:type}"=="pt"){
+		homept();	
 	}else{
 		homecust();
 	}

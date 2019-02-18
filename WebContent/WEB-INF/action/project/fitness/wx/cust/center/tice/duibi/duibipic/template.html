@@ -165,7 +165,14 @@ $(function(){
 		}
 	}else{
 		$('.share').eq(0).show();
-		homecust();
+		// modified by leo 190213 修正会籍、私教访问体侧返回不正确
+		if("${fld:type}"=="mc"){
+			homemc();
+		}else if("${fld:type}"=="pt"){
+			homept();	
+		}else{
+			homecust();
+		}
 	}
 	
 	var num=0;
@@ -301,7 +308,9 @@ $(function() {
  	wx.config({
 		debug: false,
 		appId:  "${fld:appid}",
-		timestamp: ${fld:timestamp},
+		// modified by leo 190213 修正js报错
+		timestamp: "${fld:timestamp}",
+		// timestamp: ${fld:timestamp},
 		nonceStr: "${fld:noncestr}",
 		signature: "${fld:signature}",
 		jsApiList : [ 'checkJsApi','onMenuShareTimeline',"onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone",

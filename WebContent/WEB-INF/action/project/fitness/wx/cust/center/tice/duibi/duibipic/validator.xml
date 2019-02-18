@@ -2,4 +2,6 @@
 <validator>
 	<parameter id="codes" type="varchar" required="true" label="codes"/>
 	<parameter id="boot" type="varchar" required="false" label="boot"/>
+	<!-- add by leo 增加接收私教类型参数 -->
+	<parameter id="type" type="varchar" required="false" label="type"/>
 </validator>
