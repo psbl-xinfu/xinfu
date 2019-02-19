@@ -7,6 +7,7 @@ select
  	(select enddate from cc_card where customercode = cust.code and org_id = cust.org_id 
  		and cc_card.isgoon = 0 order by enddate desc limit 1) as enddate
 from cc_customer cust
+left join cc_card card on cust.code=card.customercode
 where cust.org_id = ${def:org}
 and not EXISTS(
 	select 1 from cc_card 
@@ -24,5 +25,10 @@ and
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else cust.mc = '${def:user}' end) end)
+		and card.org_id = cust.org_id 
+ 		and card.isgoon = 0 
+		AND card.enddate::date <=  ${fld:s_end_date}
+		AND card.enddate::date >=  ${fld:s_start_date}	
+	
 ${filter}
-${orderby}
+order by enddate desc

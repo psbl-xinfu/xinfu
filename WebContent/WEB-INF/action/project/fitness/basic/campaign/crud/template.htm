@@ -119,7 +119,7 @@ ${inc:/action/project/fitness/home/pub}
 										<td >#startdate#</td>
 										<td >#enddate#</td>
 										<td >#vc_cardtype#</td>
-										<td >#discount#</td>
+										<td >#discount#折</td>
 										<td >#is_enabled#</td>		
 										<td >#remark#</td>										
 									</tr>
@@ -177,9 +177,15 @@ $(document).ready(function() {
 			return flag;
 		},
 		check:function(){
-			var reg=/^(0(\.\d+)?|1)?$/;
+		//	var reg=/^(0(\.\d+)?|1)?$/;
+		var reg=/^-?\d+(\.\d{1,2})?$/;  
 			var score=$("#discount").val();
 			if(!reg.test(score)){
+				$("#sp").show();
+				ccms.dialog.alert("小数位数不能超过三位！");
+				return false;
+			};
+			if(score>=1){
 				$("#sp").show();
 				ccms.dialog.alert("必须输入0-1之间的数！");
 				return false;

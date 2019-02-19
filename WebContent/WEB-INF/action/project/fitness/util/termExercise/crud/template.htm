@@ -24,17 +24,16 @@ ${inc:/action/project/fitness/home/pub}
 										 		</mc-rows>
 										 </select>	
 									</li>
-									<li class="dateTime">
-										<input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
-									</li>
-									<li class="dateTime">
-										<input id="s_end_date" name="s_end_date" type="text" class="input-default"/>
-
-									</li>
-									
+									<li>
+									    <select id="shijian" name="shijian" style="display: none;">
+											<option value="30">近30天</option>
+											<option value="7">一周内</option>
+											<option value="3">三个月内</option>
+											<option value="4">三个月以上</option>
+										 </select>
+									</li>	
 								  	<div class="r-c-btnList">
 										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
-										<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
 									</div>						
 								</nav>
 							</div>
@@ -65,8 +64,8 @@ ${inc:/action/project/fitness/home/pub}
 										<td>#name#</td>
 										<td>#sex#</td>
 										<td>#mobile#</td>
-										<td>#status#</td>
 										<td>#mc#</td>
+										<td>#status#</td>
 										<td>#indate#</td>
 										<td>#tians#</td>
 									</tr>
@@ -82,37 +81,20 @@ ${inc:/action/project/fitness/home/pub}
 					</div>
 				</div>
 			</form>
-			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none;" >
-					<input id="daochu_s_start_date" name="daochu_s_start_date" type="text" />
-					<input id="daochu_s_end_date" name="daochu_s_end_date" type="text" />
-					<input id="daochu_userName" name="daochu_userName" type="text" />
-					
-					<input type="hidden" name="org_id" value="${fld:org_id}" preserve="true" />
-			</form>
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 	<script language="JavaScript">
 		var search = null;
 		$(document).ready(function() {
-			searchSelectInit($("#mc"));
-			 selectInit($("#time"));
-			$Dialog().date($('#s_start_date'));
+			searchSelectInit($("#mc,#shijian"));
+		/* 	$Dialog().date($('#s_start_date'));
 			$Dialog().date($('#s_end_date'));
 			$("#s_start_date").val(new Date().format("yyyy-MM-01"));
-			$("#s_end_date").val("${def:date}");
+			$("#s_end_date").val("${def:date}"); */
 			this.search = search;
 			search = $Search({datagrid : "datagrid", formId : "searchForm",rowpackage:function(obj){
 			}, success : function() {
 			}}).initSearchBtn().searchData(1);
-			//导出
-			$("#daochu_list").unbind().on("click", function () {
-				$("#daochu_s_start_date").val($("#s_start_date").val());
-			    $("#daochu_s_end_date").val($("#s_end_date").val());
-			    $("#daochu_userName").val($("#userName").val());
-				$("#daochuForm").submit();
-			});
 		});
-		
-
 	</script> 
 </body>
 </html>

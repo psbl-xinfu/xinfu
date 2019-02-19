@@ -2,30 +2,25 @@
 document.formEditor.vc_code.value = "${fld:code}";
 setSelectValue($("#vc_cardcategory"), "${fld:type}");
 setSelectValue($("#vc_type"), "${fld:cardcategory}");
-setSelectValue($("#scaletype"), "${fld:scaletype}");
 document.formEditor.vc_name.value = "${fld:name}";
 document.formEditor.count.value = "${fld:count}";
 document.formEditor.daycount.value = "${fld:daycount}";
 document.formEditor.vc_giveday.value = "${fld:giveday}";
 document.formEditor.vc_remark.value = "${fld:remark@js}";
 document.formEditor.vc_ptcount.value = "${fld:ptcount}";
-document.formEditor.vc_scale.value = "${fld:scale}";
 document.formEditor.vc_color.value = "${fld:bgcolor}";
 document.formEditor.vc_cardfee.value = "${fld:cardfee}";
-document.formEditor.vc_maxusernum.value = "${fld:maxusernum}";
 document.formEditor.vc_minfee.value = "${fld:minfee}";
 document.formEditor.opencarddeadline.value = "${fld:opencarddeadline}";
-setSelectValue($("#maxusernum"), "${fld:maxusernum}");
 $('.color').blur();
-
 $('#support').html('');
 $('#salelist').html('');
 $('#timeinterallist').html('');
-if("${fld:maxusernum}"==1||"${fld:maxusernum}"==""){
+/*if("${fld:maxusernum}"==1||"${fld:maxusernum}"==""){
 	setSelectValue($("#maxusernum"), "0");
 }else{
 	setSelectValue($("#maxusernum"), "1");
-}
+}*/
 if("${fld:type}"=="1"){
 	$("#count").show();
 	$("#countlable").html("可用次数：");
