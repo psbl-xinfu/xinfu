@@ -11,7 +11,7 @@
 	<parameter id="remark" type="varchar" required="false" label="remark" maxlen="32" />
 	<parameter id="week" type="varchar" required="false" label="week" maxlen="32" />
 	
-	
+	<parameter id="isprepare" type="varchar" required="true" label="是否预约" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
    	on-error-label="该门店正在放假中，不能预约！" id="classdate" sql="noRep.sql" />
 </validator>
