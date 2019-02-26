@@ -19,7 +19,7 @@ LEFT JOIN cc_cabinettemp cab on cab.cardcode=card.code and cab.org_id = card.org
 LEFT JOIN cc_cardtype ct on ct.code=card.cardtype  and ct.org_id = card.org_id
 LEFT JOIN cc_inleft inleft on inleft.cardcode=card.code and inleft.org_id = card.org_id
 WHERE
-	card.code = ${fld:pk_value} and card.isgoon =0 and card.org_id = ${def:org}
+	card.code = ${fld:pk_value} and card.isgoon =0 and card.org_id = ${fld:org_id}
 	AND
 	inleft.indate= '${def:date}'   
  order by intime  limit 1
