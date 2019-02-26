@@ -41,10 +41,11 @@ ${inc:/action/project/fitness/home/pub}
 						</thead>
 						
 						<tbody id="datagridTemplate" style="display: none">
-							<tr onclick="custinfo('#code#', '#name#')">
+							<tr onclick="custinfo('#code#', '#name#','#org_id#')">
 								<td>#code#</td>
 								<td>#name#</td>
-								<td>#mobile#</td>										
+								<td>#mobile#</td>
+								<td style="display:none">#org_id#</td>										
 							</tr>
 						</tbody>
 						<tbody id="datagrid">
@@ -73,15 +74,20 @@ $(document).ready(function() {
 		}else if($("#datagrid tr").length==1){
 			parent.$("#${fld:objid}").val($("#datagrid tr td").eq(0).html());
 			parent.$("#${fld:objidtwo}").val($("#datagrid tr td").eq(1).html());
+			parent.$("#${fld:unionorgid}").val($("#datagrid tr td").eq(3).html());
 			parent.pickcustCallback();
 			ccms.dialog.close();
 		}
 	}}).initSearchBtn().searchData(1);
 });
 //
-function custinfo(code, name){
+function custinfo(code, name,org_id){
+	alert(code);
+	alert(name);
+	alert(org_id);
 	parent.$("#${fld:objid}").val(code);
 	parent.$("#${fld:objidtwo}").val(name);
+	parent.$("#${fld:unionorgid}").val(org_id);
 	parent.pickcustCallback();
 	ccms.dialog.close();
 }

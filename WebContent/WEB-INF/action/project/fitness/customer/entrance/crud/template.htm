@@ -223,7 +223,7 @@ ${inc:/action/project/fitness/home/pub}
 							    <th>手牌号</th>
 								<th>会籍</th>
 							    <th>入场日期</th>
-							    <th>星期</th>
+							    <th>签到人数</th>
 							    <th>入场时间</th>
 								<th>离场时间</th>
 							    <th>在场时间</th>
@@ -238,7 +238,7 @@ ${inc:/action/project/fitness/home/pub}
 		 					    <td>#vc_tempcabinet#</td>
 				                <td>#vc_inusername#</td>				
 				                <td>#c_initime#</td>		
-				                <td>#week#</td>
+				                <td>#signednumber#</td>
 				                <td>#c_initime_time#</td>
 				                <td>#lefttime#</td>
 				        		<td>#presencedate#</td>
@@ -305,16 +305,19 @@ $(document).ready(function() {
 		if(custall==""){
 			ccms.dialog.notice("请输入会员卡号/姓名/手机号！", 2000);
 		}else{
+			alert("1");
 			var memberhead = "${fld:memberhead}";
 			var findcust = custall.substring(0,memberhead.length+1);
 			//相等查询体验卡相反正常查询 
 			if(("T"+memberhead)==findcust){
+				alert("2");
 				$("#inlefttype").val("2");
 				$("#upload_btn,#tuancao").hide();
 				$("#errorinfo,#classdef,#cardlist").html("");
 				var classdefurl="${def:context}${def:actionroot}/queryexpercardlist?code="+custall;
 				search(classdefurl);
 			}else{
+				alert("3");
 				$("#inlefttype").val("1");
 				$("#upload_btn,#tuancao").show();
 				var classdefurl="${def:context}${def:actionroot}/querycardnum?custall="+custall;
@@ -384,6 +387,7 @@ $(document).ready(function() {
 			var codetype=$('input:radio[name="cardcode"]:checked').attr("code1");
 			var code=$('input:radio[name="cardcode"]:checked').attr("code");
 			var code2=$('input:radio[name="cardcode"]:checked').attr("code2");
+			var code3=$('input:radio[name="cardcode"]:checked').attr("code3");
 			$("#cardcode").val(val);
 			$("#cardtype").val(code);
 			$("#cpcode").val(cpcode);
@@ -392,7 +396,7 @@ $(document).ready(function() {
 			//入场判断时间段限制条件
 			if(codetype=="2"){
 				//查询该卡时间段限制，判断该时间段是否能入场
-				ajaxCall("${def:context}${def:actionroot}/querywhetheradmission?cardtype="+code,{
+				ajaxCall("${def:context}${def:actionroot}/querywhetheradmission?cardtype="+code+"&org_id="+code3,{
 					method:"get",
 					dataType:"script",
 					success:function(data){
@@ -433,13 +437,17 @@ function postsubmit(url){
 }
 //回调查询方法
 function pickcustCallback(){
+	alert($("#unionorgid").val());
 	var url="${def:context}${def:actionroot}/searchcard?custall="+$("#cust_code").val()+"&unionorgid="
 			+$("#unionorgid").val()+"&checkedcard="+$("#checkedcard").val();
 	search(url);
+	alert($("#unionorgid").val());
 	var classdefurl="${def:context}${def:actionroot}/searchclassprepare?custall="+$("#cust_code").val()+"&unionorgid="+$("#unionorgid").val();
 	search(classdefurl);
+	alert($("#unionorgid").val());
 	var classdefurl="${def:context}${def:actionroot}/queryptrest?custall="+$("#cust_code").val()+"&unionorgid="+$("#unionorgid").val();
 	search(classdefurl);
+	alert($("#unionorgid").val());
 	var classdefurl="${def:context}${def:actionroot}/queryptprepare?customercode="+$("#cust_code").val()+"&unionorgid="+$("#unionorgid").val();
 	search(classdefurl);
 	$("#searchhtml").show();

@@ -76,7 +76,7 @@ ${inc:/action/project/fitness/home/pub}
 							    <th>手牌号</th>
 								<th>会籍</th>
 							    <th>入场日期</th>
-							    <th>星期</th>
+							    <th>签到人数</th>
 							    <th>入场时间</th>
 								<th>离场时间</th>
 							    <th>在场时间</th>
@@ -92,7 +92,7 @@ ${inc:/action/project/fitness/home/pub}
 		 					    <td>#vc_tempcabinet#</td>
 				                <td>#vc_inusername#</td>				
 				                <td>#c_initime#</td>		
-				                <td>#week#</td>
+				                <td>#signednumber#</td>
 				                <td>#c_initime_time#</td>
 				                <td>#lefttime#</td>
 				        		<td>#presencedate#</td>
@@ -180,18 +180,15 @@ $(document).ready(function() {
 				var code = $("input[name=inleftcode]:checked").attr("code");
 				var inlefttype = $("input[name=inleftcode]:checked").attr("inlefttype");
 				var url = "${def:context}${def:actionroot}";
+				var code5=$("input[name=inleftcode]:checked").attr("code5");
 				if(code=="1"){
-					alert(code);
 					if(inlefttype=="1"){
-						alert("a");
-						url += "/exitall?code="+obthis;
+						url += "/exitall?code="+obthis+"&org_id="+code5;
 					}else if(inlefttype=="2"){
-						alert("b");
-						url += "/expercardexitall?code="+obthis;
+						url += "/expercardexitall?code="+obthis+"&org_id="+code5;
 					}
 				}else if(code=="2"){
-					alert(code);
-					url += "/inleftout?inleftcode="+obthis;
+					url += "/inleftout?inleftcode="+obthis+"&org_id="+code5;
 				}
 				ajaxCall(url,{
 					method : "get",

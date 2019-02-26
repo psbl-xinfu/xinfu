@@ -1,3 +1,4 @@
+--如果不是通电卡也能刷卡就需要改这一部分
 select
 	card.code,
 	card.nowcount,
@@ -16,7 +17,8 @@ select
 	(select (case when lefttime is null then '1' else '2' end)
 		from cc_inleft where org_id = ${fld:unionorgid} and indate = {d '${def:date}'} and cardcode = card.code order by intime desc LIMIT 1) as entrancetype,
 	card.cardtype,
-	(case when ((card.status = 1 and card.startdate<={d '${def:date}'} and card.enddate>={d '${def:date}'}) or (card.status = 2 and starttype=1)) then '1' else '2' end) as cardstatus
+	(case when ((card.status = 1 and card.startdate<={d '${def:date}'} and card.enddate>={d '${def:date}'}) or (card.status = 2 and starttype=1)) then '1' else '2' end) as cardstatus,
+	card.org_id
 from cc_customer cust
 inner join (select c.* from cc_card  c
 LEFT JOIN cc_cardtype ctype on c.cardtype=ctype.code

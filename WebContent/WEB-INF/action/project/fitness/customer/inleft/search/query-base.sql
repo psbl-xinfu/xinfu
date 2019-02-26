@@ -3,7 +3,7 @@
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}),
 		'" code2="',(case when inleft.lefttime is null then  
 		(case when inleft.cabinettempcode is null then '0' else '1' end) else '0' end),'" code4="',
-		(case when inleft.lefttime is null then '1' else '0' end),'" />') AS checklink,
+		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',card.org_id,'" />') AS checklink,
 		inleft.cardcode,	
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}) as cabinettempcode,	
 		cust.name, 
@@ -14,15 +14,7 @@
 		inleft.lefttime,
 		inleft.code as leftcode,
 		inleft.remark,
-		concat('星期', (case 
-			when extract(DOW FROM inleft.intime)=1 then '一'
-			when extract(DOW FROM inleft.intime)=2 then '二'
-			when extract(DOW FROM inleft.intime)=3 then '三'
-			when extract(DOW FROM inleft.intime)=4 then '四'
-			when extract(DOW FROM inleft.intime)=5 then '五'
-			when extract(DOW FROM inleft.intime)=6 then '六'
-			when extract(DOW FROM inleft.intime)=0 then '日'
-		end)) as week,
+		signednumber,
 		--concat((select (inleft.intime::date + ('1 d')::interval))::date, ' 00:00:00')::date as presencedate,
 		card.startdate,
 		card.enddate,
@@ -30,9 +22,9 @@
 		inleft.intime as jsintime,
 		inleft.indate
 from cc_inleft inleft
-left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 --and card.org_id = inleft.org_id
+left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 and inleft.customercode=card.customercode--and card.org_id = inleft.org_id
 left join cc_cardtype ct on card.cardtype = ct.code --and card.org_id = ct.org_id
-left join cc_customer cust on card.customercode = cust.code --and card.org_id = cust.org_id
+left join cc_customer cust on card.customercode = cust.code and inleft.customercode=cust.code--and card.org_id = cust.org_id
 left join hr_staff staff on staff.userlogin=inleft.inuser
 where  1=1 and inleft.org_id = ${def:org} and inleft.inlefttype = 1
 ${filter} 
@@ -51,7 +43,7 @@ union
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}),
 		'" code2="',(case when inleft.lefttime is null then  
 		(case when inleft.cabinettempcode is null then '0' else '1' end) else '0' end),'" code4="',
-		(case when inleft.lefttime is null then '1' else '0' end),'" />') AS checklink,
+		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',guest.org_id,'" />') AS checklink,
 		inleft.cardcode,	
 		'' as cabinettempcode,	
 		guest.name, 
@@ -62,15 +54,7 @@ union
 		inleft.lefttime,
 		inleft.code as leftcode,
 		inleft.remark,
-		concat('星期', (case 
-			when extract(DOW FROM inleft.intime)=1 then '一'
-			when extract(DOW FROM inleft.intime)=2 then '二'
-			when extract(DOW FROM inleft.intime)=3 then '三'
-			when extract(DOW FROM inleft.intime)=4 then '四'
-			when extract(DOW FROM inleft.intime)=5 then '五'
-			when extract(DOW FROM inleft.intime)=6 then '六'
-			when extract(DOW FROM inleft.intime)=0 then '日'
-		end)) as week,
+		signednumber,
 		null as startdate,
 		null as enddate,
 		inleft.lefttime as jslefttime,
@@ -96,7 +80,7 @@ union
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}),
 		'" code2="',(case when inleft.lefttime is null then  
 		(case when inleft.cabinettempcode is null then '0' else '1' end) else '0' end),'" code4="',
-		(case when inleft.lefttime is null then '1' else '0' end),'" />') AS checklink,
+		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',expercard.org_id,'" />') AS checklink,
 		inleft.cardcode,	
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}) as cabinettempcode,	
 		elog.name, 
@@ -107,15 +91,7 @@ union
 		inleft.lefttime,
 		inleft.code as leftcode,
 		inleft.remark,
-		concat('星期', (case 
-			when extract(DOW FROM inleft.intime)=1 then '一'
-			when extract(DOW FROM inleft.intime)=2 then '二'
-			when extract(DOW FROM inleft.intime)=3 then '三'
-			when extract(DOW FROM inleft.intime)=4 then '四'
-			when extract(DOW FROM inleft.intime)=5 then '五'
-			when extract(DOW FROM inleft.intime)=6 then '六'
-			when extract(DOW FROM inleft.intime)=0 then '日'
-		end)) as week,
+		signednumber,
 		elist.startdate,
 		elist.enddate,
 		inleft.lefttime as jslefttime,

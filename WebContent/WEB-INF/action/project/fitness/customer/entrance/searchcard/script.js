@@ -16,7 +16,7 @@ var html = "";
 	}else if(cardtype_name.length>5){
 		cardtype_name = cardtype_name.substring(0,5)+"</br>"+cardtype_name.substring(5,cardtype_name.length);
 	}
-	html+='class="cardcode" name="cardcode" cardstatus="${fld:cardstatus}" code2="${fld:type}" code="${fld:cardtype@js}" code1="'+entrancetype+'" codetype="1" value="${fld:code@js}"></td>'
+	html+='class="cardcode" name="cardcode" cardstatus="${fld:cardstatus}" code2="${fld:type}" code3="${fld:org_id}" code="${fld:cardtype@js}" code1="'+entrancetype+'" codetype="1"  value="${fld:code@js}"></td>'
 		+"<td>"+cardtype_name+"</td><td>${fld:carddate}</td><td>${fld:org_name@js}</td>";
 	if("${fld:type}"=="0"){
 		html+="<td>--</td>";

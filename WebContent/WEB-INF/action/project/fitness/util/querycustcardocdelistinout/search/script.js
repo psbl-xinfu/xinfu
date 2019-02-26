@@ -3,7 +3,8 @@
 	{
 		    "code":"${fld:code@js}",
 		    "name":"${fld:name@js}",
-		    "mobile":"${fld:mobile@js}"
+		    "mobile":"${fld:mobile@js}",
+		    "org_id":"${fld:org_id}"
 	},
 	</rows>
 	{}
