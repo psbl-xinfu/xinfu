@@ -14,36 +14,18 @@
 	<form id="filter"  name="filter">
 		<input type="hidden" name="classlistcode" id="classlistcode" value="${fld:ccode}">
 		<input type="hidden" name="customercode" id="customercode" value="${fld:customercode}">
+		<input type="hidden" name="class_name" id="class_name" value="${fld:class_name}">
+		<input type="hidden" name="contextheadpic" id="contextheadpic" value="${def:context}${fld:headpic}">
+		<input type="hidden" name="times" id="times" value="${fld:times}">
+		<input type="hidden" name="ptname" id="ptname" value=">${fld:ptname}">
+		<input type="hidden" name="shijian" id="shijian" value="${fld:classdate} ${fld:classtime}~${fld:endtime}">
+		<input type="hidden" name="num" id="num" value="${fld:num}">
+		<input type="hidden" name="limitcount" id="limitcount" value="${fld:limitcount}">
+		<input type="hidden" name="tiqian" id="tiqian" value="${fld:classdate} ${fld:classtime}">
+		<input type="hidden" name="fabu" id="fabu" value="${fld:fabu}">
 	
-	
-        <div class="huiyuankcxqtop">
-            <div class="list">
-                <img src="${def:context}${fld:headpic}" class="touxiangpic fl">
-                <div class="content fl">
-                    <p class="name">${fld:class_name}<span></span><span></span></p>
-                    <p class="time">${fld:times}分钟<span>${fld:ptname}教练</span></p>
-                </div>
-                <!-- <img src="./static/images/tel.png" class="telpic fr"> -->
-               
-                <img src="${def:context}/js/project/fitness/wx/image/huiyuanyuyuesijiao.png" class="yuyuepic fr" style="display: none">
-            
-            
-            </div>
-            <div class="listother">
-                <p class='p1'>时间</p><p class='p2'>${fld:classdate} ${fld:classtime}~${fld:endtime}</p>
-            </div>
-            <div class="listother">
-                <p class='p1'>人数</p><p class='p2'>已约${fld:num}人，可约${fld:limitcount}人</p>
-            </div>
-            <div class="listother">
-                <p class='p1'>状态</p><p class='p2' id="status">${fld:status}</p>
-            </div>
-                <div class="listother">
-                <p class='p1'>&nbsp;</p><p class='p2' >${fld:classdate} ${fld:classtime} 前结束预约</p>
-            </div>        
-            <div class="listother">
-                <p class='p1'>开课</p><p class='p2'  id="p2">${fld:fabu}</p>
-            </div>
+        <div id="htm" class="huiyuankcxqtop">
+           
         </div>
 
         <div class="huiyuankcxqcenter container">
@@ -61,6 +43,69 @@
     	}else{
     		homecust();
     	}
+    	var htm="";
+    	var class_name=$("#class_name").val();
+    	var contextheadpic=$("#contextheadpic").val();
+    	var times=$("#times").val();
+    	var ptname=$("#ptname").val();
+    	var shijian=$("#shijian").val();
+    	var num=$("#num").val();
+    	var limitcount=$("#limitcount").val();
+    	var tiqian=$("#tiqian").val();
+    	var fabu=$("#fabu").val();
+    	if("${fld:isprepare}"=="1"){
+    		htm+="<div class='list'>";
+    		htm+=" <img src='"+contextheadpic+"' class='touxiangpic fl'>";
+    		htm+=" <div class='content fl'>";
+    		htm+=" <p class='name'>"+class_name+"<span></span><span></span></p>";
+    		htm+=" <p class='time'>"+times+"分钟<span>"+ptname+"教练</span></p>";
+    		htm+=" </div>";
+    		htm+=" <img src='${def:context}/js/project/fitness/wx/image/huiyuanyuyuesijiao.png' class='yuyuepic fr' style='display: none'>";
+    		htm+=" </div>";
+    		htm+="  <div class='listother'>";
+    		htm+="  <p class='p1'>时间</p><p class='p2'>"+shijian+"</p>";
+    		htm+=" </div>";
+    		htm+=" <div class='listother'>";
+    		htm+="  <p class='p1'>人数</p><p class='p2'>已约"+num+"人，可约"+limitcount+"人</p>";
+    		htm+=" </div>";
+    		htm+=" <div class='listother'>";
+    		htm+=" <p class='p1'>状态</p><p class='p2' id='status'>${fld:status}</p>";
+    		htm+="  </div>";
+    		htm+=" <div class='listother'>";
+    		htm+=" <p class='p1'>&nbsp;</p><p class='p2' >"+tiqian+" 前结束预约</p>";
+    		htm+=" </div> ";
+    		htm+=" <div class='listother'>";
+    		htm+=" <p class='p1'>开课</p><p class='p2'  id='p2'>"+fabu+"</p>";
+    		htm+=" </div>";
+    		$("#htm").html(htm);
+    	}else{
+    		htm+="<div class='list'>";
+    		htm+=" <img src='"+contextheadpic+"' class='touxiangpic fl'>";
+    		htm+=" <div class='content fl'>";
+    		htm+=" <p class='name'>"+class_name+"<span></span><span></span></p>";
+    		htm+=" <p class='time'>"+times+"分钟<span>"+ptname+"教练</span></p>";
+    		htm+=" </div>";
+    		htm+=" <img src='${def:context}/js/project/fitness/wx/image/huiyuanyuyuesijiao.png' class='yuyuepic fr' style='display: none'>";
+    		htm+=" </div>";
+    		htm+="  <div class='listother'>";
+    		htm+="  <p class='p1'>时间</p><p class='p2'>"+shijian+"</p>";
+    		htm+=" </div>";
+    		htm+=" <div class='listother'>";
+    		htm+="  <p class='p1'>人数</p><p class='p2'>"+limitcount+"人</p>";
+    		htm+=" </div>";
+    		htm+=" <div class='listother'>";
+    		htm+=" <p class='p1'>状态</p><p class='p2' id='status'>"+"${fld:status}"+"</p>";
+    		htm+="  </div>";
+    		htm+=" <div class='listother'>";
+    		htm+=" <p class='p1'>&nbsp;</p><p class='p2' >"+tiqian+" 前结束</p>";
+    		htm+=" </div> ";
+    		htm+=" <div class='listother'>";
+    		htm+=" <p class='p1'>开课</p><p class='p2'  id='p2'>"+fabu+"</p>";
+    		htm+=" </div>";
+    		$("#htm").html(htm);
+    	}
+    	
+    	
     	
     	var flag=false;
      	if("${fld:isyuyue}"=='已预约'){

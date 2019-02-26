@@ -3,19 +3,29 @@ var flag=true;
 <rows>
 var flag=false;
 var status="${fld:ss}";
+var isprepare="${fld:isprepare}";
 if(status=="已开始"){
 	str+='<li class="yellow" style="margin-top:10px;">';
 }else if(status=="已结束"){
 	str+='<li style="margin-top:10px;">';
 }else if(status=="预约中"){
-	str+='<li class="type1"style="margin-top:10px">';
+	str+='<li class="type1" style="margin-top:10px">';
+}else if(status=="开放中"){
+	str+='<li class="green" style="margin-top:10px">';
 }
-str+='<div  code="${fld:cdcode}" code1="${fld:ss}" code2="${fld:code}"  code3="${fld:isyuyue}" onclick="getInfo(this)">';
+str+='<div  code="${fld:cdcode}" code1="${fld:ss}" code2="${fld:code}"  code3="${fld:isyuyue}" code4="${fld:isprepare}" onclick="getInfo(this)">';
 str+='	<h3>';
 str+='		<p>${fld:class_name}</p>';
 str+='		<p>';
+	if(status=="开放中"){
+		str+='<span>${fld:limitcount}</span>人';
+	}else
 	if(status!="预约中"){
-		str+='			已预约<span>${fld:nowcount}</span>人/可预约<span>${fld:limitcount}</span>人';
+		if(isprepare==1){
+			str+='已预约<span>${fld:nowcount}</span>人/可预约<span>${fld:limitcount}</span>人';
+		}else{
+			str+='<span>${fld:limitcount}</span>人';
+		}
 	}else{
 		var zong ="${fld:limitcount}";
 		var now="${fld:nowcount}";
@@ -47,7 +57,8 @@ function getInfo(obj){
 	var ccode=$(obj).attr('code2');
 	var status=$(obj).attr('code1');
 	var isyuyue=$(obj).attr('code3');
-	
+	var cisprepare=$(obj).attr('code4');
+	$('#isprepare').val(cisprepare);
 	$('#dcode').val(dcode);
 	$('#ccode').val(ccode);
 	$('#status').val(status);

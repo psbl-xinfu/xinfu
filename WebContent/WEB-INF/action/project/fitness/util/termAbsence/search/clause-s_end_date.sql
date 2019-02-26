@@ -1,1 +1,0 @@
-AND log.created::date <= ${fld:s_end_date}

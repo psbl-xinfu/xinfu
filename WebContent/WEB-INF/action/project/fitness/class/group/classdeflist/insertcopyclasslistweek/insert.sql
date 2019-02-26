@@ -11,7 +11,8 @@ insert into cc_classlist
 	classtime,
 	status,
 	remark,
-	org_id
+	org_id,
+	isprepare
 )
 (
 	select 
@@ -26,7 +27,8 @@ insert into cc_classlist
 		classtime,
 		2,
 		remark,
-		${def:org}
+		${def:org},
+		isprepare
 	from cc_classlist 
 	where (classdate>=${fld:startdate} and classdate<=${fld:enddate})
 	and org_id = ${def:org}

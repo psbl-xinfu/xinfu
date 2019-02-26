@@ -2,7 +2,16 @@
 <html>
 <head>
 <title>手牌设置</title>
+   
 </head>
+<style>
+            #content{
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width:100px;
+            }
+        </style>
 <body >
 <input type="hidden"  id="in_status">
 <div class="modal fade" id="modalAddnew_r"  tabindex="-1" style="display:none;">
@@ -144,7 +153,7 @@
 										 <td class="table-checkbox">#r_application_id#</td> 
 											<td class="mustWrap">#r_groupname#</td>
 											<td >#r_gid#</td>
-											<td >#r_bid#</td>
+											<td ><div style='width:100px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='#r_bid#'>#r_bid#</div></td>
 											<td >#r_status#</td>
 											<td >#r_physics_status#</td>										
 											<td >#r_name#</td>										
@@ -166,6 +175,12 @@
 			</form>
 	<input type="hidden" name="actionroot2" id="actionroot2" value="${def:actionroot}" />
 	<script language="JavaScript">
+	document.onload = function(){
+         content.onmouseover = function(){
+             this.title = this.innerHTML;
+         }
+     }
+
 var search2=null;
 $(document).ready(function() {
 	selectInit($("#group_r,#status2_r,#physics_status_r"));

@@ -7,7 +7,6 @@
 		"class_ename":"${fld:class_ename@js}",
 		"times":"${fld:times}",
 		"classroomcode":"${fld:classroomcode}",
-		"isprepare":"${fld:isprepare}",
 		"classfee":"${fld:classfee}",
 		"status":"${fld:status}",
 		"classinfo":"${fld:classinfo@js}",

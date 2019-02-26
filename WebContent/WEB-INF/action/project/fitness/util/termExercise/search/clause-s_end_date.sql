@@ -1,1 +1,0 @@
-AND inleft.indate::date <= ${fld:s_end_date}

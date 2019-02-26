@@ -26,6 +26,12 @@ ${inc:/action/project/fitness/home/pub}
 									</mc-rows>
 								</select>		
 							 </li>
+							 <li class="dateTime">
+								 <input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
+							 </li>
+							 <li class="dateTime">
+								 <input id="s_end_date" name="s_end_date" type="text" class="input-default"/>
+							 </li>
 							 <div>
 								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
 								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
@@ -84,6 +90,10 @@ ${inc:/action/project/fitness/home/pub}
 var search=null;
 $(document).ready(function() {
 	searchSelectInit($("#mc"));
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
 	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
 		ccms.util.renderRadio("custradio");
 	}}).initSearchBtn().searchData(1);
