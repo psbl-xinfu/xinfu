@@ -129,7 +129,7 @@
 	<context-param>
 		<description>Default footer for PDF reports</description>
 		<param-name>pdf-footer</param-name>
-		<param-value>德胜信诚软件 Tel:13910836424</param-value>
+		<param-value>芯复科技 Tel:18031198558</param-value>
 	</context-param>
 
   	<context-param>
