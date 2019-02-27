@@ -8,7 +8,7 @@
 	<log>true</log>
 
 	<transaction>
-		<classname>dinamica.GenericTransaction</classname>
+		<classname>transactions.project.fitness.weixin.JsSignature</classname>
 		<validator>false</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>	
@@ -19,6 +19,10 @@
 		<template>template.htm</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
+		
+		<expiration>0</expiration>
+		<print mode="form" recordset="_rsSignature" /> 
+		<print mode="form" recordset="_request" />
 	</output>
 
 </config>
