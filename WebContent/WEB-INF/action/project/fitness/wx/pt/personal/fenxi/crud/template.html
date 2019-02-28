@@ -57,7 +57,8 @@ ${inc:/action/project/fitness/wx/pub}
 <script type="text/javascript">
 var s_date='${def:date}',guesttypeendPic = null;
     $(function(){
-    	homemc();
+    	// modified by leo 190228 修正私教页返回主页应为私教主页
+    	homept();
 		var target_date=new Date(s_date).format("yyyy-MM-01");
 		$('#datetimepicker').val(target_date);
 		
