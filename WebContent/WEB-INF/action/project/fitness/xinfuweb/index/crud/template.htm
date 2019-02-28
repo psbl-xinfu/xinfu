@@ -14,6 +14,7 @@
     <script type="text/javascript" src="${def:context}/js/project/fitness/xinfuweb/css/m_widget.min.js"></script>
     <script type="text/javascript" src="${def:context}/js/project/fitness/xinfuweb/css/m_extend.min.js"></script>
     <link type="text/css" href="css/m_style.css" rel="stylesheet" media="screen" />
+    <script type="text/javascript" src="${def:context}/js/ccms/jweixin-1.js"></script>
 </head>
 
 <body>
@@ -570,6 +571,13 @@
         </div>
     </div>
     <div id="custom_HTML_link" style="display:none;"></div>
+    <form id="cardform" name="cardform"> 
+		<input type="hidden"  id="customercode"  name="customercode">
+		<input type="hidden"  id="code" name="code">
+		<input type="hidden"  id="ecode" name="ecode">
+		<input type="hidden"  id="share_link" name="share_link" value="/action/project/fitness/wx/cust/center/tice/duibi/duibipic?codes=${fld:codes}">
+	  </form>
+	  <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/menushare.js"></script>
     <script type="text/javascript">
         $(function () {
             var App = {};
@@ -577,6 +585,27 @@
             window.App = App;
         });
         $('.m_body').append($('#custom_HTML_link').html());
+        $(function() {
+         	wx.config({
+        		debug: false,
+        		appId:  "${fld:appid}",
+        		timestamp: ${fld:timestamp},
+        		nonceStr: "${fld:noncestr}",
+        		signature: "${fld:signature}",
+        		jsApiList : [ 'checkJsApi','onMenuShareTimeline',"onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone",
+        		              'hideOptionMenu','showOptionMenu','hideMenuItems','showMenuItems','hideAllNonBaseMenuItem','showAllNonBaseMenuItem']
+        		// 必填，需要使用的JS接口列表
+        	});
+
+           wx.ready(function(){
+            	menuShareConfig({
+            		titlename: $('#custname').text() + '芯复软件',
+            		desc: "健身全析管理系统",
+            		linkuri: '${fld:access_address}${def:context}/action/project/fitness/xinfuweb/index/crud',
+            		imguri: "${fld:access_address}${def:context}/js/project/fitness/image/favicon.ico",
+            	});
+        	}); 
+        });
     </script>
    
 </body>

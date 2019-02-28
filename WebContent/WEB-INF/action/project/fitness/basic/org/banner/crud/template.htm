@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>轮播图设置</title>
@@ -91,7 +91,8 @@ ${inc:/action/project/fitness/home/pub}
 		
 		<form  name="formEditor" class="form-horizontal" role="form" method="post" id="formEditor">
 						<input type="hidden" id="tuid" name="tuid" value="" />
-						<input name="org_id1" type="hidden" value="${fld:org_id}" preserve="true" /> 
+						<!-- modified by leo 20190228 轮播图无法新增问题修正 -->
+						<input name="org_id1" type="hidden" value="${def:org}" preserve="true" /> 
 			<div class="modal fade  dialogbg" id="modalAddnew"  tabindex="-1" style='margin-left:10% ;height:600px;width: 780px'>
 			<header class="header-default">
 				<span id="formTitle">轮播图设置</span>

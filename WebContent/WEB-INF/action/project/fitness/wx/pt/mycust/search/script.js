@@ -1,4 +1,6 @@
-$('.list_a').remove();
+// modified by leo 190228我的会员修正筛选空白问题
+//$('.list_a').remove();
+$('.list').remove();
 <list>
 	appendCust('${fld:code}','${fld:name}','${fld:sex}','${fld:mobile}','${fld:lasttime}','${fld:headpic}');
 	

@@ -1,4 +1,6 @@
-$('.list_a').remove();
+﻿// modified by leo 190228修正我的资源筛选空白问题
+//$('.list_a').remove();
+$('.list').remove();
 <rows>
 appendCust('${fld:code}','${fld:name}','${fld:sex}','${fld:mobile}','${fld:lasttime}','${fld:headpic}');
 	
