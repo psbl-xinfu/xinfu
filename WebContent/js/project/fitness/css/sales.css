@@ -1,0 +1,143 @@
+/*action/project/fitness/finance/shopsales/crud begin*/
+#moban label{
+ padding-top: 10px;
+ }
+#moban div input{
+margin: 0.3%;
+ }
+#content1 {  
+width: 400px;  
+height: 200px;  
+}  
+#tab_bar1 {  
+width: 400px;  
+height: 20px;  
+float: left;
+margin-left: 100px;
+margin-bottom: 8px;
+}  
+#tab_bar1 ul {  
+padding: 0px;  
+margin: 0px;  
+height: 20px;  
+text-align: center;  
+}  
+       
+#tab_bar1 li {  
+list-style-type: none;  
+float: left;  
+width: 200px;  
+height: 20px;  
+background-color:white;  
+  }  
+       
+.tab_css1 {  
+background-color: white;
+border: 1px solid gray;
+display: none;
+float: left;
+height: 168px;
+margin: 0 auto 0 100px;
+width: 400px; 
+} 
+
+#content {  
+width: 400px;  
+height: 200px;
+margin-top: -21px; 
+margin-right: 100px; 
+}  
+#tab_bar {  
+ width: 400px;  
+ height: 20px;  
+ float: left;
+ margin-left: 100px;
+ margin-bottom: 8px;
+}  
+#tab_bar ul {  
+ padding: 0px;  
+ margin: 0px;  
+ height: 20px;  
+ text-align: center;  
+}  
+.tab_css {  
+background-color: white;
+border: 1px solid #ddd;
+display: none;
+float: left;
+height: 185px;
+margin: 0 auto 0 100px;
+width: 416px; 
+}  
+ .lefta{
+list-style-type: none;  
+float: left;  
+ width: 200px;  
+ height: 20px;  
+ }
+.righta{
+list-style-type: none;  
+float: right;  
+width: 200px;  
+height: 20px;  
+} 
+#sales ul{
+margin-left: 234px;
+border:1px solid #DDDDDD;
+}
+      
+#sales li{
+border:1px solid #DDDDDD;
+list-style: none;
+float: left;
+width: 100px;
+height:37.5px;
+line-height: 30px;
+text-align: center;
+}
+#show	  input{
+text-align: center;
+height: 30%
+ }
+#sales th{
+width: 100px
+}
+#dingyi{
+border: 1px solid #DDDDDD;
+height: 140px;
+width: 295px; 
+float: left;
+margin-top: 55px
+ }
+ #dingyi div{
+ float: left;
+ width: 146px;
+ text-align: center;
+ line-height: 30px;
+ height:25%;
+ border: 1px solid #DDDDDD;
+ background: ;
+ }
+  #dingyi div input{
+background: ;
+border: 1px solid #DDDDDD;
+ }
+#tab1_content{
+border: 1px solid #DDDDDD ;
+border-left-color:white;
+height: 200px;
+width: 500px;
+margin-top: 5px;
+ }
+ #tab1_content div{
+float: left;
+width: 110px;
+text-align: center;
+line-height: 30px;
+border: 1px solid #DDDDDD;
+background: ;	
+ }
+ #tab1_content div input{
+  border: 1px solid #DDDDDD;
+}
+/*sales end*/

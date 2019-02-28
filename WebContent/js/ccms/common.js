@@ -54,6 +54,27 @@ Date.prototype.addDate=function(days){ //添加天
     d.setDate(d.getDate()+days); 
     return d;
 };
+Date.prototype.addMonth=function(month){ //添加月
+    _month = parseInt(_month);
+	var sDate = this;
+	var sYear = sDate.getFullYear();
+	var sMonth = sDate.getMonth() + 1;
+	var sDay = sDate.getDate();
+ 
+	var eYear = sYear;
+	var eMonth = sMonth + _month;
+	var eDay = sDay;
+	while (eMonth > 12) {
+		eYear++;
+		eMonth -= 12;
+	}
+	var eDate = new Date(eYear, eMonth - 1, eDay);
+	while (eDate.getMonth() != eMonth - 1) {
+		eDay--;
+		eDate = new Date(eYear, eMonth - 1, eDay);
+	}
+	return eDate;
+};
 
 /**
 * radio checkbox 赋值
