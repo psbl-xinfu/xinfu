@@ -1,4 +1,4 @@
-select userlogin,name from hr_staff where status = 1 and userlogin = '${def:user}' and is_member = 0 and org_id = ${def:org} 
+select userlogin,name from hr_staff where status = 1  and is_member = 0 and org_id = ${def:org} 
 union
 select userlogin,name from hr_staff s where status = 1 and is_member = 0 
 and (
