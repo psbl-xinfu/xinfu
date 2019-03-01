@@ -98,7 +98,11 @@
     		day=DateMinus(new Date().format("yyyy-MM-dd"),'${fld:enddate}')
     		day+='天'
     	}
-    	cardstr+=' <p class="katime fr">剩余：'+day+'</p>'
+    	if("${fld:cardtype}"=="计次卡"){
+    		cardstr+=' <p class="katime fr">剩余:${fld:nowcount}次</br>剩余：'+day+'</p>'
+    	}else{
+    		cardstr+=' <p class="katime fr">剩余：'+day+'</p>'
+    	}
     	cardstr+=' </div>'
 		 cardstr+='  <div class="textleft">'
 		 cardstr+=' <p class="p1">会籍：${fld:salemember}</p>'

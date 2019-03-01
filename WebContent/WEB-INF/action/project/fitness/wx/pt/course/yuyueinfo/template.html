@@ -100,7 +100,11 @@
 <script type="text/javascript">
     $(function(){
     	homept();
-    	
+    	alert("${fld:status}");
+    	if("${fld:status}"=="已上课"){
+    		$("#queren").hide();
+    		$("#quxiao").hide();
+    	}
         var width=$(window).width();
         if(width<=750){
             $('.gerenyuyuexqtop').css({'height':width*410/750+'px'});
