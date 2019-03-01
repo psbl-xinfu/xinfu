@@ -63,7 +63,8 @@ $.fn.addtabs = function (options) {
    	            content: options.content ? options.content : $(this).attr('content'),
    	            close: $(this).attr('close') ? $(this).attr('close') : options.close ,
 	            url: contextPath+"/action/ccms/redirect?url="+url,
-	            ajax: $(this).attr('ajax') ? true : false
+	            ajax: $(this).attr('ajax') ? true : false,
+	            istabreplace: undefined != $(this).attr('istabreplace') && "true" == $(this).attr('istabreplace') ? true : false,
 	        });
     	}else{
     		window.location.hash = $(this).attr('url');
@@ -86,7 +87,10 @@ $.fn.addtabs = function (options) {
         obj.find('.active').removeClass('active');
         obj.find('.speech-bubble-bottom').removeClass('speech-bubble-bottom').removeClass('speech-bubble');
         //如果TAB不存在，创建一个新的TAB
-        if (!$("#" + id,obj)[0]) {
+        if ( !$("#" + id,obj)[0] || opts.istabreplace == true ) {
+        	if( $("#" + id,obj)[0] && opts.istabreplace == true ){
+        		_close(id);
+        	}
             //创建新TAB的title
             var title = $('<li></li>')
                 .attr('role', 'presentation')

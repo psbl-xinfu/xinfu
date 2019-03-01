@@ -1,0 +1,38 @@
+ #content {  
+     width: 400px;  
+     height: auto;  
+ }  
+  #tab_bar {  
+      width: 400px;  
+      height: 20px;  
+      float: left;
+      margin-left: 100px;
+      margin-bottom: 8px;
+  }  
+   #tab_bar ul {  
+       padding: 0px;  
+       margin: 0px;  
+       height: 20px;  
+       text-align: center;  
+   }  
+     
+#tab_bar li {  
+    list-style-type: none;  
+    float: left;  
+    width: 200px;  
+    height: 20px;  
+    background-color:white;  
+}  
+     
+.tab_css {  
+	background-color: white;
+	border: 1px solid gray;
+	display: none;
+	float: left;
+	height: auto;
+	margin: 0 auto 0 100px;
+	width: 400px; 
+ }  
+  #modalAddnew1{
+  	z-index: 1000000
+  }
