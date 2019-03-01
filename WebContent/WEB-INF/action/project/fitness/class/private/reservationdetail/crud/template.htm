@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>私教预约明细</title>
+${inc:/action/project/fitness/home/pub}
 </head>
 <body>
 	<form  role="form" method="post" id="searchForm">
@@ -43,7 +44,7 @@
 								<div>
 									<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
 									<button type="button" class="r-c-3-btn-2" id="add_btn" title="预约"></button>
-									<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+									<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出1"></button>
 								</div>
 						</nav>
 						
@@ -144,6 +145,7 @@ $(document).ready(function() {
     $("#liebiao").click(function(){listptprepare();});
     $("#zhoubiao").click(function(){weekptprepare();});
     $("#yuebiao").click(function(){monthptprepare();});
+    checkMenuBtn();
 	searchSelectInit($("#vc_ptid,#_status"));
 	//页面点击事件
 	 $(document).click(function(){ 
