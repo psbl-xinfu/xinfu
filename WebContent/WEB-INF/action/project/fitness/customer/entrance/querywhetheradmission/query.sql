@@ -7,7 +7,7 @@ select
 	to_char(endtime1, 'hh24mimm')::integer as endtime,
 	to_char('${def:timestamp}'::time, 'hh24mimm')::integer as datetime
 from cc_cardtype_timelimit 
-where cardtype = ${fld:cardtype} and org_id = ${def:org}
+where cardtype = ${fld:cardtype} and org_id = ${fld:org_id}
 --select 
 --	weekday,
 --	sum(case when starttime1::time<=to_char('2018-07-25 13:00:00'::timestamp, 'HH24:mi')::time

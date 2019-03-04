@@ -10,8 +10,7 @@ insert into cc_inleft
 	itemtype,--健身
 	bringother,--带朋友入场
     org_id,--俱乐部编号
-    inlefttype,
-    signednumber
+    inlefttype
 )
 values
 (
@@ -25,8 +24,6 @@ values
 	0,
 	0,
 	${def:org},
-	${fld:inlefttype},
-	(case when (select expertype from cc_expercard where code=${fld:cardtype})=0 then 1 
-	else ${fld:nowcount} end)
+	${fld:inlefttype}
 )
 

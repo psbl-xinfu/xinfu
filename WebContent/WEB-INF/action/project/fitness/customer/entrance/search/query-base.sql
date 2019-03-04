@@ -22,9 +22,9 @@
 		inleft.intime as jsintime,
 		inleft.indate
 from cc_inleft inleft
-left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 --and card.org_id = inleft.org_id
+left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 and inleft.customercode=card.customercode--and card.org_id = inleft.org_id
 left join cc_cardtype ct on card.cardtype = ct.code --and card.org_id = ct.org_id
-left join cc_customer cust on card.customercode = cust.code --and card.org_id = cust.org_id
+left join cc_customer cust on card.customercode = cust.code and inleft.customercode=cust.code--and card.org_id = cust.org_id
 left join hr_staff staff on staff.userlogin=inleft.inuser
 where  1=1 and inleft.org_id = ${def:org} and inleft.inlefttype = 1
 ${filter} 

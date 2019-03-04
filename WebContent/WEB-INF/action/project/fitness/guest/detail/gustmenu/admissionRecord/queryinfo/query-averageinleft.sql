@@ -3,7 +3,7 @@ select
 		else lefttime end)-intime)/count(1)))::timestamp as times
 from cc_inleft
 where itemtype = 0 and customercode = ${fld:custcode}
-and org_id = ${def:org} and indate>${fld:inleftfdate}
+ and indate>${fld:inleftfdate}
 and lefttime is not null
 
 

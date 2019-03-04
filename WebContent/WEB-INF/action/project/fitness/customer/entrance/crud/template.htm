@@ -258,8 +258,6 @@ ${inc:/action/project/fitness/home/pub}
 <input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script type="text/javaScript">
 var searchinleft = null;
-// add by leo 190227 避免重复提交
-var notSearching=true;
 $(document).ready(function() {
 	//入场查询
 	this.searchinleft=searchinleft;
@@ -298,36 +296,31 @@ $(document).ready(function() {
 	 }); 
 	//查询会员卡信息
 	$("#search_card").click(function(){
-		// add by leo 190227 避免重复提交
-		if(notSearching && $(".modal-backdrop").length == 0){
-			notSearching=false;
-			//查询入场记录
-			//$("#search_btn").click();
-			$("#custcodeone,#cardtype_name,#name,#mobile,#cabinettempcode,#mc").html("");
-			var custall = $("#custall").val();
-			custall = custall.replace(/\s+/g,"");
-			$("#searchhtml").hide();
-			if(custall==""){
-				ccms.dialog.notice("请输入会员卡号/姓名/手机号！", 2000);
+		//查询入场记录
+		//$("#search_btn").click();
+		$("#custcodeone,#cardtype_name,#name,#mobile,#cabinettempcode,#mc").html("");
+		var custall = $("#custall").val();
+		custall = custall.replace(/\s+/g,"");
+		$("#searchhtml").hide();
+		if(custall==""){
+			ccms.dialog.notice("请输入会员卡号/姓名/手机号！", 2000);
+		}else{
+			var memberhead = "${fld:memberhead}";
+			var findcust = custall.substring(0,memberhead.length+1);
+			//相等查询体验卡相反正常查询 
+			if(("T"+memberhead)==findcust){
+				$("#inlefttype").val("2");
+				$("#upload_btn,#tuancao").hide();
+				$("#errorinfo,#classdef,#cardlist").html("");
+				var classdefurl="${def:context}${def:actionroot}/queryexpercardlist?code="+custall;
+				search(classdefurl);
 			}else{
-				var memberhead = "${fld:memberhead}";
-				var findcust = custall.substring(0,memberhead.length+1);
-				//相等查询体验卡相反正常查询 
-				if(("T"+memberhead)==findcust){
-					$("#inlefttype").val("2");
-					$("#upload_btn,#tuancao").hide();
-					$("#errorinfo,#classdef,#cardlist").html("");
-					var classdefurl="${def:context}${def:actionroot}/queryexpercardlist?code="+custall;
-					search(classdefurl);
-				}else{
-					$("#inlefttype").val("1");
-					$("#upload_btn,#tuancao").show();
-					var classdefurl="${def:context}${def:actionroot}/querycardnum?custall="+custall;
-					search(classdefurl);
-				}
+				$("#inlefttype").val("1");
+				$("#upload_btn,#tuancao").show();
+				var classdefurl="${def:context}${def:actionroot}/querycardnum?custall="+custall;
+				search(classdefurl);
 			}
 		}
-		
 	});
 	//查看会员明细
 	$("#detailcustinfo").click(function(){
@@ -391,6 +384,7 @@ $(document).ready(function() {
 			var codetype=$('input:radio[name="cardcode"]:checked').attr("code1");
 			var code=$('input:radio[name="cardcode"]:checked').attr("code");
 			var code2=$('input:radio[name="cardcode"]:checked').attr("code2");
+			var code3=$('input:radio[name="cardcode"]:checked').attr("code3");
 			$("#cardcode").val(val);
 			$("#cardtype").val(code);
 			$("#cpcode").val(cpcode);
@@ -399,7 +393,7 @@ $(document).ready(function() {
 			//入场判断时间段限制条件
 			if(codetype=="2"){
 				//查询该卡时间段限制，判断该时间段是否能入场
-				ajaxCall("${def:context}${def:actionroot}/querywhetheradmission?cardtype="+code,{
+				ajaxCall("${def:context}${def:actionroot}/querywhetheradmission?cardtype="+code+"&org_id="+code3,{
 					method:"get",
 					dataType:"script",
 					success:function(data){
@@ -425,8 +419,6 @@ function search(url){
 		progress:true,
 		dataType:"script",
 		success:function(){
-			// add by leo 190227 避免重复提交
-			notSearching=true;
 		}
 	});
 }
@@ -454,6 +446,7 @@ function pickcustCallback(){
 	$("#searchhtml").show();
 }
 //回车事件
+  var isRunning   = [];
 document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
 	if(e && e.keyCode==13){ // enter 键

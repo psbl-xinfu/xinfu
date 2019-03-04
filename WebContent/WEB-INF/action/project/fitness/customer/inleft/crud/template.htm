@@ -171,6 +171,7 @@ $(document).ready(function() {
 		}else{
 			var code4 = $("input[name=inleftcode]:checked").attr("code4");
 			if(code4=="0"){
+				alert(code4);
 				ccms.dialog.alert("该入场记录已退场！");
 				return false;
 			}
@@ -179,14 +180,15 @@ $(document).ready(function() {
 				var code = $("input[name=inleftcode]:checked").attr("code");
 				var inlefttype = $("input[name=inleftcode]:checked").attr("inlefttype");
 				var url = "${def:context}${def:actionroot}";
+				var code5=$("input[name=inleftcode]:checked").attr("code5");
 				if(code=="1"){
 					if(inlefttype=="1"){
-						url += "/exitall?code="+obthis;
+						url += "/exitall?code="+obthis+"&org_id="+code5;
 					}else if(inlefttype=="2"){
-						url += "/expercardexitall?code="+obthis;
+						url += "/expercardexitall?code="+obthis+"&org_id="+code5;
 					}
 				}else if(code=="2"){
-					url += "/inleftout?inleftcode="+obthis;
+					url += "/inleftout?inleftcode="+obthis+"&org_id="+code5;
 				}
 				ajaxCall(url,{
 					method : "get",
