@@ -9,7 +9,9 @@ select
 		  when card.status=3 then '存卡中' when card.status=4 then '挂失中' when card.status=5 then '停卡中'
 		  when card.status=6 then '过期' end) as status,
 	(select name from hr_staff where userlogin = cust.mc) as mcstaff,
-	(case cust.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
+	(case when ct.type=1 then concat(card.nowcount,'次') 
+  when ct.type=0 then concat(date_part('day',enddate-now()),'天') 
+	else '--' end) as nowcount,
 	card.remark
 from cc_card card
 left join cc_cardtype ct on card.cardtype = ct.code and card.org_id = ct.org_id
