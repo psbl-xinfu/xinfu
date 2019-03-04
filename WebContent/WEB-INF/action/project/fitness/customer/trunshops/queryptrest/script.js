@@ -44,7 +44,7 @@ var ids="";
 // searchSelectInit($("#course"));
 $("#ptrestlist").html(ptrestlist);
 $("#org_id").change(function(){
-	var url = "${def:actionroot}/queryorgpt?org_id="+$(this).val();
+	var url = "${def:actionroot}/queryorgpt?org_id="+$(this).val()+"&custcode="+$("#custcode").val();
 	ajaxCall(url,{
 		method:"get",
 		progress:true,
