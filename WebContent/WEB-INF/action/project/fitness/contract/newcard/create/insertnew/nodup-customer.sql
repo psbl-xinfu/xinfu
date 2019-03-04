@@ -1,4 +1,4 @@
-SELECT 1 FROM cc_customer c 
+SELECT1 1 FROM cc_customer c 
 WHERE EXISTS(
 	SELECT 1 FROM cc_guest g 
 	WHERE g.code = ${fld:guestcode}
