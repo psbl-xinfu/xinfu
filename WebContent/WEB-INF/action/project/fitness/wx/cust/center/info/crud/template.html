@@ -75,8 +75,8 @@
 		loadHeadpic("headpic", userid);
 		  
 		 $('#exit').click(function(){
-       	location.href = '${def:context}/action/project/fitness/wx/exit';
-       })
+       		location.href = "${def:context}/action/project/fitness/wx/exit"
+       	});
     	
     	$('#save').on('click',function(){
     		var url = "${def:context}${def:actionroot}/update"
@@ -93,7 +93,7 @@
     	wx.config({
    		    debug: false,
    		    appId:  "${fld:appid}",
-   		    timestamp: ${fld:timestamp},
+   		    timestamp: "${fld:timestamp}",
    		    nonceStr: "${fld:noncestr}",
    		    signature: "${fld:signature}",
    		    jsApiList: [ 'chooseImage','uploadImage']
