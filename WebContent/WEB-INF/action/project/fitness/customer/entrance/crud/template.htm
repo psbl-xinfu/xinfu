@@ -297,7 +297,7 @@ $(document).ready(function() {
 	//查询会员卡信息
 	$("#search_card").click(function(){
 		//查询入场记录
-		$("#search_btn").click();
+		//$("#search_btn").click();
 		$("#custcodeone,#cardtype_name,#name,#mobile,#cabinettempcode,#mc").html("");
 		var custall = $("#custall").val();
 		custall = custall.replace(/\s+/g,"");
@@ -384,6 +384,7 @@ $(document).ready(function() {
 			var codetype=$('input:radio[name="cardcode"]:checked').attr("code1");
 			var code=$('input:radio[name="cardcode"]:checked').attr("code");
 			var code2=$('input:radio[name="cardcode"]:checked').attr("code2");
+			var code3=$('input:radio[name="cardcode"]:checked').attr("code3");
 			$("#cardcode").val(val);
 			$("#cardtype").val(code);
 			$("#cpcode").val(cpcode);
@@ -392,7 +393,7 @@ $(document).ready(function() {
 			//入场判断时间段限制条件
 			if(codetype=="2"){
 				//查询该卡时间段限制，判断该时间段是否能入场
-				ajaxCall("${def:context}${def:actionroot}/querywhetheradmission?cardtype="+code,{
+				ajaxCall("${def:context}${def:actionroot}/querywhetheradmission?cardtype="+code+"&org_id="+code3,{
 					method:"get",
 					dataType:"script",
 					success:function(data){
@@ -445,6 +446,7 @@ function pickcustCallback(){
 	$("#searchhtml").show();
 }
 //回车事件
+  var isRunning   = [];
 document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
 	if(e && e.keyCode==13){ // enter 键

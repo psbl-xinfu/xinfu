@@ -9,10 +9,11 @@ intime,
 inuser,
 lefttime,
 leftuser,
-remark
+remark,
+signednumber
 from 
 cc_inleft
-where customercode=${fld:id} and org_id='${def:org}'
+where customercode=${fld:id} 
 and indate::date >= ${fld:startdate}::date
 and indate::date <= ${fld:enddate}::date
 and (case when ${fld:cardcode} is null then 1=1 else cardcode = ${fld:cardcode} end)

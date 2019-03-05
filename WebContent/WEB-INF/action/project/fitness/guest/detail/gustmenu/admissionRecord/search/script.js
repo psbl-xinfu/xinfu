@@ -7,6 +7,7 @@ var a=0;
 	str += '<td>${fld:cardcode}</td>';
 	str += '<td>${fld:bringother}</td>';
 	str += '<td>${fld:intime@yyyy-MM-dd HH:mm:ss}</td>';
+	str += '<td>${fld:signednumber}</td>';
 	str += '<td>${fld:inuser}</td>';
 	str += '<td>${fld:lefttime@yyyy-MM-dd HH:mm:ss}</td>';
 	str += '<td>${fld:leftuser}</td>';

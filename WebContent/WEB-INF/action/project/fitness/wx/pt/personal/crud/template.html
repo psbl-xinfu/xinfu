@@ -13,11 +13,11 @@
             <p class="tel text-center"></p>
             <div class="gerencenter container">
                 <div class="row">
-                    <div class="col-xs-6">
+                   <!--  <div class="col-xs-6">
                         <p class="number messageamount" id="xiaoxi">0</p>
                         <p class="names">消息</p>
-                    </div>
-                    <div class="col-xs-6">
+                    </div> -->
+                    <div class="col-xs-12">
                         <p class="number commamount" id="tixing">0</p>
                         <p class="names">沟通提醒</p>
                     </div>
@@ -77,9 +77,9 @@
          $('#task').click(function(){
         	location.href='${def:context}${def:actionroot}/task/crud?skilltype=1';
        	})
-           $('#xiaoxi').click(function(){
+           /* $('#xiaoxi').click(function(){
         	location.href='${def:context}/action/project/fitness/wx/mc/personal/message/crud?type=pt';
-        })
+        }) */
         
         $('#tixing').click(function(){
         	location.href='${def:context}/action/project/fitness/wx/pt/personal/tixing/crud';
