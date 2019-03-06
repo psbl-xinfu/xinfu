@@ -58,6 +58,9 @@ ${inc:/action/project/fitness/home/pub}
 						</nav>
 						<nav class="r-c-3-t-b-r">
 							<li>
+							<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印小票" alt=""id="print_btn">
+							</li>
+							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/btn/shoupaigenghuan.svg" title="更换手牌" alt=""id="updatechangecabinit">
 							</li>
 						</nav>
@@ -171,7 +174,6 @@ $(document).ready(function() {
 		}else{
 			var code4 = $("input[name=inleftcode]:checked").attr("code4");
 			if(code4=="0"){
-				alert(code4);
 				ccms.dialog.alert("该入场记录已退场！");
 				return false;
 			}
@@ -200,17 +202,33 @@ $(document).ready(function() {
 			});
 		}
 	});
-	// 打印
+	
 	$("#print_btn").unbind().on("click",function(){
-		var url = "${def:context}/action/project/fitness/print/excel/printpresentmember";
-		ajaxCall(url,{
-			method : "get",
-			form: "searchForm1",
-			progress : true,
-			dataType : "script",
-			success : function() {
+		
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择！");
+		}else{
+			var code10 = $("input[name=inleftcode]:checked").attr("code10");
+			var code6 = $("input[name=inleftcode]:checked").attr("code6");
+			if(code6=="1"){
+				var code8 = $("input[name=inleftcode]:checked").attr("code8");//卡号
+				var code9 = $("input[name=inleftcode]:checked").attr("code9");//会员编号
+				var code7 = $("input[name=inleftcode]:checked").attr("code7");//刷卡次数
+				var code5 = $("input[name=inleftcode]:checked").attr("code5");
+				var url = "${def:context}/action/project/fitness/print/ticket/wordtemplate_Admission?pk_value="+code8+"&nowcount="+code7+"&org_id="+code5+"&cust_code="+code9+"&inleftcode="+code10;
+				ajaxCall(url,{
+					method : "get",
+					progress : true,
+					dataType : "script",
+					success : function() {
+					}
+				});
+				
+			}else{
+				ccms.dialog.alert("不是计次卡不能打印！");
 			}
-		});
+		}
 	});
 	// 更换手牌
 	$("#updatechangecabinit").unbind().on("click",function(){
