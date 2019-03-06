@@ -11,7 +11,7 @@ select
 	inleft.nowcount - ${fld:nowcount}::int as new_count,--剩余次
     (select inuser from cc_inleft where cc_inleft.cardcode=card.code and indate= '${def:date}' and org_id = ${def:org} order by intime desc limit 1) as vcuser,--操作人
    	(select indate  from cc_inleft  where cc_inleft.cardcode=card.code  and indate= '${def:date}' and org_id = ${def:org} order by intime desc  limit 1) as pay_date,--操作时间
-    (select intime  from cc_inleft  where cc_inleft.cardcode=card.code  and indate= '${def:date}' and org_id = ${def:org} order by intime desc  limit 1) as pay_time,--操作时间
+    (select to_char(intime,'yyyy-hh-mm hh24:mi:ss')  from cc_inleft  where cardcode=card.code  and indate= '${def:date}' and org_id = ${def:org} order by intime desc  limit 1) as pay_time,--操作时间
    	(SELECT org_name FROM hr_org WHERE org_id = ${def:org}) as vc_club,
 	(case cab.type when 0 then '健身' when 1 then'游泳' when 2 then '洗浴' end) as vc_type --类型
 from  cc_inleft inleft
