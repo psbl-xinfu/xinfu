@@ -136,12 +136,12 @@ ${inc:/action/project/fitness/home/pub}
 						</p>
 					</div>
 					
-					<div class="b-c-c-7" id="isstagediv" style="display: none;">
+					<!-- <div class="b-c-c-7" id="isstagediv" style="display: none;">
 						<label class="am-checkbox three-none">
 							<input type="checkbox" value="" name="isstage" style="display: none;">
 						</label>
 						<span>分期支付</span>
-					</div>
+					</div> -->
 					
 					<div class="b-c-c-8" code="stageDiv" style="display:none;">
 						<p class="label-p-input">
@@ -281,7 +281,7 @@ $(document).ready(function(){
 			$("#recommend").val("");
 		else
 			$("#recommend").val(recommend);
-		$("#isstagediv").show();
+		/* $("#isstagediv").show(); */
 	</cust-rows>
 	<guest-rows>
 	 	if( "" != "${fld:guestimgid}" ){
@@ -304,7 +304,7 @@ $(document).ready(function(){
 		else
 			$("#recommend").val(recommend);
 		
-		$("#isstagediv").show();
+		/* $("#isstagediv").show(); */
 	</guest-rows> 
 	
 	getAjaxCall("/action/project/fitness/contract/newcard/querycampaign?cardtype=", true);
