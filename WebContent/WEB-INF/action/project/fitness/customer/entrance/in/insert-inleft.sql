@@ -10,6 +10,7 @@ insert into cc_inleft
 	itemtype,--健身
 	bringother,--带朋友入场
 	signednumber,
+	nowcount,
     org_id--俱乐部编号
 )
 values
@@ -25,6 +26,15 @@ values
 	0,
 	(case when (select type from cc_cardtype where code=${fld:cardtype})=0 then 1 
 	else ${fld:nowcount} end),
+	(select nowcount from cc_card where
+		code = ${fld:cardcode} AND isgoon = 0
+		and org_id = ${fld:unionorgid}
+		and exists(
+		select 1 from cc_cardtype where org_id = ${fld:unionorgid}
+		and code = cardtype
+		and type = 1
+		)
+	),
 	${def:org}
 )
 

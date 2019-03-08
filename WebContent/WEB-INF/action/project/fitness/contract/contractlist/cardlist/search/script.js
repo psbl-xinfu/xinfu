@@ -10,7 +10,7 @@
 		"normalmoney":"${fld:normalmoney}",
 		"factmoney":"${fld:factmoney}",
 		"c_idate":"${fld:c_idate}",
-		"enddate":"${fld:enddate}",
+		"cardcode":"${fld:cardcode@js}",
 		"vc_iuser":"${fld:vc_iuser@js}",
 		"salemember":"${fld:salemember@js}",
 		"application_id":"${fld:application_id@js}",

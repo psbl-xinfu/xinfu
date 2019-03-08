@@ -6,20 +6,21 @@ select
 	card.code as vc_code,--卡号
 	cab.type as i_type,
 	ct.name as cardtype,--卡类型
-	card.nowcount +${fld:nowcount}::int as old_count,--原有次数
+	inleft.nowcount as old_count,--原有次数
 	${fld:nowcount} as use_count,--扣次
-	card.nowcount as new_count,--剩余次
+	inleft.nowcount - ${fld:nowcount}::int as new_count,--剩余次
     (select inuser from cc_inleft where cc_inleft.cardcode=card.code and indate= '${def:date}' and org_id = ${def:org} order by intime desc limit 1) as vcuser,--操作人
    	(select indate  from cc_inleft  where cc_inleft.cardcode=card.code  and indate= '${def:date}' and org_id = ${def:org} order by intime desc  limit 1) as pay_date,--操作时间
     (select to_char(intime,'yyyy-hh-mm hh24:mi:ss')  from cc_inleft  where cardcode=card.code  and indate= '${def:date}' and org_id = ${def:org} order by intime desc  limit 1) as pay_time,--操作时间
    	(SELECT org_name FROM hr_org WHERE org_id = ${def:org}) as vc_club,
 	(case cab.type when 0 then '健身' when 1 then'游泳' when 2 then '洗浴' end) as vc_type --类型
-from cc_card card
+from  cc_inleft inleft
+LEFT JOIN cc_card card on inleft.cardcode=card.code and inleft.customercode = card.customercode
 LEFT JOIN cc_cabinettemp cab on cab.cardcode=card.code and cab.customercode = card.customercode
 LEFT JOIN cc_cardtype ct on ct.code=card.cardtype  and ct.org_id = card.org_id
-LEFT JOIN cc_inleft inleft on inleft.cardcode=card.code and inleft.customercode = card.customercode
 WHERE
-	card.code = ${fld:pk_value} and card.isgoon =0 and card.org_id = ${fld:org_id}
+inleft.code=${fld:inleftcode}
+  and	inleft.cardcode = ${fld:pk_value} and card.isgoon =0 and card.org_id = ${fld:org_id}
 	AND
 	inleft.indate= '${def:date}'   
  order by intime  limit 1

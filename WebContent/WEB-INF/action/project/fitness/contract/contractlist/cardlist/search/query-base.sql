@@ -1,6 +1,7 @@
 select
 	t.*,
-	(case when ct.name is null then t.cardtypename else ct.name end) as cardtypename
+	(case when ct.name is null then t.cardtypename else ct.name end) as cardtypename,
+	card.code as cardcode
 from
 (select
  	concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" code="',
@@ -9,8 +10,15 @@ from
  		c.code,'',
  		'" code-card="', get_arr_value(c.relatedetail,1),'" code-cust="',c.customercode,'" code-relate="',COALESCE(c.relatecode,''),'" code-cttype="',c.contracttype,'" code-type="',c.type,'" ></label>') as application_id,
  	c.code, --合同编号
- 	(case when isaudit=1 then '未审批' when isaudit=3 then '审批拒绝' 
- 	when c.status = 1 then '未付款' when c.status =2 then '已付款' end)::varchar as i_status, --状态
+	(case when ${fld:contracttype}='1' and isaudit=1 then '未审批' when ${fld:contracttype}='1' and isaudit=3 then '审批拒绝' 
+ 	when ${fld:contracttype}='1' and c.status = 1 then '未付款' when ${fld:contracttype}='1' and c.status =2 then '已付款'
+ 	when ${fld:contracttype}='2' then (case when c.normalmoney = (select (ct.factmoney+c.factmoney) from cc_contract ct 
+			where ct.relatecode = c.code and ct.org_id = c.org_id) then '已还款' else '未还款' end)
+	
+	when ${fld:contracttype}='3' and COALESCE(c.normalmoney, 0) != COALESCE(c.factmoney, 0) then '未付清'
+	when ${fld:contracttype}='3' and COALESCE(c.normalmoney, 0) = COALESCE(c.factmoney, 0) then '已付清'
+	
+ 	end)::varchar as i_status, --状态
  	get_arr_value(c.relatedetail,1) as card_code,
  	m.name,
  	m.mobile,
