@@ -1,4 +1,4 @@
-select 
+select
 	t.*,
 	(case when ct.name is null then t.cardtypename else ct.name end) as cardtypename
 from
