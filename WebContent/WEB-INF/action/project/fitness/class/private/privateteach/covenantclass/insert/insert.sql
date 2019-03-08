@@ -14,7 +14,9 @@ INSERT INTO cc_ptprepare(
 ) 
 select 
 	${seq:nextval@seq_cc_ptprepare},
-	p.ptid,
+	(case when p.ptid is null then (select pt from cc_customer where p.customercode=code) 
+	else p.ptid
+	end),
 	p.code,
 	p.customercode,
 	${fld:pdate},
