@@ -2,12 +2,12 @@ select
 	pr.code,
 	pd.ptlevelname,
 	(pr.ptleftcount::int-(select count(1) from cc_ptprepare where ptrestcode = pr.code and status = 1 and org_id = ${def:org})) as ptleftcount,
-	--(case when pr.pttype = 5 then (
-	--		select staff.name from hr_staff staff 
-	--		inner join cc_customer cust on staff.userlogin = cust.pt 
-	--		where cust.code = pr.customercode and cust.org_id = pr.org_id) else
+	(case when pr.pttype = 5 then (
+			select staff.name from hr_staff staff 
+			inner join cc_customer cust on staff.userlogin = cust.pt 
+			where cust.code = pr.customercode and cust.org_id = pr.org_id) else
 		 (select staff.name from hr_staff staff where staff.userlogin = pr.ptid)
-	--	 end)
+		 end)
 	 as staffname,
 	pd.ptfee,
 	(case when pr.ptenddate::date<'${def:date}'::date then '已过期' else '正常' end) as ptstatus
