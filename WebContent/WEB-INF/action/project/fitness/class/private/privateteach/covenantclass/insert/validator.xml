@@ -19,6 +19,6 @@
 		on-error-label="预约日期必须大于等于当前日期，预约时间必须当天内" id="vc_pt" sql="nodup-time.sql" />
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
 		on-error-label="该时间段已预约或上课中，不能再次预约！" id="vc_pt" sql="nodup-workdate.sql" />
-	<custom-validator classname="dinamica.validators" 
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
 		on-error-label="该课程没有分配教练不能预约！" id="vc_pt" sql="nodup-ptprepare.sql" />
 </validator>

@@ -11,7 +11,10 @@ select
 	cust.name as cust_name,
 	p.pttotalcount::integer,
 	(select ptlevelname from cc_ptdef where cc_ptdef.code=p.ptlevelcode and cc_ptdef.org_id = ${def:org}) as ptlevelname,
-	(select h.name from hr_staff h where h.userlogin=g.pt_name) as pt_name,
+	(select h.name from hr_staff h where h.userlogin=
+	(select (case when pd.reatetype=1 then cust.pt else p.ptid end)
+	 from cc_ptdef pd where  pd.code=p.ptlevelcode and pd.org_id=${def:org}
+	)) as pt_name,
 	p.scale,
 	(select h.name from hr_staff h where h.userlogin=p.createdby) as staff_name,
 	p.created,

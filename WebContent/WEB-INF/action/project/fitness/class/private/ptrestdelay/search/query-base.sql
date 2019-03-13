@@ -12,7 +12,7 @@ select
 	end) as pttype,--来源：1新买课、2场地开发、3续课、4转课、5赠课
 	pr.pttotalcount::integer,--购买节数
 	pr.ptleftcount::integer,--剩余节数
-	(select name from hr_staff where userlogin = pr.ptid) as ptid,-- 私教
+	(select name from hr_staff where userlogin = (case when p.reatetype=1 then cust.pt else pr.ptid end)) as ptid,-- 私教
 	pr.created,-- 购买时间
 	pr.ptenddate,--结束日期
 	('${def:date}'::date - pr.created::date) AS buyday,	-- 已购课天数

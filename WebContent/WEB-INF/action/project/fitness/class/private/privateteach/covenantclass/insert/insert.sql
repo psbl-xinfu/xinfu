@@ -14,7 +14,8 @@ INSERT INTO cc_ptprepare(
 ) 
 select 
 	${seq:nextval@seq_cc_ptprepare},
-	(case when p.ptid is null then (select pt from cc_customer where p.customercode=code) 
+	(case when (select reatetype from cc_ptdef where code=p.ptlevelcode and org_id=${def:org}) = 1 then 
+	(select pt from cc_customer where p.customercode=code and org_id=${def:org}) 
 	else p.ptid
 	end),
 	p.code,
