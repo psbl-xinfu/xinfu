@@ -149,9 +149,9 @@ ${inc:/action/project/fitness/home/pub}
 							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/btn/GFPwenjuan.svg" title="GFP问卷" alt=""id="writePro">
 							</li>					
-							<li>
+							<!-- <li>
 								<img src="${def:context}/js/project/fitness/image/SVG/btn/goutongjieguo.svg" title="沟通结果" alt=""id="communicaRecord">
-							</li>				
+							</li> -->				
 							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/btn/quxiaoyuyue.svg" title="取消预约" alt=""id="cancel">
 							</li>
@@ -241,8 +241,6 @@ function addNoSignTemplate(){
 	+ '<th>来访时间</th>'
 	+ '<th>来访会籍</th>'
 	+ '<th>预约状态</th>'
-	+ '<th>沟通结果</th>'
-	+ '<th>保护天数</th>'
 	+ '</tr>');
 	$("#datagridTemplate").empty();
 	$("#datagrid").empty();
@@ -257,8 +255,6 @@ function addNoSignTemplate(){
 			+ '<td>#vc_visitdate# #vc_visittime#</td>'
 			+ '<td>#vc_visitmc#</td>'
 			+  '<td>#prepare_type#</td>'
-			+  '<td>#commresult#</td>'
-			+  '<td>#num_days#</td>'
 	+ '</tr>');
 }
 //有登陆模板
@@ -275,8 +271,6 @@ function addSignTemplate(){
 	+ '<th>来访时间</th>'
 	+ '<th>来访会籍</th>'
 	+ '<th>预约状态</th>'
-	+ '<th>沟通结果</th>'
-	+ '<th>保护天数</th>'
 	+ '</tr>');
 	$("#datagridTemplate").empty();
 	$("#datagrid").empty();
@@ -291,8 +285,6 @@ function addSignTemplate(){
 	+ '<td>#vc_visitdate# #vc_visittime#</td>'
 	+ '<td>#vc_visitmc#</td>'
 	+  '<td>#prepare_type#</td>'
-	+  '<td>#commresult#</td>'
-	+  '<td>#num_days#</td>'
 	+ '</tr>');
 }
 //查询成功回调
