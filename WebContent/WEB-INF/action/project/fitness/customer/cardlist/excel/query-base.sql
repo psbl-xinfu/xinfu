@@ -16,7 +16,7 @@ select
 from cc_card card
 left join cc_cardtype ct on card.cardtype = ct.code and card.org_id = ct.org_id
 left join cc_customer cust on cust.code = card.customercode and card.org_id= cust.org_id
-where card.status = 1 and card.isgoon = 0 and card.org_id = ${def:org}
+where  card.isgoon = 0 and card.org_id = ${def:org}
 and (card.relatecode is null or card.relatecode='')
 and
 /* 判断当前登录人是否是私教，私教查询全部会员*/
