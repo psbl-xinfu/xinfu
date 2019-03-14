@@ -22,6 +22,7 @@ ${inc:/action/project/fitness/wx/pub}
 			<input type="hidden" id="s_status"name="s_status" >
 			<input type="hidden" id="s_level"name="s_level" >
 			<input type="hidden" id="s_genjin"name="s_genjin" >
+			<input type="hidden" id="s_huiyuan"name="s_huiyuan" >
         <div class="myziyuanlisttop">
             <div class="shurukuang">
                 <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入资源姓名/电话"oninput="updateurl(this)">
@@ -93,7 +94,13 @@ ${inc:/action/project/fitness/wx/pub}
                                 <button class="btn btn-default btn3" type="submit">已跟进<input type="hidden" name="" value="1"></button>
                             </div>
                         </div>
-
+						 <div class="mokuai">
+                            <h5>历史会员</h5>
+                            <div class="content">
+                                <button class="btn btn-default btn4" type="submit">不显示<input type="hidden" name="" value="0"></button>
+                                <button class="btn btn-default btn4" type="submit">要显示<input type="hidden" name="" value="1"></button>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -159,7 +166,7 @@ ${inc:/action/project/fitness/wx/pub}
         });
 
         //资源状态
-        $('.btn1,.btn2,.btn3').click(function(){
+        $('.btn1,.btn2,.btn3,.btn4').click(function(){
             $(this).removeClass('btn-default');
             $(this).addClass('btn-warning');
             $(this).siblings('button').removeClass('btn-warning');
@@ -168,8 +175,8 @@ ${inc:/action/project/fitness/wx/pub}
 
         //重置
         $('.resetbtn').click(function(){
-            $('.btn1,.btn2.btn3').removeClass('btn-warning');
-            $('.btn1,.btn2,.btn3').addClass('btn-default');
+            $('.btn1,.btn2,.btn3,.btn4').removeClass('btn-warning');
+            $('.btn1,.btn2,.btn3,.btn4').addClass('btn-default');
             $('.timeinput').val('');
         });
 
@@ -182,6 +189,7 @@ ${inc:/action/project/fitness/wx/pub}
             var select1=$('.btn1.btn-warning').children('input').val();
             var select2=$('.btn2.btn-warning').children('input').val();
             var select3=$('.btn3.btn-warning').children('input').val();
+            var select4=$('.btn4.btn-warning').children('input').val();
             
             
             if(baohuqi>100){
@@ -196,6 +204,7 @@ ${inc:/action/project/fitness/wx/pub}
             $('#s_status').val(select1)//资源状态
             $('#s_level').val(select2)//关注度
             $('#s_genjin').val(select3)//跟进状态
+            $('#s_huiyuan').val(select4)//跟进状态
         	getlist();
             $('#myModal').modal('hide');
         });
