@@ -11,8 +11,8 @@ SELECT
 	(case when c.sex=0 then '女' when c.sex=1 then '男' else '未知' end) as sex,
 	c.mobile,
 	(select created from cc_comm where customercode=c.code and cust_type='2' and org_id= ${def:org} order by created desc limit 1) as pt_date,-- 教练最后根据
-	(select enddate from cc_card where customercode=c.code AND cc_card.isgoon = 0 and cc_card.status='1' and org_id = ${def:org} order by enddate limit 1) as member_end,--会员到期
-	(select starttime from cc_ptlog where customercode=c.code and org_id = ${def:org} order by created desc limit 1) as come_date-- 最新到访   
+	(select max(enddate) as  enddate from cc_card where customercode=c.code AND cc_card.isgoon = 0 and cc_card.status='1' and org_id = ${def:org} order by enddate limit 1) as member_end,--会员到期
+	(select indate from cc_inleft where customercode=c.code and org_id = ${def:org} order by indate desc limit 1) as come_date-- 最新到访   
 FROM cc_customer c 
 WHERE EXISTS(
 	SELECT 1 FROM cc_card d 
