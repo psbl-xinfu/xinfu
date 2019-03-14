@@ -32,18 +32,6 @@ ${inc:/action/project/fitness/home/pub}
 										</select>
 									</li>
 									<li>
-										<select id="statusall" name="statusall" style="display: none;">
-											<option value="">全部状态</option>
-											<option value="3">未付款</option>
-											<option value="4">已付款</option>
-											<option value="6">有欠款</option>
-											<option value="5">已付清</option>
-											<option value="1">未审批</option>
-											<option value="2">审批拒绝</option>
-											<option value="7">还款合同未付款</option>
-										</select>
-									</li>
-									<li>
 										<select id="contracttype" name="contracttype" style="display: none;">
 											<option value="">合同类型</option>
 											<option value="1">办卡合同</option>
@@ -51,6 +39,12 @@ ${inc:/action/project/fitness/home/pub}
 											<option value="3">还款合同</option>
 										</select>	
 									</li>
+									<li style="width: 130px;" id="businesstype">
+										<select id="statusall" name="statusall" data-live-search="true" style="display: none;">
+											
+										</select>
+									</li>
+									
 									
 									<div class="r-c-btnList">
 										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
@@ -84,7 +78,7 @@ ${inc:/action/project/fitness/home/pub}
 								<nav class="r-c-3-t-b-r">
 									<li><img src="${def:context}/js/project/fitness/image/SVG/nav/yulan.svg" title="查看" alt="" id="preview_btn"></li>
 									<li>
-											<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu_wsk.svg" title="删除" alt=""id="delete">
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="delete">
 									</li>
 									<li>
 											<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印合同" alt=""id="printcontract">
@@ -105,13 +99,13 @@ ${inc:/action/project/fitness/home/pub}
 										</th>
 										<th>合同编号</th>
 										<th>合同类型</th>
+										<th>卡号</th>
 										<th>卡类型</th>
 										<th>状态</th>
 										<th>姓名</th>
 										<th>手机号</th>
 										<th>应收金额</th>
 										<th>实收金额</th>
-										<th>截止日期</th>
 										<th>销售员1</th>
 										<th>销售员2</th>
 									</tr>
@@ -121,14 +115,14 @@ ${inc:/action/project/fitness/home/pub}
 									<tr>
 										 <td class="table-checkbox">#application_id#</td> 
 										<td class="mustWrap">#code#</td>								
-										<td >#contracttype#</td>	
+										<td >#contracttype#</td>
+										<td >#cardcode#</td>
 										<td >#cardtypename#</td>
 										<td >#i_status#</td>
 										<td >#name#</td>
 										<td >#mobile#</td>										
 										<td >#normalmoney#</td>										
 										<td >#factmoney#</td>
-										<td >#enddate#</td>										
 										<td >#salemember#</td>								
 										<td >#salemember1#</td>													
 									</tr>
@@ -159,16 +153,52 @@ ${inc:/action/project/fitness/home/pub}
 	<script language="JavaScript">
 	var search=null;
 $(document).ready(function() {
-	selectInit($("#contract_btn,#statusall,#contracttype"));
+	selectInit($("#contract_btn,#contracttype,#statusall"));
 	$Dialog().date($('#s_start_date'));
 	$Dialog().date($('#s_end_date'));
 	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
 	$("#s_end_date").val("${def:date}");
 	searchSelectInit($("#s_skill_name"));
+	$('#businesstype').hide();
+	$('#contracttype').change(function(){
+		contractall=$("#contracttype").val();
+		if(contractall==''){
+			$('#businesstype').hide();
+			$('#statusall').empty();
+		}else{
+			if(contractall==1){
+				$('#businesstype').show();
+				$('#statusall').html()
+				$('#statusall').html('<option value="">全部状态</option><option value="3">未付款</option>'+
+				'<option value="4">已付款</option><option value="1">未审批</option><option value="2">审批拒绝</option>');
+				$('#statusall').selectpicker("refresh");
+				$('#statusall').selectpicker("render");
+			}
+			if(contractall==2){
+				$('#businesstype').show();
+				$('#statusall').html()
+				$('#statusall').html('<option value="">全部状态</option><option value="5">未还款</option>'+
+				'<option value="6">已还款</option>');
+				$('#statusall').selectpicker("refresh");
+				$('#statusall').selectpicker("render");
+			  
+			}if(contractall==3){
+				$('#businesstype').show();
+				$('#statusall').html()
+				$('#statusall').html('<option value="">全部状态</option><option value="7">未付款</option>'+
+					'<option value="8">已付清</option>');
+				$('#statusall').selectpicker("refresh");
+				$('#statusall').selectpicker("render");
+			}
+		}
+	});
+	
 	//批量删除
 	$("#delete").unbind().on("click",function(){
 		deletes();
 	});
+	
+	
 	
 	//导出
  	$("#excel").unbind().on("click", function(){
