@@ -1,6 +1,9 @@
-
-$("#guest").val("${fld:name@js}");
+var yuanmc="${fld:mc}";
 $("#mobile").val("${fld:mobile@js}");
-$("#sex").val("${fld:sex}");
-$("#cc_type").val("${fld:type}");
+$("#sex").selectpicker("val", "${fld:sex}");
+$("#sex").selectpicker("refresh");
+$("#cc_type").selectpicker("val", "${fld:type}");
+$("#cc_type").selectpicker("refresh");
+$("#cc_mc").selectpicker("val", yuanmc);
+$("#cc_mc").selectpicker("refresh");
 

@@ -18,6 +18,6 @@ insert into cc_guest
 		${fld:mobile},
 		${def:org},
 		{ts '${def:timestamp}'},
-		'${def:user}'
+		${fld:cc_mc}
 	from dual where ${fld:guest_code} is null
 )

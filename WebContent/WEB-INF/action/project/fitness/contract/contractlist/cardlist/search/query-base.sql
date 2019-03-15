@@ -11,13 +11,13 @@ from
  		'" code-card="', get_arr_value(c.relatedetail,1),'" code-cust="',c.customercode,'" code-relate="',COALESCE(c.relatecode,''),'" code-cttype="',c.contracttype,'" code-type="',c.type,'" ></label>') as application_id,
  	c.code, --合同编号
  	c.createdate,	
-	(case when ${fld:contracttype}='1' and isaudit=1 then '未审批' when ${fld:contracttype}='1' and isaudit=3 then '审批拒绝' 
- 	when ${fld:contracttype}='1' and c.status = 1 then '未付款' when ${fld:contracttype}='1' and c.status =2 then '已付款'
- 	when ${fld:contracttype}='2' then (case when c.normalmoney = (select (ct.factmoney+c.factmoney) from cc_contract ct 
+	(case when c.contracttype=0 and c.type=0 and isaudit=1 then '未审批' when '1'='1' and isaudit=3 then '审批拒绝' 
+ 	when c.contracttype=0 and c.type=0 and c.status = 1 then '未付款' when '1'='1' and c.status =2 then '已付款'
+ 	when c.contracttype=0 and c.type=5 then (case when c.normalmoney = (select (ct.factmoney+c.factmoney) from cc_contract ct 
 			where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 and ct.type!=2 ) then '已还款' else '未还款' end)
 	
-	when ${fld:contracttype}='3' and COALESCE(c.normalmoney, 0) != COALESCE(c.factmoney, 0) then '未付清'
-	when ${fld:contracttype}='3' and COALESCE(c.normalmoney, 0) = COALESCE(c.factmoney, 0) then '已付清'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) != COALESCE(c.factmoney, 0) then '未付清'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) = COALESCE(c.factmoney, 0) then '已付清'
 	
  	end)::varchar as i_status, --状态
  	get_arr_value(c.relatedetail,1) as card_code,

@@ -503,19 +503,23 @@ function saveContract(){
 		getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
 			if( data && Number(data.status) >= 2 ){
 				if( istopay ){
+					alert('3');
 					topay(contractcode);
 				}else{
 					ccms.dialog.notice("已付款合同不允许修改！", 2000);
 				}
 			}else{
+				alert('2')
 				postAjaxCall("${def:actionroot}/update", "contractForm", true);	// 未付款合同可修改
 			}
 		});
 	}else{
+		alert('21');
 		getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", true, function(){
 			if( "" == $("#newcontractcode").val() ){
 				ccms.dialog.notice("合同号生成失败", 2000);
 			}else if( "" == $("#customercode").val() ){
+				alert('22');
 				postAjaxCall("${def:actionroot}/insertnew", "contractForm", true);
 			}else{
 				postAjaxCall("${def:actionroot}/insert", "contractForm", true);

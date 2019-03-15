@@ -11,7 +11,7 @@
 			<li class="am-active"><a class="three-none" id="basics">基本信息</a></li>
 			<li><a class="three-none" id="fenpei">分配记录</a></li>
 			<li><a class="three-none" id="comm">跟进记录</a></li>
-			<li><a class="three-none" id="visit">到访记录</a></li>
+			<li id="hcust"><a class="three-none" id="visit">到访记录</a></li>
 			<li><a class="three-none" id="change">变更档案</a></li>
 			<li><a class="three-none"  id="writePro">填写问卷</a></li>
 			<li><a class="three-none " id="guesttestresults">体测结果</a></li>
@@ -53,6 +53,7 @@
 							status = "${fld:status}"
 							if (cus_code != "") {
 								$('.cus').show();
+								$('#hcust').hide();
 							} else {
 								$('.cus').hide();
 							}
@@ -77,13 +78,18 @@
 											function() {
 												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/commRecord/crud?");
 											})
+							/* if("${fld:num}"!=0){
+								
+								
+							} */
 							//到访
 							$('#visit')
-									.on(
-											'click',
-											function() {
-												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/crud?");
-											})
+							.on(
+									'click',
+									function() {
+										loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/crud?");
+									})
+							
 							//变更
 							$('#change')
 									.on(

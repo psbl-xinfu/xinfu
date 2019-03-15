@@ -4,4 +4,4 @@ WHERE EXISTS(
 	WHERE g.code = ${fld:guestcode}
 	AND g.mobile = c.mobile AND g.org_id = c.org_id 
 ) 
-AND c.org_id = ${def:org} AND c.status != 0 
+AND c.org_id = ${def:org} 

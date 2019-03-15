@@ -38,6 +38,15 @@ ${inc:/action/project/fitness/home/pub}
 								</guesttype-list>
 							</select>
 						</li>
+						<li>
+							<label  style="width: 150px;">接待会籍：</label>
+							<select id="cc_mc" name="cc_mc" style="display: none;"> 
+								<option value="">请选择</option>
+								<mc-rows>
+									<option value="${fld:userlogin}">${fld:mcname}</option>
+								</mc-rows>
+							</select>
+						</li>
 						<li style="display: none;">
 							<label style="width: 150px;">POS接待教练：</label>
 							<select id="posptid" name="posptid" style="display: none;">
@@ -59,7 +68,7 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 $(document).ready(function() {
 	//查询资源
-	searchSelectInit($("#sex,#cc_type,#posptid"));
+	searchSelectInit($("#sex,#cc_type,#posptid,#cc_mc"));
 	$("#guest").blur(function(){
 		var guest = $(this).val();
 		$("#cc_type,#sex,#mobile,#guest_code").val("");
@@ -89,8 +98,18 @@ $(document).ready(function() {
 			ccms.dialog.alert("请选择渠道来源！");
 			return false;
 		}
+		if($("#cc_mc").val()==""){
+			ccms.dialog.alert("请选择会籍！");
+			return false;
+		}
 		if(guest_code!=""){
-			addguest();
+			if(yuanmc!=$("#cc_mc").val()){
+				$Dialog().confirm("确定需要跟换会籍吗？", function(){
+					addguest(); 
+				})
+			}else{
+				addguest();
+			}
 		}else{
 			$Dialog().confirm("该资源不存在，确定添加资源并预约吗？", function(){
 				addguest();

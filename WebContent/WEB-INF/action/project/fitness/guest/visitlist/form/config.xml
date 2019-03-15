@@ -13,6 +13,7 @@
 		<jdbc-log>false</jdbc-log>	
 		<recordset id="query-guesttype.sql" source="sql" scope="transaction" />
 		<recordset id="query-pt.sql" source="sql" scope="transaction"/>
+		<recordset id="query-mc.sql" source="sql" scope="transaction"/>
 	</transaction>
 
 	<output>
@@ -22,6 +23,7 @@
 		<content-type>text/html</content-type>
 		<print mode="table" recordset="query-guesttype.sql" tag="guesttype-list"/>
 		<print mode="table" recordset="query-pt.sql" tag="pt-rows"/>
+		<print mode="table" recordset="query-mc.sql" tag="mc-rows"/>
 		<print mode="form" recordset="_request" />
 	</output>
 
