@@ -212,7 +212,8 @@ $(document).ready(function() {
 		}
 		var code = $("input[name=datalist]:checked").attr("code");
 		if(code=="2"){
-			var url = "${def:context}/action/project/fitness/print/contract/zuguicontract?pk_value="+obthis;
+			//var url = "${def:context}/action/project/fitness/print/contract/zuguicontract?pk_value="+obthis;
+			var url = "${def:context}${def:actionroot}/printcontract?contractcode="+obthis;
 			ajaxCall(url,{
 				method: "get",
 				progress: true,
