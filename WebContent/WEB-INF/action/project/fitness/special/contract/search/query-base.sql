@@ -16,6 +16,7 @@
 	c.relatedetail as vc_relatecode,
 	(CASE WHEN c.type = 1 OR c.type = 12 THEN '租柜合同'
 		WHEN c.type = 2 THEN (select ptlevelname from cc_ptdef where cc_ptdef.code =get_arr_value(c.relatedetail, 1))
+		WHEN c.type = 4 THEN ( select name from cc_cardtype where code=(SELECT  cardtype from  cc_card where cc_card.code =get_arr_value(c.relatedetail, 1)))
 		ELSE get_arr_value(relatedetail, 7)
 	END)::varchar AS cardtype_name,	
 	(CASE WHEN c.contracttype = 1 OR c.contracttype = 2 OR c.type = 6 THEN '升级合同' 
