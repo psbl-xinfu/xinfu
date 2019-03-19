@@ -9,4 +9,4 @@ SET status = 1,
 WHERE
 	cabinettempcode = ${fld:rudge_code}
 	and  ${fld:rudge_code} is not null and  ${fld:rudge_code} != '' 
-	and org_id = ${fld:unionorgid}
+	and org_id = ${def:org}

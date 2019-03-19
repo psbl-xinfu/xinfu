@@ -10,7 +10,8 @@
  	(case when b.physics_status=0 then '损坏'  else '正常'  end)as physics_status
 from cc_cabinettemp b
 left join cc_cabinettemp_group g on g.tuid=b.groupid and g.org_id=b.org_id
-left join cc_customer cust on b.customercode=cust.code and b.org_id = cust.org_id
+left join cc_customer cust on b.customercode=cust.code
+LEFT JOIN cc_card card on card.customercode=cust.code and card.code=b.cardcode
 left join cc_expercard_log el on el.code = b.customercode and b.org_id = el.org_id
 where b.status!=2 and b.org_id=${def:org}
 ${filter}
