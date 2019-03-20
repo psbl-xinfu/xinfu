@@ -53,13 +53,9 @@ ${inc:/action/project/fitness/home/pub}
 						</select>
 		     		</li>
 		     		<!-- ###################### -->
-		     		<li>
+					<li>
 						<label style="width: 120px;">柜号2：</label>
 						<select  id="cabinet_code_id" name="cabinet_code_id" style="display: none;">
-							<option value="">请选择</option>
-							<cabinetcode-rows>
-							<option code="${fld:cabinetcode@js}" value="${fld:tuid}">${fld:cabinetcode@js}</option>
-							</cabinetcode-rows>
 						</select>
 		     		</li>
 		     		<!-- ###################### -->
@@ -116,6 +112,9 @@ var price = 0;	// 单价
 var currentDate = new Date();
 
 function setfee(){
+	var cabinet_code_id_obj = $("#cabinet_code_id").find("option:selected");
+	price = $(cabinet_code_id_obj).attr("price");
+	alert(price);
 	$("#price").val(price);
 	// 租期
 	var months = 1;
@@ -210,7 +209,7 @@ $(document).ready(function(){
 	$('#cabinet_group_id').change(function(){
 		var groupid = $("#cabinet_group_id").val();
 		console.log(groupid);
-		var url="${def:context}${def:actionroot}/searchCabinetcode"
+		var url="${def:context}${def:actionroot}/cabinetcode"
 			ajaxCall(url,{
 				method : "post",
 				form: "contractForm",
@@ -221,8 +220,6 @@ $(document).ready(function(){
 			});
 	
 	});
-
-	
 	
 	// 保存
 	$("#save_btn").unbind().on("click",function(){
