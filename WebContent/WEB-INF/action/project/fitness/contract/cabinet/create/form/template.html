@@ -52,12 +52,24 @@ ${inc:/action/project/fitness/home/pub}
 							</cabinetgroup-rows>
 						</select>
 		     		</li>
+		     		<!-- ###################### -->
+		     		<li>
+						<label style="width: 120px;">柜号2：</label>
+						<select  id="cabinet_code_id" name="cabinet_code_id" style="display: none;">
+							<option value="">请选择</option>
+							<cabinetcode-rows>
+							<option code="${fld:cabinetcode@js}" value="${fld:tuid}">${fld:cabinetcode@js}</option>
+							</cabinetcode-rows>
+						</select>
+		     		</li>
+		     		<!-- ###################### -->
 					<li>
 						<label style="width: 120px;">柜号：</label>
 						<input type="hidden" id="cabinetid" name="cabinetid" value="" />
 						<input placeholder="柜号" type="text" id="cabinetcode" name="cabinetcode" value="" readonly />
 						<button type="button" id="getcabinetbtn">获取柜号</button>
 		     		</li>
+		     		
 					<li>
 						<label style="width: 120px;">启用日期：</label>
 						<input type="text" placeholder="启用日期" id="begindate" name="begindate" size="30" value="${def:date}" readonly />
@@ -194,6 +206,23 @@ $(document).ready(function(){
 	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
 		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}&ispubload=true", true);
 	}
+	//获取柜号2
+	$('#cabinet_group_id').change(function(){
+		var groupid = $("#cabinet_group_id").val();
+		console.log(groupid);
+		var url="${def:context}${def:actionroot}/searchCabinetcode"
+			ajaxCall(url,{
+				method : "post",
+				form: "contractForm",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
+	
+	});
+
+	
 	
 	// 保存
 	$("#save_btn").unbind().on("click",function(){
