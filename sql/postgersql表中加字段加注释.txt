@@ -1,0 +1,4 @@
+ALTER TABLE cc_inleft ADD nowcount int4 刷卡人数
+ALTER TABLE cc_classlist ADD  isprepare int4  是否预约；1是2否
+comment on column cc_inleft.nowcount IS'刷卡人数'
+comment on column cc_classlist.isprepare IS'是否预约；1是2否'
