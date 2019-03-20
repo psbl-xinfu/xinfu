@@ -1,6 +1,5 @@
  select
-	concat('<input type="checkbox"  data-am-ucheck name="r_datalist" 
-		code="',b.status,'" value="',b.tuid::varchar,'','" >') as application_id,
+	concat('<input type="checkbox"  data-am-ucheck name="r_datalist" code="',b.status,'" value="',b.tuid::varchar,'" >') as application_id, --zzn190320
  	g.groupname,
  	g.groupcode as gid,
  	b.cabinettempcode as bid,
@@ -11,7 +10,7 @@
 from cc_cabinettemp b
 left join cc_cabinettemp_group g on g.tuid=b.groupid and g.org_id=b.org_id
 left join cc_customer cust on b.customercode=cust.code
-LEFT JOIN cc_card card on card.customercode=cust.code and card.code=b.cardcode
+LEFT JOIN cc_card card on card.customercode=cust.code and card.code=b.cardcode and card.isgoon='0' and card.status='1' --zzn190320取当前使用中的卡
 left join cc_expercard_log el on el.code = b.customercode and b.org_id = el.org_id
 where b.status!=2 and b.org_id=${def:org}
 ${filter}

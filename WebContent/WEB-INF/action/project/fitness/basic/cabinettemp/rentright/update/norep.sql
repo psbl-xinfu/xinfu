@@ -1,0 +1,1 @@
+select 1 from cc_cabinettemp where cabinettempcode=${fld:cabinetcode2_r} 
