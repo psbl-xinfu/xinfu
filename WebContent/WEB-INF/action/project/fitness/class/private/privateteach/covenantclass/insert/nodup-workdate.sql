@@ -1,4 +1,11 @@
---zyb 2019-3-21必须加ptrest的code
+--历史预约记录和新增预约做比较
+--这个是一对多 一个预约时间段
+--课程一样and教练一样and会员不一样 可以上课
+--会员一样 不可以上课
+--课程不一样 and教练一样   不可以上课
+--教练一样 课程不一样  不可以上课 
+--一对一
+--教练或会员一样都不可以预约
 with ptdata as (
 				select concat(${fld:hour}, ':', ${fld:minute})::time + concat(d.times,' minutes')::interval as endtime,
 				t.ptlevelcode,d.isgroup,t.ptid,t.customercode
