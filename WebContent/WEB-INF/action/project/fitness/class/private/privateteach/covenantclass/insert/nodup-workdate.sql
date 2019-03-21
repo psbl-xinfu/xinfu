@@ -15,26 +15,25 @@ where exists(
 (case when 
 	pd.reatetype=1 then (select pt from cc_customer WHERE code=p.customercode and org_id = ${def:org})
 	else pr.ptid 
-end)  and p.org_id = ${def:org} and p.code=${fld:ptcode}
+end)  and p.org_id = ${def:org} 
 	and p.status!=0
 	and
-	(case when (select isgroup from ptdata)=1 and pd.code=(select ptlevelcode from ptdata) and p.ptid=(select ptid from ptdata) and
 (
 		(p.preparetime > concat(${fld:hour}, ':', ${fld:minute})::time and p.preparetime <= (select endtime from ptdata) and p.endtime >= (select endtime from ptdata))
 		or (p.preparetime <= concat(${fld:hour}, ':', ${fld:minute})::time and p.endtime >= (select endtime from ptdata))
 		or (p.preparetime < (select endtime from ptdata) and p.preparetime <=concat(${fld:hour}, ':', ${fld:minute})::time and p.endtime >= concat(${fld:hour}, ':', ${fld:minute})::time)
 	)
-then (case when 
-p.customercode=(select customercode from ptdata) then 1=1
-else null=null
-end)
+and
+  (case when pd.isgroup=1 
+			then 
+					(case when  pd.code=(select ptlevelcode from ptdata) and p.ptid=(select ptid from ptdata) 
+									and p.customercode!=(select customercode from ptdata) then null=NULL
+									when p.customercode=(select customercode from ptdata) then 1=1
+									when p.ptid=(select ptid from ptdata) and  pd.code!=(select ptlevelcode from ptdata) then 1=1
+									else null=null
+					 end)
+			
+	 when  (p.ptid=(select ptid from ptdata) or p.customercode=(select customercode from ptdata)) then 1=1
 
-when 
-(
-		(p.preparetime > concat(${fld:hour}, ':', ${fld:minute})::time and p.preparetime <= (select endtime from ptdata) and p.endtime >= (select endtime from ptdata))
-		or (p.preparetime <= concat(${fld:hour}, ':', ${fld:minute})::time and p.endtime >= (select endtime from ptdata))
-		or (p.preparetime < (select endtime from ptdata) and p.preparetime <=concat(${fld:hour}, ':', ${fld:minute})::time and p.endtime >= concat(${fld:hour}, ':', ${fld:minute})::time)
-	) then 1=1	
- end)
-	
+	end)
 )
