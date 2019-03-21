@@ -52,20 +52,21 @@ ${inc:/action/project/fitness/home/pub}
 							</cabinetgroup-rows>
 						</select>
 		     		</li>
-		     		<!-- ###################### -->
+		     		<!-- zzn190321  改为列表取柜号 -->
 					<li>
-						<label style="width: 120px;">柜号2：</label>
+						<label style="width: 120px;">柜号：</label>
 						<select  id="cabinet_code_id" name="cabinet_code_id" style="display: none;">
 						</select>
 		     		</li>
-		     		<!-- ###################### -->
-					<li>
+		     		<!-- zzn190321-->
+					<!-- zzn190321 原有随机取柜号逻辑注释掉
+					 <li>
 						<label style="width: 120px;">柜号：</label>
 						<input type="hidden" id="cabinetid" name="cabinetid" value="" />
 						<input placeholder="柜号" type="text" id="cabinetcode" name="cabinetcode" value="" readonly />
 						<button type="button" id="getcabinetbtn">获取柜号</button>
 		     		</li>
-		     		
+		     		-->
 					<li>
 						<label style="width: 120px;">启用日期：</label>
 						<input type="text" placeholder="启用日期" id="begindate" name="begindate" size="30" value="${def:date}" readonly />
@@ -177,7 +178,7 @@ $(document).ready(function(){
 			months = parseInt($(this).val());
 		}
 		$(this).val(months);
-		//price变量已赋值
+		//price变量已赋值 zyb100321
 		setfee(price);
 		
 	});
@@ -191,7 +192,7 @@ $(document).ready(function(){
 		$(this).val(discountmoney);
 		setfee();
 	});
-	// 获取柜号
+	// 获取柜号 原有的随机取柜号zzn
 	$("#getcabinetbtn").unbind().on("click",function(){
 		var groupid = $("#cabinet_group_id").val();
 		if( "" == groupid ){
@@ -214,7 +215,7 @@ $(document).ready(function(){
 	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
 		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}&ispubload=true", true);
 	}
-	//获取柜号2
+	//获取柜号2 zzn190321
 	$('#cabinet_group_id').change(function(){
 		var groupid = $("#cabinet_group_id").val();
 		console.log(groupid);
