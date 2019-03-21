@@ -171,7 +171,8 @@
     function save(status){
     	if(status==0){
     		$Dialog().confirm("确定要取消吗？",function(){
-            	getAjaxCall("/action/project/fitness/wx/pt/course/yuyueinfo/updategust?code=${fld:code}&status="+status,false);
+    			//zyb 2019-3-21  添加取消预约方法加上取消预约时间和操作人
+            	getAjaxCall("/action/project/fitness/wx/pt/course/yuyueinfo/delete?code=${fld:code}&status="+status,false);
     		});
     	}else{
         	getAjaxCall("/action/project/fitness/wx/pt/course/yuyueinfo/updategust?code=${fld:code}&status="+status,false);
