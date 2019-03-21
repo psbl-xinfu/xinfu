@@ -100,10 +100,7 @@
 <script type="text/javascript">
     $(function(){
     	homept();
-    	if("${fld:status}"=="已上课"){
-    		$("#queren").hide();
-    		$("#quxiao").hide();
-    	}
+    	
         var width=$(window).width();
         if(width<=750){
             $('.gerenyuyuexqtop').css({'height':width*410/750+'px'});
@@ -113,6 +110,11 @@
             $('.gerenyuyuexqcontent').css({'margin-top':'130px'});
         }
 
+        if("${fld:status}"=="已上课"){
+    		$("#queren").hide();
+    		$("#quxiao").hide();
+    	}
+       
         $('#cust').click(function(){
         	location.href='${def:context}/action/project/fitness/wx/pt/mycust/sijiaohuiyuanmsg?customercode=${fld:customercode}&type=pt';
         })
@@ -121,12 +123,16 @@
 	  		location.href="${def:context}/action/project/fitness/wx/mc/personal/message/list?recuser=${fld:mobile}";
 	  }) */	
         
-	  
-	  
-        $('#update').click(function(){
-        	location.href='${def:context}/action/project/fitness/wx/pt/course/updateyuyue?'
-        			+"code=${fld:code}";
-        })
+	  //zyb 2019-3-21 修改预约中和待确认不可以修改时间
+        if("${fld:status}"=="预约中"||"${fld:status}"=="待确认"){
+        	 $('#update').click(function(){
+             	location.href='${def:context}/action/project/fitness/wx/pt/course/updateyuyue?'
+             			+"code=${fld:code}";
+             })
+    	}else{
+    		 $('#update').addClass("disable");
+    	}
+       
         
         $('.conmit').click(function(){
         	var status=$(this).attr('code');
