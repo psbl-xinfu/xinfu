@@ -15,7 +15,7 @@ where exists(
 (case when 
 	pd.reatetype=1 then (select pt from cc_customer WHERE code=p.customercode and org_id = ${def:org})
 	else pr.ptid 
-end)  and p.org_id = ${def:org}
+end)  and p.org_id = ${def:org} and p.code=${fld:ptrestcode}
 
 	and p.status!=0
 and

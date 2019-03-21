@@ -1,3 +1,4 @@
+--zyb 2019-3-21必须加ptrest的code
 with ptdata as (
 				select concat(${fld:hour}, ':', ${fld:minute})::time + concat(d.times,' minutes')::interval as endtime,
 				t.ptlevelcode,d.isgroup,t.ptid,t.customercode
@@ -14,7 +15,7 @@ where exists(
 (case when 
 	pd.reatetype=1 then (select pt from cc_customer WHERE code=p.customercode and org_id = ${def:org})
 	else pr.ptid 
-end)  and p.org_id = ${def:org}
+end)  and p.org_id = ${def:org} and p.code=${fld:ptcode}
 	and p.status!=0
 	and
 	(case when (select isgroup from ptdata)=1 and pd.code=(select ptlevelcode from ptdata) and p.ptid=(select ptid from ptdata) and
