@@ -16,6 +16,8 @@ ${inc:/action/project/fitness/home/pub}
 			<input type="hidden" id="inimoney" name="inimoney" value="" />
 			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
 			<input type="hidden" id="price" name="price" value="" />
+			<!-- zyb 2019-3-21 添加cabinetcode租柜编号柜子号必须有值 -->
+			<input type="hidden" id="cabinetcode" name="cabinetcode" value="" />
 			<div class="b-i-main">
 				<nav>
 					<li>
@@ -55,7 +57,7 @@ ${inc:/action/project/fitness/home/pub}
 		     		<!-- zzn190321  改为列表取柜号 -->
 					<li>
 						<label style="width: 120px;">柜号：</label>
-						<select  id="cabinet_code_id" name="cabinet_code_id" style="display: none;">
+						<select  id="cabinetid" name="cabinetid" style="display: none;">
 						</select>
 		     		</li>
 		     		<!-- zzn190321-->
@@ -112,7 +114,9 @@ var deposit = 0;	// 押金
 var price = 0;	// 单价
 var currentDate = new Date();
 
+//必须传价格值  zyb 2019-3-21
 function setfee(price){
+	//必须传价格值  zyb 2019-3-21
 	$("#price").val(price);
 	// 租期
 	var months = 1;
@@ -166,9 +170,9 @@ $(document).ready(function(){
 	
 	
 	// 获取柜台的价格 赵亚斌 2019-03-21
-	$("#cabinet_code_id").on("change",function(){
-		var cabinet_code_idobj = $("#cabinet_code_id").find("option:selected");
-		price = $(cabinet_code_idobj).attr("price");
+	$("#cabinetid").on("change",function(){
+		var cabinetidobj = $("#cabinetid").find("option:selected");
+		price = $(cabinetidobj).attr("price");
 		setfee(price);
 	});
 	// 租期
@@ -178,7 +182,7 @@ $(document).ready(function(){
 			months = parseInt($(this).val());
 		}
 		$(this).val(months);
-		//price变量已赋值 zyb100321
+		//必须传价格值  zyb 2019-3-21
 		setfee(price);
 		
 	});
@@ -190,7 +194,8 @@ $(document).ready(function(){
 			discountmoney = parseFloat($(this).val());
 		}
 		$(this).val(discountmoney);
-		setfee();
+		//必须传价格值  zyb 2019-3-21
+		setfee(price);
 	});
 	// 获取柜号 原有的随机取柜号zzn
 	$("#getcabinetbtn").unbind().on("click",function(){
@@ -199,15 +204,16 @@ $(document).ready(function(){
 			ccms.dialog.notice("请先选择区域！", 2000);
 			return false;
 		}
-		$("#cabinetcode").val("");
 		$("#cabinetid").val("");
 		price = 0;
 		getJsonAjaxCall("/action/project/fitness/util/getcabinetbyrandom?groupid="+groupid, "true", function(data){
 			if( data && data.length > 0 ){
+				//必须传柜子编号  zyb 2019-3-21
 				$("#cabinetcode").val(data[0].cabinetcode);
 				$("#cabinetid").val(data[0].tuid);
 				price = parseFloat(data[0].price);
-				setfee();
+				//必须传价格值  zyb 2019-3-21
+				setfee(price);
 			}
 		});
 	});
@@ -253,7 +259,8 @@ function saveContract(){
 		ccms.dialog.notice("销售员和第二会籍不能一致！", 3000);
 		return false;
 	}
-	setfee();
+	//必须传价格值  zyb 2019-3-21
+	setfee(price);
 	var contractcode = $("#contractcode").val();
 	if( "" != contractcode ){
 		// 判断合同状态
