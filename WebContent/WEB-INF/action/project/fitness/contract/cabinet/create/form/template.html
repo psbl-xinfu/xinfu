@@ -112,7 +112,6 @@ var price = 0;	// 单价
 var currentDate = new Date();
 
 function setfee(price){
-	alert(price);
 	$("#price").val(price);
 	// 租期
 	var months = 1;
@@ -163,20 +162,26 @@ $(document).ready(function(){
 		price = 0;
 	});
 	
+	
+	// 租期
+	
 	$("#cabinet_code_id").on("change",function(){
 		var cabinet_code_idobj = $("#cabinet_code_id").find("option:selected");
 		price = $(cabinet_code_idobj).attr("price");
 		setfee(price);
 	});
-	// 租期
+	
 	$("#months").on("blur",function(){
 		var months = 1;
 		if( "" != $(this).val() && isNumber($(this).val()) ){
 			months = parseInt($(this).val());
 		}
 		$(this).val(months);
-		setfee();
+		//price变量已赋值
+		setfee(price);
+		
 	});
+	
 	// 折扣金额
 	$("#discountmoney").on("blur",function(){
 		var discountmoney = 0.00;
