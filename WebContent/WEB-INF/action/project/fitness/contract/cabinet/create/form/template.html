@@ -164,14 +164,14 @@ $(document).ready(function(){
 	});
 	
 	
-	// 租期
 	
+	// 获取柜台的价格 赵亚斌 2019-03-21
 	$("#cabinet_code_id").on("change",function(){
 		var cabinet_code_idobj = $("#cabinet_code_id").find("option:selected");
 		price = $(cabinet_code_idobj).attr("price");
 		setfee(price);
 	});
-	
+	// 租期
 	$("#months").on("blur",function(){
 		var months = 1;
 		if( "" != $(this).val() && isNumber($(this).val()) ){
