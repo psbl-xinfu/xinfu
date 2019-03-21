@@ -111,9 +111,7 @@ var deposit = 0;	// 押金
 var price = 0;	// 单价
 var currentDate = new Date();
 
-function setfee(){
-	var cabinet_code_id_obj = $("#cabinet_code_id").find("option:selected");
-	price = $(cabinet_code_id_obj).attr("price");
+function setfee(price){
 	alert(price);
 	$("#price").val(price);
 	// 租期
@@ -163,6 +161,12 @@ $(document).ready(function(){
 		$("#cabinetcode").val("");
 		$("#cabinetid").val("");
 		price = 0;
+	});
+	
+	$("#cabinet_code_id").on("change",function(){
+		var cabinet_code_idobj = $("#cabinet_code_id").find("option:selected");
+		price = $(cabinet_code_idobj).attr("price");
+		setfee(price);
 	});
 	// 租期
 	$("#months").on("blur",function(){

@@ -9,7 +9,8 @@ select
     is_delay,
     remark,
     times,
-    spacing
+    spacing,
+    isgroup
 from 
 	cc_ptdef
 where 
