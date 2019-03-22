@@ -1,0 +1,8 @@
+
+ALTER table cc_ptprepare add isgroup int
+
+COMMENT ON COLUMN cc_ptprepare.isgroup IS '是否是小团体课：0否1是';
+
+
+ALTER table cc_classlist add isprepare int
+COMMENT ON COLUMN cc_classlist.isprepare IS '是否预约1是2否';
