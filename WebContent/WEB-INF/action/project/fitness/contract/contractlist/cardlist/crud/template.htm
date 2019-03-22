@@ -287,6 +287,7 @@ $(document).ready(function() {
 			}
 			var customercode = $("input[name=datalist]:checked").attr("code-cust");
 			var codeid = $(this).val();
+			var custstatus = $("input[name=datalist]:checked").attr("cust-status");
 			$("#contract_btn").val("").trigger("change");
 			var uri = contextPath;
 			if( "" == codeid ){
@@ -294,7 +295,13 @@ $(document).ready(function() {
 			}else if( "1" == codeid ){	/** 办卡合同 */
 				uri += getContractUri(0, 0, false)+"?";
 			}else if( "2" == codeid ){	/** 私教合同 */
-				uri += getContractUri(0, 2, false)+"?";
+				//zyb 2019-3-22 custstatus是0的话就是无效会员
+				if(custstatus==0){
+					ccms.dialog.notice("该会员无效，无法进行相关操作！");
+					return false;
+				}else{
+					uri += getContractUri(0, 2, false)+"?";
+				}
 			}else if( "3" == codeid ){	/** 租柜合同 */
 				uri += getContractUri(0, 1, false)+"?"; 
 			}else if( "4" == codeid ){	/** 充值 */
@@ -314,7 +321,7 @@ $(document).ready(function() {
 				return false;
 			}
 			uri += "customercode=" + customercode;
-
+				
 			ccms.dialog.open({url : uri});
 		})
 })

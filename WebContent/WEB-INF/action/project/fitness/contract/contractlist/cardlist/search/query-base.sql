@@ -8,7 +8,7 @@ from
  		c.status,
  		'" value="',
  		c.code,'',
- 		'" code-card="', get_arr_value(c.relatedetail,1),'" code-cust="',c.customercode,'" code-relate="',COALESCE(c.relatecode,''),'" code-cttype="',c.contracttype,'" code-type="',c.type,'" ></label>') as application_id,
+ 		'" code-card="', get_arr_value(c.relatedetail,1),'" code-cust="',c.customercode,'" code-relate="',COALESCE(c.relatecode,''),'" code-cttype="',c.contracttype,'" code-type="',c.type,'"cust-status="',m.status,'" ></label>') as application_id,
  	c.code, --合同编号
  	c.createdate,	
 		(case when c.contracttype=0 and c.status =1 and c.isaudit=1 then '未审批' when c.contracttype=0 and c.status =1 and c.isaudit=3 then '审批拒绝' 
