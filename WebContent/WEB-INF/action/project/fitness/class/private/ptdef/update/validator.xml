@@ -14,4 +14,7 @@
 	<!-- 体验只能有一张 -->
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
 		on-error-label="已有体验课,不可以修改" id="reatetype" sql="norep-ptdef.sql" />
+	<!-- 课类型不可以修改 -->>
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="课类型不可以修改" id="isgroup" sql="norep-ptdefgroup.sql" />
 </validator>
