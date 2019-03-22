@@ -28,8 +28,8 @@ and
 			then 1=1 else cust.mc = '${def:user}' end) end)
 		and card.org_id = cust.org_id 
  		and card.isgoon = 0 
-		AND card.enddate::date <=  ${fld:s_end_date}
-		AND card.enddate::date >=  ${fld:s_start_date}	
+		--AND card.enddate::date <=  ${fld:s_end_date}  ZZN去掉按截止日期检索的条件
+		--AND card.enddate::date >=  ${fld:s_start_date}	
 	
 ${filter}
 
@@ -62,8 +62,8 @@ and
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else cust.mc = '${def:user}' end) end)
 
-			AND oplog.createdate::date <=  ${fld:s_end_date}
-			AND oplog.createdate::date >=  ${fld:s_start_date}
+			--AND oplog.createdate::date <=  ${fld:s_end_date}
+			--AND oplog.createdate::date >=  ${fld:s_start_date}
 
 	
 ${filter}
