@@ -12,7 +12,7 @@
             <div class="list">
                 <img src="${def:context}${fld:headpic}" class="touxiangpic fl">
                 <div class="content fl">
-                       <p class="name">${fld:name}<span>${fld:sex}</span><span id="mobile">${fld:mobile}</span></p>
+                    <p class="name"><label style='width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='${fld:name}'>${fld:name}</label><span>${fld:sex}</span><span id="mobile">${fld:mobile}</span></p>
                     <p class="time">最近跟进：${fld:lasttime}</p>
                 </div>
                <a href="tel:${fld:mobile}" > <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"></a>

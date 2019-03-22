@@ -13,7 +13,7 @@ function appendCust(code,name,sex,mobile,lasttime,headpic) //增加会员
 		   
 			"<a class='list_a' href='${def:context}/action/project/fitness/wx/pt/mycust/sijiaohuiyuanmsg?customercode="+code+"&type=pt'>"+
 		    "<div class='content fl'>"+
-		        "<p class='name'>"+name+"<span>"+sex+"</span><span>"+mobile+"</span></p>"+
+		        "<p class='name'><label style='width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='"+name+"'>"+name+"</label><span>"+sex+"</span><span>"+mobile+"</span></p>"+
 		        "<p class='time'>最近跟进："+lasttime+"</p>"+
 		    "</div>"+
 		    '</a>'+

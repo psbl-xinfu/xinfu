@@ -1,8 +1,9 @@
 select
+	cust.mobile,
 	concat('<input type="radio" name="custradio" value="', cust.code, '"  />') AS checklink,
 	cust.name,
 	(case cust.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
-	cust.mobile,
+	
 	(select name from hr_staff where userlogin=cust.mc and org_id = cust.org_id) as mc,
  	(select enddate from cc_card where customercode = cust.code and org_id = cust.org_id 
  		and cc_card.isgoon = 0 order by enddate desc limit 1) as enddate
@@ -31,4 +32,25 @@ and
 		AND card.enddate::date >=  ${fld:s_start_date}	
 	
 ${filter}
+
+union 
+
+select
+	DISTINCT cust2.mobile,
+	concat('<input type="radio" name="custradio" value="', cust2.code, '"  />') AS checklink,
+	cust2.name,
+	(case cust2.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
+
+	(select name from hr_staff where userlogin=cust2.mc and org_id = cust2.org_id) as mc
+ 
+from cc_customer cust2
+left join cc_contract con on con.customercode=cust2.code
+left join cc_operatelog oplog on oplog.relatedetail=con.code 
+where oplog.opertype='66'--66就是删除合同的标记
+
+and not EXISTS(
+	select 1 from cc_card 
+	where cust2.code = cc_card.customercode
+)
+ and cust2.org_id=${def:org}
 order by enddate desc
