@@ -1,4 +1,4 @@
-SELECT  ptdef.code as ptcode,
+SELECT  ptrest.code as ptcode,
         ptdef.ptlevelname,
         ptrest.ptleftcount
  FROM cc_ptrest ptrest

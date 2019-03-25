@@ -102,6 +102,8 @@
        var preparedate= $("#preparedate").val(dateval[0]);
        var preparetime= $("#preparetime").val(dateval[1]);
        var ptdate=$("#datetimepicker").val();
+       var ptdates=$("#datetimepickers").val();
+       var ptdatess=$("#datetimepickerss").val();
        var ptnum = $('#ptrestcode option:selected').attr('code');
        var ptnumber=parseInt(ptnum);
        var ptcode= $("#ptrestcode").val();
@@ -114,6 +116,14 @@
 	  		 return false;
 	   }
 	   if(ptdate==""||ptdate==null){
+		   ccms.dialog.notice("请选择时间！",1000)
+	  	   return false;
+	   }
+	   if(ptdates==""||ptdate==null){
+		   ccms.dialog.notice("请选择时间！",1000)
+	  	   return false;
+	   }
+	   if(ptdatess==""||ptdate==null){
 		   ccms.dialog.notice("请选择时间！",1000)
 	  	   return false;
 	   }
