@@ -2,6 +2,8 @@
 <validator>
 	<parameter id="custall" type="varchar" required="false" label="会员号/名称/手机号" />
 	<parameter id="mc" type="varchar" required="false" label="会籍" />
+	<!-- zzn 190322 去掉按日期检索的条件
 	<parameter id="s_end_date" type="date" required="true" label="结束日期" />
 	<parameter id="s_start_date" type="date" required="true" label="开始日期" />
+	 -->
 </validator>
