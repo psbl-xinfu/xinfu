@@ -82,7 +82,7 @@ ${inc:/action/project/fitness/home/pub}
 				 			 </li>	
 				 			 <li id="passwdli"> 			
 									<label>密码<span style="color: red;">*</span></label> 	
-									<input type="password" id="passwd" name="passwd" value="" maxlength="80" placeholder="密码"/>
+									<input type="password" id="password" name="password" value="" maxlength="80" placeholder="密码"/>
 				 			 </li>
 							<li> 			
 									<label>生日<span style="color: red;">*</span></label> 	
@@ -426,7 +426,7 @@ ${inc:/action/project/fitness/home/pub}
 					$("#formTitle1").html("新增");
 					$("#userlogin").removeAttr("readonly");
 					ccms.util.setCheckboxValue('data_limit',"0","formEditor");
-					$('#user_pinyin,#userlogin,#passwd,#name').attr('readonly',false);
+					$('#user_pinyin,#userlogin,#password,#name').attr('readonly',false);
 					$('#entry_date').val('${def:date}')
 					$('#psw,#save_btn').show();
 					$("#isclasstype").hide();

@@ -14,7 +14,7 @@ values
 (
 	${seq:currval@${schema}seq_user},
 	${fld:userlogin},
-	${fld:passwd},
+	${fld:password},
 	${fld:name},
 	NULL,
 	1,
