@@ -34,7 +34,7 @@
                 <div class='d2 fl'>选择课程</div>
                 <div class='d4 fr'>
                     <select class="form-control select_op kecheng_select" id='ptrestcode' name='ptrestcode'>
-                       
+                       <op-kecheng><option class='kecheng_op' value='${fld:ptcode}' code='${fld:ptleftcount}' >${fld:ptlevelname}</option></op-kecheng>
                     </select>
                 </div>
             </div>
@@ -57,11 +57,7 @@
 <script type="text/javascript">
     $(function(){
     	homept();
-    	<op-kecheng>
-    	   var html="<option class='kecheng_op' value='${fld:code}'  >${fld:ptlevelname}</option>"
-    	   $('.kecheng_select').append(html);
-    	</op-kecheng>
-
+    	
         var currYear = (new Date()).getFullYear();  
         var opt={};
         opt.date = {preset : 'date'};
@@ -78,7 +74,7 @@
             startYear: currYear - 50, //开始年份
             endYear: currYear + 10 //结束年份
         };
-        opt.defaults = {
+         opt.defaults = {
             theme: 'ios', //皮肤样式
             display: 'modal', //显示方式 
             mode: 'scroller', //日期选择模式
@@ -89,12 +85,12 @@
             width:90,
             startYear: currYear - 50, //开始年份
             endYear: currYear + 10 //结束年份
-        };
+        }; 
 
         $("#datetimepicker").mobiscroll($.extend(opt['datetime'], opt['default']));
         //$("#datetimepicker").mobiscroll( $.extend(opt['date'], opt['default']) );
-        $("#datetimepickers").mobiscroll( $.extend(opt['time'], opt['defaults']) );
-        $("#datetimepickerss").mobiscroll( $.extend(opt['time'], opt['defaults']) );
+         $("#datetimepickers").mobiscroll( $.extend(opt['time'], opt['defaults']) );
+        $("#datetimepickerss").mobiscroll( $.extend(opt['time'], opt['defaults']) ); 
     });
     
     
@@ -103,8 +99,24 @@
      $(".sijiaoyuyueaddbtn").click(function(){
        var customercode=$(this).val();  
        var dateval=$("#datetimepicker").val().split(" ");
-       $("#preparedate").val(dateval[0]);
-       $("#preparetime").val(dateval[1]);
+       var preparedate= $("#preparedate").val(dateval[0]);
+       var preparetime= $("#preparetime").val(dateval[1]);
+       var ptdate=$("#datetimepicker").val();
+       var ptnum = $('#ptrestcode option:selected').attr('code');
+       var ptnumber=parseInt(ptnum);
+       var ptcode= $("#ptrestcode").val();
+	   if(ptcode==""||ptcode==null){
+	    	 ccms.dialog.notice("请选择私教课！",1000)
+	  		 return false;
+	   }
+	   if(ptnumber==0||ptnumber==null){
+		     ccms.dialog.notice("该课剩余节数不足！",1000)
+	  		 return false;
+	   }
+	   if(ptdate==""||ptdate==null){
+		   ccms.dialog.notice("请选择时间！",1000)
+	  	   return false;
+	   }
        var url="${def:context}${def:actionroot}/ptprepare";
 		ajaxCall(url,{
 			method: "post",
