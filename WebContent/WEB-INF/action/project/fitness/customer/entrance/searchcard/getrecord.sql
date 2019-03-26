@@ -1,5 +1,5 @@
 --如果不是通电卡也能刷卡就需要改这一部分
-select
+select 
 	card.code,
 	card.nowcount,
 	(case when card.status=0 then '无效'

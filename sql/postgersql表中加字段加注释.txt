@@ -1,4 +1,5 @@
-ALTER TABLE cc_inleft ADD nowcount int4 Ë¢¿¨ÈËÊý
-ALTER TABLE cc_classlist ADD  isprepare int4  ÊÇ·ñÔ¤Ô¼£»1ÊÇ2·ñ
-comment on column cc_inleft.nowcount IS'Ë¢¿¨ÈËÊý'
-comment on column cc_classlist.isprepare IS'ÊÇ·ñÔ¤Ô¼£»1ÊÇ2·ñ'
+ALTER TABLE cc_inleft ADD nowcount int4 Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ALTER TABLE cc_classlist ADD  isprepare int4  ï¿½Ç·ï¿½Ô¤Ô¼ï¿½ï¿½1ï¿½ï¿½2ï¿½ï¿½
+ALTER TABLE cc_inleft ADD  signednumber int4  ï¿½Ç·ï¿½Ô¤Ô¼ï¿½ï¿½1ï¿½ï¿½2ï¿½ï¿½
+comment on column cc_inleft.nowcount IS'Ë¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'
+comment on column cc_classlist.isprepare IS'ï¿½Ç·ï¿½Ô¤Ô¼ï¿½ï¿½1ï¿½ï¿½2ï¿½ï¿½'
