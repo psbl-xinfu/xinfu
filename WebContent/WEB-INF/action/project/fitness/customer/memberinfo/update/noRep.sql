@@ -1,1 +1,1 @@
-select 1 from cc_customer where mobile=${fld:cc_mobile} and code !=${fld:cc_code}
+select 1 from cc_customer where mobile=${fld:cc_mobile} and code !=${fld:cc_code} and org_id='${def:org}'
