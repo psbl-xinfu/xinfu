@@ -44,7 +44,7 @@
             <div class="sijiaoyuyueaddbtn">
                 <img src="${def:context}/js/project/fitness/wx/image/addyuyue.png" class="tijiao">
             </div>
-      
+      	<input type='hidden' name="tishi" id='tishi'/>
      </form>
         
         
@@ -99,6 +99,7 @@
     
     
      $(".sijiaoyuyueaddbtn").click(function(){
+    	//zyb 20190327 增加时间和课程的验证
        var customercode=$(this).val();  
        var dateval=$("#datetimepicker").val().split(" ");
        var preparedate= $("#preparedate").val(dateval[0]);
@@ -118,14 +119,6 @@
 	  		 return false;
 	   }
 	   if(ptdate==""||ptdate==null){
-		   ccms.dialog.notice("请选择时间！",1000)
-	  	   return false;
-	   }
-	   if(ptdates==""||ptdate==null){
-		   ccms.dialog.notice("请选择时间！",1000)
-	  	   return false;
-	   }
-	   if(ptdatess==""||ptdate==null){
 		   ccms.dialog.notice("请选择时间！",1000)
 	  	   return false;
 	   }
