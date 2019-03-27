@@ -49,7 +49,7 @@ public class GuestPrepareJob extends BaseJob{
 				// 写入公海脚本
 				String insertPublic = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/insert-public.sql");
 				// 获取超出分配次数的客户资源列表
-				String queryPublicGuest = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/pub/query-guest.sql");
+				String queryPublicGuest = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/pub/query-maxnum.sql");
 				// 获取超出最后日期的会员列表
 				String queryPublicCust = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/pub/query-cust.sql");
 				// 快过期资源提醒脚本
@@ -58,25 +58,15 @@ public class GuestPrepareJob extends BaseJob{
 				String queryRemind = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/outdate/remind/query.sql");
 				// 获取资源过期更新脚本
 				String updateInvalid = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/outdate/update.sql");
-				// 获取过期的客户资源列表-超过保护期未成交既未过期--zzn
+				// 获取过期的客户资源列表
 				String queryOut = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/outdate/query.sql");
 				
 				// 获取俱乐部列表
 				String queryOrg =  getLocalResource("/transactions/project/fitness/job/sql/query-org.sql");
 				Recordset rsOrg = db.get(queryOrg);
 				while(rsOrg.next()){
-					// 1、客户资源超过分配次数后，进入公海----zzn注释掉，目前只按时间过期
-//					String _queryPublic = getSQL(queryPublicGuest, rsOrg);
-//					Recordset rsPublic = db.get(_queryPublic);
-//					while( rsPublic.next() ){
-//						String _insert = getSQL(insertPublic, rsPublic);
-//						_insert = StringUtils.replaceOnce(_insert, "${datatype}", String.valueOf(DATATYPE_guest));
-//						_insert = StringUtils.replaceOnce(_insert, "${resason}", String.valueOf(PUBLIC_REASON_guest_outof_maxnum));
-//						db.exec(_insert);
-//					}
-					
-					// 1、客户资源超过保护期后，进入公海，zzn2019-03-25
-					String _queryPublic = getSQL(queryOut, rsOrg);
+					// 1、会员超过分配次数后，进入公海--zzn注释掉，目前只按时间过期
+					String _queryPublic = getSQL(queryPublicGuest, rsOrg);
 					Recordset rsPublic = db.get(_queryPublic);
 					while( rsPublic.next() ){
 						String _insert = getSQL(insertPublic, rsPublic);
@@ -85,7 +75,7 @@ public class GuestPrepareJob extends BaseJob{
 						db.exec(_insert);
 					}
 					
-					// 2、会员超过最大跟进天数时，进入公海---zzn修改，会员在保护期内没完成系统设置的跟进次数时，进入公海
+					// 2、会员超过最大跟进天数时，进入公海--zzn修改，会员在保护期内没完成系统设置的跟进次数时，进入公海
 					_queryPublic = getSQL(queryPublicCust, rsOrg);
 					rsPublic = db.get(_queryPublic);
 					while( rsPublic.next() ){
@@ -103,26 +93,26 @@ public class GuestPrepareJob extends BaseJob{
 						db.exec(_insertRemind);
 					}
 
-					// 4、客户资源过期后，重新回到会籍经理手中  zzn 注释，可能存在问题；
-//					String _queryOut = getSQL(queryOut, rsOrg);
-//					Recordset rsOut = db.get(_queryOut);
-//					while( rsOut.next() ){
-//						String _update = getSQL(updateInvalid, rsOut);
-//						db.exec(_update);
-//					}
+					// 4、客户资源过期后，重新回到会籍经理手中zzn 注释，可能存在问题；
+					String _queryOut = getSQL(queryOut, rsOrg);
+					Recordset rsOut = db.get(_queryOut);
+					while( rsOut.next() ){
+						String _update = getSQL(updateInvalid, rsOut);
+						db.exec(_update);
+					}
 					
 				}
 				
 				// 5、资源爽约
 				// 获取资源爽约更新脚本
-				/***String updateDump = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/dump/update.sql");
+				String updateDump = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/dump/update.sql");
 				// 获取爽约的客户资源列表
 				String queryDump = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/dump/query.sql");
 				Recordset rsDump = db.get(getSQL(queryDump,null));
 				while( rsDump.next() ){
 					String _update = getSQL(updateDump, rsDump);
 					db.exec(_update);
-				}*/
+				}
 			}catch (Throwable e) {
 				error = e.getMessage();
 				logger.error(e);

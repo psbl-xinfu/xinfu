@@ -15,6 +15,7 @@
 		<recordset id="query-custerrules.sql" source="sql" scope="transaction" />
 		<recordset id="query-count.sql" source="sql" scope="transaction" />
 		<recordset id="query-MembershipProtectionPeriod.sql" source="sql" scope="transaction" />
+		<recordset id="query-maxnum.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -25,6 +26,7 @@
 		<print mode="form" recordset="query-custerrules.sql" tag="custerules-list"/>
 		<print mode="form" recordset="query-count.sql" tag="count-list"/>
 		<print mode="form" recordset="query-MembershipProtectionPeriod.sql" tag="period-list"/>
+		<print mode="form" recordset="query-maxnum.sql" tag="maxnum-list"/>
 	</output>
 
 </config>

@@ -22,15 +22,22 @@ ${inc:/action/project/fitness/home/pub}
 			<span style="color: white;">天，超过这个时间之后，无论是否有过预约，是否有过来访，该资源在该会籍处将不再显现，重新回到会籍经理手中，由会籍经理再做分配</span>
 		</div>
 	  	<div class="xt-1-div t-l-10">
-			<label for="ccc" style="color: white;">会员保护期</label>
-	    	<input type="text" id = "period_day" value="${fld:period_day}" class="day input-1"/>
-			<span style="color: white;">天</span>
+	  		<div class="col-md-6">
+				<label for="ccc" style="color: white;">会员保护期</label>
+		    	<input type="text" id = "period_day" value="${fld:period_day}" class="day input-1"/>
+				<span style="color: white;">天</span>
+			</div>	
+			<div class="col-md-6">
+				<label for="ccc" style="color: white;">会员跟进次数</label>
+		    	<input type="text" id = "maxnum" value="${fld:maxnum}" class="day input-1"/>
+				<span style="color: white;">次</span>
+			</div>
 		</div>
-	  	<div class="xt-1-div t-l-10">
+	  	 <!-- <div class="xt-1-div t-l-10">
 			<label for="ccc" style="color: white;">资源最多分配次数</label>
 	    	<input type="text" id = "limitcount" value="${fld:count}" class="day input-1"/>
 			<span style="color: white;">（分配超过这个次数后，客户资源状态自动变为公共资源）</span>
-		</div>
+		</div>  -->
 	   <div class="banner-top ba1" style="margin-top:15px;">
 			<button type="button" id="edit_btn">确&nbsp;定</button>
 	   </div>
@@ -40,26 +47,33 @@ ${inc:/action/project/fitness/home/pub}
 $(document).ready(function() {
 	$("#edit_btn").click(function updateData(){
 		if(Number($("#limitdays").val())>=0){
-			if(Number($("#limitcount").val())>=0){
+		/* 	if(Number($("#limitcount").val())>=0){ */
 				if(Number($("#period_day").val())>=0){
-					var limitdays = parseInt($("#limitdays").val());
-					$("#limitdays").val(limitdays);
-					var limitcount = parseInt($("#limitcount").val());
-					$("#limitcount").val(limitcount);
-					var period_day = parseInt($("#period_day").val());
-					$("#period_day").val(period_day);
-					var uri = "${def:context}${def:actionroot}/update?";
-					//修改参数
-					url(uri+"tuid="+${fld:period_id}+"&param_text="+period_day);
-					url(uri+"tuid="+${fld:day_id}+"&param_text="+limitdays);
-					url(uri+"tuid="+${fld:count_id}+"&param_text="+limitcount);
-					ccms.dialog.alert("修改成功！");
-				}else{
+					if(Number($("#maxnum").val())>=0){
+						var limitdays = parseInt($("#limitdays").val());
+						$("#limitdays").val(limitdays);
+						/* var limitcount = parseInt($("#limitcount").val());
+						$("#limitcount").val(limitcount); */
+						var period_day = parseInt($("#period_day").val());
+						$("#period_day").val(period_day);
+						var maxnum=parseInt($("#maxnum").val());
+						$("#maxnum").val(maxnum);
+						var uri = "${def:context}${def:actionroot}/update?";
+						//修改参数
+						url(uri+"tuid="+${fld:period_id}+"&param_text="+period_day);
+						url(uri+"tuid="+${fld:day_id}+"&param_text="+limitdays);
+						/* url(uri+"tuid="+${fld:count_id}+"&param_text="+limitcount); */
+						url(uri+"tuid="+${fld:custnum_id}+"&param_text="+maxnum);
+						ccms.dialog.alert("修改成功！");
+						}else{
+							ccms.dialog.notice("会员分配次数必须输入大于等于0的整数!",2000);
+						}
+					}else{
 					ccms.dialog.notice("会员保护期必须输入大于等于0的整数!",2000);
 				}
-			}else{
+			/* }else{
 				ccms.dialog.notice("资源最多分配次数必须输入大于等于0的整数!",2000);
-			}
+			} */
 		}else{
 			ccms.dialog.notice("客户资源过期时间必须输入大于等于0的整数!",2000);
 		}
