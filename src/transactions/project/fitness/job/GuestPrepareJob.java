@@ -48,7 +48,7 @@ public class GuestPrepareJob extends BaseJob{
 				
 				// 写入公海脚本
 				String insertPublic = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/insert-public.sql");
-				// 获取超出分配次数的客户资源列表
+				// 获取在保护期内没完成系统设置的跟进次数的会员列表 --zyb2019-03-27
 				String queryPublicGuest = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/pub/query-maxnum.sql");
 				// 获取超出最后日期的会员列表
 				String queryPublicCust = getLocalResource("/transactions/project/fitness/job/sql/guestprepare/pub/query-cust.sql");
@@ -65,7 +65,7 @@ public class GuestPrepareJob extends BaseJob{
 				String queryOrg =  getLocalResource("/transactions/project/fitness/job/sql/query-org.sql");
 				Recordset rsOrg = db.get(queryOrg);
 				while(rsOrg.next()){
-					// 1、会员超过分配次数后，进入公海--zzn注释掉，目前只按时间过期
+					// 1、会员超过分配次数后，进入公海--zzn注释掉，目前只按时间过期 zyb2019-03-27
 					String _queryPublic = getSQL(queryPublicGuest, rsOrg);
 					Recordset rsPublic = db.get(_queryPublic);
 					while( rsPublic.next() ){
