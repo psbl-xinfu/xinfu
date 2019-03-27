@@ -12,12 +12,19 @@ from
 	c.code,
 	m.name,
 	m.mobile,
-	(
-		CASE WHEN isaudit = 1 THEN '未审批'
-		WHEN isaudit = 3 THEN '审批拒绝'
-		WHEN c.status = 1 THEN '未付款'
-		WHEN c.status = 2 THEN '已付款' END
-	)::VARCHAR AS i_status,
+			(case when c.contracttype=0 and c.status =1 and c.isaudit=1 then '未审批' when c.contracttype=0 and c.status =1 and c.isaudit=3 then '审批拒绝' 
+ 	when c.contracttype=0 and c.status = 1 then '未付款' when c.contracttype!=3 and c.status =2 and c.normalmoney=c.factmoney then  '已付款'
+ when  c.contracttype!=3 and COALESCE(c.normalmoney, 0) = 
+ COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
+		where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 ), 0)
+ then '已还款'
+ when c.contracttype!=3 and  COALESCE(c.normalmoney, 0) != COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
+		where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 ), 0)
+then '未还款'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) != COALESCE(c.factmoney, 0) then '未付清'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) = COALESCE(c.factmoney, 0) then '已付清'
+	
+ 	end)::varchar as i_status, --状态
 	get_arr_value(c.relatedetail, 1) as ptdefcode,
 	get_arr_value(c.relatedetail, 8) as ptuserlogin,
 	get_arr_value(c.relatedetail, 2) AS pttotalcount,--总节数
@@ -57,3 +64,5 @@ ORDER BY (CASE WHEN c.updated IS NULL THEN c.createdate ELSE c.updated END) DESC
 ) as t
 left join cc_ptdef pd on pd.code = t.ptdefcode and pd.org_id = t.org_id
 left join hr_staff hs on hs.userlogin = t.ptuserlogin
+
+order by t.code desc
