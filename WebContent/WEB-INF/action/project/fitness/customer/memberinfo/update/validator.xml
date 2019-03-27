@@ -51,5 +51,10 @@
        <parameter id="cc_age" type="integer" required="false" label="true" maxlen="64" />
        
    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
-		on-error-label="该手机已经存在,请重输入" id="cc_mobile" sql="noRep.sql" />
+		on-error-label="该手机已经存在,请重输入" id="cc_mobile" sql="noRep.sql"  />
+   <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该手机已经存在,请重输入" id="cc_mobile2" sql="noRep-hr_staff.sql" />
+   <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该手机已经存在,请重输入" id="cc_mobile3" sql="noRep-s_user.sql" />
+		
 </validator>
