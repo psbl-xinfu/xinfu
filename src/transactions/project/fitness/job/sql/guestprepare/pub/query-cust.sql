@@ -7,7 +7,9 @@ WITH cnfg AS (
 				THEN (SELECT org_id FROM hr_org WHERE (pid IS NULL OR pid = 0)) 
 				ELSE ${fld:org_id} END
 			) LIMIT 1
-		),'30')::INTEGER as maxday
+		),'30')::INTEGER as maxday,
+		       ::INTEGER as maxcount --最小跟进次数
+				 
 	FROM dual
 ) 
 SELECT 
@@ -18,3 +20,4 @@ AND (SELECT cg.maxday FROM cnfg cg) < (
 	SELECT COUNT(1) FROM cc_mcchange e WHERE e.customercode = t.code AND e.org_id = t.org_id AND e.status = 1
 ) 
 AND t.status != 0 
+cc_comm
