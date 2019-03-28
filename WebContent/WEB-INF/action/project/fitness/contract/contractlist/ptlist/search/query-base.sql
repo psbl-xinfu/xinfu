@@ -12,10 +12,12 @@ from
 	c.code,
 	m.name,
 	m.mobile,
-			(case when c.contracttype=0 and c.status =1 and c.isaudit=1 then '未审批' when c.contracttype=0 and c.status =1 and c.isaudit=3 then '审批拒绝' 
+	(case
+	--私教合同不需要审批 zzn 2019-03-28
+	--when c.contracttype=0 and c.status =1 and c.isaudit=1 then '未审批' when c.contracttype=0 and c.status =1 and c.isaudit=3 then '审批拒绝' 
  	when c.contracttype=0 and c.status = 1 then '未付款' when c.contracttype!=3 and c.status =2 and c.normalmoney=c.factmoney then  '已付款'
- when  c.contracttype!=3 and COALESCE(c.normalmoney, 0) = 
- COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
+ 	when  c.contracttype!=3 and COALESCE(c.normalmoney, 0) = 
+ 	COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
 		where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 ), 0)
  then '已还款'
  when c.contracttype!=3 and  COALESCE(c.normalmoney, 0) != COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 

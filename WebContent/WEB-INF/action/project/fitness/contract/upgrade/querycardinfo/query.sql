@@ -1,4 +1,4 @@
-select 
+select
 	d.code as cardcode
 	,d.contractcode
 	,t.normalmoney

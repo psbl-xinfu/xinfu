@@ -44,8 +44,8 @@ ${inc:/action/project/fitness/home/pub}
 										<select id="contracttype" name="contracttype" style="display: none;">
 											<option value="">合同类型</option>
 											<option value="1">续卡合同</option>
-											<option value="2">定金合同</option>
-											<option value="3">还款合同</option>
+											<option value="2">续卡定金</option>
+											<option value="3">续卡还款</option>
 										</select>	
 									</li>
 									<li style="width: 140px;" id="businesstype">
@@ -264,6 +264,7 @@ $(document).ready(function() {
 		var contractcode = getCheckboxValue("datalist");
 		var relatecode = $("input[name=datalist]:checked").attr("code-relate");
 		var uri = contextPath + getContractUri(contracttype, type, false) + "?contractcode=" + contractcode + "&relatecode=" + relatecode;
+		console.log(uri+'@@@@@@@@');
 		var status = $("input[name=datalist]:checked").attr("code");
 		var hei=0;
 		if(status>=2){
