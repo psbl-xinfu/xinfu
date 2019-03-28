@@ -6,7 +6,8 @@ select
 	card.code as cardcode,
 	ls.factmoney,
 	ls.created,
-	(select name from hr_staff where userlogin = ls.createdby and org_id = ${def:org}) as staff_name,
+	--(select name from hr_staff where userlogin = ls.createdby and org_id = ${def:org}) as staff_name, zzn 2019-03-28 需要带出通店管理员
+	(select name from hr_staff where userlogin = ls.createdby ) as staff_name,
 	(case when ls.paystatus=1 then '未付款' when ls.paystatus=2 then '已付款' end) as paystatus,
 	(select sum(amount) from cc_leave_stock_goods where leave_stock_id = ls.tuid and org_id = ${def:org})::int as amount 
 from cc_leave_stock ls
