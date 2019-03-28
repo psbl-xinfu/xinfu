@@ -16,9 +16,12 @@
 	<query>insert-name-log.sql</query>
 	<query>insert-sex-log.sql</query>
 	<query>insert-othertel-log.sql</query>
+	<query>insert-mobile-log.sql</query>
 	<!-- <query>insert-mobile-log.sql</query> -->
+	<query>update-hr_staff.sql</query>
+	<query>update-s_user.sql</query>
 	<query>update.sql</query>
-
+		
 	<output>
 		<classname>dinamica.GenericOutput</classname>
 		<template>script.js</template>
