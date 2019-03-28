@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
-    <parameter id="cc_code" type="varchar" required="false" label="cc_code" maxlen="20" />
+   <parameter id="cc_code" type="varchar" required="false" label="cc_code" maxlen="20" />
  	 <parameter id="cc_name" type="varchar" required="true" label="vc_name" maxlen="20" />
 	<parameter id="cc_sex" type="integer" required="true" label="i_sex" maxlen="20" />
 	<parameter id="cc_mobile" type="varchar" required="true" label="cc_mobile" maxlen="64" />
 	 <parameter id="cc_birth" type="varchar" required="true" label="cc_birth"/>
 	 	  <parameter id="cc_day" type="varchar" required="true" label="cc_day"/>
-	 
-	 
+	 <parameter id="userlogin" type="varchar" required="true" label="userlogin" maxlen="64" />
+	 <parameter id="user_id" type="integer" required="true" label="user_id" maxlen="64" />
 	 
 	<parameter id="cc_wx" type="varchar" required="false" label="cc_wx"/>
 	
@@ -39,6 +39,7 @@
 	<parameter id="cc_participate" type="integer" required="false" label="cc_participate" maxlen="64" />
 	<parameter id="cc_brand" type="varchar" required="false" label="cc_brand" maxlen="64" />
 	
+	
 	<parameter id="cc_ismember" type="integer" required="false" label="cc_ismember" maxlen="64" />
 	<parameter id="cc_leave" type="integer" required="false" label="cc_leave" maxlen="64" />
 	<parameter id="cc_customtype" type="integer" required="false" label="cc_customtype" maxlen="64" />
@@ -49,7 +50,12 @@
     <parameter id="cc_children" type="varchar" required="false" label="cc_children" maxlen="64" />
     <parameter id="cc_remark" type="varchar" required="false" label="cc_remark" maxlen="64" />
        <parameter id="cc_age" type="integer" required="false" label="true" maxlen="64" />
-       
+
    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
-		on-error-label="该手机已经存在,请重输入" id="cc_mobile" sql="noRep.sql" />
+		on-error-label="该手机已经存在,请重输入" id="cc_mobile" sql="noRep.sql"  />
+   <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该手机已经存在,请重输入" id="cc_mobile" sql="noRep-hr_staff.sql" />
+   <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该手机已经存在,请重输入" id="cc_mobile" sql="noRep-s_user.sql" />
+
 </validator>
