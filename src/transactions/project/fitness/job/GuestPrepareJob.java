@@ -65,16 +65,23 @@ public class GuestPrepareJob extends BaseJob{
 				String queryOrg =  getLocalResource("/transactions/project/fitness/job/sql/query-org.sql");
 				Recordset rsOrg = db.get(queryOrg);
 				while(rsOrg.next()){
-
-		
-					// 1、会员超过保护期分配次数后，进入公海--zzn注释掉，目前只按时间过期 zyb2019-03-27
-
+					// 1、客户资源超过分配次数后，进入公海
 					String _queryPublic = getSQL(queryPublicGuest, rsOrg);
 					Recordset rsPublic = db.get(_queryPublic);
-					while( rsPublic.next() ){
+					/*while( rsPublic.next() ){
 						String _insert = getSQL(insertPublic, rsPublic);
 						_insert = StringUtils.replaceOnce(_insert, "${datatype}", String.valueOf(DATATYPE_guest));
 						_insert = StringUtils.replaceOnce(_insert, "${resason}", String.valueOf(PUBLIC_REASON_guest_outof_maxnum));
+						db.exec(_insert);
+					}*/
+					
+					// 2、会员在保护期内超过最大跟进天数时，进入公海
+					_queryPublic = getSQL(queryPublicCust, rsOrg);
+					rsPublic = db.get(_queryPublic);
+					while( rsPublic.next() ){
+						String _insert = getSQL(insertPublic, rsPublic);
+						_insert = StringUtils.replaceOnce(_insert, "${datatype}", String.valueOf(DATATYPE_customer));
+						_insert = StringUtils.replaceOnce(_insert, "${resason}", String.valueOf(PUBLIC_REASON_cust_follow_timeout));
 						db.exec(_insert);
 					}
 					
