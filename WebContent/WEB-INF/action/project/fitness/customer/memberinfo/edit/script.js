@@ -4,7 +4,9 @@ document.addForm.cc_mobile.value="${fld:mobile@js}";
 setSelectValue($("#cc_birth"), "${fld:birth}");
 setSelectValue($("#cc_day"), "${fld:birthday}");
 setSelectValue($("#cc_sex"), "${fld:sex}");
-
+var ymobile="${fld:mobile@js}";
+ $("#userlogin").val("${fld:userlogin}");
+ $("#user_id").val("${fld:user_id}");
 setSelectValue($("#cc_mc"), "${fld:mc}");
 setSelectValue($("#cc_type"), "${fld:type}");
 document.addForm.cc_card.value="${fld:card}";
