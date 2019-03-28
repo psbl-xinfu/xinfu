@@ -51,8 +51,8 @@ ${inc:/action/project/fitness/home/pub}
 										<select id="contracttype" name="contracttype" style="display: none;">
 											<option value="">合同类型</option>
 											<option value="1">私教合同</option>
-											<option value="2">定金合同</option>
-											<option value="3">还款合同</option>
+											<option value="2">私教定金</option>
+											<option value="3">私教还款</option>
 										</select>	
 									</li>
 									<li style="width: 140px;" id="businesstype">
@@ -182,8 +182,11 @@ $(document).ready(function() {
 			if(contractall==1){
 				$('#businesstype').show();
 				$('#statusall').html()
+			//私教合同不需要审批 zzn 2019-03-28
+			//	$('#statusall').html('<option value="">全部状态</option><option value="3">未付款</option>'+
+			//	'<option value="4">已付款</option><option value="1">未审批</option><option value="2">审批拒绝</option>');
 				$('#statusall').html('<option value="">全部状态</option><option value="3">未付款</option>'+
-				'<option value="4">已付款</option><option value="1">未审批</option><option value="2">审批拒绝</option>');
+				'<option value="4">已付款</option>');
 				$('#statusall').selectpicker("refresh");
 				$('#statusall').selectpicker("render");
 			}

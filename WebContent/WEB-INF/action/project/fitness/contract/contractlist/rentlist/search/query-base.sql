@@ -11,7 +11,10 @@
 	c.code, --合同编号
  	m.name,
  	m.mobile,
- 	 	(case when c.type = 1 and c.status =1 and c.isaudit=1 then '未审批' when c.type = 1 and c.status =1 and c.isaudit=3 then '审批拒绝' 
+ 	 	(case
+ 	 	--租柜合同不需要审批 zzn 2019-03-28
+ 	 	--when c.type = 1 and c.status =1 and c.isaudit=1 then '未审批'
+ 	 	--when c.type = 1 and c.status =1 and c.isaudit=3 then '审批拒绝' 
  	when c.type = 1 and c.status = 1 then '未付款' when c.contracttype!=3 and c.status =2 and c.normalmoney=c.factmoney then  '已付款'
  when  c.contracttype!=3 and COALESCE(c.normalmoney, 0) = 
  COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
