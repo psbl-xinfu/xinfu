@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="cust_code" type="varchar" required="true" label="客户编号" />
+    <parameter id="cust_name" type="varchar" required="true" label="客户姓名" />
+    <parameter id="cpcode" type="varchar" required="false" label="团操课程客户预约记录code" />
+    <parameter id="rudge_code" type="varchar" required="false" label="手牌号" />
+    <parameter id="cardcode" type="varchar" required="true" label="会员卡code" />
+    <parameter id="cardtype" type="varchar" required="true" label="会员卡类型" />
+    <parameter id="nowcount" type="varchar" required="false" label="次卡次数" />
+	<parameter id="unionorgid" type="varchar" required="true" label="org_id"/>
+</validator>
+			
+
+
+

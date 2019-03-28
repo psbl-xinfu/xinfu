@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		入场刷卡
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+		<!-- 查询次卡是否打印小票 -->
+		<!-- modified by leo 190328 自动入场后打印小票 -->
+	    <!-- <recordset id="query-isprintcount.sql" source="sql" scope="transaction"/> -->
+	</transaction>
+
+	<!-- 消息记录 -->
+	<query>insert-message.sql</query>
+	<!-- 出入场记录 -->
+	<query>insert-inleft.sql</query>
+	<!-- 修改团操 -->
+	<query>update-classpreparestatus.sql</query>
+	<!-- modified by leo 190328 自动入场后领手牌 -->
+	<!-- 手牌 -->
+	<!-- <query>update-cabinettemp.sql</query>  -->
+	<!-- 修改办卡状态为初次训练启用合同中卡启用时间和截止时间 -->
+	<query>update-contract.sql</query>
+	<!-- 计次卡每次刷卡减去次数 -->
+	<query>update-cardnowcount.sql</query>
+	<!-- 未启用 并且为首次训练启用的卡修改开始日期结束日期，修改状态为正常 -->
+	<query>update-cardstartenddate.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<!-- modified by leo 190328 自动入场后打印小票 -->
+		<!-- <print mode="form" recordset="query-isprintcount.sql" /> -->
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

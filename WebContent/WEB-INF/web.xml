@@ -413,7 +413,9 @@
 		<init-param>
 			<description>Exclude check full urls</description>
 			<param-name>exclude-full-urls</param-name>
-			<param-value>/action/project/fitness/wx/cust/center/tice/duibi/duibipic;/action/project/fitness/wx/cust/tiyanka/lingka;/action/project/fitness/wx/cust/tiyanka;/action/project/fitness/register/apply;/action/project/fitness/guestget/util/validatecaptchacode;/action/project/fitness/public;/action/project/fitness/guestget/util/getdomain;/action/project/fitness/guestget/register;/action/project/fitness/guestget/util/validateverifycode;/action/project/fitness/guestget/util/validation/alert</param-value>
+			<!-- modified by leo 190328增加外部用户接入刷卡地址 -->
+			<!-- <param-value>/action/project/fitness/wx/cust/center/tice/duibi/duibipic;/action/project/fitness/wx/cust/tiyanka/lingka;/action/project/fitness/wx/cust/tiyanka;/action/project/fitness/register/apply;/action/project/fitness/guestget/util/validatecaptchacode;/action/project/fitness/public;/action/project/fitness/guestget/util/getdomain;/action/project/fitness/guestget/register;/action/project/fitness/guestget/util/validateverifycode;/action/project/fitness/guestget/util/validation/alert</param-value> -->
+			<param-value>/action/project/fitness/api;/action/project/fitness/wx/cust/center/tice/duibi/duibipic;/action/project/fitness/wx/cust/tiyanka/lingka;/action/project/fitness/wx/cust/tiyanka;/action/project/fitness/register/apply;/action/project/fitness/guestget/util/validatecaptchacode;/action/project/fitness/public;/action/project/fitness/guestget/util/getdomain;/action/project/fitness/guestget/register;/action/project/fitness/guestget/util/validateverifycode;/action/project/fitness/guestget/util/validation/alert</param-value>
 		</init-param>
    	</filter>
 		<!--file upload filter-->
