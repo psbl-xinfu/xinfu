@@ -2,7 +2,7 @@
 <html>
 <head>
 ${inc:/action/project/fitness/home/pub}
-<title>会员挂账记录</title>
+<title>单次消费记录</title>
 </head>
 <body>
 	<form  role="form" method="post" id="searchForm" name="searchForm">
@@ -25,7 +25,7 @@ ${inc:/action/project/fitness/home/pub}
 						  	</li>
 							<li style='width:15%;'>
 						  		<select id="isguazhang" name="isguazhang" style="display: none;">
-						  			<option value="1">挂账</option>
+						  			<!--<option value="1">挂账</option>-->
 						  			<option value="0">已付款</option>
 						  		</select>
 						  	</li>
@@ -47,9 +47,11 @@ ${inc:/action/project/fitness/home/pub}
 						<nav class="r-c-3-t-b-l">
 						</nav>
 						<nav class="r-c-3-t-b-r">
+							<!-- 
 							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/nav/huankuan.svg" title="还款" alt=""id="look_btn">
 							</li>
+							 -->
 							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印小票" alt=""id="print_btn">
 							</li>
