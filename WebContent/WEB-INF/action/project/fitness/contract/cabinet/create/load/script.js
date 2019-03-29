@@ -15,7 +15,7 @@ $("#discountmoney").val((parseFloat("${fld:inimoney}")-parseFloat("${fld:normalm
 
 price = parseFloat("${fld:price}");
 setSelectValue($("#cabinet_group_id"), "${fld:groupid}");
-$("#cabinetid").val("${fld:cabinetid}");
+$("#ccabinetid").val("${fld:cabinetid}");
 $("#cabinetcode").val("${fld:cabinetcode}");
 $("#months").val("${fld:months}");
 

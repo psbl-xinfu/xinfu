@@ -266,7 +266,6 @@ $(document).ready(function() {
 		var contractcode = getCheckboxValue("datalist");
 		var relatecode = $("input[name=datalist]:checked").attr("code-relate");
 		var uri = contextPath + getContractUri(contracttype, type, false) + "?contractcode=" + contractcode + "&relatecode=" + relatecode;
-		console.log(uri);
 		var status = $("input[name=datalist]:checked").attr("code");
 		var hei=0;
 		if(status>=2){

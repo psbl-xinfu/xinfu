@@ -17,7 +17,7 @@ ${inc:/action/project/fitness/home/pub}
 			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
 			<input type="hidden" id="price" name="price" value="" />
 			<!-- zyb 2019-3-21 添加cabinetcode租柜编号柜子号必须有值 -->
-			<input type="hidden" id="cabinetcode" name="cabinetcode" value="" />
+			<input type="hidden" id="ccabinetid" name="ccabinetid" value="" />
 			<div class="b-i-main">
 				<nav>
 					<li>
@@ -47,7 +47,7 @@ ${inc:/action/project/fitness/home/pub}
 		     		</li>
 					<li>
 						<label style="width: 120px;">区域：</label>
-						<select  id="cabinet_group_id" name="cabinet_group_id" style="display: none;">
+						<select  id="cabinet_group_id" name="cabinet_group_id" onchange="queryCabinetid()" style="display: none;">
 							<option value="">请选择</option>
 							<cabinetgroup-rows>
 							<option code="${fld:groupcode@js}" value="${fld:tuid}">${fld:groupname@js}</option>
@@ -57,7 +57,9 @@ ${inc:/action/project/fitness/home/pub}
 		     		<!-- zzn190321  改为列表取柜号 -->
 					<li>
 						<label style="width: 120px;">柜号：</label>
+						
 						<select  id="cabinetid" name="cabinetid" style="display: none;">
+						<option value=''>请选择</option>
 						</select>
 		     		</li>
 		     		<!-- zzn190321-->
@@ -143,7 +145,7 @@ $(document).ready(function(){
 	if(parseInt("${fld:skillscopenum}")>0){
 		$("#pay_btn").show();
 	}
-	searchSelectInit($("#salemember,#salemember1,#cabinet_group_id"));
+	searchSelectInit($("#salemember,#salemember1,#cabinet_group_id,#cabinetid"));
 	setSelectValue($("#salemember"), "${def:user}");
 	$("#salemember").selectpicker("refresh");
 	$("#salemember").selectpicker("render");
@@ -197,8 +199,8 @@ $(document).ready(function(){
 		//必须传价格值  zyb 2019-3-21
 		setfee(price);
 	});
-	// 获取柜号 原有的随机取柜号zzn
-	$("#getcabinetbtn").unbind().on("click",function(){
+	 // 获取柜号 原有的随机取柜号zzn
+	/* $("#cabinetid").trigger("click",function(){
 		var groupid = $("#cabinet_group_id").val();
 		if( "" == groupid ){
 			ccms.dialog.notice("请先选择区域！", 2000);
@@ -209,33 +211,23 @@ $(document).ready(function(){
 		getJsonAjaxCall("/action/project/fitness/util/getcabinetbyrandom?groupid="+groupid, "true", function(data){
 			if( data && data.length > 0 ){
 				//必须传柜子编号  zyb 2019-3-21
-				$("#cabinetcode").val(data[0].cabinetcode);
-				$("#cabinetid").val(data[0].tuid);
+				/* $("#cabinetcode").val(data[0].cabinetcode);
+				$("#cabinetid").val(data[0].tuid); 
 				price = parseFloat(data[0].price);
+				guzir="<option code="+data[0].cabinetcode +" price="+data[0].price+" value="+data[0].tuid+">"+data[0].cabinetcode+"</option>";
+				$("#cabinetid").html(guzir);
 				//必须传价格值  zyb 2019-3-21
 				setfee(price);
 			}
 		});
-	});
+	});  */
 
 	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
-		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}&ispubload=true", true);
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}&ispubload=true", true,queryCabinetid);
+		// add by leo 190329 
+		//queryCabinetid();
 	}
-	//获取柜号2 zzn190321
-	$('#cabinet_group_id').change(function(){
-		var groupid = $("#cabinet_group_id").val();
-		console.log(groupid);
-		var url="${def:context}${def:actionroot}/cabinetcode"
-			ajaxCall(url,{
-				method : "post",
-				form: "contractForm",
-				progress : true,
-				dataType : "script",
-				success : function() {
-				}
-			});
 	
-	});
 	
 	// 保存
 	$("#save_btn").unbind().on("click",function(){
@@ -289,6 +281,18 @@ function topay(contractcode){
 	var  Obj=parent.document.getElementsByTagName('iframe')     
 	$(Obj).height(450);   
 	location.href = contextPath + "${def:actionroot}/view?contractcode="+contractcode;
+}
+
+//获取柜号2 zzn190321
+function queryCabinetid(){
+	var ccabinetid = $("#ccabinetid").val();
+	var cabinet_group_id=$("#cabinet_group_id").val();
+	if(ccabinetid!=""&&ccabinetid!=null){
+		postAjaxCall("${def:context}${def:actionroot}/ccabinetids?cabinet_group_id="+cabinet_group_id+"&ccabinetid="+ccabinetid, true);
+	}else{
+		postAjaxCall("${def:context}${def:actionroot}/cabinetcode?cabinet_group_id="+cabinet_group_id, true);
+	}
+	
 }
 </script>
 </body>
