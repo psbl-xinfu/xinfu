@@ -1,4 +1,4 @@
-select 
+select
 	
 (SELECT  param_text  FROM cc_config WHERE category = 'OpeCategory'
 	and param_value::int=op.opertype::int  
@@ -63,21 +63,25 @@ else  (select count(d.relatecode) as geshu from cc_contract d
  			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
 			end ) from  cc_contract a  where a.relatecode = c.code )end))
 		end) end)
-
+--zzn 添加商品销售的记录，可能有bug 目前看所有商品销售cc_operatelog 中类型都是55的
 union 
 
 select 
     (SELECT  param_text  FROM cc_config WHERE category = 'OpeCategory'
-	and param_value::int=op.opertype::int  
-	and org_id=1003) as type,
+		and param_value::int=op.opertype::int  
+		and org_id=1003) as type,
 	op.normalmoney,--应收
 	op.factmoney,--实收factmoney
 	op.factmoney as prepaid,--已付
 	(op.inimoney - op.factmoney)::numeric(10,2)   AS amount_owe,--未付
-(select name from hr_staff where userlogin=op.createdby) as vc_iuser,--操作人 
-op.createdate as createdate,
-(case when op.normalmoney = op.factmoney THEN '已付清' else '未付清' end ) as status,
-op.createtime as createtime
-from cc_operatelog op where op.customercode=${fld:id} and op.org_id='${def:org}'
+	(select name from hr_staff where userlogin=op.createdby) as vc_iuser,--操作人 
+	op.createdate as createdate,
+	(case when op.normalmoney = op.factmoney THEN '已付清' else '未付清' end ) as status,
+	op.createtime as createtime
+from cc_operatelog op 
+where op.customercode=${fld:id} and op.org_id='${def:org}'
+and to_char(op.createdate, 'yyyy-MM')>=${fld:startdate} 
+and to_char(op.createdate, 'yyyy-MM')<=${fld:enddate} 
+and op.opertype='55'
 order by createdate desc,createtime desc
 
