@@ -37,32 +37,47 @@ end ) from  cc_contract a  where a.relatecode = c.code )end)
 =c.normalmoney then '已付清' else '未付清' end) as status,
 	op.createtime as createtime
 from cc_operatelog op
-inner join cc_contract c on op.pk_value = c.code and op.org_id = c.org_id and c.contracttype!=3
-where op.customercode=${fld:id} and op.org_id='${def:org}'
+inner join cc_contract c on op.pk_value = c.code and op.org_id = c.org_id and c.contracttype!=3 
+where op.customercode=${fld:id} and op.org_id='${def:org}' 
+--zzn 排除租柜押金
+and op.opertype!='29'
 and to_char(op.createdate, 'yyyy-MM')>=${fld:startdate} 
 and to_char(op.createdate, 'yyyy-MM')<=${fld:enddate} 
-and (case when ${fld:paymentstatus} is null then 1=1 else 
-		(case when ${fld:paymentstatus}='1' then c.normalmoney= (c.factmoney + (case when  (select DISTINCT a.factmoney * (case when  (select count(d.relatecode) as geshu from cc_contract d 
- 			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
-else  (select count(d.relatecode) as geshu from cc_contract d 
- 			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
-			 end ) from  cc_contract a  where a.relatecode = c.code ) is null then 0
-else (select DISTINCT a.factmoney * (case when  (select count(d.relatecode) as geshu from cc_contract d 
-  			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
-else  (select count(d.relatecode) as geshu from cc_contract d 
-  			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
-		     end ) from  cc_contract a  where a.relatecode = c.code )end))
-else c.normalmoney!= (c.factmoney + (case when  (select DISTINCT a.factmoney * (case when  (select count(d.relatecode) as geshu from cc_contract d 
- 			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
-else  (select count(d.relatecode) as geshu from cc_contract d 
- 			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
-			 end ) from  cc_contract a  where a.relatecode = c.code ) is null then 0
-else (select DISTINCT a.factmoney * (case when  (select count(d.relatecode) as geshu from cc_contract d 
- 			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
-else  (select count(d.relatecode) as geshu from cc_contract d 
- 			 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
-			end ) from  cc_contract a  where a.relatecode = c.code )end))
-		end) end)
+--${fld:paymentstatus} 1已付清， 0未付清，null全部
+and (case when ${fld:paymentstatus} is null then 1=1 
+		  else (case when ${fld:paymentstatus}='1' --已付清，应收=（实收+（））  --还款合同已付款 d.contracttype=3 and d.status=2
+		  		then c.normalmoney= (c.factmoney + (case when (select DISTINCT a.factmoney * 
+		  																(case when  (select count(d.relatecode) as geshu from cc_contract d where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
+		  																 else  (select count(d.relatecode) as geshu from cc_contract d where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
+														 				 end) 
+														 	  from  cc_contract a  where a.relatecode = c.code 
+														 	  ) is null then 0  --是办卡合同，没有还款合同已付款
+												    else (select DISTINCT a.factmoney * 
+												    					(case when  (select count(d.relatecode) as geshu from cc_contract d where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
+												    					 else  (select count(d.relatecode) as geshu from cc_contract d  where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
+		     											                 end ) 
+		     											  from  cc_contract a  where a.relatecode = c.code 
+		     											) --定金合同，有还款合同已付款
+		     										end
+		     									  )
+		     						 )
+		     	--${fld:paymentstatus}=0 未付清				 
+		 else c.normalmoney!= (c.factmoney + (case when  (select DISTINCT a.factmoney * 
+		 														   (case when  (select count(d.relatecode) as geshu from cc_contract d  where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
+																	else  (select count(d.relatecode) as geshu from cc_contract d where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
+											 						end ) 
+											 			 from  cc_contract a  where a.relatecode = c.code ) is null then 0
+											 else 
+											(select DISTINCT a.factmoney * (case when  (select count(d.relatecode) as geshu from cc_contract d 
+ 										 where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode ) is null then 0 
+											else  (select count(d.relatecode) as geshu from cc_contract d 
+ 			 							where d.contracttype=3 and d.status=2 and c.code = d.relatecode GROUP BY  d.relatecode )
+										end ) from  cc_contract a  where a.relatecode = c.code 
+												)
+										end)
+							)
+		end) 
+	end)
 --zzn 添加商品销售的记录，可能有bug 目前看所有商品销售cc_operatelog 中类型都是55的
 union 
 
