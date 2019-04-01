@@ -1,6 +1,7 @@
-select 
+select
 	concat('<input type="radio" name="leavestocklist" value="', ls.tuid, '" code="', ls.paystatus,'" />') AS checklink,
-	tuid,
+	--tuid,
+	cg.goods_name as tuid,--zzn 增加了商品名称
 	cust.name as custname,
 	cust.mobile,
 	card.code as cardcode,
@@ -13,6 +14,8 @@ select
 from cc_leave_stock ls
 left join cc_customer cust on ls.customercode = cust.code and ls.org_id = cust.org_id
 left join cc_card card on ls.paycardcode = card.code and card.isgoon = 0  and card.org_id = ls.org_id  --zzn 2019-03-27
+left join cc_leave_stock_goods lg on ls.tuid = lg.leave_stock_id and lg.org_id = ls.org_id --zzn 
+left join cc_goods cg on cg.tuid= lg.goodsid and  card.org_id = ls.org_id  --zzn
 where ls.org_id = ${def:org} and ls.status=2
 --zzn 2019-03-27 and (case when (select data_limit from hr_staff where userlogin = '${def:user}' and org_id = ${def:org})=1 then 1=1 else ls.createdby = '${def:user}' end)
 and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
