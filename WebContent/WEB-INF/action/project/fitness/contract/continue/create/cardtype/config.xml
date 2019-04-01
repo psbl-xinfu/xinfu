@@ -13,6 +13,7 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 	    <recordset id="query-cardtype.sql" source="sql" scope="transaction"/>
+	    <recordset id="query.sql" source="sql" scope="transaction"/>
 	</transaction>
 
 	<output>
@@ -22,6 +23,8 @@
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
 		<print mode="table" recordset="query-cardtype.sql" tag="cardtype-rows"/>
+		<print mode="form" recordset="query.sql" />
+		<print mode="form" recordset="_request" />
 	</output>
 
 </config>
