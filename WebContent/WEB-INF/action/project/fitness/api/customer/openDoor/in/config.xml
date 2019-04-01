@@ -2,12 +2,14 @@
 <config>
 
 	<summary>
-		入场刷卡
+		自动入场刷卡接口
 	</summary>
 	
 	<log>false</log>
 
 	<transaction>
+	    <!-- modified by leo 190329 自定义入场刷卡接口类-->
+		<!-- <classname>com.ccms.api.customer.OpenDoorIn</classname>-->
 		<classname>dinamica.GenericTableManager</classname>
 		<validator>true</validator>
 		<transaction>true</transaction>
@@ -22,7 +24,7 @@
 	<!-- 出入场记录 -->
 	<query>insert-inleft.sql</query>
 	<!-- 修改团操 -->
-	<query>update-classpreparestatus.sql</query>
+	<!-- <query>update-classpreparestatus.sql</query> -->
 	<!-- modified by leo 190328 自动入场后领手牌 -->
 	<!-- 手牌 -->
 	<!-- <query>update-cabinettemp.sql</query>  -->
@@ -41,7 +43,9 @@
 		<expiration>0</expiration>
 		<!-- modified by leo 190328 自动入场后打印小票 -->
 		<!-- <print mode="form" recordset="query-isprintcount.sql" /> -->
+		<!-- modified by leo 190329 配合OpenDoorIn类返回结果，输出改为接口JSON返回格式 -->
 		<print mode="form" recordset="_request" />
+		<!-- <print mode="form" recordset="_rsOpenDoorIn" /> -->
 	</output>
 
 </config>
