@@ -35,7 +35,7 @@ values
 	${fld:pay_detail},
 	${def:org},
 	(case when (select customertype from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org}) in (1,2) then 
-		(select customercode from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org}) else null
+		(select customercode from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org}) else ${seq:currval@seq_cc_guest}
 	end)
 )
 
