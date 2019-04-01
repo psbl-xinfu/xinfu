@@ -26,7 +26,7 @@ COMMENT ON COLUMN "cc_device"."code" IS '内部设备编号自动生成';
 COMMENT ON COLUMN "cc_device"."deviceid" IS '外部设备ID';
 COMMENT ON COLUMN "cc_device"."appid" IS '认证ID';
 COMMENT ON COLUMN "cc_device"."type" IS '类别：1：指静脉 2：二维码 3：刷卡 4：人脸';
-COMMENT ON COLUMN "cc_device"."status" IS '规格';
+COMMENT ON COLUMN "cc_device"."status" IS '状态';
 COMMENT ON COLUMN "cc_goods"."created" IS '创建人';
 COMMENT ON COLUMN "cc_goods"."createdby" IS '创建时间';
 COMMENT ON COLUMN "cc_goods"."updated" IS '修改人';
