@@ -12,6 +12,7 @@
     <parameter id="bcstarttime" type="varchar" required="true" label="预约时间" />
     <parameter id="bcendtime" type="varchar" required="true" label="结束时间" />
     <parameter id="guestgroupname" type="varchar" required="false" label="团体名称" />
+    <parameter id="guesttype" type="varchar" required="false" label="是不是散客" />
 </validator>
 
 

@@ -531,7 +531,8 @@
     			"&bcendtime="+bcendtime+
     			"&customertype="+getRadioValue("customertype")+
     			"&yyarr="+yyarr+
-    			"&guestgroupname="+$("#guestgroup option:selected").text()
+    			"&guestgroupname="+$("#guestgroup option:selected").text()+
+    			"&guesttype="+guesttype
     		});
         });
         
@@ -656,6 +657,7 @@
     		$("#pkvalue").val("");
     		var guest = $(this).val();
     		var guesttype = getRadioValue("customertype");
+    		
     		if(guesttype==""){
     			ccms.dialog.notice("请选择类型！", 2000);
     			return false;

@@ -14,6 +14,7 @@
     <parameter id="bcendtime" type="varchar" required="true" label="结束时间" />
    <parameter id="prepare_date" type="varchar" required="true" label="预约日期" />
    <parameter id="yyinputprice" type="varchar" required="false" label="总金额" />
+    <parameter id="guesttype" type="varchar" required="false" label="散客" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
    	on-error-label="该预约已付款，不能重复付款" id="normalmoneyspan" sql="nodup.sql" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 

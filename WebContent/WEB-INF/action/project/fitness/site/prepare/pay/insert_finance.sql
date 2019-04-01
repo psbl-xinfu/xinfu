@@ -1,4 +1,4 @@
-insert into cc_finance
+insert1 into cc_finance
 (
 	code,--主键
 	operatelogcode,
