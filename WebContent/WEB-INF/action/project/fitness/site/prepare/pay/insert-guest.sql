@@ -10,7 +10,7 @@ insert into cc_guest
 
 (
 	select 
-		${seq:nextval@seq_cc_guest},
+		'XG'||to_char({ts'${def:date}'},'yy')||lpad(${seq:nextval@seq_cc_guest}::varchar, 6, '0'),
 		${fld:customername},
 		${fld:mobile},
 		'${def:user}',

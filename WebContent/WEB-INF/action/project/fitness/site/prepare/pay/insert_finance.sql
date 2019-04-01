@@ -1,4 +1,4 @@
-insert1 into cc_finance
+insert into cc_finance
 (
 	code,--主键
 	operatelogcode,
@@ -34,8 +34,10 @@ values
 	${fld:deposit},
 	${fld:pay_detail},
 	${def:org},
-	(case when (select customertype from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org}) in (1,2) then 
-		(select customercode from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org}) else ${seq:currval@seq_cc_guest}
+	(case when 
+		${fld:guesttype}::int=1 then  (select code from cc_customer where code=${fld:pkvalue})
+		when ${fld:guesttype}::int=0 then (select code from cc_guest where code=${fld:pkvalue})
+		when ${fld:guesttype}::int=3 then ('XG'||to_char({ts'${def:date}'},'yy')||lpad(${seq:currval@seq_cc_guest}::varchar, 6, '0'))::varchar
 	end)
 )
 

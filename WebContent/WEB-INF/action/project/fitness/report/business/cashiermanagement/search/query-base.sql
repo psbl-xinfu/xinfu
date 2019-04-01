@@ -11,7 +11,9 @@ SELECT
 		ELSE '' END
 	) AS sv_salesname2	-- 销售
 	,finance.cardcode as vc_cardcode	-- 卡号
-	,cust.name AS vc_customername	-- 姓名
+	,(case when (select domain_value from t_domain where "namespace"='FinanceItem' and domain_value = finance.item::varchar)::int=36 and sd.customertype in (0,3) then (select name from cc_guest where code=finance.customercode)
+else cust.name
+ end) AS vc_customername	-- 姓名
 	,finance.type as vc_type
 	,(select domain_text_cn from t_domain where "namespace"='FinanceItem' and domain_value = finance.item::varchar) AS vc_typename	-- 收入类型
 	,(case when finance.type=1 then '会员卡' when finance.type=2 then '私教' when finance.type=3 then '杂项' end) as categories
@@ -37,6 +39,7 @@ LEFT JOIN hr_staff staff on finance.createdby = staff.userlogin and finance.org_
 LEFT JOIN cc_ptdef ptdef on finance.ptlevelcode = ptdef.code and finance.org_id = ptdef.org_id
 LEFT JOIN cc_operatelog ol on finance.operationcode = ol.pk_value and finance.org_id = ol.org_id and ol.opertype != '29' ---排除租柜押金
 LEFT JOIN cc_contract t on finance.operationcode = t.code and finance.org_id = t.org_id and t.status >= 2 
+LEFT join cc_siteusedetail sd on sd.customercode=finance.customercode and sd.org_id=finance.org_id
 WHERE /** 普通会籍只能查看自己的会员合同 */
 1=1
 and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 

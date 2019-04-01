@@ -30,7 +30,7 @@ values
 	${fld:sitecode},
 	(case when ${fld:bcorpc}='1' then 2 else ${fld:customertype} end),
 	${fld:guestgroup},--团体编号
-	(case when ${fld:customertype}!='3' then ${fld:pkvalue} else ${seq:currval@seq_cc_guest}::varchar end),
+	(case when ${fld:customertype}!='3' then ${fld:pkvalue} else ('XG'||to_char({ts'${def:date}'},'yy')||lpad(${seq:currval@seq_cc_guest}::varchar, 6, '0'))::varchar end),
 	${fld:customername},
 	${fld:mobile}, --
 	${fld:bcstarttime}, --预约时间
