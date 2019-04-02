@@ -18,6 +18,7 @@
 	<query>insert_operatelog.sql</query>
 	<query>update-moneycash.sql</query>
 	<query>update-moneygift.sql</query>
+	<query>insert_finance.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>

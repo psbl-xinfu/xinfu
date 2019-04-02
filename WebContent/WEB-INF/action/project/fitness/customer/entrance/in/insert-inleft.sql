@@ -17,7 +17,7 @@ values
 (
 	${seq:nextval@seq_cc_inleft},
 	${fld:cust_code},
-	(select tuid from cc_cabinettemp where cabinettempcode = ${fld:rudge_code} and org_id = ${fld:unionorgid}),
+	(select tuid from cc_cabinettemp where cabinettempcode = ${fld:rudge_code} and org_id = ${def:org}),
 	${fld:cardcode},
 	{ts'${def:timestamp}'},
 	'${def:user}',

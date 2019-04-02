@@ -15,8 +15,19 @@ from
  	get_arr_value(c.relatedetail,1) as card_code,
  	m.name,
  	m.mobile,
- 	(case when isaudit=1 then '未审批' when isaudit=3 then '审批拒绝' 
- 	when c.status = 1 then '未付款' when c.status =2 then '已付款' end)::varchar as i_status, --状态
+ 	(case when (c.type = 7 OR c.type = 9 OR c.type = 11) and c.status =1 and c.isaudit=1 then '未审批' when (c.type = 7 OR c.type = 9 OR c.type = 11) and c.status =1 and c.isaudit=3 then '审批拒绝' 
+ 	when (c.type = 7 OR c.type = 9 OR c.type = 11) and c.status = 1 then '未付款' when c.contracttype!=3 and c.status =2 and c.normalmoney=c.factmoney then  '已付款'
+ when  c.contracttype!=3 and COALESCE(c.normalmoney, 0) = 
+ COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
+		where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 ), 0)
+ then '已还款'
+ when c.contracttype!=3 and  COALESCE(c.normalmoney, 0) != COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
+		where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 ), 0)
+then '未还款'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) != COALESCE(c.factmoney, 0) then '未付清'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) = COALESCE(c.factmoney, 0) then '已付清'
+	
+ 	end)::varchar as i_status, --状态
 	get_arr_value(c.relatedetail,2) as ctcode,
 	get_arr_value(c.relatedetail,4) as cardprice,--原卡单价
 	get_arr_value(c.relatedetail,7) as ncardname, --新卡名称
@@ -56,4 +67,4 @@ order by (case when c.updated is null then c.createdate else c.updated end) desc
 ) as t
 left join cc_cardtype ct on t.ctcode = ct.code and t.org_id = ct.org_id
 
-
+order by t.code desc

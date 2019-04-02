@@ -10,7 +10,11 @@
      <parameter id="times" type="integer" required="true" label="课程时长" maxlen="128" />
      <parameter id="remark" type="varchar" required="false" label="备注" maxlen="128" />
      <parameter id="spacing" type="integer" required="true" label="预约间隔" maxlen="128" />
+      <parameter id="isgroup" type="integer" required="true" label="是否是小团体课" maxlen="128" />
 	<!-- 体验只能有一张 -->
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
 		on-error-label="已有体验课,不可以修改" id="reatetype" sql="norep-ptdef.sql" />
+	<!-- 课类型不可以修改 -->>
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="课类型不可以修改" id="isgroup" sql="norep-ptdefgroup.sql" />
 </validator>

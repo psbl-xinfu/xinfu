@@ -5,6 +5,7 @@ insert into cc_guest
 	sex,
 	name,
 	mobile,
+	age, --zzn190319
 	org_id,
 	created,
 	mc
@@ -16,8 +17,9 @@ insert into cc_guest
 		${fld:sex},
 		${fld:guest},
 		${fld:mobile},
+		0,--zzn190319
 		${def:org},
 		{ts '${def:timestamp}'},
-		'${def:user}'
+		${fld:cc_mc}
 	from dual where ${fld:guest_code} is null
 )

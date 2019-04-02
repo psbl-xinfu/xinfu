@@ -19,7 +19,7 @@ WHERE EXISTS(
 ) 
 AND  EXISTS(
 	SELECT 1 FROM cc_ptrest t 
-	WHERE t.customercode = c.code AND t.ptleftcount > 0 AND t.pttype = 5 AND t.org_id = c.org_id 
+	WHERE t.customercode = c.code AND t.ptleftcount >= 0 AND t.pttype = 5 AND t.org_id = c.org_id 
 ) 
 and c.pt='${def:user}'
 AND c.org_id = ${def:org}

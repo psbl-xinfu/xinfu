@@ -10,7 +10,11 @@ SELECT
 			(SELECT hs.name FROM hr_staff hs WHERE hs.userlogin = t.salemember1 and hs.org_id = t.org_id) 
 		ELSE '' END
 	) AS sv_salesname2	-- 销售
-	,finance.cardcode as vc_cardcode	-- 卡号
+	,(case when (select contracttype from cc_contract where code=(
+	select pk_value from cc_operatelog where code=finance.operatelogcode 
+ ))=3 then (select code from cc_card where contractcode= (select relatecode from cc_contract where code=(
+	select pk_value from cc_operatelog where code=finance.operatelogcode 
+ )  limit 1 )) else finance.cardcode end) as vc_cardcode	-- 卡号
 	,cust.name AS vc_customername	-- 姓名
 	,finance.type as vc_type
 	,(select domain_text_cn from t_domain where "namespace"='FinanceItem' and domain_value = finance.item::varchar) AS vc_typename	-- 收入类型

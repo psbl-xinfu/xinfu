@@ -12,7 +12,9 @@ from
  	get_arr_value(c.relatedetail,1) as card_code,
  	m.name,
  	m.mobile,
- 	(case when isaudit=1 then '未审批' when isaudit=3 then '审批拒绝' 
+ 	(case 
+ 	--退卡合同不需要审批 zzn 2019-03-28
+ 	--when isaudit=1 then '未审批' when isaudit=3 then '审批拒绝' 
  	when c.status = 1 then '未付款' when c.status =2 then '已付款' end)::varchar as i_status, --状态
  	round(normalmoney::NUMERIC(10, 2), 2) as normalmoney,
  	c.remark,

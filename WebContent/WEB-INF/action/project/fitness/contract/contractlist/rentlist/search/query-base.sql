@@ -11,8 +11,22 @@
 	c.code, --合同编号
  	m.name,
  	m.mobile,
- 	(case when isaudit=1 then '未审批' when isaudit=3 then '审批拒绝' 
- 	when c.status = 1 then '未付款' when c.status =2 then '已付款' end)::varchar as i_status, --状态
+ 	 	(case
+ 	 	--租柜合同不需要审批 zzn 2019-03-28
+ 	 	--when c.type = 1 and c.status =1 and c.isaudit=1 then '未审批'
+ 	 	--when c.type = 1 and c.status =1 and c.isaudit=3 then '审批拒绝' 
+ 	when c.type = 1 and c.status = 1 then '未付款' when c.contracttype!=3 and c.status =2 and c.normalmoney=c.factmoney then  '已付款'
+ when  c.contracttype!=3 and COALESCE(c.normalmoney, 0) = 
+ COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
+		where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 ), 0)
+ then '已还款'
+ when c.contracttype!=3 and  COALESCE(c.normalmoney, 0) != COALESCE( (select (ct.factmoney+c.factmoney) from cc_contract ct 
+		where ct.relatecode = c.code and ct.org_id = c.org_id and ct.status =2 ), 0)
+then '未还款'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) != COALESCE(c.factmoney, 0) then '未付清'
+	when c.contracttype=3 and COALESCE(c.normalmoney, 0) = COALESCE(c.factmoney, 0) then '已付清'
+	
+ 	end)::varchar as i_status, --状态
  	(select cabinetcode from cc_cabinet where tuid::varchar =get_arr_value(c.relatedetail,1) and org_id = ${def:org}) as net_code,--柜子编号
  	round(factmoney::NUMERIC(10, 2), 2) as factmoney,
  	get_arr_value(c.relatedetail,3) as net_start,--柜子开始
@@ -50,6 +64,4 @@ and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else c.salemember = '${def:user}' or c.salemember1 = '${def:user}' end)
 order by (case when c.updated is null then c.createdate else c.updated end) desc,c.createtime desc
-
-
 

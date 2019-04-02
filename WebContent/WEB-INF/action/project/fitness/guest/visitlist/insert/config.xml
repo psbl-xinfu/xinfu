@@ -13,10 +13,12 @@
 		<transaction>true</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
-
+	
+	<query>update-guest.sql</query>
 	<query>insert-guest.sql</query>
 	<query>insert-guest_visit.sql</query>
 	<query>insert-inleft.sql</query>
+	
 	
 	<output>
 		<classname>dinamica.GenericOutput</classname>

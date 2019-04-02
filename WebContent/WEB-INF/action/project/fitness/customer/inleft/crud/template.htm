@@ -63,9 +63,6 @@ ${inc:/action/project/fitness/home/pub}
 							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/btn/shoupaigenghuan.svg" title="更换手牌" alt=""id="updatechangecabinit">
 							</li>
-							<li>
-								<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印" alt=""id="dayin">
-							</li>
 						</nav>
 					</div>
 				</div>				
@@ -80,7 +77,7 @@ ${inc:/action/project/fitness/home/pub}
 								<th>卡类型</th>
 							    <th>姓名</th>		
 							    <th>手牌号</th>
-								<th>会籍</th>
+								<th>操作人</th>
 							    <th>入场日期</th>
 							    <th>签到人数</th>
 							    <th>入场时间</th>
@@ -242,7 +239,7 @@ $(document).ready(function() {
 			var code2 = $("input[name=inleftcode]:checked").attr("code2");
 			if(code2=="1"){
 				var code3 = $("input[name=inleftcode]:checked").attr("code3");
-				ccms.dialog.open({url : "${def:context}/${def:actionroot}/updatechangecabinit?code="+obthis+"&cabinettempcode="+code3, width:500, height:395});
+				ccms.dialog.open({url : "${def:context}${def:actionroot}/updatechangecabinit?code="+obthis+"&cabinettempcode="+code3, width:500, height:395});
 			}else{
 				ccms.dialog.alert("入场未使用手牌，不能更换手牌！");
 				return false;

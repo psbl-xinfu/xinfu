@@ -1,4 +1,4 @@
-/* 租柜押金 */
+/* 租柜押金 zzn 这个插入的记录是对的，只是押金*/
 INSERT INTO cc_operatelog(
 	code
 	,opertype

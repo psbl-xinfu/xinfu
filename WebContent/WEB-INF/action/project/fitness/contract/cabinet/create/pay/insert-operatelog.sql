@@ -1,4 +1,4 @@
-/* 租柜 */
+/* 租柜 zzn包含押金*/
 INSERT INTO cc_operatelog(
 	code
 	,opertype

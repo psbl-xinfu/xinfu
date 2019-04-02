@@ -71,7 +71,7 @@
     	 var userid = "";
     	homecust();
     	<info>
-    	$('#sex').before('${fld:name}');
+    	$('#sex').before('<label style="width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:name}">${fld:name}</label>');
     	$('#sex').text('${fld:sex}');
     	$('#mobile').text('${fld:mobile}');
     	

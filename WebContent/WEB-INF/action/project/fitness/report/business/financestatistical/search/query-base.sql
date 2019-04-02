@@ -11,9 +11,15 @@ select
 from cc_finance
 where org_id = ${def:org}
 ${filter}
+--考虑通店情况 zzn 2019-03-28
+--and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
+--			where hs.org_id = ${def:org} and hss.userlogin = '${def:user}' and hs.data_limit = 1)
+--			then 1=1 else salesman = '${def:user}' end)
 and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
-			where hs.org_id = ${def:org} and hss.userlogin = '${def:user}' and hs.data_limit = 1)
+			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
+			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else salesman = '${def:user}' end)
+
 and type is not null and item is not null
 GROUP BY type,item
 ${orderby}

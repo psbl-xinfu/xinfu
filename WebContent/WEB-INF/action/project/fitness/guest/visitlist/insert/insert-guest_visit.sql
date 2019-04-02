@@ -19,7 +19,8 @@ values
 	else ${fld:guest_code} end),
 	'${def:date}',
 	'${def:time}',
-	'${def:user}',
+	--'${def:user}',
+	${fld:cc_mc},--zzn190319
 	1,
 	${fld:posptid},
 	'${def:user}',

@@ -1,1 +1,1 @@
-select 1 from cc_cabinet where cabinetcode=${fld:startcode_r} 
+select 1 from cc_cabinet where cabinetcode=${fld:startcode_r} and org_id=${def:org}

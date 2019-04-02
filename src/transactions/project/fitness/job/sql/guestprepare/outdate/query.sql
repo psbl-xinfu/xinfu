@@ -10,15 +10,27 @@ WITH cnfg AS (
 		),'30')::INTEGER as outday
 	FROM dual
 ) 
-SELECT 
-	t.code
-	,t.org_id
-	,t.mc 
+SELECT   
+	t.code AS guestcode, NULL::VARCHAR AS customercode, t.org_id, t.mc 
+
 FROM cc_guest t 
 WHERE t.org_id = ${fld:org_id} AND t.status = 1 
 AND EXISTS(SELECT 1 FROM cc_mcchange m WHERE m.guestcode = t.code AND m.org_id = t.org_id AND m.status = 1) 
 AND (
 	(SELECT cg.outday FROM cnfg cg) < '${def:date}'::date - (
 		SELECT max(m.created) FROM cc_mcchange m WHERE m.guestcode = t.code AND m.org_id = t.org_id AND m.status = 1
+	)::date 
+)
+union  --zzn修改增加没有分配过的资源的过期；
+
+SELECT 
+	t.code AS guestcode, NULL::VARCHAR AS customercode, t.org_id, t.mc 
+FROM cc_guest t 
+WHERE t.org_id = '1038' AND t.status = 1 
+AND not EXISTS(SELECT 1 FROM cc_mcchange m WHERE m.guestcode = t.code AND m.org_id = t.org_id AND m.status = 1) 
+
+AND (
+	(SELECT cg.outday FROM cnfg cg) < '${def:date}'::date - (
+		t.created
 	)::date 
 )

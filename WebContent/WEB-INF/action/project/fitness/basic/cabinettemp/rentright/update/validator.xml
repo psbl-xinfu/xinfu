@@ -2,5 +2,11 @@
 <validator onerror="/action/ccms/validate">
     <parameter id="cabinetcode2_r" type="varchar" required="true" label="cabinetcode2_r" maxlen="32" />
     <parameter id="status2_r" type="integer" required="true" label="status2_r" maxlen="32" />
-    <parameter id="physics_status_r" type="integer" required="true" label="status2_r" maxlen="32" />
+    <parameter id="physics_status_r" type="integer" required="true" label="physics_status_r" maxlen="32" />
+    <parameter id="cab_tuid" type="integer" required="true" label="cab_tuid" maxlen="32" /><!-- zzn190320 -->
+    <!-- 姓名需要验证是否重复 zzn190320 -->
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="cabinetcode2_r" sql="norep.sql" />
+   
+    
 </validator>

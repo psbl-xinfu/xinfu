@@ -12,7 +12,7 @@ $("#ptcount").val("${fld:ptcount}");
 $("#daycount").val("${fld:daycount}");
 
 setSelectValue($("#cardcode"), "${fld:cardcode}");
-setSelectValue($("#cardtype"), "${fld:cardtype}");
+$("#ctcode").val("${fld:cardtype}")//给文本框赋值  zyb 2019/4/1
 $("#starttypespan").text("${fld:starttypename@js}");
 
 setSelectValue($("#salemember"), "${fld:salemember}");

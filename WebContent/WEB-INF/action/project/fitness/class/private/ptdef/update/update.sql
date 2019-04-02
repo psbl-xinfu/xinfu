@@ -7,6 +7,7 @@ update cc_ptdef set
   	is_delay= ${fld:is_delay},
 	remark=${fld:remark},
 	times=${fld:times},
-	spacing=${fld:spacing}
+	spacing=${fld:spacing},
+	isgroup=${fld:isgroup}
 where
 	code=${fld:code} and org_id = ${def:org}

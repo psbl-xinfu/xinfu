@@ -18,6 +18,8 @@ ${inc:/action/project/fitness/home/pub}
 					<form id="addForm" name="addForm" method="post">
 					<input type="hidden" id="cc_code" name="cc_code" value=""/>
 					<input type="hidden" id="cus_code" name="cus_code" value=""/>
+					<input type="hidden" id="userlogin" name="userlogin" value=""/>
+					<input type="hidden" id="user_id" name="user_id" value=""/>
 			    	<aside style="float: left">
 						<p>
 							<img id="headpic" src="${def:context}/js/project/fitness/image/SVG/170X220.svg">
@@ -476,6 +478,7 @@ $(document).ready(function() {
 		$("#skill_name").val("${def:user}");
 	}
 	
+	
 	selectInit($("#contract_btn"));
 	$('#cc_mc').val("${fld:period_day}");
 	$('#cc_mc').attr('disabled',true);
@@ -714,18 +717,20 @@ function edit(){
 }
 
 function update(){
-	var uri="${def:context}/action/project/fitness/customer/memberinfo/update";
+	var xmobile=$("#cc_mobile").val();
+	if(ymobile!=xmobile){
+		var uri="${def:context}/action/project/fitness/customer/memberinfo/updatemobile";//修改手机号
+	}else{
+		var uri="${def:context}/action/project/fitness/customer/memberinfo/update";//不修改手机号
+	}
+	
 	   ajaxCall(uri,{
 		   	method: "post",
 		   	form:"addForm",
 		   	progress: false,
 		   	dataType: "script",
 		   	success: function() {
-		   		ccms.dialog.alert("修改成功！")
-		   		$('#modalAddnew1').modal('hide');
-		   		ccms.util.clearForm('addForm');
-		   		search.searchData(1);
-		   		$('#modalAddnew1').prop('scrollTop','0');
+		   		
 		   		}
 		   	}); 
 }

@@ -5176,7 +5176,7 @@ div.addTop .other-full .other-half {
     -ms-flex: none;
     flex: none;
     width: 100%;
-    background: rgba(40, 46, 52, 0.8);
+    background: rgba(40, 46, 52, 1.8);
     height: 100%;
     display: -webkit-flex;
     display: -ms-flexbox;

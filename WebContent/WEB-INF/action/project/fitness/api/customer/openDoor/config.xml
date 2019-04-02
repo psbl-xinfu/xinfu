@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		闸机入场接口
+	</summary>
+
+	<log>false</log>
+	<output>
+		<classname>com.ccms.api.customer.OpenDoor</classname>
+	</output>
+	<on-exit return-code="0" forward-to="/action/project/fitness/api/customer/openDoor/in"/>
+	<on-exit return-code="1" forward-to="/action/project/fitness/api/customer/openDoor/out"/>
+
+</config>

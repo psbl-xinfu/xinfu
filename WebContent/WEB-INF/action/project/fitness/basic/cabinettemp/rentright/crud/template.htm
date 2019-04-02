@@ -27,13 +27,13 @@
 					<nav>
 						<li >
 							<label style="width: 120px;">区域：</label>
-							<div class="my-selected">
-							<select  id="group_r" name="group_r"class="normal-select"> 
+							<!--<div class="my-selected">-->
+							<select  id="group_r" name="group_r" class="normal-select"> 
 								<group-rows>
 									<option  code="${fld:groupcode}" value="${fld:tuid}">${fld:groupname}</option>
 								</group-rows>
 							</select>
-							</div>
+							<!--  </div>-->
 						</li>
 						
 						<li >
@@ -75,7 +75,8 @@
 					<span class="header-close " id="guanbi2"></span>
 				</header>
 				<div class="b-i-main">
-					<form id="formStatus_r" name="formStatus_r" method="post">
+					<form id="formStatus_r" name="formStatus_r" method="post"> 
+					<input type="hidden"  id="cab_tuid" name="cab_tuid" value="" maxlength="80"  readonly="readonly"/> <!-- zzn190320,传手牌号tuid -->
 					<nav>
 						<li >
 							<label style="width: 120px;">区域：</label>
@@ -83,7 +84,7 @@
 						</li>
 						<li >
 							<label>手牌编号：</label>
-							<input type="text"  id="cabinetcode2_r" name="cabinetcode2_r" value="" maxlength="80" readonly="readonly" />							
+							<input type="text"  id="cabinetcode2_r" name="cabinetcode2_r" value="" maxlength="80"  />							
 						</li>
 						<li >
 							<label style="width: 120px;">状态：</label>
@@ -183,7 +184,7 @@
 
 var search2=null;
 $(document).ready(function() {
-	selectInit($("#group_r,#status2_r,#physics_status_r"));
+	searchSelectInit($("#group_r,#status2_r,#physics_status_r"));
 	$("#guanbi2,#guanbi1").on("click",function(){
 		$("#modalAddnew_r").modal('hide');
 		$("#modaledit_r").modal('hide');
@@ -213,7 +214,7 @@ $(document).ready(function() {
 		deletes2();
 	}); 
 	
-	$("#group_r").unbind().on("change",function(){
+	$("#group_r").change().on("change",function(){
 		$("#groupcode_r").text($("#group_r option:selected").attr('code'))
 	}); 
 	//搜索
@@ -342,14 +343,14 @@ function deletes2(){
 
 function insertss(){
 	var divobj = $("#checkedNodesDiv");
-	var startcode= parseInt($('#startcode_r').val());
-	var codenum=  parseInt($('#codenum_r').val());
-	var codeinterval=  parseInt($('#codeinterval_r').val());
-	var fillnum=  parseInt($('#fillnum_r').val());
+	var startcode= parseInt($('#startcode_r').val());//起始编号
+	var codenum=  parseInt($('#codenum_r').val());//手牌数量
+	var codeinterval=  parseInt($('#codeinterval_r').val());//编号间隔
+	var fillnum=  parseInt($('#fillnum_r').val());//填充位数
 	var price =  parseInt($('#price_r').val());
 	
 	var front=$("#group_r option:selected").attr('code');
-	var groupcode= $('#group_r').val()
+	var groupcode= $('#group_r').val();//区域
 	var codes = new Array();　
 	for(var i=0;i<codenum;i++){
 		codes.unshift(front+(startcode+i*codeinterval))
@@ -357,11 +358,12 @@ function insertss(){
 	
 	for(var i=0;i<codes.length;i++){
 	 		var codeslen=codes[i].toString().length
-			if(codeslen<fillnum){
+			if(codeslen<=fillnum){  //zzn190320 增加了等于的判断
 				var head=codes[i].substring(0,1);
 				codes[i]=codes[i].substring(1);
 				codes[i]=head+lpad(codes[i],fillnum,'0');
 			}
+
 		}  
 	
 	divobj.empty();

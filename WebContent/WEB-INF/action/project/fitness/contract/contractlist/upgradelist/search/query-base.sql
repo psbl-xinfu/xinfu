@@ -12,7 +12,10 @@ from
  	get_arr_value(c.relatedetail,1) as card_code,--卡号
  	m.name,
  	m.mobile,
-	(case when isaudit=1 then '未审批' when isaudit=3 then '审批拒绝' 
+	(case 
+	-- 升级合同不需要审批 zzn 2019-03-28
+	--when isaudit=1 then '未审批' 
+	--when isaudit=3 then '审批拒绝' 
  	when c.status = 1 then '未付款' when c.status =2 then '已付款' end)::varchar as i_status, --状态
 	get_arr_value(c.relatedetail, 14) as ctype,
  	get_arr_value(c.relatedetail,7) as ncardname,--现在卡名称
