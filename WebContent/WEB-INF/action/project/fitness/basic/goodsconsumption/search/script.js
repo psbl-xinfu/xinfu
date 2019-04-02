@@ -5,6 +5,7 @@
 		"tuid":"${fld:tuid}",
 		"custname":"${fld:custname@js}",
 		"mobile":"${fld:mobile@js}",
+		"standard":"${fld:standard@js}",
 		"cardcode":"${fld:cardcode@js}",
 		"factmoney":"${fld:factmoney}",
 		"created":"${fld:created@yyyy-MM-dd HH:mm:ss}",
