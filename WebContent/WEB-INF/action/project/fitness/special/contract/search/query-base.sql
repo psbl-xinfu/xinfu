@@ -1,5 +1,7 @@
  SELECT
- 	concat('<input type="radio" name="contractcode" value="', c.code, '" code="', r.code, '" />') AS radiolink,
+  --zzn 增加了合同类型 
+  --concat('<input type="radio" name="contractcode" value="', c.code, '" code="', r.code, '" />') AS radiolink,
+  	concat('<input type="radio" name="contractcode" value="', c.code, '" code="', r.code, '" contracttype="',c.contracttype,'" contype="',c.type ,'" />') AS radiolink,
 	null::varchar as vc_code,	/** 卡号 */
 	c.code AS vc_contractcode,
 	r.name as vc_name,
@@ -27,7 +29,9 @@
 		WHEN c.type = 10 THEN '转卡合同' 
 		WHEN c.type = 1 OR c.type = 12 THEN '租柜合同' 
 		WHEN c.type = 2 THEN '私教合同' 
-		WHEN c.type = 4 THEN '退卡合同' END) AS vc_contracttype
+		WHEN c.type = 4 THEN '退卡合同' END) AS vc_contracttype,
+	c.contracttype,
+	c.type
 FROM cc_contract c 
 INNER JOIN cc_customer r on c.customercode = r.code
 WHERE c.status >= 2 and c.org_id = ${def:org}
