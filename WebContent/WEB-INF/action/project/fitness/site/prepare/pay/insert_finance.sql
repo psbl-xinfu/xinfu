@@ -20,8 +20,8 @@ insert into cc_finance
 values 
 (
 	${seq:nextval@seq_cc_finance},	--主键
-	${seq:currval@seq_cc_operatelog},
-	concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}),--操作主键
+	concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_siteusedetail}),--操作主键
+	concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_operatelog}),
 	'${def:user}',--操作人
 	3,--操作类型
 	36,--chuzhi

@@ -15,12 +15,12 @@ values
 	${seq:nextval@seq_cc_message},	
 	'${def:user}',
 	'${def:user}',
-	(case when (select customertype from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org})=1 then 
-		(select customercode from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org}) else null
+	(case when (select customertype from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_siteusedetail}) and org_id = ${def:org})=1 then 
+		(select customercode from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_siteusedetail}) and org_id = ${def:org}) else null
 	end),
-	(case when (select customertype from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org})=1 then 
+	(case when (select customertype from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_siteusedetail}) and org_id = ${def:org})=1 then 
 		(select name from cc_customer where code = 
-		(select customercode from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}) and org_id = ${def:org}) and org_id = ${def:org}) else null
+		(select customercode from cc_siteusedetail where code = concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_siteusedetail}) and org_id = ${def:org}) and org_id = ${def:org}) else null
 	end),
 	concat('场地付款支付押金金额：', ${fld:deposit}),
 	0,

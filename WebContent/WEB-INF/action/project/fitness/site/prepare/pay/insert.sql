@@ -26,7 +26,7 @@ insert into cc_siteusedetail
 )
 values
 (
-	concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:nextval@seq_cc_siteusedetail}),
+	concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_siteusedetail}),
 	${fld:sitecode},
 	(case when ${fld:bcorpc}='1' then 2 else ${fld:customertype} end),
 	${fld:guestgroup},--团体编号
