@@ -1,12 +1,11 @@
-select 
-  	concat('<input type="radio" name="cardcode" value="', card.code,'" />') AS radiolink,
-	card.code as cardcode,
+select   	
+    card.code as cardcode,
     cust.name as cust_name,
     (select name from cc_cardtype where code = card.cardtype and org_id = ${def:org}) as cardtype,
     card.startdate as cardstartdate,
     card.enddate as cardenddate,
     get_arr_value(p.relatedetail,1) as beforedate,--延期前截止日期
-    card.created as cardcreated,--办卡日期
+    to_char(card.created,'YYYY-MM-DD') as cardcreated,--办卡日期
     get_arr_value(p.relatedetail,2) as adjourndays,--延期天数
     (select name from hr_staff where userlogin = cust.mc) as mc,
     concat(p.createdate, ' ', p.createtime) as createdate,
@@ -26,6 +25,8 @@ from cc_operatelog p
 left join cc_card card on get_arr_value(p.relatedetail,0) = card.code and p.org_id = card.org_id
 left join cc_customer cust on p.customercode = cust.code and p.org_id = cust.org_id
 where opertype = '05' and p.org_id = ${def:org} and card.isgoon = 0
-${filter}
-${orderby}
-
+and(
+	card.code = ${fld:cardcode}
+	or  
+		card.code in (select cardcode from cc_cardcode where incode =  ${fld:cardcode} and org_id =  ${def:org})	
+   )
