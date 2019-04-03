@@ -2,25 +2,33 @@
 <config>
 
 	<summary>
-		停卡
 	</summary>
-	
-	<log>true</log>
 
-    <transaction>
-		<classname>dinamica.GenericTransaction</classname>
+	<log>false</log>
+	
+	<!-- word模板路径 -->
+	<doc-template>/erpclubdoc/template/member_chongzhi.docx</doc-template>
+	<!-- 模板中参数列表 ，多个用英文分号隔开-->
+	<params>code;recharge_type;customercode;refund;cust_name;factmoney;givemoney;moneycash;remark;staff;created;vc_club;chargemoney</params>
+	<!-- 参数对应的字段列表 -->
+	<fields>code;recharge_type;customercode;refund;name;factmoney;givemoney;moneycash;remark;createdby;created;vc_club;chargemoney</fields>
+
+	<transaction>
+		<classname>transactions.project.fitness.doc.WordTemplateReplace</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-	    <recordset id="query.sql" source="sql" scope="transaction" />
 	</transaction>
 
+	<on-error>/action/project/fitness/util/error/alert</on-error>
+	
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-		<template>template.htm</template>
+		<template>script.js</template>
 		<set-http-headers>true</set-http-headers>
-		<content-type>text/html</content-type>
-		<print mode="form" recordset="query.sql"/>
-		<print mode="form" recordset="_request" />
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_rsdoc" />
 	</output>
+
 </config>

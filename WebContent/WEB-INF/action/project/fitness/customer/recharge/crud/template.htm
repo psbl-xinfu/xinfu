@@ -491,11 +491,18 @@ $(document).ready(function() {
    $("#print_ticket_btn").click(function(){
 	   var obthis = getCheckboxValue("recharge");
 		if(obthis!= ""){
-			ccms.dialog.open({url:"${def:context}/action/project/fitness/print/ticket/rechargeticket?pk_value="+obthis, id:'dyxp1', width:0, height:0});
+			var url = "${def:context}/action/project/fitness/print/ticket/rechargeticket?pk_value="+obthis;
+			ajaxCall(url,{
+				method : "get",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
 		}else{
 			ccms.dialog.alert("请选择!");
 		}
-   });
+   })
    
    selectInit($("#moneytype,#recharge_type"))
 });
