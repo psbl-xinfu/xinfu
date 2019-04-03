@@ -14,7 +14,6 @@ left join cc_customer cust on cust.code=s.customercode and s.org_id=cust.org_id
 where
   1=1 
   and s.org_id = ${def:org}
-  and s.isguazhang=1
 ${filter} 
 order by s.created desc
 

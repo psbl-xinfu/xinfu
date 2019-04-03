@@ -4,6 +4,7 @@ select
 		not exists(select 1 from cc_config c where c.org_id = ${def:org} and c.category=config.category) 
 		then (select org_id from hr_org where pid is null or pid = 0) else ${def:org} end)) as remak,
 	card.code as vc_code,--卡号
+	cust.name as vc_name,--会员姓名
 	cab.type as i_type,
 	ct.name as cardtype,--卡类型
 	inleft.nowcount as old_count,--原有次数
@@ -18,6 +19,7 @@ from  cc_inleft inleft
 LEFT JOIN cc_card card on inleft.cardcode=card.code and inleft.customercode = card.customercode
 LEFT JOIN cc_cabinettemp cab on cab.cardcode=card.code and cab.customercode = card.customercode
 LEFT JOIN cc_cardtype ct on ct.code=card.cardtype  and ct.org_id = card.org_id
+left join cc_customer cust on cust.code = inleft.customercode
 WHERE
 inleft.code=${fld:inleftcode}
   and	inleft.cardcode = ${fld:pk_value} and card.isgoon =0 and card.org_id = ${fld:org_id}

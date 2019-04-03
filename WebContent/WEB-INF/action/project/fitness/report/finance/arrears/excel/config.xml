@@ -22,8 +22,8 @@
 	</output>
 
 
-	<excel recordset="query-base.sql" sheetname="会员挂账记录" filename="会员挂账记录.xls" header-background="true">
-		<col id="code" label="会员卡号" />
+	<excel recordset="query-base.sql" sheetname="单次消费记录" filename="单次消费记录.xls" header-background="true">
+		<col id="code" label="会员编号" />
 		<col id="cust_name" label="姓名" />
 		<col id="name" label="项目" />
 		<col id="payment" label="支付方式" />

@@ -239,14 +239,14 @@ $(document).ready(function() {
 
 	//查看 zzn 2019-04-03
 	$("#look").unbind().on("click", function(){
-		var code = getCheckboxValue("cardcode");
+		var code = getCheckboxValue("code");
 
 		if(code == ""){
 			ccms.dialog.notice("请选择！");
 			return false;
 		}else{
 			//var cardcode=$('input[name="cardcode"]:checked').attr("value");
-			ccms.dialog.open({url : "${def:context}${def:actionroot}/form?cardcode="+code, height: 500});
+			ccms.dialog.open({url : "${def:context}${def:actionroot}/form?logcode="+code, height: 500});
 		}
 	});	
 	

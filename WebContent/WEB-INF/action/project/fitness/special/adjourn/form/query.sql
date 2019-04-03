@@ -1,4 +1,4 @@
-select   	
+select 	
     card.code as cardcode,
     cust.name as cust_name,
     (select name from cc_cardtype where code = card.cardtype and org_id = ${def:org}) as cardtype,
@@ -22,11 +22,14 @@ select
     p.remark,
     get_arr_value(p.relatedetail,4) as adjourndate
 from cc_operatelog p
-left join cc_card card on get_arr_value(p.relatedetail,0) = card.code and p.org_id = card.org_id
+left join cc_card card on (select get_arr_value(p.relatedetail,0)) = card.code and p.org_id = card.org_id
 left join cc_customer cust on p.customercode = cust.code and p.org_id = cust.org_id
-where opertype = '05' and p.org_id = ${def:org} and card.isgoon = 0
-and(
-	card.code = ${fld:cardcode}
-	or  
-		card.code in (select cardcode from cc_cardcode where incode =  ${fld:cardcode} and org_id =  ${def:org})	
-   )
+where opertype = '05' 
+and p.code = ${fld:logcode}
+and p.org_id = ${def:org} and card.isgoon = 0
+
+--and(
+--	card.code = p.cardcode
+--	or  
+--		card.code in (select cardcode from cc_cardcode where incode =  ${fld:cardcode} and org_id =  ${def:org})	
+--   )

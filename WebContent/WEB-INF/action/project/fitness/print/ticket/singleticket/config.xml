@@ -7,11 +7,11 @@
 	<log>false</log>
 	
 	<!-- word模板路径 -->
-	<doc-template>/erpclubdoc/template/gouwuticket.docx</doc-template>
+	<doc-template>/erpclubdoc/template/singleitem_ticket.docx</doc-template>
 	<!-- 模板中参数列表 ，多个用英文分号隔开-->
-	<params>vc_club;vc_number;gouwu_xiaopiao;gouwu_jianshu;f_money;paydetail;vc_auser;vc_ouser;pay_time;remark;vc_name</params>
+	<params>vc_club;vc_number;f_price;f_amount;f_money;paydetail;cust_name;vc_auser;vc_ouser;pay_time;vc_beizhu;vc_name;jieshuyu</params>
 	<!-- 参数对应的字段列表 -->
-	<fields>vc_head;bills_code;gouwu_xiaopiao;gouwu_jianshu;f_money;paydetail;vc_auser;vc_ouser;c_adate;vc_beizhu;vc_name</fields>
+	<fields>vc_head;bills_code;f_price;f_amount;f_money;i_paytype;cust_name;vc_auser;vc_ouser;c_adate;vc_beizhu;vc_name;wish</fields>
 
 	<transaction>
 		<classname>transactions.project.fitness.doc.WordTemplateReplace</classname>

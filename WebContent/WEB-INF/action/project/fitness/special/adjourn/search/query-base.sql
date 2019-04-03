@@ -1,5 +1,5 @@
-select 
-  	concat('<input type="radio" name="cardcode" value="', card.code,'" />') AS radiolink,
+select
+  	concat('<input type="radio" name="code" value="', p.code,'" />') AS radiolink,
 	card.code as cardcode,
     cust.name as cust_name,
     (select name from cc_cardtype where code = card.cardtype and org_id = ${def:org}) as cardtype,
