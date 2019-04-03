@@ -97,6 +97,6 @@ from cc_operatelog op
 where op.customercode=${fld:id} and op.org_id='${def:org}'
 and to_char(op.createdate, 'yyyy-MM')>=${fld:startdate} 
 and to_char(op.createdate, 'yyyy-MM')<=${fld:enddate} 
-and op.opertype='55'
+and op.opertype in ('59','60','55')-- 商品、单次消费
 order by createdate desc,createtime desc
 

@@ -4,6 +4,7 @@ select
 	cg.goods_name as tuid,--zzn 增加了商品名称
 	cust.name as custname,
 	cust.mobile,
+	cg.standard, --zzn 增加了商品规格
 	card.code as cardcode,
 	ls.factmoney,
 	ls.created,

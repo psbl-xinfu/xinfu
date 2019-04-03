@@ -191,11 +191,24 @@ $(document).ready(function() {
          $("#daochuForm").submit();
     });	
 	$("#look").unbind().on("click", function(){
-		var obthis = getCheckboxValue("contractcode");
+		var obthis = getCheckboxValue("contractcode");		
+		var uri="";
 		if(obthis!= ""){
-			var custcode=$('input[name="contractcode"]:checked').attr("code");
-			ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='
-					+1+'&customercode='+custcode+"&status=",width:1200,height:700});
+			//zzn 2019-04-02
+			var contractcode=$('input[name="contractcode"]:checked').attr("value");
+			var contracttype=$('input[name="contractcode"]:checked').attr("contracttype");
+			var type=$('input[name="contractcode"]:checked').attr("contype");
+			var relatecode='';			
+			var uri = contextPath + getContractUri(contracttype, type, false) + "?contractcode=" + contractcode + "&relatecode=" + relatecode;
+			var status = $("input[name=datalist]:checked").attr("code");
+			var hei=0;
+			if(status>=2){
+				hei=550;
+			}else{
+				hei=700;
+			}
+			ccms.dialog.open({url : uri,height:hei});
+
 		}else{
 			ccms.dialog.notice("请选择!");
 		}
