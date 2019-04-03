@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>卡延期</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 500px;">
+			<header class="header-default">
+				<span id="formTitle">卡延期</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+                <input type="hidden" id="vc_code" name="vc_code" value="${fld:code}" />
+          		
+          			<div class="panel-body col_main_body basic-dialog dialogbg">
+          		
+          		
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 140px;">会员卡号：</label>	
+							<input type="text" id="cardcode" name="cardcode" value="${fld:cardcode}" readonly="readonly" placeholder="会员卡号"/>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">会员姓名：</label>	
+							<input type="text" id="cust_name" name="cust_name" value="${fld:cust_name}" readonly="readonly" placeholder="姓名"/>
+						</li>
+						<li>
+							<label for="" style="width: 140px;">卡状态：</label>	
+							<input type="text" id="status" name="status" value="${fld:status}" readonly="readonly" placeholder="卡状态"/>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">会籍：</label>						
+							<input type="text" id="mc" name="mc" value="${fld:mc}"  readonly="readonly" placeholder="会籍"/>
+						</li>
+						<li>
+							<label for="" style="width: 140px;">卡类型：</label>						
+							<input type="text" id="cardtype" name="cardtype" value="${fld:cardtype}"  readonly="readonly" placeholder="卡类型籍"/>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">办卡日期：</label>						
+							<input type="text" id="cardcreated" name="cardcreated" value="${fld:cardcreated}" readonly="readonly" placeholder="办卡日期"/>
+						</li>
+						<li>
+							<label for="" style="width: 140px;">起始日期：</label>	
+							<input type="text" id="cardstartdate" name="cardstartdate" value="${fld:cardstartdate}" readonly="readonly" placeholder="起始日期"/>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">截止日期：</label>						
+							<input type="text" id="cardenddate" name="cardenddate" value="${fld:cardenddate}" readonly="readonly" placeholder="截止日期数"/>
+						</li>
+						<li>
+							<label for="" style="width: 140px;">延期前截止：</label>						
+							<input type="text" id="beforedate" name="beforedate" value="${fld:beforedate}" readonly="readonly" placeholder="延期前截止日期"/>
+						</li>
+						<li>
+							<label for="" style="width: 100px;">延期天数：</label>						
+							<input type="text" id="adjourndays" name="adjourndays" value="${fld:adjourndays}" readonly="readonly" placeholder="延期天数"/>
+						</li>
+						<li>
+							<label for="" style="width: 140px;">操作人：</label>						
+							<input type="text" id="createdby" name="createdby" value="${fld:createdby}" readonly="readonly" placeholder="操作人"/>
+						</li>
+						<li class="to100w" style="margin-left: 4%">
+							<label for="">备注：</label>	
+							<textarea rows="3" cols="66" placeholder="备注" class="my-textarea" name="remark" id="remark" >${fld:remark}</textarea>
+						</li>
+					</nav>
+				</div>
+				
+				<div id="i_paytypeone"  style="margin-left: -30%">
+	          		<div class="modal-body " id="paymoney" style="margin-left: 6%;height: 30px"  >
+					</div>	          		
+				
+				</div>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#formTitle").html("会员卡延期查看");
+	//selectInit($("#cardcode"));
+});
+
+</script>
+</body>
+</html>

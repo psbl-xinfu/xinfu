@@ -1,6 +1,8 @@
 {"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
 	<rows>
-	{		"xuhao":"${fld:_rowNumber}",
+	{	
+			"show_order":"${fld:_rowNumber}",
+			"radiolink":"${fld:radiolink@js}",
 			"cardcode":"${fld:cardcode@js}",
 		    "cust_name":"${fld:cust_name@js}",
 		    "cardtype":"${fld:cardtype@js}",
