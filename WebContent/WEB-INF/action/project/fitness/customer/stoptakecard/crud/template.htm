@@ -317,8 +317,14 @@ $(document).ready(function() {
 				ccms.dialog.alert("该记录不能打印小票！");
 				return false;
 			}
-			//var url = "${def:context}/action/project/fitness/print/ticket/stoptakecard?pk_value="+id;
-			ccms.dialog.open({url:"${def:context}/action/project/fitness/print/ticket/stoptakecard?pk_value="+id});
+			var url = "${def:context}/action/project/fitness/print/ticket/stoptakecard?pk_value="+id;
+			ajaxCall(url,{
+				method : "get",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
 		}else{
 			ccms.dialog.notice("请选择需要打印小票的记录",2000);
 		}
