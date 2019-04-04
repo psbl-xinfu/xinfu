@@ -1,16 +1,17 @@
 select 
-	concat('<input type="radio" name="leavestocklist" value="', ls.tuid, '" code="', ls.paystatus,'" />') AS checklink,
-	--tuid,
-	cg.goods_name as tuid,--zzn 增加了商品名称
+	ls.tuid::int,
+	cg.goods_name as goodsname,--zzn 增加了商品名称
 	cust.name as custname,
 	cg.standard, --zzn 增加了商品规格
+	(select	domain_text_cn from t_domain where "namespace"='goodUnit' and domain_value = cg.unit and is_enabled = '1' ) as unit,--单位
 	cust.mobile,
 	card.code as cardcode,
-	ls.factmoney,
+	lg.price,
+	lg.amount::int,
+	lg.factmoney,
 	ls.created,
-	(select name from hr_staff where userlogin = ls.createdby and org_id = ${def:org}) as staff_name,
-	(case when ls.paystatus=1 then '未付款' when ls.paystatus=2 then '已付款' end) as paystatus,
-	(select sum(amount) from cc_leave_stock_goods where leave_stock_id = ls.tuid and org_id = ${def:org})::int as amount 
+	(select name from hr_staff where userlogin = ls.createdby and org_id = 1038) as staff_name,
+	(case when ls.paystatus=1 then '未付款' when ls.paystatus=2 then '已付款' end) as paystatus 
 from cc_leave_stock ls
 left join cc_customer cust on ls.customercode = cust.code and ls.org_id = cust.org_id
 left join cc_card card on ls.paycardcode = card.code and card.isgoon = 0
