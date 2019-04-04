@@ -17,8 +17,8 @@ SELECT
 		then (select org_id from hr_org where pid is null or pid = 0) else ${def:org} end)) as vc_foot,
 	ls.tuid as vc_code,------凭条编号
 	(
-		select string_agg((good.goods_name || '      ' ||cg.standard || '      ' 
-			|| lsg.price::numeric(10,2) ||  '      ' ||lsg.amount||'       '
+		select string_agg((good.goods_name || '       ' ||cg.standard || '       ' 
+			|| lsg.price::numeric(10,2) ||  '       ' ||lsg.amount||'        '
 			|| lsg.factmoney::numeric(10,2)),'<br/>')  
 		from cc_leave_stock_goods lsg
 		left join cc_goods good on lsg.goodsid=good.tuid and lsg.org_id = good.org_id 
