@@ -17,8 +17,8 @@ SELECT
 		then (select org_id from hr_org where pid is null or pid = 0) else ${def:org} end)) as vc_foot,
 	ls.tuid as vc_code,------凭条编号
 	(
-		select string_agg((good.goods_name || '<br/>' || lsg.goodsid || '      ' 
-			|| lsg.price::numeric(10,2) || '*'||lsg.amount||'       '
+		select string_agg((good.goods_name || '      ' ||cg.standard || '      ' 
+			|| lsg.price::numeric(10,2) ||  '      ' ||lsg.amount||'       '
 			|| lsg.factmoney::numeric(10,2)),'<br/>')  
 		from cc_leave_stock_goods lsg
 		left join cc_goods good on lsg.goodsid=good.tuid and lsg.org_id = good.org_id 
@@ -37,6 +37,8 @@ SELECT
 from cc_leave_stock ls
 left join cc_card card on card.code= ls.paycardcode and card.org_id = ls.org_id and card.isgoon = 0
 LEFT JOIN cc_cardtype ct on ct.code=card.cardtype and ct.org_id = card.org_id 
+left join cc_leave_stock_goods lg on ls.tuid = lg.leave_stock_id and lg.org_id = ls.org_id --zzn 
+left join cc_goods cg on cg.tuid= lg.goodsid and  card.org_id = ls.org_id  --zzn
 where ls.tuid::varchar=${fld:pk_value} and ls.org_id = ${def:org}
 
 
