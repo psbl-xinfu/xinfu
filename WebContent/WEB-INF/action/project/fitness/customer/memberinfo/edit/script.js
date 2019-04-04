@@ -12,6 +12,20 @@ setSelectValue($("#cc_type"), "${fld:type}");
 document.addForm.cc_card.value="${fld:card}";
 setSelectValue($("#cc_cardtype"), "${fld:cardtype}");
 setSelectValue($("#cc_purpose"), "${fld:aim}");
+ 
+var ptstr= "<option value=''>请选择</option>";
+<card-list>
+		ptstr+="<option value='${fld:cardcode}'>${fld:cardname}</option>"
+</card-list>
+$("#cardcode").html(ptstr);
+if("${fld:custcardcode}"!=null || "${fld:custcardcode}"!=""){
+	$("#cardcode").selectpicker("val","${fld:custcardcode}");
+}
+
+//修改id号  zyb 2019-3-21
+$("#cardcode").selectpicker("refresh");
+$("#cardcode").selectpicker("render");
+
 
 setSelectValue($("#cc_nationality"), "${fld:nationality}");
 setSelectValue($("#cc_nation"), "${fld:nation}");

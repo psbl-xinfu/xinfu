@@ -2,18 +2,20 @@
 <config>
 
 	<summary>
-		员工管理修改
+		查询系统应用
 	</summary>
-	
+
 	<log>false</log>
+   
+	<sql-template>query-base.sql</sql-template>
+	<paging-recordset>query.sql</paging-recordset>
+	<total-recordset>query-count.sql</total-recordset>
 
 	<transaction>
-		<classname>dinamica.GenericTransaction</classname>
-		<validator>true</validator>
+		<classname>com.ccms.SearchForJson</classname>
+		<validator>false</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="getrecord.sql" source="sql" scope="transaction" />
-		<recordset id="query-card.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -22,8 +24,8 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="form" recordset="getrecord.sql" />
-		<print mode="table" recordset="query-card.sql" tag="card-list"/>
+		<print mode="table" recordset="query.sql" tag="rows" />
+		<print mode="form" recordset="query-count.sql" />
 	</output>
 
 </config>

@@ -5,7 +5,8 @@
 	<parameter id="cc_sex" type="integer" required="true" label="i_sex" maxlen="20" />
 	<parameter id="cc_mobile" type="varchar" required="true" label="cc_mobile" maxlen="64" />
 	 <parameter id="cc_birth" type="varchar" required="true" label="cc_birth"/>
-	 	  <parameter id="cc_day" type="varchar" required="true" label="cc_day"/>
+	 <parameter id="cc_day" type="varchar" required="true" label="cc_day"/>
+	  <parameter id="cardcode" type="varchar" required="false" label="cardcode"/>
 	 
 	 
 	 

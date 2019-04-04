@@ -14,15 +14,15 @@ insert into cc_message
 values
 (
 	${seq:nextval@seq_cc_message},
-	'${def:user}',
-	'${def:user}',
-	${fld:cust_code},
-	${fld:cust_name},
+	${fld:deviceid},
+	${fld:deviceid},
+	${fld:uid},
+	${fld:membersName},
 	'健身区域前台入场',
-	{ts'${def:timestamp}'},
+	'${def:timestamp}',
 	1,
 	0,
-	${fld:unionorgid}--${def:org} modified by leo 190328
+	${fld:org}--${def:org} modified by leo 190328
 )
 
 

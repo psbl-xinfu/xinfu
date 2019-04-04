@@ -31,7 +31,8 @@
 	marriage=	${fld:cc_marriage},
 	children=	${fld:cc_children},
 	aim=${fld:cc_purpose},
-	remark=${fld:cc_remark}
+	remark=${fld:cc_remark},
+	cardcode=${fld:cardcode}
 where
 	code = ${fld:cc_code}
 	

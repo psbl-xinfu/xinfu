@@ -19,4 +19,5 @@ public class OpenDoor extends GenericTransaction{
 		int rc = Integer.valueOf(getRequest().getParameter("type")) ;
 		return rc;
 	}
+	
 }

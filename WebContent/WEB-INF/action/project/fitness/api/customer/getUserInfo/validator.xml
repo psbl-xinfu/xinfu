@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="appid" type="varchar" required="false" label="商家授权id" />
+    <parameter id="codeType" type="varchar" required="true" label="识别码类型" />
+	<parameter id="userCode" type="varchar" required="true" label="验证识别类型"/>
+	<parameter id="deviceID" type="varchar" required="true" label="	设备编号"/>
+</validator>
+			
+
+
+

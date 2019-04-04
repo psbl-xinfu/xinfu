@@ -2,7 +2,7 @@
 <config>
 
 	<summary>
-		员工管理修改
+		编辑系统应用
 	</summary>
 	
 	<log>false</log>
@@ -13,7 +13,6 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="getrecord.sql" source="sql" scope="transaction" />
-		<recordset id="query-card.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -23,7 +22,6 @@
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
 		<print mode="form" recordset="getrecord.sql" />
-		<print mode="table" recordset="query-card.sql" tag="card-list"/>
 	</output>
 
 </config>

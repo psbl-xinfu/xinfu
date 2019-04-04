@@ -31,10 +31,10 @@ CREATE TABLE "cc_device" (
   "appid" varchar(64),
 	"type"  varchar(8),
   "status" int4 DEFAULT 1,
-  "created" timestamp(6),
-  "createdby" varchar(64),
-  "updated" timestamp(6),
-  "updatedby" varchar(64),
+  "created" varchar(64),
+  "createdby"  timestamp(6),
+  "updated" varchar(64),
+  "updatedby" timestamp(6),
   "remark" varchar(2000),
   "org_id" int4
 )
@@ -43,7 +43,7 @@ COMMENT ON COLUMN "cc_device"."code" IS '内部设备编号自动生成';
 COMMENT ON COLUMN "cc_device"."deviceid" IS '外部设备ID';
 COMMENT ON COLUMN "cc_device"."appid" IS '认证ID';
 COMMENT ON COLUMN "cc_device"."type" IS '类别：1：指静脉 2：二维码 3：刷卡 4：人脸';
-COMMENT ON COLUMN "cc_device"."status" IS '状态';
+COMMENT ON COLUMN "cc_device"."status" IS '状态0可用1不可用';
 COMMENT ON COLUMN "cc_goods"."created" IS '创建人';
 COMMENT ON COLUMN "cc_goods"."createdby" IS '创建时间';
 COMMENT ON COLUMN "cc_goods"."updated" IS '修改人';
@@ -51,6 +51,73 @@ COMMENT ON COLUMN "cc_goods"."updatedby" IS '修改时间';
 COMMENT ON COLUMN "cc_goods"."remark" IS '备注';
 COMMENT ON COLUMN "cc_goods"."org_id" IS 'hr_org.org_id';
 COMMENT ON TABLE "public"."cc_device" IS '设备定义表';
+
+
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'100'
+,'设备号删除'
+,'设备号被删除'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+
+
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'101'
+,'设备号修改'
+,'设备号被修改'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+
+
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'102'
+,'调用设备信息'
+,'未找到该会员'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+
+ALTER table cc_inleft add type int
+COMMENT ON COLUMN "public"."cc_inleft"."type" IS '0:成功1：失败';
+
 
 
 

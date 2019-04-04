@@ -1,6 +1,6 @@
 UPDATE cc_card 
 SET 
-	nowcount = (nowcount-${fld:nowcount}) 
+	nowcount = (nowcount-1) 
 WHERE code = ${fld:cardcode} AND isgoon = 0
 and org_id = ${fld:unionorgid}
 and exists(

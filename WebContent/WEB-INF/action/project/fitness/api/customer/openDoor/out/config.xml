@@ -8,15 +8,11 @@
 	<log>false</log>
 
 	<transaction>
-		<classname>dinamica.GenericTableManager</classname>
+		<classname>com.ccms.api.customer.OpenDoorOut</classname>
 		<validator>true</validator>
-		<transaction>true</transaction>
+		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
-
-	<query>insert-message.sql</query>
-	<query>update-inleft.sql</query>
-	<query>update-cabinettemp.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>

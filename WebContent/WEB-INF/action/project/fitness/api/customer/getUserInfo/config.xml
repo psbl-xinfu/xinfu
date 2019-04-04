@@ -7,12 +7,10 @@
 	<log>false</log>
 
 	<transaction>
-		<classname>com.ccms.api.customer.OpenDoorIn</classname>
+		<classname>com.ccms.api.customer.getUserInfo</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-	    <!-- <recordset id="query-hour.sql" source="sql" scope="transaction"/>
-	    <recordset id="query-sitedef.sql" source="sql" scope="transaction"/> -->
 	</transaction>
 
 	<output>
@@ -22,8 +20,6 @@
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
 		<print mode="form" recordset="_rsOpenDoorIn" />
-		<!-- <print mode="form" recordset="query-hour.sql" />
-		<print mode="table" recordset="query-sitedef.sql" tag="sitedef-rows" /> -->
 		<print mode="form" recordset="_request" />
 	</output>
 

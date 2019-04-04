@@ -107,6 +107,14 @@ ${inc:/action/project/fitness/home/pub}
 								</select>
 							</div> 
 			 			</li>	
+			 			<li> 			
+							<label>默认刷卡卡号：</label> 	
+							<div class="my-selected">
+								<select  id="cardcode" name="cardcode"  style="display: none;" > 
+									
+								</select>
+							</div> 
+			 			</li>
 						<li> 			
 							<label>推荐人：</label> 	
 							<input readonly="readonly" type="text" id="recommend" name="recommend" value="" maxlength="80" />
@@ -489,7 +497,7 @@ $(document).ready(function() {
 		$("#myModalLabel").modal('hide');
 		ccms.util.clearForm('messageForm');
 	});
-	searchSelectInit($("#cc_sex,#cc_birth,#cc_day,#cc_age,#cc_type,#cc_cardtype,#cc_nationality,#cc_nation,#province,#city,#province2,#city2,#cc_purpose,#cc_leave,#cc_gethobbit,#cc_personalhobbit,#cc_children,#cc_marriage,#i_status"));
+	searchSelectInit($("#cc_sex,#cc_birth,#cc_day,#cc_age,#cc_type,#cc_cardtype,#cc_nationality,#cc_nation,#province,#city,#province2,#city2,#cc_purpose,#cc_leave,#cc_gethobbit,#cc_personalhobbit,#cc_children,#cc_marriage,#i_status,#cardcode"));
 	
 	$("#speak_btn").unbind().on("click",function(){
 		var code=$('input[name="datalist"]:checked').val();

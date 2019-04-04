@@ -12,24 +12,25 @@ insert into cc_inleft
 	bringother,--带朋友入场
 	signednumber,
 	nowcount,
-    org_id--俱乐部编号
+    org_id,--俱乐部编号
+    type,---0成功1失败
+    remark
 )
 values
 (
 	${seq:nextval@seq_cc_inleft},
-	${fld:cust_code},
+	${fld:custcode},
 	--modified by leo 190401 自动入场不记录手牌
 	--(select tuid from cc_cabinettemp where cabinettempcode = ${fld:rudge_code} and 
 	--org_id = ${fld:unionorgid}--${def:org}modified by leo 190328 使用传参数
 	--),
 	${fld:cardcode},
-	{ts'${def:timestamp}'},
-	'开发接口测试1', -- modified by leo 190328
+	'${def:timestamp}',
+	${fld:deviceid}, -- modified by leo 190328
 	'${def:date}',
 	0,
 	0,
-	(case when (select type from cc_cardtype where code=${fld:cardtype})=0 then 1 
-	else ${fld:nowcount} end),
+	1,
 	(select nowcount from cc_card where
 		code = ${fld:cardcode} AND isgoon = 0
 		and org_id = ${fld:unionorgid}
@@ -39,6 +40,8 @@ values
 		and type = 1
 		)
 	),
-	${fld:unionorgid}--${def:org}modified by leo 190328 使用传参数
+	${fld:org},--${def:org}modified by leo 190328 使用传参数
+	${fld:typet},
+	${fld:remark}
 )
 
