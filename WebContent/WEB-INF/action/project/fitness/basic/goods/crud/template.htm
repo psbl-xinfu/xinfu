@@ -51,14 +51,16 @@ ${inc:/action/project/fitness/home/pub}
 							<label style="width: 110px;">进货价（元）：</label>
 							<input type="text" id="buyprice" name="buyprice" maxlength="80" placeholder="进货价"/>	
 						</li>
-						<li>
+					<!--zzn 2019-04-04 暂时隐藏，后期完善-->
+				        <!-- 
+				   		<li>
 							<label style="width: 110px;">是否为礼品：</label>
 							<select id="isgift" name="isgift" style="display: none;">
 								<option value="">请选择</option>
 								<option value="1">是</option>
 								<option value="0">否</option>
 							</select>
-						</li>
+						</li> -->
 						<li class="to100w" style="margin-left: 6%">
 							<label>备注：</label>
 							<textarea rows="10" cols="55" placeholder="备注" class="my-textarea" id="remark" name="remark"></textarea>	
@@ -101,13 +103,13 @@ ${inc:/action/project/fitness/home/pub}
 									</goodunit-rows-two>
 								</select>
 					 		</li>	
-							<li>
+<!-- 							<li>
 								<select id="isgifttwo" name="isgifttwo" style="display: none;">
 									<option value="">是否为礼品</option>
 									<option value="1">是</option>
 									<option value="0">否</option>
 								</select>
-					 		</li>
+					 		</li> -->
 							<div>
 								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
 								<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="新增" alt="" data-toggle="modal" id="addnew_btn">
