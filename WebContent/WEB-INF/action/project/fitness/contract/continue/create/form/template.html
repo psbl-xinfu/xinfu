@@ -194,8 +194,8 @@ function setcontractfee(){
 function cardtype(){
 	var typeobj=$("#cardcode").find("option:selected");
 	var type=typeobj.attr("codetype");
-	var ctcode=$("#ctcode").val();
-	var url="${def:context}${def:actionroot}/cardtype?type="+type+"&ctcode="+ctcode;
+	var xcardcode=$("#ctcode").val();
+	var url="${def:context}${def:actionroot}/cardtype?types="+type+"&ctcode="+xcardcode;
 	$.ajax({
         url : url,
         type : "get",
@@ -203,6 +203,20 @@ function cardtype(){
         }
 	});
 }
+
+
+
+ function cardtypebin(){
+	var typeobj=$("#cardcode").find("option:selected");
+	var type=typeobj.attr("codetype");
+	var url="${def:context}${def:actionroot}/cardtypelx?types="+type;
+	$.ajax({
+        url : url,
+        type : "get",
+        success : function() {
+        }
+	});
+} 
 //根据启用方式重写卡有效时间
 function setvaliddate(){
 	var starttype = $("#starttype").val();
@@ -260,8 +274,8 @@ $(document).ready(function(){
 	// 选择卡
 	$("#cardcode").on("change",function(){
 		getAjaxCall("/action/project/fitness/contract/continue/querycardinfo?cardcode="+$(this).val(), true, function(){
+			cardtypebin();
 			setcontractfee();
-			cardtype();
 		});
 	});
 

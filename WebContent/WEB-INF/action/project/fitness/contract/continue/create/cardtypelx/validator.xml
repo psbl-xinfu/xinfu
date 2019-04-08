@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
 	<parameter id="types" type="varchar" required="flase" label="types" />
-	<parameter id="ctcode" type="varchar" required="flase" label="ctcode" /><!-- zyb传个续卡类型的id -->>
+	<parameter id="ctcode" type="integer" required="flase" label="ctcode" /><!-- zyb传个续卡类型的id -->>
 </validator>
