@@ -5,6 +5,7 @@
     <parameter id="pay_detail" type="varchar" required="true" label="支付明细" />
     <parameter id="remark" type="varchar" required="false" label="备注" />
      <parameter id="factmoney" type="varchar" required="false" label="实收" />
+     <parameter id="customercode" type="varchar" required="false" label="会员编号" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
    	on-error-label="该预约已付款，不能重复付款" id="normalmoneyspan" sql="nodup.sql" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 

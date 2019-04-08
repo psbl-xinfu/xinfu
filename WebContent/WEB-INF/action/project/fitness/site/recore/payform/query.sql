@@ -38,7 +38,8 @@ select
 	when sd.prepare_type = '2' then '(拼场)' end) as bpprice,
 	sd.prepare_type,
 	(case when sd.customertype='2' then (select count(groupid) as groupidnumber from cc_guest_group_member where groupid=sd.guestgroupid )
-	else '1' end) as thenumber
+	else '1' end) as thenumber,
+	sd.customercode
 	from cc_siteusedetail sd
 left join cc_sitedef sdef on sd.sitecode = sdef.code and sd.org_id = sdef.org_id
 left join cc_customer cust on sd.customercode = cust.code and sd.org_id = cust.org_id

@@ -1,8 +1,8 @@
 insert into cc_finance
 (
 	code,--主键
-	operatelogcode,
 	operationcode,--操作主键
+	operatelogcode,
 	salesman,--操作人
 	type,--操作类型
 	item,--chuzhi

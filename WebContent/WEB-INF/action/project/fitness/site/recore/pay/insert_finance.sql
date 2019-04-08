@@ -20,7 +20,7 @@ insert into cc_finance
 values 
 (
 	${seq:nextval@seq_cc_finance},	--主键
-	${seq:currval@seq_cc_operatelog},
+	concat((select memberhead from hr_org where org_id = ${def:org}), ${seq:currval@seq_cc_operatelog}),
 	${fld:code},--操作主键
 	'${def:user}',--操作人
 	3,--操作类型
@@ -34,9 +34,7 @@ values
 	${fld:factmoney},
 	${fld:pay_detail},
 	${def:org},
-	(case when (select customertype from cc_siteusedetail where code = ${fld:code} and org_id = ${def:org}) in (1,2) then 
-		(select customercode from cc_siteusedetail where code = ${fld:code} and org_id = ${def:org}) else null
-	end)
+	${fld:customercode}
 )
 
 
