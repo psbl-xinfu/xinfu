@@ -10,7 +10,7 @@
 		<classname>dinamica.GenericTableManager</classname>
 		<validator>true</validator>
 		<transaction>true</transaction>
-		<jdbc-log>false</jdbc-log>
+		<jdbc-log>true</jdbc-log>
 		<recordset id="query-dat.sql" source="sql" scope="transaction"/>
 		<recordset id="query-num.sql" source="sql" scope="transaction"/>
 		<recordset id="query-ptprepare.sql" source="sql" scope="transaction"/>
@@ -20,14 +20,11 @@
 		<recordset id="query-workdate.sql" source="sql" scope="transaction"/>
 	</transaction>
 
-	<query>insert.sql</query>
-
 	<output>
 		<classname>dinamica.GenericOutput</classname>
 		<template>script.js</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
-		<expiration>0</expiration>
 		<print mode="form" recordset="query-dat.sql" />
 		<print mode="form" recordset="query-num.sql" />
 		<print mode="form" recordset="query-ptprepare.sql" />
