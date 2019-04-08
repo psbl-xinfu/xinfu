@@ -298,8 +298,9 @@ $(function(){
 			ccms.dialog.notice("该登录人没有收款权限！", 2000);
 			return false;
 		}
-		if(Number($("#total").val())<=0){
-			ccms.dialog.notice("请购买商品在进行付款！", 2000);
+		//有些赠送商品是0元-礼品  zzn 2019-04-04
+		if(Number($("#total").val())<0){
+			ccms.dialog.notice("请购买商品再进行付款！", 2000);
 			return false;
 		}
 		if($("#custcode").val()==""){

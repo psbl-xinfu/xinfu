@@ -22,7 +22,8 @@
 	</output>
 
 	<excel recordset="query-base.sql" sheetname="商品销售记录" filename="商品销售记录.xls" header-background="true">
-		<col id="tuid" label="商品名称" /> 
+		<col id="tuid" label="订单编号" /> 
+		<col id="goodsname" label="商品名称" /> 
 		<col id="custname" label="顾客" />
 		<col id="cardcode" label="卡号" />
 		<col id="standard" label="规格" />
