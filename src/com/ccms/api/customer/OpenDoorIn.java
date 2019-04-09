@@ -112,7 +112,7 @@ public class OpenDoorIn extends GenericTransaction {
 			Recordset queryCardEnddate = db.get(cardEnddate);
 			
 			if( null == queryCardEnddate || queryCardEnddate.getRecordCount() <= 0 ){
-				qrcodePath="该卡不能入场,请设置默认卡";
+				qrcodePath="失败：该卡不能入场,请设置默认卡";
 				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
@@ -125,7 +125,7 @@ public class OpenDoorIn extends GenericTransaction {
 			Date xdate= df.parse(df.format(beginDate));
 			Date yenddate = df.parse(enddate);
 			if(xdate.getTime()>yenddate.getTime()) {
-				qrcodePath="该卡已过期";
+				qrcodePath="失败：该卡已过期";
 				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
@@ -139,7 +139,7 @@ public class OpenDoorIn extends GenericTransaction {
 			querycardtype = StringUtil.replace(querycardtype, "${fld:cardtype}", "'"+cardtype+"'");
 			Recordset querycardtypesql = db.get(querycardtype);
 			if( querycardtypesql.getRecordCount() >= 1 ){
-				qrcodePath="该卡类型已禁用，不能入场！";
+				qrcodePath="失败：该卡类型已禁用，不能入场！";
 				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
@@ -151,7 +151,7 @@ public class OpenDoorIn extends GenericTransaction {
 			queryorgdate = StringUtil.replace(queryorgdate, "${fld:unionorgid}", "'"+orgID+"'");
 			Recordset queryorgdatesql = db.get(queryorgdate);
 			if( queryorgdatesql.getRecordCount() >= 1 ){
-				qrcodePath="该门店正在放假中，不能入场！";
+				qrcodePath="失败：该门店正在放假中，不能入场！";
 				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
@@ -164,7 +164,7 @@ public class OpenDoorIn extends GenericTransaction {
 			querynowcount = StringUtil.replace(querynowcount, "${fld:cardcode}", "'"+membersCardcode+"'");
 			Recordset querynowcountsql = db.get(querynowcount);
 			if( querynowcountsql.getRecordCount() >= 1 ){
-				qrcodePath="此卡剩余进场次数不足，不能进场！";
+				qrcodePath="失败：此卡剩余进场次数不足，不能进场！";
 				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);

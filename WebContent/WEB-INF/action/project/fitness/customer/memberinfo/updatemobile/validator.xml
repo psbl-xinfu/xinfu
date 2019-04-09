@@ -8,7 +8,7 @@
 	 	  <parameter id="cc_day" type="varchar" required="true" label="cc_day"/>
 	 <parameter id="userlogin" type="varchar" required="true" label="userlogin" maxlen="64" />
 	 <parameter id="user_id" type="integer" required="true" label="user_id" maxlen="64" />
-	   <parameter id="cardcode" type="varchar" required="false" label="cardcode"/>
+	   <parameter id="cardcode" type="varchar" required="true" label="cardcode"/>
 	<parameter id="cc_wx" type="varchar" required="false" label="cc_wx"/>
 	
 	<parameter id="cc_qq" type="integer" required="false" label="cc_qq" maxlen="20" />
