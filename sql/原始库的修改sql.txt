@@ -1,3 +1,15 @@
+--add by leo 190409 客户资源分配跟进优化脚本
+drop index  if exists hr_staff_userlogin_index;
+create index hr_staff_userlogin_index on hr_staff (userlogin);
+drop index  if exists cc_guest_mc_index;
+create index cc_guest_mc_index on cc_guest (mc);
+drop index  if exists cc_guest_visit_guestcode_index;
+create index cc_guest_visit_guestcode_index on cc_guest_visit (guestcode);
+drop index  if exists cc_mcchange_guestcode_index;
+create index cc_mcchange_guestcode_index on cc_mcchange (guestcode);
+drop index  if exists cc_comm_guestcode_org_id_index;
+create index cc_comm_guestcode_org_id_index on cc_comm (guestcode,org_id);
+
 --zyb 
 
 ALTER table cc_ptdef add isgroup int
