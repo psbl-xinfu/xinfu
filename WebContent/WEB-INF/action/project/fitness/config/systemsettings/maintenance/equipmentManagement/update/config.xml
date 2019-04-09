@@ -15,6 +15,7 @@
 	</transaction>
 
 	<query>update.sql</query>
+	<query>insert-operatelog.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>

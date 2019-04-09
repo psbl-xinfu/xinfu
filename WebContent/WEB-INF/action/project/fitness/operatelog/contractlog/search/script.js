@@ -8,6 +8,7 @@
 		,"mobile":"${fld:mobile@js}"
 		,"type":"${fld:type@js}"
 		,"createdate":"${fld:createdate@yyyy-MM-dd}"
+		,"remark":"${fld:remark}"
 	},
 	</rows>
 	{}

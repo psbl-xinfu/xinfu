@@ -14,8 +14,8 @@
 		<jdbc-log>false</jdbc-log>
 	</transaction>
 
+	<query>insert-operatelog.sql</query>
 	<query>delete.sql</query>
-
 	<output>
 		<classname>dinamica.GenericOutput</classname>
 		<template>script.js</template>

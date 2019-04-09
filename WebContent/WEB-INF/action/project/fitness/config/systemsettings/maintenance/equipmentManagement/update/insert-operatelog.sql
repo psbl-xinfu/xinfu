@@ -6,14 +6,16 @@ code
 ,createdby
 ,createdate
 ,createtime
-,org_id
+,org_id,
+customercode
 )values(
 NEXTVAL('seq_cc_operatelog')
 ,101
 ,1
-,concat('修改设备号：',(select deviceid from cc_device where code='2'))
+,concat('修改设备号：',(select deviceid from cc_device where code=${fld:cnfg_id}))
 ,'${def:user}'
 ,'${def:date}'
 ,'${def:timestamp}'
-,'${def:org}'
+,'${def:org}',
+${fld:dev_deviceid}
 )

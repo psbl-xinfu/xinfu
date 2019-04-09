@@ -94,6 +94,27 @@ param_value
 )
 
 
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'103'
+,'设备号添加'
+,'设备号添加'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+
+
 
 insert into cc_config (
 category,
@@ -118,6 +139,9 @@ param_value
 ALTER table cc_inleft add type int
 COMMENT ON COLUMN "public"."cc_inleft"."type" IS '0:成功1：失败';
 
+
+alter table cc_customer add cardcode varchar(60)
+COMMENT ON COLUMN "public"."cc_customer"."cardcode" IS '默认刷卡卡号';
 
 
 

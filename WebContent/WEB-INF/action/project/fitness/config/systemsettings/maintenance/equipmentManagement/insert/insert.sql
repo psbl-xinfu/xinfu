@@ -13,7 +13,7 @@ insert into cc_device(
 	NEXTVAL('seq_cc_device'),
 	${fld:dev_deviceid},
 	${fld:dev_appid},
-	3,
+	${fld:dev_type},
 	${fld:dev_status},
 	${fld:dev_remark},
 	'${def:user}',

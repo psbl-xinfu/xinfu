@@ -19,15 +19,21 @@ ${inc:/action/project/fitness/home/pub}
 					<nav>
 						<li>
 							<label for="">设备编号：</label>
-							<input type="text" placeholder="设备编号" id="dev_deviceid" name="dev_deviceid" value="" maxlength="80"/>		
+							<input type="text" placeholder="设备编号" id="dev_deviceid" name="dev_deviceid" value="" maxlength="80" readonly="true"/>		
 						</li>
 						<li>
-							<label for="">认证ID：</label>
+							<label for="">认证ID(appid)：</label>
 							<input type="text" placeholder="认证ID" id="dev_appid" name="dev_appid" value="" maxlength="80"/>		
 						</li>
 						<li>
 							<label for="">类别：</label>
-							<input type="text" placeholder="类别" id="dev_type" name="dev_type" value="刷卡" maxlength="80" readonly="true"/>		
+							<select id="dev_type" name="dev_type"> 
+									<option value="">请选择</option>
+									<option value="1">指静脉</option>
+									<option value="2">二维码</option>
+									<option value="3">刷卡</option>
+									<option value="4">人脸</option>
+								</select>	
 						</li>
 						<li> 			
 							<label>状态：</label>
@@ -108,13 +114,14 @@ ${inc:/action/project/fitness/home/pub}
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
-	searchSelectInit($("#dev_status"));
+	searchSelectInit($("#dev_status,#dev_type"));
 	var search=null;
 	var obj = $Crud({
 		formId:"formEditor",
 		button:"save_btn",
 		bpkField:"cnfg_id",
 		insertBack:function(){
+			
 			search.searchData();
 		},
 		updateBack:function(){
@@ -125,10 +132,17 @@ $(document).ready(function() {
 		},
 		addNewBack:function(){
 			$("#formTitle").html("新增");
-			$("#dev_type").val("刷卡");
+			$("#dev_deviceid").attr("readonly",false);
+			$("#dev_type,#dev_status").val("");
+			$("#dev_type").selectpicker("val","");
+			$("#dev_status").selectpicker("val","");
+			$("#dev_status,#dev_type").selectpicker("refresh");//刷新
+			$("#dev_status,#dev_type").selectpicker("render");
+
 		},
 		editBack:function(){
 			$("#formTitle").html("修改");
+			$("#dev_deviceid").attr("readonly",true);
 			
 		},
 	    validate:function(){
