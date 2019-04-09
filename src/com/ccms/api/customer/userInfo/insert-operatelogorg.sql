@@ -6,7 +6,6 @@ code
 ,createdby
 ,createdate
 ,createtime
-,org_id
 ,customercode
 )values(
 NEXTVAL('seq_cc_operatelog')
@@ -16,6 +15,5 @@ NEXTVAL('seq_cc_operatelog')
 ,${fld:createdby}
 ,${fld:createdate}
 ,${fld:createtime}
-,${fld:org_id}
 ,${fld:mobile}
 )

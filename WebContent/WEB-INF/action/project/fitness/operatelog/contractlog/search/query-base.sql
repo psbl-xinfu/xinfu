@@ -1,6 +1,7 @@
 select
-clog.createdby,hs.name,clog.pk_value,(case when clog.opertype = '100'  then clog.customercode 
+clog.createdby,(case when clog.opertype = '102' then (select concat('认证ID:',appid) from cc_device where deviceid=clog.createdby) else hs.name end) as name,clog.pk_value,(case when clog.opertype = '100'  then clog.customercode 
  when clog.opertype = '101'  then clog.customercode 
+  when clog.opertype = '102'  then clog.customercode 
  when clog.opertype = '103'  then clog.customercode
 else cust.name end) as cname,cust.mobile,
 	(select param_text from cc_config as cog where category='OpeCategory' and cog.param_value = clog.opertype) as type,

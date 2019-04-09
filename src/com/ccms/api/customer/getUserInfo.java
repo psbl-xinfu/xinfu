@@ -27,7 +27,7 @@ public class getUserInfo extends GenericTransaction {
 		String errmsg="验证未开始";
 		String basePath = "/com/ccms/api/customer/userInfo/";
 		Date beginDate = new Date();
-		Recordset rsOpenDoorIn = new Recordset();
+		Recordset rsGetuserInfo = new Recordset();
 		String uid="";
 		String name="";
 		String sex="";
@@ -59,6 +59,25 @@ public class getUserInfo extends GenericTransaction {
 			devicesql = StringUtil.replace(devicesql, "${fld:deviceID}", "'"+deviceID+"'");
 			devicesql = StringUtil.replace(devicesql, "${fld:appid}", "'"+appid+"'");
 			Recordset querydevice= db.get(devicesql);
+			if( null == querydevice || querydevice.getRecordCount() <= 0 ){
+				qrcodePath="未找到该设备号";
+				tuid=1;
+				SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd");
+				Date xdate1= df1.parse(df1.format(beginDate));
+				SimpleDateFormat rq1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String intime1 = rq1.format(beginDate);
+				String operatelogsql1 = getLocalResource(basePath+"insert-operatelogorg.sql");
+				operatelogsql1 = getSQL(operatelogsql1, inputParams);
+				operatelogsql1 = StringUtil.replace(operatelogsql1, "${fld:remark}", "'"+qrcodePath+"'");
+				operatelogsql1 = StringUtil.replace(operatelogsql1, "${fld:createdby}", "'"+deviceID+"'");
+				operatelogsql1 = StringUtil.replace(operatelogsql1, "${fld:mobile}", "'"+userCode+"'");
+				operatelogsql1 = StringUtil.replace(operatelogsql1, "${fld:createdate}", "'"+xdate1+"'");
+				operatelogsql1 = StringUtil.replace(operatelogsql1, "${fld:createtime}", "'"+intime1+"'");
+				db.addBatchCommand(operatelogsql1);
+				db.exec();
+				throw new Throwable(qrcodePath);
+				
+			}
 			querydevice.first();
 			String orgId=querydevice.getString("org_id");
 			
@@ -77,7 +96,8 @@ public class getUserInfo extends GenericTransaction {
 				String operatelogsql = getLocalResource(basePath+"insert-operatelog.sql");
 				operatelogsql = getSQL(operatelogsql, inputParams);
 				operatelogsql = StringUtil.replace(operatelogsql, "${fld:remark}", "'"+qrcodePath+"'");
-				operatelogsql = StringUtil.replace(operatelogsql, "${fld:createdby}", "'"+deviceID+"/"+userCode+"'");
+				operatelogsql = StringUtil.replace(operatelogsql, "${fld:createdby}", "'"+deviceID+"'");
+				operatelogsql = StringUtil.replace(operatelogsql, "${fld:mobile}", "'"+userCode+"'");
 				operatelogsql = StringUtil.replace(operatelogsql, "${fld:createdate}", "'"+xdate+"'");
 				operatelogsql = StringUtil.replace(operatelogsql, "${fld:createtime}", "'"+intime+"'");
 				operatelogsql = StringUtil.replace(operatelogsql, "${fld:org_id}", "'"+orgId+"'");
@@ -95,24 +115,24 @@ public class getUserInfo extends GenericTransaction {
 		} catch(Throwable t) {
 			t.printStackTrace();
 		} finally {
-			rsOpenDoorIn.append("errcode", Types.VARCHAR);
-			rsOpenDoorIn.append("errmsg", Types.VARCHAR);
-			rsOpenDoorIn.append("uid", Types.VARCHAR);
-			rsOpenDoorIn.append("userType", Types.VARCHAR);
-			rsOpenDoorIn.append("name", Types.VARCHAR);
-			rsOpenDoorIn.append("sex", Types.VARCHAR);
-			rsOpenDoorIn.append("phone", Types.VARCHAR);
-			rsOpenDoorIn.append("img", Types.VARCHAR);
-			rsOpenDoorIn.addNew();
-			rsOpenDoorIn.setValue("errcode", String.valueOf(tuid));
-			rsOpenDoorIn.setValue("errmsg", qrcodePath);
-			rsOpenDoorIn.setValue("uid", uid);
-			rsOpenDoorIn.setValue("userType", 1);
-			rsOpenDoorIn.setValue("name", name);
-			rsOpenDoorIn.setValue("sex", sex);
-			rsOpenDoorIn.setValue("phone", userCode);
-			rsOpenDoorIn.setValue("img", null);
-			publish("_rsOpenDoorIn", rsOpenDoorIn);
+			rsGetuserInfo.append("errcode", Types.VARCHAR);
+			rsGetuserInfo.append("errmsg", Types.VARCHAR);
+			rsGetuserInfo.append("uid", Types.VARCHAR);
+			rsGetuserInfo.append("userType", Types.VARCHAR);
+			rsGetuserInfo.append("name", Types.VARCHAR);
+			rsGetuserInfo.append("sex", Types.VARCHAR);
+			rsGetuserInfo.append("phone", Types.VARCHAR);
+			rsGetuserInfo.append("img", Types.VARCHAR);
+			rsGetuserInfo.addNew();
+			rsGetuserInfo.setValue("errcode", String.valueOf(tuid));
+			rsGetuserInfo.setValue("errmsg", qrcodePath);
+			rsGetuserInfo.setValue("uid", uid);
+			rsGetuserInfo.setValue("userType", 1);
+			rsGetuserInfo.setValue("name", name);
+			rsGetuserInfo.setValue("sex", sex);
+			rsGetuserInfo.setValue("phone", userCode);
+			rsGetuserInfo.setValue("img", null);
+			publish("_rsGetuserInfo", rsGetuserInfo);
 		}
 		return rc;
 	}

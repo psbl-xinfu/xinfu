@@ -19,7 +19,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="form" recordset="_rsOpenDoorIn" />
+		<print mode="form" recordset="_rsGetuserInfo" />
 		<print mode="form" recordset="_request" />
 	</output>
 
