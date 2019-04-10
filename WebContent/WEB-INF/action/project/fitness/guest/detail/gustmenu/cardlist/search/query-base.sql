@@ -1,13 +1,18 @@
 select
 	card.contractcode,
-	(case when card.status=0 then '无效'
-		when card.status=1 then '正常'
-		when card.status=2 then '未启用'
-		when card.status=3 then '存卡中'
-		when card.status=4 then '挂失中'
-		when card.status=5 then '停卡中'
-		when card.status=6 then '过期'
-	end) as status,
+	--考虑续卡的情况 zzn 2019-04-10
+	(case when card.isgoon=0
+		then (case when card.status=0 then '无效'
+			   when card.status=1 then '正常'
+			   when card.status=2 then '未启用'
+		           when card.status=3 then '存卡中'
+		           when card.status=4 then '挂失中'
+			   when card.status=5 then '停卡中'
+			   when card.status=6 then '过期'
+		end)
+	      when card.isgoon=1  then '未启用'
+	      when card.isgoon=-1 then '过期'
+	end)as status,
 	card.code,
 	cust.name,
 	cust.mobile,
@@ -31,14 +36,18 @@ union
 
 select
 	card.contractcode,
-	(case when card.status=0 then '无效'
-		when card.status=1 then '正常'
-		when card.status=2 then '未启用'
-		when card.status=3 then '存卡中'
-		when card.status=4 then '挂失中'
-		when card.status=5 then '停卡中'
-		when card.status=6 then '过期'
-	end) as status,
+	(case when card.isgoon=0
+		then (case when card.status=0 then '无效'
+			   when card.status=1 then '正常'
+			   when card.status=2 then '未启用'
+		           when card.status=3 then '存卡中'
+		           when card.status=4 then '挂失中'
+			   when card.status=5 then '停卡中'
+			   when card.status=6 then '过期'
+		end)
+	      when card.isgoon=1  then '未启用'
+	      when card.isgoon=-1 then '过期'
+	end)as status,
 	card.code,
 	cust.name,
 	cust.mobile,
