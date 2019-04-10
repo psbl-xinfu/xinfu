@@ -25,6 +25,7 @@ INSERT INTO cc_message(
 	1,
 	1,
 	NULL,
+	NULL,
 	${fld:org_id},
 	${fld:code}
 );

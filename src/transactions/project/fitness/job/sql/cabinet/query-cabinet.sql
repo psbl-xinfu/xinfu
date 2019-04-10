@@ -8,7 +8,8 @@ SELECT
 	f.userlogin AS custuserlogin,
 	c.name AS custname,
 	r.createdby AS staffuserlogin,
-	f1.name AS staffname 
+	f1.name AS staffname,
+	r.org_id
 FROM cc_cabinet_rent r 
 INNER JOIN cc_cabinet t ON t.tuid = r.cabinetid AND t.org_id = r.org_id 
 INNER JOIN cc_customer c ON c.code = r.customercode AND c.org_id = r.org_id 
