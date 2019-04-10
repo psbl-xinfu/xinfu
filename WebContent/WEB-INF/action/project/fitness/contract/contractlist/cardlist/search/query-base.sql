@@ -1,6 +1,6 @@
 select
 	t.*,
-	(case when ct.name is null then t.cardtypename else ct.name end) as cardtypename,
+	--(case when ct.name is null then t.cardtypename else ct.name end) as cardtypename,
 	card.code as cardcode
 from
 (select
