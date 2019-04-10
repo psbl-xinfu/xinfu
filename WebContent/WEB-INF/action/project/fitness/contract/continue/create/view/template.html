@@ -34,11 +34,18 @@ ${inc:/action/project/fitness/home/pub}
 						<label style="width: 120px;">原卡类型：</label>
 						<span id="oldcardtypespan">${fld:oldcardtypename@js}</span>
 		     		</li>
+                    <!-- zzn只显示截止日期					
 					<li>
 						<label style="width: 120px;">原有效期：</label>
 						<span id="oldstartdatespan">${fld:oldstartdate}</span>至<span id="oldenddatespan">${fld:oldenddate}</span>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="oldcountspan"></span>
-		     		</li>
+		     		</li> -->				
+					<li>
+						<label style="width: 120px;">原有效期：</label>
+						至<span id="oldenddatespan">${fld:oldenddate}</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="oldcountspan"></span>
+		     		</li> 
+		     		
 					<li>
 						<label style="width: 120px;">原会籍顾问：</label>
 						<span id="oldmcspan">${fld:oldmcname@js}</span>

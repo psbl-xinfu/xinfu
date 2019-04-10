@@ -21,7 +21,7 @@ select
 	,get_arr_value(t.relatedetail, 11) as giveday
 	,get_arr_value(t.relatedetail, 8) as ptcount
 	,get_arr_value(t.relatedetail, 9) as starttype
-	,(CASE get_arr_value(t.relatedetail, 9) WHEN '0' THEN '接原卡启用' WHEN '1' THEN '原卡过期后初次训练启用' WHEN '2' THEN '固定时间启用' END) as starttypename
+	,t1.domain_text_cn as starttypename
 	,get_arr_value(t.relatedetail, 5) as startdate
 	,get_arr_value(t.relatedetail, 6) as enddate
 	,get_arr_value(t.relatedetail, 3) as cardtype
@@ -65,4 +65,5 @@ left join hr_staff f on f.userlogin = t.salemember
 left join hr_staff f1 on f1.userlogin = t.salemember1 
 left join cc_cardtype ct on ct.code = get_arr_value(t.relatedetail, 3) and t.org_id = ct.org_id 
 left join cc_cardcategory y on y.code = ct.cardcategory 
+left join t_domain t1 on t1.domain_value = get_arr_value(t.relatedetail, 9) and t1.namespace = 'StartType' 
 where t.code = ${fld:contractcode} and t.org_id = ${def:org} 

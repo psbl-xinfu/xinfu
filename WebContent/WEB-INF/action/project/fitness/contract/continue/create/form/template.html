@@ -3,6 +3,7 @@
 <head>
 <title>续卡合同</title>
 ${inc:/action/project/fitness/home/pub}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="basic-dialog dialogbg" style="height: 800px">
@@ -18,7 +19,6 @@ ${inc:/action/project/fitness/home/pub}
 						<input type="hidden" id="normalmoney" name="normalmoney" value="" />
 						<input type="hidden" id="count" name="count" value="" />
 						<input type="hidden" id="daycount" name="daycount" value="" />
-						<input type="hidden" id="ctcode" name="ctcode" value="" />
 				<div class="b-i-main">
 					<nav>
 						<li>
@@ -35,7 +35,7 @@ ${inc:/action/project/fitness/home/pub}
 							<select  id="cardcode" name="cardcode" style="display: none;">
 								<option value="">请选择</option>
 								<card-rows>
-								<option value="${fld:cardcode}" codetype="${fld:type}">${fld:cardcode}</option>
+								<option value="${fld:cardcode}" code="${fld:contractcode}">${fld:cardcode}</option>
 								</card-rows>
 							</select>
 						</li>
@@ -43,11 +43,18 @@ ${inc:/action/project/fitness/home/pub}
 							<label style="width: 120px;">原卡类型：</label>
 							<span id="cardtypespan"></span>
 						</li>						
+						<!-- zzn 只显示最后截止日期				
 						<li>
 							<label style="width: 120px;">原有效期：</label>
 							<span id="startdatespan"></span>至<span id="enddatespan"></span>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="countspan"></span>
-						</li>						
+						</li>	
+						 -->										
+						<li>
+							<label style="width: 120px;">原有效期：</label>
+							至<span id="enddatespan"></span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="countspan"></span>
+						</li>					
 						<li>
 							<label style="width: 120px;">原会籍顾问：</label>
 							<span id="oldmcname"></span>
@@ -82,7 +89,10 @@ ${inc:/action/project/fitness/home/pub}
 						<li>
 							<label style="width: 120px;">续卡类型：</label>
 							<select id="cardtype" name="cardtype" style="display: none;">
-								<option value=''>请选择</option>
+								<option value="">请选择</option>
+								<cardtype-rows>
+								<option value="${fld:code}" code="${fld:cardfee}" codeday="${fld:daycount}" codegiveday="${fld:giveday}" codept="${fld:ptcount}">${fld:name@js}</option>
+								</cardtype-rows>
 							</select>
 						</li>
 						
@@ -188,35 +198,7 @@ function setcontractfee(){
 	$("#discountmoney").val(discountfee);
 	$("#normalmoney").val(normalmoney);
 	$("#normalmoneyspan").text(normalmoney);
-	
 }
-
-function cardtype(){
-	var typeobj=$("#cardcode").find("option:selected");
-	var type=typeobj.attr("codetype");
-	var xcardcode=$("#ctcode").val();
-	var url="${def:context}${def:actionroot}/cardtype?types="+type+"&ctcode="+xcardcode;
-	$.ajax({
-        url : url,
-        type : "get",
-        success : function() {
-        }
-	});
-}
-
-
-
- function cardtypebin(){
-	var typeobj=$("#cardcode").find("option:selected");
-	var type=typeobj.attr("codetype");
-	var url="${def:context}${def:actionroot}/cardtypelx?types="+type;
-	$.ajax({
-        url : url,
-        type : "get",
-        success : function() {
-        }
-	});
-} 
 //根据启用方式重写卡有效时间
 function setvaliddate(){
 	var starttype = $("#starttype").val();
@@ -232,7 +214,7 @@ function setvaliddate(){
 		});
 		$("#startdate").val(currentDate.format("yyyy-MM-dd"));
 		$("#enddate").val(addDate(currentDate, days+giveday).format("yyyy-MM-dd"));
-	}else{	// 当天启用
+	}else{	// 接原卡启用,续卡只采用接原卡启用的方式 zzn 2019-04-09
 		$("#startdate").datetimepicker('remove');
 		$("#startdate").attr("readonly", true);
 		$("#startdate").val(currentDate.format("yyyy-MM-dd"));
@@ -249,8 +231,7 @@ $(document).ready(function(){
 	if(parseInt("${fld:skillscopenum}")>0){
 		$("#pay_btn").show();
 	}
-	
-	selectInit($("#cardcode,#starttype,#campaigncode,#cardtype"));
+	selectInit($("#cardcode,#starttype,#campaigncode"));
 	searchSelectInit($("#salemember,#salemember1,#mc,#cardtype"));  
 	setSelectValue($("#salemember"), "${def:user}");
 	setSelectValue($("#mc"), "${def:user}");
@@ -268,13 +249,14 @@ $(document).ready(function(){
 	
 	
 	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
-		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}", true,cardtype);//zyb 回调函数
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}", true);
 	}
 	
 	// 选择卡
 	$("#cardcode").on("change",function(){
-		getAjaxCall("/action/project/fitness/contract/continue/querycardinfo?cardcode="+$(this).val(), true, function(){
-			cardtypebin();
+		//zzn 连续续卡需要传卡号和合同编号
+		var contractcode = $('#cardcode option:selected').attr('code'); //获取下拉款的其他的值
+		getAjaxCall("/action/project/fitness/contract/continue/querycardinfo?cardcode="+$(this).val()+"&contractcode="+contractcode, true, function(){
 			setcontractfee();
 		});
 	});

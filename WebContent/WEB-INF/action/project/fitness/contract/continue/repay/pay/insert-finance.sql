@@ -21,7 +21,7 @@ INSERT INTO cc_finance(
 ) 
 SELECT 
 	currval('seq_cc_finance')
-	,get_arr_value(t.relatedetail, 1)
+	,get_arr_value(t.relatecode, 1)
 	,t.customercode
 	,COALESCE((SELECT memberhead FROM hr_org WHERE org_id = ${def:org}),'')
 		||lpad(nextval('seq_cc_operatelog')::varchar, 8, '0')
