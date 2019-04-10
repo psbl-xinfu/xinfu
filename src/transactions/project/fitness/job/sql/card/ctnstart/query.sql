@@ -1,4 +1,8 @@
-SELECT b.code, b.org_id  
+SELECT
+--去重 zzn
+DISTINCT(b.contractcode) ,
+b.code,
+b.org_id  
 FROM cc_card b 
 INNER JOIN cc_card a ON a.code = b.code AND a.isgoon = 1 AND b.org_id = a.org_id 
 LEFT JOIN cc_customer r ON r.code = b.customercode AND r.org_id = b.org_id 
@@ -9,7 +13,7 @@ AND (
 	OR (a.starttype = 2 AND a.startdate <= '${def:date}'::date) 
 ) 
 AND (
-	(c.type = 0 AND '${def:date}'::date > b.enddate) /** 时效卡 */
+	(c.type = 0 AND '${def:date}'::date > b.enddate) /** 时效卡 */ /** zzn 确定一下是否要改为大于等于 */
 	OR (c.type = 1 AND (b.nowcount <= 0 OR '${def:date}'::date > b.enddate)) /** 计次卡 */
 	OR (c.type = 2 AND (20.0 > (COALESCE(r.moneycash,0.0) + COALESCE(r.moneygift,0.0)) OR '${def:date}'::date > b.enddate)) /** 基金卡 */
 )
