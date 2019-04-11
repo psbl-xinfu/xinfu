@@ -117,7 +117,13 @@ public class OpenDoorOut extends GenericTransaction {
 			String membersOrgId =queryMembersOrgId.getString("org_id");//zyb  会员所在的门店id
 			String membersCardcode=queryMembersOrgId.getString("cardcode");//zyb  默认刷卡卡号
 			String membersName=queryMembersOrgId.getString("name");//zyb 会员姓名
-			
+			String memberMobile=queryMembersOrgId.getString("mobile");
+			if(null == membersCardcode || membersCardcode == "") {
+				qrcodePath="失败：未设置默认卡！手机号："+memberMobile;
+				tuid=1;
+				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
+				throw new Throwable(qrcodePath);
+			}
 			
 			//zyb 添加消息记录
 			String messageaddsql = getLocalResource(basePath+"insert-message.sql");
