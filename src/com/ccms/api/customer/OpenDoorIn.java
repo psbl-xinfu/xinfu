@@ -4,13 +4,10 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
-
 import dinamica.Db;
 import dinamica.GenericTransaction;
 import dinamica.Recordset;
 import dinamica.StringUtil;
-import transactions.project.fitness.util.ErpTools;
 
 /**  
  * All rights Reserved, Designed By gymjam.cn
@@ -98,7 +95,7 @@ public class OpenDoorIn extends GenericTransaction {
 			
 			String orgID = rsOrgID.getString("org_id");//zyb  门店id
 			
-			String membersOrgIdSql = "SELECT name,cardcode,org_id FROM cc_customer WHERE code = ${fld:uid}";
+			String membersOrgIdSql = "SELECT name,cardcode,org_id,mobile FROM cc_customer WHERE code = ${fld:uid}";
 			membersOrgIdSql = getSQL(membersOrgIdSql, inputParams);
 			membersOrgIdSql = StringUtil.replace(membersOrgIdSql, "${fld:uid}", "'"+uid+"'");
 			Recordset queryMembersOrgId = db.get(membersOrgIdSql);
@@ -113,9 +110,9 @@ public class OpenDoorIn extends GenericTransaction {
 			String membersOrgId =queryMembersOrgId.getString("org_id");//zyb  会员所在的门店id
 			String membersCardcode=queryMembersOrgId.getString("cardcode");//zyb  默认刷卡卡号
 			String membersName=queryMembersOrgId.getString("name");//zyb 会员姓名
-			
+			String memberMobile=queryMembersOrgId.getString("mobile");
 			if(null == membersCardcode || membersCardcode == "") {
-				qrcodePath="失败：该卡不能入场,请设置默认卡";
+				qrcodePath="失败：未设置默认卡！手机号："+memberMobile;
 				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
