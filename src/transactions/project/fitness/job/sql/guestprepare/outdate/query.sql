@@ -26,7 +26,7 @@ union  --zzn修改增加没有分配过的资源的过期；
 SELECT 
 	t.code AS guestcode, NULL::VARCHAR AS customercode, t.org_id, t.mc 
 FROM cc_guest t 
-WHERE t.org_id = '1038' AND t.status = 1 
+WHERE t.org_id = ${fld:org_id} AND t.status = 1 
 AND not EXISTS(SELECT 1 FROM cc_mcchange m WHERE m.guestcode = t.code AND m.org_id = t.org_id AND m.status = 1) 
 
 AND (

@@ -20,6 +20,8 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
+		<print mode="form" recordset="_rsOpenDoorOut" />
+		<print mode="form" recordset="_request" />
 	</output>
 
 </config>

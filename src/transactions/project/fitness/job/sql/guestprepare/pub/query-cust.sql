@@ -5,9 +5,9 @@ WITH cnfg AS (
 		COALESCE((
 			SELECT c1.param_value FROM cc_config c1 
 			WHERE category = 'CustMaxFPCount' AND c1.org_id = (
-				case when NOT EXISTS(SELECT 1 FROM cc_config c2 WHERE c2.org_id = ${def:org}  AND c2.category = c1.category) 
+				case when NOT EXISTS(SELECT 1 FROM cc_config c2 WHERE c2.org_id = ${fld:org_id}  AND c2.category = c1.category) 
 				THEN (SELECT org_id FROM hr_org WHERE (pid IS NULL OR pid = 0)) 
-				ELSE ${def:org}  END
+				ELSE ${fld:org_id}  END
 			) LIMIT 1
 		),'30')::INTEGER as maxcount
 	FROM dual 
@@ -17,9 +17,9 @@ WITH cnfg AS (
 		COALESCE((
 			SELECT c1.param_value FROM cc_config c1 
 			WHERE category = 'MembershipProtectionPeriod' AND c1.org_id = (
-				case when NOT EXISTS(SELECT 1 FROM cc_config c2 WHERE c2.org_id = ${def:org}  AND c2.category = c1.category) 
+				case when NOT EXISTS(SELECT 1 FROM cc_config c2 WHERE c2.org_id = ${fld:org_id}  AND c2.category = c1.category) 
 				THEN (SELECT org_id FROM hr_org WHERE (pid IS NULL OR pid = 0)) 
-				ELSE ${def:org}  END
+				ELSE ${fld:org_id}  END
 			) LIMIT 1
 		),'30')::INTEGER as maxday
 				 
@@ -28,7 +28,7 @@ WITH cnfg AS (
 SELECT 
 	r.code AS customercode, NULL::VARCHAR AS guestcode, r.org_id, r.mc 
 FROM cc_customer r 
-WHERE r.org_id = ${def:org}  
+WHERE r.org_id = ${fld:org_id}  
 AND (case when (SELECT cg.maxcount FROM cnfg cg)=0 then null=null else
 (SELECT cg.maxcount FROM cnfg cg) > (
 SELECT count(1) from cc_comm cm where  not EXISTS (
@@ -43,7 +43,7 @@ union
 SELECT 
 	t.code AS customercode, NULL::VARCHAR AS guestcode, t.org_id, t.mc 
 FROM cc_customer t 
-WHERE t.org_id = ${def:org} 
+WHERE t.org_id = ${fld:org_id}
 AND (case when (SELECT cg.maxcount FROM cnfg cg)=0 then null=null else
 (SELECT cg.maxcount FROM cnfg cg) >(
 select count(1) from cc_comm cm 

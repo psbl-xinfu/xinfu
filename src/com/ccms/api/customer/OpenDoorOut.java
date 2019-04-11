@@ -27,11 +27,11 @@ public class OpenDoorOut extends GenericTransaction {
 		int rc = super.service(inputParams);
 		Db db = getDb();
 		Integer tuid = 0;
-		String qrcodePath="成功";
+		String qrcodePath="退场成功";
 		// add by leo 190329 增加返回接口参数定义
 		String errcode="1"; // 为0通过，为1不通过
 		String errmsg="验证未开始";
-		String basePath = "/com/ccms/api/customer/sql/out";
+		String basePath = "/com/ccms/api/customer/sql/out/";
 		Date beginDate = new Date();
 		try {
 			// 验证参数
@@ -125,7 +125,7 @@ public class OpenDoorOut extends GenericTransaction {
 			rsOpenDoorIn.addNew();
 			rsOpenDoorIn.setValue("errcode", String.valueOf(tuid));
 			rsOpenDoorIn.setValue("errmsg", qrcodePath);
-			publish("_rsOpenDoorIn", rsOpenDoorIn);
+			publish("_rsOpenDoorOut", rsOpenDoorIn);
 		}
 		return rc;
 	}
