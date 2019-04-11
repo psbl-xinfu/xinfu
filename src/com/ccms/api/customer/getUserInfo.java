@@ -4,7 +4,6 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 import dinamica.Db;
 import dinamica.GenericTransaction;
 import dinamica.Recordset;
@@ -78,7 +77,7 @@ public class getUserInfo extends GenericTransaction {
 			devicesql = StringUtil.replace(devicesql, "${fld:appid}", "'"+appid+"'");
 			Recordset querydevice= db.get(devicesql);
 			if( null == querydevice || querydevice.getRecordCount() <= 0 ){
-				qrcodePath="未找到该设备号";
+				qrcodePath="读取设备号失败！"+deviceID;
 				tuid=1;
 				String operatelogsql1 = getLocalResource(basePath+"insert-operatelogorg.sql");
 				operatelogsql1 = getSQL(operatelogsql1, inputParams);
