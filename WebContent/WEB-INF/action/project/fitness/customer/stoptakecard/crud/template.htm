@@ -330,7 +330,7 @@ $(document).ready(function() {
 		}
 	});
 
-	//根据会员查询卡
+/* 	//根据会员查询卡
 	$("#cust").blur(function(){
 		var cust = $(this).val();
 		if(undefined==cust||cust ==""){
@@ -339,7 +339,21 @@ $(document).ready(function() {
 		}else{
 			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+cust+"&objid=customercode&objidtwo=cust&random_number="+Math.random()});
 		}
-	});
+	}); */
+	
+ 	//FORM中回车事件 zzn
+ 	  var isRunning   = [];
+	document.onkeydown=function(event){
+		var cust = $("#cust").val();
+	    var e = event || window.event || arguments.callee.caller.arguments[0];
+		if(e && e.keyCode==13){ // enter 键
+			if(cust !=""){
+				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+cust+"&objid=customercode&objidtwo=cust&random_number="+Math.random()});
+				return false;
+			}	
+	    }
+	}; 
+	
 	//查询会员卡信息
 	$("#cardcode").change(function(){
 		var code = $(this).val();
