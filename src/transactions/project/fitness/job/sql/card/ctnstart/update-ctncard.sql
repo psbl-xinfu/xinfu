@@ -1,15 +1,19 @@
 --zzn 2019-04-10取俱乐部编号
 with title as 
 (select hr_org.memberhead from hr_org  where hr_org.org_id= ${fld:org_id} )
-
+--a:接续卡 b:原卡
 UPDATE cc_card a 
 SET 
 	passwd = b.passwd
 	,startdate = (
-		CASE WHEN a.starttype = 0 THEN b.enddate + interval '1 day' ELSE a.startdate END
-	)
+		  --CASE WHEN a.starttype = 0 THEN b.enddate + interval '1 day' ELSE a.startdate END
+			CASE WHEN a.starttype = 0 and b.count <= 0 THEN b.enddate + interval '1 day'  --时效卡
+			     WHEN a.starttype = 0 and b.count > 0 THEN '${def:date}'::date + interval '1 day'  --接续卡为次卡时开始时间取当前日期
+			ELSE a.startdate END)
 	,enddate = (
-		CASE WHEN a.starttype = 0 THEN b.enddate + concat((1 + a.totalday + COALESCE(a.giveday,0)),' day')::interval ELSE a.enddate END
+			CASE WHEN a.starttype = 0 and b.count <= 0 THEN b.enddate + concat((1 + a.totalday + COALESCE(a.giveday,0)),' day')::interval 
+		     	 WHEN a.starttype = 0 and b.count > 0 THEN '${def:date}'::date + concat((1 + a.totalday + COALESCE(a.giveday,0)),' day')::interval 
+		    ELSE a.enddate END
 	)
 	,status = 1
 	,isgoon = 0 
