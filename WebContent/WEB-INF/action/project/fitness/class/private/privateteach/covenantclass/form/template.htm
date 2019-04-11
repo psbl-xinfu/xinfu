@@ -154,7 +154,10 @@ $(document).ready(function() {
 		$("#startenddate").html("");
 	    var e = event || window.event || arguments.callee.caller.arguments[0];
 		if(e && e.keyCode==13){ // enter 键
-			if(custall !=""){
+			if(undefined==custall||custall ==""){
+				ccms.dialog.alert("请输入会员编号/姓名/手机号！");
+				return false;
+			}else if(custall !=""){
 				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+custall+"&objid=custcode&objidtwo=custall&random_number="+Math.random()});
 				return false;
 			}	
