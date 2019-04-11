@@ -64,25 +64,16 @@ public class GuestPrepareJob extends BaseJob{
 				String queryOrg =  getLocalResource("/transactions/project/fitness/job/sql/query-org.sql");
 				Recordset rsOrg = db.get(queryOrg);
 				while(rsOrg.next()){
-					// 1、客户资源超过分配次数后，进入公海 --目前系统不采用此逻辑，只考虑按保护期时间过期 zzn2019-03-28
-				  /*String _queryPublic = getSQL(queryPublicGuest, rsOrg);
-					Recordset rsPublic = db.get(_queryPublic);
-					while( rsPublic.next() ){
-						String _insert = getSQL(insertPublic, rsPublic);
-						_insert = StringUtils.replaceOnce(_insert, "${datatype}", String.valueOf(DATATYPE_guest));
-						_insert = StringUtils.replaceOnce(_insert, "${resason}", String.valueOf(PUBLIC_REASON_guest_outof_maxnum));
-						db.exec(_insert);
-					}*/
-					// 1、客户资源超过保护期未成交，进入公海  zzn 2019-03-28
+					// 资源为成交和会员！=0  都进入公海
 					String _queryOutPublic = getSQL(queryOut, rsOrg);
 					Recordset rsqueryOutPublic = db.get(_queryOutPublic);
 						while( rsqueryOutPublic.next() ){
 							String _insert = getSQL(insertPublic, rsqueryOutPublic);
-							_insert = StringUtils.replaceOnce(_insert, "${datatype}", String.valueOf(DATATYPE_guest));
+							/*_insert = StringUtils.replaceOnce(_insert, "${datatype}", String.valueOf(DATATYPE_guest));*/
 							_insert = StringUtils.replaceOnce(_insert, "${resason}", String.valueOf(PUBLIC_REASON_guest_outof_maxnum));
 							db.exec(_insert);
 						}					
-										
+					/*					
 					// 2、会员在保护期内超过最大跟进天数时，进入公海
 					String _queryPublic = getSQL(queryPublicCust, rsOrg);
 					Recordset rsPublic = db.get(_queryPublic);
@@ -92,22 +83,22 @@ public class GuestPrepareJob extends BaseJob{
 						_insert = StringUtils.replaceOnce(_insert, "${resason}", String.valueOf(PUBLIC_REASON_cust_follow_timeout));
 						db.exec(_insert);
 					}
-					
+					*/
 					// 3、客户资源快过期提醒
-					String _queryRemind = getSQL(queryRemind, rsOrg);
+					/*String _queryRemind = getSQL(queryRemind, rsOrg);
 					Recordset rsMind = db.get(_queryRemind);
 					while(rsMind.next()){
 						String _insertRemind = getSQL(insertRemind, rsMind);
 						db.exec(_insertRemind);
-					}
+					}*/
 
-					// 4、客户资源过期后，重新回到会籍经理手中   
+				/*	// 4、客户资源过期后，重新回到会籍经理手中   
 					String _queryOut = getSQL(queryOut, rsOrg);
 					Recordset rsOut = db.get(_queryOut);
 					while( rsOut.next() ){
 						String _update = getSQL(updateInvalid, rsOut);
 						db.exec(_update);
-					}
+					}*/
 					
 				}
 				

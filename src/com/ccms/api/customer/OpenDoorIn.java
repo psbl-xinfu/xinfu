@@ -90,7 +90,7 @@ public class OpenDoorIn extends GenericTransaction {
 			
 			if( null == rsOrgID || rsOrgID.getRecordCount() <= 0 ){
 				tuid=1;
-				qrcodePath="未找到相关的设备信息!设备号："+deviceID;
+				qrcodePath="读取设备信息失败!设备号："+deviceID;
 				savedev(inleftAdddevSql, uid, tuid,deviceID, qrcodePath);
 				throw new Throwable(qrcodePath);
 			}
