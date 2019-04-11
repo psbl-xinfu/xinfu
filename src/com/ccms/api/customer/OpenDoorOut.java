@@ -101,7 +101,7 @@ public class OpenDoorOut extends GenericTransaction {
 			
 			String orgID = rsOrgID.getString("org_id");//zyb  门店id
 			
-			String membersOrgIdSql = "SELECT name,cardcode,org_id FROM cc_customer WHERE code = ${fld:uid}";
+			String membersOrgIdSql = "SELECT name,cardcode,org_id,mobile FROM cc_customer WHERE code = ${fld:uid}";
 			membersOrgIdSql = getSQL(membersOrgIdSql, inputParams);
 			membersOrgIdSql = StringUtil.replace(membersOrgIdSql, "${fld:uid}", "'"+uid+"'");
 			Recordset queryMembersOrgId = db.get(membersOrgIdSql);
