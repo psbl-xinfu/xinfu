@@ -53,7 +53,7 @@ public class getUserInfo extends GenericTransaction {
 				qrcodePath="提交参数deviceID不能为空";
 				throw new Throwable(qrcodePath);
 			}
-			//用户身份类型1会员2私教3教练
+			//识别码类型
 			String codeType = inputParams.containsField("codeType") ? inputParams.getString("codeType") : "";
 			//手机号
 			userCode = inputParams.containsField("userCode") ? inputParams.getString("userCode") : "";
@@ -95,7 +95,7 @@ public class getUserInfo extends GenericTransaction {
 			String orgId=querydevice.getString("org_id");
 			//获取当前时间
 			
-			if(codeType=="1") {
+			if(codeType.equals("1")) {
 				//根据手机号获取用户信息
 				String custsql = getLocalResource(basePath+"query-cust.sql");
 				custsql = getSQL(custsql, inputParams);
@@ -114,7 +114,7 @@ public class getUserInfo extends GenericTransaction {
 				name=querycust.getString("name");
 				sex=querycust.getString("sex");
 			}
-			if(codeType=="3") {
+			if(codeType.equals("3")) {
 				//根据卡号获取用户信息
 				String custcardsql = getLocalResource(basePath+"query-custcard.sql");
 				custcardsql = getSQL(custcardsql, inputParams);
