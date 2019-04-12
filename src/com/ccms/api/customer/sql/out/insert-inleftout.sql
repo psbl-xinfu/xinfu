@@ -7,6 +7,7 @@ insert into cc_inleft
 	cardcode,--会员卡号：表e_card主键
 	lefttime,--入场时间
 	inuser,--入场操作人
+	indate,
 	itemtype,--健身
 	bringother,--带朋友入场
 	signednumber,
@@ -26,6 +27,7 @@ values
 	${fld:cardcode},
 	'${def:timestamp}',
 	${fld:deviceid}, -- modified by leo 190328
+	'${def:date}',
 	0,
 	0,
 	1,

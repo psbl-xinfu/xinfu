@@ -138,26 +138,52 @@ public class OpenDoorOut extends GenericTransaction {
 			db.addBatchCommand(messageaddsql);
 			
 			//判断是是新增还是修改
-			String inleftcodesql = "SELECT code FROM cc_inleft where indate = (select current_date)" + 
-					"	and cardcode ='"+membersCardcode+"' and org_id = "+orgID + 
+			String inleftinsql = "SELECT code FROM cc_inleft where indate = (select current_date)" + 
+					"	and cardcode ='"+membersCardcode+"' and lefttime is null and intime is not null and org_id = "+orgID + 
 					"	order by intime desc LIMIT 1";
-			inleftcodesql = getSQL(inleftcodesql, inputParams);
-			Recordset inleftcode = db.get(inleftcodesql);
-			if(null == inleftcode ||  inleftcode.getRecordCount() <= 0) {
-				
-				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
-				throw new Throwable(qrcodePath);
-			}else {
+			inleftinsql = getSQL(inleftinsql, inputParams);
+			Recordset inleftin = db.get(inleftinsql);
+			inleftin.first();
+			String in_inleft =inleftin.getString("code");
+			
+			String inleftinoutsql = "SELECT code FROM cc_inleft where indate = (select current_date)" + 
+					"	and cardcode ='"+membersCardcode+"' and lefttime is not null and intime is not null and org_id = "+orgID + 
+					"	order by intime desc LIMIT 1";
+			inleftinoutsql = getSQL(inleftinoutsql, inputParams);
+			Recordset inoutleftin = db.get(inleftinoutsql);
+			inoutleftin.first();
+			String inout_inleft =inoutleftin.getString("code");
+			int inbin= Integer.valueOf(in_inleft);
+			int intoutbin= Integer.valueOf(inout_inleft);
+			if(inbin>intoutbin) {
 				//zyb 添加出场的时间
 				String cardstartenddate = getLocalResource(basePath+"update-inleft.sql");
 				cardstartenddate = getSQL(cardstartenddate, inputParams);
-				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:cardcode}", "'"+membersCardcode+"'");
+				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:code}", "'"+in_inleft+"'");
 				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:org}", "'"+orgID+"'");
 				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:remark}", "'"+qrcodePath+"'");
+				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:deviceID}", "'"+deviceID+"'");
 				db.addBatchCommand(cardstartenddate);
 				db.exec();
+			}else {
+				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
+				throw new Throwable(qrcodePath);
 			}
-		
+			
+			/*//判断是是新增还是修改
+			String inleftcodesql = "SELECT code FROM cc_inleft where indate = (select current_date)" + 
+					"	and cardcode ='"+membersCardcode+"' and lefttime is not null and intime is not null and org_id = "+orgID + 
+					"	order by intime desc LIMIT 1";
+			inleftcodesql = getSQL(inleftcodesql, inputParams);
+			Recordset inleftcode = db.get(inleftcodesql);
+			
+			if(null == inleftcode ||  inleftcode.getRecordCount() <= 0) {
+				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
+				throw new Throwable(qrcodePath);
+			}else if(null == inleftcode ||  inleftcode.getRecordCount() > 0){
+				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
+				throw new Throwable(qrcodePath);
+			}*/
 			
 		} catch(Throwable t) {
 			t.printStackTrace();
