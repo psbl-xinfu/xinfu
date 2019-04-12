@@ -4,13 +4,10 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
-
 import dinamica.Db;
 import dinamica.GenericTransaction;
 import dinamica.Recordset;
 import dinamica.StringUtil;
-import transactions.project.fitness.util.ErpTools;
 
 /**  
  * All rights Reserved, Designed By gymjam.cn
@@ -143,20 +140,20 @@ public class OpenDoorOut extends GenericTransaction {
 					"	order by intime desc LIMIT 1";
 			inleftinsql = getSQL(inleftinsql, inputParams);
 			Recordset inleftin = db.get(inleftinsql);
+			if( null == inleftin || inleftin.getRecordCount() <= 0 ){
+				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
+				throw new Throwable(qrcodePath);
+				
+			}
 			inleftin.first();
 			String in_inleft =inleftin.getString("code");
 			
-			String inleftinoutsql = "SELECT code FROM cc_inleft where indate = (select current_date)" + 
+			String inleftinoutsql = "SELECT  COALESCE(code::int,0) as code FROM cc_inleft where indate = (select current_date)" + 
 					"	and cardcode ='"+membersCardcode+"' and lefttime is not null and intime is not null and org_id = "+orgID + 
 					"	order by intime desc LIMIT 1";
 			inleftinoutsql = getSQL(inleftinoutsql, inputParams);
 			Recordset inoutleftin = db.get(inleftinoutsql);
-			inoutleftin.first();
-			String inout_inleft =inoutleftin.getString("code");
-			int inbin= Integer.valueOf(in_inleft);
-			int intoutbin= Integer.valueOf(inout_inleft);
-			if(inbin>intoutbin) {
-				//zyb 添加出场的时间
+			if( null == inoutleftin || inoutleftin.getRecordCount() <= 0 ){
 				String cardstartenddate = getLocalResource(basePath+"update-inleft.sql");
 				cardstartenddate = getSQL(cardstartenddate, inputParams);
 				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:code}", "'"+in_inleft+"'");
@@ -165,25 +162,28 @@ public class OpenDoorOut extends GenericTransaction {
 				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:deviceID}", "'"+deviceID+"'");
 				db.addBatchCommand(cardstartenddate);
 				db.exec();
+				
 			}else {
-				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
-				throw new Throwable(qrcodePath);
+				inoutleftin.first();
+				String inout_inleft =inoutleftin.getString("code");
+				int inbin= Integer.valueOf(in_inleft);
+				int intoutbin= Integer.valueOf(inout_inleft);
+				if(inbin>intoutbin) {
+					//zyb 添加出场的时间
+					String cardstartenddate = getLocalResource(basePath+"update-inleft.sql");
+					cardstartenddate = getSQL(cardstartenddate, inputParams);
+					cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:code}", "'"+in_inleft+"'");
+					cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:org}", "'"+orgID+"'");
+					cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:remark}", "'"+qrcodePath+"'");
+					cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:deviceID}", "'"+deviceID+"'");
+					db.addBatchCommand(cardstartenddate);
+					db.exec();
+				}else {
+					save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
+					throw new Throwable(qrcodePath);
+				}
 			}
 			
-			/*//判断是是新增还是修改
-			String inleftcodesql = "SELECT code FROM cc_inleft where indate = (select current_date)" + 
-					"	and cardcode ='"+membersCardcode+"' and lefttime is not null and intime is not null and org_id = "+orgID + 
-					"	order by intime desc LIMIT 1";
-			inleftcodesql = getSQL(inleftcodesql, inputParams);
-			Recordset inleftcode = db.get(inleftcodesql);
-			
-			if(null == inleftcode ||  inleftcode.getRecordCount() <= 0) {
-				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
-				throw new Throwable(qrcodePath);
-			}else if(null == inleftcode ||  inleftcode.getRecordCount() > 0){
-				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
-				throw new Throwable(qrcodePath);
-			}*/
 			
 		} catch(Throwable t) {
 			t.printStackTrace();
