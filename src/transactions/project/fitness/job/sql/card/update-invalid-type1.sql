@@ -1,7 +1,8 @@
--- 计次卡次数用完或者过期的
+-- 计次卡次数用完或者过期的 
 UPDATE cc_card d 
 SET 	
-	status = 6 
+	status = 6
+    ,d.enddate = '${def:date}'::date - interval '1 day'  --zzn 截止日期改为当天
 FROM cc_cardtype t 
 WHERE d.isgoon = 0 AND d.status = 1 
 AND d.cardtype = t.code /**AND d.org_id = t.org_id*/ 
