@@ -21,7 +21,10 @@
 		card.enddate,
 		inleft.lefttime as jslefttime,
 		inleft.intime as jsintime,
-		inleft.indate
+		(case when inleft.indate is null and inleft.lefttime is not null 
+		then inleft.lefttime::date else 
+			inleft.indate
+		end) as indate
 from cc_inleft inleft
 left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 and inleft.customercode=card.customercode--and card.org_id = inleft.org_id
 left join cc_cardtype ct on card.cardtype = ct.code --and card.org_id = ct.org_id
@@ -60,7 +63,10 @@ union
 		null as enddate,
 		inleft.lefttime as jslefttime,
 		inleft.intime as jsintime,
-		inleft.indate
+		(case when inleft.indate is null and inleft.lefttime is not null 
+		then inleft.lefttime::date else 
+			inleft.indate
+		end) as indate
 from cc_inleft inleft
 left join cc_guest guest on inleft.guestcode = guest.code and inleft.org_id = guest.org_id
 left join hr_staff staff on staff.userlogin=inleft.inuser
@@ -97,7 +103,10 @@ union
 		elist.enddate,
 		inleft.lefttime as jslefttime,
 		inleft.intime as jsintime,
-		inleft.indate
+		(case when inleft.indate is null and inleft.lefttime is not null 
+		then inleft.lefttime::date else 
+			inleft.indate
+		end) as indate
 from cc_inleft inleft
 left join cc_expercard_list elist on elist.code=inleft.cardcode and elist.org_id = inleft.org_id
 left join cc_expercard expercard on elist.expercarddef_code = expercard.code and elist.org_id = expercard.org_id

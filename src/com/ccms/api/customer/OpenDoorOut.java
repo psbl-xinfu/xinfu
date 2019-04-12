@@ -39,6 +39,8 @@ public class OpenDoorOut extends GenericTransaction {
 		inleftAdddevSql=getSQL(inleftAdddevSql, inputParams);
 		String inleftAddcustSql = getLocalResource(basePath+"insert-inleftcust.sql");
 		inleftAddcustSql = getSQL(inleftAddcustSql, inputParams);
+		String inleftoutsql = getLocalResource(basePath+"insert-inleftout.sql");
+		inleftoutsql = getSQL(inleftoutsql, inputParams);
 		Date beginDate = new Date();
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		Date xdate= df.parse(df.format(beginDate));
@@ -135,13 +137,28 @@ public class OpenDoorOut extends GenericTransaction {
 			//Recordset messageadd = db.get(messageaddsql);
 			db.addBatchCommand(messageaddsql);
 			
-			//zyb 修改的时间
-			String cardstartenddate = getLocalResource(basePath+"update-inleft.sql");
-			cardstartenddate = getSQL(cardstartenddate, inputParams);
-			cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:cardcode}", "'"+membersCardcode+"'");
-			cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:org}", "'"+orgID+"'");
-			db.addBatchCommand(cardstartenddate);
-			db.exec();
+			//判断是是新增还是修改
+			String inleftcodesql = "SELECT code FROM cc_inleft where indate = (select current_date)" + 
+					"	and cardcode ='"+membersCardcode+"' and org_id = "+orgID + 
+					"	order by intime desc LIMIT 1";
+			inleftcodesql = getSQL(inleftcodesql, inputParams);
+			Recordset inleftcode = db.get(inleftcodesql);
+			if(null == inleftcode ||  inleftcode.getRecordCount() <= 0) {
+				
+				save(inleftoutsql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
+				throw new Throwable(qrcodePath);
+			}else {
+				//zyb 添加出场的时间
+				String cardstartenddate = getLocalResource(basePath+"update-inleft.sql");
+				cardstartenddate = getSQL(cardstartenddate, inputParams);
+				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:cardcode}", "'"+membersCardcode+"'");
+				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:org}", "'"+orgID+"'");
+				cardstartenddate = StringUtil.replace(cardstartenddate, "${fld:remark}", "'"+qrcodePath+"'");
+				db.addBatchCommand(cardstartenddate);
+				db.exec();
+			}
+		
+			
 		} catch(Throwable t) {
 			t.printStackTrace();
 		} finally {
@@ -202,6 +219,24 @@ public class OpenDoorOut extends GenericTransaction {
 		//Recordset inleftAdd = db.get(inleftAddSql);
 		//ZYB  添加方法
 		db.addBatchCommand(inleftAddcustSql);
+		db.exec();
+	}
+	
+	
+	public void saveout(String sql, String uid,String membersCardcode,String membersOrgId,String orgID,String deviceID,int type,String remark) throws Throwable
+	{
+		//zyb add  添加入场记录
+		Db db = getDb();
+		sql = StringUtil.replace(sql, "${fld:custcode}", "'"+uid+"'");
+		sql = StringUtil.replace(sql, "${fld:cardcode}", "'"+membersCardcode+"'");
+		sql = StringUtil.replace(sql, "${fld:unionorgid}", "'"+membersOrgId+"'");
+		sql = StringUtil.replace(sql, "${fld:org}", "'"+orgID+"'");
+		sql = StringUtil.replace(sql, "${fld:typet}", "'"+type+"'");
+		sql = StringUtil.replace(sql, "${fld:deviceid}", "'"+deviceID+"'");
+		sql = StringUtil.replace(sql, "${fld:remark}", "'"+remark+"'");
+		//Recordset inleftAdd = db.get(inleftAddSql);
+		//ZYB  添加方法
+		db.addBatchCommand(sql);
 		db.exec();
 	}
 }

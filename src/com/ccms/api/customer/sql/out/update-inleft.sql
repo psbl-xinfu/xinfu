@@ -1,6 +1,7 @@
 update cc_inleft set
 	lefttime='${def:timestamp}',--离场时间
-	leftuser='zyb-0815' --离场操作人
+	leftuser='zyb-0815', --离场操作人
+	remark=${fld:remark}
 where code=(
 	select code
 	from cc_inleft 
