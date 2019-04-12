@@ -1,5 +1,5 @@
 select
-	card.contractcode,
+	get_arr_value(con.relatedetail,7) as cardtypename,
 	--考虑续卡的情况 zzn 2019-04-10
 	(case when card.isgoon=0
 		then (case when card.status=0 then '无效'
@@ -10,8 +10,8 @@ select
 			   when card.status=5 then '停卡中'
 			   when card.status=6 then '过期'
 		end)
-	      when card.isgoon=1  then '未启用'
-	      when card.isgoon=-1 then '过期'
+	      when card.isgoon=1  then '续卡未启用'
+	      when card.isgoon=-1 then '续卡已过期'
 	end)as status,
 	card.code,
 	cust.name,
@@ -35,7 +35,7 @@ and cust.code = ${fld:cust_code}
 union
 
 select
-	card.contractcode,
+	get_arr_value(con.relatedetail,7) as cardtypename,
 	(case when card.isgoon=0
 		then (case when card.status=0 then '无效'
 			   when card.status=1 then '正常'
@@ -45,8 +45,8 @@ select
 			   when card.status=5 then '停卡中'
 			   when card.status=6 then '过期'
 		end)
-	      when card.isgoon=1  then '未启用'
-	      when card.isgoon=-1 then '过期'
+	      when card.isgoon=1  then '续卡未启用'
+	      when card.isgoon=-1 then '续卡已过期'
 	end)as status,
 	card.code,
 	cust.name,

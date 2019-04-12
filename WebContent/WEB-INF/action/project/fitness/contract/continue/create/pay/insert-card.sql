@@ -24,6 +24,7 @@ SELECT
 	,1
 	,t.customercode
 	,get_arr_value(t.relatedetail, 3)	-- cardtype
+	--续卡虽然写入了卡时间但实际应用时后续卡的开始和截止时间都是依照上一张卡的时间结束时间计算的 zzn注释
 	,(CASE get_arr_value(t.relatedetail, 5) WHEN '' THEN NULL ELSE get_arr_value(t.relatedetail, 5) END)::date	-- startdate
 	,(CASE get_arr_value(t.relatedetail, 6) WHEN '' THEN NULL ELSE get_arr_value(t.relatedetail, 6) END)::date	-- enddate
 	,get_arr_value(t.relatedetail, 10)::integer	-- totalday
