@@ -83,7 +83,8 @@ select
 	initmc,
 	(select ct.name from cc_customer ct where ct.code = cc_customer.recommend and ct.org_id = ${fld:menuorgid} limit 1) as recommend_name,
 	(select t.tuid from t_attachment_files t where t.pk_value = cc_customer.code and t.table_code = 'cc_customer' and t.org_id= ${fld:menuorgid} order by t.tuid desc limit 1) as imgid,
-	created
+	created,
+	cardcode
 from 
 	cc_customer
 where 

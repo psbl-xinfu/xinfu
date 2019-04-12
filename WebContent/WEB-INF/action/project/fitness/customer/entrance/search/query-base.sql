@@ -20,8 +20,11 @@
 		card.enddate,
 		inleft.lefttime as jslefttime,
 		inleft.intime as jsintime,
-		inleft.indate,
-		inleft.remark
+		inleft.remark,
+		(case when inleft.indate is null and inleft.lefttime is not null 
+		then inleft.lefttime::date else 
+			inleft.indate
+		end) as indate
 from cc_inleft inleft
 left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 and inleft.customercode=card.customercode--and card.org_id = inleft.org_id
 left join cc_cardtype ct on card.cardtype = ct.code --and card.org_id = ct.org_id
@@ -29,7 +32,7 @@ left join cc_customer cust on card.customercode = cust.code and inleft.customerc
 left join hr_staff staff on staff.userlogin=inleft.inuser
 where  1=1 and inleft.org_id = ${def:org} and inleft.inlefttype = 1
 ${filter} 
-and inleft.intime::date='${def:date}'::date
+and (inleft.intime::date='${def:date}'::date or inleft.lefttime::date='${def:date}'::date)
 and (case when ${fld:temporaryinleft} is null then 1=1 else 1=2 end)
 and (case when ${fld:inlefttype} is null then 1=1 else 
 		(case when ${fld:inlefttype}='1' then 1=1 else 1=2 end) end)
@@ -64,8 +67,11 @@ union
 		null as enddate,
 		inleft.lefttime as jslefttime,
 		inleft.intime as jsintime,
-		inleft.indate,
-		inleft.remark
+		inleft.remark,
+		(case when inleft.indate is null and inleft.lefttime is not null 
+		then inleft.lefttime::date else 
+			inleft.indate
+		end) as indate
 from cc_inleft inleft
 left join cc_guest guest on inleft.guestcode = guest.code and inleft.org_id = guest.org_id
 left join hr_staff staff on staff.userlogin=inleft.inuser
@@ -73,7 +79,7 @@ where  1=1 and inleft.org_id = ${def:org} and inleft.inlefttype = 1
 and (case when ${fld:inlefttype} is null then 1=1 else 
 		(case when ${fld:inlefttype}='0' then 1=1 else 1=2 end) end)
 ${filter} 
-and inleft.intime::date='${def:date}'::date
+and (inleft.intime::date='${def:date}'::date or inleft.lefttime::date='${def:date}'::date)
 and (case when ${fld:vc_cardcode} is null then 1=1 else (guest.code = ${fld:vc_cardcode} or guest.name like concat('%', ${fld:vc_cardcode}, '%')
 	 or guest.mobile like concat('%', ${fld:vc_cardcode}, '%'))  end)
 	 
@@ -103,8 +109,11 @@ union
 		elist.enddate,
 		inleft.lefttime as jslefttime,
 		inleft.intime as jsintime,
-		inleft.indate,
-		inleft.remark
+		inleft.remark,
+		(case when inleft.indate is null and inleft.lefttime is not null 
+		then inleft.lefttime::date else 
+			inleft.indate
+		end) as indate
 from cc_inleft inleft
 left join cc_expercard_list elist on elist.code=inleft.cardcode and elist.org_id = inleft.org_id
 left join cc_expercard expercard on elist.expercarddef_code = expercard.code and elist.org_id = expercard.org_id
@@ -112,7 +121,7 @@ left join cc_expercard_log elog on inleft.customercode = elog.code and inleft.or
 left join hr_staff staff on staff.userlogin=inleft.inuser
 where  1=1 and inleft.org_id = ${def:org} and inleft.inlefttype = 2
 ${filter} 
-and inleft.intime::date='${def:date}'::date
+and (inleft.intime::date='${def:date}'::date or inleft.lefttime::date='${def:date}'::date)
 and (case when ${fld:temporaryinleft} is null then 1=1 else 1=2 end)
 and (case when ${fld:inlefttype} is null then 1=1 else 
 		(case when ${fld:inlefttype}='2' then 1=1 else 1=2 end) end)

@@ -3,6 +3,7 @@ $('#nation').text("${fld:nation}");
 $('#name').text("${fld:name}");
 $('#sex').text("${fld:sex}");
 $('#mobile').text("${fld:mobile}");
+$('#mrcardcode').text("${fld:cardcode}");
 var birth="${fld:birth}".substring(5,10);
 if("${fld:birth}"!=''&&"${fld:birthday}"!=''){
 	$('#birth').text("${fld:birth}月${fld:birthday}日");
