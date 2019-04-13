@@ -64,11 +64,24 @@ public class CardJob extends BaseJob{
 				String updateIsgoon = getLocalResource(basepath + "ctnstart/update-isgoon.sql");
 				String updateCtncard = getLocalResource(basepath + "ctnstart/update-ctncard.sql");
 				/**String deleteOld = getLocalResource(basepath + "ctnstart/delete-old.sql");*/
+				String updateinvalidtype0 = getLocalResource(basepath + "ctnstart/update-invalid-type0.sql");
+				String updateinvalidtype1 = getLocalResource(basepath + "ctnstart/update-invalid-type1.sql");
+				String updateinvalidtype2 = getLocalResource(basepath + "ctnstart/update-invalid-type2.sql");
+				
+				
 				// 获取需要更新的数据
 				String queryCtnstart = getLocalResource(basepath + "ctnstart/query.sql");
 				Recordset rsCtnstart = db.get(getSQL(queryCtnstart, null));
 				while(rsCtnstart.next()){
 					db.beginTrans();
+					// 1、续卡时，原会员卡自动过期 zzn
+					// 时效卡过期
+					db.exec(getSQL(updateinvalidtype0,null));
+					// 计次卡次数用完或者过期
+					db.exec(getSQL(updateinvalidtype1,null));
+					// 基金卡两种基金加起来小于10或者过期
+					db.exec(getSQL(updateinvalidtype2,null));
+					//zzn
 					// 将启用续卡的会员卡的原卡的I_ISGOON更新成-1
 					String _updateIsgoon = getSQL(updateIsgoon, rsCtnstart);
 					db.exec(_updateIsgoon);
