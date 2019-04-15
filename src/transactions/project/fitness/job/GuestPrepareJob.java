@@ -15,7 +15,7 @@ import dinamica.Db;
 import dinamica.Recordset;
 
 /***
- * 客户资源超过分配次数、预约过期、爽约处理
+ * 资源会员都会进入公海
  * @author C
  * 2016-06-25
  */
@@ -24,10 +24,10 @@ public class GuestPrepareJob extends BaseJob{
 	private static Boolean IS_FINISH = true;
 	private static byte[] lock = new byte[0];
 	
-	private static final int DATATYPE_guest = 1;	// 资源
+/*	private static final int DATATYPE_guest = 1;	// 资源
 	private static final int DATATYPE_customer = 2;	// 会员
-	private static final String PUBLIC_REASON_guest_outof_maxnum = "资源超过最大分配次数";
-	private static final String PUBLIC_REASON_cust_follow_timeout = "会员跟进超时";
+*/	private static final String PUBLIC_REASON_guest_outof_maxnum = "资源会员都会进入public表";
+	/*private static final String PUBLIC_REASON_cust_follow_timeout = "会员跟进超时";*/
 	
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException{
@@ -64,12 +64,12 @@ public class GuestPrepareJob extends BaseJob{
 				String queryOrg =  getLocalResource("/transactions/project/fitness/job/sql/query-org.sql");
 				Recordset rsOrg = db.get(queryOrg);
 				while(rsOrg.next()){
-					// 资源为成交和会员！=0  都进入公海
+					//zyb 20190415 资源和会员都进入公海
 					String _queryOutPublic = getSQL(queryOut, rsOrg);
 					Recordset rsqueryOutPublic = db.get(_queryOutPublic);
 						while( rsqueryOutPublic.next() ){
 							String _insert = getSQL(insertPublic, rsqueryOutPublic);
-							/*_insert = StringUtils.replaceOnce(_insert, "${datatype}", String.valueOf(DATATYPE_guest));*/
+							//zyb 20190415  原因条件
 							_insert = StringUtils.replaceOnce(_insert, "${resason}", String.valueOf(PUBLIC_REASON_guest_outof_maxnum));
 							db.exec(_insert);
 						}					
