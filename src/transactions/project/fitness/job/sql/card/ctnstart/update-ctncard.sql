@@ -11,8 +11,8 @@ SET
 			     WHEN a.starttype = 0 and b.count > 0 THEN '${def:date}'::date  --b为次卡时开始时间取当前日期   + interval '1 day'--之前的逻辑
 			ELSE a.startdate END)
 	,enddate = (
-			CASE WHEN a.starttype = 0 and (b.count <= 0 or b.count is null) THEN b.enddate + concat((1 + a.totalday + COALESCE(a.giveday,0)),' day')::interval 
-		     	 WHEN a.starttype = 0 and b.count > 0 THEN '${def:date}'::date + concat((1 + a.totalday + COALESCE(a.giveday,0)),' day')::interval 
+			CASE WHEN a.starttype = 0 and (b.count <= 0 or b.count is null) THEN b.enddate + concat((a.totalday + COALESCE(a.giveday,0)),' day')::interval 
+		     	 WHEN a.starttype = 0 and b.count > 0 THEN '${def:date}'::date + concat(( a.totalday + COALESCE(a.giveday,0)),' day')::interval 
 		    ELSE a.enddate END
 	)
 	,status = 1

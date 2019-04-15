@@ -10,6 +10,7 @@ var count = 0;
 			+"<td>${fld:mobile@js}</td>"
 //			+"<td>${fld:normalmoney}</td>"
 			+"<td>${fld:factmoney}</td>"
+			+"<td>${fld:startdate}</td>"
 			+"<td>${fld:enddate}</td>"
 			+"<td>${fld:createdby@js}</td>"
 			+"</tr>";
