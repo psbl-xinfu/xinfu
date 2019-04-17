@@ -1,0 +1,1 @@
+select org_id from cc_device where deviceid=${fld:deviceID} and appid=${fld:appid}

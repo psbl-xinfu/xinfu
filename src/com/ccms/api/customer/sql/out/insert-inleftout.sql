@@ -14,7 +14,8 @@ insert into cc_inleft
 	nowcount,
     org_id,--俱乐部编号
     type,---0成功1失败
-    remark
+    remark,
+    cardtype
 )
 values
 (
@@ -42,6 +43,8 @@ values
 	),
 	${fld:org},--${def:org}modified by leo 190328 使用传参数
 	${fld:typet},
-	${fld:remark}
+	${fld:remark},
+	(select cardtype from cc_card where
+		code = ${fld:cardcode} and org_id = ${fld:unionorgid})
 )
 
