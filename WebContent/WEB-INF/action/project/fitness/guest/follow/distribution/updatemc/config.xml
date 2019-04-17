@@ -9,8 +9,8 @@
 	
     <request-encoding>UTF-8</request-encoding>
 
-	<colname>id,mc;id,mc;id,mc;id,mc</colname>
-	<sql-template>insert-mcchange.sql;update.sql;update1.sql;update-guestmc.sql</sql-template>
+	<colname>id,mc;id,mc;id,mc</colname>
+	<sql-template>insert-mcchange.sql;update.sql;update1.sql</sql-template>
 
 	<transaction>
 		<classname>com.ccms.InsertMaster</classname>

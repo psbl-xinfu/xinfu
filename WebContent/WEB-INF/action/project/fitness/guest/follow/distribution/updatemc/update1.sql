@@ -1,6 +1,6 @@
 update cc_public
-set status = 1
+set grabtime={ts'${def:timestamp}'},
+oldfollow= (select newfollow from cc_public where guestcode= ${fld:id} and org_id = ${def:org}),
+newfollow= ${fld:mc}
 where guestcode = ${fld:id}
 and org_id = ${def:org}
-and (select status from cc_public where guestcode = ${fld:id} order by grabtime desc limit 1)
-=0

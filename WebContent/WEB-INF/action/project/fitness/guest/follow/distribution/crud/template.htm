@@ -90,7 +90,6 @@ function insert(mc){
     	divobj.append('<input type="hidden" name="id" value="' + customercode + '" />');
     	divobj.append('<input type="hidden" name="mc" value="' + mc + '" />');
 	}
-	
 	var url = "${def:context}${def:actionroot}/updatemc"
 		ajaxCall(url,{
 			method: "post",

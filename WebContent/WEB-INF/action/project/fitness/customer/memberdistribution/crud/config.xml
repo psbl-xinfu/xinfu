@@ -21,7 +21,7 @@
 	  		  <recordset id="query-leave.sql" source="sql" scope="transaction"/>
 	        <recordset id="query-children.sql" source="sql" scope="transaction"/>
 	         <recordset id="query-maritalstatus.sql" source="sql" scope="transaction"/> 
-	         
+	          <recordset id="query-CustOutdate.sql" source="sql" scope="transaction"/> 
 	         	           <recordset id="query-day.sql" source="sql" scope="transaction"/>
 	            <recordset id="query-month.sql" source="sql" scope="transaction"/>
 	                <recordset id="query-age.sql" source="sql" scope="transaction"/>
@@ -32,7 +32,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<print mode="table" recordset="query-guesttype.sql" tag="guesttype-rows" />
-		 <print mode="table" recordset="query-skill_name.sql" tag="staff-rows3" /> 
+		 <print mode="table" recordset="query-skill_name.sql" tag="staff-rows" /> 
 		
 		
 		<print mode="table" recordset="query-consultingHabit.sql" tag="consultingHabit"/>
@@ -45,6 +45,7 @@
 		<print mode="table" recordset="query-day.sql" tag="day"/>	
 		<print mode="table" recordset="query-month.sql" tag="month"/>	 
 		<print mode="table" recordset="query-age.sql" tag="age"/>	
+		<print mode="form" recordset="query-CustOutdate.sql"/>
 		<print mode="form" recordset="_request" />
 	</output>
 

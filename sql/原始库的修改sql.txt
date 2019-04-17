@@ -1,3 +1,11 @@
+//add zyb 190415 加个打印小票的剩余次数和一个卡类型
+alter table cc_inleft add nowcount int(4)
+COMMENT ON COLUMN "public"."cc_inleft"."nowcount" IS '卡的剩余次数';
+alter table cc_inleft add cardtype int (4) 
+COMMENT ON COLUMN "public"."cc_inleft"."cardtype" IS '卡类型';
+
+
+
 --add by leo 190409 客户资源分配跟进优化脚本
 drop index  if exists hr_staff_userlogin_index;
 create index hr_staff_userlogin_index on hr_staff (userlogin);
@@ -63,6 +71,10 @@ COMMENT ON COLUMN "cc_goods"."updatedby" IS '修改时间';
 COMMENT ON COLUMN "cc_goods"."remark" IS '备注';
 COMMENT ON COLUMN "cc_goods"."org_id" IS 'hr_org.org_id';
 COMMENT ON TABLE "public"."cc_device" IS '设备定义表';
+
+//zyb 20190415   上面执行完了 记得加上这个表的序列
+
+
 
 //zyb 20190409
 insert into cc_config (

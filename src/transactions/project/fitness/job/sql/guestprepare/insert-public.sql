@@ -5,6 +5,7 @@ insert into cc_public(
 	,customercode
 	,entertime
 	,oldfollow
+	,newfollow
 	,reason
 	,status
 	,grabtime
@@ -18,6 +19,7 @@ insert into cc_public(
 	${fld:mc} is not null then {ts '${def:timestamp}'}
 	else '1979-04-11 15:00:20.436'
 	 end)
+	,${fld:mc}
 	,${fld:mc}
 	,'${resason}'
 	,0

@@ -13,8 +13,8 @@ ${inc:/action/project/fitness/home/pub}
 		<input name="order" type="hidden" value="desc" preserve="true" /> 
 		<input name="pageNo" type="hidden" value="" preserve="true" /> 
 		<input name="totalPages" type="hidden" value="" preserve="true" />
-		<!-- 资源保护期 -->
-		<input name="period_day" id="period_day" type="hidden" value="${fld:period_day}" preserve="true" />
+		 <!-- 资源保护期 -->
+		<!--<input name="period_day" id="period_day" type="hidden" value="${fld:period_day}" preserve="true" /> -->
 		
 		<!-- 条件筛选开始 -->
 		<input id="filterconditionscolumn" type="hidden" 
@@ -32,26 +32,10 @@ ${inc:/action/project/fitness/home/pub}
 							<li class="inputName">
 								<input id="vc_name" name="vc_name" type="text" placeholder="姓名/电话" class="input-default"/>
 							</li>
-							<li style="width: 100px;">
-								<select id="i_status" name="i_status" style="display: none;">
-									<option value="">状态</option>
-									<option value="0">无效</option>
-									<option value="1">有效</option>
-									<option value="50">免打扰</option>
-									<option value="80">过期</option>
-								</select>
-							</li>
-							<li class="hasCheck">
-								<input type="checkbox" name="monthweigenjin" value="1" style="display: none;"/>本月未跟进
-							</li>
-							<li class="hasCheck">
-								<input type="checkbox" name="monthfeipei" value="1" style="display: none;"/>本月分配
-							</li>
-							<li class="hasCheck">
-								<input type="checkbox" name="monthnew" value="1" style="display: none;"/>本月新增
-							</li>
-							<li class="hasCheck">
-								<input type="checkbox" name="public" value="1" style="display: none;"/>待分配公海
+							
+							<li class="label-p">
+								<label for="rc-n-1-2">保护期天数：</label>
+								<input class="input-default" type="text"  id="period_day" name="period_day"  value="${fld:period_day}" placeholder="请输入天数">
 							</li>
 							<li style="width: 140px;">
 								<select id="skill_name" name="skill_name" style="display: none;">
@@ -63,7 +47,7 @@ ${inc:/action/project/fitness/home/pub}
 							</li>
 							<div class="b-10">
 								<button type="button" class="r-c-3-btn-1" id="search_btn"  title="查询"></button>
-								<img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/>
+								<!-- <img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/> -->
 								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
 							</div>	
 						</nav>
@@ -94,17 +78,16 @@ ${inc:/action/project/fitness/home/pub}
 						<thead>
 							<tr>
 								<th><input type="checkbox" name="selectAll" id="selectAll" style="display: none;" /></th>
-								<th>保护期</th>
+								<th>保护期(天数)</th>
 								<th>录入日期</th>
 								<th>公海</th>
-								<th>预约沟通时间</th>
 								<th>姓名</th>
 								<th>性别</th>
 								<th>手机</th>
-								<th>通话次数</th>
-								<th>最新跟进</th>
-								<th>最新到访</th>
-								<th>跟进状态</th>
+								<th>最新分配(日期)</th>
+								<th>会籍归属</th>
+								<th>最新到访(日期)</th>
+								<th>最新跟进(日期)</th>
 							</tr>
 						</thead>
 						<tbody id="datagridTemplate" style="display: none">
@@ -113,14 +96,13 @@ ${inc:/action/project/fitness/home/pub}
 								<td>#num_days#</td>
 								<td>#vc_itime#</td>
 								<td>#i_public#</td>
-								<td>#preparedate#</td>
 								<td>#vc_name#</td>
 								<td>#i_sex#</td>
 								<td>#vc_mobile#</td>
-								<td>#count_call#</td>
-								<td>#vc_callitime#</td>
+								<td>#entertime#</td>
+								<td>#vc_newmc#</td>
 								<td>#vc_visititime#</td>
-								<td>#followup#</td>
+								<td>#vc_callitime#</td>
 							</tr>
 						</tbody>
 						<tbody id="datagrid">

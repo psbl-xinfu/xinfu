@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-
+	<parameter id="skill_name" type="varchar" required="false" label="会籍" />
 	<parameter id="vc_all" type="varchar" required="false" label="卡号/姓名" />
 	<parameter id="_start_date" type="varchar" required="false" label="开始时间" />
 	<parameter id="_end_date" type="varchar" required="false" label="结束时间" />
 	<parameter id="thismonthcustone" type="varchar" required="false" label="本月新增" />
 	<parameter id="thismonthcusttwo" type="varchar" required="false" label="本月分配" />
 	<parameter id="thismonthcustthree" type="varchar" required="false" label="本月未分配" />
-	
+	<parameter id="period_day" type="varchar" required="false" label="会员保护期" />
 	<parameter id="f_cardtype" type="varchar" required="false" label="卡类型" />
 	<parameter id="f_status" type="varchar" required="false" label="卡状态" />
 	<parameter id="f_sex" type="varchar" required="false" label="性别" />
