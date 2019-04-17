@@ -8,7 +8,7 @@
 	
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
     on-error-label="该设备号已存在，请重新输入" id="dev_deviceid" sql="noRep.sql" />
-     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
-    on-error-label="appid已存在，请重新输入" id="dev_appid" sql="noRep-appid.sql" />
+    <!--  <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="appid已存在，请重新输入" id="dev_appid" sql="noRep-appid.sql" /> -->
 </validator>
 
