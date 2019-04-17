@@ -18,6 +18,7 @@ select
 	cust.mobile,
 	con.normalmoney,
  	con.factmoney,
+ 	card.startdate,
 	card.enddate,
 	(select name from hr_staff where userlogin = card.createdby) as createdby,
 	card.created
@@ -53,6 +54,7 @@ select
 	cust.mobile,
 	con.normalmoney,
  	con.factmoney,
+ 	card.startdate,
 	card.enddate,
 	(select name from hr_staff where userlogin = card.createdby) as createdby,
 	card.created
