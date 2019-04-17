@@ -21,7 +21,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="form" recordset="_rsOpenDoorIn" />
+		<print mode="form" recordset="_rsGetuserErr" />
 		<!-- <print mode="form" recordset="query-hour.sql" />
 		<print mode="table" recordset="query-sitedef.sql" tag="sitedef-rows" /> -->
 		<print mode="form" recordset="_request" />

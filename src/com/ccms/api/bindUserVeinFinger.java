@@ -64,19 +64,19 @@ public class bindUserVeinFinger extends GenericTransaction {
 			//用户识别类型
 			String	userType = inputParams.containsField("userType") ? inputParams.getString("userType") : "";
 			if( null == userType || "".equals(userType) ){
-				qrcodePath="用户身份类型";
+				qrcodePath="用户识别类型";
 				throw new Throwable(qrcodePath);
 			}
 			//用户编号
 			String	uid = inputParams.containsField("uid") ? inputParams.getString("uid") : "";
 			if( null == uid || "".equals(uid) ){
-				qrcodePath="用户身份类型";
+				qrcodePath="用户编号不可以为空";
 				throw new Throwable(qrcodePath);
 			}
 			//验证云会员id	
 			String	cloudId = inputParams.containsField("cloudId") ? inputParams.getString("cloudId") : "";
 			if( null == cloudId || "".equals(cloudId) ){
-				qrcodePath="用户身份类型";
+				qrcodePath="验证云会员id不可以为空";
 				throw new Throwable(qrcodePath);
 			}
 		
