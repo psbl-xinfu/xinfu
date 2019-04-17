@@ -343,35 +343,37 @@ $(function(){
 						if(parseInt(num)>data.quantity){
 							goodcount = 1;
 							ccms.dialog.notice("库存不足，"+data.goods_name+"最大购买数量为"+data.quantity+"！", 2000);
+						}else{
+							if(getCheckboxValue("othertype")=="1"){
+								   var moneydetail = "";
+									//获取所有支付类型option
+									$("#moneytype option").each(function(){  
+										if($(this).val()!=""){
+											moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+										}
+										moneydetail = moneydetail.replace("undefined", "0");
+									});
+									//明细
+									$("#pay_detail").val(moneydetail);
+									//获取所有退费金额
+									var paymoney = 0;
+									$("input[name='paytypemoney']").each(function(j,item){
+										paymoney+=Number(item.value);
+									});
+									if(Number($("#total").val())!=paymoney){
+										ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
+										return false;
+									}
+									insert();
+								}else{
+									insert();
+								}
 						}
 					}
 				}
 			});
 		})
-		if(getCheckboxValue("othertype")=="1"){
-		   var moneydetail = "";
-			//获取所有支付类型option
-			$("#moneytype option").each(function(){  
-				if($(this).val()!=""){
-					moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
-				}
-				moneydetail = moneydetail.replace("undefined", "0");
-			});
-			//明细
-			$("#pay_detail").val(moneydetail);
-			//获取所有退费金额
-			var paymoney = 0;
-			$("input[name='paytypemoney']").each(function(j,item){
-				paymoney+=Number(item.value);
-			});
-			if(Number($("#total").val())!=paymoney){
-				ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
-				return false;
-			}
-			insert();
-		}else{
-			insert();
-		}
+		
 	});
 	
 	$("#money").blur(function(){
