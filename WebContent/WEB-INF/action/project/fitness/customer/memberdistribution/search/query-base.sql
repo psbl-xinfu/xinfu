@@ -24,7 +24,11 @@ end) as custday,--会员有效期（天数）
 		(p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0 then '否'
 		when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0 then '是'
 		end) as i_public,--是否进入公海
-	 	(p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date as num_days --保护期天数
+	 	(case when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0
+		then concat('已过期', now()::date-(p.grabtime::date+(${fld:period_day}||'day')::interval)::date,'天')
+		when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0
+		then concat('未过期', (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date ,'天')
+		end) as num_days --保护期天数
 from  cc_customer r 
 left join cc_public p on p.customercode=r.code
 where
@@ -36,7 +40,7 @@ where
 and r.status!=0  
 AND r.org_id = ${def:org} 
 ${filter}
- 
+  order by p.grabtime desc
  
  
  

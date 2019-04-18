@@ -31,9 +31,9 @@ ${inc:/action/project/fitness/home/pub}
 						<nav>
 							<li class="inputName">
 								<input id="vc_name" name="vc_name" type="text" placeholder="姓名/电话" class="input-default"/>
-							</li>
+							</li>	
 							
-							<li class="label-p">
+							<li class="label-p" id="periodnum">
 								<label for="rc-n-1-2">保护期天数：</label>
 								<input class="input-default" type="text"  id="period_day" name="period_day"  value="${fld:period_day}" placeholder="请输入天数">
 							</li>
@@ -44,6 +44,20 @@ ${inc:/action/project/fitness/home/pub}
 										<option  value='${fld:userlogin}'>${fld:name@js}</option>
 									</skillname-list>
 								</select>
+							</li>
+							<li style="width: 140px;">
+								<select id="overdue_day" name="overdue_day" style="display: none;">
+									<option value="">进入公海天数</option>
+									<option  value='7'>大于7天</option>
+									<option  value='15'>大于15天</option>
+									<option  value='30'>大于30天</option>
+									<option  value='60'>大于60天</option>
+									<option  value='90'>大于90天</option>
+									<option  value='180'>大于180天</option>
+								</select>
+							</li>
+							<li class="hasCheck">
+								<input type="checkbox" name="public" value="1" style="display: none;"/>就看公海
 							</li>
 							<div class="b-10">
 								<button type="button" class="r-c-3-btn-1" id="search_btn"  title="查询"></button>
@@ -65,9 +79,9 @@ ${inc:/action/project/fitness/home/pub}
 							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
 							</li>
-							<li>
+							<!-- <li>
 								<img src="${def:context}/js/project/fitness/image/SVG/btn/qiangziyuan.svg" title="抢资源" alt=""id="snatch_btn">
-							</li>
+							</li> -->
 						</nav>
 					</div>
 				</div>				
@@ -143,8 +157,7 @@ $(document).ready(function() {
 	ccms.util.renderCheckbox("monthfeipei");	
 	ccms.util.renderCheckbox("monthnew");	
 	ccms.util.renderCheckbox("public");	
-	
-	searchSelectInit($("#skill_name,#to_mc,#i_status"));
+	searchSelectInit($("#skill_name,#to_mc,#i_status,#overdue_day"));
 	
 	//筛选条件
 	var filterconditionscolumn = $("#filterconditionscolumn").val().split(",");

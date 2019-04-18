@@ -340,6 +340,21 @@ ${inc:/action/project/fitness/home/pub}
 											</staff-rows>
 										</select>
 									</li>
+									
+									<li style="width: 140px;">
+										<select id="overdue_day" name="overdue_day" style="display: none;">
+											<option value="">进入公海天数</option>
+											<option  value='7'>大于7天</option>
+											<option  value='15'>大于15天</option>
+											<option  value='30'>大于30天</option>
+											<option  value='60'>大于60天</option>
+											<option  value='90'>大于90天</option>
+											<option  value='180'>大于180天</option>
+										</select>
+									</li>
+									<li class="hasCheck">
+										<input type="checkbox" name="public" value="1" style="display: none;"/>是否公海
+									</li>
 									<div class="r-c-btnList b-10">
 										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
 										<!-- <button type="button" class="r-c-3-btn-2" id="filter_btn" title="条件筛选"></button> -->
@@ -446,7 +461,7 @@ ${inc:/action/project/fitness/home/pub}
 	var init_event_city;
 	var init_event_city2;
 $(document).ready(function() {
-
+	ccms.util.renderCheckbox("public");	
 	//筛选条件
 	var filterconditionscolumn = $("#filterconditionscolumn").val().split(",");
 	var filterconditionshtml = "";
@@ -457,7 +472,7 @@ $(document).ready(function() {
 	//结束
 	
 	$('#cc_mc').attr('disabled',true);
-	searchSelectInit($("#cc_mc,#skill_name"));
+	searchSelectInit($("#cc_mc,#skill_name,#overdue_day"));
 
 	ccms.util.renderCheckbox("thismonthcustone");	
 	ccms.util.renderCheckbox("thismonthcusttwo");	

@@ -18,7 +18,11 @@ select
 	(p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0 then '否'
 	when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0 then '是'
 	end) as i_public,--是否进入公海
- 	(p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date as num_days --保护期天数
+	(case when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0
+	then concat('已过期', now()::date-(p.grabtime::date+(${fld:period_day}||'day')::interval)::date,'天')
+	when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0
+	then concat('未过期', (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date ,'天')
+	end) as num_days --保护期天数
 from cc_guest g 
 left join cc_public p on p.guestcode=g.code  and p.org_id=g.org_id
 /** 普通会籍只能查看自己的资源 */
@@ -28,6 +32,4 @@ and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else g.mc = '${def:user}' end)
 ${filter} 
-
-
- order by p.entertime desc
+ order by p.grabtime desc
