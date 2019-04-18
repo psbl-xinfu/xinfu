@@ -27,11 +27,11 @@ ${inc:/action/project/fitness/home/pub}
 		    	<input type="text" id = "period_day" value="${fld:period_day}" class="day input-1"/>
 				<span style="color: white;">天</span>
 			</div>	
-			<!-- <div class="col-md-6">
+			<div class="col-md-6">
 				<label for="ccc" style="color: white;">会员跟进次数</label>
 		    	<input type="text" id = "maxnum" value="${fld:maxnum}" class="day input-1"/>
 				<span style="color: white;">次</span>
-			</div> -->
+			</div>
 		</div>
 	  	 <!-- <div class="xt-1-div t-l-10">
 			<label for="ccc" style="color: white;">资源最多分配次数</label>
@@ -61,9 +61,6 @@ $(document).ready(function() {
 						url(uri+"tuid="+${fld:day_id}+"&param_text="+limitdays);
 						/* url(uri+"tuid="+${fld:count_id}+"&param_text="+limitcount); */
 						ccms.dialog.alert("修改成功！");
-						}else{
-							ccms.dialog.notice("会员分配次数必须输入大于等于0的整数!",2000);
-						}
 					}else{
 					ccms.dialog.notice("会员保护期必须输入大于等于0的整数!",2000);
 				}
