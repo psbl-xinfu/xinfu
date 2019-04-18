@@ -79,7 +79,7 @@ and (case when ${fld:paymentstatus} is null then 1=1
 		end) 
 	end)
 --zzn 添加商品销售的记录，可能有bug 目前看所有商品销售cc_operatelog 中类型都是55的
-union 
+union all
 
 select 
     (SELECT  param_text  FROM cc_config WHERE category = 'OpeCategory'
@@ -87,11 +87,11 @@ select
 		and org_id=1003) as type,
 	op.normalmoney,--应收
 	op.factmoney,--实收factmoney
-	op.factmoney as prepaid,--已付
-	(op.inimoney - op.factmoney)::numeric(10,2)   AS amount_owe,--未付
+	0 as prepaid,--已付
+	0   AS amount_owe,--未付
 	(select name from hr_staff where userlogin=op.createdby) as vc_iuser,--操作人 
 	op.createdate as createdate,
-	(case when op.normalmoney = op.factmoney THEN '已付清' else '未付清' end ) as status,
+	 '已付清'  as status,
 	op.createtime as createtime
 from cc_operatelog op 
 where op.customercode=${fld:id} and op.org_id='${def:org}'
