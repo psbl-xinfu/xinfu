@@ -71,7 +71,7 @@ ${inc:/action/project/fitness/home/pub}
 								<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
 							</li>
 							<li>
-								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除已收款合同" alt=""id="deleteContract">
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu_ysk.svg" title="删除已收款合同" alt=""id="deleteContract">
 							</li>
 							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/btn/xiugaihetong.svg" title="修改已收款合同" alt=""id="updateContract">
@@ -90,13 +90,13 @@ ${inc:/action/project/fitness/home/pub}
 							<tr>
 								<th></th>
 								<th>序号</th>
-								<th>卡号</th>
+								<th>合同编号</th>
 								<th>姓名</th>
+								<th>卡号</th>
 								<th>卡类型</th>
 								<th>性别</th>
 								<th>手机</th>
 								<th>会籍</th>
-								<th>合同编号</th>
 								<th>合同类型</th>
 							</tr>
 						</thead>
@@ -104,13 +104,14 @@ ${inc:/action/project/fitness/home/pub}
 							<tr id="list">
 								<td>#radiolink#</td>
 								<td>#show_order#</td>
-								<td>#vc_code#</td>
+								<td>#vc_contractcode#</td>								
 								<td>#vc_name#</td>
+								<td>#vc_code#</td>
 								<td>#cardtype_name#</td>
 								<td>#i_sex#</td>
 								<td>#vc_mobile#</td>
 								<td>#vc_newsale#</td>
-								<td>#vc_contractcode#</td>
+
 								<td>#vc_contracttype#</td>
 							</tr>
 						</tbody>
@@ -190,11 +191,24 @@ $(document).ready(function() {
          $("#daochuForm").submit();
     });	
 	$("#look").unbind().on("click", function(){
-		var obthis = getCheckboxValue("contractcode");
+		var obthis = getCheckboxValue("contractcode");		
+		var uri="";
 		if(obthis!= ""){
-			var custcode=$('input[name="contractcode"]:checked').attr("code");
-			ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='
-					+1+'&customercode='+custcode+"&status=",width:1200,height:700});
+			//zzn 2019-04-02
+			var contractcode=$('input[name="contractcode"]:checked').attr("value");
+			var contracttype=$('input[name="contractcode"]:checked').attr("contracttype");
+			var type=$('input[name="contractcode"]:checked').attr("contype");
+			var relatecode='';			
+			var uri = contextPath + getContractUri(contracttype, type, false) + "?contractcode=" + contractcode + "&relatecode=" + relatecode;
+			var status = $("input[name=datalist]:checked").attr("code");
+			var hei=0;
+			if(status>=2){
+				hei=550;
+			}else{
+				hei=700;
+			}
+			ccms.dialog.open({url : uri,height:hei});
+
 		}else{
 			ccms.dialog.notice("请选择!");
 		}

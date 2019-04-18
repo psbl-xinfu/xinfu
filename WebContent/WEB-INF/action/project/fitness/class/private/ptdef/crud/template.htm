@@ -50,6 +50,11 @@ ${inc:/action/project/fitness/home/pub}
 								<label>课时费提成<br/>(元/课时)：</label>
 								<input type="text" id="scale" name="scale" value="" maxlength="80" placeholder="课时费提成"/>
 							</li>
+							<li class="inpRadio">
+								<label>课程类型：</label> <!-- zzn 190321 -->
+								<input type="radio" name="isgroup" value="0" />一对一私教
+								<input type="radio" name="isgroup" value="1" />小团课
+							</li>
 						</nav>
 					</div>
 					  <div class="modal-body b-i-main">
@@ -202,6 +207,8 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
+	ccms.util.renderRadio("isgroup");
+	
 	selectInit($("#spacing,#reatetype,#status,#classtype"));
 	$(".header-close").unbind().on("click",function(){
 		$("#modalAddnew").modal('hide');
@@ -229,6 +236,7 @@ $(document).ready(function() {
 			setSelectValue($("#status"), "");
 			$("#save_btn,#savebtnshow,.deletehour").show();
 			$("#formTitle").html("新增");
+			$("input[name='isgroup']:eq(0)").iCheck("check");
 		},
 		editBack:function(){
 		},
@@ -367,7 +375,7 @@ function inserthour(){
 	$("#hour").append("<li><input type='text' size='2' name='startcount' placeholder='课程开始'/></li><li>课时至"
 			+"<input type='text' size='2' name='endcount' placeholder='课程结束'/></li><li>课时，折扣"
 			+"<input type='text' size='2' name='reate' placeholder='百分比'/>%"
-			+"&nbsp;&nbsp;&nbsp;&nbsp;<img src='${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg' style='width: 15px;height: 15px;' title='删除' onclick='delhour(this)'/></li>");
+			+"&nbsp;&nbsp;&nbsp;&nbsp;<img src='${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg' style='width: 45px;height: 20px;' title='删除' onclick='delhour(this)'/></li>");
 }
 //启用禁用
 function deftatus(name, status){

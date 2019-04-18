@@ -1,5 +1,7 @@
  SELECT
- 	concat('<input type="radio" name="contractcode" value="', c.code, '" code="', r.code, '" />') AS radiolink,
+  --zzn 增加了合同类型 
+  --concat('<input type="radio" name="contractcode" value="', c.code, '" code="', r.code, '" />') AS radiolink,
+  	concat('<input type="radio" name="contractcode" value="', c.code, '" code="', r.code, '" contracttype="',c.contracttype,'" contype="',c.type ,'" />') AS radiolink,
 	null::varchar as vc_code,	/** 卡号 */
 	c.code AS vc_contractcode,
 	r.name as vc_name,
@@ -16,6 +18,7 @@
 	c.relatedetail as vc_relatecode,
 	(CASE WHEN c.type = 1 OR c.type = 12 THEN '租柜合同'
 		WHEN c.type = 2 THEN (select ptlevelname from cc_ptdef where cc_ptdef.code =get_arr_value(c.relatedetail, 1))
+		WHEN c.type = 4 THEN ( select name from cc_cardtype where code=(SELECT  cardtype from  cc_card where cc_card.code =get_arr_value(c.relatedetail, 1)))
 		ELSE get_arr_value(relatedetail, 7)
 	END)::varchar AS cardtype_name,	
 	(CASE WHEN c.contracttype = 1 OR c.contracttype = 2 OR c.type = 6 THEN '升级合同' 
@@ -26,7 +29,9 @@
 		WHEN c.type = 10 THEN '转卡合同' 
 		WHEN c.type = 1 OR c.type = 12 THEN '租柜合同' 
 		WHEN c.type = 2 THEN '私教合同' 
-		WHEN c.type = 4 THEN '退卡合同' END) AS vc_contracttype
+		WHEN c.type = 4 THEN '退卡合同' END) AS vc_contracttype,
+	c.contracttype,
+	c.type
 FROM cc_contract c 
 INNER JOIN cc_customer r on c.customercode = r.code
 WHERE c.status >= 2 and c.org_id = ${def:org}

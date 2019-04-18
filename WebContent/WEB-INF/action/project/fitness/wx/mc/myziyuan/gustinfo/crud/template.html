@@ -66,7 +66,7 @@ ${inc:/action/project/fitness/wx/pub}
         $(function(){
         	homemc();
     	<info>
-    	$('#sex').before('${fld:name}');
+    	$('#sex').before('<label style="width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:name}">${fld:name}</label>');
     	$('#sex').html('${fld:sex}');
     	$('#mobile').html('${fld:mobile}');
     	$('#mc').html('会籍-${fld:mc}');

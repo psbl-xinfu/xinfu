@@ -5,6 +5,7 @@
 		<parameter id="s_etime" type="varchar" required="false" label="s_etime " />
 		<parameter id="s_status" type="varchar" required="false" label="s_status " />
 		<parameter id="s_genjin" type="varchar" required="false" label="s_genjin " />
+		<parameter id="s_huiyuan" type="varchar" required="false" label="是否显示过期会员 " />
 		<parameter id="s_level" type="varchar" required="false" label="s_level " />
 		<parameter id="s_period_day" type="varchar" required="false" label="s_period_day " />
 		<parameter id="s_name" type="varchar" required="false" label="s_name " />

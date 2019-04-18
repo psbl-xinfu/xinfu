@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>私教预约明细</title>
+${inc:/action/project/fitness/home/pub}
 </head>
 <body>
 	<form  role="form" method="post" id="searchForm">
@@ -144,6 +145,7 @@ $(document).ready(function() {
     $("#liebiao").click(function(){listptprepare();});
     $("#zhoubiao").click(function(){weekptprepare();});
     $("#yuebiao").click(function(){monthptprepare();});
+    checkMenuBtn();
 	searchSelectInit($("#vc_ptid,#_status"));
 	//页面点击事件
 	 $(document).click(function(){ 
@@ -210,8 +212,14 @@ $(document).ready(function() {
 				ccms.dialog.notice("未上课记录无法打印小票！");
 				return false;
 			}else{
-				ccms.dialog.open({url:"${def:context}/action/project/fitness/print/ticket/ptdetailprepareprint?pk_value="+target_id+"&print_type="+_status});
-				
+				var uri="${def:context}/action/project/fitness/print/ticket/ptdetailprepareprint?pk_value="+target_id+"&print_type="+_status;
+				ajaxCall(uri,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+					}
+				});
 			}
 		}else{
 			ccms.dialog.notice("请选择会员!");

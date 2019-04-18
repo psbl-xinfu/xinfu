@@ -31,9 +31,11 @@ select
 		then '已开始'  
 		when  
 		to_char({ts '${def:timestamp}'},'yyyy-MM-DD HH24:MI')<to_char(( cl.classdate+cl.classtime::time+ (cd.times||' minutes')::interval),'yyyy-MM-DD HH24:MI')
-		then '预约中'
+		then (case when cl.isprepare='1' then '预约中' else
+		'开放中' end)
 	end from dual) as ss,
-	cd.times
+	cd.times,
+	cl.isprepare
 from cc_classlist cl
 left join cc_classdef cd on cl.classcode = cd.code and cd.org_id = cl.org_id
 left join cc_classroom cm on cm.code = cl.classroomcode and cm.org_id = cl.org_id

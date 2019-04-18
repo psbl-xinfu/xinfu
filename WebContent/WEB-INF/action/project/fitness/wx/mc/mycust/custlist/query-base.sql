@@ -7,8 +7,6 @@ SELECT  c.code
         and comm.createdby='${def:user}'
        order by comm.created desc 
       limit 1 ) as lasttime,
-      
-      
       (SELECT 
 			case when headpic is null then '/images/icon_head.png' else headpic end
 		 FROM hr_staff WHERE user_id =c.user_id limit 1
@@ -16,7 +14,14 @@ SELECT  c.code
 FROM cc_customer c 
 where c.org_id=${def:org}
 and c.mc='${def:user}'
-	
+and c.status!=0
+and (case when ${fld:s_huiyuan} is null then  EXISTS(
+	select 1 from cc_card 
+	where isgoon=0 and status!=0 and status!=6
+	and c.code = customercode 
+	and org_id = c.org_id
+)
+else 1=1 end)
 and--按时间跟进情况
  	 (case when ${fld:s_stime} is null or ${fld:s_etime} is null then 1=1 
    else

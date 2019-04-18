@@ -12,7 +12,8 @@ insert into cc_ptdef
     spacing,
     created,
     createdby,
-    org_id
+    org_id,
+    isgroup
 )
 values 
 (
@@ -28,5 +29,6 @@ values
     ${fld:spacing},
     {ts'${def:timestamp}'},
     '${def:user}',
-    ${def:org}
+    ${def:org},
+    ${fld:isgroup}
 )

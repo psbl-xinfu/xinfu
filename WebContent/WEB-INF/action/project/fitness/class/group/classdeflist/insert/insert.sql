@@ -12,7 +12,8 @@ insert into cc_classlist
 	status,
 	remark,
 	nowcount,
-	org_id
+	org_id,
+	isprepare
 )
 values
 (
@@ -28,7 +29,8 @@ values
 	${fld:status},
 	${fld:remark},
 	0,
-	${def:org}
+	${def:org},
+	${fld:isprepare}
 )
 
 

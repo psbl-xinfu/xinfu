@@ -31,7 +31,7 @@ ${inc:/action/project/fitness/home/pub}
 						</li>
 						<li>
 							<label>私教：</label>							
-							<select name="pt" id="pt">
+							<select name="pt" id="pt" class="selectpt">
 							 	<option value="">请选择</option>
 							 	<option value="${def:user}">${def:user}</option>
 								 <pt-list>
@@ -55,8 +55,8 @@ ${inc:/action/project/fitness/home/pub}
 							<input type="hidden" id="ptenddate" name="ptenddate" />
 						</li>
 						<li>
-							<label>金额：</label>									
-							<input type="text" id="price" name="price" value="0" placeholder="金额"/>
+							<label>课程金额：</label>									
+							<input type="text" id="price" name="price" value="0" placeholder="金额" readonly="readonly"/>
 						</li>
 						<li style="display: none;">
 							<label style="width: 130px;">上课提成：</label>									
@@ -131,8 +131,7 @@ ${inc:/action/project/fitness/home/pub}
 							    <th>赠送节数</th>
 							    <th>课程</th>
 							    <th>私人教练</th>
-							    <th>应收金额</th>
-							    <th>实收金额</th>
+							    <th>课程金额</th>
 							    <th>备注</th>
 							    <th>操作人</th>
 							    <th>操作时间</th>
@@ -147,7 +146,6 @@ ${inc:/action/project/fitness/home/pub}
 					                <td>#ptlevelname#</td>
 					                <td>#pt_name#</td>
 					                <td>#ptnormalmoney#</td>
-					                <td>#ptmoney#</td>
 					                <td>#remark#</td>
 					                <td>#staff_name#</td>
 					                <td>#created#</td>
@@ -207,6 +205,8 @@ $(document).ready(function() {
 		}
 	})
 	
+	
+	
 	//赠课
 	$("#givedef").click(function(){
 		if($("#pttotalcount").val()=="")$("#pttotalcount").val("1");
@@ -240,11 +240,18 @@ $(document).ready(function() {
 		});
 	});
 
+	if($("#cust").val()==null||$("#cust").val()==""){
+		//$("#pt").attr("disabled","disabled");
+		$(".selectpt").attr("disabled","disabled");
+	}
+		
+	
+	
 	//根据教练查询赠课
 	$("#pt").change(function(){
 		$("#ptrestprice,#pttotalcount,#price").val("");
 		$("#ptrestprice").html("");
-		var uri="${def:context}${def:actionroot}/queryptdef?pt="+$(this).val();
+		var uri="${def:context}${def:actionroot}/queryptdef?pt="+$(this).val()+"&cust="+$("#customercode").val();
 		ajaxCall(uri,{
 			method: "get",
 			progress: true,
@@ -315,6 +322,7 @@ function totalprice(){
 	}
 	$("#price").val(Number(parseInt(pttotalcount)*Number(ptrestprice)).toFixed(2));
 } 
+
 </script>
 </body>
 </html>

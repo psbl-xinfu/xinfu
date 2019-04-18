@@ -165,7 +165,14 @@ $(function(){
 		}
 	}else{
 		$('.share').eq(0).show();
-		homecust();
+		// modified by leo 190213 修正会籍、私教访问体侧返回不正确
+		if("${fld:type}"=="mc"){
+			homemc();
+		}else if("${fld:type}"=="pt"){
+			homept();	
+		}else{
+			homecust();
+		}
 	}
 	
 	var num=0;
@@ -274,6 +281,33 @@ $(function(){
   		location.href="${def:context}/action/project/fitness/wx/cust/tiyanka/crud?codes=${fld:codes}"
 	})
 	
+	// modified by leo 20190226 合并两个方法，根据是否有活动选择是否记录微信分享 
+	wx.config({
+		debug: false,
+		appId:  "${fld:appid}",
+		// modified by leo 190213 修正js报错
+		timestamp: "${fld:timestamp}",
+		// timestamp: ${fld:timestamp},
+		nonceStr: "${fld:noncestr}",
+		signature: "${fld:signature}",
+		jsApiList : [ 'checkJsApi','onMenuShareTimeline',"onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone",
+		              'hideOptionMenu','showOptionMenu','hideMenuItems','showMenuItems','hideAllNonBaseMenuItem','showAllNonBaseMenuItem']
+		// 必填，需要使用的JS接口列表
+	});
+
+    wx.ready(function(){
+    	menuShareConfig({
+    		titlename: $('#custname').text() + '体测对比',
+    		desc: "",
+    		linkuri: '${fld:access_address}${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?codes=${fld:codes}&boot=false',
+    		imguri: "${fld:access_address}${def:context}/js/project/fitness/image/favicon.ico",
+    		callback: function () {
+    	    	if(iscom){
+    	    		postAjaxCall("/action/project/fitness/wx/cust/center/tice/duibi/duibipic/insert", "cardform", false);
+    	    	}    	    		
+            }
+    	});
+	}); 
 })
 
 function rect(newdata,olddata,type,index){
@@ -296,30 +330,5 @@ function rect(newdata,olddata,type,index){
 		$('.olddate').eq(index).css('width',px+'px');
 	}
 }
-
-$(function() {
- 	wx.config({
-		debug: false,
-		appId:  "${fld:appid}",
-		timestamp: ${fld:timestamp},
-		nonceStr: "${fld:noncestr}",
-		signature: "${fld:signature}",
-		jsApiList : [ 'checkJsApi','onMenuShareTimeline',"onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone",
-		              'hideOptionMenu','showOptionMenu','hideMenuItems','showMenuItems','hideAllNonBaseMenuItem','showAllNonBaseMenuItem']
-		// 必填，需要使用的JS接口列表
-	});
-
-    wx.ready(function(){
-    	menuShareConfig({
-    		titlename: $('#custname').text() + '体测对比',
-    		desc: "",
-    		linkuri: '${fld:access_address}${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?codes=${fld:codes}&boot=false',
-    		imguri: "${fld:access_address}${def:context}/js/project/fitness/image/favicon.ico",
-    		callback: function () { 
-    	    	postAjaxCall("/action/project/fitness/wx/cust/center/tice/duibi/duibipic/insert", "cardform", false);	
-            }
-    	});
-	}); 
-});
 </script>
 </html>

@@ -17,6 +17,7 @@
 	
 	<query>insert_ptrest.sql</query>
 	<query>insert_operatelog.sql</query>
+	<query>update_customer.sql</query>
 	<output>
 		<classname>dinamica.GenericOutput</classname>
 		<template>script.js</template>

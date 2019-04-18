@@ -5,6 +5,7 @@ document.formEditor.ptfee.value = "${fld:ptfee}";
 document.formEditor.scale.value = "${fld:scale}";
 document.formEditor.remark.value = "${fld:remark@js}";
 document.formEditor.times.value = "${fld:times}";
+ccms.util.setCheckboxValue('isgroup',"${fld:isgroup}","formEditor");
 if("${fld:spacing}"=="0"){
 	setSelectValue($("#spacing"), "00");
 }else{

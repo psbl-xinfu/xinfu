@@ -3,7 +3,8 @@
 	 d.startdate,	
 	 d.enddate,
 	 t.name as cardname,
-	 (case when t.type =0 then '时效卡'  when t.type =1 then '记次卡'  when t.type =2 then '基金卡' else '体验卡' end ) as cardtype,
+	 d.nowcount,
+	 (case when t.type =0 then '时效卡'  when t.type =1 then '计次卡'  when t.type =2 then '基金卡' else '体验卡' end ) as cardtype,
  	(select name from hr_staff where userlogin=(
  		select t.salemember from cc_contract t where t.code = d.contractcode and t.org_id = d.org_id 
  	) and org_id = ${def:org}) as salemember,--销售员

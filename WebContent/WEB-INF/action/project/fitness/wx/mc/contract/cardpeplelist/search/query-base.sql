@@ -18,6 +18,7 @@
 FROM cc_customer c 
 where c.org_id=${def:org}
 and c.mc='${def:user}'
+and c.status=1
 --性别
 and c.sex=(case when ${fld:s_sex} is null then c.sex else ${fld:s_sex} end)
 and--收集开始日期
