@@ -18,15 +18,7 @@ create index cc_mcchange_guestcode_index on cc_mcchange (guestcode);
 drop index  if exists cc_comm_guestcode_org_id_index;
 create index cc_comm_guestcode_org_id_index on cc_comm (guestcode,org_id);
 
---zyb 20190409
 
-ALTER table cc_ptdef add isgroup int
-
-COMMENT ON COLUMN cc_ptdef.isgroup IS '是否是小团体课：0否1是';
-
---zyb 20190409
-ALTER table cc_classlist add isprepare int
-COMMENT ON COLUMN cc_classlist.isprepare IS '是否预约1是2否';
 --zyb 20190409
 --这个是会员保护期内小于的跟进次数
 INSERT INTO cc_config ("category", "param_value", "param_text", "remark", "status", "tuid", "org_id", "createdby", "created", "updatedby", "updated")
