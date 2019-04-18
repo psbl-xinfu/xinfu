@@ -7,6 +7,7 @@ var a=0;
 	str += '<td  >${fld:vc_remark@js}</td>';
 	str += '<td  >${fld:call_result}</td>';
 	str += '<td  >${fld:vc_iuser}</td>';
+	str += '<td  >${fld:created}</td>';
 	str+='</tr>';
 </order-rows>
 if(a==0){

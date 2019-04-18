@@ -7,11 +7,7 @@
 
 	<log>false</log>
 
-	<colname>_start_date,_end_date,vc_all,thismonthcustone,thismonthcusttwo,thismonthcustthree,
-	f_sex,f_age,f_nofollowstartdate,f_nofollowenddate,f_entrystartdate,
-	f_entryenddate,f_startmonth,f_startday,f_endmonth,f_endday,f_genjintype,f_type,f_mc,
-	f_level,f_purpose,f_stage,f_personalhobbit,f_marriage,f_children,f_leave,f_participate,
-	f_ismember,f_calltimes,f_pt</colname>
+	<colname>skill_name,vc_all,public,overdue_day</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

@@ -9,7 +9,8 @@ insert into cc_inleft
 	bringother,--带朋友入场
 	signednumber,
     type,---0成功1失败
-    remark
+    remark,
+    cardtype
 )
 values
 (
@@ -22,6 +23,8 @@ values
 	0,
 	1,
 	${fld:typet},
-	${fld:remark}
+	${fld:remark},
+	(select cardtype from cc_card where
+		code = ${fld:cardcode} and org_id = ${fld:unionorgid})
 )
 

@@ -16,6 +16,7 @@
 
 	<query>insert.sql</query>
 	<query>insert-prepare.sql</query>
+	<query>update.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>

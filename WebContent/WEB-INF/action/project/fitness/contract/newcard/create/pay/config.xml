@@ -19,6 +19,7 @@
 	<query>insert-finance.sql</query>
 	<query>insert-ptrest.sql</query>
 	<query>insert-operatelog.sql</query>
+	<query>insert-public.sql</query>
 	<query>insert-message.sql</query>
 	<query>update-contract.sql</query>
 	<query>update-customer.sql</query>

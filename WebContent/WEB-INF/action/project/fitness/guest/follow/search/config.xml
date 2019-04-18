@@ -7,12 +7,7 @@
 
 	<log>false</log>
 
-	<colname>vc_name,skill_name,i_status,monthfeipei,monthweigenjin,monthnew,public
-	,f_sex,f_age,f_nofollowstartdate,f_nofollowenddate,f_startmonth,f_startday,f_endmonth
-	,f_endday,f_genjintype,f_type,f_mc,f_level,f_purpose,f_stage,f_personalhobbit
-	,f_marriage,f_children,f_leave,f_participate,f_ismember,f_protection,f_calltimes
-	,f_distributioncount,f_entrystartdate,f_entryenddate</colname>
-	
+	<colname>vc_name,skill_name,public,overdue_day</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

@@ -325,27 +325,39 @@ ${inc:/action/project/fitness/home/pub}
 						<div class="tab-cout-nav">
 							<div class="tab-cout-nav-t yyc_tab-cout-nav-t">
 								<nav class="tab-nav-my">
-					 			 	<li class="dateTime">
-										<input id="_start_date" name="_start_date" type="text" class="input-default"/>
-									</li>
-									<li class="dateTime">
-										<input id="_end_date" name="_end_date" type="text"class="input-default"/>
-									</li>
 					 			 	<li class="inputName">
 										<input type="text" id="vc_all" name="vc_all" placeholder="姓名/电话/卡号" class="input-default"/>							
 					 			 	</li>	
-									<li class="hasRadio"> 
-										<input type="checkbox" name="thismonthcustone" value="1" style="display: none;"/>本月新增
+									<li class="label-p"  id="periodnum">
+									<label for="rc-n-1-2">保护期天数：</label>
+										<input class="input-default" type="text"  id="period_day" name="period_day"  value="${fld:period_day}" placeholder="请输入天数">
 									</li>
-									<li class="hasRadio">
-										<input type="checkbox" name="thismonthcusttwo" value="2" style="display: none;"/>本月分配
+									<li style="width: 140px;">
+										<select id="skill_name" name="skill_name" style="display: none;">
+											<option value="">全部会籍</option>
+											<staff-rows>
+												<option  value='${fld:userlogin}'>${fld:name@js}</option>
+											</staff-rows>
+										</select>
 									</li>
-									<li class="hasRadio">
-										<input type="checkbox" name="thismonthcustthree" value="3" style="display: none;"/>本月未跟进
+									
+									<li style="width: 140px;">
+										<select id="overdue_day" name="overdue_day" style="display: none;">
+											<option value="">进入公海天数</option>
+											<option  value='7'>大于7天</option>
+											<option  value='15'>大于15天</option>
+											<option  value='30'>大于30天</option>
+											<option  value='60'>大于60天</option>
+											<option  value='90'>大于90天</option>
+											<option  value='180'>大于180天</option>
+										</select>
+									</li>
+									<li class="hasCheck">
+										<input type="checkbox" name="public" value="1" style="display: none;"/>公海
 									</li>
 									<div class="r-c-btnList b-10">
 										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
-										<button type="button" class="r-c-3-btn-2" id="filter_btn" title="条件筛选"></button>
+										<!-- <button type="button" class="r-c-3-btn-2" id="filter_btn" title="条件筛选"></button> -->
 										 <button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
 									</div>
 								</nav>
@@ -385,16 +397,15 @@ ${inc:/action/project/fitness/home/pub}
 										</th>
 										<th>照片</th>
 										<th>会员号</th>
+										<th>保护期(天数)</th>
 										<th>公海</th>
-										<th>姓名</th>
-										<th>性别</th>	
-										<th>手机</th>
-										<th>年龄</th>
-										<th>会籍</th>
-										<th>入会日期</th>
-										<th>到期日期</th>										
-										<th>沟通次数</th>	
-										<th>最新沟通日期</th>								
+										<th>会员姓名</th>	
+										<th>性别</th>
+										<th>最新分配(日期)</th>
+										<th>会籍归属</th>
+										<th>最新跟进(日期)</th>
+										<th>最近入场(日期)</th>										
+										<th>会员有效期(天数)</th>	
 									</tr>
 								</thead>
 								
@@ -410,18 +421,17 @@ ${inc:/action/project/fitness/home/pub}
 											</div>
 										</td>
 										<td >#mc_code#</td>
+										<td >#num_days#</td>
 										<td >#ispublic#</td>
-										<td >#mc_name#</td>
-										<td >#i_sex#</td>	
+										<td >#mc_name#</td>	
 										
-										<td >#mobile#</td>
-										<td >#age#</td>
+										<td >#i_sex#</td>
+										<td >#entertime#</td>
 										<td >#vc_mc#</td>
-										<td >#indate#</td>		
 										
-										<td >#enddate#</td>
-										<td >#com_count#</td>
-										<td >#com_date#</td>		
+										<td >#com_date#</td>
+										<td >#in_date#</td>
+										<td >#custday#</td>		
 									</tr>
 								</tbody>
 								<tbody id="datagrid">
@@ -451,7 +461,7 @@ ${inc:/action/project/fitness/home/pub}
 	var init_event_city;
 	var init_event_city2;
 $(document).ready(function() {
-
+	ccms.util.renderCheckbox("public");	
 	//筛选条件
 	var filterconditionscolumn = $("#filterconditionscolumn").val().split(",");
 	var filterconditionshtml = "";
@@ -462,7 +472,7 @@ $(document).ready(function() {
 	//结束
 	
 	$('#cc_mc').attr('disabled',true);
-	searchSelectInit($("#cc_mc,#skill_name"));
+	searchSelectInit($("#cc_mc,#skill_name,#overdue_day"));
 
 	ccms.util.renderCheckbox("thismonthcustone");	
 	ccms.util.renderCheckbox("thismonthcusttwo");	

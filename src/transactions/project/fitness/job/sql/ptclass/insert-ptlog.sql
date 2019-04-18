@@ -23,7 +23,7 @@ VALUES(
 	${fld:customercode},
 	${fld:cardcode},
 	${fld:ptlevelcode},
-	${fld:ptleftcount},
+	${fld:ptleftcount}::int-1,
 	${fld:ptid},
 	${fld:ptfactfee},
 	${fld:scale},

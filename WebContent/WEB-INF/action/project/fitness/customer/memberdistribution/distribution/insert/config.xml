@@ -7,9 +7,9 @@
 	
 	<log>false</log>
 
-	<colname>customercode,mc;customercode,mc;customercode,mc;customercode,mc;customercode,mc</colname>
-	<sql-template>insert_customermsg.sql;insert_mcchange.sql;update_distribution.sql
-	;update1.sql;update-customermc.sql</sql-template>
+	<colname>customercode,mc;customercode,mc;customercode,mc;customercode,mc</colname>
+	<sql-template>insert_customermsg.sql;insert_mcchange.sql;
+	update1.sql;update-customermc.sql</sql-template>
 
 	<transaction>
 		<classname>com.ccms.InsertMaster</classname>
