@@ -49,16 +49,25 @@ ${inc:/action/project/fitness/home/pub}
 								<option value="">请选择</option>
 								<option value="0">时效卡</option>
 								<option value="1">计次卡</option>
+								<option value="2">储值卡</option>
 							</select>
 						</li>
 						<li>
-							<label style="width: 100px;">有效天数：</label>				
-							<input type="text" id="daycount" name="daycount" value="0" maxlength="80" placeholder="有效天数"/>
+							<label style="width: 100px;" id="daylable" >有效天数：</label>				
+							<input type="text" id="daycount" name="daycount" value="0"  maxlength="80" placeholder="有效天数"/>
 						</li>
 						<li>
 							<label style="width: 100px;" id="countlable"></label>				
 							<input type="text" id="count" name="count" value="0" style="display: none;" maxlength="80" placeholder="可用次数"/>
 						</li>
+						<li>
+							<label style="width: 100px;" id="moneyleftlable" ></label>				
+							<input type="text" id="moneyleft" name="moneyleft" value="0" style="display:none;" maxlength="80" placeholder="储值金额"/>
+						</li>
+						<li>
+							<label style="width: 100px;" id="givemoneylable" ></label>				
+							<input type="text" id="givemoney" name="givemoney" value="0" style="display:none;" maxlength="80" placeholder="赠送基金"/>
+						</li>						
 						<li>
 							<label style="width: 100px;">销售价格：</label>						
 							<input type="text" id="vc_cardfee" name="vc_cardfee" value="" maxlength="80" placeholder="销售价格"/>
@@ -373,14 +382,29 @@ $(document).ready(function() {
 			});
 			
 	}}).initSearchBtn().searchData(1);
-	//跟进卡类型显示有效次数
+	//根据卡类型显示有效次数、有效天数、储值金额 zzn
 	$("#vc_cardcategory").change(function(){
 		if($(this).val()=="1"){
 			$("#count").show();
+			$("#daycount").show();
+			$("#moneyleft").hide();
 			$("#countlable").html("可用次数：");
-		}else{
+			$("#daylable").html("有效天数：");
+			$("#moneyleftlable").html("");	
+		}else if ($(this).val()=="0"){
+			$("#daycount").show();
 			$("#count").hide();
+			$("#moneyleft").hide();	
 			$("#countlable").html("");
+			$("#daylable").html("有效天数：");
+			$("#moneyleftlable").html("");	
+		}else if ($(this).val()=="2"){
+			$("#moneyleft").show();
+			$("#count").hide();
+			$("#daycount").hide();			
+			$("#countlable").html("");
+			$("#daylable").html("");
+			$("#moneyleftlable").html("储值金额：");	
 		}
 	})
 	//开卡期限

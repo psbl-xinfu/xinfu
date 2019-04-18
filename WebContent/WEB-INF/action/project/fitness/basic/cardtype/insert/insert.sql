@@ -17,6 +17,7 @@ insert into cc_cardtype
    daycount,
    remark,
    opencarddeadline,
+   moneyleft, --储值金额
    org_id
 )
 values 
@@ -38,5 +39,6 @@ values
     ${fld:daycount},
     ${fld:vc_remark},
     ${fld:opencarddeadline},
+    ${fld:moneyleft},
 	${def:org}
 )

@@ -14,6 +14,7 @@ update cc_cardtype set
   singlediscount= (case when ${fld:vc_singlediscount} is null then 0 else ${fld:vc_singlediscount}/100.0 end),
   classdiscount= (case when ${fld:vc_classdiscount} is null then 0 else ${fld:vc_singlediscount}/100.0 end),
   remark=${fld:vc_remark},
-  opencarddeadline = ${fld:opencarddeadline}
+  opencarddeadline = ${fld:opencarddeadline},
+  moneyleft = ${fld:moneyleft}
 where
  code= ${fld:vc_code} and org_id=${def:org}

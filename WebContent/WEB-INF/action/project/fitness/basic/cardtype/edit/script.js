@@ -11,6 +11,7 @@ document.formEditor.vc_ptcount.value = "${fld:ptcount}";
 document.formEditor.vc_color.value = "${fld:bgcolor}";
 document.formEditor.vc_cardfee.value = "${fld:cardfee}";
 document.formEditor.vc_minfee.value = "${fld:minfee}";
+document.formEditor.moneyleft.value = "${fld:moneyleft}";
 document.formEditor.opencarddeadline.value = "${fld:opencarddeadline}";
 $('.color').blur();
 $('#support').html('');

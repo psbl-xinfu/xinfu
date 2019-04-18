@@ -8,7 +8,7 @@ select
 	c.code,
  	c.name,
  	f.cardfee,
- 	(case when c.type=0 then '时效卡'  when c.type=1 then '计次卡' end) as type,
+ 	(case when c.type=0 then '时效卡'  when c.type=1 then '计次卡' when c.type=2 then '储值卡'end) as type,
  	
 	 (select  
  	(case when 	g.union_id is null then '单店' else '通店'  end)
