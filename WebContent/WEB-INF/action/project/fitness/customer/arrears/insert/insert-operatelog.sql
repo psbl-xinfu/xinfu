@@ -1,0 +1,31 @@
+insert into cc_operatelog(
+	code,
+	opertype,
+	inimoney,
+	normalmoney,
+	factmoney,
+	status,
+	pay_detail,
+	remark,
+	createdby,
+	org_id,
+	customercode,
+	createdate,
+	pk_value
+)
+values
+(
+	${seq:nextval@seq_cc_operatelog},
+	${fld:opertype},
+	${fld:f_money},
+	${fld:f_normalmoney},
+    (case when ${fld:i_paytype}='1' then ${fld:f_normalmoney} else 0 end),
+	1,
+	${fld:pay_detail},
+	${fld:remark},
+    '${def:user}',
+    ${def:org},
+    ${fld:customercode},
+     {ts'${def:timestamp}'},
+     ${seq:currval@seq_cc_singleitem}
+)
