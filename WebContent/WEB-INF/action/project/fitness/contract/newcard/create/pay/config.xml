@@ -22,6 +22,7 @@
 	<query>insert-message.sql</query>
 	<query>update-contract.sql</query>
 	<query>update-customer.sql</query>
+	<query>insert_chargecard.sql</query>
 	<query>update-guest.sql</query>
 	<query>update-visit.sql</query>
 
