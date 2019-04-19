@@ -61,7 +61,10 @@ ${inc:/action/project/fitness/home/pub}
 							<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印小票" alt=""id="print_btn">
 							</li>
 							<li>
-								<img src="${def:context}/js/project/fitness/image/SVG/btn/shoupaigenghuan.svg" title="更换手牌" alt=""id="updatechangecabinit">
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/lingshoupai.svg" title="领手牌" alt=""id="getcabinit">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/huanshoupai.svg" title="还手牌" alt=""id="returncabinit">
 							</li>
 						</nav>
 					</div>
@@ -232,7 +235,7 @@ $(document).ready(function() {
 			}
 		}
 	});
-	// 更换手牌
+/* 	// 更换手牌  zzn 取消更换功能
 	$("#updatechangecabinit").unbind().on("click",function(){
 		var obthis = getCheckboxValue("inleftcode");
 		if(obthis==""){
@@ -246,6 +249,32 @@ $(document).ready(function() {
 				ccms.dialog.alert("入场未使用手牌，不能更换手牌！");
 				return false;
 			}
+		}
+	}); */
+	// 还手牌
+	$("#returncabinit").unbind().on("click",function(){
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择一条记录！");
+		}else{
+				var code3 = $("input[name=inleftcode]:checked").attr("code3");
+				ccms.dialog.open({url : "${def:context}${def:actionroot}/returncabinit?code="+obthis+"&cabinettempcode="+code3, width:500, height:395});
+			}
+	});
+	// 领手牌
+	$("#getcabinit").unbind().on("click",function(){
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择一条记录！");
+		}else{
+			//var code2 = $("input[name=inleftcode]:checked").attr("code2");
+			//if(code2=="1"){
+				var code3 = $("input[name=inleftcode]:checked").attr("code3");
+				ccms.dialog.open({url : "${def:context}${def:actionroot}/getcabinit?code="+obthis, width:500, height:395});
+			/* }else{
+				ccms.dialog.alert("请勿重复发放手牌！");
+				return false;
+			} */
 		}
 	});
 });

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>退还手牌</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 300px;">
+		<header class="header-default">
+			<span id="formTitle">退还手牌</span>
+		</header>
+		<div class="panel-body col_main_body basic-dialog dialogbg">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="margin-left: -80px;">手牌号：</label>
+							<input type="text" id="cabinettempcode" name="cabinettempcode" value="${fld:cabinettempcode}"  readonly="readonly" placeholder="手牌号" />
+						</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+$(document).ready(function() {
+	//退还手牌
+	$("#save_btn").click(function(){
+		var cabinettempcode = $("#cabinettempcode").val();
+		if(cabinettempcode==""){
+			ccms.dialog.alert("请输入手牌号！");
+			return false;
+		}
+		$Dialog().confirm("确定退还手牌吗？", function(){
+			//先检查ID是否使用中
+			var url = "${def:context}${def:actionroot}/return?returncabinettempcode=${fld:cabinettempcode}&leftcode=${fld:code}";
+			ajaxCall(url,{
+				method : "post",
+				data: "",
+				progress : true,
+				dataType : "script",
+				success : function() {
+					search.searchData(1)
+				}
+			});
+		});
+	});
+});
+</script>
+</html>
