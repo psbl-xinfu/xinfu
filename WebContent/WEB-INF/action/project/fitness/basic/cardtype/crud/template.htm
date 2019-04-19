@@ -74,36 +74,36 @@ ${inc:/action/project/fitness/home/pub}
 						<li></li>
 						<li>
 							<label style="width: 100px;">赠送时长(天)：</label>				
-							<input type="text" id="vc_giveday" name="vc_giveday" value="0" maxlength="80" placeholder="赠送时长"/>
+							<input type="text" id="vc_giveday" name="vc_giveday" value="0" maxlength="80" placeholder="0"/>
 						</li>
 						<li>
 							<label style="width: 100px;">赠送体验课(节)：</label>				
-							<input type="text" id="vc_ptcount" name="vc_ptcount" value="0" maxlength="80" placeholder="赠送体验课"/>
+							<input type="text" id="vc_ptcount" name="vc_ptcount" value="0" maxlength="80" placeholder="0"/>
 						</li>
-						<li>
+						<!-- <li>
 							<label style="width: 100px;">使用人数：</label>								
 							<select id="maxusernum" name="maxusernum">
 								<option value="">请选择</option>
 								<option value="0">独享</option>
 								<option value="1">共享</option>
 							</select>
-						</li>
-						<li>
+						</li>-->
+						<!-- <li>
 							<label style="width: 100px;"></label>			
 							<input type="text" id="vc_maxusernum" name="vc_maxusernum" value="1" maxlength="80" placeholder="数量"/>人
-						</li>
-						<li>
+						</li> -->
+						<!--  <li>
 							<label style="width: 100px;">销售提成：</label>							
 							<select id="scaletype" name="scaletype">
 								<option value="">请选择</option>
-								<!-- <option value="0">按比例</option> -->
+								 //<option value="0">按比例</option>
 								<option value="1">固定值</option>
 							</select>
-						</li>
-						<li>
+						</li>-->
+						<!-- <li>
 							<label style="width: 100px;"></label>				
 							<input type="text" id="vc_scale" name="vc_scale" value="0" maxlength="80" placeholder="销售提成"/>
-						</li>
+						</li> -->
 						<li>
 							<label style="width: 100px;">开卡期限：</label>				
 							<input type="text" id="opencarddeadline" name="opencarddeadline" value="0" maxlength="80" placeholder="开卡期限（天）"/>
@@ -219,7 +219,7 @@ ${inc:/action/project/fitness/home/pub}
 								<th>价格</th>
 								<th>类型</th>
 								<th>通用性</th>
-								<th>可用人数</th>
+								<!-- <th>可用人数</th> -->
 								<th>状态</th>
 							</tr>
 						</thead>
@@ -231,7 +231,7 @@ ${inc:/action/project/fitness/home/pub}
 								<td >#cardfee#</td>
 								<td >#type#</td>
 								<td >#tongyong#</td>										
-								<td >#maxusernum#</td>										
+								<!-- <td >#maxusernum#</td>	 -->									
 								<td >#status#</td>
 							</tr>
 						</tbody>
@@ -258,7 +258,7 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
-	selectInit($("#vc_type,#vc_cardcategory,#maxusernum,#s_type,#s_status,#scaletype"))
+	selectInit($("#vc_type,#vc_cardcategory,#s_type,#s_status"))
 	searchSelectInit($("#s_skill_name"));
 	$Dialog().date($('#s_start_date,#s_end_date'));
 	$("#s_start_date,#s_end_date").val("${def:date}"); 
@@ -282,7 +282,7 @@ $(document).ready(function() {
 		var id= $("#vc_type").find("option:selected").attr('code');
 		getShop(id)
 	})
-	//共享赋值
+	/* //共享赋值
 	$('#maxusernum').on('change',function(){
 		var id= $("#maxusernum").find("option:selected").val();
 		if(id==0){
@@ -290,18 +290,18 @@ $(document).ready(function() {
 		}else{
 			$('#vc_maxusernum').val(2);
 		}
-	})
+	}) */
 	
-	//共享值验证
+	/* //共享值验证
 	$('#vc_maxusernum').on('blur',function(){
 		var id= $("#maxusernum").find("option:selected").val();
 		maxnumViladate(id,$('#vc_maxusernum').val());
-	})
+	}) */
 	
-	//销售提成值验证
+	/* //销售提成值验证
 	$('#cc_scale').on('blur',function(){
 		scaleViladate($('#cc_scale').val())
-	})
+	}) */
 	//添加时段
 	$('#time_btn').on('click',function(){
 		appendTime();
@@ -321,7 +321,7 @@ $(document).ready(function() {
 		},
 		addNewBack:function(){
 			$("#formTitle").html("新增");
-			$('#vc_maxusernum').val(1);
+			/* $('#vc_maxusernum').val(1); */
 			$('#support,#salelist,#timeinterallist').html('');
 			$(".color").removeAttr("style"); 
 			$("#formEditor select").each(function(){
@@ -392,7 +392,7 @@ $(document).ready(function() {
 		$(this).val(parseInt(opencarddeadline));
 	});
 	//跟进销售提成选中值修改input的显示字
-	$("#scaletype").change(function(){
+/* 	$("#scaletype").change(function(){
 		if($(this).val()=="0"){
 			$("#vc_scale").attr("placeholder", "百分比");
 		}else if($(this).val()=="1"){
@@ -400,7 +400,7 @@ $(document).ready(function() {
 		}else{
 			$("#vc_scale").attr("placeholder", "销售提成");
 		}
-	})
+	}) */
 	//导出
 	$("#daochu_list").unbind().on("click", function(){
          $("#daochu_s_name").val($("#searchForm #s_name").val());
@@ -533,16 +533,16 @@ function salesViladate(obj){
 	}
 }
 
-function scaleViladate(value){
+/* function scaleViladate(value){
 	var pattern=/^([0-9]{1,2}|100)$/;
 	if(!pattern.test(value)){
 		ccms.dialog.alert("请输入1-100的整数");
 		$("#cc_scale").val(1)
 		return false;
 	}
-}
+} */
 //共享值
-function maxnumViladate(num,value){
+/* function maxnumViladate(num,value){
 	if(num==0){
 		if(value!=1){
 			ccms.dialog.alert("独享人数只能是1");
@@ -554,7 +554,7 @@ function maxnumViladate(num,value){
 			 $("#vc_maxusernum").val(2)
 		}
 	}
-}
+} */
 //启用禁用
 function deftatus(name, status){
 	var obthis = getCheckboxValue("datalist");
