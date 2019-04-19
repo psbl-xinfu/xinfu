@@ -32,15 +32,23 @@ end)  and p.org_id = ${def:org}
 	)
 and
   (case when pd.isgroup=1 
-			then 
-					(case when  pd.code=(select ptlevelcode from ptdata) and p.ptid=(select ptid from ptdata) 
+			then --zyb 20190419 cc_ptrest表中的教练可能会没有  如果没有的话就取cc_customer 表中的教练
+					(case when  pd.code=(select ptlevelcode from ptdata) and p.ptid=
+									(case when (select ptid from ptdata) is null then (select pt from cc_customer where code=(select customercode from ptdata) and org_id= ${def:org}) 
+										else (select ptid from ptdata)
+										end)
 									and p.customercode!=(select customercode from ptdata) then null=NULL
 									when p.customercode=(select customercode from ptdata) then 1=1
-									when p.ptid=(select ptid from ptdata) and  pd.code!=(select ptlevelcode from ptdata) then 1=1
+									when p.ptid= (case when (select ptid from ptdata) is null then (select pt from cc_customer where code=(select customercode from ptdata) and org_id= ${def:org}) 
+									else (select ptid from ptdata)
+									end)
+						and  pd.code!=(select ptlevelcode from ptdata) then 1=1
 									else null=null
 					 end)
 			
-	 when  (p.ptid=(select ptid from ptdata) or p.customercode=(select customercode from ptdata)) then 1=1
+	 else  (p.ptid=(case when (select ptid from ptdata) is null then (select pt from cc_customer where code=(select customercode from ptdata) and org_id= ${def:org}) 
+else (select ptid from ptdata)
+end) or p.customercode=(select customercode from ptdata)) 
 
 	end)
 )
