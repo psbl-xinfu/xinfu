@@ -40,7 +40,9 @@ and
 									else null=null
 					 end)
 			
-	 when  (p.ptid=(select ptid from ptdata) or p.customercode=(select customercode from ptdata)) then 1=1
+	 when  (p.ptid=(case when (select ptid from ptdata) is null then (select pt from cc_customer where code=(select customercode from ptdata) and org_id= ${def:org}) 
+else (select ptid from ptdata)
+end) or p.customercode=(select customercode from ptdata)) then 1=1
 
 	end)
 )

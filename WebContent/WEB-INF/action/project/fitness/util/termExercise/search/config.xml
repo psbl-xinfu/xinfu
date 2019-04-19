@@ -7,7 +7,7 @@
 
 	<log>false</log>
 	
-	<colname>s_start_date,s_end_date</colname>
+	<colname>shijian</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

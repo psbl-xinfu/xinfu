@@ -9,6 +9,6 @@ values
 (
 	${seq:nextval@${schema}seq_passlog},
 	{d '${def:date}'},
-	${fld:passwd},
+	${fld:password},
 	${seq:currval@${schema}seq_user}
 )
