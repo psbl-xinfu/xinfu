@@ -8,9 +8,20 @@ where
 
   EXISTS(
 	select 1 from cc_ptlog log
-	where log.customercode = cust.code
-${filter} 
+	where log.customercode = cust.code and
+	(case when ${fld:shijian} is null then
+	log.created>(now() -'30 day'::INTERVAL) 
+	else 1=1 ${filter}
+	end) 
 )
 
 and cust.org_id=${def:org}  and
 (case when ${fld:pt} is null then 1=1 else cust.pt = ${fld:pt} end)
+and
+(case when ${fld:pt} is null then 1=1 else cust.pt = ${fld:pt} end)
+	and
+	(case when ${fld:shijian} is null then
+	(select max(created) from cc_ptlog where customercode=cust.code and org_id = cust.org_id limit 1)>(now() -'30 day'::INTERVAL) 
+	else 1=1 ${filter}
+	end) 
+order by tians

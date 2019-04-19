@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
 	<parameter id="pt" type="varchar" required="false" label="私教" />
-	<parameter id="s_start_date" type="date" required="true" label="s_start_date"/>
-	<parameter id="s_end_date" type="date" required="true" label="s_end_date"/>
+	<parameter id="shijian" type="varchar" required="false" label="时间"/>
 	
 </validator>

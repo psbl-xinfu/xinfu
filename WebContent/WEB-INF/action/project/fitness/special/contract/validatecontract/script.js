@@ -33,7 +33,7 @@ if( parseInt(total) > 0 ){
 					uri = "${def:context}${def:actionroot}/delete/turncard?vc_code=${fld:vc_code}";
 				}else if( "租柜合同" == "${fld:vc_contractttype}"){	// 租柜合同
 					uri = "${def:context}${def:actionroot}/delete/cab?vc_code=${fld:vc_code}";
-				}else if( "续租柜合同" == "${fld:vc_contractttype}"){	// 续租柜合同
+				}else if( "续租柜合同" == "${fld:vc_contractttype}"){	// 续租柜合同 --zzn好像删租柜合同走的是这个,目前没有续租柜合同
 					uri = "${def:context}${def:actionroot}/delete/cttncab?vc_code=${fld:vc_code}";
 				}else if( "私教合同" == "${fld:vc_contractttype}"){	// 私教合同
 					uri = "${def:context}${def:actionroot}/delete/pt?vc_code=${fld:vc_code}";
