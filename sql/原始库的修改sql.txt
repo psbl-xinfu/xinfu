@@ -1,3 +1,4 @@
+// add leo 190419执行计划查看语句explain(analyze,verbose,costs,buffers,timing) (问题SQL)
 //add zyb 190415 加个打印小票的剩余次数和一个卡类型
 alter table cc_inleft add nowcount int4
 COMMENT ON COLUMN "public"."cc_inleft"."nowcount" IS '卡的剩余次数';
