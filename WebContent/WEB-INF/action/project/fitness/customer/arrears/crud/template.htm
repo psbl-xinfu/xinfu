@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>单次消费记录</title>
+</head>
+<body>
+<!--addnew/edit form-->
+	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+				<header class="header-default">
+					<span id="formTitle"></span>
+					<span class="header-close"></span>
+				</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          	<div class="modal-body b-i-main">
+				<input type="hidden" id="vc_code" name="vc_code" value=""/>
+<!-- 				<input type="hidden" id="item_name" name="item_name" value=""/> -->
+				<input type="hidden" id="unit" name="unit"/>
+				<input type="hidden" id="price" name="price"/>
+				<input type="hidden" id="fastcode" name="fastcode"/>
+				<input type="hidden" id="name" name="name"/>
+				<input type="hidden" id="pay_detail" name="pay_detail"/>
+				<input type="hidden" id="opertype" name="opertype" value=""/>
+				<input type="hidden" id="customercode" name="customercode" value=""/>
+				<input type="hidden" id="vc_passwd" name="vc_passwd" value=""/>				
+				<input type="hidden" id="moneycash" value="${fld:moneycash}"/>
+				<input type="hidden" id="moneygift" value="${fld:moneygift}"/>
+		<!-- 		<input type="hidden" id="cust_name" name="cust_name"/> -->
+
+				<nav>
+					<li>
+						<label style="width: 110px;">卡号/姓名/手机</label>
+						<input type="text" id="cust" name="cust" value="" placeholder="卡号/姓名/手机号"/>
+					</li>	
+					<li>
+						<label>姓名</label>
+						<input type="text" id="cust_name" name="cust_name" readonly="readonly"  />
+					</li>
+					<li>
+						<label style="width: 110px;">手机号</label>
+						<input type="text" id="mobile" name="mobile" value="" readonly="readonly"  />
+					</li>
+						<li>
+							<label>项目</label>
+							<select id="item_insert" name="item_insert" style="display:none;">
+								<option value="">请选择</option>
+								<item-list>
+								   <option value="${fld:code}" code1="${fld:unit}" code2="${fld:price}" code3="${fld:fastcode}">${fld:name}</option>
+								</item-list>
+							</select>
+						</li>
+						<li>
+							<label style="width: 110px;">单价</label>
+							<input type="text" id="f_price" name="f_price" value="" maxlength="80" placeholder="单价" readonly/>
+						</li>
+						<li>
+							<label>单位</label>
+							<input type="text" id="vc_unit" name="vc_unit" value=""  placeholder="单位" readonly/>
+						</li>
+						<li>
+							<label style="width: 110px;">销售员</label>			
+							<select id="salename_insert" name="salename_insert" >
+								<option value="">请选择</option>
+								<saleman-list>
+								   <option value="${fld:userlogin}">${fld:salename}</option>
+								</saleman-list>
+							</select>
+						</li>
+						<li>
+							<label>数量</label>
+							<input type="text" id="f_amount" name="f_amount" value="0" maxlength="80" placeholder="数量" />
+						</li>
+						<li>
+							<label style="width: 110px;">会员卡折扣</label>			
+							<select id="cardcode" name="cardcode" style="display: none;">
+								<option value="">请选择</option>								
+							</select>
+						</li>
+						<li>
+							<label>折扣金额</label>
+							<input type="text" id="vc_rebate" name="vc_rebate" value="0" placeholder="折扣金额" maxlength="80"/>
+						</li>
+						<li>
+							<label style="width: 110px;">总金额</label>
+							<input type="text" id="f_money" name="f_money" value="" placeholder="总金额" maxlength="80" readonly/>
+						</li>
+						<li>
+							<label>应收金额</label>
+							<input type="text" id="f_normalmoney" name="f_normalmoney" placeholder="应收金额" value="" readonly maxlength="80"/>
+						</li>
+						<li id="i_paytypefour">
+							<label>支付方式</label>
+							<span id="zffs"></span>
+						</li>
+						<li id="i_paytypethree">
+							<label style="width: 110px;">支付方式</label>
+							<input type="radio" name="i_paytype" value="1" checked="checked" style="display: none;" />
+						   	现金/银行卡支付
+							<input type="radio" name="i_paytype" value="2" style="display: none;" />
+							储值卡支付
+							<!--<span>
+							 zzn 2019-03-28 隐藏掉
+							<input type="radio" id="typetrhee" name="i_paytype" value="3" style="display: none;" />
+							挂账</span>
+							-->
+						</li>
+						<li id="i_paytypetwo">
+							<label>支付方式</label>
+							<input type="radio" name="f_paycardmoneyleft" value="1" checked="checked" style="display: none;" />
+						   	现金储值&nbsp;<span id="span_moneycash"></span>
+							<input type="radio" name="f_paycardmoneyleft" value="2" style="display: none;" />
+							运动基金&nbsp;<span id="span_moneygift"></span>
+						</li>
+						
+						
+						<div id="i_paytypeone">
+			          		<div class="modal-body " id="paymoney"  style="margin-left: 5%;height: 30px">
+							</div>
+			          		<div class="modal-body b-i-main">
+								<nav>
+									<li>
+										<label>方式</label>
+										<select id="moneytype" class="normal-select">
+											<option value="">请选择</option>
+											<OtherPayWay-list>
+												<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+											</OtherPayWay-list>
+										</select>
+										
+											<label>金额</label>
+										<input type="text" id="money" name="money" placeholder="金额"/>
+										&nbsp;
+										<i class="am-icon-plus" id="addmoney" title="添加"></i>
+									</li>
+								</nav>
+							</div>
+						</div> 
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注</label>
+							<textarea id="remark" name="remark" class="my-textarea" placeholder="备注"></textarea>
+						</li>
+					</nav>
+			</div>
+<!-- 			<footer class="footer-default">
+			  <button type="button" id="add_btn">保存</button>
+			  <button type="button" id="collection_btn" style="margin-left: 5%;display: none;">收款</button>
+			</footer> -->
+			<footer class="footer-default">
+				<button type="button" id="consumptionpay">付&nbsp;款</button>
+			</footer>
+				</form>
+		</div>
+	</div>
+
+	<form  role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="s.created"preserve="true" />
+		<input name="order"type="hidden" value="desc" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+						<nav>
+							<li style='width:15%;padding-left:8%;'>
+						  		<input id="start_date" name="start_date" type="text" class="input-default"/>
+						  	</li>
+							<li style='width:15%;padding-left:8%;'>
+						  		<input id="end_date" name="end_date" type="text" class="input-default"/>
+						  	</li>
+							<li>
+						  		<input id="cust_all" name="cust_all" type="text" class="input-default" placeholder="会员编号/姓名/手机号"/>
+						  	</li>
+							<li style='width:15%;display:none' >
+						  		<select id="isguazhang" name="isguazhang" style="display: none;">
+						  			<!--<option value="1">挂账</option>-->
+						  			<option value="0">已付款</option>
+						  		</select>
+						  	</li>
+							<li  style='width:17%;'>
+						  		<select id="itemcode" name="itemcode" style="display: none;">
+						  			<option value="">全部项目</option>
+						  			<item-list>
+						  				<option value="${fld:code}">${fld:name}</option>
+						  			</item-list>
+						  		</select>
+						  	</li>
+						<div>
+							<button type="button" class="r-c-3-btn-1" id="search_btn" ></button>
+							<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="新增" alt="" data-toggle="modal" id="addnew_btn">
+                            <button class="r-c-3-btn-3" type="button" id="daochu_list"></button>
+						</div>
+						</nav>
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look_btn">
+							</li>
+							<!-- 
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/huankuan.svg" title="还款" alt=""id="look_btn">
+							</li>
+							 -->
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印小票" alt=""id="print_btn">
+							</li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th></th>
+								<th>会员编号</th>
+							    <th>姓名</th>
+							    <th>项目</th>
+							    <th>支付方式</th>
+							    <th>金额</th>
+							    <th>状态</th>
+							    <th>操作日期</th>
+								<th>操作人</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr class="dblclick">
+					                <td>#radiolink#</td>
+					                <td>#code#</td>
+					                <td>#cust_name#</td>
+					                <td>#name#</td>
+					                <td>#payment#</td>
+					                <td>#normalmoney#</td>
+					                <td>#status#</td>
+					                <td>#created#</td>
+					                <td>#createdby#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_start_date" name="daochu_start_date" type="text" />
+		<input id="daochu_end_date" name="daochu_end_date" type="text" />
+		<input id="daochu_isguazhang" name="daochu_isguazhang" type="text" />
+		<input id="daochu_itemcode" name="daochu_itemcode" type="text" />
+		<input id="daochu_cust_all" name="daochu_cust_all" type="text" />
+	</form>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	$("#i_paytypefour").hide();
+	//selectInit($("#isguazhang,#itemcode"));
+	searchSelectInit($("#moneytype,#item_insert,#salename_insert,#cardcode"))
+	
+	$(".header-close").unbind().on("click",function(){
+		$("#modalAddnew").modal('hide');
+		ccms.util.clearForm('formEditor');
+	});
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#collection_btn").show();
+	}
+	
+	$("#end_date").val("${def:date}"); 
+	$("#start_date").val(new Date("${def:date}").format("yyyy-MM-01"));
+	$Dialog().date($('#end_date'));
+	$Dialog().date($('#start_date'));
+	
+	var obj = $Crud({
+		formId:"formEditor",
+		button:"save_btn",
+		bpkField:"vc_code",
+		insertBack:function(){
+			search.searchData();
+		},
+		updateBack:function(){
+			search.searchData();
+		},
+		deleteBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			$("#paymoney").html("");
+			$('#specialone,#collection_btn').show();
+			$('#specialtwo').hide();
+			$("#savestopcard_code").val("");
+			$("#stopcarddate").val("${def:date}");
+			$("#cardcode").html("<option value=''>请选择</option>");
+ 			$("#cardcode").selectpicker("refresh");
+			$("#cardcode").selectpicker("render"); 
+			$("#add_btn").show();
+			$("#formTitle").html("单次消费");
+		},
+		editBack:function(){
+			$("#formTitle").html("修改");
+		},
+		validate:function(){
+			var flag=$("#formEditor").validate({
+				rules : {
+			    
+				},
+			messages: {
+				
+			}
+		});
+			return flag;
+		},
+		check:function(){
+		}
+	}).init();
+	
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		ccms.util.renderRadio("singleitemlist");
+	}}).initSearchBtn().searchData(1);
+	
+/* 	$("#addnew_btn").click(function(){
+		ccms.dialog.open({url : '${def:context}/action/project/fitness/customer/arrears/form', height:560});
+	}) */
+		
+ 	//FORM中回车事件 zzn
+	  var isRunning   = [];
+	document.onkeydown=function(event){
+		var cust = $("#cust").val();
+	    var e = event || window.event || arguments.callee.caller.arguments[0];
+		if(e && e.keyCode==13){ // enter 键
+			if(cust !=""){
+				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+cust+"&objid=customercode&objidtwo=cust&random_number="+Math.random()});
+				return false;
+			}	
+	    }
+	}; 
+	
+	//导出
+	$("#daochu_list").unbind().on("click", function(){
+         $("#daochu_start_date").val($("#start_date").val());
+         $("#daochu_end_date").val($("#end_date").val());
+         $("#daochu_isguazhang").val($("#isguazhang").val());
+         $("#daochu_itemcode").val($("#itemcode").val());
+         $("#daochu_cust_all").val($("#cust_all").val());
+         $("#daochuForm").submit();
+    });	
+	//付款
+	$("#consumptionpay").click(function(){
+		var i_paytype = ccms.util.getRadioValue("i_paytype", "formEditor");
+		var f_normalmoney = $("#f_normalmoney").val();//应收金额
+		if(i_paytype==1){
+			$('#opertype').val(59);
+		}else if(i_paytype==2){
+			$('#opertype').val(60);
+		}else{
+			$('#opertype').val(99);
+		}
+				
+		if(i_paytype=="1"){
+			var paymoney = 0;
+			//获取所有支付金额
+			$("input[name='paytypemoney']").each(function(j,item){
+				paymoney+=Number(item.value);
+			});
+			if(paymoney!=f_normalmoney){
+				ccms.dialog.alert("支付金额与应收金额不相同，请确认！");
+			}else{
+				var moneydetail = "";
+				//获取所有支付类型option
+		         $("#moneytype option").each(function(){  
+					if($(this).val()!=""){
+		        		moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+		        	}
+			        moneydetail = moneydetail.replace("undefined", "0");
+		         });
+				//明细
+				$("#pay_detail").val(moneydetail);
+				//付款
+				
+				insertsingleitem();
+			}
+		}else if(i_paytype=="2"){
+			var f_paycardmoneyleft = ccms.util.getRadioValue("f_paycardmoneyleft", "formEditor");
+			//判断是现金储值或者运动基金
+			if(f_paycardmoneyleft=="1"){
+				f_paycardmoneyleft= moneycash;				
+			}else{
+				f_paycardmoneyleft= moneygift;
+			}
+			if(Number(f_normalmoney)>Number(f_paycardmoneyleft)){
+				ccms.dialog.alert("储值金额不足，请确认！");
+			}else{
+				//付款
+				insertsingleitem();
+			}
+		}else{
+			//付款
+			insertsingleitem();
+		}
+	});
+	//支付方式
+	$("#moneytype").change(function(){
+		document.getElementById("money").focus();
+	});
+	//单价f_price  数量f_amount  折扣价cardcode 
+	//折扣金额vc_rebate 总金额f_money 应收金额f_normalmoney
+	//根据会员卡类型打折
+	$("#cardcode").change(function(){
+	   	var f_money=$("#f_money").val();
+		//根据会员卡类型设置折扣进行打折
+		if($("#cardcode").val()!=""){
+			$("#vc_rebate").val((Number($("#cardcode").val())).toFixed(2));
+			f_money = f_money-Number($("#cardcode").val());
+		}
+		$("#f_normalmoney").val(f_money.toFixed(2));
+	});
+	
+	$("#i_paytypetwo").hide();
+	//选择项目加载事件
+	$("#item_insert").change(function(){
+		var vc_unit = $('#item_insert option:selected').attr('code1');
+		var f_price = $('#item_insert option:selected').attr('code2');
+		var fastcode = $('#item_insert option:selected').attr('code3');
+		var textVlue  =$('#item_insert option:selected').text();
+		$("#unit").val(vc_unit);//单位：表cc_singleitemdef字段unit
+		$("#price").val(f_price);//单价：表cc_singleitemdef字段price
+		$("#fastcode").val(fastcode);//'快速码：表cc_singleitemdef字段fastcode'
+		$("#name").val(textVlue);//名称：表cc_singleitemdef字段name
+		var vc_rebate=$("#vc_rebate").val();
+		var f_amount=$("#f_amount").val();
+		$("#f_price").val(f_price);
+		$("#vc_unit").val(vc_unit);
+		getTotalPrice(f_amount,f_price,vc_rebate);
+	});
+	   //数量和进货价格相乘得出金额blur事件
+   	$("#f_amount,#vc_rebate").blur(function(){
+	   	var f_amount=$("#f_amount").val();
+	   	var f_price=$("#f_price").val();
+	   	var vc_rebate=$("#vc_rebate").val();
+		getTotalPrice(f_amount,f_price,vc_rebate);
+   	});
+	   
+    $("input[name=i_paytype]").on("ifClicked",function(){
+		 if($(this).val()=="1"){
+			$("#i_paytypeone").show();
+			$("#i_paytypetwo").hide();
+			$("#paymoney").html("");
+			$("#money").val("");
+			$("#moneytype").val("");
+			$("#consumptionpay").html("付款");
+		 }else if($(this).val()=="2"){
+			$("#i_paytypeone").hide();
+			$("#i_paytypetwo").show();
+			$("#consumptionpay").html("付款");
+		 }else if($(this).val()=="3"){
+			$("#i_paytypeone,#i_paytypetwo").hide();
+			$("#consumptionpay").html("挂账");
+		 }
+  })
+/*   	//列表收费
+	$("#charges_btn").click(function(){
+		var id = $("input[name=reocrd]:checked").val();
+		if(id==""||id==undefined){
+			ccms.dialog.alert("请选择！");
+			return false;
+		}else{
+			var code = $("input[name=reocrd]:checked").attr("code2");
+			ccms.dialog.open({url : "${def:context}${def:actionroot}/form?code="+id+"&types="+code, height: 600});
+		}
+	}); */
+  
+  
+    
+  
+    
+    
+	//查看/付款
+	$("#look_btn").click(function(){
+		var obthis = getCheckboxValue("singleitemlist");
+		if(obthis==""){
+			ccms.dialog.alert("请选择！");
+		}else{
+			var code = $("input[name=singleitemlist]:checked").attr("code");
+			ccms.dialog.open({url : '${def:context}/action/project/fitness/customer/arrears/form?custcode='+code+"&singleitemcode="+obthis, height:540});
+		}
+	});
+
+	//打印小票
+	$("#print_btn").on("click",function(){
+		var obthis = getCheckboxValue("singleitemlist");
+		if(obthis==""){
+			ccms.dialog.alert("请选择！");
+		}else{
+			var code = $("input[name=singleitemlist]:checked").attr("code1");
+			if(code=="1"){
+				ccms.dialog.alert("请先付款在进行打印！");
+			}else{
+				var url = "${def:context}/action/project/fitness/print/ticket/singleticket?pk_value="+obthis+"&print_type=ticket";
+				ajaxCall(url,{
+					method : "get",
+					progress : true,
+					dataType : "script",
+					success : function() {
+					}
+				});;
+			}
+		}
+	});	
+});
+//计算
+	function getTotalPrice(f_amount,f_price,vc_rebate){
+		if(f_amount==""){f_amount=0;$("#f_amount").val("0");}
+		if(f_price=="")f_price=0;
+		if(vc_rebate==""){vc_rebate=0;$("#vc_rebate").val("0");}
+		//金额
+		var money = parseFloat(f_amount)*parseFloat(f_price);
+		//打折后金额
+		var f_normalmoney = parseFloat(f_amount)*parseFloat(f_price)-parseFloat(vc_rebate);
+		if(vc_rebate>money){
+			f_normalmoney=money;
+			$("#vc_rebate").val("0");
+			ccms.dialog.alert("折扣金额不能大于总金额！");
+		}
+		$("#f_money").val(money.toFixed(2));
+		$("#f_normalmoney").val(f_normalmoney.toFixed(2));
+	}
+function urls(url){
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){	
+		}
+	});
+}
+//回调查询方法
+function pickcustCallback(){
+	var url = "${def:actionroot}/querycard?cust="+$("#customercode").val();
+	
+	urls(url);
+}
+
+
+//付款
+function insertsingleitem(){
+	var url = "${def:actionroot}";
+	if($("#vc_code").val()==""){
+		url+= "/insert";
+   	}else{
+		url+= "/update";
+	}
+	alert(url);
+	ajaxCall(url,{
+		method: "post",
+		progress: true,
+		form:"formEditor",
+		dataType: "script",
+		success: function() {
+		}
+	});
+}
+</script>
+</body>
+</html>

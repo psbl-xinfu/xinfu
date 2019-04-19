@@ -2,6 +2,23 @@
 if( Number("${fld:status}") >= 2 ){
 	topay("${fld:code}");
 }
+
+//if("${fld:normalmoney}" == 2){ //储值卡隐藏部分div zzn
+//	
+//	$("div[code=starttype]").hide();;
+//	$("div[code=give]").hide();
+//	$("div[code=moneyleft]").show();
+//	$("#moneyleftspan").text(moneyleft);
+//	$("#moneyleft").val(moneyleft);
+//	
+//}else{
+//	$("div[code=starttype]").show();;
+//	$("div[code=give]").show();
+//	$("div[code=moneyleft]").hide();
+//}
+
+
+
 $('#stage_times').attr('readonly',true);
 $('#stagemoney').attr('readonly',true);
 $('#discountmoney').attr('readonly',true);

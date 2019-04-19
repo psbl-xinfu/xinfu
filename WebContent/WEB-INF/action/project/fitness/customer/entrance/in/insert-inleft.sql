@@ -11,7 +11,8 @@ insert into cc_inleft
 	bringother,--带朋友入场
 	signednumber,
 	nowcount,
-    org_id--俱乐部编号
+    org_id,--俱乐部编号
+    cardtype-- zzn 增加刷卡的类型
 )
 values
 (
@@ -35,6 +36,7 @@ values
 		and type = 1
 		)
 	),
-	${def:org}
+	${def:org},
+	${fld:cardtype}
 )
 

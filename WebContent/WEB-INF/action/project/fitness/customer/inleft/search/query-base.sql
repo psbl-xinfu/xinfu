@@ -27,7 +27,7 @@
 		end) as indate
 from cc_inleft inleft
 left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 and inleft.customercode=card.customercode--and card.org_id = inleft.org_id
-left join cc_cardtype ct on card.cardtype = ct.code --and card.org_id = ct.org_id
+left join cc_cardtype ct on inleft.cardtype = ct.code --and card.org_id = ct.org_id  zzn cc_inleft 中增加卡类型字段
 left join cc_customer cust on card.customercode = cust.code and inleft.customercode=cust.code--and card.org_id = cust.org_id  2019-3-26 zyb 同一个品牌下可以带出所有的卡（非同店卡带不出来），不同品牌是带不出所有的卡（包括卡号一样的）。
 left join hr_staff staff on staff.userlogin=inleft.inuser
 where  1=1 and inleft.org_id = ${def:org} and inleft.inlefttype = 1

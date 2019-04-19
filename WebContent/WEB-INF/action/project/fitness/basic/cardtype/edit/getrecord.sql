@@ -8,11 +8,12 @@ c.ptcount,
 c.scale*100 as scale,
 c.bgcolor,
 c.cardcategory,
- f.cardfee,
- f.minfee,
+ f.cardfee::NUMERIC(18,2),
+ f.minfee::NUMERIC(18,2),
  count,
  daycount,
- 
+ moneyleft::NUMERIC(18,2), --zzn 储值金额
+
  mealdiscount*100 as mealdiscount,
  drinkdiscount*100 as drinkdiscount,
  jsdiscount*100 as jsdiscount,

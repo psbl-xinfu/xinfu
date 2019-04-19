@@ -8,10 +8,13 @@
        <parameter id="vc_giveday" type="integer" required="false" label="赠送天数" maxlen="32" />
        <parameter id="vc_ptcount" type="integer" required="false" label="赠送免费课" maxlen="32" />
        <!-- <parameter id="vc_maxusernum" type="integer" required="true" label="共享几人" maxlen="32" />        -->
-      <!--  <parameter id="scaletype" type="integer" required="true" label="销售提成" maxlen="32" />              -->
-    <!--    <parameter id="vc_scale" type="double" required="true" label="销售提成" maxlen="32" />        -->
-       <parameter id="count" type="integer" required="false" label="可用次数" maxlen="32" />        
-       <parameter id="daycount" type="double" required="true" label="有效天数" maxlen="32" />      
+       <!--  <parameter id="scaletype" type="integer" required="true" label="销售提成" maxlen="32" />              -->
+       <!--  <parameter id="vc_scale" type="double" required="true" label="销售提成" maxlen="32" />        -->
+       <parameter id="count" type="integer" required="false" label="可用次数" maxlen="32" /> 
+       <!-- 选择储值卡时需取消有效天数的验证 zzn -->       
+       <parameter id="daycount" type="double" required="false" label="有效天数" maxlen="32" />  
+       <parameter id="moneyleft" type="double" required="false" label="储值金额" maxlen="32" />
+           
        <parameter id="opencarddeadline" type="integer" required="false" label="开卡期限" maxlen="32" />          
        
        <parameter id="vc_mealdiscount" type="integer" required="false" label="点餐折扣定义" maxlen="32" />

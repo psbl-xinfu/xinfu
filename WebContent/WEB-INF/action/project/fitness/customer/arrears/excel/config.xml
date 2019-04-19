@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		单次消费
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_start_date,daochu_end_date,daochu_isguazhang,daochu_cust_all,daochu_itemcode</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+
+	<excel recordset="query-base.sql" sheetname="单次消费记录" filename="单次消费记录.xls" header-background="true">
+		<col id="code" label="会员编号" />
+		<col id="cust_name" label="姓名" />
+		<col id="name" label="项目" />
+		<col id="payment" label="支付方式" />
+		<col id="normalmoney" label="金额" />
+		<col id="status" label="状态" />
+		<col id="created" label="操作日期" />
+		<col id="createdby" label="操作人" />
+	</excel>
+</config>

@@ -1,4 +1,4 @@
-select 
+select
 	t.code
 	,t.status
 	,t.salemember
@@ -25,6 +25,8 @@ select
 	,get_arr_value(t.relatedetail, 5) as startdate
 	,get_arr_value(t.relatedetail, 6) as enddate
 	,get_arr_value(t.relatedetail, 3) as cardtype
+	--查询出卡类型 0 时效卡 ；1 计次卡；2储值卡 zzn 
+	,(select p.type from cc_cardtype p where p.code= get_arr_value(t.relatedetail, 3)and p.org_id=t.org_id)as type
 	,COALESCE(t.stage_times,1) AS stage_times
 	,t.stagemoney
 	,c2.name as recommendname

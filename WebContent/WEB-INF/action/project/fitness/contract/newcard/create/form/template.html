@@ -26,6 +26,7 @@ ${inc:/action/project/fitness/home/pub}
 			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
 			<input type="hidden" id="count" name="count" value="" />
 			<input type="hidden" id="daycount" name="daycount" value="" />
+			<input type="hidden" id="moneyleft" name="moneyleft" value="" />
 	<div class="business-card-contract  dialogbg " style="width: 100%;height: 700px"  >
 				<header class="header-default">
 					办卡合同
@@ -77,8 +78,9 @@ ${inc:/action/project/fitness/home/pub}
 								<select id="cardtype" name="cardtype" style="display: none;">
 									<option value="">请选择</option>
 									<cardtype-rows>
-										<option value="${fld:code}" code="${fld:cardfee}" codeday="${fld:daycount}" 
-										codegiveday="${fld:giveday}" opencarddeadline="${fld:opencarddeadline}" codept="${fld:ptcount}">${fld:name@js}</option>
+										<option value="${fld:code}" code="${fld:cardfee}" codeday="${fld:daycount}" type="${fld:type}"
+										codegiveday="${fld:giveday}" opencarddeadline="${fld:opencarddeadline}" codept="${fld:ptcount}" 
+										moneyleft="${fld:moneyleft}">${fld:name@js}</option>
 									</cardtype-rows>
 								</select>
 							</div>
@@ -90,8 +92,11 @@ ${inc:/action/project/fitness/home/pub}
 						<div class="more" id="supportorgsspan" style="margin-top:-10px">
 						</div>
 					</div>
+					<div class="b-c-c-i-2" code= "moneyleft" style="display: none;">储值金额：						
+						<span  id="moneyleftspan" name="moneyleftspan"></span>
+					</div>
 					
-					<div class="b-c-c-4">
+					<div class="b-c-c-4" code="starttype">
 						<label>启用方式：</label>
 							<select id="starttype" name="starttype" style="display: none;">
 							<option value="">请选择</option>
@@ -109,7 +114,7 @@ ${inc:/action/project/fitness/home/pub}
 						</p>
 					</div>
 					
-					<div class="b-c-c-5"  >
+					<div class="b-c-c-5" code="give" >
 						<p class="label-p-input">
 							<label for="b-c-c-5-1">赠送免费私教课时：</label>
 							<span  id="ptcountspan" >0</span>
@@ -386,10 +391,26 @@ $(document).ready(function(){
 		setvaliddate();
 	});
 	
-	// 根据卡类型加载活动
+	// 根据卡类型加载活动；zzn设置控件显示情况
 	$("#cardtype").on("change",function(){
 		if($(this).val()!=""){
 			setSelectValue($("#starttype"), "0");
+			type = $("#cardtype").find("option:selected").attr("type");
+			moneyleft = $("#cardtype").find("option:selected").attr("moneyleft");
+			//alert(moneyleft);
+			if(type == 2){ //储值卡隐藏部分div zzn
+				$("div[code=starttype]").hide();;
+				$("div[code=give]").hide();
+				$("div[code=moneyleft]").show();
+				$("#moneyleftspan").text(moneyleft);
+				$("#moneyleft").val(moneyleft);
+				
+			}else{
+				$("div[code=starttype]").show();;
+				$("div[code=give]").show();
+				$("div[code=moneyleft]").hide();
+			}
+	
 		}else{
 			setSelectValue($("#starttype"), "");
 		}
