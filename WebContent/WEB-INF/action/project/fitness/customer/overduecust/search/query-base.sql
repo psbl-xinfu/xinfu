@@ -6,7 +6,7 @@ select
 	(case cust.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
 	(select name from hr_staff where userlogin=cust.mc and org_id = cust.org_id) as mc,
  	(select enddate from cc_card where customercode = cust.code and org_id = cust.org_id 
- 		and cc_card.isgoon = 0 order by enddate desc limit 1) as enddate
+ 		 order by enddate desc limit 1) as enddate --考虑续卡用户 将 cc_card.isgoon = 0 条件去掉 zzn
 from cc_customer cust
 left join cc_card card on cust.code=card.customercode
 where cust.org_id = ${def:org}
