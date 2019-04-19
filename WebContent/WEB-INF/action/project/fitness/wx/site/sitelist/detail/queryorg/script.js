@@ -3,7 +3,7 @@ var orgstr = "";
 <rows>
 	orgstr+="<li onclick=detail('${fld:org_id}')><div class='list_con_left'>"
                  +"<img src='${def:context}/action/project/fitness/util/attachment/download?tuid=${fld:imgid}&type=1'"
-                 +" onerror=\"this.src='/ccms/js/project/fitness/wx/image/wx_site/chang.png'\" alt=''></div>"
+                 +" onerror=\"this.src='${def:context}/js/project/fitness/wx/image/wx_site/chang.png'\" alt=''></div>"
                  +"<div class='list_con_right'><p class='cont_rt_tit'>${fld:org_name@js}</p>"
                  +"<div class='adress'><i><img src='${def:context}/js/project/fitness/wx/image/wx_site/adress.png' alt=''></i>"
                  +"<span>${fld:address@js}</span></div><div class='type'>"
