@@ -7,7 +7,7 @@
 	<parameter id="name" type="varchar" required="true" label="名称" maxlen="128" />
 	<parameter id="name_en" type="varchar" required="false" label="名称" maxlen="64" />
     <parameter id="data_limit" type="integer" required="false" label="数据权限" maxlen="10" />
-    <parameter id="mobile" type="varchar" required="false" label="电话" maxlen="32" />
+    <parameter id="mobile" type="varchar" required="true" label="电话" maxlen="32" />
     <parameter id="vc_contact" type="varchar" required="false" label="其它电话" maxlen="18" />
     <parameter id="salary" type="double" required="false" label="工资" />
     <parameter id="remark" type="varchar" required="false" label="备注" maxlen="128" />
@@ -34,6 +34,9 @@
 
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
     	on-error-label="该名已经存在，请重新命名" id="userlogin" sql="noRep.sql" />
+    <!-- zzn 加了手机号验证  -->
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    	on-error-label="该手机号已经存在，请重新输入" id="mobile" sql="noReptwo.sql" />
     
 	<custom-validator classname="dinamica.security.PasswordEncryptor" id="password"
 		on-error-label="MD5加密失败" />
