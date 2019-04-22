@@ -29,11 +29,12 @@ public class getUserInfo extends GenericTransaction {
 		String name="";
 		String sex="";
 		String userCode="";
+		String userType="";
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		Date xdate= df.parse(df.format(beginDate));
 		SimpleDateFormat rq=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String intime = rq.format(beginDate);
-		
+		String status="";
 		String operatelogsql = getLocalResource(basePath+"insert-operatelog.sql");
 		operatelogsql = getSQL(operatelogsql, inputParams);
 		
@@ -95,23 +96,55 @@ public class getUserInfo extends GenericTransaction {
 			//获取当前时间
 			
 			if(codeType.equals("1")) {
-				//根据手机号获取用户信息
-				String custsql = getLocalResource(basePath+"query-cust.sql");
-				custsql = getSQL(custsql, inputParams);
-				custsql = StringUtil.replace(custsql, "${fld:userCode}", "'"+userCode+"'");
-				custsql = StringUtil.replace(custsql, "${fld:org}", "'"+orgId+"'");
-				Recordset querycust= db.get(custsql);
-				if( null == querycust || querycust.getRecordCount() <= 0 ){
-					qrcodePath="未找到该会员";
-					tuid=1;
-					save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
-					throw new Throwable(qrcodePath);
+				String staffsql= getLocalResource(basePath+"query-staff.sql");
+				staffsql = getSQL(staffsql, inputParams);
+				staffsql = StringUtil.replace(staffsql, "${fld:userCode}", "'"+userCode+"'");
+				staffsql = StringUtil.replace(staffsql, "${fld:org}", "'"+orgId+"'");
+				Recordset querystaffsql= db.get(staffsql);
+				if( null == querystaffsql || querystaffsql.getRecordCount() <= 0 ){
+					
+					//根据手机号获取用户信息
+					String custsql = getLocalResource(basePath+"query-cust.sql");
+					custsql = getSQL(custsql, inputParams);
+					custsql = StringUtil.replace(custsql, "${fld:userCode}", "'"+userCode+"'");
+					custsql = StringUtil.replace(custsql, "${fld:org}", "'"+orgId+"'");
+					Recordset querycust= db.get(custsql);
+					if( null == querycust || querycust.getRecordCount() <= 0 ){
+						qrcodePath="未找到该会员或教练。手机号:"+userCode;
+						tuid=1;
+						save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
+						throw new Throwable(qrcodePath);
+						
+					}
+					querycust.first();
+					uid=querycust.getString("uid");
+					name=querycust.getString("name");
+					sex=querycust.getString("sex");
+					userType="1";
+				}else {
+					querystaffsql.first();
+					uid=querystaffsql.getString("uid");
+					name=querystaffsql.getString("name");
+					sex=querystaffsql.getString("sex");
+					status=querystaffsql.getString("status");//1在职0离职
+					if(status.equals("0")) {
+						qrcodePath="该员工已离职。手机号:"+userCode;
+						tuid=1;
+						save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
+						throw new Throwable(qrcodePath);
+					}
+					if(status.equals("2")) {
+						qrcodePath="该员工已删除。手机号:"+userCode;
+						tuid=1;
+						save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
+						throw new Throwable(qrcodePath);
+					}
+					userType="3";
 					
 				}
-				querycust.first();
-				uid=querycust.getString("uid");
-				name=querycust.getString("name");
-				sex=querycust.getString("sex");
+				
+				
+				
 			}
 			if(codeType.equals("3")) {
 				//根据卡号获取用户信息
@@ -121,7 +154,7 @@ public class getUserInfo extends GenericTransaction {
 				custcardsql = StringUtil.replace(custcardsql, "${fld:org}", "'"+orgId+"'");
 				Recordset querycustcard= db.get(custcardsql);
 				if( null == querycustcard || querycustcard.getRecordCount() <= 0 ){
-					qrcodePath="未找到该会员";
+					qrcodePath="未找到该会员。卡号："+userCode;
 					tuid=1;
 					save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
 					throw new Throwable(qrcodePath);
@@ -131,7 +164,7 @@ public class getUserInfo extends GenericTransaction {
 				uid=querycustcard.getString("uid");
 				name=querycustcard.getString("name");
 				sex=querycustcard.getString("sex");
-				
+				userType="1";
 			}
 			
 			save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
@@ -151,7 +184,7 @@ public class getUserInfo extends GenericTransaction {
 			rsGetuserInfo.setValue("errcode", String.valueOf(tuid));
 			rsGetuserInfo.setValue("errmsg", qrcodePath);
 			rsGetuserInfo.setValue("uid", uid);
-			rsGetuserInfo.setValue("userType", 1);
+			rsGetuserInfo.setValue("userType", userType);
 			rsGetuserInfo.setValue("name", name);
 			rsGetuserInfo.setValue("sex", sex);
 			rsGetuserInfo.setValue("phone", userCode);
