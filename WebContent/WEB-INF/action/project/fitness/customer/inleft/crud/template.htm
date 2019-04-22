@@ -257,24 +257,39 @@ $(document).ready(function() {
 		if(obthis==""){
 			ccms.dialog.alert("请选择一条记录！");
 		}else{
+			var code4 = $("input[name=inleftcode]:checked").attr("code4");
+			if(code4=="0"){
+				ccms.dialog.alert("该用户已退场！");
+				return false;
+			}
 				var code3 = $("input[name=inleftcode]:checked").attr("code3");
-				ccms.dialog.open({url : "${def:context}${def:actionroot}/returncabinit?code="+obthis+"&cabinettempcode="+code3, width:500, height:395});
+				if(code3==""){
+					ccms.dialog.alert("未领手牌无需归还！");
+					return false;
+				}else{
+					ccms.dialog.open({url : "${def:context}${def:actionroot}/returncabinit?code="+obthis+"&cabinettempcode="+code3, width:500, height:395});
+				}
 			}
 	});
-	// 领手牌
+	// 领手牌 zzn
 	$("#getcabinit").unbind().on("click",function(){
 		var obthis = getCheckboxValue("inleftcode");
 		if(obthis==""){
 			ccms.dialog.alert("请选择一条记录！");
 		}else{
-			//var code2 = $("input[name=inleftcode]:checked").attr("code2");
-			//if(code2=="1"){
-				var code3 = $("input[name=inleftcode]:checked").attr("code3");
-				ccms.dialog.open({url : "${def:context}${def:actionroot}/getcabinit?code="+obthis, width:500, height:395});
-			/* }else{
-				ccms.dialog.alert("请勿重复发放手牌！");
-				return false;
-			} */
+				var code4 = $("input[name=inleftcode]:checked").attr("code4");
+				if(code4=="0"){
+					ccms.dialog.alert("该用户已退场！");
+					return false;
+				}
+				var code3 = $("input[name=inleftcode]:checked").attr("code3");//code3取手牌号码
+				if(code3!=""){
+					ccms.dialog.alert("请勿重复发放手牌！");
+					return false;
+				}else{
+					ccms.dialog.open({url : "${def:context}${def:actionroot}/getcabinit?code="+obthis, width:500, height:395});
+					
+				}
 		}
 	});
 });

@@ -1,11 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<validator>
+ <validator>
 	<parameter id="code" type="varchar" required="true" label="入场记录code" />
 	
-		<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
-		on-error-label="已领取手牌，请勿重新发放!" id="code" sql="nodup.sql" />
-		
-	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
-		on-error-label="会员已离场，请确认！" id="code" sql="noduptwo.sql" />
-
 </validator>
+
+
+	
