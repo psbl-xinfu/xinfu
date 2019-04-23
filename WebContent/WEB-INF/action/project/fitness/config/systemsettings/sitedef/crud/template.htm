@@ -18,7 +18,6 @@ color:black;
 	<div class="am-tabs systems-management" data-am-tabs="{noSwipe: 1}">
 		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="logopage">
 			<li class='sub_li' onclick="sitedef()"><a href="#sitedef" class="three-none" id="sitedef">场地最低消费时间</a></li>
-			<li class='sub_li' onclick="Locker()"><a href="#lockEr" class="three-none" id="locker">场地押金</a></li>
 		</nav>
 	</div>
 	<div src ="" width="100%" height="600px" frameborder="0" id="sitedef_manage">
@@ -40,11 +39,6 @@ $(document).ready(function() {
 //场地
 function logo(){
 	$("#sitedef_manage").load("${def:context}${def:actionroot}/sitedef/crud?ispubload=true");
-}
-//场地押金
-function Locker()
-{
-	$("#sitedef_manage").load("${def:context}${def:actionroot}/locker/crud?ispubload=true");
 }
 </script>
 </body>

@@ -9,12 +9,14 @@ select
 		  when card.status=3 then '存卡中' when card.status=4 then '挂失中' when card.status=5 then '停卡中'
 		  when card.status=6 then '过期' end) as status,
 	(select name from hr_staff where userlogin = cust.mc) as mcstaff,
-	(case cust.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
+	(case when ct.type=1 then concat(card.nowcount,'次') 
+  when ct.type=0 then concat(date_part('day',enddate-now()),'天') 
+	else '--' end) as nowcount,
 	card.remark
 from cc_card card
 left join cc_cardtype ct on card.cardtype = ct.code and card.org_id = ct.org_id
 left join cc_customer cust on cust.code = card.customercode and card.org_id= cust.org_id
-where card.status = 1 and card.isgoon = 0 and card.org_id = ${def:org}
+where  card.isgoon = 0 and card.org_id = ${def:org}
 and (card.relatecode is null or card.relatecode='')
 and
 /* 判断当前登录人是否是私教，私教查询全部会员*/

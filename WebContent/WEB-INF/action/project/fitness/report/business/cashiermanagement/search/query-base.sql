@@ -10,11 +10,12 @@ SELECT
 			(SELECT hs.name FROM hr_staff hs WHERE hs.userlogin = t.salemember1 and hs.org_id = t.org_id) 
 		ELSE '' END
 	) AS sv_salesname2	-- 销售
-	,finance.cardcode as vc_cardcode	-- 卡号
-	,(case when finance.item=36 and cust.name is null
-	then guest.name
-	else cust.name
- end) AS vc_customername	-- 姓名
+	,(case when (select contracttype from cc_contract where code=(
+	select pk_value from cc_operatelog where code=finance.operatelogcode 
+ ))=3 then (select code from cc_card where contractcode= (select relatecode from cc_contract where code=(
+	select pk_value from cc_operatelog where code=finance.operatelogcode 
+ )  limit 1 )) else finance.cardcode end) as vc_cardcode	-- 卡号
+	,cust.name AS vc_customername	-- 姓名
 	,finance.type as vc_type
 	,(select domain_text_cn from t_domain where "namespace"='FinanceItem' and domain_value = finance.item::varchar) AS vc_typename	-- 收入类型
 	,(case when finance.type=1 then '会员卡' when finance.type=2 then '私教' when finance.type=3 then '杂项' end) as categories
@@ -40,7 +41,6 @@ LEFT JOIN hr_staff staff on finance.createdby = staff.userlogin and finance.org_
 LEFT JOIN cc_ptdef ptdef on finance.ptlevelcode = ptdef.code and finance.org_id = ptdef.org_id
 LEFT JOIN cc_operatelog ol on finance.operationcode = ol.pk_value and finance.org_id = ol.org_id and ol.opertype != '29' ---排除租柜押金
 LEFT JOIN cc_contract t on finance.operationcode = t.code and finance.org_id = t.org_id and t.status >= 2 
-LEFT JOIN cc_guest guest on finance.customercode = guest.code and finance.org_id = guest.org_id
 WHERE /** 普通会籍只能查看自己的会员合同 */
 1=1
 and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 

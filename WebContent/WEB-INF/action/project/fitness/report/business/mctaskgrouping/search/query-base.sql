@@ -80,7 +80,7 @@ FROM hr_staff s
 inner join (select user_id from hr_team_staff 
 	inner join (
 	select team_id from hr_team where org_id = ${def:org} and
-		skill_scope in ('1','2')) team on team.team_id = hr_team_staff.team_id
+		skill_scope = '2') team on team.team_id = hr_team_staff.team_id
 	) tm on tm.user_id::int = s.user_id
 WHERE s.is_member = 0 AND s.status = 1
 AND s.org_id = ${def:org}
@@ -103,7 +103,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = ts.userlogin and team.org_id = ts.org_id
+		where team.skill_scope = '2' and hts.userlogin = ts.userlogin and team.org_id = ts.org_id
 	)
 	GROUP BY ts.userlogin
 ) as t2 on t1.userlogin = t2.userlogin
@@ -118,7 +118,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = g.initmc and team.org_id = g.org_id
+		where team.skill_scope = '2' and hts.userlogin = g.initmc and team.org_id = g.org_id
 	) GROUP BY g.initmc
 ) t3 on t1.userlogin = t3.userlogin
 FULL JOIN(
@@ -132,7 +132,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = c.createdby and team.org_id = c.org_id
+		where team.skill_scope = '2' and hts.userlogin = c.createdby and team.org_id = c.org_id
 	) GROUP BY c.createdby
 ) t4 on t1.userlogin = t4.userlogin
 FULL JOIN(
@@ -146,7 +146,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = c.createdby and team.org_id = c.org_id
+		where team.skill_scope = '2' and hts.userlogin = c.createdby and team.org_id = c.org_id
 	) GROUP BY c.createdby
 ) t5 on t1.userlogin = t5.userlogin
 FULL JOIN(
@@ -160,7 +160,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = gp.createdby and team.org_id = gp.org_id
+		where team.skill_scope = '2' and hts.userlogin = gp.createdby and team.org_id = gp.org_id
 	) GROUP BY gp.createdby
 ) t6 on t1.userlogin = t6.userlogin
 FULL JOIN(
@@ -174,7 +174,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = gv.mc and team.org_id = gv.org_id
+		where team.skill_scope = '2' and hts.userlogin = gv.mc and team.org_id = gv.org_id
 	) GROUP BY gv.mc
 ) t7 on t1.userlogin = t7.userlogin
 FULL JOIN(
@@ -188,7 +188,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = c.salemember and team.org_id = c.org_id
+		where team.skill_scope = '2' and hts.userlogin = c.salemember and team.org_id = c.org_id
  		)
 	group by c.salemember
 	union all 
@@ -203,7 +203,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = c.salemember1 and team.org_id = c.org_id
+		where team.skill_scope = '2' and hts.userlogin = c.salemember1 and team.org_id = c.org_id
  		)
 	group by c.salemember1
 ) t8 on t1.userlogin = t8.userlogin
@@ -218,7 +218,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = c.salemember and team.org_id = c.org_id
+		where team.skill_scope = '2' and hts.userlogin = c.salemember and team.org_id = c.org_id
  		)
 	group by c.salemember
 	union all 
@@ -233,7 +233,7 @@ FULL JOIN(
 	and exists(
 		select 1 from hr_team team 
 		inner join hr_team_staff hts on team.team_id = hts.team_id 
-		where team.skill_scope in ('1','2') and hts.userlogin = c.salemember1 and team.org_id = c.org_id
+		where team.skill_scope = '2' and hts.userlogin = c.salemember1 and team.org_id = c.org_id
  		)
 	group by c.salemember1
 ) t9 on t1.userlogin = t9.userlogin

@@ -15,7 +15,7 @@ from
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = mc 
+ 			where k.skill_scope in ('2', '4')  and fk.userlogin = mc 
  		)
 		and (case when ${fld:mc} is null then 1=1 else mc = ${fld:mc} end)
  		group by to_char(visitdate::date, 'yyyy-MM') 
@@ -34,7 +34,7 @@ from
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = mc 
+ 			where k.skill_scope in ('2', '4')  and fk.userlogin = mc 
  		)
 		and (case when ${fld:mc} is null then 1=1 else mc = ${fld:mc} end)
  		group by to_char(created::date, 'yyyy-MM') 
@@ -52,7 +52,7 @@ from
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2', '4')  and fk.userlogin = cc_guest_prepare.createdby 
+ 			where k.skill_scope in ('2', '4')  and fk.userlogin = cc_guest_prepare.createdby 
  		)
 		and (case when ${fld:mc} is null then 1=1 else createdby = ${fld:mc} end)
  		group by to_char(preparedate::date, 'yyyy-MM') 

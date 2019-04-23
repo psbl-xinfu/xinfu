@@ -38,9 +38,12 @@ LEFT JOIN cc_ptdef ptdef on finance.ptlevelcode = ptdef.code and finance.org_id 
 LEFT JOIN cc_operatelog ol on finance.operationcode = ol.pk_value and finance.org_id = ol.org_id and ol.opertype != '29' ---排除租柜押金
 LEFT JOIN cc_contract t on finance.operationcode = t.code and finance.org_id = t.org_id and t.status >= 2 
 WHERE /** 普通会籍只能查看自己的会员合同 */
-(case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
-			where hs.org_id = ${def:org} and hss.userlogin = '${def:user}' and hs.data_limit = 1)
+1=1
+and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
+			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
+			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else staff.userlogin = '${def:user}' end)
+
 and finance.org_id = ${def:org}
 AND finance.status = 1 
 and (CASE when ${fld:daochu_salename_query} is not null then (case when ${fld:daochu_salename_query}='3' then 

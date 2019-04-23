@@ -1,7 +1,6 @@
 select 
 	d.code as cardcode
-	,d.contractcode,
-	e.type
+	,d.contractcode 
 from cc_card d 
 inner join cc_contract t on t.code = d.contractcode and t.org_id = d.org_id 
 inner join cc_customer c on d.customercode = c.code and c.org_id = d.org_id 
@@ -17,10 +16,10 @@ and t.normalmoney = COALESCE(t.factmoney,0.00) + COALESCE((
 	where t2.relatecode = t.code and t2.org_id = t.org_id and t2.status >= 2
 ),0.00)
 --去掉里面的话就是多次续卡
---and not exists(
---	select 1 from cc_card d2 
---	where d2.code = d.code and d2.org_id = d.org_id and d2.isgoon = 1 and d2.status != 0 and d2.status != 6 
---)
+and not exists(
+	select 1 from cc_card d2 
+	where d2.code = d.code and d2.org_id = d.org_id and d2.isgoon = 1 and d2.status != 0 and d2.status != 6 
+)
 --
 and e.maxusernum = 1
 and (d.relatecode is null or d.relatecode='') --排除副卡

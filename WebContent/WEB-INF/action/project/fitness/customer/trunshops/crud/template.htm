@@ -203,8 +203,9 @@ $("#trunbtn").unbind().on("click",function(){
 		    var xian="";
 		    var cardcodelist="";
 		    for (var j = 1; j <= cardcount; j++) { 
-		    	yuan=$("#yuan"+j).val();
+				yuan=$("#yuan"+j).val();
 		    	if(j!=cardcount){
+		    		
 		    		cardcodelist+=$("#cardcode"+j).text();
 		    		cardcodelist+=(",");
 		    		if(yuan==1){

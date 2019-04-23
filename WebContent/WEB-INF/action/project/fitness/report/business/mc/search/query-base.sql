@@ -27,7 +27,7 @@ inner join (
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember 
  		)
  		and  salemember=(case when  ${fld:s_skill_name} is null  then salemember else ${fld:s_skill_name} end )
  		group by c.salemember 
@@ -46,7 +46,7 @@ inner join (
  		and c.org_id=${def:org} and c.status>=2 and (c.contracttype = 0 or c.contracttype = 1 or c.contracttype = 2 or c.contracttype = 3) and (c.type=0 or c.type=5) and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember1 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember1 
  		)
  		and  salemember1=(case when  ${fld:s_skill_name} is null  then salemember1 else ${fld:s_skill_name} end )
  		and salemember1 is not null
@@ -67,7 +67,7 @@ union all
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember 
  		)
  		and  salemember=(case when  ${fld:s_skill_name} is null  then salemember else ${fld:s_skill_name} end )
  		group by c.salemember 
@@ -88,7 +88,7 @@ union all
  		and c.org_id=${def:org} and c.status>=2 and c.contracttype = 0 and c.type=2  and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember1 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember1 
  		)
  		and  salemember1=(case when  ${fld:s_skill_name} is null  then salemember1 else ${fld:s_skill_name} end )
  		and salemember1 is not null
@@ -109,7 +109,7 @@ union all
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember 
  		)
  		and  salemember=(case when  ${fld:s_skill_name} is null  then salemember else ${fld:s_skill_name} end )
  		group by c.salemember 
@@ -130,7 +130,7 @@ union all
  		and c.org_id=${def:org} and c.status>=2 and (c.type=1 or  c.type=12)  and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember1 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember1 
  		)
  		and  salemember1=(case when  ${fld:s_skill_name} is null  then salemember1 else ${fld:s_skill_name} end )
  		and salemember1 is not null
@@ -151,7 +151,7 @@ union all
  		and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember 
  		)
  		and  salemember=(case when  ${fld:s_skill_name} is null  then salemember else ${fld:s_skill_name} end )
  		group by c.salemember 
@@ -172,7 +172,7 @@ union all
  		and c.org_id=${def:org} and c.status>=2 and(c.type=7 or   c.type=9 or c.type=11)   and exists(
  			select 1 from hr_skill k 
  			inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
- 			where k.skill_scope in ('1','2') and fk.userlogin = c.salemember1 
+ 			where k.skill_scope = '2' and fk.userlogin = c.salemember1 
  		)
  		and  salemember1=(case when  ${fld:s_skill_name} is null  then salemember1 else ${fld:s_skill_name} end )
  		and salemember1 is not null
@@ -182,7 +182,7 @@ where h.status = 1 and h.userlogin = (case when ${fld:s_skill_name} is null then
 and exists(
 	select 1 from hr_skill k 
 	inner join hr_staff_skill fk on k.skill_id = fk.skill_id 
-	where k.skill_scope in ('1','2') and org_id = ${def:org}
+	where k.skill_scope = '2' and org_id = ${def:org}
 	and fk.user_id=h.user_id
 )
 and h.org_id = ${def:org}

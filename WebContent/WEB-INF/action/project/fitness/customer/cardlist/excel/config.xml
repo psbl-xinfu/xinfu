@@ -26,7 +26,7 @@
 		<col id="cardtypename" label="卡类型" />
 		<col id="status" label="卡状态" />
 		<col id="name" label="姓名" />
-		<col id="sex" label="性别" />
+		<col id="nowcount" label="剩余权益" />
 		<col id="mobile" label="电话" />
 		<col id="mcstaff" label="会籍" />
 		<col id="startdate" label="开始日期" />
