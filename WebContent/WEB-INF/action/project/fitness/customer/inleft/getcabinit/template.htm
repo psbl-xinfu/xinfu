@@ -38,7 +38,6 @@ $(document).ready(function() {
 		}else{
 			//先检查ID是否使用中
 			var url = "${def:context}${def:actionroot}/get?getcabinettempcode="+cabinettempcode+"&leftcode=${fld:code}";
-			alert(url);
 			ajaxCall(url,{
 				method : "post",
 				data: "",
