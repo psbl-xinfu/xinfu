@@ -11,7 +11,7 @@ import dinamica.StringUtil;
 /**
  * @author 赵亚斌
  * @date 2019年4月4日
- * 
+ * 获取教练和会员信息的接口
  */
 public class getUserInfo extends GenericTransaction {
 	public int service(Recordset inputParams) throws Throwable {

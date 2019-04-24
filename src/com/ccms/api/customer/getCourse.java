@@ -19,7 +19,7 @@ import dinamica.StringUtil;
 /**
  * @author 赵亚斌
  * @date 2019年4月22日
- * 
+ * 获取所有预约课程和所有签课的课程（注：有下课的时间的除外）doType为  上课时，值 = 1，下课时，值 = 2（注：1是查找所有的预约可。2是查找所有的签课（不包括有下课时间的记录））
  */
 public class getCourse extends GenericTransaction{
 
@@ -57,7 +57,7 @@ public class getCourse extends GenericTransaction{
 				qrcodePath="员工教练ID不能为空";
 				throw new Throwable(qrcodePath);
 			}
-			//操作类型   上课时，值 = 1，下课时，值 = 2
+			//操作类型   doType为上课时，值 = 1，下课时，值 = 2
 			String doType = inputParams.containsField("doType") ? inputParams.getString("doType") : "";
 			if( null == doType || "".equals(doType) ){
 				qrcodePath="操作类型不可以为空";

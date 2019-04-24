@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * @author 赵亚斌
  * @date 2019年4月23日
- * 
+ * 实体映射为了把预约课程的信息转换成json格式返给前台
  */
 public class PrepareBean implements Serializable{
 	private String ReservationID;
