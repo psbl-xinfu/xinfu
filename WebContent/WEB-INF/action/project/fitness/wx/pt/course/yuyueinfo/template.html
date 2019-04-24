@@ -21,16 +21,16 @@
                         <img src="${def:context}/js/project/fitness/wx/image/huiyuanxq.png" class="centerimg">
                         <p class="names">会员详情</p>
                     </div>
-                    <div class="col-xs-4" id="xiaoxi">
+                    <!-- <div class="col-xs-4" id="xiaoxi">
                         <img src="${def:context}/js/project/fitness/wx/image/huiyuanxiaoxi.png" class="centerimg">
                         <p class="names">发送信息</p>
-                    </div>
-                    <div class="col-xs-4">
+                    </div> -->
+                    <div class="col-xs-6">
                         <img src="${def:context}/js/project/fitness/wx/image/tel1.png" class="centerimg">
                         <p class="names">拨打电话</p>
                     </div>
-                    <div class="centerone"></div>
-                    <div class="centertwo"></div>
+                    <!-- <div class="centerone"></div>
+                    <div class="centertwo"></div> -->
                 </div>
                 
             </div>
@@ -119,9 +119,9 @@
         	location.href='${def:context}/action/project/fitness/wx/pt/mycust/sijiaohuiyuanmsg?customercode=${fld:customercode}&type=pt';
         })
       
-     	$('#xiaoxi').on('click',function(){
+     	/* $('#xiaoxi').on('click',function(){
 	  		location.href="${def:context}/action/project/fitness/wx/mc/personal/message/list?recuser=${fld:mobile}";
-	  })	
+	  }) */	
         
 	  //zyb 2019-3-21 修改预约中和待确认不可以修改时间
         if("${fld:status}"=="预约中"||"${fld:status}"=="待确认"){

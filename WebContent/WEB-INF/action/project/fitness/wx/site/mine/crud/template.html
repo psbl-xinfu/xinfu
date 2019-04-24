@@ -73,14 +73,14 @@ ${inc:/action/project/fitness/wx/pub}
     <script>
         function homept1() {
             var str =
-                '<a  href="${def:context}/action/project/fitness/wx/site/siteindex/crud?org_id=${fld:org_id}" style="position: fixed;left: 0%;bottom:0;border-right:1px solid #ededed; background:#fff; border-top:1px solid #ededed; width:50%;height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/sy2@2x.png"  style="position: fixed; width:0.4rem;height:0.4rem;left: 18.5%;bottom:0.5rem;" ><p class="nav_font"  style="position: fixed;left: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">首页</p></a>'
+                '<a  href="${def:context}/action/project/fitness/wx/site/siteindex/crud?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}" style="position: fixed;left: 0%;bottom:0;border-right:1px solid #ededed; background:#fff; border-top:1px solid #ededed; width:50%;height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/sy2@2x.png"  style="position: fixed; width:0.4rem;height:0.4rem;left: 18.5%;bottom:0.5rem;" ><p class="nav_font"  style="position: fixed;left: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">首页</p></a>'
             $('body').append(str);
         }
         homept1();
 
         function homept2() {
             var str =
-                '<a class="active"  href="${def:context}/action/project/fitness/wx/site/mine/crud?org_id=${fld:org_id}" style="position: fixed;right: 0%;bottom:0; background:#fff; width:50%;height:1.09rem;border-top: 1px solid #ededed;" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/wd1@2x.png"  style="position: fixed;right: 18.5%;bottom:0.5rem;width:0.4rem;height:0.4rem;" ><p class="active nav_font"  style="position: fixed;right: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">我的</p></a>'
+                '<a class="active"  href="${def:context}/action/project/fitness/wx/site/mine/crud?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}" style="position: fixed;right: 0%;bottom:0; background:#fff; width:50%;height:1.09rem;border-top: 1px solid #ededed;" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/wd1@2x.png"  style="position: fixed;right: 18.5%;bottom:0.5rem;width:0.4rem;height:0.4rem;" ><p class="active nav_font"  style="position: fixed;right: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">我的</p></a>'
             $('body').append(str);
         }
         homept2();
