@@ -22,9 +22,12 @@ select
 	card.enddate,
 	(select name from hr_staff where userlogin = card.createdby) as createdby,
 	card.created
-from cc_card card 
-left join cc_customer cust on cust.code= card.customercode and card.org_id = cust.org_id
-left join cc_contract con on card.contractcode = con.code and card.org_id = con.org_id
+--from cc_card card 改为只查出有合同的卡
+--left join cc_customer cust on cust.code= card.customercode and card.org_id = cust.org_id
+--inner join cc_contract con on card.contractcode = con.code and card.org_id = con.org_id
+from cc_contract con
+left join cc_card card on card.code = get_arr_value(con.relatedetail,1) and card.org_id = con.org_id
+left join cc_customer cust on cust.code= con.customercode and card.org_id = con.org_id
 where /** 会籍顾问只能查看自己的数据 */
 (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
@@ -58,9 +61,12 @@ select
 	card.enddate,
 	(select name from hr_staff where userlogin = card.createdby) as createdby,
 	card.created
-from cc_card card 
-left join cc_customer cust on cust.code= card.customercode and card.org_id = cust.org_id
-left join cc_contract con on card.contractcode = con.code and card.org_id = con.org_id
+--from cc_card card 
+--left join cc_customer cust on cust.code= card.customercode and card.org_id = cust.org_id
+--inner join cc_contract con on card.contractcode = con.code and card.org_id = con.org_id
+from cc_contract con
+left join cc_card card on card.code = get_arr_value(con.relatedetail,1) and card.org_id = con.org_id
+left join cc_customer cust on cust.code= con.customercode and card.org_id = con.org_id
 where /** 会籍顾问只能查看自己的数据 */
 (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
