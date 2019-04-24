@@ -20,6 +20,7 @@
 		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab cus cur-nav">
 			<li><a class="three-none " id="contract">合同</a></li>
 			<li><a class="three-none " id="cardlist">办卡</a></li>
+			<li><a class="three-none" id="fillcard">补卡</a></li>  <!-- zzn 增加补卡记录 -->
 			<li><a class="three-none " id="rentlist">租赁柜</a></li>
 			<li><a class="three-none " id="ptprepare">私教</a></li>
 			<li><a class="three-none" id="sales">消费信息</a></li>
@@ -112,6 +113,13 @@
 											'click',
 											function() {
 												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/cardlist/crud?");
+											})
+							//补卡
+							$('#fillcard')
+									.on(
+											'click',
+											function() {
+												loadMain("${def:context}/action/project/fitness/guest/detail/gustmenu/fillcardlist/crud?");
 											})
 							//租柜
 							$('#rentlist')
