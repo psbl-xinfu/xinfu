@@ -1,8 +1,24 @@
+//add zyb 190422 添加根据场馆key获取门店
+create table cc_atube(
+code int4  NOT NULL,
+appid varchar(68),
+org_id int4
+)
+COMMENT ON COLUMN "public"."cc_atube"."code" IS 'id';
+COMMENT ON COLUMN "public"."cc_atube"."appid" IS '场馆key';
+COMMENT ON COLUMN "public"."cc_atube"."org_id" IS '门店id';
+
+
+//add zyb 190422 添加个下课时间
+alter table cc_ptlog add quittingtime timestamp(6)
+COMMENT ON COLUMN "public"."cc_ptlog"."quittingtime" IS '下课时间';
+
+
 // add leo 190419执行计划查看语句explain(analyze,verbose,costs,buffers,timing) (问题SQL)
 //add zyb 190415 加个打印小票的剩余次数和一个卡类型
 alter table cc_inleft add nowcount int4
 COMMENT ON COLUMN "public"."cc_inleft"."nowcount" IS '卡的剩余次数';
-alter table cc_inleft add cardtype int4
+alter table cc_inleft add cardtype varchar(64)
 COMMENT ON COLUMN "public"."cc_inleft"."cardtype" IS '卡类型';
 
 

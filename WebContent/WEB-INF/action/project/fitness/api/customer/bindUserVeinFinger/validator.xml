@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
-
+<!-- 特征绑定接口 -->
     <parameter id="appid" type="varchar" required="true" label="商家授权id" />
     <parameter id="uid" type="varchar" required="true" label="会员编号" />
     <parameter id="userType" type="varchar" required="false" label="用户身份类型" />

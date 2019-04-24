@@ -1,0 +1,1 @@
+select org_id from cc_atube where appid=${fld:appid}
