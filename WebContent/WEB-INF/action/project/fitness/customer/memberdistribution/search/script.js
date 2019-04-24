@@ -20,7 +20,7 @@
 			"in_date":"${fld:in_date}",
 			"leave_day":"${fld:leave_day}",
 			"com_count":"${fld:com_count}",
-			"ispublic":"${fld:ispublic}",
+			"ispublic":"${fld:is_public}",
 			"imgid":"${fld:imgid}",
 			"com_date":"${fld:com_date}"
 		

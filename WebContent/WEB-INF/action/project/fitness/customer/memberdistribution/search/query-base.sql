@@ -1,6 +1,5 @@
 SELECT
 	concat('<label class="am-checkbox"><input type="checkbox" code2="1" data-am-ucheck name="datalist" code="',(select code from cc_card where customercode=r.code and isgoon=0 and org_id=${def:org} order by enddate desc limit 1) ,'" value="',r.code,'','" ></label>') as application,
-		'否' as ispublic,
 		(select  file_path from t_attachment_files where  t_attachment_files.pk_value =r.code and org_id= ${def:org} order by tuid desc limit 1) as img_url,--图片
 		r.name as mc_name,
 		r.code as mc_code,--会员编号
@@ -23,7 +22,7 @@ end) as custday,--会员有效期（天数）
 		(case when
 		(p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0 then '否'
 		when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0 then '是'
-		end) as i_public,--是否进入公海
+		end) as is_public,--是否进入公海
 	 	(case when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0
 		then concat('已过期', now()::date-(p.grabtime::date+(${fld:period_day}||'day')::interval)::date,'天')
 		when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0
