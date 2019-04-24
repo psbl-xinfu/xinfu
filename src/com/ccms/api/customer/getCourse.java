@@ -100,10 +100,7 @@ public class getCourse extends GenericTransaction{
 					" LEFT JOIN hr_staff f ON p.ptid = f.userlogin" + 
 					" LEFT JOIN cc_customer c ON p.customercode = c.code and p.org_id = c.org_id" + 
 					" WHERE p.org_id = ${fld:org} and p.status=${fld:status}" + 
-					" and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id " + 
-					"			where (hs.org_id = ${fld:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = ${fld:employeeId}))" + 
-					"			and hss.userlogin = ${fld:employeeId} and hs.data_limit = 1)" + 
-					"			then 1=1 else p.ptid = ${fld:employeeId} end)";
+					" and p.ptid = ${fld:employeeId} ";
 			if(doType.equals("1")) {
 				status=1;
 			}
