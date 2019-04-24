@@ -1,4 +1,4 @@
---zyb 20190422 查询该教练的所有预约课程
+--zyb 20190422 查询该教练的所有预约课程这段sql没有用到
 SELECT
 	p.code as ReservationID
 	,(p.preparedate+p.preparetime) as ReservationTime
