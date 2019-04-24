@@ -269,16 +269,18 @@ $(document).ready(function() {
 		}
 	});
 
-	//补卡
+	//补卡  zzn 新旧卡号一致不允许补卡
 	$("#add_btn").click(function(){
 		if($("#new_vc_code").val()==""){
 			ccms.dialog.alert("请输入新卡号！");
 			return false;
 		}
 		if($("#cardcode").val()==$("#new_vc_code").val()){
-			$Dialog().confirm("新会员卡号和旧会员卡号一致，确定要补卡吗?", function(){
+			ccms.dialog.alert("新会员卡号和旧会员卡号一致，请确认！");
+			/* $Dialog().confirm("新会员卡号和旧会员卡号一致，确定要补卡吗?", function(){
 				incodevalidation();
-			});
+			}); zzn卡号相等不允许补卡*/
+			return false;
 		}else{
 			incodevalidation();
 		}

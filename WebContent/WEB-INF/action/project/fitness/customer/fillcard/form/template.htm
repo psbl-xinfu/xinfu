@@ -130,9 +130,11 @@ $(document).ready(function() {
 			}
 
 			if($("#cardcode").val()==$("#new_vc_code").val()){
-				$Dialog().confirm("新会员卡号和旧会员卡号一致，确定要补卡吗?", function(){
+				ccms.dialog.alert("新会员卡号和旧会员卡号一致，请确认！");
+				/* $Dialog().confirm("新会员卡号和旧会员卡号一致，确定要补卡吗?", function(){
 					incodevalidation();
-				});
+				}); zzn卡号相等不允许补卡*/
+				return false;
 			}else{
 				
 				incodevalidation();
