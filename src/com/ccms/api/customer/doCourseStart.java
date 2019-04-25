@@ -114,6 +114,36 @@ public class doCourseStart extends GenericTransaction{
 				throw new Throwable(qrcodePath);
 				
 			}
+			//判断教练和会员是不是一个人
+			String querysql = getLocalResource(basePath+"query-prepare.sql");
+			querysql = getSQL(querysql, inputParams);
+			querysql = StringUtil.replace(querysql, "${fld:reservationID}", "'"+reservationID+"'");
+			querysql = StringUtil.replace(querysql, "${fld:org}", "'"+org_id+"'");
+			Recordset query = db.get(querysql);
+			if(  null == query || query.getRecordCount() <= 0  ){
+				qrcodePath="该会员不能签到，请确认时间或状态。会员编号："+userId+";上课日期为："+preparedate;
+				tuid=1;
+				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
+				throw new Throwable(qrcodePath);
+				
+			}
+			query.first();
+			String customercode=query.getString("customercode");
+			if(!customercode.equals(userId)){
+				qrcodePath="该会员验证未通过。会员编号："+userId;
+				tuid=1;
+				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
+				throw new Throwable(qrcodePath);
+				
+			}
+			String ptid=query.getString("ptid");
+			if(!ptid.equals(employeeId)){
+				qrcodePath="该教练验证未通过。教练编号："+userId;
+				tuid=1;
+				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
+				throw new Throwable(qrcodePath);
+				
+			}
 			
 			//修改该条的记录的状态
 			String updatesql = getLocalResource(basePath+"update.sql");

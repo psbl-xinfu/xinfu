@@ -26,7 +26,7 @@ insert into cc_ptlog
 		ptp.cardcode,
 		pd.code,
 		pr.ptleftcount,
-		pr.ptid,
+		ptp.ptid,
 		pd.ptfee,
 		pd.scale,
 		1,
