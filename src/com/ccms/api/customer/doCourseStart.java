@@ -121,7 +121,7 @@ public class doCourseStart extends GenericTransaction{
 			querysql = StringUtil.replace(querysql, "${fld:org}", "'"+org_id+"'");
 			Recordset query = db.get(querysql);
 			if(  null == query || query.getRecordCount() <= 0  ){
-				qrcodePath="该会员不能签到，请确认时间或状态。会员编号："+userId+";上课日期为："+preparedate;
+				qrcodePath="该会员未预约课程。会员编号："+userId;
 				tuid=1;
 				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
@@ -138,7 +138,7 @@ public class doCourseStart extends GenericTransaction{
 			}
 			String ptid=query.getString("ptid");
 			if(!ptid.equals(employeeId)){
-				qrcodePath="该教练验证未通过。教练编号："+userId;
+				qrcodePath="该教练验证未通过。教练编号："+employeeId;
 				tuid=1;
 				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
