@@ -394,6 +394,9 @@ ${inc:/action/project/fitness/home/pub}
 								</nav>
 								<nav class="r-c-3-t-b-r">
 									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/chushimima.svg" title="初始密码" alt=""id="resetpwd_btn">
+									</li>
+									<li>
 										<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
 									</li>
 									 <li>
@@ -507,6 +510,29 @@ $(document).ready(function() {
 			$("#myModalLabel").modal('show')
 		}
 	});
+	//zyb 20190426 add 初始密码
+	$("#resetpwd_btn").unbind().on("click",function(){
+		var userid =$('input[name="datalist"]:checked').attr("code2");
+		var userlogin= $('input[name="datalist"]:checked').attr("code3");
+		var leng=$('input[name="datalist"]:checked').length
+		if( userid != undefined && userid != "" && userlogin != undefined && userlogin != "" &&leng==1){
+			$Dialog().confirm("确定要初始化密码？", function(){
+				var url = "${def:context}${def:actionroot}/resetpwd?user_id="+userid+"&userlogin="+userlogin+"&passwd=123456";
+				ajaxCall(url,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+						ccms.dialog.notice("密码初始化成功！", 2000);
+					}
+				});
+			});
+		}else{
+			ccms.dialog.notice("请选择一条数据！", 3000);
+		}
+	});
+	
+	
 	
 	//导出
 	$("#daochu_list").unbind().on("click", function(){
