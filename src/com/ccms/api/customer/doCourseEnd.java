@@ -105,7 +105,7 @@ public class doCourseEnd extends GenericTransaction {
 			ptlogcode= queryptlogcode.getString("code");
 			String quittingtime=queryptlogcode.getString("quittingtime");
 			if(quittingtime!=""||quittingtime!=null) {
-				qrcodePath="改课已签退。会员编号："+userId+"教练编号："+employeeId;
+				qrcodePath="该课已签退。会员编号："+userId+"教练编号："+employeeId;
 				tuid=1;
 				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
