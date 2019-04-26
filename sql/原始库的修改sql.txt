@@ -1,13 +1,63 @@
+//add zyb 190425 添加场馆key操作
+insert into cc_config (
+	category,
+	param_value
+	,param_text
+	,remark
+	,status
+	,tuid
+	,org_id
+	)VALUES(
+	'OpeCategory'
+	,'105'
+	,'添加场馆key'
+	,'添加场馆key'
+	,'1'
+	,nextval('seq_cc_config')
+	,'1003'
+
+)
+
+
+//add zyb 190425 删除场馆key操作
+insert into cc_config (
+	category,
+	param_value
+	,param_text
+	,remark
+	,status
+	,tuid
+	,org_id
+	)VALUES(
+	'OpeCategory'
+	,'106'
+	,'删除场馆key'
+	,'删除场馆key'
+	,'1'
+	,nextval('seq_cc_config')
+	,'1003'
+
+)
+
 //add zyb 190422 添加根据场馆key获取门店
 create table cc_atube(
 code int4  NOT NULL,
 appid varchar(68),
-org_id int4
+org_id int4,
+remark varchar(2000),
+  created varchar(64),
+  createdby  timestamp(6),
+  updated varchar(64),
+  updatedby timestamp(6)
 )
 COMMENT ON COLUMN "public"."cc_atube"."code" IS 'id';
 COMMENT ON COLUMN "public"."cc_atube"."appid" IS '场馆key';
 COMMENT ON COLUMN "public"."cc_atube"."org_id" IS '门店id';
-
+COMMENT ON COLUMN "public"."cc_atube"."remark" IS '备注';
+COMMENT ON COLUMN "cc_atube"."created" IS '创建人';
+COMMENT ON COLUMN "cc_atube"."createdby" IS '创建时间';
+COMMENT ON COLUMN "cc_atube"."updated" IS '修改人';
+COMMENT ON COLUMN "cc_atube"."updatedby" IS '修改时间';
 
 //add zyb 190422 添加个下课时间
 alter table cc_ptlog add quittingtime timestamp(6)

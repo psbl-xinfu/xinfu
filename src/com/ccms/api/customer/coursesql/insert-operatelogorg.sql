@@ -9,7 +9,7 @@ insert into cc_operatelog(
 	,customercode
 )values(
 	NEXTVAL('seq_cc_operatelog')
-	,103
+	,104
 	,1
 	,${fld:remark}
 	,${fld:createdby}

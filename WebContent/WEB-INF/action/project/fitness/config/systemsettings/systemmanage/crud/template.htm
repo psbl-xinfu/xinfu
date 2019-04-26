@@ -32,6 +32,7 @@ color:black;
 			<li class='sub_li' onclick="ConsultingHabit()"><a href="#consultingHabit" class="three-none" id="consultingHabit">获取咨询习惯</a></li>
 			<li class='sub_li' onclick="sitetype()"><a href="#sitetype" class="three-none" id="sitetype">场地类型</a></li>
 			<li class='sub_li' onclick="equipmentManagement()"><a href="#equipmentManagement" class="three-none" id="equipmentManagement">设备管理</a></li>
+			<li class='sub_li' onclick="venues()"><a href="#venues" class="three-none" id="venues">场馆管理</a></li>
 		</nav>
 	</div>
 		    <!-- 卡号规则 -->
@@ -113,6 +114,11 @@ function updatecarddate(){
 //设备
 function equipmentManagement(){
 	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/equipmentManagement/crud?ispubload=true");
+}
+
+//场馆
+function venues(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/venues/crud?ispubload=true");
 }
 </script>
 </body>

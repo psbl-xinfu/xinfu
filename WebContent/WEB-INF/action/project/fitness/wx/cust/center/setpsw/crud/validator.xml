@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="type" type="varchar" required="false" label="type" />
+	<parameter id="customercode" type="varchar" required="true" label="会员编号" />
+	<custom-validator
+		classname='dinamica.validators.DuplicatedKeyValidator'
+		on-error-label='Su usuario se encuentra registrado en el directorio LDAP, por lo tanto no puede cambiar la contrase馻 por este medio.'
+		sql='query.sql' />
+</validator>

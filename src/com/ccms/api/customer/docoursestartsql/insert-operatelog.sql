@@ -10,7 +10,7 @@ code
 ,customercode
 )values(
 NEXTVAL('seq_cc_operatelog')
-,102
+,104
 ,1
 ,${fld:remark}
 ,${fld:employeeId}
