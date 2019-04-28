@@ -7,12 +7,12 @@
 ') as application_id,
   
 name,
-(select count(DISTINCT p.customercode) from cc_ptrest p where p.ptid=staff.userlogin and p.ptlevelcode!=(select code from cc_ptdef where reatetype=1) 
+(select count(DISTINCT p.customercode) from cc_ptrest p where p.ptid=staff.userlogin and p.ptlevelcode!=(select code from cc_ptdef where reatetype=1 and p.ptlevelcode=code and p.org_id=org_id) 
 and p.org_id = staff.org_id) as customernum,
 (select count(ptrest.customercode) from cc_ptrest ptrest
 LEFT JOIN  cc_customer cust on cust.code=ptrest.customercode
   where not exists(
- select 1  from cc_ptrest p where p.ptlevelcode!=(select code from cc_ptdef where reatetype=1) 
+ select 1  from cc_ptrest p where p.ptlevelcode!=(select code from cc_ptdef where reatetype=1 and p.ptlevelcode=code and p.org_id=org_id) 
 and ptrest.customercode=p.customercode) and cust.pt=staff.userlogin and ptrest.org_id = staff.org_id) as gustnum
 from hr_staff staff
 inner join (select user_id from hr_staff_skill 

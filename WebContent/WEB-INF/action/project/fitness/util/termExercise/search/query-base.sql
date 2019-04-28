@@ -1,5 +1,6 @@
 select  cust.name,(case WHEN cust.sex = '0' then '女' when cust.sex = '1' then '男' else '未知' end) as sex,cust.mobile,
-(case when cust.status='0' then '无效' when cust.status='1' then '正常' when cust.status='2' then '已过期' else '未知' end) as status,
+(case when (select enddate from cc_card where customercode=cust.code and isgoon!='-1' and status!=0 and org_id=cust.org_id order by enddate desc limit 1)::date >='${def:date}'
+then '有效'  else '无效' end) as status,
 (case when (select code from cc_inleft where customercode = cust.code and org_id = cust.org_id limit 1) is null 
 	then cust.indate else (select max(indate) from cc_inleft where customercode = cust.code and org_id = cust.org_id) end) as indate,--最后锻炼时间
 (NOW()::date-
@@ -35,7 +36,8 @@ UNION
 
 
 select cust.name,(case WHEN cust.sex = '0' then '女' when cust.sex = '1' then '男' else '未知' end) as sex,cust.mobile,
-(case when cust.status='0' then '无效' when cust.status='1' then '正常' when cust.status='2' then '已过期' else '未知' end) as status,
+(case when (select enddate from cc_card where customercode=cust.code and isgoon!='-1' and status!=0 and org_id=cust.org_id order by enddate desc limit 1)::date >='${def:date}'
+then '有效'  else '无效' end) as status,
 (case when (select code from cc_inleft where customercode = cust.code and org_id = cust.org_id limit 1) is null 
 	then cust.indate else (select max(indate) from cc_inleft where customercode = cust.code and org_id = cust.org_id) end) as indate,--最后锻炼时间
 (NOW()::date-

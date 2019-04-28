@@ -94,7 +94,7 @@ public class doCourseEnd extends GenericTransaction {
 			ptlogcodesql = StringUtil.replace(ptlogcodesql, "${fld:userId}", "'"+userId+"'");
 			Recordset queryptlogcode = db.get(ptlogcodesql);
 			if( null == queryptlogcode || queryptlogcode.getRecordCount() <= 0 ){
-				qrcodePath="未找到该教练的上课记录。会员编号："+userId+"教练编号："+employeeId;
+				qrcodePath="未找到上课记录。会员编号："+userId+"教练编号："+employeeId;
 				tuid=1;
 				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
@@ -103,15 +103,24 @@ public class doCourseEnd extends GenericTransaction {
 			queryptlogcode.first();
 			//ptlog的id
 			ptlogcode= queryptlogcode.getString("code");
+			String quittingtime=queryptlogcode.getString("quittingtime");
+			if(quittingtime==""||quittingtime==null) {
+				//修改该条的记录的下课时间
+				String updatesql = getLocalResource(basePath+"update.sql");
+				updatesql = getSQL(updatesql, inputParams);
+				updatesql = StringUtil.replace(updatesql, "${fld:ptlogcode}", "'"+ptlogcode+"'");
+				updatesql = StringUtil.replace(updatesql, "${fld:org}", "'"+org_id+"'");
+				db.addBatchCommand(updatesql);
+				db.exec();
+				save(operatelogsql, qrcodePath, employeeId,userId , xdate, intime, org_id);
+			}else {
+				qrcodePath="该课已签退。会员编号："+userId+"教练编号："+employeeId;
+				tuid=1;
+				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
+				throw new Throwable(qrcodePath);
+			}
 			
-			//修改该条的记录的下课时间
-			String updatesql = getLocalResource(basePath+"update.sql");
-			updatesql = getSQL(updatesql, inputParams);
-			updatesql = StringUtil.replace(updatesql, "${fld:ptlogcode}", "'"+ptlogcode+"'");
-			updatesql = StringUtil.replace(updatesql, "${fld:org}", "'"+org_id+"'");
-			db.addBatchCommand(updatesql);
-			db.exec();
-			save(operatelogsql, qrcodePath, employeeId,userId , xdate, intime, org_id);
+			
 		} catch(Throwable t) {
 			t.printStackTrace();
 		} finally {

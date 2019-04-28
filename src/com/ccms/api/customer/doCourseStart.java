@@ -2,11 +2,7 @@ package com.ccms.api.customer;
 
 import java.sql.Types;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dinamica.Db;
 import dinamica.GenericTransaction;
@@ -115,7 +111,7 @@ public class doCourseStart extends GenericTransaction{
 				
 			}
 			//判断教练和会员是不是一个人
-			String querysql = getLocalResource(basePath+"query-prepare.sql");
+			String querysql = getLocalResource(basePath+"query.sql");
 			querysql = getSQL(querysql, inputParams);
 			querysql = StringUtil.replace(querysql, "${fld:reservationID}", "'"+reservationID+"'");
 			querysql = StringUtil.replace(querysql, "${fld:org}", "'"+org_id+"'");
