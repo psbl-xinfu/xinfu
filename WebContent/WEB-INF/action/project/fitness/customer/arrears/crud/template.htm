@@ -26,16 +26,38 @@ ${inc:/action/project/fitness/home/pub}
 				<input type="hidden" id="vc_passwd" name="vc_passwd" value=""/>				
 				<input type="hidden" id="moneycash" value="${fld:moneycash}"/>
 				<input type="hidden" id="moneygift" value="${fld:moneygift}"/>
-		<!-- 		<input type="hidden" id="cust_name" name="cust_name"/> -->
+				<input type="hidden" id="guest_code" name="guest_code" />
+				<!--  <input type="hidden" id="cust_name" name="cust_name"/> -->
+
 
 				<nav>
-					<li>
+				<!--<li>
+				 <label style="width: 110px;">客户类型</label>
+                <input style="float: initial;" type="radio" name="customertype" value="1"   checked="checked" /><span>会员</span>
+                <input  style="float: initial;" type="radio" name="customertype" value="2" /><span>资源</span>
+                <input  style="float: initial;" type="radio" name="customertype" value="3" /><span>散客</span>
+					</li>
+					<li></li>				 -->
+					<li id="cust_id">
 						<label style="width: 110px;">卡号/姓名/手机</label>
 						<input type="text" id="cust" name="cust" value="" placeholder="卡号/姓名/手机号"/>
-					</li>	
-					<li>
+					</li>
+<!-- 					<li id="guest_id" >
+						<label style="width: 110px;">资源姓名/手机</label>
+						<input type="text" id="guest_all" name="guest_all" placeholder="资源编号/姓名/手机号" />
+					</li>  -->
+						
+					<li id="name_id">
 						<label>姓名</label>
 						<input type="text" id="cust_name" name="cust_name" readonly="readonly"  />
+					</li>
+					<li id="sex_id">
+						<label >性别：</label>
+						<select  id="sex" name="sex" ;" > 
+							<option value="">未填</option>
+							<option value="1">男</option>
+							<option value="0">女</option>
+						</select>
 					</li>
 					<li>
 						<label style="width: 110px;">手机号</label>
@@ -172,13 +194,13 @@ ${inc:/action/project/fitness/home/pub}
 						  		<input id="cust_all" name="cust_all" type="text" class="input-default" placeholder="会员编号/姓名/手机号"/>
 						  	</li>
 							<li style='width:15%;display:none' >
-						  		<select id="isguazhang" name="isguazhang" style="display: none;">
+						  		<select id="isguazhang" name="isguazhang" >
 						  			<!--<option value="1">挂账</option>-->
 						  			<option value="0">已付款</option>
 						  		</select>
 						  	</li>
 							<li  style='width:17%;'>
-						  		<select id="itemcode" name="itemcode" style="display: none;">
+						  		<select id="itemcode" name="itemcode" >
 						  			<option value="">全部项目</option>
 						  			<item-list>
 						  				<option value="${fld:code}">${fld:name}</option>
@@ -260,14 +282,52 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
+	searchSelectInit($("#moneytype,#item_insert,#salename_insert,#cardcode,#itemcode"))
 	$("#i_paytypefour").hide();
+	$("#guest_id").hide();
+	$("#sex_id").hide();
+	ccms.util.renderRadio("customertype");
+	
 	//selectInit($("#isguazhang,#itemcode"));
-	searchSelectInit($("#moneytype,#item_insert,#salename_insert,#cardcode"))
+
+
 	
 	$(".header-close").unbind().on("click",function(){
 		$("#modalAddnew").modal('hide');
 		ccms.util.clearForm('formEditor');
 	});
+/* 	 //单次消费会员资源散客切换
+	$("input[name=customertype]").on("ifClicked",function () { 
+		//$("#pkvalue,#guest").val("");
+		if($(this).val()=="3"){//散客
+			$("#sex,#mobile,#guest_code,#guest_all").val("");
+			$("#guest_id").show();
+			$("#cust_id").hide();
+			$("#name_id").hide();			
+			$("#sex_id").show();
+
+		}else{
+			$("#mobile,#guest_code,#cust_name").val("");
+			$("#guest_id").show();
+			$("#guest_id").hide();
+			$("#cust_id").show();
+			$("#name_id").show();			
+			$("#sex_id").hide();
+		}
+	}); */
+	 
+/* 	$("#guest_all").blur(function(){
+		var guest = $(this).val();
+		$("#sex,#mobile,#guest_code").val("");
+		//$("#save_btn").html("新增并预约");
+		if(undefined==guest||guest ==""){
+			ccms.dialog.alert("请输入资源编号/姓名/手机号！");
+		}else{
+			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlist2/crud?pickcustname="+guest+"&objid=guest_code&objidtwo=guest&random_number="+Math.random()});
+		}
+	});  */
+	 
+	
 	//判断该登录人是否有收款权限
 	if(parseInt("${fld:skillscopenum}")>0){
 		$("#collection_btn").show();
@@ -352,6 +412,35 @@ $(document).ready(function() {
          $("#daochu_cust_all").val($("#cust_all").val());
          $("#daochuForm").submit();
     });	
+	//添加支付方式
+	$("#addmoney").click(function(){
+	   	var moneytype = $("#moneytype").val();
+	   	var moneytypetext = $("#moneytype option:selected").text();
+	   	var money = $("#money").val();
+	   	if(moneytype==""){
+	   		ccms.dialog.alert("请选择方式！");
+	   	}else if(money==""){
+	   		ccms.dialog.alert("请输入金额！");
+	   	}else{
+	   		var count = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				   if($(item).attr("code")==moneytype)count++;
+			});
+			if(count==0){
+				$("#paymoney").append(
+						"<li style='margin-left:15px;float:left'><span><span>"+moneytypetext+"：</span><span>"+money+"元</span></span>"
+					+"<input type='hidden' value='"+money+"' code='"+moneytype+"'  name='paytypemoney'/>"
+					+ '<img   onclick="delhour(this)" style="margin-left:2px;margin-top:3px" height="25" width="35"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+				);
+				
+				$("#moneytype,#money").val("");
+				$("#moneytype").selectpicker("refresh");
+				$("#moneytype").selectpicker("render");
+			}
+			else
+				ccms.dialog.alert(moneytypetext+"已存在！");
+	   	}
+   });
 	//付款
 	$("#consumptionpay").click(function(){
 		var i_paytype = ccms.util.getRadioValue("i_paytype", "formEditor");
@@ -557,7 +646,6 @@ function insertsingleitem(){
    	}else{
 		url+= "/update";
 	}
-	alert(url);
 	ajaxCall(url,{
 		method: "post",
 		progress: true,
@@ -567,6 +655,19 @@ function insertsingleitem(){
 		}
 	});
 }
+ 
+/* function pickguestCallback(){
+	var url = "${def:actionroot}/queryguestinfo?guest_code="+$("#guest_code").val();
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){	
+			//$("#save_btn").html("预约");
+		}
+	});
+}  */
+
 </script>
 </body>
 </html>
