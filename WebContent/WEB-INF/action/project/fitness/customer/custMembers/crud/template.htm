@@ -108,6 +108,8 @@ ${inc:/action/project/fitness/home/pub}
 			search = $Search({datagrid : "datagrid", formId : "searchForm",rowpackage:function(obj){
 			}, success : function() {
 			}}).initSearchBtn().searchData(1);
+			//zyb 2019 add  控件不可以下拉
+			$Dialog().date($('#startdate,#enddate'));
 		});
 	</script> 
 </body>
