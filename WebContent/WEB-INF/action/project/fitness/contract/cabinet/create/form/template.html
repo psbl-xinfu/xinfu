@@ -15,6 +15,7 @@ ${inc:/action/project/fitness/home/pub}
 			<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
 			<input type="hidden" id="inimoney" name="inimoney" value="" />
 			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
+			<input type="hidden" id="contrstatus" name="contrstatus" value="${fld:contrstatus}" />
 			<input type="hidden" id="price" name="price" value="" />
 			<!-- zyb 2019-3-21 添加cabinetcode租柜编号柜子号必须有值 -->
 			<input type="hidden" id="ccabinetid" name="ccabinetid" value="" />
@@ -287,7 +288,9 @@ function topay(contractcode){
 function queryCabinetid(){
 	var ccabinetid = $("#ccabinetid").val();
 	var cabinet_group_id=$("#cabinet_group_id").val();
-	if(ccabinetid!=""&&ccabinetid!=null){
+	var contrstatus=$("#contrstatus").val();
+	//zyb 20190506判断是不付款1是未付款
+	if(contrstatus=='1'){
 		postAjaxCall("${def:context}${def:actionroot}/ccabinetids?cabinet_group_id="+cabinet_group_id+"&ccabinetid="+ccabinetid, true);
 	}else{
 		postAjaxCall("${def:context}${def:actionroot}/cabinetcode?cabinet_group_id="+cabinet_group_id, true);
