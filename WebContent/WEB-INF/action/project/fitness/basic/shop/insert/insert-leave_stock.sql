@@ -6,7 +6,7 @@ insert into cc_leave_stock(
 	getmoney,--收到金额
 	status,--状态：0无效、1待确认、2已确认
 	paystatus,--付款状态：1未付款、2已付款
-	paytype,--支付方式：1现金/银行卡支付 2会员卡支付
+	paytype,--支付方式：1现金/银行卡支付 2会员卡支付、3现金加会员卡
 	customercode,--会员编号
 	paycardcode,--支付卡号
 	paycardmoneyleft,--会员卡支付前余额
@@ -16,22 +16,23 @@ insert into cc_leave_stock(
 	remark,--备注
 	createdby,
 	created,
-	updatedby,
-	updated,
 	org_id
 ) values(
 	${fld:leave_stockid},
 	${fld:storage_id},
 	${fld:ystotal},
 	${fld:total},
-	(case when ${fld:othertype}!='3' then ${fld:total} else 0.00 end),
+	(case when ${fld:getmoney} is not null then ${fld:getmoney} else 0.00 end),
 	2,
-	(case when ${fld:othertype}!='3' then 2 else 1 end),
-	(case when ${fld:othertype}!='3' then ${fld:othertype}::integer else null end),
+	(case when ${fld:getmoney} is not null then 2 else 1 end),
+	(case when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}=${fld:total}  then '2'::integer 
+	when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}!=${fld:total} then '3'::integer
+	when  ${fld:getmoney}=${fld:total}  then '1'::integer
+	else null end),
 	${fld:custcode},
 	${fld:cardcode},
-	(case when ${fld:othertype}='2' and ${fld:othermoney}='1' then (select moneycash from cc_customer where code = ${fld:custcode} and org_id = ${def:org})
-	 when ${fld:othertype}='2' and ${fld:othermoney}='2' then (select moneygift from cc_customer where code = ${fld:custcode} and org_id = ${def:org})
+	(case when ${fld:paydivgoodsinp}='f_chuzhika' then (select moneycash from cc_customer where code = ${fld:custcode} and org_id = ${def:org})
+	 else null
 	end),
 	(case when ${fld:othertype}!='3' then 0 else 1 end),
 	${fld:staff_price},
@@ -39,7 +40,5 @@ insert into cc_leave_stock(
 	'商品销售',
     '${def:user}',
     {ts'${def:timestamp}'},
-    (case when ${fld:othertype}!='3' then '${def:user}' else null end),
-    (case when ${fld:othertype}!='3' then {ts'${def:timestamp}'} else null end),
 	${def:org}
 )

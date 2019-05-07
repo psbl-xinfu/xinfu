@@ -35,7 +35,6 @@ insert into cc_finance(
 	    '${def:user}',
 	    {ts'${def:timestamp}'},
 		${def:org}
-	from dual where ${fld:othertype}!='3'
+	from dual where ${fld:getmoney} is not null
 )
-
 

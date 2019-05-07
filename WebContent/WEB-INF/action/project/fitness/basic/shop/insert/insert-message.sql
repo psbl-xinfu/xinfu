@@ -23,5 +23,5 @@ insert into cc_message(
 	    1,
 	    1,
 		${def:org}
-	from dual where ${fld:othertype}!='3'
+	from dual where ${fld:getmoney} is not null
 )

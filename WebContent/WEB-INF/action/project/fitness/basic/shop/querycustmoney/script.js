@@ -5,7 +5,7 @@ var count = 0;
 	$("#mobile").val("${fld:mobile}");
 	$("#custname").val("${fld:name}");
 	$("#moneygift").val("${fld:moneygift}");
-	$("#moneycash").val("${fld:moneycash}");
+	$("#moneycash").text("${fld:moneycash}");
 	$("#custcode").val("${fld:code}");
 	$("#drinkdiscount").val(("0" == Number("${fld:drinkdiscount}") ? "1" : Number("${fld:drinkdiscount}")));
 </rows>

@@ -29,6 +29,7 @@ select
 	,get_arr_value(t.relatedetail, 3) as cardtype
 	,get_arr_value(t.relatedetail, 1) as cardcode
 	,ct.name as cardtypename
+	,ct.type as cardtypetype
 	,COALESCE(t.stage_times,1) AS stage_times
 	,t.stagemoney
 	,(

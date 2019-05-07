@@ -12,7 +12,7 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="query-storage.sql" source="sql" scope="transaction" />
-		<recordset id="query-OtherPayWay.sql" source="sql" scope="transaction" />
+	<!-- 	<recordset id="query-OtherPayWay.sql" source="sql" scope="transaction" /> -->
 		<recordset id="query-leavestock.sql" source="sql" scope="transaction" />
 		<recordset id="query-user.sql" source="sql" scope="transaction" />
 		<recordset id="query-skillscopenum.sql" source="sql" scope="transaction" />
@@ -25,7 +25,7 @@
 		<content-type>text/html</content-type>
 		<expiration>0</expiration>
 		<print mode="table" recordset="query-storage.sql" tag="storage-rows" />
-		<print mode="table" recordset="query-OtherPayWay.sql" tag="OtherPayWay-rows" />
+		<!-- <print mode="table" recordset="query-OtherPayWay.sql" tag="OtherPayWay-rows" /> -->
 		<print mode="form" recordset="query-user.sql" />
 		<print mode="form" recordset="query-leavestock.sql" />
 		<print mode="form" recordset="query-skillscopenum.sql" />

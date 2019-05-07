@@ -31,7 +31,10 @@ SELECT
 	,t.normalmoney	-- factmoney
 	,(SELECT d.count FROM cc_cardtype d WHERE d.code = get_arr_value(t.relatedetail, 3) AND d.org_id = t.org_id)
 	,(SELECT d.count FROM cc_cardtype d WHERE d.code = get_arr_value(t.relatedetail, 3) AND d.org_id = t.org_id)
-	,(CASE get_arr_value(t.relatedetail, 9) WHEN '0' THEN 1 ELSE 2 END)
+	,(case when 
+		(select type from cc_cardtype where code=get_arr_value(t.relatedetail, 3)) = 2 then '6'
+		else (CASE get_arr_value(t.relatedetail, 9) WHEN '0' THEN 1 ELSE 2 END)
+	end)
 	,{ts '${def:timestamp}'}
 	,'${def:user}'
 	,t.remark

@@ -13,6 +13,7 @@
 		<jdbc-log>false</jdbc-log>
 	    <recordset id="query-contract.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-skillscopenum.sql" source="sql" scope="transaction"/> 
+	    <recordset id="query-customer.sql" source="sql" scope="transaction"/>
 	</transaction>
 
 	<output>
@@ -22,6 +23,7 @@
 		<content-type>text/html</content-type>
 		<print mode="form" recordset="query-contract.sql"/>
 		<print mode="form" recordset="query-skillscopenum.sql" />
+		<print mode="form" recordset="query-customer.sql" />
 	</output>
 
 </config>

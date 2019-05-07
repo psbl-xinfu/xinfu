@@ -197,6 +197,27 @@ function loadPayType(objid, callback){
 		});
 	}
 }
+
+function loadPayTypebin(objid, callback){
+	if( undefined == objid || "" == objid ){
+		ccms.dialog.notice("参数objid不能为空");
+	}else{
+		var url = "/action/project/fitness/contract/util/loadpaytypelist?objid="+objid;
+		ajaxCall(url,{
+			method : "get",
+			progress : true,
+			dataType : "script",
+			success : function() {
+				if(callback){
+					callback();
+				}
+				$('#paymethodbin').selectpicker("refresh");
+				$('#paymethodbin').selectpicker("render");
+			}
+		});
+	}
+}
+
 // 加载支付方式值
 function setPayTypeValue(paydetail){
 	if( undefined != paydetail && "" != paydetail ){
@@ -478,9 +499,9 @@ function getCheckboxValue(name){
 
 // 增加收款方式
 function addShowPaymethod(paymethod, paymoney, paymethodName, isshow){
-	var str = '<span  style="width:130px"  code1="'+paymethod+'" code2="'+paymoney+'">';
+	var str = '<span  style="width:130px" id="'+paymethod+'"  code1="'+paymethod+'" code2="'+paymoney+'">';
 		str += '<span >'+paymethodName+'</span>：<span name="fee" >'+paymoney+'元</span>&nbsp;&nbsp;';
-	if( !isshow ){
+		if( !isshow ){
 		str += '<img  style="margin-top:-2px" height="20" width="45"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" onclick="delPaymethod(this)">';
 	//	str += '<a href="javascript:void(0)" title="删除" onclick="delPaymethod(this)">×</a>';
 	}
@@ -489,6 +510,20 @@ function addShowPaymethod(paymethod, paymoney, paymethodName, isshow){
 	setSelectValue($("#paymethod"), "");
 	$("#paymoney").val("");
 }
+
+//增加商品收款方式
+function addShowPaygoods(paymethod, paymoney, paymethodName, isshow){
+	var str = '<span  style="width:140px" id="'+paymethod+'bin'+'" name="paytypemoneybin"  code1="'+paymethod+'" code2="'+paymoney+'">';
+		str += '<span >'+paymethodName+'</span>：<span name="fee" >'+paymoney+'元</span>&nbsp;&nbsp;';
+		if( !isshow ){
+		str += '<img  style="margin-top:-2px" height="20" width="45"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" onclick="delPaygoods(this)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+	//	str += '<a href="javascript:void(0)" title="删除" onclick="delPaymethod(this)">×</a>';
+	}
+	$("#paydivbin").append(str);
+	setSelectValue($("#paymethodbin"), "");
+	$("#paymoneybin").val("");
+}
+
 // 合同付款
 function pay(){
 	// 判断合同状态
@@ -518,6 +553,14 @@ function delPaymethod(obj){
 	$("#paymethod").find("option[value="+mobj.attr("code1")+"]").attr("code", "0");
 	paytotal = (parseFloat(paytotal) - parseFloat(mobj.attr("code2"))).toFixed(2);
 	$("#factmoneyspan").text(paytotal);
+	mobj.remove();
+}
+//zyb 20190506删除商品支付
+function delPaygoods(obj){
+	var mobj = $(obj).parent();
+	$("#paymethodbin").find("option[value="+mobj.attr("code1")+"]").attr("code", "0");
+	paytotalbin = (parseFloat(paytotalbin) - parseFloat(mobj.attr("code2"))).toFixed(2);
+	$("#getmoney").text(paytotalbin);
 	mobj.remove();
 }
 

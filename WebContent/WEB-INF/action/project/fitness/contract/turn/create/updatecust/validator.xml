@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/util/validation/alert">
+	<parameter id="customercode" type="varchar" label="customercode" required="true" />
+    <parameter id="paymoney" type="double" required="true" label="价格"/>
+</validator>

@@ -1,18 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
-	<parameter id="othertype" type="varchar" required="true" label="付款方式" />
+	<parameter id="othertype" type="varchar" required="false" label="付款方式" />
+	<parameter id="paydivgoodsinp" type="varchar" required="false" label="储值支付" />
+	
+	
 	<parameter id="staff_price" type="varchar" required="false" label="员工价" />
 	<parameter id="cardcode" type="varchar" required="false" label="会员卡号" />
 	<parameter id="custcode" type="varchar" required="false" label="员工编号" />
 	<parameter id="pay_detail" type="varchar" required="false" label="支付明细" />
 	<parameter id="total" type="varchar" required="true" label="合计金额" />
-	<parameter id="othermoney" type="varchar" required="false" label="现金储值/运动基金" />
+	<!-- <parameter id="othermoney" type="varchar" required="false" label="现金储值/运动基金" /> -->
 	<parameter id="storage_id" type="varchar" required="true" label="仓库编号" />
 	<parameter id="leave_stockid" type="varchar" required="true" label="商品出库记录编号" />
 	<parameter id="ystotal" type="varchar" required="true" label="合计应收金额" />
+	
+	<parameter id="paytheprice" type="varchar" required="false" label="储值卡支付的钱" />
 
-	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+	<parameter id="getmoney" type="varchar" required="false" label="实收总数的钱" />
+	<!-- <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
 		on-error-label="现金储值不足！" id="othermoney" sql="nodup-custmoneycash.sql" />
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
-		on-error-label="运动基金不足！" id="othermoney" sql="nodup-custmoneygift.sql" />
+		on-error-label="运动基金不足！" id="othermoney" sql="nodup-custmoneygift.sql" /> -->
 </validator>

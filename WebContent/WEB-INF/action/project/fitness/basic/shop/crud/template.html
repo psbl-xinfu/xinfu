@@ -23,6 +23,11 @@ background: rgba(42, 48, 56, -1.2) !important
     <body style="font-size: 14px">
 	<form id="goodsForm" name="goodsForm" class="form-horizontal" role="form" method="post">
 		<input type="hidden" name="findtype" id="findtype"/>
+		<input type="hidden" name="paydivgoodsinp" id="paydivgoodsinp"/>
+		<input type="hidden" name="paytheprice" id="paytheprice"/>
+		
+		<input type="hidden" name="getmoney" id="getmoney"/>
+		
 				<div class="am-tabs r-tab-container goodsSale">
 					<div class="sec-1">
 						<label for="id">编号：</label>
@@ -103,7 +108,7 @@ background: rgba(42, 48, 56, -1.2) !important
 						<div class="sec-3-right fl">
 							<label class="sec-3-right-title">付款方式</label>
 							<div class="sec-3-right-con">
-								<div class="top">
+								<!-- <div class="top">
 									<label class="am-checkbox">
 										<input type="radio" name="othertype" value="2" checked="checked" style="display: none;">储值卡支付
 									</label>
@@ -114,23 +119,35 @@ background: rgba(42, 48, 56, -1.2) !important
 									<input type="radio" name="othermoney" value="2" style="display: none;margin-top: 20px">运动基金
 									<input id="moneygift" name="moneygift"type="text" title="运动基金" placeholder="运动基金" readonly="readonly"> 
 								</div>
-							
+							 -->
 								<div class="bottom  ">
 									<input type="hidden" name="pay_detail" id="pay_detail">
-									<label class="am-checkbox">
+									<!-- <label class="am-checkbox">
 										<input type="radio" name="othertype" value="1" style="display: none;">其他支付方式
-									</label>
+									</label> -->
 								
-									<div class="my-selected" style="margin-top: 5px">
-										<select placeholder='请选择支付方式' id="moneytype" name="moneytype" style="display: none;">
-											<option value="">支付方式</option>
-											<OtherPayWay-rows>
-												<option value="${fld:cnfg_id}">${fld:content}</option>
-											</OtherPayWay-rows>
-										</select>
+									<div class="b-i-main" style="margin-left: 5px">
+										<nav>
+											<li id="paydivbin" style="margin-left: 6%"></li>
+											<li id="paymethodDiv" style="margin-left: 5%">
+								     			<nav>
+								     				<li style="width: 800px">
+														<select class="normal-select" id="paymethodbin" name="paymethodbin" >
+															<option value="">请选择支付方式</option>
+														</select>
+														<input id="paymoneybin" name="paymoneybin" placeholder="请输入支付金额"  style="margin-left: 10%"/>
+														<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>
+								     				</li>
+								     			</nav>
+								     		</li>		
+								     		<li id="moneycashDiv">
+								     			<label style="width: 120px;">现金储值：</label>
+												<span id="moneycash"></span>
+								     		</li>
+										</nav>
 									</div>
-									
-									<div class="form-control bg" style="width:300px ;border: none;">
+						     		
+									<!-- <div class="form-control bg" style="width:300px ;border: none;">
 										<div class="cont-div" style="width:1000px ;">
 											<label class="cont-label" style="width: 50px;float: left;margin-top: 7px">金额：</label>
 											<input type="text" id="money" name="money" title="金额" placeholder="金额" style="margin-top: -3px;width: 15%;float: left;margin-left: -0px"/>
@@ -139,9 +156,9 @@ background: rgba(42, 48, 56, -1.2) !important
 										
 									<span class="btn-add" id='addmoney' style="position:absolute ;margin-left: 10px;margin-top: -20px"></span>
 									<div class="bottom-con" id="paymoney" style="height: 55px">
-									</div>
+									</div> -->
 								</div>
-								<div class="bottom" style="margin-top: -20px">
+								<div class="bottom" style="margin-top: 40px">
 									<label class="am-checkbox">
 										<input type="radio" name="othertype" value="3" style="display: none;">挂账
 									</label>
@@ -163,6 +180,7 @@ background: rgba(42, 48, 56, -1.2) !important
      </form>
     </body>
 <script type="text/javascript">
+var paytotalbin = 0;
 $(function(){
 	//判断该登录人是否有收款权限
 	if(parseInt("${fld:skillscopenum}")>0){
@@ -173,8 +191,8 @@ $(function(){
 		$(".error").html("");
 	}); 
 	
-	
-	searchSelectInit($("#storage_id,#moneytype,#goodsname"));
+	$("#moneycashDiv").hide();
+	searchSelectInit($("#storage_id,#paymethodbin,#goodsname"));
 	//查询商品
 	$("#goodsname").change(function(){
 		$("#findtype").val("1");
@@ -226,11 +244,9 @@ $(function(){
 	}; 
 	
 	
-	
 	ccms.util.renderCheckbox("selectAll");
 	ccms.util.renderCheckbox("staff_price");
 	ccms.util.renderRadio("othertype");
-	ccms.util.renderRadio("othermoney");
 	//全选
 	$("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
 		 if( $(this).prop("checked") ){// 
@@ -242,15 +258,10 @@ $(function(){
 
 	//付款方式切换
 	$("input[name=othertype]").unbind().on("ifClicked",function(){  
-		 if($(this).val()=="1"){
-			 $("input[name=othermoney]").iCheck('disable');
-		 }else if($(this).val()=="2"){
-			 $("#paymoney").html("");
-			 $("input[name=othermoney]").iCheck('enable');
-		 }else if($(this).val()=="3"){
-			 $("#paymoney").html("");
-			 $("input[name=othermoney]").iCheck('disable');
-		 }
+			 $("#paymoneybin").html("");
+			 $("#paydivbin").children('span').remove();
+			 setSelectValue($("#paymethodbin"), "");
+			 $('input[name=othertype]').iCheck('check');
 	});
 	
 	//员工价正常价
@@ -291,7 +302,59 @@ $(function(){
 		calculate();
 	})
 
-   $("#addmoney").click(function(){
+	
+	// 加载支付方式
+	loadPayTypebin("paymethodbin", function(){
+			$("#paymethodDiv").show();
+			$("#paybtnDiv").show();
+	});
+	
+	//zyb 20190506根据支付方式显示和隐藏标签
+	$("#paymethodbin").change(function(){
+		if($("#paymethodbin").val()=="f_chuzhika"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
+	// 添加支付方式
+	$("#addpay_btnbin").unbind().on("click",function(){
+		var paymethodbin = $("#paymethodbin").val();
+		var paymoney = $("#paymoneybin").val();
+		$('input[name=othertype]').iCheck('uncheck');
+		if( "" == paymethodbin ){
+			ccms.dialog.notice("请选择支付方式", 2000);
+			return false;
+		}else if( "" == paymoney || !(isFloat(paymoney) || isNumber(paymoney)) || Number(paymoney) <= 0 ){
+			ccms.dialog.notice("请输入支付金额", 2000);
+			return false;
+		}
+		//zyb 20190506提示金额不足
+		if($("#paymethodbin").val()=="f_chuzhika"){
+			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoneybin").val())){
+				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+				return false;
+			}
+		}
+		
+		var mobj = $("#paydivbin").find("[code1="+paymethodbin+"]");
+		
+		if( mobj.length > 0 ){
+			var _paymoney = (parseFloat(paymoney) + parseFloat(mobj.attr("code2"))).toFixed(2);
+			$("#paymethodbin").find("option:selected").attr("code", _paymoney);
+			mobj.attr("code2", _paymoney);
+			mobj.find("[name=fee]").text(_paymoney);
+		}else{
+			$("#paymethodbin").find("option:selected").attr("code", paymoney);
+			addShowPaygoods(paymethodbin, paymoney, $("#paymethodbin").find("option:selected").text(), false);
+		}
+		paytotalbin = (parseFloat(paytotalbin) + parseFloat(paymoney)).toFixed(2);
+		
+	});
+	
+	
+	
+   /* $("#addmoney").click(function(){
 	   	var moneytype = $("#moneytype").val();
 	   	var moneytypetext = $("#moneytype option:selected").text();
 	   	var money = $("#money").val();
@@ -313,7 +376,7 @@ $(function(){
 			}else
 				ccms.dialog.notice(moneytypetext+"已存在！", 2000);
 	   	}
-  });
+  }); */
 	//购买
 	$("#save_btn").click(function(){
 		//判断当前登录人是否有收款权限
@@ -344,26 +407,37 @@ $(function(){
 							goodcount = 1;
 							ccms.dialog.notice("库存不足，"+data.goods_name+"最大购买数量为"+data.quantity+"！", 2000);
 						}else{
-							if(getCheckboxValue("othertype")=="1"){
+							//zyb 如果getCheckboxValue("othertype")=3 就是挂账
+							if(getCheckboxValue("othertype")!="3"){
 								   var moneydetail = "";
-									//获取所有支付类型option
-									$("#moneytype option").each(function(){  
+									
+									/*  $("#paymethod option").each(function(){  
 										if($(this).val()!=""){
 											moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
 										}
 										moneydetail = moneydetail.replace("undefined", "0");
+									});  */
+									//获取所有支付类型option
+									$("#paymethodbin").find("option").each(function(idx,ele){
+										if( "" != $(ele).attr("code") ){
+											moneydetail += $(ele).attr("code") + ";";
+										}
 									});
+									
 									//明细
 									$("#pay_detail").val(moneydetail);
-									//获取所有退费金额
-									var paymoney = 0;
-									$("input[name='paytypemoney']").each(function(j,item){
+									
+									//获取所有金额
+									/* $("input[name='paytypemoney']").each(function(j,item){
 										paymoney+=Number(item.value);
-									});
-									if(Number($("#total").val())!=paymoney){
+									}); */
+									if(Number($("#total").val())!=Number(paytotalbin)){
 										ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
 										return false;
 									}
+									$("#paydivgoodsinp").val($("#f_chuzhikabin").attr("code1"));//获取储值卡的code
+									$("#paytheprice").val($("#f_chuzhikabin").attr("code2"));//储值卡收的钱
+									$("#getmoney").val(paytotalbin);//实收
 									insert();
 								}else{
 									insert();
@@ -376,14 +450,14 @@ $(function(){
 		
 	});
 	
-	$("#money").blur(function(){
+	/* $("#money").blur(function(){
 		var money = $(this).val();
 		if(isNaN(money)){
 			money = 0;
 		}
 		money = Number(money).toFixed(2);
 		$(this).val(money <0 ? 0 : money);
-	});
+	}); */
 });
 function serachgoods(){
 	ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querygoodslist/crud?storage_id="

@@ -1,5 +1,4 @@
 update cc_customer
-set moneycash = (case when ${fld:othermoney}='1' then moneycash - ${fld:total} else moneycash end),
-	moneygift = (case when ${fld:othermoney}='2' then moneygift - ${fld:total} else moneygift end)
+set moneycash = moneycash - ${fld:paytheprice}
 where code = ${fld:custcode}
-and org_id = ${def:org} and ${fld:othertype}='2'
+and org_id = ${def:org} and ${fld:paydivgoodsinp}='f_chuzhika'

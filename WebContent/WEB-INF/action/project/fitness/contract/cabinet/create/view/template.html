@@ -92,7 +92,10 @@ ${inc:/action/project/fitness/home/pub}
 		     				</li>
 		     			</nav>
 		     		</li>	
-		     		<li></li>
+		     		<li id="moneycashDiv">
+		     			<label style="width: 120px;">现金储值：</label>
+						<span id="moneycash">${fld:moneycash}</span>
+		     		</li>
 		     	</nav>
 		     </div>
 			<div class="b-i-main">
@@ -131,6 +134,7 @@ $(document).ready(function(){
 	}
 	// 加载支付方式
 	selectInit($("#paymethod"));
+	$("#moneycashDiv").hide();
 	loadPayType("paymethod", function(){
 		if( Number("${fld:status}") >= 2 ){
 			var arr = "${fld:pay_detail}".split(";");
@@ -150,6 +154,14 @@ $(document).ready(function(){
 			$("#paybtnDiv").show();
 		}
 	});
+	//zyb 20190506根据支付方式显示和隐藏标签
+	$("#paymethod").change(function(){
+		if($("#paymethod").val()=="f_chuzhika"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
 	
 	// 添加支付方式
 	$("#addpay_btn").unbind().on("click",function(){
@@ -162,6 +174,14 @@ $(document).ready(function(){
 			ccms.dialog.notice("请输入支付金额", 2000);
 			return false;
 		}
+		//zyb 20190506提示金额不足
+		if($("#paymethod").val()=="f_chuzhika"){
+			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoney").val())){
+				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+				return false;
+			}
+		}
+		
 		var mobj = $("#paydiv").find("[code1="+paymethod+"]");
 		if( mobj.length > 0 ){
 			var _paymoney = (parseFloat(paymoney) + parseFloat(mobj.attr("code2"))).toFixed(2);
@@ -188,13 +208,23 @@ $(document).ready(function(){
 				ccms.dialog.notice("实付金额不能为0！", 2000);
 			}else{
 				ccms.dialog.confirm("实付金额小于应收金额，是否确认有欠款？", function(){
-					pay();
+					//zyb 20190506如果是储值卡支付先扣钱在办业务操作
+					if($("#f_chuzhika").length>0){
+						getAjaxCall("/action/project/fitness/contract/cabinet/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+					}else{
+						pay();
+					}
 				});
 			}
 		}else if( parseFloat("${fld:normalmoney}") < parseFloat(paytotal) ){
 			ccms.dialog.notice("实付金额不等于应收金额，请确认！", 2000);
 		}else{
-			pay();
+			//zyb 20190506如果是储值卡支付先扣钱在办业务操作
+			if($("#f_chuzhika").length>0){
+				getAjaxCall("/action/project/fitness/contract/cabinet/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+			}else{
+				pay();
+			}
 		}
 	});
 });

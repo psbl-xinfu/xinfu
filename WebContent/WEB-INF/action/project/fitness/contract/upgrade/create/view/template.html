@@ -122,7 +122,10 @@ ${inc:/action/project/fitness/home/pub}
 		     				</li>
 		     			</nav>
 		     		</li>		
-		     		<li></li>
+		     		<li id="moneycashDiv">
+		     			<label style="width: 120px;">现金储值：</label>
+						<span id="moneycash">${fld:moneycash}</span>
+		     		</li>
 		     	</nav>
 		     </div>
 			<div class="b-i-main">
@@ -161,7 +164,7 @@ $(document).ready(function(){
 	}
 	searchSelectInit($("#paymethod"));
 	var topaymoney = parseFloat("${fld:normalmoney}");
-	
+	$("#moneycashDiv").hide();
 	// 支持门店
 	getAjaxCall("/action/project/fitness/util/querysupportorgs?cardtype=${fld:cardtype}&objid=supportorgsspan", false);
 	
@@ -186,6 +189,15 @@ $(document).ready(function(){
 		}
 	});
 	
+	//zyb 20190506根据支付方式显示和隐藏标签
+	$("#paymethod").change(function(){
+		if($("#paymethod").val()=="f_chuzhika"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
+	
 	// 添加支付方式
 	$("#addpay_btn").unbind().on("click",function(){
 		var paymethod = $("#paymethod").val();
@@ -196,6 +208,13 @@ $(document).ready(function(){
 		}else if( "" == paymoney || !(isFloat(paymoney) || isNumber(paymoney)) || Number(paymoney) <= 0 ){
 			ccms.dialog.notice("请输入支付金额", 2000);
 			return false;
+		}
+		//zyb 20190506提示金额不足
+		if($("#paymethod").val()=="f_chuzhika"){
+			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoney").val())){
+				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+				return false;
+			}
 		}
 		var mobj = $("#paydiv").find("[code1="+paymethod+"]");
 		if( mobj.length > 0 ){
@@ -221,7 +240,13 @@ $(document).ready(function(){
 		if( parseFloat(topaymoney) != parseFloat(paytotal) ){
 			ccms.dialog.notice("实付金额不等于应收金额，请确认！", 2000);
 		}else{
-			pay();
+			//zyb 20190506如果是储值卡支付先扣钱在办业务操作
+			if($("#f_chuzhika").length>0){
+				getAjaxCall("/action/project/fitness/contract/upgrade/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+			}else{
+				pay();
+			}
+			
 		}
 	});
 });

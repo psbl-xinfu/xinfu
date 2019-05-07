@@ -31,5 +31,5 @@ insert into cc_operatelog(
 	    ${fld:custcode},
 	    ${fld:leave_stockid},
 		${def:org}
-	from dual where ${fld:othertype}!='3'
+	from dual where ${fld:getmoney} is not null
 )

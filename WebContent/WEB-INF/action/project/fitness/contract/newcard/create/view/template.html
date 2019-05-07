@@ -25,6 +25,7 @@ ${inc:/action/project/fitness/home/pub}
 			<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}" preserve="true" />
 			<input type="hidden" id="recommendcode" name="recommendcode" value="${fld:recommendcode}" />
 			<input type="hidden" id="normalmoney" name="normalmoney" value="${fld:normalmoney}" preserve="true"/>
+			<input type="hidden" id="cardtypetype" name="cardtypetype" value="${fld:cardtypetype}" />
 			<input type="hidden" id="factmoney" name="factmoney" value="" />
 			<input type="hidden" id="paydetail" name="paydetail" value="" />
 			<div class="b-i-main" style="position: relative">
@@ -133,7 +134,10 @@ ${inc:/action/project/fitness/home/pub}
 		     				</li>
 		     			</nav>
 		     		</li>	
-		     		<li></li>
+		     		<li id="moneycashDiv">
+		     			<label style="width: 120px;">现金储值：</label>
+						<span id="moneycash">${fld:moneycash}</span>
+		     		</li>
 		     	</nav>
 		     </div>
 			<div class="b-i-main">
@@ -180,6 +184,7 @@ $(document).ready(function(){
 	}
 	selectInit($("#paymethod"));
 	var topaymoney = parseFloat("${fld:normalmoney}");
+	$("#moneycashDiv").hide();
 	getAjaxCall("/action/project/fitness/util/querysupportorgs?cardtype=${fld:cardtype}"+"&objid=supportorgsspan", false);
 
 	if( Number("${fld:stage_times}") > 1 ){
@@ -240,6 +245,14 @@ $(document).ready(function(){
 			$("#paybtnDiv").show();
 		}
 	});
+	//zyb 20190506根据支付方式显示和隐藏标签
+	$("#paymethod").change(function(){
+		if($("#paymethod").val()=="f_chuzhika"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
 	
 	// 添加支付方式
 	$("#addpay_btn").unbind().on("click",function(){
@@ -252,6 +265,18 @@ $(document).ready(function(){
 			ccms.dialog.notice("请输入支付金额", 2000);
 			return false;
 		}
+		//zyb 20190506提示金额不足
+		if($("#paymethod").val()=="f_chuzhika"){
+			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoney").val())){
+				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+				return false;
+			}
+		}
+		if($("#cardtypetype").val()=="2"){
+			ccms.dialog.notice("储值账户不可以购买储值卡！", 2000);
+			return false;
+		}
+		
 		var mobj = $("#paydiv").find("[code1="+paymethod+"]");
 		if( mobj.length > 0 ){
 			var _paymoney = (parseFloat(paymoney) + parseFloat(mobj.attr("code2"))).toFixed(2);
@@ -295,10 +320,20 @@ $(document).ready(function(){
 function checkCardToPay(){
 	if( "" == $("#incode").val() ){
 		ccms.dialog.confirm("未检测到有读取到卡内码，是否确定使用虚拟卡？", function(){
-			pay();
+			//zyb 20190506如果是储值卡支付先扣钱在办业务操作
+			if($("#f_chuzhika").length>0){
+				getAjaxCall("/action/project/fitness/contract/newcard/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+			}else{
+				pay();
+			}
 		});
 	}else{
-		pay();
+		//zyb 20190506如果是储值卡支付先扣钱在办业务操作
+		if($("#f_chuzhika").length>0){
+			getAjaxCall("/action/project/fitness/contract/newcard/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+		}else{
+			pay();
+		}
 	}
 }
 </script>
