@@ -1,6 +1,6 @@
 select 
   distinct code,
-  name,
+  name as singname,
   unit,
   price,
   fastcode

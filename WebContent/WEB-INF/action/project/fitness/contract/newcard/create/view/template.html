@@ -322,7 +322,7 @@ function checkCardToPay(){
 		ccms.dialog.confirm("未检测到有读取到卡内码，是否确定使用虚拟卡？", function(){
 			//zyb 20190506如果是储值卡支付先扣钱在办业务操作
 			if($("#f_chuzhika").length>0){
-				getAjaxCall("/action/project/fitness/contract/newcard/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+				getAjaxCall("/action/project/fitness/contract/newcard/create/updatecust?paymoney="+$("#f_chuzhika").attr("code2")+"&customercode="+$("#customercode").val(), false);
 			}else{
 				pay();
 			}
@@ -330,7 +330,7 @@ function checkCardToPay(){
 	}else{
 		//zyb 20190506如果是储值卡支付先扣钱在办业务操作
 		if($("#f_chuzhika").length>0){
-			getAjaxCall("/action/project/fitness/contract/newcard/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+			getAjaxCall("/action/project/fitness/contract/newcard/create/updatecust?paymoney="+$("#f_chuzhika").attr("code2")+"&customercode="+$("#customercode").val(), false);
 		}else{
 			pay();
 		}

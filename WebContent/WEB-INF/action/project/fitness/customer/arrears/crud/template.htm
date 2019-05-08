@@ -68,7 +68,7 @@ ${inc:/action/project/fitness/home/pub}
 							<select id="item_insert" name="item_insert" style="display:none;">
 								<option value="">请选择</option>
 								<item-list>
-								   <option value="${fld:code}" code1="${fld:unit}" code2="${fld:price}" code3="${fld:fastcode}">${fld:name}</option>
+								   <option value="${fld:code}" code1="${fld:unit}" code2="${fld:price}" code3="${fld:fastcode}">${fld:singname}</option>
 								</item-list>
 							</select>
 						</li>
@@ -202,9 +202,9 @@ ${inc:/action/project/fitness/home/pub}
 							<li  style='width:17%;'>
 						  		<select id="itemcode" name="itemcode" >
 						  			<option value="">全部项目</option>
-						  			<item-list>
-						  				<option value="${fld:code}">${fld:name}</option>
-						  			</item-list>
+						  			<itembin-list>
+						  				<option value="${fld:codebin}">${fld:singnamebin}</option>
+						  			</itembin-list>
 						  		</select>
 						  	</li>
 						<div>

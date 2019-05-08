@@ -242,7 +242,7 @@ $(document).ready(function(){
 		}else{
 			//zyb 20190506如果是储值卡支付先扣钱在办业务操作
 			if($("#f_chuzhika").length>0){
-				getAjaxCall("/action/project/fitness/contract/upgrade/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+				getAjaxCall("/action/project/fitness/contract/upgrade/create/updatecust?paymoney="+$("#f_chuzhika").attr("code2")+"&customercode="+$("#customercode").val(), false);
 			}else{
 				pay();
 			}

@@ -11,6 +11,7 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
+		<recordset id="query-customer.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-contract.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-skillscopenum.sql" source="sql" scope="transaction"/>
 	</transaction>
@@ -20,6 +21,7 @@
 		<template>template.html</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
+		<print mode="form" recordset="query-customer.sql"/>
 		<print mode="form" recordset="query-contract.sql"/>
 		<print mode="form" recordset="query-skillscopenum.sql"/>
 	</output>

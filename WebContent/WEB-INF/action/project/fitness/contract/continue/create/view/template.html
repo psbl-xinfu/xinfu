@@ -246,7 +246,7 @@ $(document).ready(function(){
 				ccms.dialog.confirm("实付金额小于应收金额，是否确认有欠款？", function(){
 					//zyb 20190506如果是储值卡支付先扣钱在办业务操作
 					if($("#f_chuzhika").length>0){
-						getAjaxCall("/action/project/fitness/contract/sendback/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+						getAjaxCall("/action/project/fitness/contract/sendback/create/updatecust?paymoney="+$("#f_chuzhika").attr("code2")+"&customercode="+$("#customercode").val(), false);
 					}else{
 						pay();
 					}
@@ -257,7 +257,7 @@ $(document).ready(function(){
 		}else{
 			//zyb 20190506如果是储值卡支付先扣钱在办业务操作
 			if($("#f_chuzhika").length>0){
-				getAjaxCall("/action/project/fitness/contract/sendback/create/updatecust?paymoney="+$("#paydivspan").attr("code2")+"&customercode="+$("#customercode").val(), false);
+				getAjaxCall("/action/project/fitness/contract/sendback/create/updatecust?paymoney="+$("#f_chuzhika").attr("code2")+"&customercode="+$("#customercode").val(), false);
 			}else{
 				pay();
 			}
