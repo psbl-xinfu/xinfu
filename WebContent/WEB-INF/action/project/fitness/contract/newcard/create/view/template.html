@@ -272,7 +272,7 @@ $(document).ready(function(){
 				return false;
 			}
 		}
-		if($("#cardtypetype").val()=="2"){
+		if($("#cardtypetype").val()=="2" && $("#paymethod").val()=="f_chuzhika"){
 			ccms.dialog.notice("储值账户不可以购买储值卡！", 2000);
 			return false;
 		}

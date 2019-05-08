@@ -1,3 +1,6 @@
+//update zyb 190508 修改注释
+COMMENT ON COLUMN cc_leave_stock.paytype IS '支付方式：1现金/银行卡支付 2会员卡支付 3储值卡和现金/银行卡支付';
+
 //add zyb 190425 添加场馆key操作
 insert into cc_config (
 	category,

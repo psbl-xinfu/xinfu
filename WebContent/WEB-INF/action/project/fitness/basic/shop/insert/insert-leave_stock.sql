@@ -25,9 +25,9 @@ insert into cc_leave_stock(
 	(case when ${fld:getmoney} is not null then ${fld:getmoney} else 0.00 end),
 	2,
 	(case when ${fld:getmoney} is not null then 2 else 1 end),
-	(case when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}=${fld:total}  then '2'::integer 
-	when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}!=${fld:total} then '3'::integer
-	when  ${fld:getmoney}=${fld:total}  then '1'::integer
+	(case when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float=${fld:total}::float  then '2'::integer 
+	when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float!=${fld:total}::float then '3'::integer
+	when  ${fld:getmoney}::float=${fld:total}::float  then '1'::integer
 	else null end),
 	${fld:custcode},
 	${fld:cardcode},
