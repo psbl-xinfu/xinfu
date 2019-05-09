@@ -23,9 +23,12 @@ ${inc:/action/project/fitness/home/pub}
 				<input type="hidden" id="pay_detail" name="pay_detail"/>
 				<input type="hidden" id="opertype" name="opertype" value=""/>
 				<input type="hidden" id="customercode" name="customercode" value=""/>
-				<input type="hidden" id="vc_passwd" name="vc_passwd" value=""/>				
-				<input type="hidden" id="moneycash" value="${fld:moneycash}"/>
-				<input type="hidden" id="moneygift" value="${fld:moneygift}"/>
+				<input type="hidden" id="vc_passwd" name="vc_passwd" value=""/>	
+				<input type="hidden" name="paydivgoodsinp" id="paydivgoodsinp"/>
+				<input type="hidden" name="paytheprice" id="paytheprice"/>
+				<input type="hidden" name="getmoney" id="getmoney"/>			
+<!-- 				<input type="hidden" id="moneycash" value="${fld:moneycash}"/>
+ -->
 				<input type="hidden" id="guest_code" name="guest_code" />
 				<!--  <input type="hidden" id="cust_name" name="cust_name"/> -->
 
@@ -39,7 +42,7 @@ ${inc:/action/project/fitness/home/pub}
 					</li>
 					<li></li>				 -->
 					<li id="cust_id">
-						<label style="width: 110px;">卡号/姓名/手机</label>
+						<label style="width: 160px;">卡号/姓名/手机</label>
 						<input type="text" id="cust" name="cust" value="" placeholder="卡号/姓名/手机号"/>
 					</li>
 <!-- 					<li id="guest_id" >
@@ -51,16 +54,16 @@ ${inc:/action/project/fitness/home/pub}
 						<label>姓名</label>
 						<input type="text" id="cust_name" name="cust_name" readonly="readonly"  />
 					</li>
-					<li id="sex_id">
+					<!-- <li id="sex_id">
 						<label >性别：</label>
 						<select  id="sex" name="sex" ;" > 
 							<option value="">未填</option>
 							<option value="1">男</option>
 							<option value="0">女</option>
 						</select>
-					</li>
+					</li>-->
 					<li>
-						<label style="width: 110px;">手机号</label>
+						<label style="width: 160px;">手机号</label>
 						<input type="text" id="mobile" name="mobile" value="" readonly="readonly"  />
 					</li>
 						<li>
@@ -73,7 +76,7 @@ ${inc:/action/project/fitness/home/pub}
 							</select>
 						</li>
 						<li>
-							<label style="width: 110px;">单价</label>
+							<label style="width: 160px;">单价</label>
 							<input type="text" id="f_price" name="f_price" value="" maxlength="80" placeholder="单价" readonly/>
 						</li>
 						<li>
@@ -81,7 +84,7 @@ ${inc:/action/project/fitness/home/pub}
 							<input type="text" id="vc_unit" name="vc_unit" value=""  placeholder="单位" readonly/>
 						</li>
 						<li>
-							<label style="width: 110px;">销售员</label>			
+							<label style="width: 160px;">销售员</label>			
 							<select id="salename_insert" name="salename_insert" >
 								<option value="">请选择</option>
 								<saleman-list>
@@ -94,7 +97,7 @@ ${inc:/action/project/fitness/home/pub}
 							<input type="text" id="f_amount" name="f_amount" value="0" maxlength="80" placeholder="数量" />
 						</li>
 						<li>
-							<label style="width: 110px;">会员卡折扣</label>			
+							<label style="width: 160px;">会员卡折扣</label>			
 							<select id="cardcode" name="cardcode" style="display: none;">
 								<option value="">请选择</option>								
 							</select>
@@ -104,28 +107,27 @@ ${inc:/action/project/fitness/home/pub}
 							<input type="text" id="vc_rebate" name="vc_rebate" value="0" placeholder="折扣金额" maxlength="80"/>
 						</li>
 						<li>
-							<label style="width: 110px;">总金额</label>
+							<label style="width: 160px;">总金额</label>
 							<input type="text" id="f_money" name="f_money" value="" placeholder="总金额" maxlength="80" readonly/>
 						</li>
 						<li>
 							<label>应收金额</label>
 							<input type="text" id="f_normalmoney" name="f_normalmoney" placeholder="应收金额" value="" readonly maxlength="80"/>
 						</li>
-						<li id="i_paytypefour">
-							<label>支付方式</label>
-							<span id="zffs"></span>
+						<li >
+							<label style="width: 160px;">支付方式:</label>
 						</li>
-						<li id="i_paytypethree">
+						<!-- <li id="i_paytypethree">
 							<label style="width: 110px;">支付方式</label>
 							<input type="radio" name="i_paytype" value="1" checked="checked" style="display: none;" />
 						   	现金/银行卡支付
 							<input type="radio" name="i_paytype" value="2" style="display: none;" />
 							储值卡支付
-							<!--<span>
+							<span>
 							 zzn 2019-03-28 隐藏掉
 							<input type="radio" id="typetrhee" name="i_paytype" value="3" style="display: none;" />
 							挂账</span>
-							-->
+							
 						</li>
 						<li id="i_paytypetwo">
 							<label>支付方式</label>
@@ -133,32 +135,36 @@ ${inc:/action/project/fitness/home/pub}
 						   	现金储值&nbsp;<span id="span_moneycash"></span>
 							<input type="radio" name="f_paycardmoneyleft" value="2" style="display: none;" />
 							运动基金&nbsp;<span id="span_moneygift"></span>
-						</li>
+						</li> -->
 						
 						
 						<div id="i_paytypeone">
-			          		<div class="modal-body " id="paymoney"  style="margin-left: 5%;height: 30px">
+			          		<div class="modal-body " id="paymoney"  style="margin-left: 5%;">
 							</div>
 			          		<div class="modal-body b-i-main">
-								<nav>
-									<li>
-										<label>方式</label>
-										<select id="moneytype" class="normal-select">
-											<option value="">请选择</option>
-											<OtherPayWay-list>
-												<option value="${fld:cnfg_id}">${fld:vc_content}</option>
-											</OtherPayWay-list>
-										</select>
-										
-											<label>金额</label>
-										<input type="text" id="money" name="money" placeholder="金额"/>
-										&nbsp;
-										<i class="am-icon-plus" id="addmoney" title="添加"></i>
-									</li>
-								</nav>
+									<div class="b-i-main" style="margin-left: 10px">
+										<nav>
+											<li id="paydivbin" style="margin-left: 10%"></li>
+											<li id="paymethodDiv" style="margin-left: 10%">
+								     			<nav>
+								     				<li style="width: 800px">
+														<select class="normal-select" id="paymethodbin" name="paymethodbin" >
+															<option value="">请选择支付方式</option>
+														</select>
+														<input id="paymoneybin" name="paymoneybin" placeholder="请输入支付金额"  style="margin-left: 10%"/>
+														<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>
+								     				</li>
+								     			</nav>
+								     		</li>		
+								     		<li id="moneycashDiv">
+								     			<label style="width: 160px;">现金储值：</label>
+												<span id="moneycash"></span>
+								     		</li>
+										</nav>
+									</div>
 							</div>
 						</div> 
-						<li class="to100w" style="margin-left: 6%">
+						<li class="to99w" style="margin-left: 9%">
 							<label>备注</label>
 							<textarea id="remark" name="remark" class="my-textarea" placeholder="备注"></textarea>
 						</li>
@@ -281,53 +287,21 @@ ${inc:/action/project/fitness/home/pub}
 <input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 var search=null;
+var paytotalbin=0;
 $(document).ready(function() {
-	searchSelectInit($("#moneytype,#item_insert,#salename_insert,#cardcode,#itemcode"))
-	$("#i_paytypefour").hide();
-	$("#guest_id").hide();
-	$("#sex_id").hide();
-	ccms.util.renderRadio("customertype");
+	searchSelectInit($("#paymethodbin,#item_insert,#salename_insert,#cardcode,#itemcode"))
+/* 	ccms.util.renderRadio("customertype"); */
 	
 	//selectInit($("#isguazhang,#itemcode"));
 
 
+	$("#moneycashDiv").hide();
 	
 	$(".header-close").unbind().on("click",function(){
 		$("#modalAddnew").modal('hide');
 		ccms.util.clearForm('formEditor');
 	});
-/* 	 //单次消费会员资源散客切换
-	$("input[name=customertype]").on("ifClicked",function () { 
-		//$("#pkvalue,#guest").val("");
-		if($(this).val()=="3"){//散客
-			$("#sex,#mobile,#guest_code,#guest_all").val("");
-			$("#guest_id").show();
-			$("#cust_id").hide();
-			$("#name_id").hide();			
-			$("#sex_id").show();
 
-		}else{
-			$("#mobile,#guest_code,#cust_name").val("");
-			$("#guest_id").show();
-			$("#guest_id").hide();
-			$("#cust_id").show();
-			$("#name_id").show();			
-			$("#sex_id").hide();
-		}
-	}); */
-	 
-/* 	$("#guest_all").blur(function(){
-		var guest = $(this).val();
-		$("#sex,#mobile,#guest_code").val("");
-		//$("#save_btn").html("新增并预约");
-		if(undefined==guest||guest ==""){
-			ccms.dialog.alert("请输入资源编号/姓名/手机号！");
-		}else{
-			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlist2/crud?pickcustname="+guest+"&objid=guest_code&objidtwo=guest&random_number="+Math.random()});
-		}
-	});  */
-	 
-	
 	//判断该登录人是否有收款权限
 	if(parseInt("${fld:skillscopenum}")>0){
 		$("#collection_btn").show();
@@ -412,7 +386,58 @@ $(document).ready(function() {
          $("#daochu_cust_all").val($("#cust_all").val());
          $("#daochuForm").submit();
     });	
-	//添加支付方式
+	
+	// 加载支付方式
+	loadPayTypebin("paymethodbin", function(){
+			$("#paymethodDiv").show();
+			$("#paybtnDiv").show();
+	});
+	//zyb 20190506根据支付方式显示和隐藏标签
+	$("#paymethodbin").change(function(){
+		if($("#paymethodbin").val()=="f_chuzhika"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
+	
+	
+	// 添加支付方式
+	$("#addpay_btnbin").unbind().on("click",function(){
+		var paymethodbin = $("#paymethodbin").val();
+		var paymoney = $("#paymoneybin").val();
+		$('input[name=othertype]').iCheck('uncheck');
+		if( "" == paymethodbin ){
+			ccms.dialog.notice("请选择支付方式", 2000);
+			return false;
+		}else if( "" == paymoney || !(isFloat(paymoney) || isNumber(paymoney)) || Number(paymoney) <= 0 ){
+			ccms.dialog.notice("请输入支付金额", 2000);
+			return false;
+		}
+		//zyb 20190506提示金额不足
+		if($("#paymethodbin").val()=="f_chuzhika"){
+			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoneybin").val())){
+				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+				return false;
+			}
+		}
+		
+		var mobj = $("#paydivbin").find("[code1="+paymethodbin+"]");
+		
+		if( mobj.length > 0 ){
+			var _paymoney = (parseFloat(paymoney) + parseFloat(mobj.attr("code2"))).toFixed(2);
+			$("#paymethodbin").find("option:selected").attr("code", _paymoney);
+			mobj.attr("code2", _paymoney);
+			mobj.find("[name=fee]").text(_paymoney);
+		}else{
+			$("#paymethodbin").find("option:selected").attr("code", paymoney);
+			addShowPaygoods(paymethodbin, paymoney, $("#paymethodbin").find("option:selected").text(), false);
+		}
+		paytotalbin = (parseFloat(paytotalbin) + parseFloat(paymoney)).toFixed(2);
+		
+	});
+	
+	/* //添加支付方式
 	$("#addmoney").click(function(){
 	   	var moneytype = $("#moneytype").val();
 	   	var moneytypetext = $("#moneytype option:selected").text();
@@ -440,65 +465,36 @@ $(document).ready(function() {
 			else
 				ccms.dialog.alert(moneytypetext+"已存在！");
 	   	}
-   });
+   }); */
 	//付款
 	$("#consumptionpay").click(function(){
-		var i_paytype = ccms.util.getRadioValue("i_paytype", "formEditor");
+		 var moneydetail = "";
+		/* var i_paytype = ccms.util.getRadioValue("i_paytype", "formEditor"); */
 		var f_normalmoney = $("#f_normalmoney").val();//应收金额
-		if(i_paytype==1){
-			$('#opertype').val(59);
-		}else if(i_paytype==2){
-			$('#opertype').val(60);
-		}else{
-			$('#opertype').val(99);
+		alert(f_normalmoney);
+		//获取所有支付类型option
+		$("#paymethodbin").find("option").each(function(idx,ele){
+			if( "" != $(ele).attr("code") ){
+				moneydetail += $(ele).attr("code") + ";";
+			}
+		});
+		
+		//明细
+		$("#pay_detail").val(moneydetail);
+		if(Number(f_normalmoney)!=Number(paytotalbin)){
+			ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
+			return false;
 		}
-				
-		if(i_paytype=="1"){
-			var paymoney = 0;
-			//获取所有支付金额
-			$("input[name='paytypemoney']").each(function(j,item){
-				paymoney+=Number(item.value);
-			});
-			if(paymoney!=f_normalmoney){
-				ccms.dialog.alert("支付金额与应收金额不相同，请确认！");
-			}else{
-				var moneydetail = "";
-				//获取所有支付类型option
-		         $("#moneytype option").each(function(){  
-					if($(this).val()!=""){
-		        		moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
-		        	}
-			        moneydetail = moneydetail.replace("undefined", "0");
-		         });
-				//明细
-				$("#pay_detail").val(moneydetail);
-				//付款
-				
-				insertsingleitem();
-			}
-		}else if(i_paytype=="2"){
-			var f_paycardmoneyleft = ccms.util.getRadioValue("f_paycardmoneyleft", "formEditor");
-			//判断是现金储值或者运动基金
-			if(f_paycardmoneyleft=="1"){
-				f_paycardmoneyleft= moneycash;				
-			}else{
-				f_paycardmoneyleft= moneygift;
-			}
-			if(Number(f_normalmoney)>Number(f_paycardmoneyleft)){
-				ccms.dialog.alert("储值金额不足，请确认！");
-			}else{
-				//付款
-				insertsingleitem();
-			}
-		}else{
-			//付款
-			insertsingleitem();
-		}
+		$("#paydivgoodsinp").val($("#f_chuzhikabin").attr("code1"));//获取储值卡的code
+		$("#paytheprice").val($("#f_chuzhikabin").attr("code2"));//储值卡收的钱
+		$("#getmoney").val(paytotalbin);//实收
+		insertsingleitem();
+		
 	});
 	//支付方式
-	$("#moneytype").change(function(){
+	/* $("#moneytype").change(function(){
 		document.getElementById("money").focus();
-	});
+	}); */
 	//单价f_price  数量f_amount  折扣价cardcode 
 	//折扣金额vc_rebate 总金额f_money 应收金额f_normalmoney
 	//根据会员卡类型打折
@@ -537,7 +533,7 @@ $(document).ready(function() {
 		getTotalPrice(f_amount,f_price,vc_rebate);
    	});
 	   
-    $("input[name=i_paytype]").on("ifClicked",function(){
+/*     $("input[name=i_paytype]").on("ifClicked",function(){
 		 if($(this).val()=="1"){
 			$("#i_paytypeone").show();
 			$("#i_paytypetwo").hide();
@@ -553,7 +549,7 @@ $(document).ready(function() {
 			$("#i_paytypeone,#i_paytypetwo").hide();
 			$("#consumptionpay").html("挂账");
 		 }
-  })
+  }) */
 /*   	//列表收费
 	$("#charges_btn").click(function(){
 		var id = $("input[name=reocrd]:checked").val();
@@ -578,7 +574,7 @@ $(document).ready(function() {
 			ccms.dialog.alert("请选择！");
 		}else{
 			var code = $("input[name=singleitemlist]:checked").attr("code");
-			ccms.dialog.open({url : '${def:context}/action/project/fitness/customer/arrears/form?custcode='+code+"&singleitemcode="+obthis, height:540});
+			ccms.dialog.open({url : '${def:context}/action/project/fitness/customer/arrears/form?custcode='+code+"&singleitemcode="+obthis+"&cardcode="+$("#cardcode option:selected").attr("code"), height:540});
 		}
 	});
 
@@ -592,7 +588,7 @@ $(document).ready(function() {
 			if(code=="1"){
 				ccms.dialog.alert("请先付款在进行打印！");
 			}else{
-				var url = "${def:context}/action/project/fitness/print/ticket/singleticket?pk_value="+obthis+"&print_type=ticket";
+				var url = "${def:context}/action/project/fitness/print/ticket/singleticket?pk_value="+obthis+"&print_type=ticket&vc_rebate="+$("#vc_rebate").val();
 				ajaxCall(url,{
 					method : "get",
 					progress : true,

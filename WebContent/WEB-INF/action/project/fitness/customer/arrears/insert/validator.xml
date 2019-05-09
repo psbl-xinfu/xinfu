@@ -9,17 +9,20 @@
     <parameter id="f_money" type="double" required="true" label="金额" maxlen="20" />
     <parameter id="cust_name" type="varchar" required="false" label="会员姓名" maxlen="20" />
     <parameter id="remark" type="varchar" required="false" label="备注" maxlen="20" />
-    <parameter id="i_paytype" type="varchar" required="true" label="收款方式：1现金/银行卡支付、2储蓄卡支付"/>
+    <!-- <parameter id="i_paytype" type="varchar" required="true" label="收款方式：1现金/银行卡支付、2储蓄卡支付"/> -->
     <parameter id="f_normalmoney" type="double" required="true" label="应收金额" maxlen="20" />
     
     <parameter id="salename_insert" type="varchar" required="true" label="销售员"/>
     <parameter id="pay_detail" type="varchar" required="false" label="明细"/>
     <parameter id="customercode" type="varchar" required="true" label="会员编号"/>
-    <parameter id="opertype" type="varchar" required="true" label="opertype"/>
-    <parameter id="f_paycardmoneyleft" type="varchar" required="false" label="f_paycardmoneyleft"/>
+    <!-- <parameter id="opertype" type="varchar" required="true" label="opertype"/> -->
+   <!--  <parameter id="f_paycardmoneyleft" type="varchar" required="false" label="f_paycardmoneyleft"/> -->
     
-    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    <parameter id="paydivgoodsinp" type="varchar" required="false" label="储值支付" />
+    <parameter id="paytheprice" type="varchar" required="false" label="储值卡支付的钱" />
+	<parameter id="getmoney" type="varchar" required="false" label="实收总数的钱" />
+    <!-- <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
     on-error-label="付款失败，请核对您的现金储值金额！" id="i_paytypetwo" sql="noRep-moneycash.sql" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
-    on-error-label="付款失败，请核对您的运动基金金额！" id="i_paytypetwo" sql="noRep-moneygift.sql" />
+    on-error-label="付款失败，请核对您的运动基金金额！" id="i_paytypetwo" sql="noRep-moneygift.sql" /> -->
 </validator>

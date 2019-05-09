@@ -2,4 +2,5 @@
 <validator onerror="/action/ccms/validate">
     <parameter id="custcode" type="varchar" required="true" label="客户编号" />
     <parameter id="singleitemcode" type="varchar" required="false" label="单次消费code" />
+    <parameter id="cardcode" type="varchar" required="false" label="会员卡折扣" />
 </validator>

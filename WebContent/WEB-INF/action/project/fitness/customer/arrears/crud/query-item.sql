@@ -1,7 +1,11 @@
 select 
   distinct code,
   name as singname,
-  unit,
+  (case when
+  unit='0' then '次'
+  when unit='1' then '张'
+  else null
+  end) as unit,
   price,
   fastcode
 from 

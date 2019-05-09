@@ -16,10 +16,10 @@ insert into cc_operatelog(
 values
 (
 	${seq:nextval@seq_cc_operatelog},
-	${fld:opertype},
+	59,--就是单次消费 
 	${fld:f_money},
 	${fld:f_normalmoney},
-    (case when ${fld:i_paytype}='1' then ${fld:f_normalmoney} else 0 end),
+    ${fld:getmoney},
 	1,
 	${fld:pay_detail},
 	${fld:remark},

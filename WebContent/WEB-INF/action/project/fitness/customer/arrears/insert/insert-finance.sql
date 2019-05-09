@@ -23,9 +23,9 @@ values
     '${def:user}',    
     {ts'${def:timestamp}'},
     ${fld:pay_detail},
-    (case when ${fld:i_paytype}='2' then ${fld:f_normalmoney} else null end), --储值卡
-    (case when ${fld:i_paytype}='1' then ${fld:f_normalmoney} else null end), --现金
-    (case when ${fld:i_paytype}='3' then ${fld:f_normalmoney} else null end), --挂账
+     ${fld:f_normalmoney}, --储值卡
+     ${fld:getmoney}, --现金
+    0, --挂账
     ${def:org},
     33
 )

@@ -1,4 +1,4 @@
 update cc_customer
-set	moneycash = (moneycash::float-${fld:f_normalmoney}::float)
+set	moneycash = (moneycash::float-${fld:paytheprice}::float)
 where code = ${fld:customercode} and org_id = ${def:org}
-and ${fld:i_paytype}='2' and ${fld:f_paycardmoneyleft}='1'
+and ${fld:paydivgoodsinp}='f_chuzhika'

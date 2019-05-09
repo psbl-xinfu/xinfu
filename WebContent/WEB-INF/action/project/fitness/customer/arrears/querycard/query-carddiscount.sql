@@ -1,4 +1,5 @@
 select 
+	card.code,
 	(select name from cc_cardtype where code = card.cardtype and org_id = card.org_id) as name,
 	(case when (select discount from cc_cardtype_storage_discount where cardtype=
 		(select code from cc_cardtype where code = card.cardtype and org_id = card.org_id)

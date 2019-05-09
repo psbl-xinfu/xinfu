@@ -32,22 +32,30 @@ values
     ${fld:fastcode},
     ${fld:name},
     ${fld:price},
-    ${fld:unit},
+    (case when ${fld:unit}='次' then '0'::int 
+    when ${fld:unit}='张' then '1'::int
+    else null
+    end),
     ${fld:f_amount},
     ${fld:f_money},
     ${fld:cust_name},
     ${fld:remark},
-    (case when ${fld:i_paytype}='2' then 2 else 1 end),
-    (case when ${fld:i_paytype}='2' then ${fld:f_normalmoney} else null end),
-    (case when ${fld:i_paytype}='3' then 1 else 2  end),
-    (case when ${fld:i_paytype}='1' then ${fld:f_normalmoney} else null end),
+    (case when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float=${fld:f_normalmoney}::float  then '2'::integer 
+	when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float!=${fld:f_normalmoney}::float then '3'::integer
+	when  ${fld:getmoney}::float=${fld:f_normalmoney}::float  then '1'::integer
+	else null end),
+    (case when ${fld:paydivgoodsinp}='f_chuzhika' then (select moneycash from cc_customer where code = ${fld:customercode} and org_id = ${def:org})
+	 else null
+	end),
+    2,
+   ${fld:getmoney} ,
     ${fld:f_normalmoney},
-    (case when ${fld:i_paytype}='3' then 1 else 0  end),
+     0,
     ${fld:salename_insert},
     '${def:user}',
     {ts'${def:timestamp}'},
-    (case when ${fld:i_paytype}='3' then null else '${def:user}'  end),
-    (case when ${fld:i_paytype}='3' then null else {ts'${def:timestamp}'}  end),
+   '${def:user}',
+   {ts'${def:timestamp}'},
     ${fld:pay_detail},
     ${def:org}
 )

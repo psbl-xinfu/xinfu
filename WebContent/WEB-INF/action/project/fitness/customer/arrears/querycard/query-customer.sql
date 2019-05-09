@@ -1,7 +1,7 @@
 select 
 	name as cust_name,
 	mobile,
-	moneygift,
+--	moneygift,
 	moneycash
 from
 	cc_customer
