@@ -1,3 +1,44 @@
+//add zfc 190510  添加折扣
+CREATE TABLE "public"."cc_ptrest_class" (
+  "code" varchar(64) COLLATE "pg_catalog"."default",
+  "ptrestcode" varchar(64) COLLATE "pg_catalog"."default",
+  "oldpt" int4,
+  "newpt" int4,
+  "remark" varchar(2000) COLLATE "pg_catalog"."default",
+  "createdby" varchar(64) COLLATE "pg_catalog"."default",
+  "created" timestamp(6),
+  "org_id" int4
+)
+;
+
+ALTER TABLE "public"."cc_ptrest_class" 
+  OWNER TO "postgres";
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."code" IS '主键';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."ptrestcode" IS '表cc_ptrest主键';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."oldpt" IS '原剩余私教节数';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."newpt" IS '修改私教剩余节数';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."remark" IS '备注';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."createdby" IS '操作人';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."created" IS '操作时间';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."org_id" IS 'hr_org.org_id';
+
+COMMENT ON TABLE "public"."cc_ptrest_class" IS '私教剩余课时修改记录';
+
+
+
+
+
+
+
+
 //add zyb 190510  添加折扣
 alter table cc_singleitem add discount float8 DEFAULT 0
 COMMENT ON COLUMN "public"."cc_singleitem"."discount" IS '折扣金额';
