@@ -55,8 +55,8 @@ $(document).ready(function() {
 	
 	//修改课时
 	$("#save_btn").click(function(){
-		if($("#updateclass").val()==""||$("#updateclass").val()==0){
-			ccms.dialog.notice("修改课时不可以为空!", 3000);
+		if($("#updateclass").val()==""||$("#updateclass").val()<0){
+			ccms.dialog.notice("修改课时不可以为空或小于0!", 3000);
 			return false;
 		}
 		
