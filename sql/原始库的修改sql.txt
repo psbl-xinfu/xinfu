@@ -1,3 +1,8 @@
+//add zyb 190510  添加折扣
+alter table cc_singleitem add discount float8 DEFAULT 0
+COMMENT ON COLUMN "public"."cc_singleitem"."discount" IS '折扣金额';
+
+
 //update zyb 190508 修改注释
 COMMENT ON COLUMN cc_leave_stock.paytype IS '支付方式：1现金/银行卡支付 2会员卡支付 3储值卡和现金/银行卡支付';
 

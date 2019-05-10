@@ -22,7 +22,8 @@ insert into cc_singleitem(
 	collectby,
 	collectdate,
 	pay_detail,
-	org_id
+	org_id,
+	discount
 )
 values 
 (
@@ -57,5 +58,6 @@ values
    '${def:user}',
    {ts'${def:timestamp}'},
     ${fld:pay_detail},
-    ${def:org}
+    ${def:org},
+    ${fld:vc_rebate}
 )

@@ -216,7 +216,7 @@ $(document).ready(function() {
 	//单价f_price  数量f_amount  折扣价cardcode 
 	//折扣金额vc_rebate 总金额f_money 应收金额f_normalmoney
 	//根据会员卡类型打折
-	$("#cardcode").change(function(){
+	/* $("#cardcode").change(function(){
 	   	var f_money=$("#f_money").val();
 		//根据会员卡类型设置折扣进行打折
 		if($("#cardcode").val()!=""){
@@ -224,7 +224,7 @@ $(document).ready(function() {
 			f_money = f_money-Number($("#cardcode").val());
 		}
 		$("#f_normalmoney").val(f_money.toFixed(2));
-	});
+	}); */
 	
 	$("#i_paytypetwo").hide();
 	//选择项目加载事件

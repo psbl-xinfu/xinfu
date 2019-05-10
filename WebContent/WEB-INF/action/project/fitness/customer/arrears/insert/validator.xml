@@ -11,7 +11,7 @@
     <parameter id="remark" type="varchar" required="false" label="备注" maxlen="20" />
     <!-- <parameter id="i_paytype" type="varchar" required="true" label="收款方式：1现金/银行卡支付、2储蓄卡支付"/> -->
     <parameter id="f_normalmoney" type="double" required="true" label="应收金额" maxlen="20" />
-    
+    <parameter id="vc_rebate" type="double" required="false" label="折扣" maxlen="20" />
     <parameter id="salename_insert" type="varchar" required="true" label="销售员"/>
     <parameter id="pay_detail" type="varchar" required="false" label="明细"/>
     <parameter id="customercode" type="varchar" required="true" label="会员编号"/>

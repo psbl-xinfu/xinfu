@@ -117,25 +117,6 @@ ${inc:/action/project/fitness/home/pub}
 						<li >
 							<label style="width: 160px;">支付方式:</label>
 						</li>
-						<!-- <li id="i_paytypethree">
-							<label style="width: 110px;">支付方式</label>
-							<input type="radio" name="i_paytype" value="1" checked="checked" style="display: none;" />
-						   	现金/银行卡支付
-							<input type="radio" name="i_paytype" value="2" style="display: none;" />
-							储值卡支付
-							<span>
-							 zzn 2019-03-28 隐藏掉
-							<input type="radio" id="typetrhee" name="i_paytype" value="3" style="display: none;" />
-							挂账</span>
-							
-						</li>
-						<li id="i_paytypetwo">
-							<label>支付方式</label>
-							<input type="radio" name="f_paycardmoneyleft" value="1" checked="checked" style="display: none;" />
-						   	现金储值&nbsp;<span id="span_moneycash"></span>
-							<input type="radio" name="f_paycardmoneyleft" value="2" style="display: none;" />
-							运动基金&nbsp;<span id="span_moneygift"></span>
-						</li> -->
 						
 						
 						<div id="i_paytypeone">
@@ -170,10 +151,6 @@ ${inc:/action/project/fitness/home/pub}
 						</li>
 					</nav>
 			</div>
-<!-- 			<footer class="footer-default">
-			  <button type="button" id="add_btn">保存</button>
-			  <button type="button" id="collection_btn" style="margin-left: 5%;display: none;">收款</button>
-			</footer> -->
 			<footer class="footer-default">
 				<button type="button" id="consumptionpay">付&nbsp;款</button>
 			</footer>
@@ -574,7 +551,7 @@ $(document).ready(function() {
 			ccms.dialog.alert("请选择！");
 		}else{
 			var code = $("input[name=singleitemlist]:checked").attr("code");
-			ccms.dialog.open({url : '${def:context}/action/project/fitness/customer/arrears/form?custcode='+code+"&singleitemcode="+obthis+"&cardcode="+$("#cardcode option:selected").attr("code"), height:540});
+			ccms.dialog.open({url : '${def:context}/action/project/fitness/customer/arrears/form?custcode='+code+"&singleitemcode="+obthis, height:540});
 		}
 	});
 
