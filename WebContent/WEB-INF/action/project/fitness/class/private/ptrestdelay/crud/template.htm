@@ -47,8 +47,13 @@
 						</nav>
 						<nav class="r-c-3-t-b-r">
 							<li>
+								<img src="/ccms/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt="" id="update_btn">
+							</li>
+							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/nav/ptrest_rq.svg" title="延期" alt="" id="see">
 							</li>
+							
+							
 						</nav>
 					</div>
 				</div>
@@ -127,6 +132,16 @@
 						ccms.dialog.notice("请选择!");
 					}
 				});
+				//修改课时
+				$("#update_btn").unbind().on("click", function(){
+					var obthis = getCheckboxValue("ptrestradio");
+					if(obthis!= ""){
+						ccms.dialog.open({url : "${def:context}${def:actionroot}/updatefrom?code="+obthis, height: 600});
+					}else{
+						ccms.dialog.notice("请选择!");
+					}
+				});
+				
 			}
 		}).initSearchBtn().searchData(1);
 		//导出

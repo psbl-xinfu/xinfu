@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="code" type="varchar" required="true" label="私教课库存表code" />
+    <parameter id="restclass" type="integer" required="true" label="原剩余课时" />
+    <parameter id="updateclass" type="integer" required="true" label="修改后课时" />
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+</validator>
