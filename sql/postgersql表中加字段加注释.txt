@@ -1,5 +1,0 @@
-ALTER TABLE cc_inleft ADD nowcount int4 ˢ������
-ALTER TABLE cc_classlist ADD  isprepare int4  �Ƿ�ԤԼ��1��2��
-ALTER TABLE cc_inleft ADD  signednumber int4  �Ƿ�ԤԼ��1��2��
-comment on column cc_inleft.nowcount IS'ˢ������'
-comment on column cc_classlist.isprepare IS'�Ƿ�ԤԼ��1��2��'
