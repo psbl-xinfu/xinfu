@@ -35,7 +35,7 @@ ${inc:/action/project/fitness/home/pub}
 					</li>
 					<li>
 						<label style="width: 130px;">修改课时：</label>
-						<input type="text" id="updateclass" name="updateclass" value="0"/>	
+						<input type="text" id="updateclass" name="updateclass" value="${fld:ptleftcount}"/>	
 					</li>
 					
 					<li class="to100w" style="margin-left: 6%">
@@ -59,19 +59,20 @@ $(document).ready(function() {
 			ccms.dialog.notice("修改课时不可以为空或小于0!", 3000);
 			return false;
 		}
-		
-		var url = "${def:context}${def:actionroot}/updateclass";
-		ajaxCall(url,{
-		   	method: "post",
-		   	form:"formEditor",
-		   	progress: true,
-		   	dataType: "script",
-		   	success: function() {
-		   		ccms.dialog.notice("成功！", 2000, function(){
-		   			parent.search.searchData(1);
-		   			ccms.dialog.close();
-		   		})
-			}
+		ccms.dialog.confirm("确定要修改吗？", function(){
+			var url = "${def:context}${def:actionroot}/updateclass";
+			ajaxCall(url,{
+			   	method: "post",
+			   	form:"formEditor",
+			   	progress: true,
+			   	dataType: "script",
+			   	success: function() {
+			   		ccms.dialog.notice("成功！", 2000, function(){
+			   			parent.search.searchData(1);
+			   			ccms.dialog.close();
+			   		})
+				}
+			})
 		});
 	})
 });
