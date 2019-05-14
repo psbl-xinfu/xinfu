@@ -1,3 +1,12 @@
+//zyb 20190514 add 补签
+alter table cc_inleft add callparparecode varchar(20)
+COMMENT ON COLUMN "public"."cc_inleft"."callparparecode" IS 'cc_classparpare表的code';
+
+alter table cc_inleft add classdefcode varchar(20)
+COMMENT ON COLUMN "public"."cc_inleft"."classdefcode" IS 'cc_classdef表的code';
+
+
+
 //add zfc 190510  添加折扣
 CREATE TABLE "public"."cc_ptrest_class" (
   "code" varchar(64) COLLATE "pg_catalog"."default",

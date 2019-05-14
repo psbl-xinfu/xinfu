@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+ <validator>
+	<parameter id="custall" type="varchar" required="true" label="会员编号"/>
+	<parameter id="incode" type="varchar" required="true" label="入场的id"/>
+</validator>
+
+
+	

@@ -1,10 +1,10 @@
-(select 
+(select
 		concat('<input type="radio" name="inleftcode" inlefttype="', inleft.inlefttype,'" code="1" value="', inleft.code, '" code3="',
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}),
 		'" code2="',(case when inleft.lefttime is null then  
 		(case when inleft.cabinettempcode is null then '0' else '1' end) else '0' end),'" code4="',
 		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',card.org_id,'" code6="',ct.type,
-		'" code7="',inleft.signednumber,'" code8="',inleft.cardcode,'" code9="',cust.code,'" code10="',inleft.code,'" />') AS checklink,
+		'" code7="',inleft.signednumber,'" code8="',inleft.cardcode,'" code9="',cust.code,'" code10="',inleft.code,'" code11="',inleft.callparparecode,'"/>') AS checklink,
 		inleft.cardcode,	
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}) as cabinettempcode,	
 		cust.name, 
@@ -24,7 +24,8 @@
 		(case when inleft.indate is null and inleft.lefttime is not null 
 		then inleft.lefttime::date else 
 			inleft.indate
-		end) as indate
+		end) as indate,
+		(select class_name from cc_classdef where code=inleft.classdefcode and org_id=${def:org}) as class_name
 from cc_inleft inleft
 left join cc_card card on card.code=inleft.cardcode and card.isgoon = 0 and inleft.customercode=card.customercode--and card.org_id = inleft.org_id
 left join cc_cardtype ct on inleft.cardtype = ct.code --and card.org_id = ct.org_id  zzn cc_inleft 中增加卡类型字段
@@ -47,7 +48,7 @@ union
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}),
 		'" code2="',(case when inleft.lefttime is null then  
 		(case when inleft.cabinettempcode is null then '0' else '1' end) else '0' end),'" code4="',
-		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',guest.org_id,'" />') AS checklink,
+		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',guest.org_id,'" code11="',inleft.callparparecode,'" />') AS checklink,
 		inleft.cardcode,	
 		'' as cabinettempcode,	
 		guest.name, 
@@ -66,7 +67,8 @@ union
 		(case when inleft.indate is null and inleft.lefttime is not null 
 		then inleft.lefttime::date else 
 			inleft.indate
-		end) as indate
+		end) as indate,
+		(select class_name from cc_classdef where code=inleft.classdefcode and org_id=${def:org}) as class_name
 from cc_inleft inleft
 left join cc_guest guest on inleft.guestcode = guest.code and inleft.org_id = guest.org_id
 left join hr_staff staff on staff.userlogin=inleft.inuser
@@ -87,7 +89,7 @@ union
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}),
 		'" code2="',(case when inleft.lefttime is null then  
 		(case when inleft.cabinettempcode is null then '0' else '1' end) else '0' end),'" code4="',
-		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',expercard.org_id,'" />') AS checklink,
+		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',expercard.org_id,'" code11="',inleft.callparparecode,'" />') AS checklink,
 		inleft.cardcode,	
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}) as cabinettempcode,	
 		elog.name, 
@@ -106,7 +108,8 @@ union
 		(case when inleft.indate is null and inleft.lefttime is not null 
 		then inleft.lefttime::date else 
 			inleft.indate
-		end) as indate
+		end) as indate,
+		(select class_name from cc_classdef where code=inleft.classdefcode and org_id=${def:org}) as class_name
 from cc_inleft inleft
 left join cc_expercard_list elist on elist.code=inleft.cardcode and elist.org_id = inleft.org_id
 left join cc_expercard expercard on elist.expercarddef_code = expercard.code and elist.org_id = expercard.org_id

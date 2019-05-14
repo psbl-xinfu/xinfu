@@ -12,7 +12,9 @@ insert into cc_inleft
 	signednumber,
 	nowcount,
     org_id,--俱乐部编号
-    cardtype-- zzn 增加刷卡的类型
+    cardtype,-- zzn 增加刷卡的类型
+    callparparecode,
+    classdefcode
 )
 values
 (
@@ -37,6 +39,12 @@ values
 		)
 	),
 	${def:org},
-	${fld:cardtype}
+	${fld:cardtype},
+	${fld:cpcode},
+	(select code from  cc_classdef
+	where code=(select classcode from cc_classlist where code=
+	(select classlistcode from cc_classprepare where code =${fld:cpcode}))
+	and org_id=${def:org}
+	)
 )
 

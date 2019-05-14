@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>签课</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 300px; width: 500">
+		<header class="header-default">
+			<span id="formTitle">签课</span>
+		</header>
+			<input name="incode" type="hidden" id="incode" value=""/>
+			<form id="formEditor" name="formEditor" class="form-horizontal"
+				role="form" method="post">
+				<div class="r-tab-cout-3-b" id="tuancao">
+					<table class="">
+						<thead>
+							<tr>
+								<th></th>
+								<th>团操名称</th>
+								<th>开课时间</th>
+								<th>操厅</th>
+								<th>教练</th>
+							</tr>
+						</thead>
+						<tbody id="classdef">
+						</tbody>
+					</table>
+				</div>
+				<footer class="footer-default">
+					<button type="button" id="save_btn" style="margin-top: 3%">确认签课</button>
+				</footer>
+			</form>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+	$(document).ready(function() {
+		var custall="${fld:custall}";
+		var incode="${fld:incode}";
+		getAjaxCall("${def:context}/action/project/fitness/customer/inleft/searchclassp?custall="+custall, false);
+		$("#save_btn").unbind().on("click",function(){
+			var cpcode = getCheckboxValue("classprepare");
+			if(cpcode==""||cpcode==null){
+				parent.search.searchData(1);
+				ccms.dialog.close();
+			}
+			$Dialog().confirm("确定要签课吗？",function(){
+				//zyb 20190514 补签
+				var url = "${def:context}${def:actionroot}/updateclass?cpcode="+cpcode+"&incode="+incode;
+				ajaxCall(url,{
+					method : "get",
+					progress : true,
+					dataType : "script",
+					success : function() {
+					}
+				});
+			});
+			
+		});
+		
+	});
+</script>
+</html>

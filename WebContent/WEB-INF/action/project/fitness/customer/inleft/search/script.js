@@ -11,7 +11,7 @@
 			"c_initime":"${fld:indate@yyyy-MM-dd}",
 			"c_initime_time":"${fld:intime@HH:mm:ss}",
 			"lefttime":"${fld:lefttime@HH:mm:ss}",
-			"presencedate":"",
+			"class_name":"${fld:class_name}",
 			"startdate":"${fld:startdate}",
 			"enddate":"${fld:enddate}",
 			"vc_inusername":"${fld:vc_inusername@js}",

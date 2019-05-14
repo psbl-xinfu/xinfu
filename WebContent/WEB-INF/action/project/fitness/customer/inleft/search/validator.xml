@@ -7,4 +7,5 @@
 	<parameter id="to_mc" type="varchar" required="false" label="to_mc"/>
 	<parameter id="temporaryinleft" type="varchar" required="false" label="临时入场"/>
 	<parameter id="inlefttype" type="varchar" required="false" label="入场类型"/>
+	<parameter id="classdefid" type="varchar" required="false" label="团操课的code"/>
 </validator>

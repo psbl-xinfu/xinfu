@@ -2,24 +2,21 @@
 <config>
 
 	<summary>
-		查询系统应用
 	</summary>
-
+	
 	<log>false</log>
-   
-   
-	<colname>vc_tempcabinet,c_startdate,to_mc,classdefid</colname>	 
-
-	<sql-template>query-base.sql</sql-template>
-	<paging-recordset>query.sql</paging-recordset>
-	<total-recordset>query-count.sql</total-recordset>
 
 	<transaction>
-		<classname>com.ccms.SearchForJson</classname>
+		<classname>dinamica.GenericTableManager</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
+
+	<!-- 修改团操的状态 -->
+	<query>update.sql</query>
+	<!-- 修改入场表的团操id -->
+	<query>updateinleft.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
@@ -27,8 +24,6 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="query.sql" tag="rows" />
-		<print mode="form" recordset="query-count.sql" />
 	</output>
 
 </config>

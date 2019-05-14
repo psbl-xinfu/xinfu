@@ -2,27 +2,24 @@
 <config>
 
 	<summary>
-		入住管理
 	</summary>
 	
 	<log>true</log>
-
+	
+	
 	<transaction>
 		<classname>dinamica.GenericTransaction</classname>
-		<validator>false</validator>
+		<validator>true</validator>
 		<transaction>false</transaction>
-		<jdbc-log>false</jdbc-log>	
-	    <recordset id="query-skill_name.sql" source="sql" scope="transaction"/>
-	    <recordset id="query-classdef.sql" source="sql" scope="transaction"/>
+		<jdbc-log>false</jdbc-log>
 	</transaction>
-
 	<output>
 		<classname>dinamica.GenericOutput</classname>
 		<template>template.htm</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
-		<print mode="table" recordset="query-skill_name.sql" tag="skill"/>
-		<print mode="table" recordset="query-classdef.sql" tag="classdef"/>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_request" />
 	</output>
 
 </config>

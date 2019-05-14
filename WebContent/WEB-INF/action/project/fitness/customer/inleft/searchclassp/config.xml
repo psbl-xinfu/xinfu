@@ -2,23 +2,17 @@
 <config>
 
 	<summary>
-		查询系统应用
+		私教刷课
 	</summary>
 
 	<log>false</log>
    
-   
-	<colname>vc_tempcabinet,c_startdate,to_mc,classdefid</colname>	 
-
-	<sql-template>query-base.sql</sql-template>
-	<paging-recordset>query.sql</paging-recordset>
-	<total-recordset>query-count.sql</total-recordset>
-
 	<transaction>
-		<classname>com.ccms.SearchForJson</classname>
+		<classname>dinamica.GenericTransaction</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
+	    <recordset id="getrecord.sql" source="sql" scope="transaction"/>
 	</transaction>
 
 	<output>
@@ -27,8 +21,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="query.sql" tag="rows" />
-		<print mode="form" recordset="query-count.sql" />
+		<print mode="table" recordset="getrecord.sql" tag="rows" />
 	</output>
 
 </config>
