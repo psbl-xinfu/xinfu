@@ -37,13 +37,8 @@ ${inc:/action/project/fitness/home/pub}
 									<option value="2">体验卡入场</option>
 								</select>
 							</li>
-							<li>
-								<select id="classdefid" name="classdefid" style="display: none;">
-									<option value="">团操名称</option>
-									<classdef>
-										<option value="${fld:defcode}">${fld:defclass_name}</option>
-									</classdef>
-								</select>
+							<li class="hasCheck" style="width: 130px;">
+								<input id="temporaryinleft" name="temporaryinleft" type="checkbox" value="1" class="input-default" style="display: none;" />临时入场
 							</li>
 							
 							<div>
@@ -53,7 +48,7 @@ ${inc:/action/project/fitness/home/pub}
 							</div>
 						</nav>
 					</div>
-					<div class="r-tab-cout-3-t-t">
+					<div class="tab-cout-nav-b">
 						<nav class="r-c-3-t-b-l" style="height: 30px;">
 						  	<li class="inputNametwo">
 								<input id="vc_cardcode" name="vc_cardcode" type="text" placeholder="会员卡号/姓名/手机号" class="input-default" />
@@ -61,8 +56,14 @@ ${inc:/action/project/fitness/home/pub}
 							<li class="inputNametwo">
 								<input id="vc_tempcabinet" name="vc_tempcabinet" type="text" placeholder="手牌号" class="input-default" />
 							</li>
-							<li class="hasCheck" style="width: 130px;">
-								<input id="temporaryinleft" name="temporaryinleft" type="checkbox" value="1" class="input-default" style="display: none;" />临时入场
+							
+							<li>
+								<select id="classdefid" name="classdefid" style="display: none;">
+									<option value="">团操名称</option>
+									<classdef>
+										<option value="${fld:defcode}">${fld:defclass_name}</option>
+									</classdef>
+								</select>
 							</li>
 						</nav>
 						<nav class="r-c-3-t-b-r">
