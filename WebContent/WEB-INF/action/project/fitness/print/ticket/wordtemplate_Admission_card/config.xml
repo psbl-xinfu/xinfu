@@ -9,9 +9,9 @@
 	<!-- word模板路径 -->
 	<doc-template>/erpclubdoc/template/erp_Addmission_card.docx</doc-template>
 	<!-- 模板中参数列表 ，多个用英文分号隔开-->
-	<params>vc_club;vc_code;cardtype;vc_type;old_count;use_count;new_count;vcuser;pay_date;pay_time;remak</params>
+	<params>vc_club;vc_code;cardtype;vc_name;old_count;use_count;new_count;vcuser;pay_date;pay_time;remak</params>
 	<!-- 参数对应的字段列表 -->
-	<fields>vc_club;vc_code;cardtype;vc_type;old_count;use_count;new_count;vcuser;pay_date;pay_time;remak</fields>
+	<fields>vc_club;vc_code;cardtype;vc_name;old_count;use_count;new_count;vcuser;pay_date;pay_time;remak</fields>
 
 	<transaction>
 		<classname>transactions.project.fitness.doc.WordTemplateReplace</classname>

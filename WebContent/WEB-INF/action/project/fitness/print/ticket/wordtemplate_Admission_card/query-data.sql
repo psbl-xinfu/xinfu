@@ -6,6 +6,7 @@ select
 	card.code as vc_code,--卡号
 	cab.type as i_type,
 	ct.name as cardtype,--卡类型
+	cust.name as vc_name,
 	card.nowcount +${fld:nowcount}::int as old_count,--原有次数
 	${fld:nowcount} as use_count,--扣次
 	card.nowcount as new_count,--剩余次
@@ -18,6 +19,7 @@ from cc_card card
 LEFT JOIN cc_cabinettemp cab on cab.cardcode=card.code and cab.customercode = card.customercode
 LEFT JOIN cc_cardtype ct on ct.code=card.cardtype  and ct.org_id = card.org_id
 LEFT JOIN cc_inleft inleft on inleft.cardcode=card.code and inleft.customercode = card.customercode
+left join cc_customer cust on cust.code = inleft.customercode
 WHERE
 	card.code = ${fld:pk_value} and card.isgoon =0 and card.org_id = ${fld:org_id}
 	AND
