@@ -367,7 +367,9 @@ function posturls(url){
 		form:"formEditor",
 		progress:true,
 		dataType:"script",
-		success:function(){	
+		success:function(){
+			//zyb 跳转的界面
+			location.href="${def:context}/action/project/fitness/customer/fillcard/crud";
 		}
 	});
 }
