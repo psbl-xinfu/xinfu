@@ -100,7 +100,9 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
-	searchSelectInit($("#storagetuid,#goodstuid"));
+	//searchSelectInit($("#storagetuid,#goodstuid"));
+	searchSelectInit($("#storagetuid"));
+	searchSelectInit($("#goodstuid"),"240px");
 	ccms.util.renderCheckbox("operation");
 	this.search=search;
 	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){

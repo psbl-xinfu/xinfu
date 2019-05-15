@@ -192,7 +192,9 @@ $(function(){
 	}); 
 	
 	$("#moneycashDiv").hide();
-	searchSelectInit($("#storage_id,#paymethodbin,#goodsname"));
+	//searchSelectInit($("#storage_id,#paymethodbin,#goodsname"));
+	searchSelectInit($("#storage_id,#paymethodbin"));
+	searchSelectInit($("#goodsname"),"240px");
 	//查询商品
 	$("#goodsname").change(function(){
 		$("#findtype").val("1");
