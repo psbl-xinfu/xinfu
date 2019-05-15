@@ -28,6 +28,7 @@ var html = "";
 	html+="<td>${fld:status}</td></tr>";
 </rows>
 $("#cardlist").html(html);
+
 $(".inputnum").blur(function(){
 	var val = $(this).val();
 	if(isNaN(parseInt(val))){

@@ -22,10 +22,10 @@ $(".error").html("");
 if(Number(moneyleft)>0){
 	$("#errorinfo").append("/欠款金额："+moneyleft);
 }
-//后台设置多少天未锻炼前台刷卡时提示
-if(parseInt("${fld:inleftnum}")==0){
-	$("#errorinfo").append("，该卡${fld:foreremind}天未锻炼");
-}
+////后台设置多少天未锻炼前台刷卡时提示  zzn 注释掉
+//if(parseInt("${fld:inleftnum}")==0){
+//	$("#errorinfo").append("，该卡${fld:foreremind}天未锻炼");
+//}
 
 //商品购买欠费
 if(Number("${fld:factmoney}")>0){

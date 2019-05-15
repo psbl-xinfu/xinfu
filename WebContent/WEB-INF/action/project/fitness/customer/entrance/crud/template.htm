@@ -61,7 +61,7 @@ ${inc:/action/project/fitness/home/pub}
 							</li>
 							
 							<button type="button" class="refurbish btn-default-36" id="clearform" title="清空"></button>
-							<button type="button" class="toDo btn-default-36" id="execution" title="执行">执行</button>
+							<button type="button" class="toDo btn-default-36" id="execution" title="执行" style="background-color:#FFAD86;color: white">刷卡</button>
 							<button type="button" class="toSay btn-default-36">读取设备</button>
 							<button type="button" class="toDo btn-default-36" id="detailcustinfo" title="查看">详情</button>
 						</nav>
@@ -221,13 +221,14 @@ ${inc:/action/project/fitness/home/pub}
 								<th>卡类型</th>
 							    <th>姓名</th>		
 							    <th>手牌号</th>
-								<th>会籍</th>
+								<th>操作人</th>
 							    <th>入场日期</th>
 							    <th>签到人数</th>
 							    <th>入场时间</th>
 								<th>离场时间</th>
 							    <th>在场时间</th>
 							    <th>截止日期</th>
+							    <th>备注</th>
 							</tr>
 						</thead>
 						<tbody id="datagridTemplate" style="display:none">
@@ -243,6 +244,7 @@ ${inc:/action/project/fitness/home/pub}
 				                <td>#lefttime#</td>
 				        		<td>#presencedate#</td>
 				        		<td>#enddate#</td>
+				        		<td>#remark#</td>
 							</tr>
 						</tbody>
 						<tbody id="datagrid">
@@ -297,7 +299,6 @@ $(document).ready(function() {
 		$("#errorinfo").html("暂无数据");
 	 }); 
 	//查询会员卡信息
-
 	$("#search_card").click(function(){
 		// add by leo 190227 避免重复提交
 		if(notSearching && $(".modal-backdrop").length == 0){
@@ -328,7 +329,6 @@ $(document).ready(function() {
 				}
 			}
 		}
-		
 	});
 	//查看会员明细
 	$("#detailcustinfo").click(function(){

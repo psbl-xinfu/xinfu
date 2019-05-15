@@ -8,7 +8,7 @@
 	    	"vc_tempcabinet":"${fld:cabinettempcode@js}",
 		    "name":"${fld:name@js}",
 	    	"vc_type":"${fld:vc_type@js}",
-			"c_initime":"${fld:intime@yyyy-MM-dd}",
+			"c_initime":"${fld:indate@yyyy-MM-dd}",
 			"c_initime_time":"${fld:intime@HH:mm:ss}",
 			"lefttime":"${fld:lefttime@HH:mm:ss}",
 			"presencedate":"",
@@ -19,7 +19,8 @@
 			"jslefttime":"${fld:jslefttime@yyyy-MM-dd HH:mm:ss}",
 			"jsintime":"${fld:jsintime@yyyy-MM-dd HH:mm:ss}",
     	    "vc_remark":"${fld:remark@js}",
-        	"signednumber":"${fld:signednumber}"
+        	"signednumber":"${fld:signednumber}",
+        	"remark":"${fld:remark}"
 	},
 	</rows>
 	{}

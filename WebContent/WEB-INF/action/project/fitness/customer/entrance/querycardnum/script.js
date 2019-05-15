@@ -16,12 +16,12 @@ $("#unionorgid").val("");
 if(count==1){
 	$("#checkedcard").val(cardcode);
 	if(status!="1"){
-		ccms.dialog.notice("该卡状态为"+statusname, 10000, function(){
+		ccms.dialog.notice("该卡状态为"+statusname, 3000, function(){
 			//过期清空
-			/*if(status==6){
+			if(status==6){
 				$("#clearform").click();
 				return;
-			}*/
+			}
 		});
 	}
 }

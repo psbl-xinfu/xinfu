@@ -17,8 +17,8 @@
     on-error-label="此客户现金储值金额、运动基金（赠送）余额都为0，不能入场！" id="errorinfo" sql="noRep-money.sql" />
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
    	on-error-label="该门店正在放假中，不能入场！" id="errorinfo" sql="nodup-date.sql" />
-    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
-   	on-error-label="该卡类型已禁用，不能入场！" id="errorinfo" sql="noRep-cardtype.sql" />
+    <!--<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该卡类型已禁用，不能入场！" id="errorinfo" sql="noRep-cardtype.sql" />-->
 </validator>
 			
 
