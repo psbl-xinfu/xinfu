@@ -3,60 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
   version="1.8">
-    <!-- copy syn  -->
-   <!--  <schedule>
-        <job>
-            <name>job_syncOrg</name>
-	      	<group>group1</group>
-	      	<job-class>transactions.project.rofine.shciq.SyncOrg</job-class>
-        </job>
-        <trigger>
-            <cron>
-                <name>syncOrg</name>
-	        	<group>group1</group>
-	        	<job-name>job_syncOrg</job-name>
-	        	<job-group>group1</job-group>
-                <cron-expression>0/30 * * * * ?</cron-expression>
-            </cron>
-        </trigger>
-        
-        <job>
-            <name>job_syncStaff</name>
-	      	<group>group2</group>
-	      	<job-class>transactions.project.rofine.shciq.SyncStaff</job-class>
-        </job>
-        <trigger>
-            <cron>
-                <name>syncStaff</name>
-	        	<group>group2</group>
-	        	<job-name>job_syncStaff</job-name>
-	        	<job-group>group2</job-group>
-                <cron-expression>* 0/5 * * * ?</cron-expression>
-            </cron>
-        </trigger>
-    </schedule>
-    
-    
-    
-    <schedule>
-		<job>
-			<name>job_sendSMS</name>
-			<group>group1</group>
-			<job-class>transactions.project.rofine.job.SendSMSJob</job-class>
-		</job>
-		<trigger>
-			<cron>
-				<name>con_sendSMS</name>
-				<group>group1</group>
-				<job-name>job_sendSMS</job-name>
-				<job-group>group1</job-group>
-				<cron-expression>0/2 * * * * ?</cron-expression>
-			</cron>
-		</trigger>
-	</schedule> -->
-
-	
-	<schedule>
+   <schedule>
         <!-- 会籍部个人数据统计 -->
         <job>
             <name>job_mcDataStatistics</name>
@@ -137,6 +84,134 @@
 				<job-name>job_MemberAccount</job-name>
 				<job-group>group1</job-group>
 				<cron-expression>0 0/2 * * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	
+	
+	
+	
+	
+	<!-- 缺少的代码 -->
+	<!-- 储物柜到期提示 -->
+		<schedule>
+		<job>
+			<name>job_cabinet</name>
+			<group>group1</group>
+			<job-class>transactions.project.fitness.job.CabinetJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>con_cabinet</name>
+				<group>group1</group>
+				<job-name>job_cabinet</job-name>
+				<job-group>group1</job-group>
+				<cron-expression>0 0 1 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	
+	<!-- 原参森卡限时启用 -->
+	<!-- <schedule>
+		<job>
+			<name>job_card</name>
+			<group>group1</group>
+			<job-class>transactions.project.fitness.job.CardJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>con_card</name>
+				<group>group1</group>
+				<job-name>job_card</job-name>
+				<job-group>group1</job-group>
+				<cron-expression>0 10 1 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule> -->
+	<!-- 合同相关处理 -->
+	<schedule>
+		<job>
+			<name>job_contract</name>
+			<group>group1</group>
+			<job-class>transactions.project.fitness.job.ContractJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>con_contract</name>
+				<group>group1</group>
+				<job-name>job_contract</job-name>
+				<job-group>group1</job-group>
+				<cron-expression>0 20 1 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	
+	<!-- 客户资源超过分配次数、预约过期、爽约处理就会成为公海资源 -->
+	<schedule>
+		<job>
+			<name>job_guestPrepare</name>
+			<group>group1</group>
+			<job-class>transactions.project.fitness.job.GuestPrepareJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>con_guestPrepare</name>
+				<group>group1</group>
+				<job-name>job_guestPrepare</job-name>
+				<job-group>group1</job-group>
+				<cron-expression>0 30 1 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	
+	<!-- 合同序列按天计算 -->
+	<schedule>
+		<job>
+			<name>job_Sequence</name>
+			<group>group1</group>
+			<job-class>transactions.project.fitness.job.SequenceJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>con_SequenceJob</name>
+				<group>group1</group>
+				<job-name>job_Sequence</job-name>
+				<job-group>group1</job-group>
+				<cron-expression>0 0 0 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	<!-- 岗位任务 -->
+   <schedule>
+		<job>
+			<name>job_reportTask</name>
+			<group>group1</group>
+			<job-class>transactions.project.fitness.job.ReportTaskJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>con_reportTask</name>
+				<group>group1</group>
+				<job-name>job_reportTask</job-name>
+				<job-group>group1</job-group>
+				<cron-expression>0 30 23 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+	<!-- 私教课相关处理 -->
+	<schedule>
+		<job>
+			<name>job_ptclass</name>
+			<group>group1</group>
+			<job-class>transactions.project.fitness.job.PtclassJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>con_ptclass</name>
+				<group>group1</group>
+				<job-name>job_ptclass</job-name>
+				<job-group>group1</job-group>
+				<cron-expression>0 0 13 * * ?</cron-expression>
 			</cron>
 		</trigger>
 	</schedule>

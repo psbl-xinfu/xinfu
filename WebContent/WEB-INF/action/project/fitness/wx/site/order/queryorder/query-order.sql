@@ -18,9 +18,10 @@ from cc_siteusedetail sd
 left join cc_sitedef sdef on sd.sitecode = sdef.code and sd.org_id = sdef.org_id
 left join cc_customer cust on sd.customercode = cust.code and sd.org_id = cust.org_id
 left join cc_guest guest on sd.customercode = guest.code and sd.org_id = guest.org_id
-where customercode in (case when (select user_id from hr_staff where weixin_lastlogin = ${fld:weixin_userid}) is not null
-			then (select code from cc_customer where user_id = (select user_id from hr_staff where weixin_lastlogin = ${fld:weixin_userid}) )
-			when (select code from cc_guest where weixinlogin = ${fld:weixin_userid}) is not null
-			then (select code from cc_guest where weixinlogin = ${fld:weixin_userid} )
-		end)
+where sd.originator = (select code
+		from  
+		cc_customer
+		where user_id=(
+		select  user_id  from  hr_staff where userlogin='${def:user}' and org_id=${def:org})
+		and org_id=${def:org})
 order by sd.created desc

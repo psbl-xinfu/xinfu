@@ -1,5 +1,5 @@
 update cc_siteusedetail set 
-	paystatus=1,
+	paystatus=0,
 	premoney=${fld:normalmoney},
 	factmoney=${fld:normalmoney},
 	remark=${fld:remark},

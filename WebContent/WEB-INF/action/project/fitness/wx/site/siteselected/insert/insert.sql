@@ -20,7 +20,8 @@ insert into cc_siteusedetail
 	prepare_type,--1包场2拼场
 	createdby,--
 	created,--
-	org_id
+	org_id,
+	originator
 )
 values
 (
@@ -50,5 +51,11 @@ values
 	${fld:bcorpc},
 	null,
 	'${def:timestamp}',
-	${fld:org_id}
+	${fld:org_id},
+	(select code
+		from  
+		cc_customer
+		where user_id=(
+		select  user_id  from  hr_staff where userlogin='${def:user}' and org_id=${def:org})
+		and org_id=${def:org})
 )

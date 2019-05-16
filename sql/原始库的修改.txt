@@ -1,0 +1,3 @@
+//zyb add 添加字段生成账单人
+alter table cc_siteusedetail add originator varchar(20)
+COMMENT ON COLUMN "public"."cc_siteusedetail"."originator" IS '生成账单人';
