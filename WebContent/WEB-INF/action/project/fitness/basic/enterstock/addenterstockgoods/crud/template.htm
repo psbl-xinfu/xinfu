@@ -23,7 +23,7 @@ ${inc:/action/project/fitness/home/pub}
 							<input type="text" id="storage_name" placeholder="仓库" readonly="readonly" />
 						</li>
 						<li>
-							<label style="width: 240px;">商品：</label>
+							<label style="width: 120px;">商品：</label>
 							<select id="goodsid" name="goodsid" style="display: none;">
 								<option value="">请选择</option>
 								<goods-rows>
@@ -146,7 +146,8 @@ $(document).ready(function() {
 	if("${fld:status}"=="1"){
 		$("#addnew_btn,#updateli,#deleteli").show();
 	}
-	searchSelectInit($("#goodsid,#searchgoodsid"));
+	searchSelectInit($("#searchgoodsid"),"240px");
+	searchSelectInit($("#goodsid"));
 	var obj = $Crud({
 		formId : "formEditor",
 		button : "save_btn",
