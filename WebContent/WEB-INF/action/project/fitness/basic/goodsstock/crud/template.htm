@@ -24,7 +24,7 @@ ${inc:/action/project/fitness/home/pub}
 						  		</select>
 							</li>
 							<li class="inputName">
-						  		<select id="goodstuid" name="goodstuid" style="display: none;">
+						  		<select id="goodstuid" name="goodstuid" style="display: none;data-width="fit";">
 						  			<option value="">商品</option>
 						  			<goods-rows>
 						  				<option value="${fld:tuid}">${fld:goods_name}</option>
@@ -100,7 +100,9 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
-	searchSelectInit($("#storagetuid,#goodstuid"));
+	//searchSelectInit($("#storagetuid,#goodstuid"));
+	searchSelectInit($("#storagetuid"));
+	searchSelectInit($("#goodstuid"),"240px");
 	ccms.util.renderCheckbox("operation");
 	this.search=search;
 	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
