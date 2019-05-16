@@ -79,7 +79,7 @@ ${inc:/action/project/fitness/home/pub}
 								<select id="searchgoodsid" name="searchgoodsid" style="display: none;">
 									<option value="">商品</option>
 									<goods-rows-two>
-										<option value="${fld:tuid}">${fld:goods_name}</option>
+										<option value="${fld:tuid}" code_price="${fld:buyprice}">${fld:goods_name}</option>
 									</goods-rows-two>
 								</select>
 					 		</li>
@@ -146,7 +146,8 @@ $(document).ready(function() {
 	if("${fld:status}"=="1"){
 		$("#addnew_btn,#updateli,#deleteli").show();
 	}
-	searchSelectInit($("#goodsid,#searchgoodsid"));
+	searchSelectInit($("#searchgoodsid"),"240px");
+	searchSelectInit($("#goodsid"));
 	var obj = $Crud({
 		formId : "formEditor",
 		button : "save_btn",
@@ -228,6 +229,18 @@ $(document).ready(function() {
 	    });
 	}}).initSearchBtn().searchData(1);
 	
+	//选择商品加载事件 zzn
+	$("#goodsid").change(function(){
+		if(goodsid==""){
+			$("#amount,#price,#money,#factmoney").val("0");
+			return false;
+		}
+		var buy_price = $('#goodsid option:selected').attr('code_price');// 默认进货价		
+		$("#price").val(buy_price);//单价
+		var price = Number($("#price").val()).toFixed(2);
+		var amount = parseInt($("#amount").val());
+		$("#money,#factmoney").val((amount*price).toFixed(2));
+	});
 	//计算
 	$("#amount,#price").blur(function(){
 		var goodsid = $("#goodsid").val();
