@@ -34,18 +34,18 @@ public class JsSignature extends GenericTransaction {
 			org_id = String.valueOf(getSession().getAttribute("dinamica.user.org"));
 		}
 		
-		String weixin_userid = "";
+		String weixin_userid = "ojvid1cs001tiH8xnPk3r-1xYiwk";
 		String code = getRequest().getParameter("code");
 		Recordset r = new Recordset();
 		r.append("cust_code", java.sql.Types.VARCHAR);
 		r.append("weixin_user", java.sql.Types.VARCHAR);
 		r.addNew();
-		if( null != sid && sid.length() > 0 && null != code && code.length() > 0 ){
+		/*if( null != sid && sid.length() > 0 && null != code && code.length() > 0 ){
 			try{
 				weixin_userid = WeixinUtil.getWeixinUserIdForService(appid, secret, code);
 			}catch(Throwable e){
 			}
-		}
+		}*/
 
 		String realString = getRequest().getRequestURL().toString();
 		String urlString = realString.substring(0, 7).concat(realString.substring(7).replace("//", "/"));

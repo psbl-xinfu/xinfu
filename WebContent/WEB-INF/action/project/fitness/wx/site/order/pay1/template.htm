@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<title>家服云</title>
+${inc:/action/ccms/pub}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="${def:context}/js/project/o2o/weixin/css/wechatpay.css">
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<style>
+.saopic {
+	width: 250px;
+	height: 250px;
+}
+</style>
+</head>
+<body>
+	<!--页头-->
+	<div id="header">
+		<p>
+			<img src="${def:context}/images/project/o2o/tp.jpg" alt="" />
+			<span>收银台</span>
+		</p>
+	</div>
+	<div id="qfyPay">
+		<!--内容-->
+		<div id="content">
+			<div id="payInfo">
+				<!--描述-->
+				<div class="pay-ifno">
+					<p class="pay-desc">
+						&nbsp;&nbsp;&nbsp;&nbsp;请您及时付款，以便订单尽快处理！订单号：<span id="spanjyd">${fld:trade_order_code}</span>，
+						订单将在<span>24小时</span>后自动取消。
+					</p>
+					<div class="pay-price">
+						应付金额<span id="spanmoney">￥${fld:total_price}</span>元
+					</div>
+				</div>
+				<!--提交-->
+				<div class="modal-footer" id="save_btn_div">
+					<div class="col-xs-10 col-sm-8 col-md-6 col-lg-8 col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-lg-offset-2">
+						<button type="button" id="save_btn" class="btn btn-primary ">&nbsp;微&nbsp;信&nbsp;支&nbsp;付&nbsp;</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+$(document).ready(function() {
+	window.history.forward(1);	// 禁止返回
+		wx.config({
+    	    debug: false,
+    	    appId: "${fld:app_id}",
+    	    timestamp: "${fld:timestamp}",
+    	    nonceStr: "${fld:nonce_str}",
+    	    signature: "${fld:signature}",
+    	    jsApiList: ['chooseWXPay','checkJsApi','showOptionMenu','editAddress']
+    	});
+		wx.ready(function(){
+    		
+    	});
+		$("#save_btn").unbind().on("click",function(){	
+			var url = "/action/wx/service?type=3&service_tuid=${fld:service_id}&timestamp=${fld:timestamp}&noncestr=${fld:nonce_str}&out_trade_no=${fld:out_trade_no}&weixin_userid=${fld:weixin_userid}";
+			ajaxCall(url,{
+		        method: "post",
+		        progress: true,
+		        form: "formEditor",
+		        dataType: "json",
+		        success: function(data) {
+		        	wx.chooseWXPay({
+		        	    timestamp: data["timestamp"], // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+		        	    nonceStr: data["noncestr"], // 支付签名随机串，不长于 32 位
+		        	    package: data["package"], // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+		        	    signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+		        	    paySign: data["paysign"], // 支付签名
+		        	    success: function (res) {
+		        	        // 支付成功后的回调函数
+		    				$('#save_btn_div').hide();
+		        	        ccms.dialog.notice("支付成功。", 3000, function(){
+		        	        	/**var _uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:app_id}"  
+			        	   			 + "&redirect_uri=" + encodeURIComponent("${fld:server_path}//action/project/o2o/weixin/Order_History/crud?sid=${fld:service_id}") 
+			        				 + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";*/
+		        	        	var _uri = "${def:context}/action/project/o2o/weixin/Order_History/crud";
+		        	        	gotoPage(_uri);
+		        	        });
+		        	    }
+		        	});
+		        	
+		        }
+			});
+		});
+	});
+ </script>
+</html>

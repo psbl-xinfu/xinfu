@@ -17,7 +17,7 @@ $("#orderlist").html(orderlist);
 
 //支付
 function paysidef(code, normalmoney){
-	ajaxCall("${def:actionroot}/pay?code="+code+"&normalmoney="+normalmoney,{
+	ajaxCall("${def:actionroot}/pay1?code="+code,{
 		method:"get",
 		dataType:"script",
 		success:function(){

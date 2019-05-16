@@ -2,7 +2,7 @@ select
 	org.org_id,
 	org.org_name,
 	oi.address,
-	(select string_agg(DISTINCT cf.param_text, ';') from cc_config cf 
+	(select string_agg(DISTINCT cf.param_text, '£»') from cc_config cf 
 		where cf.category = 'sitetype' and cf.org_id = (case when 
 		not exists(select 1 from cc_config c where c.org_id = org.org_id and c.category=cf.category) 
 		then (select org_id from hr_org where pid is null or pid = 0) else org.org_id end)

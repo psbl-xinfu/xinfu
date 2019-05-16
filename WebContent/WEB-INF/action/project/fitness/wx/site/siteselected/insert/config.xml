@@ -9,8 +9,8 @@
 
     <request-encoding>UTF-8</request-encoding>
 
-	<colname>yydetialsitedef,yystarttime,yyendtime;yydetialsitedef,yystarttime,yyendtime;yydetialsitedef,yystarttime,yyendtime</colname>
-	<sql-template>insert-guest.sql;insert.sql;insert-saleorder.sql</sql-template>
+	<colname>yydetialsitedef,yystarttime,yyendtime;yydetialsitedef,yystarttime,yyendtime</colname>
+	<sql-template>insert-guest.sql;insert.sql</sql-template>
 
 	<transaction>
 		<classname>com.ccms.InsertMaster</classname>

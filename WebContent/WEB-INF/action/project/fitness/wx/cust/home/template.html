@@ -110,10 +110,8 @@ var customercode='';
         })
         $('#site').on('click',function(){
         	<servicetwo>
-        	location.href="${def:context}/action/project/fitness/wx/site/crud?response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-           /*  var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/site/crud";
-            alert("https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect");
-           	location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect"; */
+            var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/site/crud";
+           	location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
            	</servicetwo>
         })
         
