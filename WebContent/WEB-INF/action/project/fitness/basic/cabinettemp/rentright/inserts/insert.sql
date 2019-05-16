@@ -17,5 +17,5 @@ select
   ${def:org}
 from
 dual
-where  (select count(1) from cc_cabinettemp where  cabinettempcode=${fld:cabinetcode}) =0
+where  (select count(1) from cc_cabinettemp where  cabinettempcode=${fld:cabinetcode} and org_id=${def:org}) =0
 )
