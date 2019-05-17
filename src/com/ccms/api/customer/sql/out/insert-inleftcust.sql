@@ -4,7 +4,7 @@ insert into cc_inleft
 	customercode,--会员编号：表e_customer主键
 	--modified by leo 190401 自动入场不记录手牌
 	--cabinettempcode,--手牌
-	intime,--入场时间
+	lefttime,--入场时间
 	inuser,--入场操作人
 	indate,--入场日期
 	itemtype,--健身
@@ -33,6 +33,6 @@ values
 	${fld:typet},
 	${fld:remark},
 	(select cardtype from cc_card where
-		code = ${fld:cardcode} and org_id = ${fld:unionorgid})
+		code = ${fld:cardcode} and org_id = ${fld:unionorgid} and isgoon=0 and status=1)
 )
 

@@ -3,7 +3,7 @@ insert into cc_inleft
     code,--编号
 	customercode,--会员编号：表e_customer主键
 	intime,--入场时间
-	inuser,--入场操作人
+	lefttime,--入场操作人
 	indate,--入场日期
 	itemtype,--健身
 	bringother,--带朋友入场
@@ -25,6 +25,6 @@ values
 	${fld:typet},
 	${fld:remark},
 	(select cardtype from cc_card where
-		code = ${fld:cardcode} and org_id = ${fld:unionorgid})
+		code = ${fld:cardcode} and org_id = ${fld:unionorgid} and isgoon=0 and status=1)
 )
 

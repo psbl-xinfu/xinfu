@@ -25,6 +25,6 @@ values
 	${fld:typet},
 	${fld:remark},
 	(select cardtype from cc_card where
-		code = ${fld:cardcode} and org_id = ${fld:unionorgid})
+		code = ${fld:cardcode} and org_id = ${fld:unionorgid} and isgoon=0 and status=1)
 )
 
