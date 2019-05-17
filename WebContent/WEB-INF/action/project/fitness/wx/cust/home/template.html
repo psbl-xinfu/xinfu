@@ -46,10 +46,10 @@
                     <img src="${def:context}/js/project/fitness/wx/image/huiyuanmyfankui.png" class="bottomimg" id="complaintsuggest">
                     <p class="name">意见反馈</p>
                 </div>
-               <div class="col-xs-4">
+              <!--  <div class="col-xs-4">
                         <img src="${def:context}/js/project/fitness/wx/image/yuyue.png" class="bottomimg" id="site">
                         <p class="name">场地预约</p>
-                </div>
+                </div> -->
         
             </div>
         </div>
@@ -108,12 +108,12 @@ var customercode='';
     	$('#tuancao').on('click',function(){
         	location.href="${def:context}/action/project/fitness/wx/cust/tuancao/list/crud?customercode="+customercode;
         })
-        $('#site').on('click',function(){
+        /* $('#site').on('click',function(){
         	<servicetwo>
             var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/site/crud";
            	location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
            	</servicetwo>
-        })
+        }) */
         
     });
     
