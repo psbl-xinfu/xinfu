@@ -8,6 +8,9 @@ select
 	cust.mobile,
 	card.startdate,
 	card.enddate,
+	(case when ct.type=1 then concat(card.count,'次') 
+  when ct.type=0 then concat(card.totalday,'天') 
+	else '--' end) as count,--卡权益
 	 (case when ct.type=1 then concat(card.nowcount,'次') 
   when ct.type=0 then concat(date_part('day',enddate-now()),'天') 
 	else '--' end) as nowcount,

@@ -8,7 +8,10 @@ select
 	(case when card.status=0 then '无效' when card.status=1 then '正常' when card.status=2 then '未启用'
 		  when card.status=3 then '存卡中' when card.status=4 then '挂失中' when card.status=5 then '停卡中'
 		  when card.status=6 then '过期' end) as status,
-	(select name from hr_staff where userlogin = cust.mc) as mcstaff,
+	(select name from hr_staff where userlogin = cust.mc) as mcstaff,	
+		(case when ct.type=1 then concat(card.count,'次') 
+  when ct.type=0 then concat(card.totalday,'天') 
+	else '--' end) as count,--卡权益	
 	(case when ct.type=1 then concat(card.nowcount,'次') 
   when ct.type=0 then concat(date_part('day',enddate-now()),'天') 
 	else '--' end) as nowcount,
