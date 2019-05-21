@@ -450,12 +450,12 @@ str+='<li>'
 str+='<label>享受</label>'
 str+='<select class="normal-select salesChoice" name="storage" onchange="listValadate(this,'+objs+',\'salesChoice\')">'
 str+='<option value="">全部项目</option>'
-/* str+='<option value="z1">点餐折扣定义</option>'
+str+='<option value="z1">点餐折扣定义</option>'
 str+='<option value="z2">饮品折扣定义</option>'
 str+='<option value="z3">健身折扣定义</option>'
-str+='<option value="z4">游泳折扣定义</option>' */
+str+='<option value="z4">游泳折扣定义</option>'
 str+='<option value="z5">单次消费折扣定义</option>'
-/* str+='<option value="z6">团操扣费折扣定义</option>' */
+str+='<option value="z6">团操扣费折扣定义</option>'
 str+='</select>'
 	
 str+='	<label >折扣</label>'
@@ -512,7 +512,9 @@ function save(){
 	$('.salesChoice').each(function(){
 		var id=$(this).val();
 		if(id!=""){
-			var val=$(this).parent().next().next().children().val();
+			// modified by leo 190521 修正无法取折扣值问题
+			//var val=$(this).parent().next().next().children().val();
+			var val=$(this).next().next().val();
 			$('#'+id).val(val);
 		}
 	})
