@@ -83,7 +83,8 @@ $('.timeChoice').eq(len).parent().find("input[name=endtime1]").val("${fld:endtim
 
 
 <rows-discount>
-appendSale();
+//add by leo 20190521 解决修改折扣重复显示问题
+//appendSale();
 var len=$('.salesChoice').length-1;
 $('.salesChoice').eq(len).val('${fld:storage}');
 $('.salesChoice').eq(len).parent().find("input[name=discount]").val("${fld:discount}");
