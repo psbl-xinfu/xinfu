@@ -448,7 +448,7 @@ $(document).ready(function() {
 		 var moneydetail = "";
 		/* var i_paytype = ccms.util.getRadioValue("i_paytype", "formEditor"); */
 		var f_normalmoney = $("#f_normalmoney").val();//应收金额
-		alert(f_normalmoney);
+
 		//获取所有支付类型option
 		$("#paymethodbin").find("option").each(function(idx,ele){
 			if( "" != $(ele).attr("code") ){
@@ -479,8 +479,11 @@ $(document).ready(function() {
 	   	var f_money=$("#f_money").val();
 		//根据会员卡类型设置折扣进行打折
 		if($("#cardcode").val()!=""){
-			$("#vc_rebate").val((Number($("#cardcode").val())).toFixed(2));
-			f_money = f_money-Number($("#cardcode").val());
+			//zzn 折扣按百分比计算
+			//$("#vc_rebate").val((Number($("#cardcode").val())).toFixed(2));
+			//f_money = f_money-Number($("#cardcode").val());
+			$("#vc_rebate").val(f_money*(Number($("#cardcode").val())).toFixed(2));
+			f_money = f_money-Number($("#vc_rebate").val());
 		}
 		$("#f_normalmoney").val(f_money.toFixed(2));
 	});
