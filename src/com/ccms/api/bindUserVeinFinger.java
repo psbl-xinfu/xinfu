@@ -30,8 +30,8 @@ public class bindUserVeinFinger extends GenericTransaction {
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-		Integer tuid = 0;
-		String qrcodePath="成功";
+		Integer tuid = 1;
+		String qrcodePath="失败";
 		// add by leo 190329 增加返回接口参数定义
 		String errcode="1"; // 为0通过，为1不通过
 		String errmsg="验证未开始";
@@ -46,7 +46,7 @@ public class bindUserVeinFinger extends GenericTransaction {
 		String operatelogsql = getLocalResource(basePath+"insert-operatelog.sql");
 		operatelogsql = getSQL(operatelogsql, inputParams);
 		
-		
+		System.out.println("---------------------------------");
 		try {
 			// 验证参数
 			//商家授权id，可使用验证设备有效性
@@ -88,7 +88,6 @@ public class bindUserVeinFinger extends GenericTransaction {
 			Recordset querydevice= db.get(devicesql);
 			if( null == querydevice || querydevice.getRecordCount() <= 0 ){
 				qrcodePath="读取设备号失败！"+deviceID;
-				tuid=1;
 				String operatelogsql1 = getLocalResource(basePath+"insert-operatelogorg.sql");
 				operatelogsql1 = getSQL(operatelogsql1, inputParams);
 				operatelogsql1 = StringUtil.replace(operatelogsql1, "${fld:remark}", "'"+qrcodePath+"'");
@@ -108,12 +107,27 @@ public class bindUserVeinFinger extends GenericTransaction {
 			custsql = StringUtil.replace(custsql, "${fld:uid}", "'"+uid+"'");
 			Recordset querycust= db.get(custsql);
 			if( null == querycust || querycust.getRecordCount() <= 0 ){
-				qrcodePath="未找到该会员"+uid;
-				tuid=1;
-				save(operatelogsql, qrcodePath, deviceID, uid, xdate, intime, orgId);
-				throw new Throwable(qrcodePath);
+				String staffsql = getLocalResource(basePath+"query-staff.sql");
+				staffsql = getSQL(staffsql, inputParams);
+				staffsql = StringUtil.replace(staffsql, "${fld:uid}", "'"+uid+"'");
+				staffsql = StringUtil.replace(staffsql, "${fld:org}", "'"+orgId+"'");
+				Recordset querystaff= db.get(staffsql);
+				if( null == querystaff || querystaff.getRecordCount() <= 0 ){
+					qrcodePath="未找到该会员或教练"+uid;
+					tuid=1;
+					save(operatelogsql, qrcodePath, deviceID, uid, xdate, intime, orgId);
+					throw new Throwable(qrcodePath);
+				}else {
+					tuid=0;
+					qrcodePath="成功";
+					save(operatelogsql, qrcodePath, deviceID, uid, xdate, intime, orgId);
+				}
+				
 				
 			}else {
+				
+				tuid=0;
+				qrcodePath="成功";
 				save(operatelogsql, qrcodePath, deviceID, uid, xdate, intime, orgId);
 			}
 			

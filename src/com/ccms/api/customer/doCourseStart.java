@@ -18,8 +18,8 @@ public class doCourseStart extends GenericTransaction{
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-		Integer tuid = 0;
-		String qrcodePath="成功";
+		Integer tuid = 1;
+		String qrcodePath="失败";
 		String basePath = "/com/ccms/api/customer/docoursestartsql/";
 		Date beginDate = new Date();
 		Recordset getCourseInfo = new Recordset();
@@ -32,16 +32,20 @@ public class doCourseStart extends GenericTransaction{
 		operatelogsql = getSQL(operatelogsql, inputParams);
 		String org_id="";
 		String ptrestcode="";
+		String appid="";
+		String reservationID="";
+		String employeeId="";
+		String userId ="";
 		try {
 			//场馆KEY
-			String appid = inputParams.containsField("appid") ? inputParams.getString("appid") : "";
+			appid = inputParams.containsField("appid") ? inputParams.getString("appid") : "";
 			if( null == appid || "".equals(appid) ){
 				qrcodePath="提交参数appid不能为空";
 				throw new Throwable(qrcodePath);
 			}
 			
 			//课程预约ID
-			String reservationID = inputParams.containsField("reservationID") ? inputParams.getString("reservationID") : "";
+			reservationID = inputParams.containsField("reservationID") ? inputParams.getString("reservationID") : "";
 			if( null == reservationID || "".equals(reservationID) ){
 				qrcodePath="课程预约ID不能为空";
 				throw new Throwable(qrcodePath);
@@ -49,14 +53,14 @@ public class doCourseStart extends GenericTransaction{
 			
 			
 			//	员工教练ID
-			String employeeId = inputParams.containsField("employeeId") ? inputParams.getString("employeeId") : "";
+			employeeId = inputParams.containsField("employeeId") ? inputParams.getString("employeeId") : "";
 			if( null == employeeId || "".equals(employeeId) ){
 				qrcodePath="员工教练ID不能为空";
 				throw new Throwable(qrcodePath);
 			}
 			
 			//	会员ID
-			String userId = inputParams.containsField("userId") ? inputParams.getString("userId") : "";
+		    userId = inputParams.containsField("userId") ? inputParams.getString("userId") : "";
 			if( null == userId || "".equals(userId) ){
 				qrcodePath="会员ID不能为空";
 				throw new Throwable(qrcodePath);
@@ -70,8 +74,6 @@ public class doCourseStart extends GenericTransaction{
 			Recordset queryatube= db.get(atubesql);
 			if( null == queryatube || queryatube.getRecordCount() <= 0 ){
 				qrcodePath="未找到该门店。appid："+appid+";教练编号："+employeeId+";会员编号"+userId;
-				tuid=1;
-				saveorg(operatelogsql, qrcodePath, appid, employeeId, xdate, intime);
 				throw new Throwable(qrcodePath);
 				
 			}
@@ -86,8 +88,6 @@ public class doCourseStart extends GenericTransaction{
 			Recordset queryptrestcode = db.get(ptrestcodesql);
 			if( null == queryptrestcode || queryptrestcode.getRecordCount() <= 0 ){
 				qrcodePath="未找到该会员的课程。会员编号："+userId;
-				tuid=1;
-				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 				
 			}
@@ -105,8 +105,6 @@ public class doCourseStart extends GenericTransaction{
 				queryprepare.first();
 				String preparedate=queryprepare.getString("preparedate");
 				qrcodePath="该会员不能签到，请确认时间或状态。会员编号："+userId+";上课日期为："+preparedate;
-				tuid=1;
-				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 				
 			}
@@ -118,8 +116,6 @@ public class doCourseStart extends GenericTransaction{
 			Recordset query = db.get(querysql);
 			if(  null == query || query.getRecordCount() <= 0  ){
 				qrcodePath="该会员未预约课程。会员编号："+userId;
-				tuid=1;
-				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 				
 			}
@@ -127,16 +123,12 @@ public class doCourseStart extends GenericTransaction{
 			String customercode=query.getString("customercode");
 			if(!customercode.equals(userId)){
 				qrcodePath="该会员验证未通过。会员编号："+userId;
-				tuid=1;
-				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 				
 			}
 			String ptid=query.getString("ptid");
 			if(!ptid.equals(employeeId)){
 				qrcodePath="该教练验证未通过。教练编号："+employeeId;
-				tuid=1;
-				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 				
 			}
@@ -161,10 +153,12 @@ public class doCourseStart extends GenericTransaction{
 			insertptlogsql = StringUtil.replace(insertptlogsql, "${fld:employeeId}", "'"+employeeId+"'");
 			db.addBatchCommand(insertptlogsql);
 			db.exec();
-			save(operatelogsql, qrcodePath, employeeId,userId , xdate, intime, org_id);
+			is_success=true;
+			qrcodePath="成功";
 		} catch(Throwable t) {
 			t.printStackTrace();
 		} finally {
+			save(operatelogsql, qrcodePath, employeeId,userId , xdate, intime, org_id);
 			getCourseInfo.append("is_success", Types.VARCHAR);
 			getCourseInfo.append("msg", Types.VARCHAR);
 			getCourseInfo.addNew();

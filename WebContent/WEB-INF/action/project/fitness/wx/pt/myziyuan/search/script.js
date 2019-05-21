@@ -17,7 +17,7 @@ function appendCust(code,name,sex,mobile,lasttime,headpic) //增加会员
 		        "<p class='time'>最近跟进："+lasttime+"</p>"+
 		    "</div>"+
 		    '</a>'+
-		    "<a href='tel:${fld:mobile}' > <img src='${def:context}/js/project/fitness/wx/image/tel.png' class='telpic fr'></a>"+
+		    '<a href="tel:'+mobile+'" > <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"></a>'+
 		'</div>'
 	
 	$('.myziyuanlistbody').append(html);

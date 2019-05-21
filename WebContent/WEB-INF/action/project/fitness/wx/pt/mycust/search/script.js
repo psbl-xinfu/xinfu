@@ -8,7 +8,7 @@ $('.list').remove();
 
 function appendCust(code,name,sex,mobile,lasttime,headpic) //增加会员
 {
-	html=    "<div class='list' code="+code+">"+
+	html="<div class='list' code="+code+">"+
 		    '<img src="${def:context}'+headpic+'" class="touxiangpic fl">'+
 		   
 			"<a class='list_a' href='${def:context}/action/project/fitness/wx/pt/mycust/sijiaohuiyuanmsg?customercode="+code+"&type=pt'>"+
@@ -17,7 +17,7 @@ function appendCust(code,name,sex,mobile,lasttime,headpic) //增加会员
 		        "<p class='time'>最近跟进："+lasttime+"</p>"+
 		    "</div>"+
 		    '</a>'+
-		    "<a href='tel:${fld:mobile}' >  <img src='${def:context}/js/project/fitness/wx/image/tel.png' class='telpic fr' ></a>"+
+		   '<a href="tel:'+mobile+'">  <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr" ></a>'+
 		'</div>'
 	
 	$('.myhuiyuanlistbody').append(html);

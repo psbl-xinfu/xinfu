@@ -23,8 +23,8 @@ public class OpenDoorIn extends GenericTransaction {
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-		Integer tuid = 0;
-		String qrcodePath="入场成功";
+		Integer tuid = 1;
+		String qrcodePath="入场失败";
 		// add by leo 190329 增加返回接口参数定义
 		String errcode="1"; // 为0通过，为1不通过
 		String errmsg="验证未开始";
@@ -86,7 +86,6 @@ public class OpenDoorIn extends GenericTransaction {
 			Recordset rsOrgID = db.get(queryOrgId);
 			
 			if( null == rsOrgID || rsOrgID.getRecordCount() <= 0 ){
-				tuid=1;
 				qrcodePath="读取设备信息失败!设备号："+deviceID;
 				savedev(inleftAdddevSql, uid, tuid,deviceID, qrcodePath);
 				throw new Throwable(qrcodePath);
@@ -101,7 +100,6 @@ public class OpenDoorIn extends GenericTransaction {
 			Recordset queryMembersOrgId = db.get(membersOrgIdSql);
 			if( null == queryMembersOrgId || queryMembersOrgId.getRecordCount() <= 0 ){
 				qrcodePath="失败：未找到该会员!会员编号："+uid;
-				tuid=1;
 				savecust(inleftAddcustSql, uid, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 				
@@ -113,7 +111,6 @@ public class OpenDoorIn extends GenericTransaction {
 			String memberMobile=queryMembersOrgId.getString("mobile");
 			if(null == membersCardcode || membersCardcode == "") {
 				qrcodePath="失败：未设置默认卡！手机号："+memberMobile;
-				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 			}
@@ -127,7 +124,6 @@ public class OpenDoorIn extends GenericTransaction {
 			
 			if( null == queryCardEnddate || queryCardEnddate.getRecordCount() <= 0 ){
 				qrcodePath="失败：该卡异常，请确认！";
-				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 				
@@ -140,7 +136,6 @@ public class OpenDoorIn extends GenericTransaction {
 			Date yenddate = df.parse(enddate);
 			if(xdate.getTime()>yenddate.getTime()) {
 				qrcodePath="失败：该卡已过期";
-				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 			}
@@ -154,7 +149,6 @@ public class OpenDoorIn extends GenericTransaction {
 			Recordset querycardtypesql = db.get(querycardtype);
 			if( querycardtypesql.getRecordCount() >= 1 ){
 				qrcodePath="失败：该卡类型已禁用，不能入场！";
-				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 			}
@@ -166,7 +160,6 @@ public class OpenDoorIn extends GenericTransaction {
 			Recordset queryorgdatesql = db.get(queryorgdate);
 			if( queryorgdatesql.getRecordCount() >= 1 ){
 				qrcodePath="失败：该门店正在放假中，不能入场！";
-				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 			}
@@ -179,7 +172,6 @@ public class OpenDoorIn extends GenericTransaction {
 			Recordset querynowcountsql = db.get(querynowcount);
 			if( querynowcountsql.getRecordCount() >= 1 ){
 				qrcodePath="失败：此卡剩余进场次数不足，不能进场！";
-				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 			}
@@ -217,6 +209,8 @@ public class OpenDoorIn extends GenericTransaction {
 			db.addBatchCommand(cardstartenddate);
 			save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 			db.exec();
+			tuid=0;
+			qrcodePath="成功";
 			// add by leo 190401 类里执行sql参考根据情况修改 end
 		} catch(Throwable t) {
 			t.printStackTrace();
