@@ -449,18 +449,18 @@ function appendSale(){
 str+='<li>'
 str+='<label>享受</label>'
 str+='<select class="normal-select salesChoice" name="storage" onchange="listValadate(this,'+objs+',\'salesChoice\')">'
-str+='<option value="">全部项目</option>'
-str+='<option value="z1">点餐折扣定义</option>'
+str+='<option value="">选择项目</option>'
+/* str+='<option value="z1">点餐折扣定义</option>' */
 str+='<option value="z2">饮品折扣定义</option>'
-str+='<option value="z3">健身折扣定义</option>'
-str+='<option value="z4">游泳折扣定义</option>'
+/* str+='<option value="z3">健身折扣定义</option>'
+str+='<option value="z4">游泳折扣定义</option>' */
 str+='<option value="z5">单次消费折扣定义</option>'
-str+='<option value="z6">团操扣费折扣定义</option>'
+/* str+='<option value="z6">团操扣费折扣定义</option>' */
 str+='</select>'
 	
 str+='	<label >折扣</label>'
 str+='	<input type="text" name="discount" maxlength="80" onblur="salesViladate(this)"/>'
-str+='<label >金额(元)</label>'
+str+='<label >%</label>'
 str+='<label  style="color:red" onclick="removeObj(this)">删除</label>'
 str+='</li>'		
 $('#salelist').append(str);
