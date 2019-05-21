@@ -29,7 +29,7 @@ if(count==1){
 if(count==1){
 	//statustype等于2说明是二维码刷卡   /** ${fld:custallcardvalue}入场是否查询会员所有卡  后台设置入场规则有设置  **/
 	if(statustype=="2"||"${fld:custallcardvalue}"=="0"){
-		var url="${def:context}${def:actionroot}/searchcard?custall="+custall+"&cardcode="+cardcode+"&unionorgid="
+		var url="${def:context}${def:actionroot}/searchcard?custall="+customercode+"&cardcode="+cardcode+"&unionorgid="
 			+unionorgid+"&checkedcard="+cardcode;
 		ajaxCall(url,{
 			method:"GET",
