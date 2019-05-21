@@ -9,8 +9,8 @@
  		select t.salemember from cc_contract t where t.code = d.contractcode and t.org_id = d.org_id 
  	) and org_id = ${def:org}) as salemember,--销售员
  	
- 		 (case when t.status =0 then '无效'  when t.status =1 then '正常'  when t.status =2 then '未启用'
- 		 when t.status =3 then '存卡中' when t.status =4 then '挂失中' when t.status =5 then '停卡中'
+ 		 (case when d.status =0 then '无效'  when d.status =1 then '正常'  when d.status =2 then '未启用'
+ 		 when d.status =3 then '存卡中' when d.status =4 then '挂失中' when d.status =5 then '停卡中'
  		 else '过期' end ) as cardstatus,
  	
  	

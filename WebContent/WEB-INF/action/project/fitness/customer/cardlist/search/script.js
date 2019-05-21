@@ -11,6 +11,7 @@
 		    "status":"${fld:status@js}",
 		    "cardtypename":"${fld:cardtypename@js}",
 		    "mcstaff":"${fld:mcstaff@js}",
+		    "count":"${fld:count@js}",
 		    "nowcount":"${fld:nowcount@js}"
 	},
 	</rows>

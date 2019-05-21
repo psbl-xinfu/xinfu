@@ -1,5 +1,5 @@
 {
-	"is_success": "${fld:is_success}",
+	"is_success": ${fld:is_success},
 	"msg": "${fld:msg}"
 }
 

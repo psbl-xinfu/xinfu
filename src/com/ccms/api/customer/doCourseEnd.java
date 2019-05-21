@@ -18,8 +18,8 @@ public class doCourseEnd extends GenericTransaction {
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-		Integer tuid = 0;
-		String qrcodePath="成功";
+		Integer tuid = 1;
+		String qrcodePath="失败";
 		String basePath = "/com/ccms/api/customer/doCourseEndsql/";
 		Date beginDate = new Date();
 		Recordset getCourseInfo = new Recordset();
@@ -32,16 +32,21 @@ public class doCourseEnd extends GenericTransaction {
 		operatelogsql = getSQL(operatelogsql, inputParams);
 		String org_id="";
 		String ptlogcode="";
+		String appid="";
+		String reservationID="";
+		String employeeId="";
+		String userId="";
+		String number="";
 		try {
 			//场馆KEY
-			String appid = inputParams.containsField("appid") ? inputParams.getString("appid") : "";
+			appid = inputParams.containsField("appid") ? inputParams.getString("appid") : "";
 			if( null == appid || "".equals(appid) ){
 				qrcodePath="提交参数appid不能为空";
 				throw new Throwable(qrcodePath);
 			}
 			
 			//课程预约ID
-			String reservationID = inputParams.containsField("reservationID") ? inputParams.getString("reservationID") : "";
+			reservationID = inputParams.containsField("reservationID") ? inputParams.getString("reservationID") : "";
 			if( null == reservationID || "".equals(reservationID) ){
 				qrcodePath="课程预约ID不能为空";
 				throw new Throwable(qrcodePath);
@@ -49,21 +54,21 @@ public class doCourseEnd extends GenericTransaction {
 			
 			
 			//	员工教练ID
-			String employeeId = inputParams.containsField("employeeId") ? inputParams.getString("employeeId") : "";
+			employeeId = inputParams.containsField("employeeId") ? inputParams.getString("employeeId") : "";
 			if( null == employeeId || "".equals(employeeId) ){
 				qrcodePath="员工教练ID不能为空";
 				throw new Throwable(qrcodePath);
 			}
 			
 			//	会员ID
-			String userId = inputParams.containsField("userId") ? inputParams.getString("userId") : "";
+			userId = inputParams.containsField("userId") ? inputParams.getString("userId") : "";
 			if( null == userId || "".equals(userId) ){
 				qrcodePath="会员ID不能为空";
 				throw new Throwable(qrcodePath);
 			}
 			
 			//	会员ID
-			String number = inputParams.containsField("number") ? inputParams.getString("number") : "";
+			number = inputParams.containsField("number") ? inputParams.getString("number") : "";
 			/*if( null == number || "".equals(number) ){
 				qrcodePath="此次课时数不能为空";
 				throw new Throwable(qrcodePath);
@@ -77,8 +82,6 @@ public class doCourseEnd extends GenericTransaction {
 			Recordset queryatube= db.get(atubesql);
 			if( null == queryatube || queryatube.getRecordCount() <= 0 ){
 				qrcodePath="未找到该门店。appid："+appid+";教练编号："+employeeId+";会员编号"+userId;
-				tuid=1;
-				saveorg(operatelogsql, qrcodePath, appid, employeeId, xdate, intime);
 				throw new Throwable(qrcodePath);
 				
 			}
@@ -95,8 +98,6 @@ public class doCourseEnd extends GenericTransaction {
 			Recordset queryptlogcode = db.get(ptlogcodesql);
 			if( null == queryptlogcode || queryptlogcode.getRecordCount() <= 0 ){
 				qrcodePath="未找到上课记录。会员编号："+userId+"教练编号："+employeeId;
-				tuid=1;
-				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 				
 			}
@@ -112,11 +113,10 @@ public class doCourseEnd extends GenericTransaction {
 				updatesql = StringUtil.replace(updatesql, "${fld:org}", "'"+org_id+"'");
 				db.addBatchCommand(updatesql);
 				db.exec();
-				save(operatelogsql, qrcodePath, employeeId,userId , xdate, intime, org_id);
+				is_success=true;
+				qrcodePath="成功";
 			}else {
 				qrcodePath="该课已签退。会员编号："+userId+"教练编号："+employeeId;
-				tuid=1;
-				save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 			}
 			
@@ -124,6 +124,7 @@ public class doCourseEnd extends GenericTransaction {
 		} catch(Throwable t) {
 			t.printStackTrace();
 		} finally {
+			save(operatelogsql, qrcodePath,employeeId , userId, xdate, intime, org_id);
 			getCourseInfo.append("is_success", Types.VARCHAR);
 			getCourseInfo.append("msg", Types.VARCHAR);
 			getCourseInfo.addNew();

@@ -3,11 +3,16 @@ package com.ccms.api.customer;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author 赵亚斌
  * @date 2019年4月23日
  * 实体映射为了把预约课程的信息转换成json格式返给前台
  */
+//解决序列化属性大小都存在的情况
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY, getterVisibility=JsonAutoDetect.Visibility.NONE)
 public class PrepareBean implements Serializable{
 	private String ReservationID;
 	private String ReservationTime;
@@ -21,6 +26,8 @@ public class PrepareBean implements Serializable{
 	private String ReservationNumber;
 	private String LessonStartTime;
 	private String LessonEndTime;
+	
+	
 	public String getReservationID() {
 		return ReservationID;
 	}
@@ -93,6 +100,7 @@ public class PrepareBean implements Serializable{
 	public void setLessonEndTime(String lessonEndTime) {
 		LessonEndTime = lessonEndTime;
 	}
+	
 	
 	
 	

@@ -26,8 +26,8 @@ public class getCourse extends GenericTransaction{
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-		Integer tuid = 0;
-		String qrcodePath="成功";
+		Integer tuid = 1;
+		String qrcodePath="失败";
 		// add by leo 190329 增加返回接口参数定义
 		String errcode="1"; // 为0通过，为1不通过
 		String errmsg="验证未开始";
@@ -43,16 +43,18 @@ public class getCourse extends GenericTransaction{
 		operatelogsql = getSQL(operatelogsql, inputParams);
 		String org_id="";
 		String eservation=null;
+		String appid="";
+		String employeeId="";
 		int status=0;
 		try {
 			//场馆KEY
-			String appid = inputParams.containsField("appid") ? inputParams.getString("appid") : "";
+			appid = inputParams.containsField("appid") ? inputParams.getString("appid") : "";
 			if( null == appid || "".equals(appid) ){
 				qrcodePath="提交参数appid不能为空";
 				throw new Throwable(qrcodePath);
 			}
 			//	员工教练ID
-			String employeeId = inputParams.containsField("employeeId") ? inputParams.getString("employeeId") : "";
+			employeeId = inputParams.containsField("employeeId") ? inputParams.getString("employeeId") : "";
 			if( null == employeeId || "".equals(employeeId) ){
 				qrcodePath="员工教练ID不能为空";
 				throw new Throwable(qrcodePath);
@@ -71,25 +73,33 @@ public class getCourse extends GenericTransaction{
 			Recordset queryatube= db.get(atubesql);
 			if( null == queryatube || queryatube.getRecordCount() <= 0 ){
 				qrcodePath="未找到该门店。appid："+appid+";教练编号："+employeeId;
-				tuid=1;
-				saveorg(operatelogsql, qrcodePath, appid, employeeId, xdate, intime);
 				throw new Throwable(qrcodePath);
 				
 			}
 			queryatube.first();
 			org_id=queryatube.getString("org_id");
 			
+			String staffsql= getLocalResource(basePath+"query-staff.sql");
+			staffsql = getSQL(staffsql, inputParams);
+			staffsql = StringUtil.replace(staffsql, "${fld:userlogin}", "'"+employeeId+"'");
+			staffsql = StringUtil.replace(staffsql, "${fld:org}", "'"+org_id+"'");
+			Recordset querystaffsql= db.get(staffsql);
+			if( null == querystaffsql || querystaffsql.getRecordCount() <= 0 ) {
+				qrcodePath="未找到该教练。教练编号:"+employeeId;
+				throw new Throwable(qrcodePath);
+			}
+			
 			//zyb 20190423 获取教练的所有的预约课程
 			String basesql = "SELECT" + 
 					"	p.code as ReservationID" + 
 					"	,(p.preparedate+p.preparetime) as ReservationTime" + 
 					"	,p.status as ReservationStatus" + 
-					"	,(select name from hr_staff where userlogin = p.ptid) as EmployeeName" + 
+					"	,(select name from hr_staff where userlogin = (case when d.reatetype=1 then c.pt else p.ptid end) and org_id=${fld:org}) as EmployeeName" + 
 					"	,p.customercode as MemberID" + 
 					"	,c.name as MemberName" + 
 					"	,c.mobile as MemberMobile" + 
 					"	,d.ptlevelname as LessonName" + 
-					"	,(case when p.status=2 then  g.leftcount::integer else pr.ptleftcount::integer end) as StillNumber" + 
+					"	,(case when p.status=2 then  g.leftcount::varchar else pr.ptleftcount::varchar end) as StillNumber" + 
 					"	,d.times as ReservationNumber" + 
 					"	,g.created as LessonStartTime" + 
 					"	,g.quittingtime as LessonEndTime" + 
@@ -115,36 +125,95 @@ public class getCourse extends GenericTransaction{
 			Recordset querybase = db.get(getSQL(basesql, null));
 			if( null == querybase || querybase.getRecordCount() <= 0 ){
 				qrcodePath="该教练没有预约课程。教练编号："+employeeId;
-				tuid=1;
-				save(operatelogsql, qrcodePath,appid , employeeId, xdate, intime, org_id);
 				throw new Throwable(qrcodePath);
 				
 			}
 			List<PrepareBean> list = new ArrayList<>();
 			while(querybase.next()){
 				PrepareBean bean =new PrepareBean();
-				bean.setEmployeeName(querybase.getString("employeename"));
-				bean.setLessonEndTime(querybase.getString("lessonendtime"));
-				bean.setLessonName(querybase.getString("lessonname"));
-				bean.setLessonStartTime(querybase.getString("lessonstarttime"));
-				bean.setMemberID(querybase.getString("memberid"));
-				bean.setMemberMobile(querybase.getString("membermobile"));
-				bean.setMemberName(querybase.getString("membername"));
-				bean.setReservationID(querybase.getString("reservationid"));
-				bean.setReservationNumber(querybase.getString("reservationnumber"));
-				bean.setReservationStatus(querybase.getString("reservationstatus"));
-				bean.setReservationTime(querybase.getString("reservationtime"));
-				bean.setStillNumber(querybase.getString("stillnumber"));
+				if(querybase.getString("employeename")==null) {
+					bean.setEmployeeName("");
+				}else {
+					bean.setEmployeeName(querybase.getString("employeename"));
+				}
+				
+				if(querybase.getString("lessonendtime")==null) {
+					bean.setLessonEndTime("");
+				}else {
+					bean.setLessonEndTime(querybase.getString("lessonendtime"));
+				}
+				
+				if(querybase.getString("lessonname")==null) {
+					bean.setLessonName("");
+				}else {
+					bean.setLessonName(querybase.getString("lessonname"));
+				}
+				
+				if(querybase.getString("lessonstarttime")==null) {
+					bean.setLessonStartTime("");
+				}else {
+					bean.setLessonStartTime(querybase.getString("lessonstarttime"));
+				}
+				
+				if(querybase.getString("memberid")==null) {
+					bean.setMemberID("");
+				}else {
+					bean.setMemberID(querybase.getString("memberid"));
+				}
+				
+				if(querybase.getString("membermobile")==null) {
+					bean.setMemberMobile("");
+				}else {
+					bean.setMemberMobile(querybase.getString("membermobile"));
+				}
+				
+				if(querybase.getString("membername")==null) {
+					bean.setMemberName("");
+				}else {
+					bean.setMemberName(querybase.getString("membername"));
+				}
+				
+				if(querybase.getString("reservationid")==null) {
+					bean.setReservationID("");
+				}else {
+					bean.setReservationID(querybase.getString("reservationid"));
+				}
+				
+				if(querybase.getString("reservationnumber")==null) {
+					bean.setReservationNumber("");
+				}else {
+					bean.setReservationNumber(querybase.getString("reservationnumber"));
+				}
+				
+				if(querybase.getString("reservationstatus")==null) {
+					bean.setReservationStatus("");
+				}else {
+					bean.setReservationStatus(querybase.getString("reservationstatus"));
+				}
+				
+				if(querybase.getString("reservationtime")==null) {
+					bean.setReservationTime("");
+				}else {
+					bean.setReservationTime(querybase.getString("reservationtime"));
+				}
+				
+				if(querybase.getString("stillnumber")==null) {
+					bean.setStillNumber("");
+				}else {
+					bean.setStillNumber(querybase.getString("stillnumber"));
+				}
+				
 				list.add(bean);
 			}
 			ObjectMapper mapper = new ObjectMapper();
 			eservation = mapper.writeValueAsString(list);
-	        		
-			save(operatelogsql, qrcodePath, appid,employeeId , xdate, intime, org_id);
-			
+			tuid=0;
+			qrcodePath="成功";
+			is_success=true;
 		} catch(Throwable t) {
 			t.printStackTrace();
 		} finally {
+			save(operatelogsql, qrcodePath, appid,employeeId , xdate, intime, org_id);
 			getCourseInfo.append("is_success", Types.VARCHAR);
 			getCourseInfo.append("msg", Types.VARCHAR);
 			getCourseInfo.append("eservation", Types.VARCHAR);

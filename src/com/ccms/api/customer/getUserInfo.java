@@ -96,54 +96,62 @@ public class getUserInfo extends GenericTransaction {
 			//获取当前时间
 			
 			if(codeType.equals("1")) {
-				String staffsql= getLocalResource(basePath+"query-staff.sql");
-				staffsql = getSQL(staffsql, inputParams);
-				staffsql = StringUtil.replace(staffsql, "${fld:userCode}", "'"+userCode+"'");
-				staffsql = StringUtil.replace(staffsql, "${fld:org}", "'"+orgId+"'");
-				Recordset querystaffsql= db.get(staffsql);
-				if( null == querystaffsql || querystaffsql.getRecordCount() <= 0 ){
-					
-					//根据手机号获取用户信息
-					String custsql = getLocalResource(basePath+"query-cust.sql");
-					custsql = getSQL(custsql, inputParams);
-					custsql = StringUtil.replace(custsql, "${fld:userCode}", "'"+userCode+"'");
-					custsql = StringUtil.replace(custsql, "${fld:org}", "'"+orgId+"'");
-					Recordset querycust= db.get(custsql);
-					if( null == querycust || querycust.getRecordCount() <= 0 ){
+				//根据手机号获取用户信息
+				String custsql = getLocalResource(basePath+"query-cust.sql");
+				custsql = getSQL(custsql, inputParams);
+				custsql = StringUtil.replace(custsql, "${fld:userCode}", "'"+userCode+"'");
+				custsql = StringUtil.replace(custsql, "${fld:org}", "'"+orgId+"'");
+				Recordset querycust= db.get(custsql);
+				if( null == querycust || querycust.getRecordCount() <= 0 ){
+					String staffsql= getLocalResource(basePath+"query-staff.sql");
+					staffsql = getSQL(staffsql, inputParams);
+					staffsql = StringUtil.replace(staffsql, "${fld:userCode}", "'"+userCode+"'");
+					staffsql = StringUtil.replace(staffsql, "${fld:org}", "'"+orgId+"'");
+					Recordset querystaffsql= db.get(staffsql);
+					if( null == querystaffsql || querystaffsql.getRecordCount() <= 0 ) {
 						qrcodePath="未找到该会员或教练。手机号:"+userCode;
 						tuid=1;
 						save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
 						throw new Throwable(qrcodePath);
-						
 					}
-					querycust.first();
-					uid=querycust.getString("uid");
-					name=querycust.getString("name");
-					sex=querycust.getString("sex");
-					userType="1";
-				}else {
 					querystaffsql.first();
 					uid=querystaffsql.getString("uid");
 					name=querystaffsql.getString("name");
 					sex=querystaffsql.getString("sex");
-					status=querystaffsql.getString("status");//1在职0离职
+					status=querystaffsql.getString("status");//1在职0离职3删除
 					if(status.equals("0")) {
 						qrcodePath="该员工已离职。手机号:"+userCode;
 						tuid=1;
 						save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
 						throw new Throwable(qrcodePath);
 					}
-					if(status.equals("2")) {
+					if(status.equals("3")) {
 						qrcodePath="该员工已删除。手机号:"+userCode;
 						tuid=1;
 						save(operatelogsql, qrcodePath, deviceID, userCode, xdate, intime, orgId);
 						throw new Throwable(qrcodePath);
 					}
-					userType="3";
+					
+					String skillsql= getLocalResource(basePath+"query-skill.sql");
+					skillsql = getSQL(skillsql, inputParams);
+					skillsql = StringUtil.replace(skillsql, "${fld:uid}", "'"+uid+"'");
+					skillsql = StringUtil.replace(skillsql, "${fld:org}", "'"+orgId+"'");
+					Recordset queryskillsql= db.get(skillsql);
+					queryskillsql.first();
+					 String num=queryskillsql.getString("num");
+					if(num.equals("1")) {
+						userType="3";
+					}else {
+						userType="2";
+					}
+				}else {
+					querycust.first();
+					uid=querycust.getString("uid");
+					name=querycust.getString("name");
+					sex=querycust.getString("sex");
+					userType="1";
 					
 				}
-				
-				
 				
 			}
 			if(codeType.equals("3")) {

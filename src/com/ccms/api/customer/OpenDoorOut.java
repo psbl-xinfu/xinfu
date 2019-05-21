@@ -23,8 +23,8 @@ public class OpenDoorOut extends GenericTransaction {
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-		Integer tuid = 0;
-		String qrcodePath="退场成功";
+		Integer tuid = 1;
+		String qrcodePath="退场失败";
 		// add by leo 190329 增加返回接口参数定义
 		String errcode="1"; // 为0通过，为1不通过
 		String errmsg="验证未开始";
@@ -91,7 +91,6 @@ public class OpenDoorOut extends GenericTransaction {
 			queryOrgId = StringUtil.replace(queryOrgId, "${fld:appid}", "'"+appid+"'");
 			Recordset rsOrgID = db.get(queryOrgId);
 			if( null == rsOrgID || rsOrgID.getRecordCount() <= 0 ){
-				tuid=1;
 				qrcodePath="读取设备信息失败!设备号："+deviceID;
 				savedev(inleftAdddevSql, uid, tuid,deviceID, qrcodePath);
 				throw new Throwable(qrcodePath);
@@ -106,7 +105,6 @@ public class OpenDoorOut extends GenericTransaction {
 			Recordset queryMembersOrgId = db.get(membersOrgIdSql);
 			if( null == queryMembersOrgId || queryMembersOrgId.getRecordCount() <= 0 ){
 				qrcodePath="失败：未找到该会员!会员编号："+uid;
-				tuid=1;
 				savecust(inleftAddcustSql, uid, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 				
@@ -119,7 +117,6 @@ public class OpenDoorOut extends GenericTransaction {
 			String memberMobile=queryMembersOrgId.getString("mobile");
 			if(null == membersCardcode || membersCardcode == "") {
 				qrcodePath="失败：未设置默认卡！手机号："+memberMobile;
-				tuid=1;
 				save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 				throw new Throwable(qrcodePath);
 			}
@@ -184,7 +181,8 @@ public class OpenDoorOut extends GenericTransaction {
 				}
 			}
 			
-			
+			tuid=0;
+			qrcodePath="成功";
 		} catch(Throwable t) {
 			t.printStackTrace();
 		} finally {
