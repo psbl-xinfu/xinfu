@@ -22,28 +22,28 @@ EXISTS(
 	WHERE c.code = d.customercode AND d.isgoon = 0 AND d.org_id = c.org_id AND d.status != 0 AND d.status != 6
 ) 
 
-AND (
-	case when ${fld:s_name} is  null  then
-	EXISTS(
+AND 
+	 EXISTS(
 	SELECT 1 FROM cc_ptrest t 
-	WHERE t.customercode = c.code AND t.ptleftcount > 0 AND t.pttype != 5 AND t.org_id = c.org_id AND t.ptid='${def:user}'
-	) 
-	else true end
-)
+	WHERE t.customercode = c.code AND t.ptleftcount > 0  
+	AND t.org_id = c.org_id AND  (t.ptid='${def:user}' or 
+	c.pt='${def:user}')
+) 
+
 
 and  c.org_id=${def:org}
 --性别
-and c.sex=(case when ${fld:s_sex} is null then c.sex else ${fld:s_sex} end)
+and (case when ${fld:s_sex} is null then 1=1 else c.sex=${fld:s_sex} end)
 and--收集开始日期
  c.created::date>=(case when ${fld:s_stime} is null then c.created::date else  ${fld:s_stime} end)
  and--收集结束日期
  c.created::date<=(case when ${fld:s_etime} is null then c.created::date else  ${fld:s_etime} end)
 --年龄
 and
-c.age = (case when ${fld:s_age} is null then c.age else  ${fld:s_age} end)	
+ (case when ${fld:s_age} is null then 1=1 else c.age =${fld:s_age} end)	
 --来源
 and
-c.type = (case when ${fld:s_type} is null then c.type else  ${fld:s_type} end)	
+(case when ${fld:s_type} is null then 1=1 else c.type =  ${fld:s_type} end)	
 ${filter}
  order by created desc
 
