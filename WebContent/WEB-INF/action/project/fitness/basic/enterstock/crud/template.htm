@@ -13,7 +13,9 @@ ${inc:/action/project/fitness/home/pub}
 				<span class="header-close" onclick="$('.close').click()"></span> <!--关闭按钮无效，调用函数触发旧按钮点击事件-->
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style='display:none;'>&times;</button>
 			</header>
-			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			<!--  add by leo 190521 避免ID冲突 -->
+			<!--  <form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post"> -->
+			<form id="formEditorStockIn" name="formEditorStockIn" class="form-horizontal" role="form" method="post">
 				<input type="hidden" id="tuid" name="tuid" value=""/>
 				<div class="modal-body b-i-main">
 					<nav>
@@ -38,7 +40,9 @@ ${inc:/action/project/fitness/home/pub}
 				</div>
 			</form>
 			<footer class="footer-default">
-			  <button type="button" id="save_btn">确&nbsp;定</button>
+			  <!-- add by leo 190521 避免ID冲突 -->
+			  <!-- <button type="button" id="save_btn">确&nbsp;定</button> -->
+			  <button type="button" id="save_btn_stockin">确&nbsp;定</button>
 			</footer>
 		</div>
 	</div>
@@ -143,9 +147,12 @@ $(document).ready(function() {
 	$Dialog().date($('#enter_date'));
 	$("#enter_date").val(new Date());
 	ccms.util.renderCheckbox("operation");
+	//formId:"formEditor",
+	//button:"save_btn",
+	// add by leo 190521 避免ID冲突
 	var obj = $Crud({
-		formId:"formEditor",
-		button:"save_btn",
+		formId:"formEditorStockIn",
+		button:"save_btn_stockin",
 		bpkField:"tuid",
 		insertBack:function(){
 			search.searchData();
@@ -162,7 +169,8 @@ $(document).ready(function() {
 		editBack:function(){
 		},
 		validate:function(){
-		   var flag=$("#formEditor").validate({
+		   // modified by leo 190521 避免ID冲突
+		   var flag=$("#formEditorStockIn").validate({
 			   rules : {
 				},
 				messages: {

@@ -34,20 +34,21 @@ public class JsSignature extends GenericTransaction {
 			org_id = String.valueOf(getSession().getAttribute("dinamica.user.org"));
 		}
 		
-		String weixin_userid = "ojvid1cs001tiH8xnPk3r-1xYiwk";
+		String weixin_userid = "";
 		String code = getRequest().getParameter("code");
 		Recordset r = new Recordset();
 		r.append("cust_code", java.sql.Types.VARCHAR);
 		r.append("weixin_user", java.sql.Types.VARCHAR);
 		r.addNew();
-		/*if( null != sid && sid.length() > 0 && null != code && code.length() > 0 ){
+		if( null != sid && sid.length() > 0 && null != code && code.length() > 0 ){
 			try{
 				weixin_userid = WeixinUtil.getWeixinUserIdForService(appid, secret, code);
 			}catch(Throwable e){
 			}
-		}*/
+		}
 
 		String realString = getRequest().getRequestURL().toString();
+//		System.out.println("realString: "+realString);
 		String urlString = realString.substring(0, 7).concat(realString.substring(7).replace("//", "/"));
 
 		StringBuffer sb = new StringBuffer();
@@ -63,17 +64,18 @@ public class JsSignature extends GenericTransaction {
 				sb.append("?" + key + "=" + value);
 			}
 		}
-		/*String jsapi_ticket = WeixinUtil.getJsTicket(db, sid);
+		String jsapi_ticket = WeixinUtil.getJsTicket(db, sid);
 		// 获得js初始化签名
+//		System.out.println("sb.toString(): "+sb.toString());
 		JSONObject jsonObject = WeixinUtil.signature(jsapi_ticket, sb.toString());
 		String nonce_str = jsonObject.getString("noncestr");
 		String timestamp = jsonObject.getString("timestamp");
-		String signature = jsonObject.getString("signature");*/
+		String signature = jsonObject.getString("signature");
 		
 		Recordset rsSignature = new Recordset();
-		/*rsSignature.append("noncestr", Types.VARCHAR);
+		rsSignature.append("noncestr", Types.VARCHAR);
 		rsSignature.append("timestamp", Types.VARCHAR);
-		rsSignature.append("signature", Types.VARCHAR);*/
+		rsSignature.append("signature", Types.VARCHAR);
 		rsSignature.append("service_tuid", Types.VARCHAR);
 		rsSignature.append("org_id", Types.VARCHAR);
 		rsSignature.append("appid", Types.VARCHAR);
@@ -85,9 +87,9 @@ public class JsSignature extends GenericTransaction {
         rsSignature.append("scheme", Types.VARCHAR);
 
 		rsSignature.addNew();
-	/*	rsSignature.setValue("noncestr", nonce_str);
+		rsSignature.setValue("noncestr", nonce_str);
 		rsSignature.setValue("timestamp", timestamp);
-		rsSignature.setValue("signature", signature);*/
+		rsSignature.setValue("signature", signature);
 		rsSignature.setValue("service_tuid", sid);
 		rsSignature.setValue("org_id", org_id);
 		rsSignature.setValue("appid", appid);
@@ -95,7 +97,7 @@ public class JsSignature extends GenericTransaction {
 		rsSignature.setValue("weixin_userid", weixin_userid);
 
 		rsSignature.setValue("url", realString);
-		/*rsSignature.setValue("jsapi_ticket", jsapi_ticket);*/
+		rsSignature.setValue("jsapi_ticket", jsapi_ticket);
 
         String scheme = getRequest().getScheme().toString();
         rsSignature.setValue("scheme", scheme);
