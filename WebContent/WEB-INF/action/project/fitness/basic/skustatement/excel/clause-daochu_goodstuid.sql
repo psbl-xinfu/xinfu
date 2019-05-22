@@ -1,0 +1,1 @@
+AND lg.goodsid = ${fld:daochu_goodstuid}

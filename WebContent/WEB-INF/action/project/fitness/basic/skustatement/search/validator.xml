@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="startdate" type="varchar" required="false" label="时间" />
+	<parameter id="enddate" type="varchar" required="false" label="时间" />
+	<parameter id="goodstuid" type="varchar" required="false" label="商品名称" />
+</validator>
