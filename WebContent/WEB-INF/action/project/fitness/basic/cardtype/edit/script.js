@@ -31,28 +31,32 @@ if("${fld:mealdiscount}"!=0){
 	appendSale();
 	var len=$('.salesChoice').length-1;
 	$('.salesChoice').eq(len).val('z1');
-	$('.salesChoice').eq(len).parent().next().next().children().val(parseInt("${fld:mealdiscount}"));
+	// modified by leo 190522 直接取折扣字段
+	$('.salesChoice').eq(len).next().next().val(parseInt("${fld:mealdiscount}"));
 }
 
 if("${fld:drinkdiscount}"!=0){
 	appendSale();
 	var len=$('.salesChoice').length-1;
 	$('.salesChoice').eq(len).val('z2');
-	$('.salesChoice').eq(len).parent().next().next().children().val(parseInt("${fld:drinkdiscount}"));
+	$('.salesChoice').eq(len).next().next().val(parseInt("${fld:drinkdiscount}"));
+	//$('.salesChoice').eq(len).parent().next().next().children().val(parseInt("${fld:drinkdiscount}"));
 }
 
 if("${fld:jsdiscount}"!=0){
 	appendSale();
 	var len=$('.salesChoice').length-1;
 	$('.salesChoice').eq(len).val('z3');
-	$('.salesChoice').eq(len).parent().next().next().children().val(parseInt("${fld:jsdiscount}"));
+	// modified by leo 190522 直接取折扣字段
+	$('.salesChoice').eq(len).next().next().val(parseInt("${fld:jsdiscount}"));
 }
 
 if("${fld:swimdiscount}"!=0){
 	appendSale();
 	var len=$('.salesChoice').length-1;
 	$('.salesChoice').eq(len).val('z4');
-	$('.salesChoice').eq(len).parent().next().next().children().val(parseInt("${fld:swimdiscount}"));
+	// modified by leo 190522 直接取折扣字段
+	$('.salesChoice').eq(len).next().next().val(parseInt("${fld:swimdiscount}"));
 }
 
 
@@ -60,7 +64,7 @@ if("${fld:singlediscount}"!=0){
 	appendSale();
 	var len=$('.salesChoice').length-1;
 	$('.salesChoice').eq(len).val('z5');
-	$('.salesChoice').eq(len).parent().next().next().children().val(parseInt("${fld:singlediscount}"));
+	$('.salesChoice').eq(len).next().next().val(parseInt("${fld:singlediscount}"));
 }
 
 if("${fld:classdiscount}"!=0){
@@ -81,12 +85,13 @@ $('.timeChoice').eq(len).parent().find("input[name=starttime1]").val("${fld:star
 $('.timeChoice').eq(len).parent().find("input[name=endtime1]").val("${fld:endtime1}");
 </rows2>
 
-
-<rows-discount>
 //add by leo 20190521 解决修改折扣重复显示问题
+//<rows-discount>
+
 //appendSale();
-var len=$('.salesChoice').length-1;
-$('.salesChoice').eq(len).val('${fld:storage}');
-$('.salesChoice').eq(len).parent().find("input[name=discount]").val("${fld:discount}");
-</rows-discount>
+//var len=$('.salesChoice').length-1;
+//$('.salesChoice').eq(len).val('${fld:storage}');
+//add by leo 20190522 解决修改多行折扣修改第一行不显示问题
+//$('.salesChoice').eq(len).parent().find("input[name=discount]").val("${fld:discount}");
+//</rows-discount>
 
