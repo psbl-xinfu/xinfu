@@ -27,7 +27,7 @@ ${inc:/action/project/fitness/home/pub}
 							<select id="goodsid" name="goodsid" style="display: none;">
 								<option value="">请选择</option>
 								<goods-rows>
-									<option value="${fld:tuid}">${fld:goods_name}</option>
+									<option value="${fld:tuid}" code_price="${fld:buyprice}">${fld:goods_name}</option>
 								</goods-rows>
 							</select>
 						</li>
@@ -79,7 +79,7 @@ ${inc:/action/project/fitness/home/pub}
 								<select id="searchgoodsid" name="searchgoodsid" style="display: none;">
 									<option value="">商品</option>
 									<goods-rows-two>
-										<option value="${fld:tuid}" code_price="${fld:buyprice}">${fld:goods_name}</option>
+										<option value="${fld:tuid}">${fld:goods_name}</option>
 									</goods-rows-two>
 								</select>
 					 		</li>
