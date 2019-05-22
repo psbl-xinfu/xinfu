@@ -341,7 +341,10 @@ $(document).ready(function() {
 			$("#formTitle").html("修改");
 		},
 		validate:function(){
-			save();
+			// modified by leo 如果保存验证未通过，不提交
+			if(!save()){
+				return false;
+			}
 			var flag=$("#formEditor").validate({
 		});
 			return flag;
@@ -506,9 +509,17 @@ $Dialog().time($('.times'));
 
 function removeObj(obj){
 	$(obj).parent().remove();
+	// add by leo 190522 删除操作时，清空已有隐藏折扣数据。
+	$('#z1').val("");
+	$('#z2').val("");
+	$('#z3').val("");
+	$('#z4').val("");
+	$('#z5').val("");
+	$('#z6').val("");
 }
 
 function save(){
+	var saveResult=true;
 	$('.salesChoice').each(function(){
 		var id=$(this).val();
 		if(id!=""){
@@ -517,8 +528,14 @@ function save(){
 			var val=$(this).next().next().val();
 			$('#'+id).val(val);
 		}
+		// add by leo 190522 项目项目未选择时提示
+		else{
+			ccms.dialog.alert("有折扣项目未选择，请选择或删除");
+			saveResult = false;
+		}
 	})
 	insertMsg();
+	return saveResult;
 }
 
 
