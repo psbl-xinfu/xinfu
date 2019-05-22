@@ -126,12 +126,14 @@ ${inc:/action/project/fitness/home/pub}
 							<li>
 						</li>
 						<div id="salelist" >
-						</div>	
+						</div>
+						<!-- modified by leo 190522 隐藏时段	
 						<li>
 							<label style="width: 100px;">限制时段：</label>				
 							<button type="button" id="time_btn">添加时段</button>
-						</li>	
+						</li>
 						<div id="timeinterallist"></div>
+						-->	
 						<li class="to100w" style="margin-left: 6%">
 							<label>备注</label>
 							<textarea id="vc_remark" name="vc_remark" placeholder="暂无数据" class="my-textarea"></textarea>
@@ -528,10 +530,14 @@ function save(){
 			//var val=$(this).parent().next().next().children().val();
 			var val=$(this).next().next().val();
 			$('#'+id).val(val);
+			if(val==""){
+				ccms.dialog.alert("有折扣项目未添折扣");
+				saveResult = false;
+			}
 		}
 		// add by leo 190522 项目项目未选择时提示
 		else{
-			ccms.dialog.alert("有折扣项目未选择，请选择或删除");
+			ccms.dialog.alert("有折扣项目未选择,请选择或删除");
 			saveResult = false;
 		}
 	})
