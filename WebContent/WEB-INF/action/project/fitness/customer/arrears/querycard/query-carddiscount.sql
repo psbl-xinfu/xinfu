@@ -1,12 +1,11 @@
-select 
+select
 	card.code,
-	(select name from cc_cardtype where code = card.cardtype and org_id = card.org_id) as name,
-	(case when (select discount from cc_cardtype_storage_discount where cardtype=
-		(select code from cc_cardtype where code = card.cardtype and org_id = card.org_id)
-		and org_id = card.org_id limit 1) is null then 1 else (select discount from cc_cardtype_storage_discount where cardtype=
-		(select code from cc_cardtype where code = card.cardtype and org_id = card.org_id)
-		and org_id = card.org_id limit 1) end) as discount
+	ctp.name as name,
+	ctp.singlediscount as discount
 from
 	cc_card card
-where card.isgoon = 0 and status = 1 and org_id = ${def:org}
-and card.customercode = ${fld:cust}
+left join cc_cardtype ctp on ctp.code=card.cardtype and ctp.org_id=card.org_id
+where card.isgoon = 0 
+and card.status = 1 
+and card.org_id = ${def:org}
+and card.customercode =${fld:cust}

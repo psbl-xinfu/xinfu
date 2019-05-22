@@ -126,12 +126,14 @@ ${inc:/action/project/fitness/home/pub}
 							<li>
 						</li>
 						<div id="salelist" >
-						</div>	
+						</div>
+						<!-- modified by leo 190522 隐藏时段	
 						<li>
 							<label style="width: 100px;">限制时段：</label>				
 							<button type="button" id="time_btn">添加时段</button>
-						</li>	
+						</li>
 						<div id="timeinterallist"></div>
+						-->	
 						<li class="to100w" style="margin-left: 6%">
 							<label>备注</label>
 							<textarea id="vc_remark" name="vc_remark" placeholder="暂无数据" class="my-textarea"></textarea>
@@ -341,7 +343,10 @@ $(document).ready(function() {
 			$("#formTitle").html("修改");
 		},
 		validate:function(){
-			save();
+			// modified by leo 如果保存验证未通过，不提交
+			if(!save()){
+				return false;
+			}
 			var flag=$("#formEditor").validate({
 		});
 			return flag;
@@ -382,7 +387,7 @@ $(document).ready(function() {
 			});
 			
 	}}).initSearchBtn().searchData(1);
-	//根据卡类型显示有效次数、有效天数、储值金额 zzn
+	// modified by zzn 根据卡类型显示有效次数、有效天数、储值金额
 	$("#vc_cardcategory").change(function(){
 		if($(this).val()=="1"){
 			$("#count").show();
@@ -449,10 +454,11 @@ function appendSale(){
 str+='<li>'
 str+='<label>享受</label>'
 str+='<select class="normal-select salesChoice" name="storage" onchange="listValadate(this,'+objs+',\'salesChoice\')">'
-str+='<option value="">全部项目</option>'
-/* str+='<option value="z1">点餐折扣定义</option>'
-str+='<option value="z2">饮品折扣定义</option>'
-str+='<option value="z3">健身折扣定义</option>'
+str+='<option value="">选择项目</option>'
+/* modify by zzn 190521 隐藏除商品、单次消费以外的折扣类型 */
+/* str+='<option value="z1">点餐折扣定义</option>' */
+str+='<option value="z2">商品折扣定义</option>'
+/* str+='<option value="z3">健身折扣定义</option>'
 str+='<option value="z4">游泳折扣定义</option>' */
 str+='<option value="z5">单次消费折扣定义</option>'
 /* str+='<option value="z6">团操扣费折扣定义</option>' */
@@ -460,7 +466,7 @@ str+='</select>'
 	
 str+='	<label >折扣</label>'
 str+='	<input type="text" name="discount" maxlength="80" onblur="salesViladate(this)"/>'
-str+='<label >金额(元)</label>'
+str+='<label >%</label>'
 str+='<label  style="color:red" onclick="removeObj(this)">删除</label>'
 str+='</li>'		
 $('#salelist').append(str);
@@ -506,17 +512,37 @@ $Dialog().time($('.times'));
 
 function removeObj(obj){
 	$(obj).parent().remove();
+	// add by leo 190522 删除操作时，清空已有隐藏折扣数据。
+	$('#z1').val("");
+	$('#z2').val("");
+	$('#z3').val("");
+	$('#z4').val("");
+	$('#z5').val("");
+	$('#z6').val("");
 }
 
 function save(){
+	var saveResult=true;
 	$('.salesChoice').each(function(){
 		var id=$(this).val();
 		if(id!=""){
-			var val=$(this).parent().next().next().children().val();
+			// modified by leo 190521 修正无法取折扣值问题
+			//var val=$(this).parent().next().next().children().val();
+			var val=$(this).next().next().val();
 			$('#'+id).val(val);
+			if(val==""){
+				ccms.dialog.alert("有折扣项目未添折扣");
+				saveResult = false;
+			}
+		}
+		// add by leo 190522 项目项目未选择时提示
+		else{
+			ccms.dialog.alert("有折扣项目未选择,请选择或删除");
+			saveResult = false;
 		}
 	})
 	insertMsg();
+	return saveResult;
 }
 
 
