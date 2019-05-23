@@ -10,20 +10,40 @@ import transactions.project.weixin.common.WeixinUtil;
 import dinamica.Db;
 import dinamica.GenericTransaction;
 import dinamica.Recordset;
+import dinamica.security.DinamicaUser;
 
 public class JsSignature extends GenericTransaction {
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-
 		String appid = "";
+		// modified by leo 190523 从登陆用户账号中获取绑定的wx_service中的tuid
+		String weixin_service_id="";
+		DinamicaUser user = (DinamicaUser)getSession().getAttribute("dinamica.security.login");
+		if( user!=null ){
+			String userlogin = user.getName();
+			System.out.println("userlogin: "+userlogin);
+			String queryUser="select weixin_service_id from hr_staff where userlogin='"+userlogin+"'";
+			Recordset rsUser = db.get(queryUser);
+			while( rsUser.next() ){
+				weixin_service_id=rsUser.getString("weixin_service_id");
+				break;
+			}
+		}
 		String secret = "";
 		String sid = "";
 		String accessAddress = "";
-		String queryAccount = "SELECT tuid, appid, appsecret, access_address FROM wx_service WHERE is_deleted = '0' ORDER BY tuid";
+		// modified by leo 190522 根据appid查询配置信息
+		String queryAccount;
+		if(weixin_service_id!=null && !weixin_service_id.equals("")) {
+			queryAccount = "SELECT tuid, appid, appsecret, access_address FROM wx_service WHERE tuid='"+ weixin_service_id +"' and is_deleted = '0' ORDER BY tuid";
+		}else {
+			queryAccount = "SELECT tuid, appid, appsecret, access_address FROM wx_service WHERE is_deleted = '0' ORDER BY tuid";
+		}
 		Recordset rsAccount = db.get(queryAccount);
 		while( rsAccount.next() ){
 			sid = String.valueOf(rsAccount.getValue("tuid"));
+			// modified by leo 190522 根据appid查询配置信息,为空从配置里取
 			appid = rsAccount.getString("appid");
 			secret = rsAccount.getString("appsecret");
 			accessAddress = !rsAccount.isNull("access_address") ? rsAccount.getString("access_address") : null;
@@ -67,6 +87,8 @@ public class JsSignature extends GenericTransaction {
 		String jsapi_ticket = WeixinUtil.getJsTicket(db, sid);
 		// 获得js初始化签名
 //		System.out.println("sb.toString(): "+sb.toString());
+		System.out.println("sid: "+sid);
+		System.out.println("jsapi_ticket: "+jsapi_ticket);
 		JSONObject jsonObject = WeixinUtil.signature(jsapi_ticket, sb.toString());
 		String nonce_str = jsonObject.getString("noncestr");
 		String timestamp = jsonObject.getString("timestamp");
