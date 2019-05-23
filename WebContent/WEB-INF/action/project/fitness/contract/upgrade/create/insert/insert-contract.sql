@@ -1,3 +1,4 @@
+--modified by zzn 增加d.isgoon='0'的限制
 INSERT INTO cc_contract(
 	code
 	,contracttype
@@ -48,7 +49,7 @@ SELECT
 		,(SELECT COALESCE(count,0) FROM cc_cardtype WHERE code = ${fld:cardtype} AND org_id = ${def:org} LIMIT 1),';;'
 		,get_arr_value(relatedetail,3),';',COALESCE(${fld:campaigncode},''),';',COALESCE(${fld:discountmoney},0.00),';',COALESCE(${fld:normalmoney},0.00),';'
 		,COALESCE(${fld:salemember1},''),';',COALESCE(${fld:salemember},''),';;1;0;0.00;',${fld:cardcontractcode},';',(
-			select concat(COALESCE(d.enddate::varchar,''),';', COALESCE(d.nowcount,0)) from cc_card d where d.code = ${fld:cardcode} and d.org_id = ${def:org}
+			select concat(COALESCE(d.enddate::varchar,''),';', COALESCE(d.nowcount,0)) from cc_card d where d.code = ${fld:cardcode} and d.org_id = ${def:org}and d.isgoon='0'
 		),';',COALESCE((SELECT c.mc FROM cc_customer c WHERE c.code = t.customercode AND c.org_id = t.org_id),''),';',${fld:mc},';',${fld:fillingmoney}
 	)
 	,${fld:inimoney}
