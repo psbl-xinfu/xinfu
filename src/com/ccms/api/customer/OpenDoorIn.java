@@ -210,7 +210,7 @@ public class OpenDoorIn extends GenericTransaction {
 			save(inleftAddSql, uid, membersCardcode, membersOrgId, orgID, deviceID, tuid, qrcodePath);
 			db.exec();
 			tuid=0;
-			qrcodePath="成功";
+			qrcodePath="入场成功";
 			// add by leo 190401 类里执行sql参考根据情况修改 end
 		} catch(Throwable t) {
 			t.printStackTrace();
@@ -232,6 +232,7 @@ public class OpenDoorIn extends GenericTransaction {
 	{
 		//zyb add  添加入场记录
 		Db db = getDb();
+		remark="入场成功";
 		inleftAddSql = StringUtil.replace(inleftAddSql, "${fld:custcode}", "'"+uid+"'");
 		inleftAddSql = StringUtil.replace(inleftAddSql, "${fld:cardcode}", "'"+membersCardcode+"'");
 		inleftAddSql = StringUtil.replace(inleftAddSql, "${fld:unionorgid}", "'"+membersOrgId+"'");
