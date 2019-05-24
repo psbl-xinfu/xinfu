@@ -4,7 +4,7 @@
 		'" code2="',(case when inleft.lefttime is null then  
 		(case when inleft.cabinettempcode is null then '0' else '1' end) else '0' end),'" code4="',
 		(case when inleft.lefttime is null then '1' else '0' end),'" code5="',card.org_id,'" code6="',ct.type,
-		'" code7="',inleft.signednumber,'" code8="',inleft.cardcode,'" code9="',cust.code,'" code10="',inleft.code,'" code11="',inleft.callparparecode,'"/>') AS checklink,
+		'" code7="',inleft.signednumber,'" code8="',inleft.cardcode,'" code9="',cust.code,'" code10="',inleft.code,'"/>') AS checklink,
 		inleft.cardcode,	
 		(select cabinettempcode from cc_cabinettemp where tuid::varchar = inleft.cabinettempcode and org_id = ${def:org}) as cabinettempcode,	
 		cust.name, 
