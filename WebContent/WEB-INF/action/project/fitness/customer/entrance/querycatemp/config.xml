@@ -2,26 +2,26 @@
 <config>
 
 	<summary>
+		私教刷课
 	</summary>
-	
+
 	<log>false</log>
-	
-	
+   
 	<transaction>
 		<classname>dinamica.GenericTransaction</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		 <recordset id="query-cabinettemp.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-cabinettemp.sql" source="sql" scope="transaction"/>
 	</transaction>
+
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-		<template>template.htm</template>
+		<template>script.js</template>
 		<set-http-headers>true</set-http-headers>
-		<content-type>text/html</content-type>
+		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
 		<print mode="table" recordset="query-cabinettemp.sql" tag="cabinettemp-list"/>
-		<print mode="form" recordset="_request" />
 	</output>
 
 </config>

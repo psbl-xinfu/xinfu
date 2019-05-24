@@ -14,8 +14,16 @@ ${inc:/action/project/fitness/home/pub}
           		<div class="modal-body b-i-main">
 					<nav>
 						<li>
+							<input id="binid" name="binid" type="hidden" />
+						</li>
+						<li>
 							<label for="" style="margin-left: -80px;">手牌号：</label>
-							<input type="text" id="cabinettempcode" name="cabinettempcode" value=""   placeholder="手牌号" />
+							<select id="rudge_code" name="rudge_code" style="display: none;">
+								<option value=''>全部手牌号</option>
+								<cabinettemp-list>
+									<option value="${fld:inettemptuid}">${fld:inettemptname} ${fld:inettemptstatus}</option>
+								</cabinettemp-list>
+							</select>
 						</li>
 					</nav>
 				</div>
@@ -29,9 +37,10 @@ ${inc:/action/project/fitness/home/pub}
 </body>
 <script language="JavaScript">
 $(document).ready(function() {
+	searchSelectInit($("#rudge_code"));
 	//领手牌
 	$("#save_btn").click(function(){
-		var cabinettempcode = $("#cabinettempcode").val();
+		var cabinettempcode = $("#rudge_code").val();
 		if(cabinettempcode==""){
 			ccms.dialog.alert("请输入手牌号！");
 			return false;

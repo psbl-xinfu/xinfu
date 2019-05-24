@@ -6,10 +6,10 @@ where
 	then 1=2
 	when 
 	(select count(1) from cc_cabinettemp 
-		where cabinettempcode = ${fld:rudge_code} and org_id = ${def:org})=0
+		where tuid = ${fld:rudge_code} and org_id = ${def:org})=0
 	then
 		1=1
 	else
-		(cabinettempcode = ${fld:rudge_code} and org_id = ${def:org}
+		(tuid = ${fld:rudge_code} and org_id = ${def:org}
 		and cardcode=${fld:cardcode} and status!=1)
 	end)

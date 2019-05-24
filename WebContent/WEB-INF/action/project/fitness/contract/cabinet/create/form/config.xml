@@ -16,7 +16,7 @@
 	    <recordset id="query-cabinetgroup.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-config-deposit.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-skillscopenum.sql" source="sql" scope="transaction"/>
-	    <recordset id="query-contract.sql" source="sql" scope="transaction"/>
+	    <!-- <recordset id="query-contract.sql" source="sql" scope="transaction"/> -->
 	      <!-- <recordset id="query-cabinetcode.sql" source="sql" scope="transaction"/> -->
 	</transaction>
 
@@ -32,7 +32,7 @@
 		<print mode="table" recordset="query-config-deposit.sql" tag="deposit-rows"/>
 		<!-- <print mode="table" recordset="query-cabinetcode.sql" tag="cabinetcode-rows"/> -->
 		<print mode="form" recordset="query-skillscopenum.sql" />
-		<print mode="form" recordset="query-contract.sql" />
+		<!-- <print mode="form" recordset="query-contract.sql" /> -->
 		<print mode="form" recordset="_request" />
 	</output>
 

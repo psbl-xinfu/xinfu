@@ -55,9 +55,12 @@ ${inc:/action/project/fitness/home/pub}
 								</select>
 							</li>
 							
-							<li class="label-p">
-								<label for="rc-n-1-2">手牌号：</label>
-								<input class="input-default" type="text"  id="rudge_code" name="rudge_code"  placeholder="请输入手牌号">
+						
+							
+							<li>
+								<select id="rudge_code" name="rudge_code" style="display: none;">
+									
+								</select>
 							</li>
 							
 							<button type="button" class="refurbish btn-default-36" id="clearform" title="清空"></button>
@@ -213,7 +216,7 @@ ${inc:/action/project/fitness/home/pub}
 				</div>				
 			</div>
 			<div class="r-tab-cout-3-b">
-				<div class="to-change-background"></div>
+				<div class="to-change-background h-43"></div>
 					<table class="" id="table">
 						<thead>
 							<tr>
@@ -244,7 +247,7 @@ ${inc:/action/project/fitness/home/pub}
 				                <td>#lefttime#</td>
 				        		<td>#class_name#</td>
 				        		<td>#enddate#</td>
-				        		<td>#remark#</td>
+				        		<td>#vc_remark#</td>
 							</tr>
 						</tbody>
 						<tbody id="datagrid">
@@ -281,6 +284,8 @@ $(document).ready(function() {
 	</weatherinfo-list>
 
 	selectInit($("#weather"));
+	searchSelectInit($("#rudge_code"));
+	getAjaxCall("${def:context}${def:actionroot}/querycatemp", false);
 	
 	// 上传头像
 	$("#upload_btn").unbind().on("click",function(){
@@ -333,6 +338,36 @@ $(document).ready(function() {
 		ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='
 				+1+'&customercode='+$("#cust_code").val()+"&status=1",width:1200,height:700});
 	});
+	//zyb 20190523 根据手牌号带出卡号
+	$("#rudge_code").change(function(){
+		//判断有没有会员的信息
+		if( $("#cust_code").val()!=null &&  $("#cust_code").val()!=""){
+			if(stabin==1){
+				ccms.dialog.notice("该手牌已占用不可以更换！", 3000);
+				$("#rudge_code").selectpicker("val", fttuid);//给下拉框赋值
+				$("#rudge_code").selectpicker("refresh");//刷新
+				return false;
+			}
+			var url = "${def:context}${def:actionroot}/querycabinettemp?cabinettempcode="+$("#rudge_code").val();
+			ajaxCall(url,{
+				method : "get",
+				progress : false,
+				dataType : "script",
+				success : function() {
+				}
+			});
+		}else{
+			var url = "${def:context}${def:actionroot}/querycabinettemp?cabinettempcode="+$("#rudge_code").val();
+			ajaxCall(url,{
+				method : "get",
+				progress : false,
+				dataType : "script",
+				success : function() {
+				}
+			});
+		}
+	
+	})
 	//天气修改
 	$("#weather").change(function(){
 		var weather = $(this).val();
@@ -349,7 +384,9 @@ $(document).ready(function() {
 	})
 	//清空手牌，查询条件
 	$("#clearform").click(function(){
-		$("#rudge_code,#custall").val("");
+		$("#custall").val("");
+		document.getElementById("rudge_code").options.selectedIndex = 0;//重置值
+		$("#rudge_code").selectpicker("refresh");//刷新
 		$("#searchhtml").hide();
 		ccms.util.clearForm("searchForm");
 		$("#custall").focus();

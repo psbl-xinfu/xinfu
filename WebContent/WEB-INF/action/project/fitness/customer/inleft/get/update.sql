@@ -1,6 +1,5 @@
 update cc_inleft 
-set cabinettempcode=
-(select tuid from cc_cabinettemp cab where cab.cabinettempcode=${fld:getcabinettempcode} and cab.org_id=${def:org} )
+set cabinettempcode=${fld:getcabinettempcode}
 where 
 	code=${fld:leftcode}
 	

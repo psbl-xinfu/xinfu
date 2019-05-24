@@ -1,0 +1,1 @@
+$("#contrstatus").val("${fld:contrstatus}");

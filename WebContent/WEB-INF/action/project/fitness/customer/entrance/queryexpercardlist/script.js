@@ -9,8 +9,8 @@ $("#mobile").html("${fld:mobile@js}");
 $("#cardtype_name").html("${fld:expercardname@js}");
 $("#custcodeone").html("${fld:code@js}");
 $("#unionorgid").val("${fld:org_id}");
-$("#rudge_code").val("${fld:cabinettempcode}");
-
+$("#rudge_code").selectpicker("val", "${fld:cabinettempcode}");//给下拉框赋值
+$("#rudge_code").selectpicker("refresh");//刷新
 if("${fld:expertype}"=="0"){
 	$("#errorinfo").html("时效卡");
 }else if("${fld:expertype}"=="1"){

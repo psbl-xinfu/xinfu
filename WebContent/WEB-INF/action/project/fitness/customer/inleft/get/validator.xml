@@ -3,9 +3,9 @@
 	<parameter id="getcabinettempcode" type="varchar" required="true" label="手牌号码" maxlen="64" />
 	<parameter id="leftcode" type="varchar" required="true" label="入场出场记录code" maxlen="64"/>
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
-		on-error-label="该手牌不可使用，请重新检查!" id="cabinettempcode" sql="noduptwo.sql" />
+		on-error-label="该手牌已占用!" id="binid" sql="noduptwo.sql" />
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
-		on-error-label="该手牌无效或没有该手牌，请确认！" id="cabinettempcode" sql="nodup.sql" />
+		on-error-label="该手牌无效或没有该手牌，请确认！" id="binid" sql="nodup.sql" />
 	
 	
 </validator>

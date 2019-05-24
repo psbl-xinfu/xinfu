@@ -20,7 +20,7 @@
 			"jsintime":"${fld:jsintime@yyyy-MM-dd HH:mm:ss}",
     	    "vc_remark":"${fld:remark@js}",
         	"signednumber":"${fld:signednumber}",
-        	"remark":"${fld:remark}"
+        	"vc_remark":"${fld:remark@js}"
 	},
 	</rows>
 	{}

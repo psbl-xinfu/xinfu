@@ -2,25 +2,26 @@
 <config>
 
 	<summary>
+		Producto - Insertar registro
 	</summary>
 	
 	<log>false</log>
-	
-	
+
 	<transaction>
-		<classname>dinamica.GenericTransaction</classname>
+		<classname>dinamica.GenericTableManager</classname>
+		
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		 <recordset id="query-cabinettemp.sql" source="sql" scope="transaction"/>
+		<recordset id="query-contract.sql" source="sql" scope="transaction"/>
 	</transaction>
+
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-		<template>template.htm</template>
+		<template>script.js</template>
 		<set-http-headers>true</set-http-headers>
-		<content-type>text/html</content-type>
-		<expiration>0</expiration>
-		<print mode="table" recordset="query-cabinettemp.sql" tag="cabinettemp-list"/>
+		<content-type>text/javascript</content-type>
+		<print mode="form" recordset="query-contract.sql" />
 		<print mode="form" recordset="_request" />
 	</output>
 

@@ -15,7 +15,8 @@
 		<recordset id="query-weather.sql" source="sql" scope="transaction" /> 
 		<recordset id="query-weatherinfo.sql" source="sql" scope="transaction" /> 
 		<recordset id="query-ishand.sql" source="sql" scope="transaction" /> 
-		<recordset id="query-memberhead.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-memberhead.sql" source="sql" scope="transaction" />
+		<!-- <recordset id="query-cabinettemp.sql" source="sql" scope="transaction" />   -->
 	</transaction>
 
 	<output>
@@ -23,6 +24,7 @@
 		<template>template.htm</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
+		<!-- <print mode="table" recordset="query-cabinettemp.sql" tag="cabinettemp-list"/> -->
 		<print mode="table" recordset="query-weather.sql" tag="weather-list"/>
 		<print mode="table" recordset="query-weatherinfo.sql" tag="weatherinfo-list"/>
 		<print mode="form" recordset="query-ishand.sql"/>

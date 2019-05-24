@@ -15,7 +15,7 @@ ${inc:/action/project/fitness/home/pub}
 			<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
 			<input type="hidden" id="inimoney" name="inimoney" value="" />
 			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
-			<input type="hidden" id="contrstatus" name="contrstatus" value="${fld:contrstatus}" />
+			<input type="hidden" id="contrstatus" name="contrstatus" value="" />
 			<input type="hidden" id="price" name="price" value="" />
 			<!-- zyb 2019-3-21 添加cabinetcode租柜编号柜子号必须有值 -->
 			<input type="hidden" id="ccabinetid" name="ccabinetid" value="" />
@@ -224,9 +224,8 @@ $(document).ready(function(){
 	});  */
 
 	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
+		getAjaxCall("${def:actionroot}/contractstatus?contractcode=${fld:contractcode}&ispubload=true", true);
 		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}&ispubload=true", true,queryCabinetid);
-		// add by leo 190329 
-		//queryCabinetid();
 	}
 	
 	

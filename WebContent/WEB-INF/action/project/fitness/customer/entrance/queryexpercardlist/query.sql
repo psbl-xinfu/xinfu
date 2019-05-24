@@ -21,7 +21,7 @@ select
 	(select (case when lefttime is null then '1' else '2' end)
 		from cc_inleft where org_id = elist.org_id and indate = {d '${def:date}'} and cardcode = elist.code order by intime desc LIMIT 1) as entrancetype,
 	elist.org_id,
-	(select (case when lefttime is null then (select cabinettempcode from cc_cabinettemp where tuid::varchar = cc_inleft.cabinettempcode and org_id = elist.org_id) else '' end)
+	(select (case when lefttime is null then (select tuid from cc_cabinettemp where tuid::varchar = cc_inleft.cabinettempcode and org_id = elist.org_id)::varchar else '' end)
 		from cc_inleft where indate = '${def:date}'::date and cardcode = elist.code and org_id = elist.org_id order by intime desc LIMIT 1) as cabinettempcode
 from cc_expercard_list elist
 left join cc_expercard_log elog on elist.code = elog.expercardcode and elist.org_id = elog.org_id

@@ -5,7 +5,8 @@ $("#mobile").html("${fld:mobile@js}");
 $("#mc").html("${fld:mc@js}");
 $("#pt").html("${fld:pt@js}");
 $("#cabinettempcode").html("${fld:cabinettempcode@js}");
-$("#rudge_code").val("${fld:cabinettempcode@js}");
+$("#rudge_code").selectpicker("val", "${fld:cabinettempcode@js}");//给下拉框赋值
+$("#rudge_code").selectpicker("refresh");//刷新
 $("#cust_code").val("${fld:cust_code@js}");
 $("#cust_name").val("${fld:name@js}");
 $("#custcodeone").html("${fld:code@js}");

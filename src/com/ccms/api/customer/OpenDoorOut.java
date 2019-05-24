@@ -23,7 +23,7 @@ public class OpenDoorOut extends GenericTransaction {
 	public int service(Recordset inputParams) throws Throwable {
 		int rc = super.service(inputParams);
 		Db db = getDb();
-		Integer tuid = 1;
+		Integer tuid = 0;
 		String qrcodePath="退场成功";
 		// add by leo 190329 增加返回接口参数定义
 		String errcode="1"; // 为0通过，为1不通过

@@ -6,6 +6,5 @@ SET	status = 0,
 	createdby=null,
 	created=null
 WHERE
-	cabinettempcode = ${fld:rudge_code}
-	and  ${fld:rudge_code} is not null and  ${fld:rudge_code} != '' 
+	tuid = ${fld:rudge_code}
 	and org_id = ${def:org}
