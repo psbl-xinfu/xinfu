@@ -2,22 +2,22 @@
 //$('.list_a').remove();
 $('.list').remove();
 <list>
-	appendCust('${fld:code}','${fld:name}','${fld:sex}','${fld:mobile}','${fld:lasttime}','${fld:headpic}');
+	appendCust('${fld:code}','${fld:name}','${fld:pttotalcount}','${fld:ptlevelname}','${fld:ptleftcount}','${fld:headpic}');
 	
 </list>
 
-function appendCust(code,name,sex,mobile,lasttime,headpic) //增加会员
+function appendCust(code,name,pttotalcount,ptlevelname,ptleftcount,headpic) //增加会员
 {
 	html="<div class='list' code="+code+">"+
 		    '<img src="${def:context}'+headpic+'" class="touxiangpic fl">'+
 		   
-			"<a class='list_a' href='${def:context}/action/project/fitness/wx/pt/mycust/sijiaohuiyuanmsg?customercode="+code+"&type=pt'>"+
+			"<a class='list_a' >"+
 		    "<div class='content fl'>"+
-		        "<p class='name'><label style='width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='"+name+"'>"+name+"</label><span>"+sex+"</span><span>"+mobile+"</span></p>"+
-		        "<p class='time'>最近跟进："+lasttime+"</p>"+
+		        "<p class='cust'><label style='width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='"+name+"'>"+name+"</label><span>课程："+ptlevelname+"</span></p>"+
+		        "<p class='custcount'>购买课时："+pttotalcount+"节</p>"+
+		        "<p class='custcount'>剩余课时："+ptleftcount+"节</p>"+
 		    "</div>"+
 		    '</a>'+
-		   '<a href="tel:'+mobile+'">  <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr" ></a>'+
 		'</div>'
 	
 	$('.myhuiyuanlistbody').append(html);

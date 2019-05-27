@@ -1,38 +1,26 @@
 SELECT c.code
 	   ,c.name 
-       ,(case c.sex when 1 then'男' else '女' end) as sex
-   		,
-      
-      (SELECT 
+     ,(case c.sex when 1 then'男' else '女' end) as sex
+		 ,(SELECT 
 			case when headpic is null then '/images/icon_head.png' else headpic end
 		 FROM hr_staff WHERE user_id =c.user_id limit 1
-		 )as headpic 
-FROM cc_customer c 	
-    
+		 )as headpic
+		 ,(select ptlevelname from cc_ptdef where code=pt.ptlevelcode and org_id=pt.org_id) as ptlevelname
+		 ,pt.ptleftcount::int
+		 ,pt.pttotalcount::int
+		 
+FROM
+ cc_customer c
+inner join cc_ptrest pt  on pt.customercode=c.code	 and pt.org_id=c.org_id
 WHERE EXISTS(
 	SELECT 1 FROM cc_card d 
 	WHERE c.code = d.customercode AND d.isgoon = 0 AND d.org_id = c.org_id AND d.status != 0 AND d.status != 6
 ) 
+and pt.org_id=${def:org}   AND pt.ptleftcount > 0  
+AND  (pt.ptid='${def:user}'  or 
+	c.pt='${def:user}' )
 
-AND EXISTS(
-	SELECT 1 FROM cc_ptrest t 
-	WHERE t.customercode = c.code AND t.ptleftcount > 0  
-	and t.ptlevelcode !=(select code from cc_ptdef where reatetype=1 and org_id=t.org_id) and t.pttype != 5
-	AND t.org_id = c.org_id AND t.ptid='${def:user}' 
-) 
-
-AND c.org_id = ${def:org}
-AND c.status != 0
-AND--按时间跟进情况
- 	 (case when ${fld:s_stime} is null or ${fld:s_etime} is null then 1=1 
-   else
- 		not exists(
- 		select 1 from cc_comm m where m.customercode = c.code and m.org_id = ${def:org} 
- 			and m.created::date>=${fld:s_stime} and m.created::date<=${fld:s_etime} 
- 		)
-	 end)
 ${filter}
 
-    
     
 	

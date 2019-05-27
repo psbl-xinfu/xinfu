@@ -5,7 +5,7 @@
 	</summary>
 	
 	<log>false</log> 
-	<colname>s_name,s_pt,s_genjin,s_type,s_status</colname>
+	<colname></colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>
