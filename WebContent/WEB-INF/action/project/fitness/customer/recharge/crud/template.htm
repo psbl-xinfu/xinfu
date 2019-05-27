@@ -18,7 +18,7 @@ ${inc:/action/project/fitness/home/pub}
 	          	<div class="modal-body b-i-main">
 					<nav>
 						<li>
-							<label style="width: 130px;">会员号/姓名/手机号：</label>
+							<label style="width: 130px;">会员号/姓名/手机：</label>
 							<input type="text" id="cust" name="cust" value="" placeholder="会员号/姓名/手机号"/>
 						</li>
 						<li>
@@ -29,30 +29,34 @@ ${inc:/action/project/fitness/home/pub}
 							<label style="width: 130px;">储值金额：</label>	
 							<span id="czmoeny"></span>
 						</li>
+					<!-- 	modified by zzn 2019-05-27 注释掉
 						<li>
 							<label style="width: 100px;">运动基金：</label>		
 							<span id="ydmoeny"></span>
-						</li>
+						</li> 
+					-->
 						<li>
-							<label style="width: 130px;">有效期限：</label>	
+							<label style="width: 100px;">有效期限：</label>	
 							<span id="enddate"></span>
 						</li>
 						<li>
-							<label style="width: 100px;">最大退费金额：</label>			
+							<label style="width: 130px;">最大退费金额：</label>			
 							<span id="tuifeimoney"></span>
 						</li>
 						<li>
-							<label style="width: 130px;">退费原因：</label>	
+							<label style="width: 100px;">退费原因：</label>	
 							<input type="text" id="refund_reason" name="refund_reason" value="0" placeholder="退费原因"/>
 						</li>
 						<li>
-							<label style="width: 100px;" id="ctmoney">充值金额：</label>	
+							<label style="width: 130px;" id="ctmoney">充值金额：</label>	
 							<input type="text" id="moneycash" name="moneycash" value="0" placeholder="金额"/>
 						</li>
+						<!-- modified by zzn 2019-05-27 注释掉	
 						<li>
 							<label style="width: 130px;">赠送运动基金：</label>	
 							<input type="text" id="moneygift" name="moneygift" value="0" placeholder="赠送运动基金"/>
 						</li>
+						 -->
 						<li></li>
 						<li class="to100w" style="margin-left: 6%">
 							<label style="width: 100px;">备注：</label>	
@@ -160,7 +164,7 @@ ${inc:/action/project/fitness/home/pub}
 								<th>会员编号</th>
 							    <th>姓名</th>		
 							    <th>本次充值金额</th>
-							    <th>本次赠送金额</th>
+							   <!--<th>本次赠送金额</th>-->
 							    <th>当前金额</th>
 							    <th>已退费金额</th>
 								<th>操作人</th>
@@ -174,7 +178,7 @@ ${inc:/action/project/fitness/home/pub}
 				                <td>#customercode#</td>	
 				                <td>#name#</td>
 		 					    <td>#factmoney#</td>
-				                <td>#givemoney#</td>				
+				               <!--  <td>#givemoney#</td> -->				
 				                <td>#moneycash#</td>		
 				                <td>#refund#</td>
 				                <td>#createdby#</td>
