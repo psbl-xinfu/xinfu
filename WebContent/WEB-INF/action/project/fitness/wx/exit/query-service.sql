@@ -1,3 +1,4 @@
+-- add by leo 190527微信退出时需取微信配置，初始化登陆地址
 select 
 tuid,
 appid,

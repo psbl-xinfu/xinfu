@@ -10,7 +10,7 @@
     <request-encoding>UTF-8</request-encoding>
 
 	<transaction>
-		<classname>com.ccms.dinamica.Exit</classname>
+		<classname>com.ccms.dinamica.WxExit</classname>
 		<validator>false</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
