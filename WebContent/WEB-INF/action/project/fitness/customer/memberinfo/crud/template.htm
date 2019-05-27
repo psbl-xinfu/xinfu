@@ -389,6 +389,8 @@ ${inc:/action/project/fitness/home/pub}
 											<option value="2">私教</option>
 											<option value="3">租柜</option>
 											<option value="4">充值</option>
+											<option value="5">升级</option>
+											<option value="6">续卡</option>
 										</select>
 									</li>
 								</nav>
@@ -711,6 +713,12 @@ $(document).ready(function() {
 		}else if( "4" == codeid ){	/** 充值 */
 			hei=500;
 			uri += "/action/project/fitness/customer/recharge/form"
+		}else if( "5" == codeid ){	/** 升级 */
+			hei=500;
+			uri += getContractUri(1, 0, false);
+		}else if( "6" == codeid ){	/** 续卡 */
+			hei=500;
+			uri += getContractUri(0, 7, false);
 		}
 		uri += "?customercode=" + customercode;
 

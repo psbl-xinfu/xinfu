@@ -13,7 +13,7 @@ function appendCust(code,name,pttotalcount,ptlevelname,ptleftcount,headpic) //�
 		   
 			"<a class='list_a' >"+
 		    "<div class='content fl'>"+
-		        "<p class='cust'><label style='width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='"+name+"'>"+name+"</label><span>课程："+ptlevelname+"</span></p>"+
+		        "<p class='cust'><label style='width:20%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='"+name+"'>"+name+"</label><span>课程："+ptlevelname+"</span></p>"+
 		        "<p class='custcount'>购买课时："+pttotalcount+"节</p>"+
 		        "<p class='custcount'>剩余课时："+ptleftcount+"节</p>"+
 		    "</div>"+
