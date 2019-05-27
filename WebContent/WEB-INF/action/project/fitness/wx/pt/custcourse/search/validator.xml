@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="cust_search" type="varchar" required="false" label="接受者姓名" />
+	<parameter id="s_pt" type="integer" required="false" label="s_pt" />
+	<parameter id="s_stime" type="varchar" required="false" label="s_stime" />
+	<parameter id="s_etime" type="varchar" required="false" label="s_etime" />
+	<parameter id="s_genjin" type="varchar" required="false" label="s_genjin" />
+	<parameter id="s_type" type="varchar" required="false" label="s_type" />
+	<parameter id="s_name" type="varchar" required="false" label="s_name" />
+		<parameter id="s_status" type="varchar" required="false" label="s_status" />
+</validator>

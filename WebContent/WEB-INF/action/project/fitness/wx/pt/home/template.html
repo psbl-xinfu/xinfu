@@ -101,7 +101,11 @@
               <div class="col-xs-4" id="yiji" style="display: none">
                         <img src="${def:context}/js/project/fitness/wx/image/baobiao@2x.png" class="bottomimg" id="report">
                         <p class="name">业绩报表</p>
-                </div>               
+                </div>      
+                <div class="col-xs-4" >
+                        <img src="${def:context}/js/project/fitness/wx/image/baobiao@2x.png" class="bottomimg" id="custcourse">
+                        <p class="name">会员课程</p>
+                </div>   
             </div>
         </div>
 
@@ -159,6 +163,9 @@
         })  
        $('#report').on('click',function(){
            	location.href="${def:context}/action/project/fitness/wx/pt/report/crud";
+        })
+        $('#custcourse').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/custcourse/crud";
         })
     });
     function getRepot(){
