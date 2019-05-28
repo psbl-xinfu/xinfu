@@ -117,7 +117,8 @@ $(document).ready(function() {
 	ccms.util.renderCheckbox("operation");
 	this.search=search;
 	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
-		$("#searchForm #cust").val("");
+		//modified by leo 190528 翻页问题处理，查询后不重置查询条件
+		//$("#searchForm #cust").val("");
 		ccms.util.renderRadio("leavestocklist");
 		//统计每页的销售金额
 		var totalmoney = 0, totalnum = 0;
