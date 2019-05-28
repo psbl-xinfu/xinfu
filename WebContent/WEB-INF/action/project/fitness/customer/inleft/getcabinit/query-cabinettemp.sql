@@ -10,3 +10,4 @@ FROM
 	cc_cabinettemp
 WHERE
 	org_id=${def:org} and status!=2
+	order by tuid  desc
