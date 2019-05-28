@@ -1,13 +1,10 @@
 ﻿
 var cust_code = "${fld:customercode@js}";
 var cust_name = "${fld:name@js}";
-var rudge_code = "";
+var rudge_code = "${fld:inlefttempcode@js}";
 var cardcode = "${fld:cardcode@js}";
 var cardtype = "${fld:cardtype@js}";
 
-<rows>
-	rudge_code="${fld:cabinettempcode@js}";
-</rows>
 
 //退场刷卡
 var url = "${def:context}/action/project/fitness/customer/entrance/expercardout"

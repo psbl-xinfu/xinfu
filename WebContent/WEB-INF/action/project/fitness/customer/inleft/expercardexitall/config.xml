@@ -15,7 +15,7 @@
 	    <recordset id="query-card.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-customer.sql" source="sql" scope="transaction"/>
 	    <recordset id="query-inleft.sql" source="sql" scope="transaction"/>
-	    <recordset id="query-cabinettemp.sql" source="sql" scope="transaction"/>
+	    <!-- <recordset id="query-cabinettemp.sql" source="sql" scope="transaction"/> -->
 	</transaction>
 
 	<output>
@@ -27,7 +27,7 @@
 		<print mode="form" recordset="query-card.sql" />
 		<print mode="form" recordset="query-customer.sql" />
 		<print mode="form" recordset="query-inleft.sql" />
-		<print mode="table" recordset="query-cabinettemp.sql" tag="rows" />
+		<!-- <print mode="table" recordset="query-cabinettemp.sql" tag="rows" /> -->
 	</output>
 
 </config>
