@@ -75,19 +75,19 @@ ${inc:/action/project/fitness/wx/pub}
     	getRepot();
     	
         $('#gust').on('click',function(){
-        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/crud?";
+        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/crud?type=mc";
         })
     	 $('#custom').on('click',function(){
-        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/crud?";
+        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/crud?type=mc";
         })
         $('#contract').on('click',function(){
-        	location.href="${def:context}/action/project/fitness/wx/mc/contract/crud?";
+        	location.href="${def:context}/action/project/fitness/wx/mc/contract/crud?type=mc";
         })
    		$('#personal').on('click',function(){
-           	location.href="${def:context}/action/project/fitness/wx/mc/personal/crud";
+           	location.href="${def:context}/action/project/fitness/wx/mc/personal/crud?type=mc";
         })
         $('#report').on('click',function(){
-           	location.href="${def:context}/action/project/fitness/wx/mc/report/crud";
+           	location.href="${def:context}/action/project/fitness/wx/mc/report/crud?type=mc";
         })
         var width=$(window).width();
         if(width<=750){
