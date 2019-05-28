@@ -91,7 +91,14 @@
         </div>
   <script type="text/javascript">
         $(function(){
-        	homemc();
+        	if("${fld:type}"=="mc"){
+    			homemc();
+    		}else if("${fld:type}"=="pt"){
+    			homept();
+    		}else{
+    			homecust();
+    		}
+        	
         $('#comm').on('click',function(){
         	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/comm/crud?guestcode="
         		+"&customercode=${fld:customercode}"
@@ -105,27 +112,27 @@
         });
         
         $('#card').on('click',function(){
-        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/cardlist/crud?&customercode=${fld:customercode}&type=mc";
+        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/cardlist/crud?&customercode=${fld:customercode}&type=${fld:type}";
         });    
         
         $('#follow').on('click',function(){
-        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/followrecord?&customercode=${fld:customercode}&type=mc";
+        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/followrecord?&customercode=${fld:customercode}&type=${fld:type}";
         });    
       
         $('#contract').on('click',function(){
-        	location.href="${def:context}/action/project/fitness/wx/cust/center/contract/crud?&customercode=${fld:customercode}&type=mc";
+        	location.href="${def:context}/action/project/fitness/wx/cust/center/contract/crud?&customercode=${fld:customercode}&type=${fld:type}";
         });    
         
 		   $('#rent').on('click',function(){
-		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rentrecord?customercode=${fld:customercode}&type=mc";
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rentrecord?customercode=${fld:customercode}&type=${fld:type}";
 		  })	
 		  		  
 		   $('#recharge').on('click',function(){
-		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rechargerecord?customercode=${fld:customercode}&type=mc";
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/rechargerecord?customercode=${fld:customercode}&type=${fld:type}";
 		  })			  
 			  
 		   $('#sale').on('click',function(){
-		  		location.href="${def:context}/action/project/fitness/wx/cust/center/salerecord?customercode=${fld:customercode}&type=mc";
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/salerecord?customercode=${fld:customercode}&type=${fld:type}";
 		  })		  
         
 		 $('#xiaoxi').on('click',function(){
@@ -133,10 +140,10 @@
 		  })		
 		  
 		  $('#tice').on('click',function(){
-		  		location.href="${def:context}/action/project/fitness/wx/cust/center/tice/crud?customercode=${fld:customercode}&type=mc";
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/tice/crud?customercode=${fld:customercode}&type=${fld:type}";
 		  })		 
 		  $('#xunlianlist').on('click',function(){
-		  		location.href="${def:context}/action/project/fitness/wx/pt/mycust/record/crud?customercode=${fld:customercode}&type=mc";
+		  		location.href="${def:context}/action/project/fitness/wx/pt/mycust/record/crud?customercode=${fld:customercode}&type=${fld:type}";
 		  })	
     })
      </script>

@@ -5,4 +5,6 @@
 	<parameter id="ptpreparecode" type="varchar" required="false" label="ptpreparecode"/>
 	<parameter id="type" type="varchar" required="false" label="type" />
 	<parameter id="testresultcode" type="varchar" required="false" label="testresultcode" />
+	<parameter id="state" type="varchar" required="false" label="是否隐藏标签" />
+	
 </validator>

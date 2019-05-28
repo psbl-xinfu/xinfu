@@ -111,7 +111,14 @@ $(function(){
 		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/crud?guestcode=${fld:guestcode}"
 			+"&customercode=${fld:customercode}"
 			+"&type=${fld:type}"
-			+"&testresultcode="+code;
+			+"&testresultcode="+code+"&state=1";
+	}
+	
+	function updatestate(code){
+		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/crud?guestcode=${fld:guestcode}"
+			+"&customercode=${fld:customercode}"
+			+"&type=${fld:type}"
+			+"&testresultcode="+code+"&state=2";
 	}
 	
 	

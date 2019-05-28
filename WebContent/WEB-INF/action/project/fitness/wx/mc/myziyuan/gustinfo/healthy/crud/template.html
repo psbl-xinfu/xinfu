@@ -22,6 +22,7 @@ ${inc:/action/project/fitness/wx/pub}
 				<input type="hidden" id="cardcode" name="cardcode" value="${fld:cardcode}"/>
 				<input type="hidden" id="ptpreparecode" name="ptpreparecode" value="${fld:ptpreparecode}"/>
 				<input type="hidden" id="type"  value="${fld:type}">
+				<input type="hidden" id="testresultcode" name="testresultcode" value="">
         <div class="myziyuanaddtop">
             <div class="listother">
                 <p class='p1'>身高（厘米）</p>
@@ -126,19 +127,43 @@ ${inc:/action/project/fitness/wx/pub}
         
         <div class="myziyuanaddbtn">
            <img src="${def:context}/js/project/fitness/wx/image/submit.png" class="tijiao" id="save"  style="margin-left:30%;margin-bottom: 20px">
+           <img src="${def:context}/js/project/fitness/wx/image/submit.png" class="tijiao" id="update"  style="margin-left:30%;margin-bottom: 20px">
         </div>
         </form>
     </body>
     <script type="text/javascript">
     	$(function(){
-    		homemc();
+    		if("${fld:type}"=="mc"){
+    			homemc();
+    		}else if("${fld:type}"=="pt"){
+    			homept();
+    		}else{
+    			homecust();
+    		}
     		if("${fld:testresultcode}"!=""){
     			getResult();
     			$('#save').hide();
     		}
-    		
+    		if("${fld:state}">1){
+    			$("#update").show();
+    			$("#testresultcode").val("${fld:testresultcode}");
+    		}else{
+    			$("#update").hide();
+    		}
         	$('#save').on('click',function(){
         		var url = "${def:context}${def:actionroot}/insert"
+        			ajaxCall(url,{
+        				method: "post",
+        				progress: true,
+        				form:'formEditor',
+        				dataType: "script",
+        				success: function() {
+        				}
+        			});
+        	})
+        	
+        	$("#update").on('click',function(){
+        		var url = "${def:context}${def:actionroot}/update"
         			ajaxCall(url,{
         				method: "post",
         				progress: true,
