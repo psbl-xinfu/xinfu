@@ -2,4 +2,5 @@
 <validator>
 	<parameter id="guestcode" type="varchar" required="false" label="guestcode" />
 	<parameter id="customercode" type="varchar" required="false" label="customercode" />
+	<parameter id="type" type="varchar" required="false" label="type" />
 </validator>
