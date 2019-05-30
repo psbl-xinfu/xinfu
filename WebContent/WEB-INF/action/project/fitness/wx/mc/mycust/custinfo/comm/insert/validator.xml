@@ -17,4 +17,5 @@
     <parameter id="callstatus" type="varchar" required="true" label="通话状态" maxlen="20" />
     <parameter id="level" type="varchar" required="true" label="关注度评估" maxlen="20" />
     <parameter id="commway" type="varchar" required="true" label="沟通方式" maxlen="20" />
+    <parameter id="type" type="varchar" required="false" label="是否是cust，mc，pt" maxlen="20" />
 </validator>
