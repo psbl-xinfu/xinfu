@@ -21,5 +21,6 @@
 	<parameter id="stagemoney" type="double" required="false" label="本期付款" maxlen="32"/>
 	<parameter id="ptcount" type="integer" required="true" label="赠送免费私教课时" maxlen="10"/>
 	<parameter id="daycount" type="integer" required="false" label="有效天数" maxlen="10"/>
-
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该资源已办理合同，但未付款，不能再次办理！" id="guestcode" sql="nodup-contractnum.sql" />
 </validator>

@@ -48,6 +48,8 @@ insert into cc_customer(
 	type,
 	org_id
 ) 
+
+
 select 
 	concat(COALESCE((SELECT memberhead FROM hr_org WHERE org_id =${def:org}),''),lpad(nextval('seq_cc_customer')::varchar, 8, '0')),
 	code,
@@ -98,4 +100,7 @@ select
 	type,
 	org_id 
 from cc_guest 
-where code = ${fld:guestcode} and org_id =${def:org} 
+where (case when (select count(*) from cc_customer where guestcode= ${fld:guestcode} and org_id =${def:org} and status=0)>0
+	then  null=null
+	else 1=1
+end) and code = ${fld:guestcode} and org_id =${def:org} 
