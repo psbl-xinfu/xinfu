@@ -339,6 +339,14 @@ $(function(){
 			}
 		}
 		
+		if($("#custcode").val()==""||$("#custcode").val()==null){
+				ccms.dialog.notice("请选择会员！", 2000);
+				 $("#paymoneybin").html("");
+				 $("#paydivbin").children('span').remove();
+				 setSelectValue($("#paymethodbin"), "");
+				return false;
+		}
+		
 		var mobj = $("#paydivbin").find("[code1="+paymethodbin+"]");
 		
 		if( mobj.length > 0 ){
@@ -391,6 +399,7 @@ $(function(){
 			ccms.dialog.notice("请购买商品再进行付款！", 2000);
 			return false;
 		}
+		
 		if($("#custcode").val()==""){
 			ccms.dialog.notice("请输入卡号！", 2000);
 			return false;
