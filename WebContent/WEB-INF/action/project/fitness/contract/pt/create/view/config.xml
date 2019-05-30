@@ -23,7 +23,7 @@
 		<content-type>text/html</content-type>
 		<print mode="form" recordset="query-contract.sql"/>
 		<print mode="form" recordset="query-skillscopenum.sql" />
-		<print mode="form" recordset="query-customer.sql" />
+		<print mode="table" recordset="query-customer.sql" tag="money-rows"/>
 	</output>
 
 </config>

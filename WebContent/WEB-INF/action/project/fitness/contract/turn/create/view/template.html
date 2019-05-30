@@ -110,7 +110,7 @@ ${inc:/action/project/fitness/home/pub}
 			     		</li>
 			     		<li id="moneycashDiv">
 			     			<label style="width: 120px;">现金储值：</label>
-							<span id="moneycash">${fld:moneycash}</span>
+							<span id="moneycash"><money-rows>${fld:moneycash}</money-rows>></span>
 			     		</li>	
 			     	</nav>
 			     </div>
@@ -197,6 +197,9 @@ $(document).ready(function(){
 		}
 		//zyb 20190506提示金额不足
 		if($("#paymethod").val()=="f_chuzhika"){
+			if($("#moneycash").text()==""||$("#moneycash").text()==null){
+				$("#moneycash").text("0");
+			}
 			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoney").val())){
 				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
 				return false;
