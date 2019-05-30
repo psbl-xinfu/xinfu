@@ -262,6 +262,7 @@ $(function(){
 	$("input[name=othertype]").unbind().on("ifClicked",function(){  
 			 $("#paymoneybin").html("");
 			 $("#paydivbin").children('span').remove();
+			 $("#moneycashDiv").hide();
 			 setSelectValue($("#paymethodbin"), "");
 			 $('input[name=othertype]').iCheck('check');
 	});
@@ -333,10 +334,13 @@ $(function(){
 		}
 		//zyb 20190506提示金额不足
 		if($("#paymethodbin").val()=="f_chuzhika"){
-			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoneybin").val())){
-				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
-				return false;
-			}
+			   if($("#moneycash").text()==""||$("#moneycash").text()==null){
+			    	$("#moneycash").text("0");
+			   }
+			   if(parseFloat($("#moneycash").text())<parseFloat($("#paymoneybin").val())){
+			    	ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+			   		 return false;
+			   }
 		}
 		
 		if($("#custcode").val()==""||$("#custcode").val()==null){
