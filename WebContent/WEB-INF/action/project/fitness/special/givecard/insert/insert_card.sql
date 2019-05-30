@@ -13,7 +13,8 @@ insert into cc_card(
 	count,
 	org_id,
 	startdate,
-	enddate
+	enddate,
+	nowcount
 )
 values(
 	concat(COALESCE((SELECT memberhead FROM hr_org WHERE org_id = ${def:org}),''), (case when (SELECT param_value FROM cc_config config WHERE
@@ -45,5 +46,6 @@ values(
 	(case when ${fld:enablement}='2' then ${fld:enddate}::date 
 	when ${fld:enablement}='0' then '${def:date}'::date +((case when ${fld:giveday} is null then 0 else  ${fld:giveday}  end )  +    (case when ${fld:daycount} is null then 0  else  ${fld:daycount} end))
 		+(case when ${fld:giveday} is null then 0 else  ${fld:giveday}  end )
-	else null end)
+	else null end),
+	${fld:count}
 )

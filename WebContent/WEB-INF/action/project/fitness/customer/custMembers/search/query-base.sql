@@ -7,11 +7,12 @@ then '有效'  else '无效' end) as status,
 (SELECT hr_staff.name from hr_staff where hr_staff.userlogin=cust.mc) as mc,
  (select count(code) from cc_inleft where customercode = cust.code and org_id = cust.org_id   AND indate::date <= ${fld:enddate}::date 
  AND indate::date >= ${fld:startdate}::date
-  ) as cis
+  ) as cis,
+  cust.org_id
 from cc_customer cust 
-where (case when ${fld:mc} is null then 1=1 else cust.mc=${fld:mc} end)
+where (case when ${fld:mc} is null then 1=1 else cust.mc=${fld:mc} end) and cust.org_id=${def:org}
 ) as bin
 
-where bin.cis>=${fld:min} and bin.cis<=${fld:max} 
+where bin.cis>=${fld:min} and bin.cis<=${fld:max}
 
 order by cis desc
