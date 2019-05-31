@@ -48,9 +48,9 @@ INSERT INTO cc_contract(
 	,'${def:user}'
 	,'${def:date}'
 	,'${def:time}'
-	,concat(COALESCE((SELECT memberhead FROM hr_org WHERE org_id =${def:org}),''),lpad(currval('seq_cc_customer')::varchar, 8, '0'))
+	,(case when (select count(*) from cc_customer where guestcode=${fld:guestcode} and org_id=${def:org})>0 then  (select code from cc_customer where guestcode=${fld:guestcode} and org_id=${def:org}) else concat(COALESCE((SELECT memberhead FROM hr_org WHERE org_id =${def:org}),''),lpad(currval('seq_cc_customer')::varchar, 8, '0')) end) 
 	,concat(
-		concat(COALESCE((SELECT memberhead FROM hr_org WHERE org_id =${def:org}),''),lpad(currval('seq_cc_customer')::varchar, 8, '0')),';;'
+		(case when (select count(*) from cc_customer where guestcode=${fld:guestcode} and org_id=${def:org})>0 then  (select code from cc_customer where guestcode=${fld:guestcode} and org_id=${def:org}) else concat(COALESCE((SELECT memberhead FROM hr_org WHERE org_id =${def:org}),''),lpad(currval('seq_cc_customer')::varchar, 8, '0')) end),';;'
 		,(
 			SELECT c1.param_value FROM cc_config c1 
 			WHERE category = 'MemberRank' AND c1.param_text = '普通会员' AND c1.org_id = (
