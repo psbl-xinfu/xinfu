@@ -16,6 +16,7 @@
 
 	<query>insert_card.sql</query>
 	<query>insert_operatelog.sql</query>
+	<query>insert_ptrest.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
