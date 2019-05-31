@@ -236,7 +236,7 @@ $(function(){
 			$("#findtype").val("2");
 			if(cardcode !=""){
 				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycardcodelist/crud?pickcustname="
-					+cardcode+"&objid=cardcode&random_number="+Math.random()});
+					+cardcode+"&objid=cardcode&random_number="+Math.random(),width:'800',height:'500'});
 				return false;
 			}else {
 				$("#mobile,#custname,#moneygift,#moneycash").val("");
