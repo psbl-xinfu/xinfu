@@ -1,5 +1,8 @@
-SELECT ptdef.ptlevelname,ptrest.ptleftcount::int4,s.name as ptname
-      ,
+SELECT ptdef.ptlevelname,ptrest.ptleftcount::int4,
+(case when ptdef.reatetype=1 then (select name from hr_staff where userlogin=(select pt from cc_customer where code=${fld:customercode} and org_id=${def:org}))
+	else s.name
+end)
+ as ptname,
       (select comm.created from  cc_comm comm
        where comm.operatortype=1 and comm.customercode=${fld:customercode} 
         and comm.createdby=s.userlogin and comm.org_id=${def:org}
