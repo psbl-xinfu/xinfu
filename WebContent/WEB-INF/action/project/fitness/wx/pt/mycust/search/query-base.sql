@@ -21,8 +21,12 @@ WHERE EXISTS(
 
 AND EXISTS(
 	SELECT 1 FROM cc_ptrest t 
-	WHERE t.customercode = c.code AND t.ptleftcount > 0  
-	and t.ptlevelcode !=(select code from cc_ptdef where reatetype=1 and org_id=t.org_id) and t.pttype != 5
+	WHERE   c.code = t.customercode and t.ptleftcount > 0  
+	and  (case when
+		(select count(code) from cc_ptdef where reatetype=1 and org_id=t.org_id) >0
+		then t.ptlevelcode !=(select code from cc_ptdef where reatetype=1 and org_id=t.org_id)
+		else  t.ptlevelcode is not null
+	end) and t.pttype != 5
 	AND t.org_id = c.org_id AND t.ptid='${def:user}' 
 ) 
 

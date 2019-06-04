@@ -15,7 +15,9 @@ AND EXISTS(
 )
 AND c.org_id = ${def:org}
 AND c.status != 0
-${filter}
+AND (c.name like CONCAT('%',${fld:s_name},'%') or c.mobile like CONCAT('%',${fld:s_name},'%')
+)
+
 
     
     
