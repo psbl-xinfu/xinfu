@@ -380,6 +380,9 @@ $(function(){
 			return false;
 		}
 		var goodcount = 0;
+		
+		var goods_namebin="";
+		var quantitybin=0;
 		$("input[name=gptuid]").each(function(){
 			var url = "${def:actionroot}/querygoodquantity?gptuid="+$(this).val()+"&goodid="+$(this).attr("code");
 			ajaxCall(url,{
@@ -387,14 +390,17 @@ $(function(){
 				progress:true,
 				dataType:"json",
 				success:function(data){
-					if(goodcount==0){
 						var num = $("#"+data.gptuid+"num").val();
 						if(parseInt(num)>data.quantity){
+							alert("2");
 							goodcount = 1;
+							goods_namebin = data.goods_name;
+							quantitybin = data.quantity;
 							ccms.dialog.notice("库存不足，"+data.goods_name+"最大购买数量为"+data.quantity+"！", 2000);
-						}else{
-							//zyb 如果getCheckboxValue("othertype")=3 就是挂账
-							if(getCheckboxValue("othertype")==""||getCheckboxValue("othertype")==null){
+						}
+						if(goodcount==0){
+							goodcount=1;
+							 if(getCheckboxValue("othertype")==""||getCheckboxValue("othertype")==null){
 								   var moneydetail = "";
 									
 									//获取所有支付类型option
@@ -407,10 +413,6 @@ $(function(){
 									//明细
 									$("#pay_detail").val(moneydetail);
 									
-									//获取所有金额
-									/* $("input[name='paytypemoney']").each(function(j,item){
-										paymoney+=Number(item.value);
-									}); */
 									if(parseFloat($("#paidupprice").val())!=parseFloat(paytotalbin)){
 										ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
 										return false;
@@ -421,12 +423,12 @@ $(function(){
 									insert();
 								}else{
 									insert();
-								}
+								} 
 						}
-					}
 				}
 			});
 		})
+		
 		
 	});
 	
