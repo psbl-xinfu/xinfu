@@ -1410,6 +1410,31 @@ public class WeixinUtil {
 		JSONObject jsonObject = (JSONObject) httpRequest(StringUtil.replace(
 				WX_JS_TICKET_URL, "${access_token}", accessToken), "GET", null,
 				null);
+		// add by leo 190604 如果access_token失效导致，获取失败重新获取access_token
+		if (!jsonObject.has("ticket")) {
+			String updateTokenSql = getLocalResource("/transactions/project/weixin/service/update-token.sql");
+			updateTokenSql = StringUtil.replace(updateTokenSql, "${service_id}",
+					serviceId);
+
+			Recordset tokenRecordset = db
+					.get(StringUtil
+							.replace(
+									getLocalResource("/transactions/project/weixin/service/query-token.sql"),
+									"${service_id}", serviceId));
+			tokenRecordset.first();
+			String appid = tokenRecordset.getString("appid");
+			String appsecret = tokenRecordset.getString("appsecret");
+			tokenRecordset.first();
+			String new_access_token = getWeixinAccessTokenForService(appid,
+					appsecret);
+			updateTokenSql = StringUtil.replace(updateTokenSql,
+					"${access_token}", new_access_token);
+			db.exec(updateTokenSql);
+			jsonObject = (JSONObject) httpRequest(StringUtil.replace(
+					WX_JS_TICKET_URL, "${access_token}", accessToken), "GET", null,
+					null);
+		}
+		
 		return jsonObject.getString("ticket");
 	}
 
