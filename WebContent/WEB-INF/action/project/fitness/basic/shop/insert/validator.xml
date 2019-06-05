@@ -17,6 +17,10 @@
 	<parameter id="paytheprice" type="varchar" required="false" label="储值卡支付的钱" />
 
 	<parameter id="getmoney" type="varchar" required="false" label="实收总数的钱" />
+	
+	<parameter id="paidupprice" type="varchar" required="false" label="总价钱-折扣价的钱也就是实际金额" />
+	
+	<parameter id="adiscount" type="varchar" required="false" label="折扣价" />
 	<!-- <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
 		on-error-label="现金储值不足！" id="othermoney" sql="nodup-custmoneycash.sql" />
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 

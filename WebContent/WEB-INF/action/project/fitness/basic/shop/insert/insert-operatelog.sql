@@ -20,8 +20,11 @@ insert into cc_operatelog(
 		55,
 		concat(${fld:custcode}, ';', ${fld:cardcode}, ';商品销售'),
 		${fld:ystotal},
-		${fld:total},
-		${fld:total},
+		${fld:paidupprice},
+		(case when ${fld:othertype}  is null then 
+			(case when ${fld:getmoney} is not null then ${fld:getmoney} else 0.00 end)
+			else null
+		end),
 		1,
 		${fld:pay_detail},
 		'商品销售',

@@ -28,6 +28,8 @@ background: rgba(42, 48, 56, -1.2) !important
 		
 		<input type="hidden" name="getmoney" id="getmoney"/>
 		
+		<input type="hidden" name="paidupprice" id="paidupprice"/>
+		
 				<div class="am-tabs r-tab-container goodsSale">
 					<div class="sec-1">
 						<label for="id">编号：</label>
@@ -106,25 +108,22 @@ background: rgba(42, 48, 56, -1.2) !important
 							</div>
 						</div>
 						<div class="sec-3-right fl">
-							<label class="sec-3-right-title">付款方式</label>
-							<div class="sec-3-right-con">
-								<!-- <div class="top">
-									<label class="am-checkbox">
-										<input type="radio" name="othertype" value="2" checked="checked" style="display: none;">储值卡支付
-									</label>
+							<div class="sec-3-left-title">			
+								<label class="sec-top">
+									<label for="total">折扣价：</label>
+									<input type="text" id="adiscount" name="adiscount" placeholder="0.00"/>
+									<label for="total">实收：</label>
+									<span id="paidin"></span>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									
-									<input type="radio" name="othermoney" value="1" checked="checked" style="display: none;">现金储值
-									<input id="moneycash" name="moneycash"  type="text" title="现金储值" placeholder="现金储值" readonly="readonly">
-							
-									<input type="radio" name="othermoney" value="2" style="display: none;margin-top: 20px">运动基金
-									<input id="moneygift" name="moneygift"type="text" title="运动基金" placeholder="运动基金" readonly="readonly"> 
-								</div>
-							 -->
+								</label>
+								<label class="sec-top">
+									<input type="radio" name="othertype" value="3" style="display: none;">挂账
+								</label>
+							</div>
+							<div class="sec-3-right-con">
 								<div class="bottom  ">
+									<label class="sec-3-right-title">付款方式</label>
 									<input type="hidden" name="pay_detail" id="pay_detail">
-									<!-- <label class="am-checkbox">
-										<input type="radio" name="othertype" value="1" style="display: none;">其他支付方式
-									</label> -->
 								
 									<div class="b-i-main" style="margin-left: 5px">
 										<nav>
@@ -147,22 +146,8 @@ background: rgba(42, 48, 56, -1.2) !important
 										</nav>
 									</div>
 						     		
-									<!-- <div class="form-control bg" style="width:300px ;border: none;">
-										<div class="cont-div" style="width:1000px ;">
-											<label class="cont-label" style="width: 50px;float: left;margin-top: 7px">金额：</label>
-											<input type="text" id="money" name="money" title="金额" placeholder="金额" style="margin-top: -3px;width: 15%;float: left;margin-left: -0px"/>
-										</div>
-									</div>
-										
-									<span class="btn-add" id='addmoney' style="position:absolute ;margin-left: 10px;margin-top: -20px"></span>
-									<div class="bottom-con" id="paymoney" style="height: 55px">
-									</div> -->
 								</div>
-								<div class="bottom" style="margin-top: 40px">
-									<label class="am-checkbox">
-										<input type="radio" name="othertype" value="3" style="display: none;">挂账
-									</label>
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -195,6 +180,25 @@ $(function(){
 	//searchSelectInit($("#storage_id,#paymethodbin,#goodsname"));
 	searchSelectInit($("#storage_id,#paymethodbin"));
 	searchSelectInit($("#goodsname"),"240px");
+	//js实施监听
+	 $('#adiscount').bind('input propertychange', function() {  
+		 if($('#adiscount').val()<0){
+			 ccms.dialog.notice("折扣价不可以为负数！", 2000);
+			 return false;
+		 }
+		 
+		 var a = $('#ystotal').val();
+		 var b = $('#adiscount').val();
+		 if((a-b)<0){
+			 ccms.dialog.notice("实收不可以为负数！", 2000);
+			 return false;
+		 }
+		
+		var sum= a - b;
+	    $('#paidin').text(sum); 
+	    $('#paidupprice').val(sum);
+	}); 
+	
 	//查询商品
 	$("#goodsname").change(function(){
 		$("#findtype").val("1");
@@ -216,16 +220,6 @@ $(function(){
 		}
 		$("#goodsname").val("").trigger("change");
 	});
-/* 	//查询会员
-	$("#cardcode").blur(function(){
-		$("#findtype").val("2");
-		if($(this).val()!=""){
-			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycardcodelist/crud?pickcustname="
-					+$(this).val()+"&objid=cardcode&random_number="+Math.random()});
-		}else{
-			$("#mobile,#custname,#moneygift,#moneycash").val("");
-		}
-	}) */
 	
  	//加回车事件 zzn
 	  var isRunning   = [];
@@ -367,32 +361,9 @@ $(function(){
 	});
 	
 	
-	
-   /* $("#addmoney").click(function(){
-	   	var moneytype = $("#moneytype").val();
-	   	var moneytypetext = $("#moneytype option:selected").text();
-	   	var money = $("#money").val();
-	   	if(moneytype==""){
-	   		ccms.dialog.notice("请选择支付方式！", 2000);
-	   	}else if(money==""){
-	   		ccms.dialog.notice("请输入金额！", 2000);
-	   	}else{
-	   		var count = 0;
-			$("input[name='paytypemoney']").each(function(j,item){
-				   if($(item).attr("code")==moneytype)count++;
-			});
-			if(count==0){
-				$("#paymoney").append("<div class='num'>"+moneytypetext+"："+money+"元<input type='hidden' value='"+money
-						+"' code='"+moneytype+"'  name='paytypemoney'/><span class='btn-remove' onclick=delhour(this)></span></div>");
-				$("#moneytype,#money").val("");
-				$("#moneytype").selectpicker("refresh");
-				$("#moneytype").selectpicker("render");
-			}else
-				ccms.dialog.notice(moneytypetext+"已存在！", 2000);
-	   	}
-  }); */
 	//购买
 	$("#save_btn").click(function(){
+		//alert($("#leave_stockid").val());
 		//判断当前登录人是否有收款权限
 		if(parseInt("${fld:skillscopenum}")==0){
 			ccms.dialog.notice("该登录人没有收款权限！", 2000);
@@ -423,15 +394,9 @@ $(function(){
 							ccms.dialog.notice("库存不足，"+data.goods_name+"最大购买数量为"+data.quantity+"！", 2000);
 						}else{
 							//zyb 如果getCheckboxValue("othertype")=3 就是挂账
-							if(getCheckboxValue("othertype")!="3"){
+							if(getCheckboxValue("othertype")==""||getCheckboxValue("othertype")==null){
 								   var moneydetail = "";
 									
-									/*  $("#paymethod option").each(function(){  
-										if($(this).val()!=""){
-											moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
-										}
-										moneydetail = moneydetail.replace("undefined", "0");
-									});  */
 									//获取所有支付类型option
 									$("#paymethodbin").find("option").each(function(idx,ele){
 										if( "" != $(ele).attr("code") ){
@@ -446,7 +411,7 @@ $(function(){
 									/* $("input[name='paytypemoney']").each(function(j,item){
 										paymoney+=Number(item.value);
 									}); */
-									if(Number($("#total").val())!=Number(paytotalbin)){
+									if(parseFloat($("#paidupprice").val())!=parseFloat(paytotalbin)){
 										ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
 										return false;
 									}
@@ -465,14 +430,6 @@ $(function(){
 		
 	});
 	
-	/* $("#money").blur(function(){
-		var money = $(this).val();
-		if(isNaN(money)){
-			money = 0;
-		}
-		money = Number(money).toFixed(2);
-		$(this).val(money <0 ? 0 : money);
-	}); */
 });
 function serachgoods(){
 	ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querygoodslist/crud?storage_id="
@@ -538,6 +495,9 @@ function calculate(){
 	});
 	$("#total").val((money*drinkdiscount).toFixed(2));
 	$("#ystotal").val(money.toFixed(2));
+	var b = $('#adiscount').val();
+	$("#paidin").text(($("#total").val() - b).toFixed(2));
+	$("#paidupprice").val(($("#total").val() - b).toFixed(2));
 }
 //增加数量
 function addNum(id){

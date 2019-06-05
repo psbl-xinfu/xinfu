@@ -16,29 +16,34 @@ insert into cc_leave_stock(
 	remark,--备注
 	createdby,
 	created,
-	org_id
+	org_id,
+	discount
 ) values(
 	${fld:leave_stockid},
 	${fld:storage_id},
 	${fld:ystotal},
-	${fld:total},
-	(case when ${fld:getmoney} is not null then ${fld:getmoney} else 0.00 end),
+	${fld:paidupprice},
+	(case when ${fld:othertype} is null then 
+		(case when ${fld:getmoney} is not null then ${fld:getmoney} else 0.00 end)
+	else null
+	end),
 	2,
 	(case when ${fld:getmoney} is not null then 2 else 1 end),
-	(case when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float=${fld:total}::float  then '2'::integer 
-	when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float!=${fld:total}::float then '3'::integer
-	when  ${fld:getmoney}::float=${fld:total}::float  then '1'::integer
+	(case when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float=${fld:paidupprice}::float  then '2'::integer 
+	when ${fld:paydivgoodsinp}='f_chuzhika' and ${fld:paytheprice}::float!=${fld:paidupprice}::float then '3'::integer
+	when  ${fld:getmoney}::float=${fld:paidupprice}::float  then '1'::integer
 	else null end),
 	${fld:custcode},
 	${fld:cardcode},
 	(case when ${fld:paydivgoodsinp}='f_chuzhika' then (select moneycash from cc_customer where code = ${fld:custcode} and org_id = ${def:org})
 	 else null
 	end),
-	(case when ${fld:othertype}!='3' then 0 else 1 end),
+	(case when ${fld:othertype} is null then 0 else 1 end),
 	${fld:staff_price},
 	${fld:pay_detail},
 	'商品销售',
     '${def:user}',
     {ts'${def:timestamp}'},
-	${def:org}
+	${def:org},
+	(case when ${fld:adiscount} is not null then ${fld:getmoney} else 0.00 end)
 )

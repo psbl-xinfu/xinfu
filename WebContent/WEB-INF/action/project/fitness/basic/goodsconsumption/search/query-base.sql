@@ -5,7 +5,7 @@ select
 	cust.mobile,
 	--cg.standard, --zzn 增加了商品规格
 	card.code as cardcode,
-	ls.factmoney,
+	ls.getmoney,
 	ls.created,
 	--(select name from hr_staff where userlogin = ls.createdby and org_id = ${def:org}) as staff_name, zzn 2019-03-28 需要带出通店管理员
 	(select name from hr_staff where userlogin = ls.createdby ) as staff_name,

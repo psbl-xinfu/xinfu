@@ -26,8 +26,14 @@ insert into cc_finance(
 		34,
 		'商品销售',
 		${fld:ystotal},
-		${fld:total},
-		0,
+		(case when ${fld:othertype} is null then 
+			(case when ${fld:getmoney} is not null then ${fld:getmoney} else 0.00 end)
+			else null
+		end),
+		(case when ${fld:othertype}  is null then 
+				'0'
+			else (case when ${fld:getmoney} is not null then ${fld:getmoney} else 0.00 end)
+		end),
 		'商品销售',
 		1,
 		${fld:pay_detail},
