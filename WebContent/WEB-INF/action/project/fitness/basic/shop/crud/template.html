@@ -392,7 +392,6 @@ $(function(){
 				success:function(data){
 						var num = $("#"+data.gptuid+"num").val();
 						if(parseInt(num)>data.quantity){
-							alert("2");
 							goodcount = 1;
 							goods_namebin = data.goods_name;
 							quantitybin = data.quantity;

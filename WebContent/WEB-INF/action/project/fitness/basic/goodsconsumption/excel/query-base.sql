@@ -8,7 +8,7 @@ select
 	card.code as cardcode,
 	lg.price,
 	lg.amount::int,
-	lg.factmoney,
+	ls.getmoney as factmoney,
 	ls.created,
 	(select name from hr_staff where userlogin = ls.createdby and org_id = ${def:org}) as staff_name,
 	(case when ls.paystatus=1 then '未付款' when ls.paystatus=2 then '已付款' end) as paystatus 
