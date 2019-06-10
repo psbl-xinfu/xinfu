@@ -15,7 +15,10 @@ INSERT INTO cc_ptprepare(
 (
 	select 
 	${seq:nextval@seq_cc_ptprepare},
-	ptid,
+	(case when (select reatetype from cc_ptdef where code=cc_ptrest.ptlevelcode and org_id=cc_ptrest.org_id)=1
+		THEN (select pt from cc_customer where code=cc_ptrest.customercode and org_id=cc_ptrest.org_id)
+		else cc_ptrest.ptid
+	end),
 	code,
 	customercode,
 	${fld:preparedate},
