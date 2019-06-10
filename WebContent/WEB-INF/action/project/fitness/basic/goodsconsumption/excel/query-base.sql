@@ -8,10 +8,12 @@ select
 	card.code as cardcode,
 	lg.price,
 	lg.amount::int,
-	ls.getmoney as factmoney,
+	ls.getmoney as getmoney,
+	ls.factmoney as factmoney,
 	ls.created,
 	(select name from hr_staff where userlogin = ls.createdby and org_id = ${def:org}) as staff_name,
-	(case when ls.paystatus=1 then '未付款' when ls.paystatus=2 then '已付款' end) as paystatus 
+	(case when ls.paystatus=1 then '未付款' when ls.paystatus=2 then '已付款' end) as paystatus,
+	ls.discount
 from cc_leave_stock ls
 left join cc_customer cust on ls.customercode = cust.code and ls.org_id = cust.org_id
 left join cc_card card on ls.paycardcode = card.code and card.isgoon = 0

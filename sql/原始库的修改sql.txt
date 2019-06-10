@@ -1,3 +1,7 @@
+//zyb 190605 add 商品的折扣价
+alter table cc_leave_stock add discount float8 DEFAULT 0
+COMMENT ON COLUMN "public"."cc_leave_stock"."discount" IS '折扣价钱';
+
 //zyb 20190514 add 补签
 alter table cc_inleft add callparparecode varchar(20)
 COMMENT ON COLUMN "public"."cc_inleft"."callparparecode" IS 'cc_classparpare表的code';

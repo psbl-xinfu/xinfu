@@ -45,5 +45,5 @@ insert into cc_leave_stock(
     '${def:user}',
     {ts'${def:timestamp}'},
 	${def:org},
-	(case when ${fld:adiscount} is not null then ${fld:getmoney} else 0.00 end)
+	(case when ${fld:adiscount} is not null then ${fld:adiscount} else 0.00 end)
 )

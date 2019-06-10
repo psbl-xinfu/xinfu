@@ -28,7 +28,9 @@
 		<col id="cardcode" label="卡号" />
 		<col id="standard" label="规格" />
 		<col id="amount" label="数量" />
-		<col id="factmoney" label="销售金额（元）" />
+		<col id="factmoney" label="标价金额（元）" />
+		<col id="discount" label="折扣金额（元）" />
+		<col id="getmoney" label="实收金额（元）" />
 		<col id="paystatus" label="状态" />
 		<col id="created" label="购买日期" />
 		<col id="staff_name" label="操作人" />

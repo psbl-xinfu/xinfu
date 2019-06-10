@@ -20,8 +20,10 @@ background: rgba(42, 48, 56, -1.2) !important
 					<div class="sec-1">
 						<label for="id">编号：</label>
 						<input type="text" name="leave_stockid" readonly="readonly" id="leave_stockid" value="${fld:tuid}" title="编号" placeholder="编号" />
-						<label for="total">合计：</label>
-						<input type="text" id="total" name="total" class="total" readonly="readonly" value="${fld:factmoney}" title="合计" placeholder="合计" />
+						<label for="total">实收价：</label>
+						<input type="text" id="total" name="total" class="total" readonly="readonly" value="${fld:factmoney}" title="实收" placeholder="实收" />
+						<label for="discounttotal">折扣价：</label>
+						<input type="text" id="discount" name="discount" class="discount" readonly="readonly" value="${fld:discount}" title="折扣" placeholder="实收" />
 						<label for="id">状态：</label>
 						<label class="status" id="status"></label>
 					</div>
@@ -47,7 +49,7 @@ background: rgba(42, 48, 56, -1.2) !important
 										<th>单位</th>
 										<th>单价</th>
 										<th>数量</th>
-										<th>实收金额</th>
+										<th>标价总金额</th>
 									</tr>
 								</thead>
 								<tbody id="goodslist">
@@ -58,7 +60,7 @@ background: rgba(42, 48, 56, -1.2) !important
 											<td>${fld:unit}</td>
 											<td>${fld:price}</td>
 											<td>${fld:amount}</td>
-											<td>${fld:factmoney}</td>
+											<td rowspan="2">${fld:factmoney}</td>
 										</tr>
 									</leave_stock_goods-rows>
 								</tbody>
