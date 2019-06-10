@@ -33,7 +33,8 @@ SELECT
 	(select name from hr_staff where userlogin = ls.updatedby) as payeeuser,  ---收款人
 	ls.updated as payeedate,  ---收款时间
 	'商品销售' as vc_beizhu,
-	(select name from cc_customer where code= ls.customercode and org_id = ${def:org}) as custname
+	(select name from cc_customer where code= ls.customercode and org_id = ${def:org}) as custname,
+	ls.discount
 from cc_leave_stock ls
 left join cc_card card on card.code= ls.paycardcode and card.org_id = ls.org_id and card.isgoon = 0
 LEFT JOIN cc_cardtype ct on ct.code=card.cardtype and ct.org_id = card.org_id 

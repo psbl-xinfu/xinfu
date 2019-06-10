@@ -9,9 +9,9 @@
 	<!-- word模板路径 -->
 	<doc-template>/erpclubdoc/template/gouwuticket.docx</doc-template>
 	<!-- 模板中参数列表 ，多个用英文分号隔开-->
-	<params>vc_club;vc_number;receipts;amount;f_money;paydetail;payeeuser;payeedate;vc_beizhu;remark;custname</params>
+	<params>vc_club;vc_number;receipts;amount;f_money;paydetail;payeeuser;payeedate;vc_beizhu;remark;custname;discount</params>
 	<!-- 参数对应的字段列表 -->
-	<fields>vc_head;vc_code;receipts;amount;f_getmoney;paydetail;payeeuser;payeedate;vc_beizhu;vc_foot;custname</fields>
+	<fields>vc_head;vc_code;receipts;amount;f_getmoney;paydetail;payeeuser;payeedate;vc_beizhu;vc_foot;custname;discount</fields>
 
 	<transaction>
 		<classname>transactions.project.fitness.doc.WordTemplateReplace</classname>
