@@ -21,6 +21,8 @@
          	
          
 	<form  id="filter"  name="filter">
+	<input type='hidden' name="times"  value="${fld:times}" id='times'/>
+	<input type='hidden' name="parpredates"  value="${fld:parpredates}" id='parpredates'/>
 	<div class=""  id="mm">
 		<div class="m1 disNone"  id="cust">
 			<h3>
@@ -72,7 +74,7 @@
 		
 		<p>
 			<span>预约时间</span>
-			<input type="text" name=""  class="form-control dateinput" id="datetimepicker"  value="${fld:parpredate}  ${fld:time}">
+			<input type="text" name=""  class="form-control dateinput" id="datetimepicker"  value="${fld:parpredates}  ${fld:times}">
 		</p>
 		
 		<p>
