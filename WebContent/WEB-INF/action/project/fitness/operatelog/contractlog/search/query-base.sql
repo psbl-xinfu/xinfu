@@ -20,5 +20,5 @@ LEFT JOIN hr_org as org on org.org_id=clog.org_id
 where clog.org_id = ${def:org}  
 ${filter}
 
-order by clog.createdate desc
+order by clog.createdate,clog.createtime desc
  
