@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-		<parameter id="time" type="varchar" required="true" label="time"/>
-		<parameter id="parpredate" type="varchar" required="true" label="parpredate"/>
+		<parameter id="times" type="varchar" required="true" label="times"/>
+		<parameter id="parpredates" type="varchar" required="true" label="parpredates"/>
 </validator>

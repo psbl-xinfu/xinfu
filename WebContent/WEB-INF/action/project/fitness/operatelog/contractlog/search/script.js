@@ -7,7 +7,7 @@
 		,"cname":"${fld:cname@js}"
 		,"mobile":"${fld:mobile@js}"
 		,"type":"${fld:type@js}"
-		,"createdate":"${fld:createdate@yyyy-MM-dd}"
+		,"createdate":"${fld:createdate@yyyy-MM-dd  HH:mm:ss}"
 		,"remark":"${fld:remark}"
 	},
 	</rows>

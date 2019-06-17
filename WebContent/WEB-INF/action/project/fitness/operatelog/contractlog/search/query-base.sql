@@ -5,7 +5,7 @@ clog.createdby,(case when clog.opertype = '102' then (select concat('认证ID:',
  when clog.opertype = '103'  then clog.customercode
 else cust.name end) as cname,cust.mobile,
 	(select param_text from cc_config as cog where category='OpeCategory' and cog.param_value = clog.opertype) as type,
-	clog.createdate,
+	(clog.createdate+clog.createtime) as createdate,
 	clog.remark
 from cc_operatelog as clog
 
@@ -20,5 +20,5 @@ LEFT JOIN hr_org as org on org.org_id=clog.org_id
 where clog.org_id = ${def:org}  
 ${filter}
 
-order by clog.createdate desc
+order by clog.createdate,clog.createtime desc
  
