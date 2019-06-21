@@ -9,6 +9,7 @@ var num = 0;
 	ptrestval+="<td class='text-center'>${fld:ptlevelname}</td>";
 	ptrestval+="<td class='text-center'>${fld:ptleftcount}</td>";
 	ptrestval+="<td class='text-center'>${fld:staffname}</td>";
+	ptrestval+="<td class='text-center'>${fld:ptstatus}</td>";
 	ptrestval+="<td class='text-center'>${fld:ptfee}</td></tr>";
 </ptrest-rows>
 $("#ptrest").html(ptrestval);

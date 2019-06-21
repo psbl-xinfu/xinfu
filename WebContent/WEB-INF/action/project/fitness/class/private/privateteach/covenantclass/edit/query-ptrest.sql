@@ -10,7 +10,8 @@ select
 			where c.code = pr.customercode and c.org_id = pr.org_id
 		) end
 	) as staffname,
-	pd.ptfee
+	pd.ptfee,
+	(case when pr.ptenddate::date<'${def:date}'::date then '已过期' else '正常' end) as ptstatus
 from cc_ptrest  pr
 left join cc_ptdef pd on pr.ptlevelcode = pd.code and pr.org_id = pd.org_id
 where 
