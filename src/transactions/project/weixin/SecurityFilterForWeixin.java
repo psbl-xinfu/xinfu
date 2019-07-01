@@ -394,62 +394,11 @@ public class SecurityFilterForWeixin implements Filter{
 		}		
 
 		String weixin_type = (String) s.getAttribute("dinamica.security.weixin_type");
-		if(user!=null){
+		// modified by leo 190621 去掉调试注释
+//		if(user!=null){
 			//System.out.println("user:"+user.getName());
-		}
-		//System.out.println("weixin_type:"+weixin_type);
-
-		//登录后，自动绑定一次微信号
-		if (user != null && weixin_type != null && weixin_type.length() > 0) {
-			req.setAttribute("dinamica.error.user", user.getName());
-			// 判断是否需要绑定微信帐号
-			weixin_userid = (String) s.getAttribute("dinamica.security.weixin_userid");
-			if (weixin_userid != null && weixin_userid.length() > 0) {
-				Connection con = null;
-				try {
-					con = _ds.getConnection();
-					Db db = new Db(con);
-					String updateUseridSql = getLocalResource("/transactions/project/weixin/login/update-weixin.sql");
-					String deleteWeixinSql = getLocalResource("/transactions/project/weixin/login/delete-weixin.sql");
-					String insertWeixinSql = getLocalResource("/transactions/project/weixin/login/insert-weixin.sql");
-
-					updateUseridSql = StringUtil.replace(updateUseridSql,"${weixin_userid}", weixin_userid);
-					deleteWeixinSql = StringUtil.replace(deleteWeixinSql,"${weixin_userid}", weixin_userid);
-					insertWeixinSql = StringUtil.replace(insertWeixinSql,"${weixin_userid}", weixin_userid);
-
-					updateUseridSql = StringUtil.replace(updateUseridSql,"${userlogin}", user.getName());
-					deleteWeixinSql = StringUtil.replace(deleteWeixinSql,"${userlogin}", user.getName());
-					insertWeixinSql = StringUtil.replace(insertWeixinSql,"${userlogin}", user.getName());
-
-					String _sid = "";
-					if(null != s.getAttribute("dinamica.security.weixin_service_id")){
-						_sid = (String) s.getAttribute("dinamica.security.weixin_service_id");
-					}
-					_sid = (StringUtils.isNotBlank(_sid) ? _sid : "null");
-					insertWeixinSql = StringUtil.replace(insertWeixinSql,"${weixin_service_id}", _sid);
-					updateUseridSql = StringUtil.replace(updateUseridSql,"${weixin_service_id}", _sid);
-					
-					TemplateEngine t = new TemplateEngine(_config.getServletContext(), req, "");
-					t.setTemplate(insertWeixinSql);
-					insertWeixinSql = t.getSql(null);
-					
-					db.exec(updateUseridSql);
-					db.exec(deleteWeixinSql);
-					db.exec(insertWeixinSql);
-					s.removeAttribute("dinamica.security.weixin_type");
-				} catch (Throwable e) {
-					throw new ServletException(e);
-				} finally {
-					if (con != null) {
-						try {
-							con.close();
-						} catch (SQLException e) {
-							throw new ServletException(e);
-						}
-					}
-				}
-			}
-		} 
+//		}
+		//System.out.println("weixin_type:"+weixin_type)
 		
 
 		// 判断是否已经绑定现有帐号，如果绑定则模拟自动登录，如果没有绑定则跳转到登录页面
@@ -462,8 +411,10 @@ public class SecurityFilterForWeixin implements Filter{
 					String loginSql = null;
 					loginSql = StringUtil.replace(getLocalResource("/transactions/project/weixin/login/login_weixin.sql"),"${weixin_userid}", weixin_userid);
 					TemplateEngine t = new TemplateEngine(_config.getServletContext(), req, "");
-					t.setTemplate(loginSql);
-					loginSql = t.getSql(null);
+					// modified by leo 190701 串号调试可能问题修改注释 begin
+//					t.setTemplate(loginSql);
+//					loginSql = t.getSql(null);
+					// modified by leo 190701 串号调试可能问题修改注释 end
 					Recordset loginRs = db.get(loginSql);
 					
 					if (loginRs.getRecordCount() == 0) {
@@ -513,6 +464,13 @@ public class SecurityFilterForWeixin implements Filter{
 						java.util.Locale locale = new java.util.Locale(loginRs.getString("locale"));
 						s.setAttribute("dinamica.user.locale", locale);
 						s.setAttribute("dinamica.user.org", loginRs.getInteger("org_id"));
+						// add by leo 190701 调试微信串问题 begin
+						logger.info("weixin has bind------------------------");
+						logger.info("user:"+user.getName());
+						logger.info("weixin_userid:"+weixin_userid);
+						logger.info("sid:"+sid);
+						logger.info("weixin has bind end------------------------");
+						// add by leo 190701 调试微信串问题 end
 							if (loginRs.containsField("tenantry_id")) {
 								s.setAttribute("dinamica.user.tenantry",loginRs.getString("tenantry_id"));
 								s.setAttribute("dinamica.user.subject",	loginRs.getString("subject_id"));
@@ -532,6 +490,64 @@ public class SecurityFilterForWeixin implements Filter{
 				}
 		}
 
+		//登录后，自动绑定一次微信号
+		if (user != null && weixin_type != null && weixin_type.length() > 0) {
+			req.setAttribute("dinamica.error.user", user.getName());
+			// 判断是否需要绑定微信帐号
+			weixin_userid = (String) s.getAttribute("dinamica.security.weixin_userid");
+			if (weixin_userid != null && weixin_userid.length() > 0) {
+				Connection con = null;
+				try {
+					con = _ds.getConnection();
+					Db db = new Db(con);
+					String updateUseridSql = getLocalResource("/transactions/project/weixin/login/update-weixin.sql");
+					String deleteWeixinSql = getLocalResource("/transactions/project/weixin/login/delete-weixin.sql");
+					String insertWeixinSql = getLocalResource("/transactions/project/weixin/login/insert-weixin.sql");
+
+					updateUseridSql = StringUtil.replace(updateUseridSql,"${weixin_userid}", weixin_userid);
+					deleteWeixinSql = StringUtil.replace(deleteWeixinSql,"${weixin_userid}", weixin_userid);
+					insertWeixinSql = StringUtil.replace(insertWeixinSql,"${weixin_userid}", weixin_userid);
+
+					updateUseridSql = StringUtil.replace(updateUseridSql,"${userlogin}", user.getName());
+					deleteWeixinSql = StringUtil.replace(deleteWeixinSql,"${userlogin}", user.getName());
+					insertWeixinSql = StringUtil.replace(insertWeixinSql,"${userlogin}", user.getName());
+
+					String _sid = "";
+					if(null != s.getAttribute("dinamica.security.weixin_service_id")){
+						_sid = (String) s.getAttribute("dinamica.security.weixin_service_id");
+					}
+					_sid = (StringUtils.isNotBlank(_sid) ? _sid : "null");
+					insertWeixinSql = StringUtil.replace(insertWeixinSql,"${weixin_service_id}", _sid);
+					updateUseridSql = StringUtil.replace(updateUseridSql,"${weixin_service_id}", _sid);
+					
+					TemplateEngine t = new TemplateEngine(_config.getServletContext(), req, "");
+					t.setTemplate(insertWeixinSql);
+					insertWeixinSql = t.getSql(null);
+					
+					db.exec(updateUseridSql);
+					db.exec(deleteWeixinSql);
+					db.exec(insertWeixinSql);
+					s.removeAttribute("dinamica.security.weixin_type");
+					// add by leo 190621 调试微信串问题 begin
+					logger.info("weixin first bind------------------------");
+					logger.info("user:"+user.getName());
+					logger.info("weixin_userid:"+weixin_userid);
+					logger.info("_sid:"+_sid);
+					logger.info("weixin first bind end-----------------------");
+					// add by leo 190621 调试微信串问题 end
+				} catch (Throwable e) {
+					throw new ServletException(e);
+				} finally {
+					if (con != null) {
+						try {
+							con.close();
+						} catch (SQLException e) {
+							throw new ServletException(e);
+						}
+					}
+				}
+			}
+		} 
 			
 		// create request wrapper
 		RequestWrapper rw = new RequestWrapper(req);
