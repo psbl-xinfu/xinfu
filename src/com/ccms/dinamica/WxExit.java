@@ -7,10 +7,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import dinamica.Db;
 import dinamica.GenericTableManager;
 import dinamica.Recordset;
 import dinamica.StringUtil;
+import transactions.project.weixin.SecurityFilterForWeixin;
 
 /**  
  * All rights Reserved, Designed By gymjam.cn
@@ -23,6 +26,8 @@ import dinamica.StringUtil;
  * @Copyright: 2019 www.gymjam.cn Inc. All rights reserved. 
  */
 public class WxExit extends GenericTableManager{
+	private static Logger logger = Logger
+			.getLogger(WxExit.class.getName());
 	public int service(Recordset inputParams) throws Throwable {
 
 		// reuse superclass code
@@ -32,7 +37,7 @@ public class WxExit extends GenericTableManager{
 		
 		//记录当前是否微信登录
 		// modified by leo 190524 微信是否登陆通过sid判断
-//		String weixin_userid = (String)s.getAttribute("dinamica.security.weixin_userid");
+		String weixin_userid = (String)s.getAttribute("dinamica.security.weixin_userid");
 		String sid = (String)s.getAttribute("dinamica.security.weixin_service_id");
 		
 		
@@ -52,7 +57,8 @@ public class WxExit extends GenericTableManager{
 //			String appsecret=serviceRecordset.getString("appsecret");
 			String access_address=serviceRecordset.getString("access_address");
 			String loginUrl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+URLEncoder.encode(access_address+"/phone/action/project/fitness/wx/home?sid="+serviceId)+"&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
-			System.out.println("loginUrl: "+loginUrl);
+			logger.info("loginUrl: "+loginUrl);
+			logger.info("logout: "+weixin_userid);
 			Enumeration em = request.getSession().getAttributeNames();
 			while (em.hasMoreElements()) {
 				request.getSession().removeAttribute(em.nextElement().toString());

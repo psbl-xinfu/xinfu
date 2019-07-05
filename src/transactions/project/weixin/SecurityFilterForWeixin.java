@@ -36,6 +36,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
 import org.ehcache.Cache;
+import org.jfree.util.Log;
 import org.json.JSONException;
 import org.quartz.impl.jdbcjobstore.LockException;
 
@@ -191,6 +192,8 @@ public class SecurityFilterForWeixin implements Filter{
 
 	{
 
+		//add by leo 190703 临时调试输出
+//		logger.info("doFilter begin*****************************");
 		// flag used to indicate if the request can proceed
 		boolean isOK = false;
 
@@ -372,6 +375,8 @@ public class SecurityFilterForWeixin implements Filter{
 							} else {
 								s.setAttribute("dinamica.security.weixin_type","service");
 							}
+							
+							logger.info("dinamica.security.weixin_type:"+s.getAttribute("dinamica.security.weixin_type"));
 
 						} catch (JSONException e) {
 							logger.error(e.getMessage());
@@ -465,7 +470,12 @@ public class SecurityFilterForWeixin implements Filter{
 						s.setAttribute("dinamica.user.locale", locale);
 						s.setAttribute("dinamica.user.org", loginRs.getInteger("org_id"));
 						// add by leo 190701 调试微信串问题 begin
-						logger.info("weixin has bind------------------------");
+						logger.info("weixin has bind begin------------------------");
+						StringBuffer url_buffer = req.getRequestURL();
+						logger.info("url_buffer:"+url_buffer.toString());
+				        String queryString = req.getQueryString();
+				        logger.info("queryString:"+queryString);
+				        logger.info("ip:"+req.getRemoteAddr());
 						logger.info("user:"+user.getName());
 						logger.info("weixin_userid:"+weixin_userid);
 						logger.info("sid:"+sid);
@@ -492,7 +502,8 @@ public class SecurityFilterForWeixin implements Filter{
 
 		//登录后，自动绑定一次微信号
 		if (user != null && weixin_type != null && weixin_type.length() > 0) {
-			req.setAttribute("dinamica.error.user", user.getName());
+			// modified by leo 190702 没有用途注释掉
+//			req.setAttribute("dinamica.error.user", user.getName());
 			// 判断是否需要绑定微信帐号
 			weixin_userid = (String) s.getAttribute("dinamica.security.weixin_userid");
 			if (weixin_userid != null && weixin_userid.length() > 0) {
@@ -530,6 +541,12 @@ public class SecurityFilterForWeixin implements Filter{
 					s.removeAttribute("dinamica.security.weixin_type");
 					// add by leo 190621 调试微信串问题 begin
 					logger.info("weixin first bind------------------------");
+					StringBuffer url_buffer = req.getRequestURL();
+					logger.info("url_buffer:"+url_buffer.toString());
+			        String queryString = req.getQueryString();
+			        logger.info("queryString:"+queryString);
+			        logger.info("ip:"+req.getRemoteAddr());
+			        
 					logger.info("user:"+user.getName());
 					logger.info("weixin_userid:"+weixin_userid);
 					logger.info("_sid:"+_sid);
