@@ -3,6 +3,7 @@ package transactions.project.fitness.weixin;
 import java.sql.Types;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import dinamica.Db;
 import dinamica.GenericTransaction;
@@ -14,22 +15,25 @@ import dinamica.Recordset;
  * 2018-02-07
  */
 public class PTClass extends GenericTransaction{
-	
+	private static Logger logger = Logger.getLogger(PTClass.class.getName());
 	public int service(Recordset inputs) throws Throwable{
 		int rc = super.service(inputs);
 		int resultcode = 0;	// 0未处理 1成功 2失败
 		String resultmsg = "";
+		String sql="";
 		try {
 			Db db = getDb();
 			
 			String queryData = getLocalResource("/transactions/project/fitness/weixin/sql/ptclass/query-data.sql");
 			queryData = getSQL(queryData, inputs);
+			sql=queryData;
 			Recordset rsData = db.get(queryData);
 			if( null != rsData && rsData.getRecordCount() > 0 ){
 				rsData.first();
+				
 				String updateQrcode = getLocalResource("/transactions/project/fitness/weixin/sql/ptclass/update-qrcode.sql");
 				updateQrcode = getSQL(updateQrcode, rsData);
-	
+				
 				// 判断是否有可以签课
 				String queryHoliday = getLocalResource("/transactions/project/fitness/weixin/sql/ptclass/nodup-holiday.sql");
 				queryHoliday = getSQL(queryHoliday, rsData);
@@ -57,10 +61,12 @@ public class PTClass extends GenericTransaction{
 					db.exec();
 					this.updateQrcodeResult(db, updateQrcode, resultcode, resultmsg);	// 更新处理结果
 					resultcode = 1;
+					logger.error("Thereisnoresultsetforsigningclasses----chenggong======="+sql+"canshu********===="+inputs);
 				}
 			}else{
 				resultcode = 2;
 				resultmsg = "未找到该教练对应的私教课";
+				logger.error("Thereisnoresultsetforsigningclasses======="+sql+"canshu********"+inputs);
 				return rc;
 			}
 		} catch(Throwable t) {
