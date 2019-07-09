@@ -18,7 +18,8 @@
 		"vc_iuser":"${fld:vc_iuser@js}",
 		"vc_iusername":"${fld:vc_iusername@js}",
 		"pt_name":"${fld:pt_name@js}",
-		"ptlevelname":"${fld:ptlevelname@js}"
+		"ptlevelname":"${fld:ptlevelname@js}",
+		"ptfactfee":"${fld:ptfactfee}"
 	},
 	</rows>
 	{}

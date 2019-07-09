@@ -25,6 +25,8 @@ SELECT
 	) AS pt_name
 	,p.ptrestcode as ptrestid,
 	d.ptlevelname
+	,round((pr.ptmoney/pr.pttotalcount)::numeric ,2) as ptfactfee
+	
 FROM cc_ptprepare p 
 LEFT JOIN cc_ptlog g ON p.code = g.preparecode and p.org_id = g.org_id
 left join cc_ptrest pr on p.ptrestcode = pr.code and p.org_id = pr.org_id

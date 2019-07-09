@@ -28,6 +28,7 @@
 		<col id="ptlevelname" label="课程名称" />
 		<col id="i_statusname" label="状态" />
 		<col id="c_itime" label="刷课时间" />
+		<col id="ptfactfee" label="实际单价" />
 		<col id="f_ptfee" label="课程价格" />
 		<col id="f_leftcount" label="剩余次数" />
 	</excel>
