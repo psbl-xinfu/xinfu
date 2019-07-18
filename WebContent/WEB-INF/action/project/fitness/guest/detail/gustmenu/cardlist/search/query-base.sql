@@ -20,7 +20,7 @@ select
  	con.factmoney,
  	card.startdate,
 	card.enddate,
-	(select name from hr_staff where userlogin = card.createdby) as createdby,
+	(select name from hr_staff where userlogin = con.salemember) as createdby,
 	card.created
 from cc_card card
 left join cc_contract con on 
