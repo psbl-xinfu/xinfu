@@ -53,6 +53,8 @@ public class CardJob extends BaseJob{
 				String updateStart = getLocalResource(basepath + "start/update.sql");
 				// 获取需要更新的数据
 				String queryStart = getLocalResource(basepath + "start/query.sql");
+				String a=getSQL(queryStart, null);
+				logger.error("*******a**********"+a);
 				Recordset rsStart = db.get(getSQL(queryStart, null));
 				while(rsStart.next()){
 					String _update = getSQL(updateStart, rsStart);
@@ -71,22 +73,29 @@ public class CardJob extends BaseJob{
 				
 				// 获取需要更新的数据
 				String queryCtnstart = getLocalResource(basepath + "ctnstart/query.sql");
+				String b=getSQL(queryCtnstart, null);
+				logger.error("*********b********"+b);
 				Recordset rsCtnstart = db.get(getSQL(queryCtnstart, null));
 				while(rsCtnstart.next()){
 					db.beginTrans();
 					// 1、续卡时，原会员卡自动过期 zzn
 					// 时效卡过期
+					logger.error("*******c**********"+getSQL(updateinvalidtype0,null));
 					db.exec(getSQL(updateinvalidtype0,null));
 					// 计次卡次数用完或者过期
+					logger.error("********d*********"+getSQL(updateinvalidtype1,null));
 					db.exec(getSQL(updateinvalidtype1,null));
 					// 基金卡两种基金加起来小于10或者过期
+					logger.error("*********e********"+getSQL(updateinvalidtype2,null));
 					db.exec(getSQL(updateinvalidtype2,null));
 					//zzn
 					// 将启用续卡的会员卡的原卡的I_ISGOON更新成-1
 					String _updateIsgoon = getSQL(updateIsgoon, rsCtnstart);
+					logger.error("********r*********"+_updateIsgoon);
 					db.exec(_updateIsgoon);
 					// 按照启用方式启用续卡，同时将各种基金、密码、操课卡时间转移过来
 					String _updateCtncard = getSQL(updateCtncard, rsCtnstart);
+					logger.error("*********y********"+_updateCtncard);
 					db.exec(_updateCtncard);
 					// 删除I_ISGOON=1的原卡记录
 					/**String _deleteOld = getSQL(deleteOld, rsCtnstart);
@@ -101,20 +110,25 @@ public class CardJob extends BaseJob{
 				String insertStopsOpera = getLocalResource(basepath + "stops/insert-operatelog.sql");
 				// 获取需要更新的数据
 				String queryStops = getLocalResource(basepath + "stops/query.sql");
+				logger.error("********w*********"+getSQL(queryStops, null));
 				Recordset rsStops = db.get(getSQL(queryStops, null));
 				while(rsStops.next()){
 					db.beginTrans();
 					// 更新停卡记录表
 					String _update = getSQL(updateStops, rsStops);
+					logger.error("********t*********"+_update);
 					db.exec(_update);
 					// 更新卡表
 					String _updateCard = getSQL(updateStopsCard, rsStops);
+					logger.error("********u*********"+_updateCard);
 					db.exec(_updateCard);
 					// 新增消息
 					String _insertMsg = getSQL(insertStopsMsg, rsStops);
+					logger.error("********p*********"+_insertMsg);
 					db.exec(_insertMsg);
 					// 新增操作日志
 					String _insertOper = getSQL(insertStopsOpera, rsStops);
+					logger.error("********m*********"+_insertOper);
 					db.exec(_insertOper);
 					db.commit();
 				}

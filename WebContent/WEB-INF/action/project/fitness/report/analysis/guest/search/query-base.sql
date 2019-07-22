@@ -2,9 +2,10 @@ select
 	(select name from hr_staff where userlogin = h.userlogin) as name,
 	h.userlogin,
 	sum(COALESCE(guestnum,0) )as guestnum,
-	sum(COALESCE(dealnum,0) )as dealnum,
+	sum(COALESCE(dealnum,0) )as dealnum,--成交
 	sum(COALESCE(visitnum,0) )as visitnum,
-	sum(COALESCE(commnum,0) )as commnum
+	sum(COALESCE(commnum,0) )as commnum,
+	(round(sum(COALESCE(dealnum,0) )::numeric/sum(COALESCE(guestnum,0) )::numeric,2)*100)::int  as closing
 from hr_staff h 
 inner join (
 		select 

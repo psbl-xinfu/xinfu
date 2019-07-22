@@ -12,10 +12,11 @@ str+='<select  name="largecategories" onchange="large(this)">'
 		str+='	<option value="${fld:domain_value}">${fld:domain_text_cn}</option>'
 	</lc-rows>
 str+='	</select>'
-
-str+='<select name="action" onchange="actionchange(this)">'
+	
+str+='<div class="listother"><p class="p2"><input type="text" name="action"  class="textinput" id="actionbin" placeholder="动作"></p></div>'
+/*str+='<select name="action" onchange="actionchange(this)">'
 str+='	<option value="">动作</option>'
-str+='</select>'
+str+='</select>'*/
 $('.content').children('.header').html(str);
 
 
@@ -31,6 +32,7 @@ function hide(obj){
 }
 //器械事件
 function large(val){
+	$("#actionbin").val("");
 	var lc = $(val).val();
 	if(lc==""){
 		$(val).parent().parent().find("[name=action]").html("");
@@ -47,12 +49,12 @@ function large(val){
 
 	//查询动作
 	getJsonAjaxCall(url, true, function(data){
-		var actionhtml = "<option value=''>--请选择--</option>";
+		/*var actionhtml = "<option value=''>--请选择--</option>";
 		for(var i=0;i<data.length;i++){
 			if(data[i].code!=undefined)
 				actionhtml += "<option value='"+data[i].code+"'>"+data[i].actions+"</option>";
 		}
-		$(val).parent().parent().find("[name=action]").html(actionhtml);
+		$(val).parent().parent().find("[name=action]").html(actionhtml);*/
 		if($('#inaction').val()!=""){
 			$("select[name=action]").val($('#inaction').val());
 		}

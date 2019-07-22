@@ -14,7 +14,7 @@ if(index==1){
 	$('#run_mileage').val("${fld:run_mileage}");
 	trainplanstatus="${fld:status}";
 }
-addTemPlate("${fld:train_part}","${fld:apparatus}","${fld:actions}","${fld:train_detail_part}",index,"${fld:code}","${fld:group}","${fld:num}","${fld:weight}",
+addTemPlate("${fld:train_part}","${fld:apparatus}","${fld:actioncode3}","${fld:train_detail_part}",index,"${fld:code}","${fld:group}","${fld:num}","${fld:weight}",
 "${fld:actioncode1}","${fld:actioncode2}","${fld:actioncode3}"
 );
 </list>

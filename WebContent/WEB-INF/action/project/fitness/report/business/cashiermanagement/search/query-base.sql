@@ -33,7 +33,7 @@ SELECT
 	,finance.remark as vc_remark	-- 备注
 	,finance.operationcode as vc_operationcode
 	,finance.item as vc_item
-	,ol.opertype as caozuo_zhujian
+	--,ol.opertype as caozuo_zhujian
 	,finance.pay_detail 
 FROM cc_finance finance 
 LEFT JOIN cc_customer cust on finance.customercode = cust.code and finance.org_id = cust.org_id
@@ -75,7 +75,7 @@ select
 	,null
 	,null
 	,null
-	,null as caozuo_zhujian
+--	,null as caozuo_zhujian
 	,concat(s.money::varchar,';','0;','0;','0;','0;','0;')
 from cc_savestopcard s
 LEFT JOIN cc_customer cust on s.customercode = cust.code and s.org_id = cust.org_id

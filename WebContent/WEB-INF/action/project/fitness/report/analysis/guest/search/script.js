@@ -7,7 +7,9 @@
 		"guestnum":"${fld:guestnum}",
 		"dealnum":"${fld:dealnum}",
 		"visitnum":"${fld:visitnum}",
-		"commnum":"${fld:commnum}"
+		"commnum":"${fld:commnum}",
+		"closing":"${fld:closing}"
+		
 	},
 	</rows>
 	{}

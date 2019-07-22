@@ -170,6 +170,9 @@
 			var action=$('#template').find('.con-3').length;
 			var group= $('#template').find('.con-group').length;
 			var valueObj=$('input[name=num]');
+			alert(action);
+			alert(group);
+			alert(valueObj);
 			
 			var values=""
 			$(valueObj).each(function(){
@@ -177,7 +180,6 @@
 					values=$(this).val();
 				}
 			})
-			
 			if(action==0||group==0||values==""||values==null){
 				ccms.dialog.notice("没有有效的训练计划或有效组");
 				return false;
@@ -261,7 +263,7 @@
 		$('.btn-confirm').on('click',function(){
 			var action1=$("select[name=trainingsite]") .find("option:selected").val();
 			var action2=$("select[name=largecategories]") .find("option:selected").val();
-			var action3=$("select[name=action]") .find("option:selected").val();
+			var action3=$("#actionbin").val();
 			var action4=$('.brief').text();
 			
 			var warmup_mins=$('#warmup_mins').val();
@@ -287,13 +289,14 @@
 				var num=Number($('#group-input').val());
 				$('#group').val(num);
 				divobj.empty();
-				
+				alert($('#action1').val());
 				for(var i = 1; i <=num;	 i++){
 			    	divobj.append('<input type="text"  name="groups" value="'+i+'" />');
 				}
 				
 				$("#actionDiv").addClass('disNone');
 				if($('#traincode').val()==null||$('#traincode').val()==""){
+					
 					postAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/insert?",'formEditor',false);
 				}else{
 					postAjaxCall("/action/project/fitness/wx/pt/mycust/xunlian/update?",'formEditor',false);
@@ -458,12 +461,17 @@
     //清理action
     function clearn(){
     	$('select[name=largecategories]').val('');
-    	$('select[name=action]').val('');
+    	
+    	$('#actionbin').val('');
+    	//$('select[name=action]').val('');
     	$('#details').val('');
+    	
     }
     function clearn1(){
-    	$('input[name=action]').val('');
+    	$('#actionbin').val('');
+    	//$('input[name=action]').val('');
     	$('#details').val('');
+    	
     }
     //绑定展开事件
     function showBind(){  

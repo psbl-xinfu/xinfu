@@ -13,6 +13,6 @@
 	<parameter id="trainingsite1" type="varchar" required="true" label="trainingsite1" />
 	<parameter id="largecategories1" type="varchar" required="true" label="largecategories1" />
 	<parameter id="action1" type="varchar" required="true" label="action1" />
-	<parameter id="details1" type="varchar" required="true" label="details1" />
+	<parameter id="details1" type="varchar" required="false" label="details1" />
 	<parameter id="group" type="varchar" required="true" label="group" />
 </validator>
