@@ -460,10 +460,14 @@ public class SecurityFilterForWeixin implements Filter{
 						}
 
 						// create user object
-						user = new DinamicaUser(loginRs.getString("userlogin"), roles);
+						// modified by leo 190815 修改避免并发冲突使用局部变量
+//						user = new DinamicaUser(loginRs.getString("userlogin"), roles);
+						DinamicaUser userHasBind = new DinamicaUser(loginRs.getString("userlogin"), roles);
 
 						// store user object into session attribute
-						s.setAttribute("dinamica.security.login", user);
+						// modified by leo 190815 修改避免并发冲突使用局部变量
+//						s.setAttribute("dinamica.security.login", user);
+						s.setAttribute("dinamica.security.login", userHasBind);
 
 						// set user locale
 						java.util.Locale locale = new java.util.Locale(loginRs.getString("locale"));
@@ -476,7 +480,8 @@ public class SecurityFilterForWeixin implements Filter{
 				        String queryString = req.getQueryString();
 				        logger.info("queryString:"+queryString);
 				        logger.info("ip:"+req.getRemoteAddr());
-						logger.info("user:"+user.getName());
+						logger.info("userHasBind:"+userHasBind.getName());
+						logger.info("dinamica.user.org:" +String.valueOf(s.getAttribute("dinamica.user.org")));
 						logger.info("weixin_userid:"+weixin_userid);
 						logger.info("sid:"+sid);
 						logger.info("weixin has bind end------------------------");
