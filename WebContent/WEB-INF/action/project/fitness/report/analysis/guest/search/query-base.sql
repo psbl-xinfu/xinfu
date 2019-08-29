@@ -5,7 +5,11 @@ select
 	sum(COALESCE(dealnum,0) )as dealnum,--成交
 	sum(COALESCE(visitnum,0) )as visitnum,
 	sum(COALESCE(commnum,0) )as commnum,
-	(round(sum(COALESCE(dealnum,0) )::numeric/sum(COALESCE(guestnum,0) )::numeric,2)*100)::int  as closing
+	(case when sum(COALESCE(guestnum,0) )::numeric = 0 then 0.00
+		else 
+		(round(sum(COALESCE(dealnum,0) )::numeric/sum(COALESCE(guestnum,0) )::numeric,2)*100)::int
+	end)
+	  as closing
 from hr_staff h 
 inner join (
 		select 
