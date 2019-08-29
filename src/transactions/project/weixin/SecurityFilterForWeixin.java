@@ -460,10 +460,14 @@ public class SecurityFilterForWeixin implements Filter{
 						}
 
 						// create user object
-						user = new DinamicaUser(loginRs.getString("userlogin"), roles);
+						// modified by leo 190815 修改避免并发冲突使用局部变量
+//						user = new DinamicaUser(loginRs.getString("userlogin"), roles);
+						DinamicaUser userHasBind = new DinamicaUser(loginRs.getString("userlogin"), roles);
 
 						// store user object into session attribute
-						s.setAttribute("dinamica.security.login", user);
+						// modified by leo 190815 修改避免并发冲突使用局部变量
+//						s.setAttribute("dinamica.security.login", user);
+						s.setAttribute("dinamica.security.login", userHasBind);
 
 						// set user locale
 						java.util.Locale locale = new java.util.Locale(loginRs.getString("locale"));
@@ -476,7 +480,8 @@ public class SecurityFilterForWeixin implements Filter{
 				        String queryString = req.getQueryString();
 				        logger.info("queryString:"+queryString);
 				        logger.info("ip:"+req.getRemoteAddr());
-						logger.info("user:"+user.getName());
+						logger.info("userHasBind:"+userHasBind.getName());
+						logger.info("dinamica.user.org:" +String.valueOf(s.getAttribute("dinamica.user.org")));
 						logger.info("weixin_userid:"+weixin_userid);
 						logger.info("sid:"+sid);
 						logger.info("weixin has bind end------------------------");
@@ -501,6 +506,21 @@ public class SecurityFilterForWeixin implements Filter{
 		}
 
 		//登录后，自动绑定一次微信号
+		// modified by leo 190709修正有时能取到user但取不到org时，登陆异常需重新登陆 begin
+		String org_id=null;
+		if( null != s.getAttribute("dinamica.user.org") ){
+			org_id = String.valueOf(s.getAttribute("dinamica.user.org"));
+		}else {
+			if(user!=null && weixin_type != null && weixin_type.length() > 0) {		        
+					logger.info("user:"+user.getName() + " org_id is null, go to loginPage!!!");
+					logger.info("weixin_userid:"+weixin_userid);
+			        logger.info("ip:"+req.getRemoteAddr());
+					String loginPage = context + _loginForm + "#"+ WeixinUtil.base64Encode(uri);
+					res.sendRedirect(loginPage);
+					return;
+			}
+		}
+		// modified by leo 190709修正有时能取到user但取不到org时，登陆异常需重新登陆 end
 		if (user != null && weixin_type != null && weixin_type.length() > 0) {
 			// modified by leo 190702 没有用途注释掉
 //			req.setAttribute("dinamica.error.user", user.getName());
@@ -546,6 +566,7 @@ public class SecurityFilterForWeixin implements Filter{
 			        String queryString = req.getQueryString();
 			        logger.info("queryString:"+queryString);
 			        logger.info("ip:"+req.getRemoteAddr());
+			        logger.info("org_id:"+org_id);
 			        
 					logger.info("user:"+user.getName());
 					logger.info("weixin_userid:"+weixin_userid);
@@ -1371,5 +1392,4 @@ public class SecurityFilterForWeixin implements Filter{
             logger.debug(logLine.toString());
         }
     }
-
 }
