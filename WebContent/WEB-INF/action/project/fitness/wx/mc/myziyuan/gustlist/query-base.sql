@@ -81,20 +81,20 @@ and --生日类型
  	${filter}
   )
  
-union
-(
-select
-g.mobile,
-	g.name,
-	0 as num,
-	g.code,
-	(case when g.sex=0 then '女' else '男' end) as sex,
-	(select comm.created from  cc_comm comm
-  		 where  comm.operatortype=0  and cust_type=0   and comm.guestcode=g.code and comm.createdby='${def:user}' 
-  		 and comm.org_id = p.org_id  
-  		 order by comm.created desc limit 1 ) as lasttime
-FROM cc_public p
-inner join cc_guest g on p.guestcode = g.code and p.org_id = g.org_id
-where p.org_id = ${def:org} and p.status = 0
-)
+--union
+--(
+--select
+--g.mobile,
+--	g.name,
+--	0 as num,
+--	g.code,
+--	(case when g.sex=0 then '女' else '男' end) as sex,
+--	(select comm.created from  cc_comm comm
+ -- 		 where  comm.operatortype=0  and cust_type=0   and comm.guestcode=g.code and comm.createdby='${def:user}' 
+ -- 		 and comm.org_id = p.org_id  
+ -- 		 order by comm.created desc limit 1 ) as lasttime
+--FROM cc_public p
+--inner join cc_guest g on p.guestcode = g.code and p.org_id = g.org_id
+--where p.org_id = ${def:org} and p.status = 0
+--)
 order by num,code desc
