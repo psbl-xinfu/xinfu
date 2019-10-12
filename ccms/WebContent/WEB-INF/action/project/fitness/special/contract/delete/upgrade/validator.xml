@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_code" type="varchar" required="true" label="合同编号"/>
+	<parameter id="card_code" type="varchar" required="false" label="卡编号"/>
+</validator>
+
+

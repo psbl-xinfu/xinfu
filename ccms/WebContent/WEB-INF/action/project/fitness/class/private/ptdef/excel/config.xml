@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_ptlevelname,daochu_status,daochu_classtype</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="私教类型管理记录" filename="私教类型管理记录.xls" header-background="true">
+		<col id="ptlevelname" label="名称" /> 
+		<col id="ptfee" label="课时费" />
+		<col id="reatetype" label="是否赠课" />
+		<col id="status" label="课程状态" />
+	</excel>
+</config>

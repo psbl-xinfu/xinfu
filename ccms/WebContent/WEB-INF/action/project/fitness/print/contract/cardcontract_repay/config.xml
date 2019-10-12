@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+	
+	<!-- word模板路径 -->
+	<doc-template>/erpclubdoc/template/cardcontract_repay_template.docx</doc-template>
+	<!-- 模板中参数列表 ，多个用英文分号隔开--> <!-- 20170110-->
+	<params>vc_333club;vc_contractdate;vc_contracttype;Ⅰ;vc_billcode;vc_name;sex;vc_idnumber;c_birthdate;Ⅱ;vc_addr;vc_zip;vc_contact;vc_mobile;vc_hometel;vc_emcontact1;vc_emcontact2;Ⅲ;mcname;vc_rank;vc_mc;c_startdate;c_enddate;vc_starttype;yd_money;zx_money;xj_money;vc_paytype;memberfee;f_inimoney;f_normalmoney;f_discount;f_factmoney;f_leftmoney;vc_remark;headpic;vc_company;c_birthdate;vc_contact;c_startdate;c_enddate;vc_validdays;vc_remark;vc_cardcode;customer_sign;vc_cardtype;qq;wx;disclaimer</params>
+	<!-- 参数对应的字段列表 --> <!-- 20170110-->
+	<fields>vc_club;vc_contractdate;vc_contracttype;vc_contractcode;vc_billcode;vc_name;sex;vc_idnumber;c_birthdate;vc_nation;vc_addr;vc_zip;vc_contact;vc_mobile;vc_hometel;vc_emcontact1;vc_emcontact2;vc_customcode;mcname;vc_rank;vc_mc;c_startdate;c_enddate;vc_starttype;yd_money;zx_money;xj_money;vc_paytype;memberfee;f_inimoney;f_normalmoney;f_discount;f_factmoney;f_leftmoney;vc_remark;headpic;vc_company;c_birthdate;vc_contact;c_startdate;c_enddate;vc_validdays;vc_remark;vc_cardcode;customer_sign;vc_cardtype;qq;wx;disclaimer</fields>
+
+	<transaction>
+		<classname>transactions.project.fitness.doc.WordTemplateReplace</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+	
+	<on-error>/action/project/fitness/util/error/alert</on-error>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_rsdoc" />
+	</output>
+
+</config>

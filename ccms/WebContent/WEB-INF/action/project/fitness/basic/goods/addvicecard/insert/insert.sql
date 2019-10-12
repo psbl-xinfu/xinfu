@@ -1,0 +1,24 @@
+insert into cc_goods_price
+(
+	tuid,
+	storageid,
+	goodsid,
+	price,
+	staff_price,
+	remark,
+	created,
+	createdby,
+	org_id
+)
+values
+(
+	${seq:nextval@seq_cc_goods_price},
+	${fld:storageid},
+	${fld:goodsid},
+	${fld:price},
+	${fld:staff_price},
+	${fld:remark},
+    {ts'${def:timestamp}'},
+    '${def:user}',
+	${def:org}
+)

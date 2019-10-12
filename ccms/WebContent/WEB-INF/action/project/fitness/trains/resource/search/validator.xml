@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="videoname" type="varchar" required="false" label="videoname" />
+
+	<custom-validator classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="videoname" rule="contains" ifnull="%" />
+
+</validator>

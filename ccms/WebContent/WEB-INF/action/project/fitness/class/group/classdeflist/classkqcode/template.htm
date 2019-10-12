@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html style="height:100%;">
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>考勤</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 400px;">
+			<header class="header-default">
+				<span id="formTitle">考勤</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="code" name="code" value="${fld:code}"/>
+				<div class="r-tab-cout-3-t">
+					<nav style="width: 100%;">
+						<li>
+							<label for="">考勤</label>					
+							<select id="classkqcode" name="classkqcode">
+								<option value="">--请选择--</option>
+								<kq-rows>
+									<option value="${fld:code}">${fld:rules_name}</option>
+								</kq-rows>
+							</select>	
+						</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+			</form>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+$(document).ready(function() {
+	selectInit($("#classkqcode"));
+	//查询当前考勤
+	var url="${def:context}${def:actionroot}/querykq?code=${fld:code}";
+	ajaxCall(url,{
+		method:"GET",
+		dataType:"script",
+		progress:true,
+		success:function(){
+		}
+	});
+	//修改考勤
+	$("#save_btn").click(function(){
+		var url="${def:context}${def:actionroot}/updateclasskqcode?code="+$("#code").val()+"&classkqcode="+$("#classkqcode").val();
+		ajaxCall(url,{
+			method:"GET",
+			dataType:"script",
+			progress:true,
+			success:function(){
+			}
+		});
+	});
+});
+</script>
+</html>

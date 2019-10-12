@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    </head>
+<body>
+	<form id="cardform" name="cardform">
+			<input type="hidden" name="expercardcode" id="expercardcode" value="${fld:expercardcode}">
+			<input type="hidden" name="org_id" id="org_id" value="${fld:_org_id}">
+			<input type="hidden" name="code" id="code" value="${fld:code}">
+			<input type="hidden" name="ecode" id="ecode" value="${fld:ecode}">
+			<input type="hidden" name="codes" id="codes" value="${fld:codes}">
+			<input type="hidden" name="codes2" id="codes2" value="">
+			
+			<input type="hidden" name="cc_sex" id="cc_sex" value="${fld:cc_sex}">
+			<input type="hidden" name="cc_mobile" id="cc_mobile" value="${fld:cc_mobile}">
+			<input type="hidden" name="cc_name" id="cc_name" value="${fld:cc_name}">
+			
+				<input type="hidden" name="customercode" id="customercode" value="${fld:customercode}">
+	</form>
+</body>
+<script type="text/javascript">
+var codes="${fld:codes}".split(";");
+var codes2=codes[1]+';'+codes[0];
+$('#codes2').val(codes2);
+if("${fld:resultcode}"==0){
+	alert("${fld:msg}");
+}else{
+	postAjaxCall("${def:actionroot}/insert", "cardform", false);	// 未付款合同可修改
+}
+</script>
+</html>
+

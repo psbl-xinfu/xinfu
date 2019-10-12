@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		私教转课
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<query>insert-ptdef.sql</query>
+	<query>insert-ptrest.sql</query>
+	<!-- <query>insert-ptchange-finish.sql</query>
+	<query>insert-ptchange.sql</query> -->
+	<query>update-ptrest.sql</query>
+	<query>insert-operatelog.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+	</output>
+
+</config>

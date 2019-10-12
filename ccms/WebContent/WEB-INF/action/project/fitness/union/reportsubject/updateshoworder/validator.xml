@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="tuid" type="varchar" required="true" label="当前tuid"/>
+    <parameter id="exchange_tuid" type="varchar" required="true" label="交换顺序的tuid"/>
+    <parameter id="showorder" type="varchar" required="true" label="当前顺序"/>
+    <parameter id="exchange_showorder" type="varchar" required="true" label="交换顺序"/>
+</validator>

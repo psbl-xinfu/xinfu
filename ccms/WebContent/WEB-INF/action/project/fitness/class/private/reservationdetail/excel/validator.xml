@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_date" type="varchar" required="false" label="日期" />
+	<parameter id="daochu_end_date" type="varchar" required="false" label="日期" />
+	<parameter id="daochu_status" type="varchar" required="false" label="状态" />
+	<parameter id="daochu_vc_ptid" type="varchar" required="false" label="私教" />
+	<parameter id="daochu_custall" type="varchar" required="false" label="会员姓名/电话/卡号" />
+</validator>

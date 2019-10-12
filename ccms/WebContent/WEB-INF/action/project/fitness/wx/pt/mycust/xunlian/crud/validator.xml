@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="customercode" type="varchar" required="true" label="customercode"/>
+	<parameter id="traincode" type="varchar" required="false" label="traincode"/>
+	<parameter id="type" type="varchar" required="true" label="type"/>
+	
+	<parameter id="preparedate" type="varchar" required="false" label="preparedate"/>
+	<parameter id="ptpreparecode_record" type="varchar" required="false" label="ptpreparecode_record"/>
+</validator>

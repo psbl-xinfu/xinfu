@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>查询会员卡</title>
+</head>
+<body>
+<div style="background: rgb(42, 48, 56)">
+	<form  role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+			<div class="tab-cout-nav">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li>
+							<input id="pickcustname"  name="pickcustname" type="text" placeholder="会员号/会员卡号/姓名/手机号" value="${fld:pickcustname}" class="input-default"/>
+						</li>	
+							<div class="r-c-btnList">
+								<button type="button" class="r-c-3-btn-1" id="search_btn"></button>
+							</div>		
+						</nav>
+					</div>
+				</div>
+				
+				<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th>会员卡号</th>
+								<th>卡类型</th>
+								<th>手机号码</th>
+							</tr>
+						</thead>
+						
+						<tbody id="datagridTemplate" style="display: none">
+							<tr onclick="custinfo('#code#')">
+								<td>#code#</td>
+								<td>#name#</td>
+								<td>#mobile#</td>										
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	var search=null;
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+	}}).initSearchBtn().searchData(1);
+});
+//
+function custinfo(code){
+	parent.$("#${fld:objid}").val(code);
+	parent.pickcustCallback();
+	ccms.dialog.close();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="skill" type="varchar" required="true" label="私教"/>
+	<parameter id="startdate" type="varchar" required="true" label="时间"/>
+	<parameter id="enddate" type="varchar" required="true" label="时间"/>
+	<parameter id="type" type="varchar" required="true" label="类型"/>
+</validator>

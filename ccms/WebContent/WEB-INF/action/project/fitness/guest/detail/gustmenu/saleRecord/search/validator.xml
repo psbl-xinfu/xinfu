@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="id" type="varchar" required="true" label="vc_code"/>
+	<parameter id="startdate" type="varchar" required="true" label="startdate"/>
+	<parameter id="enddate" type="varchar" required="true" label="enddate"/>
+	<parameter id="paymentstatus" type="varchar" required="false" label="paymentstatus"/>
+</validator>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<head>
+    <meta charset="utf-8">
+	<title>个人信息</title>
+	<meta name="viewport" content="width=320, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- head 中 -->
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/profile.css" />
+</head>
+<body >    
+
+<header class="gg-profile-top">
+	<span>头像</span>
+	<div class="avatar"></div>
+	<span class="icon-more"></span>
+</header>
+
+<ul class="gg-profile-bt">
+	<li>昵称<span class="value">${fld:name}</span></li>
+	<li>性别<span class="value">${fld:sex}</span></li>
+	<li>所属部门<span class="value"><team-rows>${fld:team_name}</team-rows></span></li>
+	<li>手机号<span class="value">${fld:mobile}</span></li>
+	<li id="updatepwd">密码修改<span class="icon-more"></span></li>
+	<li id="cancel">退出登录<span class="icon-more"></span></li>
+</ul>
+
+${inc:/action/project/fitness/guestget/end}
+<!-- body 最后 -->
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/profile.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//底部选中
+	tabswitch("4");
+	//修改密码
+	$("#updatepwd").click(function(){
+        location.href = contextPath+"/action/project/fitness/guestget/myhome/setpsw/crud";
+	})
+	//退出
+	$("#cancel").click(function(){
+        location.href = contextPath+"/action/project/fitness/wx/exit";
+	});
+});
+</script>
+</body>
+</html>

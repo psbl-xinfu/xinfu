@@ -1,0 +1,10 @@
+﻿document.formEditor.vc_code.value = "${fld:code@js}";
+document.formEditor.vc_name.value = "${fld:name@js}";
+document.formEditor.vc_fastcode.value = "${fld:fastcode@js}";
+document.formEditor.f_price.value = "${fld:price}";
+document.formEditor.vc_remark.value = "${fld:remark@js}";
+ccms.util.setCheckboxValue('i_isliliao',"${fld:isliliao}","formEditor");
+document.formEditor.f_commission.value = "${fld:commission}";
+setSelectValue($("#vc_unit"), "${fld:unit}");
+setSelectValue($("#vc_type"), "${fld:type}");
+setSelectValue($("#i_status"), "${fld:statustype}");

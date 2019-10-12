@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="s_term_score_id" type="integer" required="false" label="s_term_score_id" />
+	<parameter id="total_score" type="integer" required="false" label="total_score" />
+</validator>

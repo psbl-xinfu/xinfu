@@ -1,0 +1,292 @@
+//zyb 190605 add 商品的折扣价
+alter table cc_leave_stock add discount float8 DEFAULT 0
+COMMENT ON COLUMN "public"."cc_leave_stock"."discount" IS '折扣价钱';
+
+//zyb 20190514 add 补签
+alter table cc_inleft add callparparecode varchar(20)
+COMMENT ON COLUMN "public"."cc_inleft"."callparparecode" IS 'cc_classparpare表的code';
+
+alter table cc_inleft add classdefcode varchar(20)
+COMMENT ON COLUMN "public"."cc_inleft"."classdefcode" IS 'cc_classdef表的code';
+
+
+
+//add zfc 190510  添加折扣
+CREATE TABLE "public"."cc_ptrest_class" (
+  "code" varchar(64) COLLATE "pg_catalog"."default",
+  "ptrestcode" varchar(64) COLLATE "pg_catalog"."default",
+  "oldpt" int4,
+  "newpt" int4,
+  "remark" varchar(2000) COLLATE "pg_catalog"."default",
+  "createdby" varchar(64) COLLATE "pg_catalog"."default",
+  "created" timestamp(6),
+  "org_id" int4
+)
+;
+
+ALTER TABLE "public"."cc_ptrest_class" 
+  OWNER TO "postgres";
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."code" IS '主键';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."ptrestcode" IS '表cc_ptrest主键';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."oldpt" IS '原剩余私教节数';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."newpt" IS '修改私教剩余节数';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."remark" IS '备注';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."createdby" IS '操作人';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."created" IS '操作时间';
+
+COMMENT ON COLUMN "public"."cc_ptrest_class"."org_id" IS 'hr_org.org_id';
+
+COMMENT ON TABLE "public"."cc_ptrest_class" IS '私教剩余课时修改记录';
+
+
+
+
+
+
+
+
+//add zyb 190510  添加折扣
+alter table cc_singleitem add discount float8 DEFAULT 0
+COMMENT ON COLUMN "public"."cc_singleitem"."discount" IS '折扣金额';
+
+
+//update zyb 190508 修改注释
+COMMENT ON COLUMN cc_leave_stock.paytype IS '支付方式：1现金/银行卡支付 2会员卡支付 3储值卡和现金/银行卡支付';
+
+//add zyb 190425 添加场馆key操作
+insert into cc_config (
+	category,
+	param_value
+	,param_text
+	,remark
+	,status
+	,tuid
+	,org_id
+	)VALUES(
+	'OpeCategory'
+	,'105'
+	,'添加场馆key'
+	,'添加场馆key'
+	,'1'
+	,nextval('seq_cc_config')
+	,'1003'
+
+)
+
+
+//add zyb 190425 删除场馆key操作
+insert into cc_config (
+	category,
+	param_value
+	,param_text
+	,remark
+	,status
+	,tuid
+	,org_id
+	)VALUES(
+	'OpeCategory'
+	,'106'
+	,'删除场馆key'
+	,'删除场馆key'
+	,'1'
+	,nextval('seq_cc_config')
+	,'1003'
+
+)
+
+//add zyb 190422 添加根据场馆key获取门店
+create table cc_atube(
+code int4  NOT NULL,
+appid varchar(68),
+org_id int4,
+remark varchar(2000),
+  created varchar(64),
+  createdby  timestamp(6),
+  updated varchar(64),
+  updatedby timestamp(6)
+)
+COMMENT ON COLUMN "public"."cc_atube"."code" IS 'id';
+COMMENT ON COLUMN "public"."cc_atube"."appid" IS '场馆key';
+COMMENT ON COLUMN "public"."cc_atube"."org_id" IS '门店id';
+COMMENT ON COLUMN "public"."cc_atube"."remark" IS '备注';
+COMMENT ON COLUMN "cc_atube"."created" IS '创建人';
+COMMENT ON COLUMN "cc_atube"."createdby" IS '创建时间';
+COMMENT ON COLUMN "cc_atube"."updated" IS '修改人';
+COMMENT ON COLUMN "cc_atube"."updatedby" IS '修改时间';
+
+//add zyb 190422 添加个下课时间
+alter table cc_ptlog add quittingtime timestamp(6)
+COMMENT ON COLUMN "public"."cc_ptlog"."quittingtime" IS '下课时间';
+
+
+// add leo 190419执行计划查看语句explain(analyze,verbose,costs,buffers,timing) (问题SQL)
+//add zyb 190415 加个打印小票的剩余次数和一个卡类型
+alter table cc_inleft add nowcount int4
+COMMENT ON COLUMN "public"."cc_inleft"."nowcount" IS '卡的剩余次数';
+alter table cc_inleft add cardtype varchar(64)
+COMMENT ON COLUMN "public"."cc_inleft"."cardtype" IS '卡类型';
+
+
+
+--add by leo 190409 客户资源分配跟进优化脚本
+drop index  if exists hr_staff_userlogin_index;
+create index hr_staff_userlogin_index on hr_staff (userlogin);
+drop index  if exists cc_guest_mc_index;
+create index cc_guest_mc_index on cc_guest (mc);
+drop index  if exists cc_guest_visit_guestcode_index;
+create index cc_guest_visit_guestcode_index on cc_guest_visit (guestcode);
+drop index  if exists cc_mcchange_guestcode_index;
+create index cc_mcchange_guestcode_index on cc_mcchange (guestcode);
+drop index  if exists cc_comm_guestcode_org_id_index;
+create index cc_comm_guestcode_org_id_index on cc_comm (guestcode,org_id);
+
+
+--zyb 20190409
+--这个是会员保护期内小于的跟进次数
+INSERT INTO cc_config ("category", "param_value", "param_text", "remark", "status", "tuid", "org_id", "createdby", "created", "updatedby", "updated")
+ VALUES 
+('CustMaxFPCount', '5', '', '会员最少跟进次数', '1', NEXTVAL('seq_cc_config'), '1003', '', NULL, NULL, NULL);
+
+--zyb 20190409
+ALTER table cc_ptdef add isgroup int4
+
+COMMENT ON COLUMN cc_ptdef.isgroup IS '是否是小团体课：0否1是';
+
+--zyb 20190409
+ALTER table cc_classlist add isprepare int4
+COMMENT ON COLUMN cc_classlist.isprepare IS '是否预约1是2否';
+
+
+
+--add by leo 190401 增加设备定义表
+CREATE TABLE "cc_device" (
+  "code" int4 NOT NULL,
+  "deviceid" varchar(64),
+  "appid" varchar(64),
+	"type"  varchar(8),
+  "status" int4 DEFAULT 1,
+  "created" varchar(64),
+  "createdby"  timestamp(6),
+  "updated" varchar(64),
+  "updatedby" timestamp(6),
+  "remark" varchar(2000),
+  "org_id" int4
+)
+;
+COMMENT ON COLUMN "cc_device"."code" IS '内部设备编号自动生成';
+COMMENT ON COLUMN "cc_device"."deviceid" IS '外部设备ID';
+COMMENT ON COLUMN "cc_device"."appid" IS '认证ID';
+COMMENT ON COLUMN "cc_device"."type" IS '类别：1：指静脉 2：二维码 3：刷卡 4：人脸';
+COMMENT ON COLUMN "cc_device"."status" IS '状态0可用1不可用';
+COMMENT ON COLUMN "cc_goods"."created" IS '创建人';
+COMMENT ON COLUMN "cc_goods"."createdby" IS '创建时间';
+COMMENT ON COLUMN "cc_goods"."updated" IS '修改人';
+COMMENT ON COLUMN "cc_goods"."updatedby" IS '修改时间';
+COMMENT ON COLUMN "cc_goods"."remark" IS '备注';
+COMMENT ON COLUMN "cc_goods"."org_id" IS 'hr_org.org_id';
+COMMENT ON TABLE "public"."cc_device" IS '设备定义表';
+
+//zyb 20190415   上面执行完了 记得加上这个表的序列
+
+
+
+//zyb 20190409
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'100'
+,'设备号删除'
+,'设备号被删除'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+
+//zyb 20190409
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'101'
+,'设备号修改'
+,'设备号被修改'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+//zyb 20190409
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'103'
+,'设备号添加'
+,'设备号添加'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+
+
+//zyb 20190409
+insert into cc_config (
+category,
+param_value
+,param_text
+,remark
+,status
+,tuid
+,org_id
+)VALUES(
+'OpeCategory'
+,'102'
+,'调用设备信息'
+,'未找到该会员'
+,'1'
+,nextval('seq_cc_config')
+,'1003'
+
+)
+
+//zyb 20190409
+ALTER table cc_inleft add type int4
+COMMENT ON COLUMN "public"."cc_inleft"."type" IS '0:成功1：失败';
+
+//zyb 20190409
+alter table cc_customer add cardcode varchar(60)
+COMMENT ON COLUMN "public"."cc_customer"."cardcode" IS '默认刷卡卡号';
+
+
+

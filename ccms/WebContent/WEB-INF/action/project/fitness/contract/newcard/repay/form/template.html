@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>办卡还款合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+	<div class="basic-dialog dialogbg" style="height: 700px">
+		<header class="header-default">
+		办卡还款合同
+		</header>
+		<form id="contractForm" name="contractForm" method="post">
+			<input type="hidden" id="contractcode" name="contractcode" value="${fld:contractcode}" preserve="true" />
+			<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+			<input type="hidden" id="relatecode" name="relatecode" value="${fld:relatecode}" />
+			<input type="hidden" id="inimoney" name="inimoney" value="${fld:normalmoney}" />
+			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
+			<input type="hidden" id="factmoney" name="factmoney" value="" />
+			<input type="hidden" id="stagemoney" name="stagemoney" value="" />
+			<input type="hidden" id="current_stage_times_pay" name="current_stage_times_pay" value="${fld:current_stage_times_pay}" />
+			<div class="b-i-main">
+				<nav>
+					<li>
+						<label>会员：</label>
+						<span id="custnamespan">${fld:custname@js}</span>
+		     		</li>
+					<li>
+						<label>电话：</label>
+						<span id="mobilespan">${fld:custmobile@js}</span>
+		     		</li>
+					<li>
+						<label>会员卡号：</label>
+						<span id="cardcodespan">${fld:cardcode@js}</span>
+		     		</li>
+					<li>
+						<label>推荐人：</label>
+						<span id="recommendnamespan">${fld:recommendname@js}</span>
+						<!-- <span id="recommendmobilespan">${fld:recommendmobile@js}</span> -->
+		     		</li>
+					<li>
+						<label>销售员：</label>
+						<select id="salemember" name="salemember" style="display: none;">
+							<option value="">默认会籍</option>
+							<sale-rows>
+							<option value="${fld:userlogin}">${fld:name@js}</option>
+							</sale-rows>
+						</select>
+		     		</li>
+					<li>
+						<label>第二销售</label>
+						<select  id="salemember1" name="salemember1" style="display: none;">
+							<option value="">第二销售</option>
+							<sale2-rows>
+							<option value="${fld:userlogin}">${fld:name@js}</option>
+							</sale2-rows>
+						</select>
+		     		</li>
+					<li>
+						<label>卡类型：</label>
+						<span id="cardtypespan">${fld:cardtypename@js}</span>
+		     		</li>
+		     		
+		     		<div class="b-c-c-support">
+						<p>支持门店：</p>
+						<nav class="more" id="supportorgsspan">
+						</nav>
+					</div>
+		     		
+		     		
+					<li>
+						<label>启用方式：</label>
+						<span id="starttypespan">${fld:starttypename@js}</span>
+		     		</li>
+					<li>
+						<label>启用日期：</label>
+						<span id="startdatespan">${fld:startdate}</span>
+		     		</li>
+					<li>
+						<label>截止日期：</label>
+						<span id="enddatespan">${fld:enddate}</span>
+		     		</li>
+					<li>
+						<label>赠送免费私教课时：</label>
+						<span id="ptcountspan">${fld:ptcount}</span>
+		     		</li>
+					<li>
+						<label>赠送免费入会天数：</label>
+						<span id="givedayspan">${fld:giveday}</span>
+		     		</li>
+					<li>
+						<label>原价：</label>
+						<span id="inimoneyspan">${fld:inimoney}</span>
+		     		</li>
+					<li>
+						<label>优惠活动：</label>
+						<span id="campaignnamespan">${fld:campaign_name@js}</span>
+		     		</li>
+					<li>
+						<label>折扣金额：</label>
+						<span id="discountmoneyspan">${fld:discountmoney}</span>
+		     		</li>
+					<!-- <li>
+						<label></label>
+						<input type="checkbox" name="isstage" />分期付款
+		     		</li> -->
+					<li code="stageDiv" style="display:none;">
+						<label>账单分为：</label>
+						<span id="stage_timesspan">${fld:stage_times}</span>&nbsp;&nbsp;期，当前第&nbsp;&nbsp;
+						<span id="stage_times_payspan">${fld:current_stage_times_pay}</span>&nbsp;&nbsp;期
+		     		</li>
+					<li code="stageDiv" style="display:none;">
+						<label>本期付款：</label>
+						<span id="stagemoneyspan"></span>元
+		     		</li>
+					<li>
+						<label>应收：</label>
+						<span id="normalmoneyspan"></span>元
+		     		</li>
+					<li>
+						<label>实收：</label>
+						<span id="factmoneyspan" style="color: #fdb346;font-size: 16px;font-weight: 600;"></span>
+		     		</li>
+					<li class="to100w" >
+						<label>备注：</label>
+						<textarea class="my-textarea" id="remark" name="remark" ></textarea>
+		     		</li>		
+				</nav>
+			</div>
+				<footer class="footer-default">
+					<button class="my-btn-default" type="button" id="save_btn">保存</button>
+					<button class="my-btn-default active" id="pay_btn" type="button" style="display: none;">收款</button>
+				</footer>
+			</form>
+		</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var istopay = false;
+var stagetimes = 1, stage_times_pay = 0, totalmoney = 0;
+var currentDate = new Date();
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#pay_btn").show();
+	}
+	$("#salemember").val("${def:user}");
+	selectInit($("#salemember,#salemember1"));
+	getAjaxCall("/action/project/fitness/util/querysupportorgs?cardtype=${fld:cardtype}"+"&objid=supportorgsspan", false);
+
+	totalmoney = parseFloat("${fld:normalmoney}");	// 原应付总价
+	var totalpaymoney = parseFloat("${fld:total_paymoney}");	// // 总已付金额
+	var leftmoney = (totalmoney - totalpaymoney).toFixed(2);	// 尚欠金额
+	var normalmoney = leftmoney;	// 应付金额
+	
+	stagetimes = parseInt("${fld:stage_times}");
+	stage_times_pay = parseInt("${fld:stage_times_pay}");
+	if( stagetimes >= 2 ){
+		$("input[name=isstage]").iCheck("check");
+		$("[code=stageDiv]").show();
+		if( stagetimes != stage_times_pay ){
+			normalmoney = (leftmoney/parseFloat(stagetimes-stage_times_pay)).toFixed(2);
+		}
+	}else{
+		$("input[name=isstage]").iCheck("uncheck");
+		$("[code=stageDiv]").hide();
+	}
+	$("input[name=isstage]").attr("disabled", true);
+	$("#normalmoneyspan").text("${fld:fqmoney}");
+	$("#normalmoney").val("${fld:fqmoney}");
+	$("#factmoney").val("${fld:fqmoney}");
+	$("#stagemoney").val("${fld:fqmoney}");
+	$("#stagemoneyspan").text("${fld:fqmoney}");
+	$("#stagemoneyspan").text("${fld:fqmoney}");
+	$("#factmoneyspan").text((Number("${fld:factmoney}")+Number("${fld:relatecodefactmoney}")).toFixed(2)+"元");
+	
+	
+	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}", true);
+	}
+	
+	// 保存
+	$("#save_btn").unbind().on("click",function(){
+		istopay = false;
+		saveContract();
+	});
+	// 收款
+	$("#pay_btn").unbind().on("click",function(){
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		istopay = true;
+		saveContract();
+	});
+});
+function saveContract(){
+	var contractcode = $("#contractcode").val();
+	if( "" != contractcode ){
+		// 判断合同状态
+		getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
+			if( data && Number(data.status) >= 2 ){
+				if( istopay ){
+					topay(contractcode);
+				}else{
+					ccms.dialog.notice("已付款合同不允许修改！", 2000);
+				}
+			}else{
+				postAjaxCall("${def:actionroot}/update", "contractForm", true);	// 未付款合同可修改
+			}
+		});
+	}else{
+		getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", true, function(){
+			if( "" == $("#newcontractcode").val() ){
+				ccms.dialog.notice("合同号生成失败", 2000);
+			}else{
+				postAjaxCall("${def:actionroot}/insert", "contractForm", true);
+			}
+		});
+	}
+}
+function topay(contractcode){
+	var  Obj=parent.document.getElementsByTagName('iframe')     
+	$(Obj).height(550);   
+	location.href = contextPath + "${def:actionroot}/view?contractcode="+contractcode;
+}
+</script>
+</body>
+</html>

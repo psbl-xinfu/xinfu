@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="listfdate" type="date" required="false" label="开始时间" />
+	<parameter id="listtdate" type="date" required="false" label="结束时间" />
+	<parameter id="listmc" type="varchar" required="false" label="会籍" />
+</validator>

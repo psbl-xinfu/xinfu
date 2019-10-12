@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="appid" type="varchar" required="false" label="场馆KEY" />
+    <parameter id="employeeId" type="varchar" required="true" label="员工教练ID" />
+	<parameter id="doType" type="varchar" required="true" label="操作类型"/>
+</validator>
+			
+
+
+

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="userName" type="varchar" required="false" label="员工名称"/>
+	<parameter id="s_start_date" type="date" required="true" label="s_start_date"/>
+	<parameter id="s_end_date" type="date" required="true" label="s_end_date"/>
+	
+</validator>

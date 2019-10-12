@@ -1,0 +1,9 @@
+﻿<list>
+$("select[name=trainingsite]").val("${fld:train_part}");
+$("select[name=largecategories]").val("${fld:apparatus}");
+$("select[name=largecategories]").change();
+$('#inaction').val("${fld:actions}")
+$('.brief').text("${fld:train_detail_part}");
+$('#group-input').val("${fld:groups}");
+$("#actionDiv").removeClass('disNone');
+</list>

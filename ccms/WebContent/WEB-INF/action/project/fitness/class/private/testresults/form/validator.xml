@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="guestcode" type="varchar" required="false" label="guestcode" />
+	<parameter id="customercode" type="varchar" required="false" label="customercode" />
+	<parameter id="cardcode" type="varchar" required="false" label="cardcode" />
+	<parameter id="ptpreparecode" type="varchar" required="false" label="ptpreparecode" />
+	<parameter id="code" type="varchar" required="false" label="体侧code" />
+</validator>

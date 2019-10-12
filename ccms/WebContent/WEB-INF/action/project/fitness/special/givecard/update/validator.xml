@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="startdate" type="date" required="true" label="c_startdate" />
+	<parameter id="id" type="varchar" required="true" label="id" />
+	
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="开卡日期必须大于等于当前日期！" id="startdate" sql="nodup-date.sql" />
+</validator>

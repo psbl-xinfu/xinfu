@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="code" type="varchar" required="true" label="code" />
+    <parameter id="groupid" type="varchar" required="true" label="团体id" />
+    <parameter id="guesttype" type="varchar" required="true" label="类型" />
+    <parameter id="pkvalue" type="varchar" required="true" label="资源/会员" />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该资源/会员已添加" id="pkvalue" sql="nodup-guset.sql" />
+</validator>

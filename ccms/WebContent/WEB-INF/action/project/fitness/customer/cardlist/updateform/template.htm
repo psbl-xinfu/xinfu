@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>修改</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 500px;">
+		<header class="header-default">
+			<span id="formTitle">修改</span>
+		</header>
+		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          	<div class="modal-body b-i-main">
+          		<input type="hidden" id="cardcode" name="cardcode" value="${fld:cardcode}"/>
+				<nav>
+					<li>
+						<label style="width: 120px;">卡号：</label>
+						<input type="text" value="${fld:code}" readonly="readonly" placeholder="卡号"/>
+					</li>
+					<li>
+						<label style="width: 120px;">卡类型：</label>
+						<input type="text" value="${fld:name}" readonly="readonly" placeholder="卡类型" />
+					</li>
+					<li>
+						<label style="width: 120px;">卡类别：</label>
+						<input type="text" value="${fld:cardleibie}" readonly="readonly" placeholder="卡类别" />
+					</li>
+					<li>
+						<label style="width: 120px;">实际价格：</label>
+						<input type="text" value="${fld:factmoney}" readonly="readonly" placeholder="实际价格" />
+					</li>
+					<li id="licount" style="display: none;">
+						<label style="width: 120px;">次数：</label>
+						<input type="text" value="${fld:count}" readonly="readonly" placeholder="次数" />
+					</li>
+					<li id="linowcount" style="display: none;">
+						<label style="width: 120px;">剩余次数：</label>
+						<input type="text" value="${fld:nowcount}" readonly="readonly" placeholder="剩余次数" />
+					</li>
+					<li>
+						<label style="width: 120px;">开始日期：</label>
+						<input type="text" id="startdate" name="startdate" value="${fld:startdate}" placeholder="开始日期" />
+					</li>
+					<li>
+						<label style="width: 120px;">结束日期：</label>
+						<input type="text" id="enddate" name="enddate" value="${fld:enddate}" placeholder="结束日期" />
+					</li>
+					<li>
+						<label style="width: 120px;">状态：</label>
+						<select id="status" name="status" style="display: none;">
+							<option value="">请选择</option>
+							<option value="0">无效</option>
+							<option value="1">正常</option>
+							<option value="2">未启用</option>
+							<option value="4">挂失中</option>
+							<option value="5">停卡中</option>
+							<option value="6">过期</option>
+						</select>
+					</li>
+					<li>
+						<label style="width: 120px;">启用方式：</label>
+						<select id="starttype" name="starttype" style="display: none;">
+							<option value="">请选择</option>
+							<starttype-rows>
+								<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+							</starttype-rows>
+						</select>
+					</li>
+					<li>
+						<label style="width: 120px;">已停卡天数：</label>
+						<input type="text" id="stopdays" name="stopdays" value="${fld:stopdays}" placeholder="已停卡天数" />
+					</li>
+					<li style="display: none;" id="nowcountli">
+						<label style="width: 120px;">次卡剩余次数：</label>
+						<input type="text" id="nowcount" name="nowcount" value="${fld:nowcount}" placeholder="次卡剩余次数" />
+					</li>					 
+		 			<li class="to100w" >
+						<label>备注</label>
+						<textarea id="remark" name="remark" placeholder="暂无数据" class="my-textarea" rows="" cols="4">${fld:remark}</textarea>
+					</li>
+				</nav>
+			</div>
+			<footer class="footer-default" style="margin-top: 20px">
+				<button type="button" id="save_btn" style="display: none;">修改</button>
+			</footer>
+		</form>
+	</div>
+				
+<script language="JavaScript">
+$(document).ready(function() {
+	searchSelectInit($("#starttype,#status"));
+	setSelectValue($("#starttype"), "${fld:starttype}");
+	setSelectValue($("#status"), "${fld:status}");
+	//时效卡隐藏次数
+	if("${fld:type}"=="0"){
+		$("#licount,#linowcount").show();
+	}else{
+		$("#nowcountli").show();
+	}
+	if("${fld:formtype}"=="1"){
+		$Dialog().date($('#startdate,#enddate'));
+		$("#save_btn").show();
+	}else{
+		$("#stopdays,#startdate,#enddate").attr("readonly", "readonly");
+		$("#starttype,#status").attr("disabled", "disabled");
+	}
+
+	// 修改卡信息
+	$("#save_btn").click(function(){
+		var url="${def:context}${def:actionroot}/updatecard";
+		ajaxCall(url,{
+			method:"post",
+			form:"formEditor",
+			progress:true,
+			dataType:"script",
+			success:function(){
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

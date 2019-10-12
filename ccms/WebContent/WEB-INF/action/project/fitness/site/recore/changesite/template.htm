@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	${inc:/action/project/fitness/home/pub}
+	<link rel="stylesheet" href="${def:context}/js/project/fitness/css/site.css">
+</head>
+<style>
+	
+</style>
+<body>
+	 <!-- 调场 -->
+	 <div class="cd_tc" id="modalAddnew" tabindex="-2">
+        <div id="a" class="basic-information modal-dialog dialogbg" style="width: 100%;
+		top: 0;height: 560px;">
+            <header class="header-default" style="width:100%;">
+                <span id="formTitle1">调场</span>
+            </header>
+            <div class="b-i-main">
+                <form id="tcformEditor" name="tcformEditor" method="post">
+                    <input type="hidden" id="hccode" name="hccode" value="" />
+                    <div class="cdyd_int">
+                        <div>
+                            <label>当前场地：</label>
+                            <span id="hcsiteusedetail"></span>
+                            <span class="tc_kyd">*调场成功后，当前场地状态自动更改为：“可预订”</span>
+                        </div>
+                    </div>
+                    <div id="bao_cdyd" class="cdyd_int">
+                        <label style="float:left;">选择调场场地：</label>
+                        <div class="">
+                            <select id="hcsitedef" name="hcsitedef" style="display: none;">
+                            	<option value="">请选择</option>
+                            	<sitedef-rows>
+                            		<option value="${fld:sitedefcode}">${fld:sitename@js}</option>
+                            	</sitedef-rows>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cdyd_int" style="margin-top:-67px">
+                        <div class="" style="width:100%">
+                            <div class="r-tab-cout-3-b ">
+                                <div class="to-change-background h-43"></div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>客户类型</th>
+                                            <th>客户姓名</th>
+                                            <th>客户电话</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cddatagridTemplate">
+                                        
+                                    </tbody>
+                                </table>
+                                <div class="pageDiv">
+                                    <ul class="pagination">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<div>
+						<label>调场备注：</label>
+						<textarea rows="10" cols="55" placeholder="调场备注" class="my-textarea" id="tcsitechange" name="tcsitechange"></textarea>	
+					</div>
+                </form>
+            </div>
+            <footer class="footer-default">
+                <button id="hcsave_btn">确定</button>
+            </footer>
+        </div>
+</div>
+</body>
+
+<script>
+$(document).ready(function () {
+	searchSelectInit($("#hcsitedef"));
+	ajaxCall("${def:actionroot}/querysiteusedetailcode?code=${fld:code}",{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+	
+	//调场
+	$("#hcsave_btn").click(function(){
+		var hcsitedef = $("#hcsitedef").val();
+		//判断是否选择调场场地
+		if(hcsitedef==""){
+			ccms.dialog.notice("请选择调场场地！", 2000)
+			return false;
+		}
+		var hour = 0, hcendtime = 0;
+		ajaxCall("${def:context}/action/project/fitness/site/prepare/querysiteusedetailtime?code="+$("#hccode").val(),{
+			method:"get",
+			dataType:"json",
+			async:false,
+			success:function(data){
+				hour = data.hour;
+				hcendtime = data.endtime;
+			}
+		});
+		//小于1说明预约时间全部已上课
+		if(hour<1){
+			ccms.dialog.notice("该场地已使用完，不能调场！", 3000);
+			return false;
+		}
+		var hccount = 0;
+		//循环要调场的时间
+		for(var i = (hcendtime-hour);i<hcendtime;i++){
+			ajaxCall("${def:context}/action/project/fitness/site/prepare/querysitetimelimittc?sitecode="+hcsitedef
+					+"&limittime="+i+":00:00&hccode="+$("#hccode").val(),{
+				method:"get",
+				dataType:"json",
+				async:false,
+				success:function(data){
+					if(data.num>0){
+						hccount++;
+					}
+				}
+			});
+		}
+		//判断是否可以调场
+		if(parseInt(hour)!=parseInt(hccount)){
+			ccms.dialog.notice("该调场场地不能调场！", 3000);
+			return false;
+		}
+		//调场
+		ajaxCall("${def:context}/action/project/fitness/site/prepare/updatesitecode",{
+			method:"post",
+			form:"tcformEditor",
+			dataType:"script",
+			success:function(){
+    			ccms.dialog.notice("调场成功！", 2000, function(){
+    				parent.search.searchData(1);
+    				ccms.dialog.close();
+    			});
+			}
+		});
+	});
+});
+</script>
+</html>

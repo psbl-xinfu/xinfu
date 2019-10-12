@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>在场会员查询</title>
+</head>
+<body>
+	<form  role="form" method="post" id="searchForm1">
+        <input name="sort" type="hidden" value="indate;intime" preserve="true" />
+		<input name="order" type="hidden" value="desc;desc" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+						<nav>
+							<li class="dateTime">
+						  		<input id="c_startdate" name="c_startdate" type="text" class="input-default"/>
+						  	</li>
+							<li class="dateTime">
+						  		<input id="c_enddate" name="c_enddate" type="text" class="input-default"/>
+						  	</li>
+							<li>
+								<select id="to_mc" name="to_mc" style="display: none;">
+									<option value="">会籍</option>
+									<skill>
+									<option value="${fld:userlogin}">${fld:name}</option>
+									</skill>
+								</select>
+							</li>
+							<li>
+								<select id="inlefttype" name="inlefttype" style="display: none;">
+									<option value="">入场类型</option>
+									<option value="0">临时入场</option>
+									<option value="1">会员入场</option>
+									<option value="2">体验卡入场</option>
+								</select>
+							</li>
+							<li class="hasCheck" style="width: 130px;">
+								<input id="temporaryinleft" name="temporaryinleft" type="checkbox" value="1" class="input-default" style="display: none;" />临时入场
+							</li>
+							
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/btn_tuichang.svg" alt="" title="退场" data-toggle="modal" id="exitall_btn">
+								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+							</div>
+						</nav>
+					</div>
+					<div class="tab-cout-nav-b">
+						<nav class="r-c-3-t-b-l" style="height: 30px;">
+						  	<li class="inputNametwo">
+								<input id="vc_cardcode" name="vc_cardcode" type="text" placeholder="会员卡号/姓名/手机号" class="input-default" />
+						   </li>
+							<li class="inputNametwo">
+								<input id="vc_tempcabinet" name="vc_tempcabinet" type="text" placeholder="手牌号" class="input-default" />
+							</li>
+							
+							<li>
+								<select id="classdefid" name="classdefid" style="display: none;">
+									<option value="">团操名称</option>
+									<classdef>
+										<option value="${fld:defcode}">${fld:defclass_name}</option>
+									</classdef>
+								</select>
+							</li>
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+							<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印小票" alt=""id="print_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/lingshoupai.svg" title="领手牌" alt=""id="getcabinit">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/huanshoupai.svg" title="还手牌" alt=""id="returncabinit">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/groupclass.svg" title="团课补签" alt="" id="in_btn">
+							</li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="" id="table">
+						<thead>
+							<tr>
+								<th></th>
+							    <th>卡号</th>				
+								<th>卡类型</th>
+							    <th>姓名</th>		
+							    <th>手牌号</th>
+								<th>操作人</th>
+							    <th>入场日期</th>
+							    <th>签到人数</th>
+							    <th>入场时间</th>
+								<th>离场时间</th>
+							    <th>团课名称</th>
+							    <th>截止日期</th>
+							    <th>备注</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display:none">
+							<tr>	
+								<td>#checklink#</td>		
+				                <td>#vc_cardcode#</td>		
+				                <td>#vc_type#</td>	
+				                <td>#name#</td>
+		 					    <td>#vc_tempcabinet#</td>
+				                <td>#vc_inusername#</td>				
+				                <td>#c_initime#</td>		
+				                <td>#signednumber#</td>
+				                <td>#c_initime_time#</td>
+				                <td>#lefttime#</td>
+				        		<td>#class_name#</td>
+				        		<td>#enddate#</td>
+				        		<td>#vc_remark#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+			<input id="daochu_vc_cardcode" name="daochu_vc_cardcode" type="text" />
+			<input id="daochu_vc_tempcabinet" name="daochu_vc_tempcabinet" type="text" />
+			<input id="daochu_c_startdate" name="daochu_c_startdate" type="text" />
+			<input id="daochu_c_enddate" name="daochu_c_enddate" type="text" />
+			<input id="daochu_to_mc" name="daochu_to_mc" type="text" />
+			<input id="daochu_temporaryinleft" name="daochu_temporaryinleft" type="text" />
+			<input id="daochu_inlefttype" name="daochu_inlefttype" type="text" />
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	ccms.util.renderCheckbox("temporaryinleft");
+	searchSelectInit($("#to_mc,#inlefttype,#classdefid"));
+	selectInit($("#to_mc"));
+	$("#c_startdate").val("${def:date}"); 
+	$("#c_enddate").val("${def:date}");
+	$Dialog().date($('#c_startdate'));
+	$Dialog().date($('#c_enddate'));
+	 $(document).click(function(){ 
+		$(".error").html("");
+	 }); 
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm1",
+		rowpackage : function(obj) {
+		$("#searchForm1 #vc_cardcode").val("");	
+			var datetime = dateReduce(new Date(obj.jsintime), new Date(obj.jslefttime));
+			if(datetime==""&&obj.lefttime!=""){
+				datetime = "1分钟";
+			}
+			obj.presencedate = datetime;
+		},success:function(){
+		
+		$(".dblclick").unbind().on('click',function(e){
+			var vc_code = $(this).attr('ctcode');
+			var thisobj = $(this);
+			e.preventDefault();
+			thisobj.addtabs({click:true});
+		});
+
+		ccms.util.renderRadio("inleftcode");
+	}}).initSearchBtn().searchData(1);
+	//导出
+	$("#daochu_list").unbind().on("click", function(){
+         $("#daochu_vc_cardcode").val($("#vc_cardcode").val());
+         $("#daochu_vc_tempcabinet").val($("#vc_tempcabinet").val());
+         $("#daochu_c_startdate").val($("#c_startdate").val());
+         $("#daochu_c_enddate").val($("#c_enddate").val());
+         $("#daochu_to_mc").val($("#to_mc").val());
+         $("#daochu_inlefttype").val($("#inlefttype").val());
+         $("#daochu_temporaryinleft").val(getCheckboxValue("temporaryinleft"));
+         $("#daochuForm").submit();
+    });	
+	
+	$("#in_btn").unbind().on("click",function(){
+		
+		var obthis = getCheckboxValue("inleftcode");
+		var code11=$("input[name=inleftcode]:checked").attr("code11");
+		if(obthis==""){
+			ccms.dialog.alert("请选择！");
+		}else{
+			if(code11!=""){
+				ccms.dialog.alert("该入场记录已经签课！");
+			}else{
+				var code9 = $("input[name=inleftcode]:checked").attr("code9");
+				ccms.dialog.open({url : "${def:context}/action/project/fitness/customer/inleft/classprepare?custall="+code9+"&incode="+obthis});
+			}
+		}
+	});
+	//退场刷卡
+	$("#exitall_btn").unbind().on("click",function(){
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择！");
+		}else{
+			var code4 = $("input[name=inleftcode]:checked").attr("code4");
+			if(code4=="0"){
+				ccms.dialog.alert("该入场记录已退场！");
+				return false;
+			}
+			$Dialog().confirm("确定要退场吗？",function(){
+				//code=1 会员入场    2临时入场
+				var code = $("input[name=inleftcode]:checked").attr("code");
+				var inlefttype = $("input[name=inleftcode]:checked").attr("inlefttype");
+				var url = "${def:context}${def:actionroot}";
+				var code5=$("input[name=inleftcode]:checked").attr("code5");
+				if(code=="1"){
+					if(inlefttype=="1"){
+						url += "/exitall?code="+obthis+"&org_id="+code5;
+					}else if(inlefttype=="2"){
+						url += "/expercardexitall?code="+obthis+"&org_id="+code5;
+					}
+				}else if(code=="2"){
+					url += "/inleftout?inleftcode="+obthis+"&org_id="+code5;
+				}
+				ajaxCall(url,{
+					method : "get",
+					progress : true,
+					dataType : "script",
+					success : function() {
+					}
+				});
+			});
+		}
+	});
+	
+	$("#print_btn").unbind().on("click",function(){
+		
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择！");
+		}else{
+			var code10 = $("input[name=inleftcode]:checked").attr("code10");
+			var code6 = $("input[name=inleftcode]:checked").attr("code6");
+			if(code6=="1"){
+				var code8 = $("input[name=inleftcode]:checked").attr("code8");//卡号
+				var code9 = $("input[name=inleftcode]:checked").attr("code9");//会员编号
+				var code7 = $("input[name=inleftcode]:checked").attr("code7");//刷卡次数
+				var code5 = $("input[name=inleftcode]:checked").attr("code5");
+				var url = "${def:context}/action/project/fitness/print/ticket/wordtemplate_Admission?pk_value="+code8+"&nowcount="+code7+"&org_id="+code5+"&cust_code="+code9+"&inleftcode="+code10;
+				ajaxCall(url,{
+					method : "get",
+					progress : true,
+					dataType : "script",
+					success : function() {
+					}
+				});
+				
+			}else{
+				ccms.dialog.alert("不是计次卡不能打印！");
+			}
+		}
+	});
+/* 	// 更换手牌  zzn 取消更换功能
+	$("#updatechangecabinit").unbind().on("click",function(){
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择！");
+		}else{
+			var code2 = $("input[name=inleftcode]:checked").attr("code2");
+			if(code2=="1"){
+				var code3 = $("input[name=inleftcode]:checked").attr("code3");
+				ccms.dialog.open({url : "${def:context}${def:actionroot}/updatechangecabinit?code="+obthis+"&cabinettempcode="+code3, width:500, height:395});
+			}else{
+				ccms.dialog.alert("入场未使用手牌，不能更换手牌！");
+				return false;
+			}
+		}
+	}); */
+	// 还手牌
+	$("#returncabinit").unbind().on("click",function(){
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择一条记录！");
+		}else{
+			var code4 = $("input[name=inleftcode]:checked").attr("code4");
+			if(code4=="0"){
+				ccms.dialog.alert("该用户已退场！");
+				return false;
+			}
+				var code3 = $("input[name=inleftcode]:checked").attr("code3");
+				if(code3==""){
+					ccms.dialog.alert("未领手牌无需归还！");
+					return false;
+				}else{
+					ccms.dialog.open({url : "${def:context}${def:actionroot}/returncabinit?code="+obthis+"&cabinettempcode="+code3, width:500, height:395});
+				}
+			}
+	});
+	// 领手牌 zzn
+	$("#getcabinit").unbind().on("click",function(){
+		var obthis = getCheckboxValue("inleftcode");
+		if(obthis==""){
+			ccms.dialog.alert("请选择一条记录！");
+		}else{
+				var code4 = $("input[name=inleftcode]:checked").attr("code4");
+				if(code4=="0"){
+					ccms.dialog.alert("该用户已退场！");
+					return false;
+				}
+				var code3 = $("input[name=inleftcode]:checked").attr("code3");//code3取手牌号码
+				if(code3!=""){
+					ccms.dialog.alert("请勿重复发放手牌！");
+					return false;
+				}else{
+					ccms.dialog.open({url : "${def:context}${def:actionroot}/getcabinit?code="+obthis, width:500, height:395});
+					
+				}
+		}
+	});
+});
+
+
+</script>
+</body>
+</html>

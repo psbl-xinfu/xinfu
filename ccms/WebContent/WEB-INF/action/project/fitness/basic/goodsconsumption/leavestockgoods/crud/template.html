@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>商品销售记录</title>
+<link href="${def:context}/js/project/fitness/css/contract1.css" rel="stylesheet">
+<style type="text/css">
+.bg{
+background: rgba(42, 48, 56, -1.2) !important
+}
+</style>
+</head>
+    <body style="font-size: 14px">
+	<form id="goodsForm" name="goodsForm" class="form-horizontal dialogbg" role="form" method="post" style="height: 560px;">
+		<header class="header-default">
+			<span>销售明细</span>
+		</header>
+      	<!-- 商品销售 -->
+				<div class="am-tabs r-tab-container goodsSale">
+					<div class="sec-1">
+						<label for="id">编号：</label>
+						<input type="text" name="leave_stockid" readonly="readonly" id="leave_stockid" value="${fld:tuid}" title="编号" placeholder="编号" />
+						<label for="total">实收价：</label>
+						<input type="text" id="total" name="total" class="total" readonly="readonly" value="${fld:factmoney}" title="实收" placeholder="实收" />
+						<label for="discounttotal">折扣价：</label>
+						<input type="text" id="discount" name="discount" class="discount" readonly="readonly" value="${fld:discount}" title="折扣" placeholder="实收" />
+						<label for="id">状态：</label>
+						<label class="status" id="status"></label>
+					</div>
+					<div class="sec-4">
+						<label>卡号：</label>
+						<input type="text" value="${fld:cardcode}" readonly="readonly" style="width: 150px;">
+						<label>手机号：</label>
+						<input type="text" value="${fld:mobile}" readonly="readonly" style="width: 150px;">
+						<label>姓名：</label>
+						<input type="text" value="${fld:custname}" readonly="readonly" style="width: 150px;">
+					</div>
+					<div class="sec-4" style="display: none;" id="paydetail">
+						<label for="id">支付方式：</label>
+						<label id="">${fld:paydetail}</label>
+					</div>
+					<div class="sec-2">
+						<div class="sec-bottom r-tab-cout-3-b">
+							<table>
+								<thead>
+									<tr>
+										<th>品名</th>
+										<th>规格</th>
+										<th>单位</th>
+										<th>单价</th>
+										<th>数量</th>
+										<th>标价总金额</th>
+									</tr>
+								</thead>
+								<tbody id="goodslist">
+									<leave_stock_goods-rows>
+										<tr>
+											<td>${fld:goods_name}</td>
+											<td>${fld:standard}</td>
+											<td>${fld:unit}</td>
+											<td>${fld:price}</td>
+											<td>${fld:amount}</td>
+											<td>${fld:factmoney}</td>
+										</tr>
+									</leave_stock_goods-rows>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="sec-4">
+						<label>操作员：</label>
+						<input type="text" value="${fld:createdby}" readonly="readonly" style="width: 100px;">
+						<label>操作日期：</label>
+						<input type="text" value="${fld:created}" readonly="readonly" style="width: 100px;">
+						<label>收款人员：</label>
+						<input type="text" value="${fld:updatedby}" readonly="readonly" style="width: 100px;">
+						<label>收款人日期：</label>
+						<input type="text" value="${fld:updated}" readonly="readonly" style="width: 100px;">
+					</div>
+				</div>
+     </form>
+    </body>
+<script type="text/javascript">
+$(function(){
+	searchSelectInit($("#moneytype"));
+	//判断是否支付
+	if("${fld:paystatus}"=="1"){
+		$("#status").html("未支付");
+	}else if("${fld:paystatus}"=="2"){
+		$("#status").html("已支付");
+		$("#paydetail").show();
+	}
+});
+</script>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<head>
+    <meta charset="utf-8">
+	<title>首页</title>
+	<meta name="viewport" content="width=320, user-scalable=no">
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/index.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/notice.css" />
+</head>
+<body >    
+<header class="gg-index-top">
+	<ul>
+		<li>
+			<p>今日新增</p>
+			<p class="num-wrap"><span class="num">${fld:dayguestnum}</span>个</p>
+			<span class="sep"></span>
+		</li>
+		<li>
+			<p>本月获客任务</p>
+			<p class="num-wrap"><span class="num" id="guest_target">0</span>个</p>
+			<span class="sep"></span>
+		</li>
+		<li>
+			<p>本月已完成</p>
+			<p class="num-wrap"><span class="num">${fld:monthguestnum}</span>个</p>
+		</li>
+	</ul>
+	<div class="progress-wrap">
+		<p class="progress-label">任务完成比例<span class="progress-percent" id="guestpercentage"></span></p>
+		<div class="progress-bar">
+			<span class="progress-bar-play"></span>
+		</div>
+	</div>
+</header>
+
+<ul class="gg-index-bt" id="guestinfo">
+</ul>
+
+
+<!-- 遮罩 -->
+<div class="gg-mask"></div>
+
+<div class="gg-notice-dlg">
+	<span class="icon-close_circle notice-dlg-close"></span>
+	<h1 id="noticetitle"></h1>
+	<div class="notice-content" id="noticecontent"></div>
+	<span class="sign-date" id="noticedate"></span>
+</div>
+
+${inc:/action/project/fitness/guestget/end}
+
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/index.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/notice.js"></script>
+
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	var guest_target = 0;
+	<targetstaff-rows>
+		guest_target = '${fld:guest_target}';
+		$("#guest_target").html("${fld:guest_target}");
+		var percentage = Number(${fld:monthguestnum}/${fld:guest_target}*100).toFixed(2);
+		$("#guestpercentage").html(percentage+"%");
+		$(".progress-bar-play").css("width", (percentage>100?100:percentage)+"%");
+	</targetstaff-rows>
+	//本月已完成大于0，本月任务等于0，显示百分比为100%
+	if(${fld:monthguestnum}>0&&parseInt(guest_target)==0){
+		$("#guestpercentage").html("100%");
+		$(".progress-bar-play").css("width", "100%");
+	}else if(${fld:monthguestnum}==0&&parseInt(guest_target)==0){
+		$("#guestpercentage").html("0.00%");
+		$(".progress-bar-play").css("width", "0.00%");
+	}
+	//资源
+	var gueststr = "";
+	<hkbguest-rows>
+		var sextype = "", intentioncolor = "", intentionstr = "";
+		if("${fld:sex}"=="1"){
+			sextype = "icon-man";
+		}else if("${fld:sex}"=="0"){
+			sextype = "icon-woman";
+		}
+		if("${fld:intention}"=="1"){
+			intentioncolor = "red";
+			intentionstr = "高关注";
+		}else if("${fld:intention}"=="2"){
+			intentioncolor = "orange";
+			intentionstr = "普通";
+		}else if("${fld:intention}"=="3"){
+			intentioncolor = "green";
+			intentionstr = "不关注";
+		} 
+		gueststr+="<li onclick=guestdetail('${fld:tuid}')><div class='u-item-left'>"
+			+"<p><span class='nickname'>${fld:name@js}</span><span class='"+sextype+"'></span><span class='age'>${fld:age}</span></p>"
+			+"<p class='tel'>${fld:mobile}</p></div><div class='u-item-right'><p class='purpose "+intentioncolor+"'>意向："+intentionstr+"</p>"
+			+"<span class='icon-more'></span></div></li>";
+	</hkbguest-rows>
+	$("#guestinfo").html(gueststr);
+	
+	var hei=$('#guestinfo').find('li').first().height()
+	var len=$('#guestinfo').find('li').length
+	
+	$("#guestinfo").height(hei*len+75)
+	
+	//公告
+	<notice-rows>
+		if(${fld:unreadnotice}==1){
+			$("#noticetitle").html("${fld:title@js}");
+			$("#noticecontent").html("${fld:content@js}");
+			$("#noticedate").html("${fld:created@yyyy-MM-dd}");
+			$(".gg-notice-dlg,.gg-mask").show();
+			var url = "${def:context}/action/project/fitness/guestget/notice/insert?tuid=${fld:tuid}&type=0"
+			ajaxCall(url,{
+				method:"get",
+				progress:true,
+				dataType:"script",
+				success:function(){
+				}
+			});
+		}
+	</notice-rows>
+});
+//详情
+function guestdetail(tuid){
+    location.href = contextPath+"/action/project/fitness/guestget/index/add?tuid="+tuid;
+}
+</script>
+</body>
+</html>

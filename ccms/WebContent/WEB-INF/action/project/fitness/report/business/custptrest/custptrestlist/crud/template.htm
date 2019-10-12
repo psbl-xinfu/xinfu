@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>会员私教</title>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm" class="dialogbg" style="height: 570px;">
+		<header class="header-default">
+			<span id="formTitle">会员私教</span>
+		</header>
+		<input name="sort" type="hidden" value="pr.created" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<input name="code" type="hidden" value="${fld:code}" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr>
+								<th>课程名称</th>
+								<th>私教</th>
+								<th>来源</th>
+							    <th>私教课总节数</th>
+							    <th>私教课剩余节数</th>
+							    <th>应收金额</th>
+							    <th>实收金额</th>
+							    <th>原单价</th>
+							    <th>实收单价</th>
+							    <th>结束日期</th>
+							    <th>购买日期</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+				                <td>#ptlevelname#</td>
+				                <td>#ptname#</td>
+				                <td>#pttype#</td>
+				                <td>#pttotalcount#</td>
+				                <td>#ptleftcount#</td>
+				                <td>#ptnormalmoney#</td>
+				                <td>#ptmoney#</td>
+				                <td>#ptfee#</td>
+				                <td>#ptfactfee#</td>
+				                <td>#ptenddate#</td>
+				                <td>#created#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+	}}).initSearchBtn().searchData(1);
+});
+</script>
+</body>
+</html>

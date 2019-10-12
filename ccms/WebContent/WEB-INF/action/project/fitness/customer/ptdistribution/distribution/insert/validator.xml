@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/util/validation/alert">
+   <parameter id="customercode" type="varchar" required="flase" label="vc_code"/>
+    <parameter id="pt" type="varchar" required="true" label="推荐PT"/>
+     <parameter id="cardcode" type="varchar" required="flase" label="vc_code"/>
+</validator>
+
+
+
+
+

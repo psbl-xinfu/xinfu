@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/base.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/site_home.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.css" rel="stylesheet" />
+</head>
+
+<body>
+<script src="${def:context}/js/project/fitness/wx/js/wx_site/rem.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.js"></script>
+<!-- Swiper JS -->
+<script>
+$(function () {
+	location.href="${def:context}/action/project/fitness/wx/site/siteindex/crud?org_id=${fld:org_id}&weixin_userid=${fld:weixin_userid}";
+})
+</script>
+</body>
+
+</html>

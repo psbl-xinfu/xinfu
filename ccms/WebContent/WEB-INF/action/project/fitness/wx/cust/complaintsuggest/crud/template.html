@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <title>建议投诉</title>
+        <link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet">
+        <style>
+            body{background-color: #FFF;}
+        </style>
+    </head>
+    <body>
+      <form id='c_s_form' class='c_s_form'> 
+       <input type="hidden" name="customer_code" id="customer_code" value='${fld:customercode}' /> 
+        <div class="huiyuantousutop">
+            <p class="jianyibtn fl">意见建议</p>            
+            <p class="tousubtn fr">投诉</p>
+            <div class="jianyiradio"></div>            
+            <div class="tousuradio"></div>
+            <input type="hidden" name="fbtype" id="fbtype" class="is_which" value="0">            
+        </div>
+        
+        <div class="jianyidiv">
+            <textarea class="form-control jianyi_textarea" id="fbremark" name="fbremark" rows="3" placeholder="请写入备注"></textarea>
+        </div>
+        <div class="tousudiv">
+            <div class="listothers">
+                <div class='d2 fl'>投诉类别</div>
+                <div class='d4 fr'>
+                
+                    <select class="form-control select_op" id='complainttype'  name='complainttype'>
+                    <option  value="">请选择类别</option>
+                       <op-type><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-type>
+                    </select>
+                </div>
+            </div>
+            <div class="listothers complaint_type_item complaint_userid_div">
+                <div class='d2 fl'>员工</div>
+                <div class='d4 fr'>
+                    <input type="text" id='complaint_userid'  name='complaint_userid'  class="form-control textindex " placeholder="请输入员工姓名 /工号">
+                </div>
+            </div>
+            <div class="listothers complaint_type_item complaint_skill_div">
+                <div class='d2 fl'>部门</div>
+                <div class='d4 fr'>
+                    <select class="form-control select_op complaint_item" id='complaint_skill'  name='complaint_skill'>
+                        <option selected='selected' value=''></option>
+                        <op-skill><option value="${fld:skill_id}">${fld:skill_name@js}</option></op-skill>
+                    </select>
+                </div>
+            </div>
+            <div class="listothers complaint_type_item complaint_item_div">
+                <div class='d2 fl'>项目</div>
+                <div class='d4 fr'>
+                    <select class="form-control select_op complaint_item" id='complaint_item'  name='complaint_item'>
+                       <option selected='selected' value=''></option>
+                       <op-item><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-item>
+                    </select>
+                </div>
+            </div>
+            <div class="listothers complaint_type_item complaint_envir_div">
+                <div class='d2 fl'>环境</div>
+                <div class='d4 fr'>
+                    <select class="form-control select_op complaint_item" id='complaint_envir'  name='complaint_envir'>
+                       <option selected='selected' value=''></option>
+                       <op-envir><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-envir>
+                    </select>
+                </div>
+            </div>
+            <div class="listothers">
+                <textarea   class="form-control tousu_textarea" rows="3" placeholder="投诉原因"></textarea>
+            </div>
+        </div>
+
+        <div class="huiyuantousubtn">
+            <img src="${def:context}/js/project/fitness/wx/image/tijiaofankui.png" class="tijiao">
+        </div>
+      </form>
+       
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homecust();
+        var width=$(window).width();
+        if(width<=750){
+            $('.bannerimg').css({'height':width*360/750+'px'});
+        }else{
+            $('.bannerimg').css({'height':'360px'});
+        }
+        
+        $('.jianyiradio').click(function(){
+            $('.is_which').val(0);
+            $('.jianyidiv').show();
+            $('.tousudiv').hide();
+            $('.jianyiradio').css({'background-position':'bottom right'});
+            $('.tousuradio').css({'background-position':'top left'});
+            clearItem();
+            $('.jianyi_textarea').attr('id','fbremark').attr('name','fbremark');
+            $('.tousu_textarea').attr('id','').attr('name','');
+            //$('#complainttype').val('');
+        });
+        $('.jianyibtn').click(function(){
+            $('.is_which').val(0);
+            $('.jianyidiv').show();
+            $('.tousudiv').hide();
+            $('.jianyiradio').css({'background-position':'bottom right'});
+            $('.tousuradio').css({'background-position':'top left'});
+           clearItem();
+           $('.jianyi_textarea').attr('id','fbremark').attr('name','fbremark');
+           $('.tousu_textarea').attr('id','').attr('name','');
+           //$('#complainttype').val('');
+        });
+
+        $('.tousuradio').click(function(){
+            $('.is_which').val(1);
+            $('.jianyidiv').hide();
+            $('.tousudiv').show();
+            $('.jianyiradio').css({'background-position':'top left'});
+            $('.tousuradio').css({'background-position':'bottom right'});
+            clearItem();
+            $('.tousu_textarea').attr('id','fbremark').attr('name','fbremark');
+            $('.jianyi_textarea').attr('id','').attr('name','');
+        });
+        $('.tousubtn').click(function(){
+            $('.is_which').val(1);
+            $('.jianyidiv').hide();
+            $('.tousudiv').show();
+            $('.jianyiradio').css({'background-position':'top left'});
+            $('.tousuradio').css({'background-position':'bottom right'});
+            clearItem();
+            $('.tousu_textarea').attr('id','fbremark').attr('name','fbremark');
+            $('.jianyi_textarea').attr('id','').attr('name','');
+           
+        });
+    });
+    
+    $('.tijiao').click(function(){
+    	if($('#fbtype').val()=='1'&&(($('#complainttype').val()=='')||($('#complainttype').val()==undefined)))
+    	{
+    		ccms.dialog.notice('请选择类型！');
+    	}else{
+    		//判断是投诉
+        	if($('#fbtype').val()=="1"){
+        		//人
+        		if($("#complainttype").val()=="1"){
+        			if($("#complaint_userid").val()==""){
+                		ccms.dialog.notice('请填写员工！');
+        				return false;
+        			}
+        		}
+        		//部门
+        		if($("#complainttype").val()=="2"){
+        			if($("#complaint_skill").val()==""){
+                		ccms.dialog.notice('请选择部门！');
+        				return false;
+        			}
+        		}
+        		//项目
+        		if($("#complainttype").val()=="3"){
+        			if($("#complaint_item").val()==""){
+                		ccms.dialog.notice('请选择项目！');
+        				return false;
+        			}
+        		}
+        		//环境
+        		if($("#complainttype").val()=="4"){
+        			if($("#complaint_envir").val()==""){
+                		ccms.dialog.notice('请选择环境！');
+        				return false;
+        			}
+        		}
+        	}
+        	if($("#fbremark").val()==""){
+        		ccms.dialog.notice('请填写'+($('#fbtype').val()=="0"?"备注":"投诉原因")+'！');
+        		return false;
+        	}
+	    	var url = "${def:context}/action/project/fitness/wx/cust/complaintsuggest/insert";
+	    	ajaxCall(url,{
+	    		method: "post",
+	    		progress: false,
+	    		dataType: "script",
+	    		form:"c_s_form",
+	    		success: function() {}
+	    	})
+    	}
+    });
+	
+    function clearItem()
+    {
+    	$('#complainttype').val('');
+    	$('#complaint_userid').val('');
+    	$('.complaint_item').val('');
+    	$('.jianyi_textarea').val('');
+    	$('.tousu_textarea').val('');
+    	$('.complaint_type_item').css('display','none');
+    }
+
+    $("select#complainttype").change(function(){
+    	var code=$(this).val();	    	
+    	showComplaintTypeItem(code);	
+    })
+    
+    function showComplaintTypeItem(code)
+	 {
+		 switch(code)
+		 {
+		   case '1':
+			        $('.complaint_type_item').css('display','none');
+			        $('.complaint_userid_div').css('display','block');
+			        $('.complaint_item').val('');
+			        break;
+		   case '2':
+			  		$('.complaint_type_item').css('display','none');
+			   		$('.complaint_skill_div').css('display','block');
+			   		$('.complaint_item').val('');
+			        break;
+		   case '3':
+			        $('.complaint_type_item').css('display','none');
+			  		$('.complaint_item_div').css('display','block');
+			  		$('.complaint_item').val('');
+			  	    break;
+		   case '4':
+			        $('.complaint_type_item').css('display','none');
+			  		$('.complaint_envir_div').css('display','block');
+			  		$('.complaint_item').val('');
+			  	    break;
+		   case '5':	
+			   		$('.complaint_type_item').css('display','none');
+			   		$('.complaint_item').val('');
+			   	    break;
+		 }
+	 }
+    
+    $(document).ready(function(){
+    	 $('.complaint_type_item').css('display','none');
+    })
+</script>

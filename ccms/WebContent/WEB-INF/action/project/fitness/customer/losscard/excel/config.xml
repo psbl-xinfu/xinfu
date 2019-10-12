@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_startdate,daochu_enddate,daochu_status,daochu_cust</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+
+	<excel recordset="query-base.sql" sheetname="挂失记录" filename="挂失记录.xls" header-background="true">
+		<col id="code" label="卡号" />
+		<col id="cardtype" label="卡类型" />
+		<col id="name" label="姓名" />
+		<col id="status" label="状态" />
+		<col id="startdate" label="挂失日期" />
+		<col id="enddate" label="开启日期" />
+		<col id="remark" label="备注" />
+		<col id="created" label="操作日期" />
+		<col id="staff_name" label="操作人" />
+	</excel>
+</config>

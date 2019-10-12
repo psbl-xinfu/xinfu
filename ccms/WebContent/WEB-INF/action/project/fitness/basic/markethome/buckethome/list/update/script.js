@@ -1,0 +1,2 @@
+ccms.util.clearForm('messageForm');
+

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="daochu_vc_code" type="varchar" required="false" label="序号" />
+	<parameter id="daochu_cust_all" type="varchar" required="false" label="姓名" />
+	<parameter id="daochu_status" type="varchar" required="false" label="预约状态" />
+	<parameter id="daochu_i_age" type="varchar" required="false" label="年龄" />
+	<parameter id="daochu_vc_contacttype" type="varchar" required="false" label="联系方式" />
+	<parameter id="daochu_vc_preparetime" type="varchar" required="false" label="预约时间" />
+	<parameter id="daochu_vc_iuser" type="varchar" required="false" label="预约会籍" />
+	<parameter id="daochu_vc_visittime" type="varchar" required="false" label="来访时间" />
+	<parameter id="daochu_start_date" type="varchar" required="false" label="开始日期" />
+	<parameter id="daochu_end_date" type="varchar" required="false" label="结束日期" />
+	<parameter id="daochu_mc" type="varchar" required="false" label="会籍" />
+
+</validator>

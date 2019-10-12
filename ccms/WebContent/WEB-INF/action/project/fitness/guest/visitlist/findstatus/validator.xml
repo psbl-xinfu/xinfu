@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_code" type="varchar" required="false" label="序号" />
+	<parameter id="cust_all" type="varchar" required="false" label="姓名" />
+	<parameter id="status" type="varchar" required="false" label="预约状态" />
+	<parameter id="i_age" type="varchar" required="false" label="年龄" />
+	<parameter id="vc_contacttype" type="varchar" required="false" label="联系方式" />
+	<parameter id="vc_preparetime" type="varchar" required="false" label="预约时间" />
+	<parameter id="vc_iuser" type="varchar" required="false" label="预约会籍" />
+	<parameter id="vc_visittime" type="varchar" required="false" label="来访时间" />
+	<parameter id="start_date" type="varchar" required="false" label="开始日期" />
+	<parameter id="end_date" type="varchar" required="false" label="结束日期" />
+	<parameter id="mc" type="varchar" required="false" label="会籍" />
+	
+</validator>

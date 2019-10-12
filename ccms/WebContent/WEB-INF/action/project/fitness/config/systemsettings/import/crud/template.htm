@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>财务管理</title>
+<style>
+.left ul li a {
+font:15px/20px \"宋体\";
+color:black;
+}
+.r-tab li.am-active a{
+ color:#c8c8c8 !important;
+}
+</style>
+</head>
+<body >
+	<div class="am-tabs systems-management dialogbg" data-am-tabs="{noSwipe: 1}">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="twopage">
+			<li class='sub_li' onclick="StaffImport()"><a href="#staffimport" class="three-none" id="staffimport">员工导入</a></li>
+			<li class='sub_li' onclick="GuestImport()"><a href="#guestimport" class="three-none" id="guestimport">资源导入</a></li>
+			<li class='sub_li' onclick="CardTypeImport()"><a href="#cardtypeimport" class="three-none" id="cardtypeimport">会员卡类型导入</a></li>
+			<li class='sub_li' onclick="CustCardImport()"><a href="#custcardimport" class="three-none" id="custcardimport">会员卡导入</a></li>
+			<li class='sub_li' onclick="PtClassImport()"><a href="#ptclassimport" class="three-none" id="ptclassimport">私教课定义导入</a></li>
+			<li class='sub_li' onclick="CustPtImport()"><a href="#custptimport" class="three-none" id="custptimport">会员私教课导入</a></li>
+			<li class='sub_li' onclick="StopCardImport()"><a href="#stopcardimport" class="three-none" id="stopcardimport">停卡导入</a></li>
+		</nav>
+	</div>
+	<div src ="" width="100%" height="600px" frameborder="0" id="financialmanage">
+	</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	$("#staffimport").click();
+	
+	//子集菜单效果
+    $('#twopage .sub_li').parent().css('background-color','transparent');
+	$('#twopage .sub_li').children().attr('style','color:#c8c8c8;');
+	$('#twopage .sub_li').eq(0).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	$('#twopage .sub_li').on('click',function(){
+		$('#twopage .sub_li').attr('style','');
+		$(this).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	})
+});
+//员工导入
+function StaffImport(){
+	$("#financialmanage").load("${def:context}${def:actionroot}/staffimport/crud?ispubload=true");
+}
+//资源数据导入
+function GuestImport(){
+	$("#financialmanage").load("${def:context}${def:actionroot}/guestimport/crud?ispubload=true");
+}
+//会员卡数据导入
+function CustCardImport(){
+	$("#financialmanage").load("${def:context}${def:actionroot}/custcardimport/crud?ispubload=true");
+}
+//会员私教课数据导入
+function CustPtImport(){
+	$("#financialmanage").load("${def:context}${def:actionroot}/custptimport/crud?ispubload=true");
+}
+//会员卡类型数据导入
+function CardTypeImport(){
+	$("#financialmanage").load("${def:context}${def:actionroot}/cardtypeimport/crud?ispubload=true");
+}
+//私教课定义导入
+function PtClassImport(){
+	$("#financialmanage").load("${def:context}${def:actionroot}/ptclassimport/crud?ispubload=true");
+}
+//停卡导入
+function StopCardImport(){
+	$("#financialmanage").load("${def:context}${def:actionroot}/stopcardimport/crud?ispubload=true");
+}
+</script>
+</body>
+</html>

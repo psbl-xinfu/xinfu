@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>租柜列表</title>
+</head>
+<body>
+<div class="modal fade" id="myModalLabel"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+				<header class="header-default">
+					<span id="formTitle">换柜</span>
+					<span class="header-close"></span>
+				</header>
+				<div class="b-i-main">
+					<form id="messageForm" name="messageForm" method="post">
+						<input type="hidden" name="cabinetrentid"   id="cabinetrentid" value="">
+						<input type="hidden" name="c_cabinettuid"   id="c_cabinettuid" value="">
+					<nav>
+						<li >
+						<label for="">区域：</label>
+							<div class="my-selected">
+									<select id="c_group" name="c_group" class="normal-select">
+									<group-rows2>
+										<option value="${fld:tuid}">${fld:groupname}</option>
+									</group-rows2>
+								</select>
+							</div>
+						</li>
+						
+						<li> 			
+								<label for="">柜号：</label> 	
+								<div class="my-selected">
+								<select id="c_newcabinetcode" name="c_newcabinetcode"  class="normal-select">
+									<option value=""></option>
+								</select>
+							</div>
+			 			 </li>	
+				
+						<li class="to100w" style="margin-left: 6%">
+							<label for="">备注</label>
+							<textarea id="c_remark" name="c_remark" placeholder="暂无数据" class="my-textarea" rows="" cols="4"></textarea>
+						</li>
+					</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="turn_submit" class="my-btn-default active">保存</button>
+				</footer>
+			</div>
+		</div>
+
+			<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="cr.created" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+				<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="dateTime">
+										<input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
+									</li>
+									<li class="dateTime">
+											<input id="s_end_date" name="s_end_date" type="text"class="input-default"/>
+									</li>
+									<li>
+										<select id="s_group" name="s_group" class="normal-select">
+											<option value="">全部区域</option>
+											<group-rows>
+												<option value="${fld:tuid}">${fld:groupname}</option>
+											</group-rows>
+										</select>
+										</li>
+									<li class="w-80">
+										<input type="text" id="s_code" name="s_code" placeholder="柜号" class="input-default"/>							
+					 			 	</li>									
+									<li class="inputName">
+										<input type="text" id="s_name" name="s_name" placeholder="姓名/手机号/会员编号" class="input-default"/>							
+					 			 	</li>	
+									<div class="r-c-btnList">
+										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+										<button type="button"  class="r-c-3-btn-3" id="excel" title="导出"></button>
+									</div>								
+								</nav>
+							</div>
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+								</nav>
+								<nav class="r-c-3-t-b-r">
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="preview">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/tuigui.svg" title="退柜" alt=""id="retreat_bth">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/huangui.svg" title="换柜" alt=""id="turn_bth">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/tuiyajin.svg" title="退还押金" alt=""id="returndeposit">
+									</li>
+								</nav>
+							</div>
+						</div>
+						<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<input id="selectAll"  name="selectAll"  type="checkbox" value="" style="display: none;" >
+										</th>
+										<th>区域</th>
+										<th>柜号</th>
+										<th>状态</th>
+										<th>开始日期</th>
+										<th>截止日期</th>
+										<th>会员编号</th>										
+										<th>会员姓名</th>	
+										<th>会员手机号</th>	
+										<th>操作人</th>	
+										<th>操作时间</th>	
+										<th>押金</th>	
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										 <td class="table-checkbox">#application_id#</td> 
+										<td >#groupname#</td>
+										<td >#cabinetcode#</td>
+										<td >#status#</td>
+										<td >#startdate#</td>
+										<td >#enddate#</td>
+										<td >#customercode#</td>		
+										<td >#name#</td>			
+										<td >#mobile#</td>
+										<td >#createdby#</td>
+										<td >#created#</td>		
+										<td >#isdeposittype#</td>			
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+				<input id="daochus_start_date" name="daochus_start_date" type="text"/>
+				<input id="daochus_end_date" name="daochus_end_date" type="text"/>
+				<input id="daochus_group"  name="daochus_group" type="text"/>
+				<input id="daochus_code" name="daochus_code" type="text"/>
+				<input id="daochus_name" name="daochus_name" type="text"/>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	var search=null;
+$(document).ready(function() {
+	ccms.util.renderCheckbox("selectAll");
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
+	//批量退柜
+	$("#retreat_bth").unbind().on("click",function(){
+		var obthis = getCheckboxValue("datalist");
+		if(obthis!= ""){
+			var count = 0;
+			$("input[name=datalist]:checked").each(function(){
+                if($(this).attr("code")!="1"){
+                	count++;
+                }
+			});
+			//判断退柜选中记录是否存在已退柜记录
+			if(count>0){
+				ccms.dialog.notice("已退柜记录不能再次退柜！", 2000)
+				return false;
+			}
+			ccms.dialog.open({url : "${def:context}${def:actionroot}/returncabinet?id="+obthis, width:'800', height:'340'});
+		}else{
+			ccms.dialog.notice("请选储物柜！")
+		}
+	});
+	//换柜
+	$("#turn_bth").unbind().on("click",function(){
+		var obthis = getCheckboxValue("datalist");
+		if(obthis==""){
+			ccms.dialog.notice("请选择储物柜！", 2000);
+		}else{
+			var len =obthis.split(",").length;
+			if(len>1){
+				ccms.dialog.notice("请选择一条储物柜记录！", 2000);
+				return false;
+			}
+			var code = $("input[name=datalist]:checked").attr("code");
+			if(code!="1"){
+				ccms.dialog.notice("已退柜，不能更换！", 2000);
+				return false;
+			}
+			$('#myModalLabel').modal('show');
+			ccms.util.clearForm('messageForm');
+			$('#c_newcabinetcode').html('');
+			$("#c_group").change();
+			$('#cabinetrentid').val(obthis);
+		}
+	});
+	//选择区
+	$("#c_group").unbind().on("change",function(){
+		var code=$('#c_group').find('option:selected').val();
+		getCabinetcodes(code);
+	});
+	
+	
+	$("#turn_submit").unbind().on("click",function(){
+		if($('#c_newcabinetcode').val()!=""){
+			var code=$('#c_newcabinetcode').find('option:selected').attr('code');
+			$('#c_cabinettuid').val(code);
+			turnConmit();
+		}else{
+			ccms.dialog.notice("请选择新柜！");
+		}
+	});
+	
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochus_start_date").val($("#searchForm #s_start_date").val());
+		$("#daochus_end_date").val($("#searchForm #s_end_date").val());
+		$("#daochus_group").val($("#searchForm #s_group").val());
+		$("#daochus_code").val($("#searchForm #s_code").val());
+		$("#daochus_name").val($("#searchForm #s_name").val());
+		$("#daochuForm").submit();
+	});  
+	//查看
+	 $("#preview").unbind().on("click", function(){
+		var obthis = getCheckboxValue("datalist");
+		var len = obthis.split(",").length;
+		if(obthis!= ""){
+			if(len>1){
+				ccms.dialog.notice("查看只能选择一条记录！", 2000);
+				return false;
+			}
+			ccms.dialog.open({url : "${def:context}${def:actionroot}/preview?code="+obthis, width:800, height:440});
+		}else{
+			ccms.dialog.alert("请选择!");
+		}
+	});
+	
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		$("#searchForm #s_code").val("");
+		$("#searchForm #s_name").val("");
+		ccms.util.renderCheckbox("datalist");
+		//全选   取消全选
+	    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('check');  //
+	    }).on("ifUnchecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('uncheck');  //
+	    });
+	}}).initSearchBtn().searchData(1);
+		
+	selectInit($("#c_group,#c_newcabinetcode,#s_group"));	
+	$(".header-close").click(function(){
+		$('#myModalLabel').modal("hide");
+	})
+	
+	//退换押金
+	$("#returndeposit").click(function(){
+		var obthis = getCheckboxValue("datalist");
+		var len = obthis.split(",").length;
+		if(obthis!= ""){
+			if(len>1){
+				ccms.dialog.notice("只能选择一条记录！", 2000);
+				return false;
+			}
+			var code = $("input[name=datalist]:checked").attr("code");
+			if(code=="1"){
+				ccms.dialog.notice("该租柜记录未退柜不能退还押金！", 2000);
+				return false;
+			}
+			var code2 = $("input[name=datalist]:checked").attr("code2");
+			if(code2=="1"){
+				ccms.dialog.notice("该租柜记录已退押金！", 2000);
+				return false;
+			}
+			//判断当前登录人是否有收款权限
+			if(parseInt("${fld:skillscopenum}")==0){
+				ccms.dialog.notice("该登录人没有退押金权限！", 2000);
+				return false;
+			}
+			$Dialog().confirm("确定要退换押金吗？", function(){
+				var url="${def:context}${def:actionroot}/returndeposit?tuid="+obthis;
+				ajaxCall(url,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+					}
+				});
+			})
+		}else{
+			ccms.dialog.alert("请选择租柜记录!");
+		}
+	})
+})
+
+function turnConmit(){
+	var url="${def:context}${def:actionroot}/turn";
+	ajaxCall(url,{
+		form:"messageForm",
+		method: "post",
+		progress: true,
+		dataType: "script",
+		success: function() {
+			$('#myModalLabel').modal('hide');
+			search.searchData(1);
+		}
+	});
+}
+
+function getCabinetcodes(code){
+	var url="${def:context}${def:actionroot}/getcabinetcodes?code="+code;
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+		}
+	});
+}
+</script>
+</body>
+</html>

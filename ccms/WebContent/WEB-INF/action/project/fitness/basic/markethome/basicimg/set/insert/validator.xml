@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="c_img" type="integer" required="flase" label="true" maxlen="32" />
+     <parameter id="c_link" type="varchar" required="flase" label="false" maxlen="32" />
+     <parameter id="bannertype" type="integer" required="true" label="remark" maxlen="210" />
+</validator>
+

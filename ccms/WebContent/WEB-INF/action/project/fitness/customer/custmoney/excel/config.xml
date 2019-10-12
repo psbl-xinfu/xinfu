@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询会员储值信息
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_custall</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="会员处置信息记录" filename="会员处置信息记录.xls" header-background="true">
+		<col id="custcode" label="会员编号" /> 
+		<col id="custname" label="姓名" />
+		<col id="mobile" label="手机号" />
+		<col id="moneycash" label="现金储值" />
+		<col id="moneygift" label="运动基金" />
+	</excel>
+</config>

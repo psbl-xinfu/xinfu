@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人中心</title>
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/base.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/mine.css" rel="stylesheet">
+
+    <style>
+        .active {
+            color: #01BAFF !important;
+        }
+
+        a:link,
+        a:visited {
+            color: #444;
+            text-decoration: none;
+        }
+        .nav_font{
+            
+        }
+    </style>
+</head>
+
+<body style="background: #eeeeee;">
+
+
+    <div class="list_mine">
+        <img id="headpic" src="" class="touxiangpic fl" onerror="javascript:this.src='${def:context}/js/project/fitness/image/SVG/50X50.svg'">
+        <div class="content fl">
+
+            <p class="nicheng">昵称：</p>
+            <p class="my_name" id="">
+                <img style="" src="${def:context}/js/project/fitness/wx/image/wx_site/name.png" class="mark_name" id="">
+                <span id="name"></span>
+                <span id="mobile"></span>
+            </p>
+        </div>
+    </div>
+    <div class="cont">
+        <a href="${def:context}/action/project/fitness/wx/site/order/crud?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}">
+            <div class="my_order cont_list">
+
+                <div>
+                    <img src="${def:context}/js/project/fitness/wx/image/wx_site/order.png" alt="">
+                </div>
+                <div>我的订单</div>
+            </div>
+        </a>
+        <a href="${def:context}/action/project/fitness/wx/team/myteam/crud?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}">
+            <div class="my_team cont_list">
+                <div>
+                    <img src="${def:context}/js/project/fitness/wx/image/wx_site/team.png" alt="">
+                </div>
+                <div>我的团队</div>
+            </div>
+        </a>
+        <div class="exit cont_list" style="margin-top: 0.32rem;" id="exit">
+            <div>
+                <img src="${def:context}/js/project/fitness/wx/image/wx_site/exit.png" alt="">
+            </div>
+            <div>退出账号</div>
+        </div>
+    </div>
+
+    <script src="${def:context}/js/project/fitness/wx/js/wx_site/rem.js"></script>
+    <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.js"></script>
+    <script>
+        function homept1() {
+            var str =
+                '<a  href="${def:context}/action/project/fitness/wx/site/siteindex/crud?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}" style="position: fixed;left: 0%;bottom:0;border-right:1px solid #ededed; background:#fff; border-top:1px solid #ededed; width:50%;height:1.09rem" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/sy2@2x.png"  style="position: fixed; width:0.4rem;height:0.4rem;left: 18.5%;bottom:0.5rem;" ><p class="nav_font"  style="position: fixed;left: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">首页</p></a>'
+            $('body').append(str);
+        }
+        homept1();
+
+        function homept2() {
+            var str =
+                '<a class="active"  href="${def:context}/action/project/fitness/wx/site/mine/crud?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}" style="position: fixed;right: 0%;bottom:0; background:#fff; width:50%;height:1.09rem;border-top: 1px solid #ededed;" ><img  src="${def:context}/js/project/fitness/wx/image/wx_site/wd1@2x.png"  style="position: fixed;right: 18.5%;bottom:0.5rem;width:0.4rem;height:0.4rem;" ><p class="active nav_font"  style="position: fixed;right: 18%;bottom: 1%;color:rgba(51,51,51,1);font-size:0.24rem; ">我的</p></a>'
+            $('body').append(str);
+        }
+        homept2();
+        $(function () {
+        	ajaxCall("${def:actionroot}/querycustinfo?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}",{
+        		method:"get",
+        		dataType:"script",
+        		success:function(){
+        		}
+        	});
+            // 合计
+            var sum = 0;
+            $(".order_cont  div .price").each(function (item) {
+                sum += parseFloat($(this).html().replace("￥", ""));
+            });
+
+            $('.sum').html('共计￥' + sum);
+            // 场地类型
+            var site_type = String($('.site_type').html());
+
+            if (site_type == String('拼场')) {
+                $('.bao_team').hide();
+            } else {
+
+            }
+
+            $('#exit').click(function(){
+            	location.href = '${def:context}/action/project/fitness/wx/exit';
+            });
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "checklink":"${fld:checklink@js}",
+		    "sitename":"${fld:sitename@js}",
+		    "prepare_date":"${fld:prepare_date@yyyy-MM-dd}",
+		    "sitetype":"${fld:sitetype@js}",
+		    "name":"${fld:name@js}",
+		    "mobile":"${fld:mobile@js}",
+		    "status":"${fld:status@js}",
+		    "starttime":"${fld:starttime}",
+		    "endtime":"${fld:endtime}",
+		    "customertype":"${fld:customertype}",
+		    "paystatus":"${fld:paystatus}",
+		    "prepare_starttime":"${fld:prepare_starttime}",
+		    "prepare_endtime":"${fld:prepare_endtime}",
+		    "prepare_type":"${fld:prepare_type}"
+	},
+	</rows>
+	{}
+]}

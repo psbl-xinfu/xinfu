@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/util/validation/alert">
+	
+    <parameter id="contractcode" type="varchar" required="true" label="合同编号" maxlen="200"/>
+	<parameter id="normalmoney" type="double" required="true" label="应收" />
+	<parameter id="factmoney" type="double" required="true" label="实收" />
+	<parameter id="paydetail" type="varchar" required="true" label="支付明细" />
+    <parameter id="cardcode" type="varchar" required="true" label="会员卡号" maxlen="64"/>
+    <parameter id="incode" type="varchar" required="false" label="会员卡内码" maxlen="128"/>
+
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该卡号已经使用,请重新填写" id="cardcode" sql="nodup-cardcode.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该卡内码已使用,请确认" id="incode" sql="nodup-incode.sql" />
+</validator>

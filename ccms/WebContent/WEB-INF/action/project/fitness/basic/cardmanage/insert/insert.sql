@@ -1,0 +1,46 @@
+insert into cc_cardtype
+(
+	 code,
+	 name,
+	 membercount,
+	 cardcategory,
+	 type,
+	 isoffseason,
+	 item,
+	 daycount,
+	 allowcount,
+	 limitswimtime,
+	 freebathcount,
+	 scale,
+	 giveday,
+	 ptcount,
+	 savedaycount,
+	 status,
+	 remark,
+	 count,
+	 moneyleft,
+	 org_id
+)
+values 
+(
+	${seq:currval@seq_cc_cardtype},
+	${fld:vc_name},
+	${fld:i_membercount},
+	${fld:vc_name1},
+	${fld:i_type},
+	${fld:vc_isoffseason},
+	${fld:vt},
+	${fld:i_daycount},
+	${fld:i_allowcount},
+	${fld:f_limitswimtime},
+	${fld:i_freebathcount},
+	${fld:f_scale},
+	${fld:i_giveday},
+	${fld:i_ptcount},
+	${fld:i_savedaycount},
+	1,
+	${fld:vc_remark},
+	${fld:i_count},
+	${fld:f_moneyleft},
+	${def:org}
+)

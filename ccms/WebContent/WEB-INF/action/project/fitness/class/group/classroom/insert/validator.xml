@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="name" type="varchar" required="true" label="name" maxlen="200" />
+    <parameter id="f_area" type="varchar" required="false" label="f_area" maxlen="53" />
+    <parameter id="vc_type" type="varchar" required="false" label="vc_type" maxlen="8" />
+    <parameter id="i_limit" type="integer" required="false" label="i_limit" maxlen="16" />
+    <parameter id="vc_ispreparedevice" type="varchar" required="false" label="vc_ispreparedevice" maxlen="50" />
+    <parameter id='vc_remark' type="varchar" required="false" label="vc_remark" maxlen="500" />
+    <parameter id='status' type="integer" required="false" label="i_status" maxlen="32" />
+</validator>
+
+
+
+
+

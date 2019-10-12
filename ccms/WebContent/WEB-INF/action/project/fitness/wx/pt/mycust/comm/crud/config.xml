@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-custinfo.sql" source="sql" scope="transaction" />
+		
+		<recordset id="query-communicationTarget.sql" source="sql" scope="transaction" />
+		<recordset id="query-CommStage.sql" source="sql" scope="transaction" />
+		<recordset id="query-CallStatus.sql" source="sql" scope="transaction" />
+		<recordset id="query-CommFailResaon.sql" source="sql" scope="transaction" />
+		<recordset id="query-GuestLevel.sql" source="sql" scope="transaction" />
+			<recordset id="query-commway.sql" source="sql" scope="transaction" />
+		
+		<recordset id="query-pt.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<expiration>0</expiration>
+			<print mode="table" recordset="query-custinfo.sql" tag="info" /> 
+	 		  
+	 		<print mode="table" recordset="query-communicationTarget.sql" tag="rows-target" />
+	 		<print mode="table" recordset="query-CommStage.sql" tag="rows-CommStage" />
+	 		<print mode="table" recordset="query-CallStatus.sql" tag="rows-CallStatus" />
+	 		<print mode="table" recordset="query-CommFailResaon.sql" tag="rows-CommFailResaon" />
+	 		<print mode="table" recordset="query-GuestLevel.sql" tag="rows-GuestLevel" />
+	 		<print mode="table" recordset="query-commway.sql" tag="rows-commway" />
+	 		<print mode="table" recordset="query-pt.sql" tag="pt" />
+	 		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

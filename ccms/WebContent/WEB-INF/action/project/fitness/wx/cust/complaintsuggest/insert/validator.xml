@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="fbtype" type="integer" required="false" label="fbtype" />
+	<parameter id="customer_code" type="varchar" required="false" label="customer_code"/>
+	<parameter id="complainttype" type="varchar" required="false" label="complainttype"/>
+	<parameter id="complaint_userid" type="varchar" required="false" label="complaint_userid"/>
+	<parameter id="complaint_skill" type="integer" required="false" label="complaint_skill"/>
+	<parameter id="complaint_item" type="varchar" required="false" label="complaint_item"/>
+	<parameter id="complaint_envir" type="varchar" required="false" label="complaint_envir"/>
+	<parameter id="fbremark" type="varchar" required="false" label="fbremark"/>
+</validator>

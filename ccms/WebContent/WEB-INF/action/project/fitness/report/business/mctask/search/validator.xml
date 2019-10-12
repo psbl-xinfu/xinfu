@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="start_date" type="date" required="true" label="时间"/>
+	<parameter id="end_date" type="date" required="true" label="时间"/>
+	<parameter id="skill_name" type="varchar" required="false" label="会籍"/>
+</validator>

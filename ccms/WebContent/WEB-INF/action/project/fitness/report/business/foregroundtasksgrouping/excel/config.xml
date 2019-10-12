@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+  <colname></colname>
+	<sql-template>query-base.sql</sql-template>
+	
+	<!-- excel模板路径 -->
+	<doc-template>/erpclubdoc/template/kfgrouptask.xlsx</doc-template>
+	<!-- 参数对应的字段列表 -->
+	<fields>show;staff_name;kefucount;call_target;rwcall_target;hfcomplete;call_mc_target;rwcall_mc_target;
+		hfhjcomplete;call_pt_target;rwcall_pt_target;hfsjcomplete</fields>
+	<!-- 从第几行开始填充数据，首行为0 -->
+	<begin-row>2</begin-row>
+
+	<transaction>
+		<classname>transactions.project.fitness.doc.ExcelTemplateReplace</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<on-error>/action/project/fitness/util/error/alert</on-error>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_rsdoc" />
+	</output>
+
+</config>
+
+

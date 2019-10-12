@@ -1,0 +1,168 @@
+.lj-report1 {
+    overflow: auto;
+    height: auto !important;
+    min-height: 350px;
+    text-align: center;
+}
+
+.clearfix:after {
+    content: " ";
+    display: block;;
+    line-height: 0;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+
+.lj-div1 {
+    position: absolute;
+    left: 100px;
+    top: 5px;
+}
+
+.lj-text1 {
+    font-size: 30px;
+}
+
+.lj-text2 {
+    font-size: 16px; /*chrome的最小字体值*/
+}
+
+.lj-div2 {
+    position: absolute;
+    left: 300px;
+    top: 5px;
+}
+
+.lj-div3 {
+    position: absolute;
+    left: 20px;
+    top: 80px;
+    width: 280px;
+    height: 210px;
+}
+
+.lj-div4 {
+    position: absolute;
+    left: 320px;
+    top: 125px;
+    width: 140px;
+    height: 210px;
+}
+
+.lj-rect_triangle_border {
+    width: 200px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.lj-rect_triangle_border .lj-popup {
+    width: 120px;
+    padding: 10px 20px;
+    /*border-radius: 4px;*/
+    position: absolute;
+    left: 10px;
+    height: 22px;
+    /*border: 1px solid #333;*/
+}
+
+.lj-rect_triangle_border .lj-popup span {
+    display: block;
+    width: 0;
+    height: 0;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: #00A4E9 transparent transparent;
+    position: absolute;
+    top: 22px;
+    left: 50%; /* 三角形居中显示 */
+    margin-left: -10px; /* 三角形居中显示 */
+}
+
+.lj-rect_triangle_border .lj-popup p {
+    line-height: 0; /*这样才能看到中间的文字*/
+    color: #ffffff;
+}
+
+.lj-rect_triangle_border .lj-popup1{
+    background: #00A4E9;
+    top: 0px;
+}
+
+.lj-rect_triangle_border .lj-popup1 span {
+    border-color: #00A4E9 transparent transparent;
+}
+
+.lj-rect_triangle_border .lj-popup2{
+    background: #00ff00;
+    top: 50px;
+}
+
+.lj-rect_triangle_border .lj-popup2 span {
+    border-color: #00ff00 transparent transparent;
+}
+
+.lj-rect_triangle_border .lj-popup3{
+    background: #ff1b61;
+    top: 100px;
+}
+
+.lj-rect_triangle_border .lj-popup3 span {
+    border-color: #ff1b61 transparent transparent;
+}
+
+.lj-rect_triangle_border .lj-popup4{
+    background: #fff421;
+    top: 150px;
+}
+
+.lj-rect_triangle_border .lj-popup4 span {
+    border-color: #fff421 transparent transparent;
+}
+
+.lj-div_progressbar {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+}
+
+.lj-div_progressbar1 {
+    top: 0;
+}
+
+.lj-div_progressbar2 {
+    top: 50px;
+}
+
+.lj-div_progressbar3 {
+    top: 100px;
+}
+
+.lj-div_progressbar4 {
+    top: 150px;
+}
+
+.lj-div_progressbar5 {
+    top: 200px;
+}
+
+.lj-progressbar_text1 {
+    text-align: left;
+    width:80px;
+    float: left;
+    left:0;
+}
+
+.lj-progressbar_text2 {
+    position: absolute;
+    width:42px;
+    left: 240px; /*300人，由JS控制这个变量*/
+}
+
+.lj-progressbar {
+    background-color: dodgerblue;
+    position: absolute;
+    top: 25px;
+    width: 280px; /*由JS控制这个变量*/
+    height: 20px;
+}

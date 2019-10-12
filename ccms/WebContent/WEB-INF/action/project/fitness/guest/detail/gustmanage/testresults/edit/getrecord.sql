@@ -1,0 +1,19 @@
+select
+	code,
+    guestcode,
+	height,
+	created,
+	age,
+	sex,
+	weight,
+	skeletal_muscle,
+	boday_fat,
+	bmi,
+	pbf,
+	whr,
+	kcal,
+	health
+from 
+	cc_testresult 	
+where 
+	code = ${fld:id} and org_id = ${def:org}

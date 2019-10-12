@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_name</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="通店组设置记录" filename="通店组设置记录.xls" header-background="true">
+		<col id="tuid" label="编号" /> 
+		<col id="group_name" label="名称" />
+		<col id="created" label="创建时间" />
+		<col id="remark" label="备注" />
+	</excel>
+
+</config>

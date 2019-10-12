@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="cardcode" type="varchar" label="cardcode" required="false"/>
+	<parameter id="contractcode" type="varchar" label="contractcode" required="false"/>
+</validator>

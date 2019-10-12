@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+    <parameter id="pickcustname" type="varchar" required="false" label="pickcustname" maxlen="128"/>
+    <parameter id="objid" type="varchar" required="false" label="objid" maxlen="64"/>
+    <parameter id="objidtwo" type="varchar" required="false" label="objidtwo" maxlen="64"/>
+
+    <parameter id="random_number" type="varchar" required="false" label="random_number" maxlen="64"/>
+</validator>

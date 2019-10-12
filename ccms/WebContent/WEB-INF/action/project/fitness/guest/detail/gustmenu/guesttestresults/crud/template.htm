@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>体测结果</title>
+</head>
+<style>
+</style>
+<body>
+		<div class="r-tab-cont" style="height: 700px;">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr>
+							    <th id="gcode" style="display: none;">资源编号</th>
+							    <th id="ccode" style="display: none;">会员编号</th>
+							    <th>姓名</th>
+							    <th>手机</th>
+							    <th>体测教练</th>
+							    <th>体测日期</th>
+							    <th>备注</th>
+							    <th>查看</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr id="list">
+								<td>#custcode#</td>
+								<td>#name#</td>
+								<td>#mobile#</td>
+								<td>#pt_name#</td>
+								<td>#created#</td>
+								<td>#remark#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	if(gust_code!=""){
+		$("#gcode").show();
+	}
+	if(cus_code!=""){
+		$("#ccode").show();
+	}
+	ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/guesttestresults/search?guest_code="+gust_code+"&custcode="+cus_code)
+});
+
+function ajax(url){
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+		}
+	});
+}
+//查看
+function findguest(code){
+	ccms.dialog.open({url : "${def:context}/action/project/fitness/guest/detail/gustmenu/guesttestresults/guesttest/form?code="+code, height: 600});
+}
+</script>
+</body>
+</html>

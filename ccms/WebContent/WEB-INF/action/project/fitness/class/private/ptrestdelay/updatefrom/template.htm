@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>私教课延期</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 640px;">
+		<header class="header-default">
+			<span id="formTitle">私教课延期</span>
+		</header>
+		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+       		<div class="modal-body b-i-main">
+				<nav>
+					<li>
+						<label style="width: 130px;">会员姓名：</label>
+						<input type="text" id="name" name="name" value="${fld:name}" readonly="readonly" />	
+						<input type="hidden" id="code" name="code" value="${fld:code}" />	
+					</li>
+					<li>
+						<label style="width: 130px;">手机号码：</label>
+						<input type="text" id="mobile" name="mobile" value="${fld:mobile}" readonly="readonly" />	
+					</li>
+					<li>
+						<label style="width: 130px;">课程名称：</label>
+						<input type="text" id="ptlevelname" name="ptlevelname" value="${fld:ptlevelname}" readonly="readonly" />	
+					</li>
+					<li>
+						<label style="width: 130px;">私教：${fld:ptid}</label>
+						<input type="hidden" id="ptid" name="ptid" value="${fld:ptid}" readonly="readonly" />	
+					</li>
+					<li>
+						<label style="width: 146px;">剩余课时：${fld:ptleftcount}</label>
+						<input type="hidden" id="restclass" name="restclass" value="${fld:ptleftcount}" readonly="readonly" />	
+					</li>
+					<li>
+						<label style="width: 130px;">修改课时：</label>
+						<input type="text" id="updateclass" name="updateclass" value="${fld:ptleftcount}"/>	
+					</li>
+					<li>
+						<label style="width: 146px;">实际单价：${fld:ptfee}</label>
+						<input type="hidden" id="ptfee" name="ptfee" value="${fld:ptfee}" readonly="readonly" />	
+					</li>
+					<li>
+						<label style="width: 130px;">修改单价：</label>
+						<input type="text" id="ptfactfee" name="ptfactfee" value="${fld:ptfactfee}"/>	
+					</li>
+					
+					<li class="to100w" style="margin-left: 6%">
+						<label>备注：</label>
+						<textarea id="remark" cols="50" rows="1" class="my-textarea" name="remark" maxlength="6000"></textarea>
+					</li>
+				</nav>
+			</div>
+			<footer class="footer-default" style="margin-top: 20px">
+				<button type="button" id="save_btn">确认</button>
+			</footer>
+		</form>
+	</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	
+	//修改课时
+	$("#save_btn").click(function(){
+		if($("#updateclass").val()==""||$("#updateclass").val()<0){
+			ccms.dialog.notice("修改课时不可以为空或小于0!", 3000);
+			return false;
+		}
+		ccms.dialog.confirm("确定要修改吗？", function(){
+			var url = "${def:context}${def:actionroot}/updateclass";
+			ajaxCall(url,{
+			   	method: "post",
+			   	form:"formEditor",
+			   	progress: true,
+			   	dataType: "script",
+			   	success: function() {
+			   		ccms.dialog.notice("成功！", 2000, function(){
+			   			parent.search.searchData(1);
+			   			ccms.dialog.close();
+			   		})
+				}
+			})
+		});
+	})
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		私教部个人数据统计
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochu_datemonth,daochu_pt</colname>
+
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="私教部个人数据统计" filename="私教部个人数据统计.xls" header-background="true">
+		<col id="name" label="私教" />
+		<col id="results_money" label="业绩" />
+		<col id="task_money" label="任务" />
+		<col id="completion" label="完成比例" />
+		<col id="market_class_num" label="月销课时数量" />
+		<col id="pt_inventory_num" label="私教课存量" />
+		<col id="pt_teaching_num" label="私教授课量" />
+		<col id="site_target_num" label="场开量" />
+		<col id="site_target_deal_num" label="场开成交量" />
+		<col id="site_target_deal_rate" label="场开率" />
+		<col id="pt_expire_num" label="私教到期数" />
+		<col id="pt_renewal_num" label="私教续费数" />
+		<col id="pt_renewal_rate" label="私教续费数" />
+	</excel>
+
+</config>
+

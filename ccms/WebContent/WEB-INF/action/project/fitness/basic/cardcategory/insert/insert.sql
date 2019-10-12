@@ -1,0 +1,20 @@
+insert into cc_cardcategory
+(
+   code,
+   category_name,
+   showorder,
+   remark,
+   status,
+   union_id,
+   org_id
+)
+values 
+(
+	${seq:nextval@seq_cc_cardcategory},
+    ${fld:vc_name},
+    ${fld:i_priority},
+    ${fld:vc_remark},
+    1,
+	${fld:union_id},
+	  ${def:org}
+)

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>私教预约</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+	<link href="${def:context}/js/swiper/swiper.min.css" rel="stylesheet" />
+</head>
+        <style type="text/css">
+        	.yellow1{
+					background: #fee17e !important
+			};
+	        .r-black1{
+					background: #b5ebe
+			};
+			.r-black1 span{
+			width:84px;
+			height:40px; 
+			font-size:28px;
+			font-family:PingFangSC-Regular;
+			color:rgba(72,114,114,1);
+			line-height:40px;
+			}
+			
+        </style>
+<body>
+
+
+
+
+<input type="hidden"  value=""  id="parpreYear"  >
+
+	<div class="containter hy-sjyy sjyy-2">
+		<div class="change">
+			<p class="active"  id="ri">日</p>
+			<p id="week">周</p>
+		</div>
+		<nav class="nav swiper-container">
+			<nav class="swiper-wrapper" id="swiper">
+			</nav>
+		</nav>
+
+		<section class="main ">
+			<nav class="left">
+			</nav>
+			<nav class="right">
+			</nav>
+		</section>
+
+
+		<section class="main2 disNone">
+			<nav class="left">
+			</nav>
+			<nav class="right">
+			</nav>
+		</section>
+	</div>
+
+<script type="text/javascript" src="${def:context}/js/swiper/swiper.min.js"></script>
+<script type="text/javascript">
+var d = new Date();
+var mySwiper ;
+$(function(){
+	 homept();
+	
+	
+	$('.change p').on('click', function(){
+		$(this).toggleClass('active');
+		$(this).siblings('p').toggleClass('active');
+		$('.sjyy-2 section').addClass('disNone');
+		$('.sjyy-2 section').eq($(this).index()).removeClass('disNone');
+		
+		if( "week" == $(this).attr("id") ){
+			if( $("#swiper .weektitle").length == 0 ){
+				mySwiper.prependSlide('<li class="swiper-slide weektitle"><p>时间</p></li>'); //加到Swiper的第一个
+				$(".main2 span").each(function(idx,ele){
+					if( Number($(ele).attr("code-num")) == 0 ){
+						$(ele).css("margin-left", "0px");
+					}else{
+						var marginleft = Number($("#swiper li:eq(0)").width()) * (Number($(ele).attr("code-num"))+1) - Number($(".main2 .left").outerWidth(true)) - 10;
+						$(ele).css("margin-left", marginleft+"px");
+					}
+				});
+			}
+		}else{
+			if( $("#swiper .weektitle").length > 0 ){
+				mySwiper.removeSlide(0); 
+			}
+		}
+	});
+	
+	
+	appendWeek();
+	$('li').on('click',function(){
+		if($('#ri').hasClass('active')){
+			$(this).siblings().removeClass('active');
+			$(this).addClass('active');
+		}
+	});
+	appendHouse();
+	
+/* 	$('.hasNone img').each(function(){
+		$(this).on('click',function(){
+			var time=$(this).attr('code');
+			var moon=$('.active').children('span').text();
+			moon=moon.replace('/','-');
+			var parpreYear=d.getFullYear();
+			parpretime=moon+'日 '+time;
+			var time=time.split(':')
+			$('#hour').val(time[0]);
+			$('#minute').val(time[1]);
+			$('#pdate').val(parpreYear+'-'+moon);
+			yuyue(parpretime);
+		})
+	}) */
+	
+	$('#swiper li').on('click',function(){
+		
+		if($('#ri').hasClass('active')){
+			var moon=$(this).children('span').text();
+			moon=moon.replace('/','-');
+			var parpreYear=d.getFullYear();
+			parpreYear=parpreYear+'-'+moon
+			$('.left li').show();
+			$('.moreDiv').remove();
+			getyuyue(parpreYear);
+		}
+	});
+
+  <week>
+  var px=36;
+  px=px*"${fld:num}";
+  var str= '';
+  var preparetime="${fld:preparetime}";
+  if(preparetime.charAt(3)!=0){
+	  if("${fld:status}"==1){
+		  str=' <span code-date="${fld:preparedate}" code-num="${fld:num}" class="center " style="margin-left:'+px+'px">${fld:name}</span>';
+	  }else if("${fld:status}"==4){
+		  str=' <span code-date="${fld:preparedate}" code-num="${fld:num}" class="center yellow " style="margin-left:'+px+'px">${fld:name}</span>';
+	  }
+  }else{
+	  if("${fld:status}"==1){
+		  str=' <span code-date="${fld:preparedate}" code-num="${fld:num}" style="margin-left:'+px+'px">${fld:name}</span>';
+	  }else if("${fld:status}"==4){
+		  str=' <span code-date="${fld:preparedate}" code-num="${fld:num}" class="yellow" style="margin-left:'+px+'px">${fld:name}</span>';
+	  }
+  }
+  preparetime=preparetime.substring(0,2);
+  
+  $('.main2 .right li[code="'+ preparetime+'"]').html(str);
+  
+  </week>
+  
+  
+	if("${fld:years}"==""){
+		$('#parpreYear').val('${def:date}');
+	}else{
+		$('#parpreYear').val("${fld:years}");
+		$('nav li').removeClass('active');
+		
+		var date="${fld:years}".substring(5,10)
+		$('nav li').find('span[code="'+date+'"]').parent().addClass('active');
+	}
+	getyuyue($('#parpreYear').val());
+  
+})
+
+function appendWeek(){
+	var str = "";
+	for(var i = -14; i < 21;i++){
+		var tdate = addDate(d, i);
+		var date = getFormatDate(tdate.getMonth() + 1) + '/' + getFormatDate(tdate.getDate());
+ 		var week = getWeekDay(tdate);
+ 		var date1=date.replace('/','-');
+		if([i]==0){
+			str+='<li class="active swiper-slide">';
+			str+='<p>'+week+'</p>';
+			str+='<span code="'+date1+'">'+date+'</span>';
+			str+='</li>';
+		}else{
+			str+='<li class="swiper-slide">';
+			str+='<p>'+week+'</p>';
+			str+='<span code="'+date1+'">'+date+'</span>';
+			str+='</li>';
+		}
+	} 
+	$('#swiper').html(str);
+	mySwiper = new Swiper('.swiper-container',{
+		autoplay: false,
+		slidesPerGroup:7,
+	    slidesPerView: 7,
+	    spaceBetween: 0,
+	    initialSlide: 14
+	});
+	//mySwiper.slideTo(14, 1000, false);
+}
+
+function getWeekDay(d){
+	var weekday = new Array(7);
+	weekday[0]="周日";
+	weekday[1]="周一";
+	weekday[2]="周二";
+	weekday[3]="周三";
+	weekday[4]="周四";
+	weekday[5]="周五";
+	weekday[6]="周六";
+	var num = d.getDay();
+	return weekday[num];
+}
+
+function getFormatDate(arg) {
+    if (arg == undefined || arg == '') {
+        return '';
+    }
+    var re = arg + '';
+    if (re.length < 2) {
+        re = '0' + re;
+    }
+    return re;
+}
+
+function	appendHouse(){
+		var start="${fld:ptstarttime}".substring("${fld:ptstarttime}", 2);
+		var end="${fld:ptendtime}".substring("${fld:ptendtime}", 2);
+		var str="";
+		var btn="";
+		var line="";
+		for(var i=start;i<=end;i++){
+			var hou=getFormatDate(i);
+			var nowhou=d.getHours();
+			
+			
+			line+='<li code="'+hou+'"></li>';
+			
+			if(hou==nowhou){
+				str+='<li class="r-black" style="height:40px">'+hou+':00</li>';
+			}else{
+				str+='<li style="height:40px">'+hou+':00</li>';
+			}		
+				btn+='<li class="hasNone" >';
+				btn+='<img src="${def:context}/js/project/fitness/wx/image/add2.png" alt=""  code="'+hou+':00">';
+				btn+='</li>';
+				
+				btn+='<li class="hasNone" >';
+				btn+='<img src="${def:context}/js/project/fitness/wx/image/add2.png" alt=""  code="'+hou+':30">';
+				btn+='</li>';
+				
+		} 
+	$('.main .right').html(str);
+	$('.main .left').html(btn);
+	$('.main2 .left').html(str);
+	$('.main2 .right').html(line);
+	
+}
+
+
+
+
+function yuyue(parpretime){
+	//$Dialog().confirm("确定"+parpretime+"预约该课程吗？",function(){
+    	postAjaxCall("/action/project/fitness/wx/cust/mypt/yuyue/crud/insert?",'info',false);
+	//});
+}
+
+
+function getyuyue(parpreYear){
+    	getAjaxCall("/action/project/fitness/wx/pt/course/getprepare?parpreYear="+parpreYear,false);
+}
+
+function quxiao(code){
+	getAjaxCall("/action/project/fitness/wx/cust/mypt/yuyue/crud/quxiao?code="+code,false);
+}
+
+function yuyueinfo(code){
+	location.href="${def:context}/action/project/fitness/wx/pt/course/yuyueinfo?code="+code;
+}
+
+function addyuyue(parpreYear,time){
+	location.href="${def:context}/action/project/fitness/wx/pt/course/addyuyue/crud?parpredates="+parpreYear+"&times="+time;
+}
+</script>
+</body>
+
+</html>

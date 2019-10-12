@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="code" type="varchar" required="true" label="活东编号"/>
+	<parameter id="org_id" type="integer" required="true" label="org_id" />
+	<parameter id="ecode" type="varchar" required="true" label="ecode"/>
+	<parameter id="codes" type="varchar" required="false" label="对比编号"/>
+	
+	
+	<parameter id="cc_sex" type="varchar" required="true" label="cc_sex"/>
+	<parameter id="cc_mobile" type="varchar" required="true" label="cc_mobile"/>
+	<parameter id="cc_name" type="varchar" required="true" label="cc_name"/>
+	
+			<parameter id="customercode" type="varchar" required="false" label="customercode"/>
+	
+</validator>

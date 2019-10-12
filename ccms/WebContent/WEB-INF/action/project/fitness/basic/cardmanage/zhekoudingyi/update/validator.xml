@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+<parameter id="in_vc_code" type="varchar" required="false" label="vc_name" maxlen="32" />
+	<parameter id="f_mealdiscount" type="double" required="false" label="vc_name" maxlen="32" />
+   	   <parameter id="f_drinkdiscount" type="double" required="false" label="vc_name" maxlen="32" />
+       <parameter id="f_jsdiscount" type="double" required="false" label="i_priority" maxlen="32" />
+        <parameter id="f_swimdiscount" type="double" required="false" label="vc_remark" maxlen="32" />
+         <parameter id="f_singlediscount" type="double" required="false" label="vc_name" maxlen="32" />
+       <parameter id="f_classdiscount" type="double" required="false" label="i_priority" maxlen="32" />
+</validator>

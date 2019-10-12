@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		Producto - Insertar registro
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<!-- 修改私教课程预约记录状态 -->
+	<query>update-status.sql</query>
+	<!-- 修改私教课库存剩余次数 -->
+	<query>update-ptleftcount.sql</query>
+	<!-- 私教上课记录表 -->
+	<query>insert-ptlog.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_request"/>
+	</output>
+
+</config>

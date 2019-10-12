@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		卡类型
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_s_name,daochu_s_type,daochu_s_status,daochu_s_tong,daochu_s_share,daochu_s_time</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="卡类型记录" filename="卡类型记录.xls" header-background="true">
+		<col id="name" label="卡名称" /> 
+		<col id="cardfee" label="价格" />
+		<col id="type" label="类型" />
+		<col id="tongyong" label="通用性" />
+		<col id="maxusernum" label="可用人数" />
+		<col id="status" label="状态" />
+	</excel>
+
+</config>

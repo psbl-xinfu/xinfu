@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>租柜管理</title>
+</head>
+<body>
+	<form  role="form" method="post" id="searchForm">
+				<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="w-200">
+										<input type="text" id="vc_name" name="vc_name" placeholder="姓名/电话/储物柜编号"  class="input-default"/>							
+					 			 	</li>		
+					 			 	
+									<li> 			 	
+										<select id="s_status" name="s_status"  class="normal-select">
+												<option value="">全部状态</option>
+												<option   value="0">空闲</option>
+												<option   value="1">已占用</option>
+												<!-- <option   value="2">无效</option> zzn 去掉无效的选项，相关sql中已经排除了无效的选项-->
+												<option   value="3">其他</option>
+												<option   value="4">正常</option>
+												<option   value="5">损坏</option>
+										</select>
+					 			 </li>		
+								<div class="r-c-btnList">
+									<button type="button" class="r-c-3-btn-1" id="search" title="查询"></button>
+								</div>					
+								</nav>
+								
+							</div>
+						
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+									
+								</nav>
+								
+								<nav class="r-c-3-t-b-r">
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<div class="swgl-w">
+					<div id="left" ></div>
+					<div id="right" ></div>
+			</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	initleft();
+	initright();
+	  
+	selectInit($("#s_status"));
+	  $('#search').click(function(){
+		  $('#s_name_r').val($('#vc_name').val());
+		  $('#s_status_r').val($('#s_status').val())
+		  $('#s_groupid_r').val('');
+		  searchRightList();
+	  })
+})
+
+function initleft(){
+	  $('#left').load("${def:context}/action/project/fitness/basic/cabinet/rentleft/crud?ispubload=true");
+}
+function initright(){
+	  $('#right').load("${def:context}/action/project/fitness/basic/cabinet/rentright/crud?ispubload=true");
+}
+</script>
+</body>
+</html>

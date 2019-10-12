@@ -1,0 +1,596 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<title>课程详细</title>
+		${inc:/action/project/fitness/home/pub}
+		<script type="text/javascript" src="${def:context}/js/project/fitness/js/qcloud/TcPlayer-2.2.0.js"></script>
+		<link  rel='stylesheet' href='${def:context}/js/project/fitness/trains/css/course_detail.css' />
+	</head>
+	<body>
+	    <input type='hidden' class='course_finished_status' status="${fld:finished_status}" value='${fld:finished_status}'/>
+	    <input type='hidden' class='course_id' courseid="${fld:courseid}" value='${fld:courseid}'/>
+	    <input type='hidden' class='term_score_id' value='' preserve='true'/>
+	    <input type='hidden' class='current_time_process' value='0' preserve='true'/>
+	    
+	    <input type='hidden' id='lastclassid' value='' preserve='true'/>
+	    <input type='hidden' id='lastcoverurl' value='' preserve='true'/>
+	    <input type='hidden' id='lastvideourl' value='' preserve='true'/>
+	    
+	  <div class="train-video ">
+		<section class="t-v-r ">
+					<div class="t-v-r-t">
+					  <cover-url>
+						<img id='video_thumbnail_img' src="${fld:coverurl}" alt=""  onerror="this.src='${def:context}/js/project/fitness/image/SVG/videocover.png'">
+					  </cover-url>
+					
+					  <input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+					  <div class="panel panel-default col_mainInner" style='display:none;'>
+					   <div class="panel-heading col_main_body_title">
+						<h2 class="panel-title">课时视频</h2>
+					    </div>
+					   <div id="videoshow" style="width: 100%; height: auto;"></div>
+					 </div>
+					  <coursename-classamount-rows>
+						<div class="t-v-r-t-r video_info">
+							<h3>${fld:course_name@js}</h3>
+							<p>
+								<span id='total_person_amount'>
+									次学习
+								</span>
+								<span>共<i>${fld:class_amount}</i>小节</span>
+								<input type='hidden' class='total_class_amount' value='${fld:class_amount}'/>
+							</p>
+							<div>
+								<span id='learning_status'>未学习</span>
+								<button id='start_learning'>开始学习</button>
+							</div>
+						</div>
+					  </coursename-classamount-rows>
+					</div>
+					<div class="am-tabs r-tab-container t-v-r-b" data-am-tabs="{noSwipe: 1}">
+						<nav class="am-tabs-nav am-nav am-nav-tabs r-tab">
+							<li class="am-active">
+								<a class="three-none" id='course_intro_opt' href="#t-v-1">课程概述</a>
+							</li>
+							<li class="">
+								<a class="three-none" id='course_index_opt' href="#t-v-2">课程目录</a>
+							</li>
+							<li class="">
+								<a class="three-none" id='course_term_opt' href="#t-v-3">课程测评</a>
+							</li>
+						</nav>
+						<div class="am-tabs-bd r-tab-cont">
+							<div class="t-v-coun-1 am-in am-active am-tab-panel am-fade three-none" id="t-v-1" style='font-size:14px;color:#d6d6d6;'>
+								课程描述
+							</div>
+							<div class="t-v-coun-2 am-tab-panel am-fade" id="t-v-2">
+							</div>
+							<div class="t-v-coun-3 am-tab-panel am-fade three-none" id="t-v-3" style='text-align:center;'>
+								<button class='start_term' type='button' style='width:140px;height: 32px;color: #ffffff;background: linear-gradient(to bottom, #035985, #0aa8f7);border-radius: 4px;margin-top: 4em;'>开始</button>
+								<form class='term_form' name='term_form' style='display:none;'>
+								 <input type='hidden' name="s_term_score_id" class='term_score_id' value='' preserve='true'/>
+								 <input type='hidden' name="total_score" class='total_score' value='' preserve='true'/>
+								  <div class="r-tab-cout-3-b"> 
+								    <div class="to-change-background"></div>
+									  <table class="course_table"> 
+									     <thead>
+											<tr>
+												<th class='question_index_th'>序号</th>  
+												<th class='question_th'>问题</th>  
+												<th class='answer_th'>解答</th>
+											</tr>
+										</thead>
+										<tbody>  
+											<tr>    
+											</tr>  
+										</tbody>
+									</table> 
+									</div>
+								</form>
+								<button type='button' class='term_submit_btn' style='display:none;margin-left:60%;width:140px;height: 32px;color: #ffffff;background: linear-gradient(to bottom, #035985, #0aa8f7);border-radius: 4px;'>提交</button>
+							</div>
+						</div>
+					</div>
+				</section>
+		   </div>
+		<script type="text/javascript" src="${def:context}/js/project/fitness/js/amazeui.min.js"></script>
+	<script>
+		$('.changeTab').off('click').on('click', function () {
+			$('.conL').toggleClass('small');
+		})
+	</script>
+		
+		<script type="text/javascript" src='${def:context}/js/project/fitness/trains/js/resource.js'></script>	
+		<script>
+			var TERM_START_TIME=null;
+			var FINISHED_CLASS_ICO_URL='${def:context}/js/project/fitness/trains/image/tick.ico';
+			var CURRENT_TIME_PROCESS_URL="${def:context}/action/project/fitness/trains/task/detail/resource/currentsecond";
+			var HAS_FINISHED_DOT_ICO_URL='${def:context}/js/project/fitness/trains/image/solid_dot.ico';//完成进度实心圆点icon
+			var CURRENT_COURSE_PROCESS=0;//当前学习的课时进度
+			var RESOURCE_CURRENT_SECONT=0; //当前资源播放时间
+			var CURRENT_INTERVAL=null; //当前计时器编号
+			var QUESTION_ID_TEMP=null;
+			var QUESTION_INDEX=1;
+			var IS_MAKE_THIS_TERM=null //是否已经进行过该评测
+			var START_TERM_STATUS=false;//开始考试状态
+			
+			var type1 = "0",type2 = "",type3 = "",type4 = "",type5 = "",type6 = "";
+			
+			$(document).ready(function(){
+			
+				loadCourseStatus();
+				
+				var class_index=0;
+			<class-rows>
+			    class_index++;
+				var class_timelength=String(parseInt(${fld:timelength}/60));
+				loadClass(class_index,${fld:tuid},${fld:showorder},'${fld:class_name@js}','${fld:videourl@js}','${fld:coverurl@js}',class_timelength);
+			</class-rows>
+				
+				loadProcess();
+				changeGrayLayoutStyle();
+			<person-amount-rows>
+				(function(){  
+				   var html="<i>"+${fld:count}+"</i>";
+				   $('#total_person_amount').prepend(html);
+				})();
+			</person-amount-rows>
+				
+			<term-check-rows>
+				IS_MAKE_THIS_TERM=${fld:tuid};
+			</term-check-rows>
+				
+			<course-desc>
+			    loadDesc('${fld:course_desc@js}');
+			</course-desc>
+			
+			<term-rows>
+				loadTerm(${fld:question_id},'${fld:question_name@js}','${fld:question_type@js}','${fld:item_name@js}',${fld:item_id},${fld:question_score},${fld:item_score});
+			</term-rows>
+			
+			//最后播放记录
+			<last-log-rows>
+				$("#lastclassid").val("${fld:classid}");
+				$("#lastcoverurl").val("${fld:coverurl}");
+				$("#lastvideourl").val("${fld:videourl}");
+			</last-log-rows>
+			
+			
+			if(IS_MAKE_THIS_TERM)
+			{
+				$('.term_submit_btn').remove();
+				$('.start_term').remove();
+				//$('.term_form').css('display','block');
+				START_TERM_STATUS=true;
+				termEcho(); //答案回显
+			}
+			
+				$('.start_term').on('click',function(){
+					if($('.course_finished_status').attr('status')=='2')
+					{	
+							TERM_START_TIME='${def:timestamp}';
+							$('.term_form').css('display','block');
+							$('.term_submit_btn').css('display','block');
+							START_TERM_STATUS=true;
+							$(this).remove();
+							startTerm();
+					}
+					else
+					{
+						ccms.dialog.notice('请您学习完所有课时再进行测评!', 2000);
+					}
+				})
+			$('.term_submit_btn').click(function(){
+				if(confirm('提交会将不能修改答案，确定提交?'))
+				{
+					$('.answer_item').each(function(){
+						if($(this).is(':checked'))
+						{
+							appendHiddenInput(this);
+						}
+					})
+					var total_score=calculateTotalScore();
+					$('.total_score').val(total_score);
+					var url = "${def:context}/action/project/fitness/trains/task/detail/term/submit";
+					ajaxCall(url,{
+						method: "post",
+						progress: false,
+						dataType: "script",
+						form:"term_form",
+						success: function() {
+						
+						}
+					});
+				}
+				
+			})
+		})
+		
+			function calculateTotalScore(){
+				var total_score=0;
+				var duoxuan_id_temp='';
+				$('.answer_item').each(function(){
+					if($(this).is(':checked'))
+					{   
+						/*if($(this).attr('q_type')=='2')
+						{
+							var q_id=$(this).attr('questionid');
+							if(q_id!=duoxuan_id_temp)
+							{
+								var item_score=parseInt($(this).parent().parent().find('.item_score').val());
+								total_score+=item_score;
+								duoxuan_id_temp=q_id;
+							}
+						}
+						else
+						{*/
+					    	var item_score=parseInt($(this).parent().parent().find('.item_score').val());
+							total_score+=item_score;
+						/*}*/
+					}
+				})
+				$('.my_textarea').each(function(){
+					var question_score=parseInt($(this).parent().find('.question_score').val());
+					if($(this).val()!='') //如果文本输入题不为空
+					{
+						total_score+=question_score;
+					}
+				})
+				return total_score;
+			}
+			
+		    function loadCourseStatus()
+			{
+				var finished_status=$(".course_finished_status").attr('status');
+				switch(finished_status)
+				{
+				  case '0':
+					  $('#learning_status').text('未学习').css('color','#b8e986');
+					  break;
+				  case '1':
+					  $('#learning_status').text('学习中').css('color','#6bb4d8');;
+					  break;
+				  case '2':
+					  $('#learning_status').text('已学习').css('color','#b8e986');
+					  break;
+				}
+			}
+		    
+		
+	       $('#course_term_opt').unbind().on('click',function(){
+				 $('.class_index').css('display','none');
+				 $('.course_desc').css('display','none');
+				 //$('.course_table').css('display','table');
+				 if(!IS_MAKE_THIS_TERM)
+				 {
+					 if(START_TERM_STATUS)
+			    	 {
+						$('.term_form').css('display','block');
+						$('.term_submit_btn').css('display','block');
+			    	 }
+				 	else
+					 {
+				 		$('.start_term').css('display','inline-block');
+					 }
+				 }
+				 else
+				 {
+					  $('.term_form').css('display','block');
+				 }
+			})
+			
+			$('#t-v-2').on('click','.class_info_bar',function(){
+				var videourl=$(this).find('.class_resource_url').val();
+				var coverurl=$(this).find('.class_cover_url').val();
+				var finished_status=$(this).find('.class_finished_status').val();
+				if(finished_status=='0')
+				{
+					$(this).find('.class_finished_status').val('1');//finished_status此时不需要改变。如果为0则会在后面调用的函数中对数据库增加一条记录
+				}
+				var courseid=$('.course_id').attr('courseid');
+				var classid=$(this).attr('classid');
+				type1 = "1";
+				type2=finished_status;
+				type3=videourl;
+				type4=coverurl;
+				type5=courseid;
+				type6=classid;
+				if($(this).find('.class_finished_status').val()=='2')
+				{
+					determineProcess(finished_status,videourl,coverurl,courseid,classid);
+			    }
+				else //从进度开始播
+				{
+					loadResource(finished_status,videourl,coverurl,courseid,classid);
+				}
+			});
+			
+			
+	
+			function loadClass(index,id,order,name,url,coverurl,timelength)
+			{	
+				var classname = name;
+				if(name.length>10){
+					name = name.substring(0, 10)+"...";
+				}
+				var html="<p class='class_info_bar' classid='"+String(id)+"' id='classid_"+String(id)+"'' style='position:relative;'>"+
+				"<input type='hidden' class='class_resource_url' value='"+url+"'/>"+
+				"<input type='hidden' class='class_cover_url' value='"+coverurl+"'/>"+
+				"<input type='hidden' class='class_finished_status' value='0'/>"+
+				"<span>"+
+					"<span class='font_size_p8em class_title' title='"+classname+"'>"+name+"</span>"+
+				"</span>"+
+				"<span class='time'>"+timelength+"分钟"+"</span>"+
+			"</p>";
+			  $('#t-v-2').append(html);
+			}
+			
+			function loadProcess() //加载已完成课时效果
+			{
+				var gray_layout_html="<div class='gray_layout'></div>"
+			<class-process>
+					var classid=${fld:classid};
+					var status=String(${fld:status});
+					$('.class_info_bar#classid_'+String(classid)).find('.class_finished_status').val(status);
+					if(status=='2')
+					{
+						$('.class_info_bar#classid_'+String(classid)).prepend(gray_layout_html);//.find('.has_learning_class_ico')
+					 	//.attr('src',FINISHED_CLASS_ICO_URL);
+						CURRENT_COURSE_PROCESS++;//进度增加
+					}
+			</class-process>
+			}
+			
+			function changeGrayLayoutStyle()//修改已学习效果的灰度层样式
+			{
+				var w=$('.class_info_bar').css('width');
+				var h=$('.class_info_bar').css('height');
+				var padding=$('.class_info_bar').css('padding-left');
+				$('.gray_layout').css('position','absolute')
+				.css('background-color','white')
+				.css('width',w)
+				.css('height',h)
+				.css('opacity','0.2')
+				.css('left','0px');
+				
+			}
+			
+			
+			function loadDesc(content) //加载介绍
+			{
+				var html=content;	
+				$('#t-v-1').html(html);
+			}
+			
+			
+			function startTerm()
+			{
+					var courseid=$('.course_id').attr('courseid');
+					var url = "${def:context}/action/project/fitness/trains/task/detail/term/start?courseid="+courseid;
+					ajaxCall(url,{
+						method: "get",
+						progress: false,
+						dataType: "script",
+						success: function() {			
+						}
+					});
+			}
+			
+			function termEcho()
+			{
+					var courseid=$('.course_id').attr('courseid');
+					var url = "${def:context}/action/project/fitness/trains/task/detail/term/echo?courseid="+courseid;
+					ajaxCall(url,{
+						method: "get",
+						progress: false,
+						dataType: "script",
+						success: function() {			
+						}
+					});
+			}
+			
+			
+			function answerEcho(question_id,item_id,remark,question_type) //回显一道答案
+			{
+				if(item_id!=0) //文本输入item_id为null，为了能输入参数设为0
+				{
+					$('input#item_id_'+String(item_id)).prop('checked',true);
+					if(question_type=='0')
+					{
+						ccms.util.renderRadio("item_id_"+String(question_id));
+					}
+					if(question_type=='1')
+					{
+						ccms.util.renderCheckbox("item_id_"+String(question_id));
+					}
+					console.log($('input#item_id_'+String(item_id)).prop('checked'));
+				}
+				if(remark!='NULL') //备注为null，为了能输入参数设为NULL
+				{
+					$('#text_quetion_id_'+String(question_id)).val(remark).css('background-color','transparent');
+					console.log(remark);
+				}
+			}
+			
+			function loadTerm(question_id,question_name,question_type,item_name,item_id,question_score,item_score)
+			{
+				switch(question_type)
+				{
+				  case '单选':
+					  if(question_id!=QUESTION_ID_TEMP)
+					  {
+						  appendQuestion(QUESTION_INDEX,question_id,question_name);
+						  appendRadio(question_id,item_name,item_id,item_score,'0');
+						  QUESTION_ID_TEMP=question_id;
+						  QUESTION_INDEX++;
+					  }
+					  else
+					  {
+						  appendRadio(question_id,item_name,item_id,item_score,'0');
+					  }
+					  break;
+					  
+				  case '多选':
+					  if(question_id!=QUESTION_ID_TEMP)
+					  {
+						  appendQuestion(QUESTION_INDEX,question_id,question_name);
+						  appendCheckbox(question_id,item_name,item_id,item_score,'1');
+						  QUESTION_ID_TEMP=question_id;
+						  QUESTION_INDEX++;
+					  }
+					  else
+					  {
+						  appendCheckbox(question_id,item_name,item_id,item_score,'1');
+					  } 
+					  break;
+					  
+				  case '文本输入':
+					  appendQuestion(QUESTION_INDEX,question_id,question_name);
+					  appendText(question_id,question_score,'2');
+					  QUESTION_ID_TEMP=question_id;
+					  QUESTION_INDEX++
+					  break;
+				}
+			}
+			
+			function appendQuestion(index,question_id,question_name)//增加一个问题 
+			{
+				var html="<tr class='question_content' id='questionid_"+String(question_id)+"' code='"+String(question_id)+"'>"+
+				        "<td class='my_question_index_td'>"+String(index)+"</td>"+
+				        "<td class='my_question_content_td'>"+question_name+"</td>"+
+						"<td style='text-align:left;'></td>"+
+				        "</tr>"; 
+				$('.course_table').find('tbody').append(html);
+			}
+			
+			function appendRadio(question_id,item_name,item_id,item_score,type)//增加一个单选选项
+			{
+				var html="<div class='answer_group'>"+
+					"<input type='hidden' class='item_score' value='"+String(item_score)+"'/>"+
+				    "<input type='radio' q_type="+type+" class='answer_item' id='item_id_"+String(item_id)+"'  questionid='"+String(question_id)+"'  value='"+String(item_id)+"' name='item_id_"+String(question_id)+"'>"+item_name+"</input>"+
+				    "</div><br/>"
+				$('#questionid_'+String(question_id)).find('td').eq(2).append(html);
+				if(!IS_MAKE_THIS_TERM)
+				{
+					ccms.util.renderRadio("item_id_"+String(question_id));
+				}
+			}
+			
+			function appendCheckbox(question_id,item_name,item_id,item_score,type)//增加一个多选选项
+			{
+				var html="<div class='answer_group'>"+
+				"<input type='hidden' class='item_score' value='"+String(item_score)+"'/>"+
+				//"<label class='am-checkbox' style='padding-left:0px;'>"+
+			    "<input  type='checkbox' q_type="+type+" class='answer_item' id='item_id_"+String(item_id)+"' questionid='"+String(question_id)+"'  value='"+String(item_id)+"' name='item_id_"+String(question_id)+"'>"+item_name+"</input>"+ 
+				//"</label>"+
+				"</div><br/>"
+				$('#questionid_'+String(question_id)).find('td').eq(2).append(html);
+				if(!IS_MAKE_THIS_TERM)
+				{
+					ccms.util.renderCheckbox("item_id_"+String(question_id));
+				}
+			}
+			
+			function appendText(question_id,question_score,type)//增加一个文本输入
+			{
+				var html="<div class='answer_group'>"+
+				"<input type='hidden' class='question_score' value='"+String(question_score)+"'/>"+
+				"<input type='hidden' name='question_id' value='"+String(question_id)+"'>"+
+			    "<input type='hidden' class='term_score_id'  name='term_score_id' value='' preserve='true'/>"+
+			    //"<input type='hidden' class='text_type_itemid' name='item_id_"+String(question_id)+"' value='' preserve='true'/>"+
+				"<textarea  class='my_textarea' id='text_quetion_id_"+String(question_id)+"' name='remark' style='color:#dcb0b0;width:100%;font-size:1.5em;background:rgba(40, 46, 52, 0.8);'/>"+ 
+				"<input type='hidden' name='item_id' value='' preserve='true'/>"+
+				"</div><br/>"
+				$('#questionid_'+String(question_id)).find('td').eq(2).append(html);
+			}
+			
+			function appendHiddenInput(_this)
+			{
+				var question_id=$(_this).attr('questionid');
+				var term_score_id=$('.term_score_id').val();
+				var item_id=$(_this).val();
+				var html="<input type='hidden' name='question_id' value='"+question_id+"'>"+
+				    "<input type='hidden' name='item_id' value='"+item_id+"'>"+
+			        "<input type='hidden' name='term_score_id' value='"+term_score_id+"' preserve='true'/>"+
+					"<input type='hidden'  name='remark' value='' />";
+				$(_this).before(html);
+			}	
+			
+			
+			
+			function insertCourseLog(courseid,classid) //新学习一个课时，增加一条状态记录
+			{
+				var url="${def:context}/action/project/fitness/trains/task/detail/resource/insertlog";
+				url=url+"?courseid="+courseid;
+				url=url+"&classid="+classid;
+				ajaxCall(url,{
+					method: "get",
+					progress: false,
+					dataType: "script",
+					success: function() {			
+					}
+				});
+			}
+		
+			function sendCurrentSecond(courseid,classid,currentsecond) //1分钟刷新一次资源时间进度记录
+			{
+				var url="${def:context}/action/project/fitness/trains/task/detail/resource/updatesecond";
+				url+="?courseid="+courseid;
+				url+="&classid="+classid;
+				url+="&currentsecond="+currentsecond;
+				ajaxCall(url,{
+					method: "get",
+					progress: false,
+					dataType: "script",
+					success: function() {			
+					}
+				});
+				$('.class_info_bar#classid_'+String(classid)).find('.class_finished_status').val('1');
+			}
+			
+			function finishClass(courseid,classid) //课时学习完毕,更改状态
+			{
+				var url="${def:context}/action/project/fitness/trains/task/detail/resource/updatestatus";
+				url+="?courseid="+courseid;
+				url+="&classid="+classid;
+				ajaxCall(url,{
+					method: "get",
+					progress: false,
+					dataType: "script",
+					success: function() {			
+					}
+				});
+				var gray_layout_html="<div class='gray_layout'></div>";
+				changeGrayLayoutStyle()
+				$('.class_info_bar#classid_'+String(classid)).find('.class_finished_status').val('2');
+				$('.class_info_bar#classid_'+String(classid)).prepend(gray_layout_html);
+				changeGrayLayoutStyle();//修改已学习效果的灰度层样式
+				CURRENT_COURSE_PROCESS++;//该课程已学习的课时数增加1
+				var total_class_amount=parseInt($('.total_class_amount').val());
+				console.log('进度：',CURRENT_COURSE_PROCESS,total_class_amount);
+				if(CURRENT_COURSE_PROCESS==total_class_amount) //判断是否学习完所有课时,改变课程学习状态和效果
+				{
+					$(".course_finished_status").attr('status','2');
+					loadCourseStatus();
+					
+					var obj=$(window.parent.document).find(".course_name-li#courseid_"+courseid);//更新父页面课程进度
+					console.log(obj);
+					obj.prepend("<i class='am-icon-check-circle'></i>");
+					obj.attr('finished_status','2');//课程完成情况改为属性为已完成
+					//FINISHED_COURSE_AMOUNT++; //已完成课程数加1
+				}
+				if(CURRENT_COURSE_PROCESS<total_class_amount&&0<CURRENT_COURSE_PROCESS) //判断是否是学习中,改变课程学习状态和效果
+				{
+					$(".course_finished_status").attr('status','1');
+					loadCourseStatus();
+				}
+				var parent_page=window.parent.document;//父页面信息更新
+				var finished_class_count=parseInt($(parent_page).find(".finished_class_count").text())+1; 
+				var not_finished_class_count=parseInt($(parent_page).find(".not_finished_class_count").text())-1;
+				$(parent_page).find(".finished_class_count").text(String(finished_class_count));
+				$(parent_page).find(".not_finished_class_count").text(String(not_finished_class_count));			
+			}
+		</script>
+		
+	</body>
+</html>

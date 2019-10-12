@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_c_startdate,daochu_c_enddate,daochu_code</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="延期记录" filename="延期记录.xls" header-background="true">
+		<col id="cardcode" label="卡号" />
+		<col id="cust_name" label="名称" />
+		<col id="cardtype" label="卡类型" />
+		<col id="cardstartdate" label="起始日期" />
+		<col id="cardenddate" label="截止日期" />
+		<col id="beforedate" label="延期前" />
+		<col id="adjourndate" label="延期后" />
+		<col id="cardcreated" label="办卡日期" />
+		<col id="adjourndays" label="延期天数" />
+		<col id="mc" label="会籍" />
+		<col id="status" label="会员卡当时状态" />
+	</excel>
+</config>

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+	
+		 <classname>transactions.project.fitness.weixin.JsSignature</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-record.sql" source="sql" scope="transaction" />
+		<recordset id="query-tiyanka.sql" source="sql" scope="transaction" />
+			<recordset id="query-cardlist.sql" source="sql" scope="transaction" />
+	</transaction>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query-tiyanka.sql"  tag="tiyanka"/>  
+	  	<print mode="table" recordset="query-record.sql"  tag="list"/>  
+	  	 <print mode="table" recordset="query-cardlist.sql"  tag="card"/>  
+		
+		
+		<print mode="form" recordset="_rsSignature" /> 
+		<print mode="form" recordset="_request" />
+	</output>
+</config>

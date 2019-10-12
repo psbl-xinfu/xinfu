@@ -1,0 +1,11 @@
+/action/project/fitness/class/group		团操相关
+/action/project/fitness/class/private	私教课相关
+/action/project/fitness/contract		合同相关
+/action/project/fitness/guest			资源相关
+/action/project/fitness/customer		会员相关：包括卡信息等
+/action/project/fitness/print			打印合同、小票
+/action/project/fitness/finance			财务相关
+/action/project/fitness/special			店长权限、特殊权限
+/action/project/fitness/basic			基础设置：包括部分单表维护
+/action/project/fitness/config			系统设置
+/action/project/fitness/report			报表

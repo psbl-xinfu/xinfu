@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<head>
+<title>财务月报</title>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="rm.created" preserve="true"/>
+		<input name="order" type="hidden" value="desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		
+		<div class="financial-statements">
+			<div class="f-s-t">
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="dateTime">
+								<input type="text" id="startdate" name="startdate" class="input-default"/>
+							</li>
+							<li class="dateTime">
+								<input type="text" id="enddate" name="enddate" class="input-default"/>
+							</li>
+							<li>
+								<select id="org_id" name="org_id" style="display: none;">
+									<option value="">全部门店</option>
+									<org-list>
+										<option value="${fld:org_id}">${fld:org_name}</option>
+									</org-list>
+								</select>
+							</li>
+							<button class="freshen" type="button" id="search_btn">刷新</button>
+						</nav>
+						<div class="r-c-btnList">
+							<!-- <button title="搜索" class="r-c-3-btn-1"></button>
+							<button title="筛选" class="r-c-3-btn-2"></button>
+							<button title="导出" class="r-c-3-btn-3"></button> -->
+						</div>
+					</div>
+				</div>
+				<div class="f-s-t-t">
+					<div id="incomeDiv" style="height:100%"></div>
+				</div>
+			</div>
+			<div class="f-s-b">
+				<header>
+					<p>
+						合计：
+						<span id="orgcount"></span>
+						间门店，期间：
+						<span id="startperiod"></span>
+						~
+						<span id="endperiod"></span>，收入：
+						<span id="income"></span>，支出：
+						<span id="spending"></span>
+					</p>
+				</header>
+				<article class="r-tab-cout-3-b">
+					<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead id="report_subject">
+						</thead>
+						<tbody id="report_monthly">
+					</table>
+				</article>
+			</div>
+		</div>
+	</form>
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#startdate").val(new Date().format("yyyy-01"));
+	$("#enddate").val(new Date().format("yyyy-12"));
+	$Dialog().yearmonth($('#startdate,#enddate'));
+	searchSelectInit($("#org_id"));
+	
+	reportmonthly($("#startdate").val(), $("#enddate").val(), $("#org_id").val());
+	$("#search_btn").click(function(){
+		$("#report_subject,#report_monthly").html("");
+		reportmonthly($("#startdate").val(), $("#enddate").val(), $("#org_id").val());
+	})
+});
+//查询
+function reportmonthly(startdate, enddate, org_id){
+	$("#startperiod").html(startdate);
+	$("#endperiod").html(enddate);
+	var url="${def:context}${def:actionroot}/previewreportsubject?startdate="+startdate+"&enddate="+enddate+"&org_id="+org_id;
+	ajaxCall(url,{
+		method:"GET",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+</body>
+</html>

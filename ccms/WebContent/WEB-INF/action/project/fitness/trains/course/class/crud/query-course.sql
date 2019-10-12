@@ -1,0 +1,1 @@
+SELECT tuid,course_name FROM et_course where status = 1

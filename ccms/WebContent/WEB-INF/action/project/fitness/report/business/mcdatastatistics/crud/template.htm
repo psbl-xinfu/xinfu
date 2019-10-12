@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>会籍部个人数据统计</title>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+						<nav>
+							<li class="dateTime">
+								<input id="datemonth" name="datemonth" type="text" readonly="readonly" class="input-default"/>
+							</li>
+							<li style="width: 130px;">
+								<select id="mc" name="mc" data-live-search="true" style="display: none;">
+									<option value="">全部会籍</option>
+									<mc-row>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</mc-row>
+								</select>
+							</li>
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+							</div>
+						</nav>
+						
+					</div>
+				</div>				
+			</div>
+			
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background h-43"></div>
+					<table class="">
+						<thead>
+							<tr>
+								<th>会籍</th>  
+								<th>业绩</th>
+								<th>任务</th>
+								<th>完成比例</th>
+								<th>陌生接待</th>
+								<th>陌生成交</th>
+								<th>陌生成交率</th>
+								<th>预约到访</th>
+								<th>预约成交</th>
+								<th>预约成交率</th>
+								<th>会员到期</th>
+								<th>会员续费</th>
+								<th>会员续费率</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr id="list">
+								<td>#name#</td>
+								<td>#results_money#</td>
+								<td>#task_money#</td>
+								<td>#completion#</td>
+								<td>#strange_reception_num#</td>
+								<td>#strange_deal_num#</td>
+								<td>#strange_transaction_rate#</td>
+								<td>#appointment_visit_num#</td>
+								<td>#appointment_deal_num#</td>
+								<td>#appointment_rate#</td>
+								<td>#cust_expire_num#</td>
+								<td>#cust_renewal_num#</td>
+								<td>#mc_renewal_rate#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+						<tbody>
+							<tr>
+								<td>合计</td>
+								<td id="hj_results_money" class="cleartotal"></td>
+								<td id="hj_task_money" class="cleartotal"></td>
+								<td id="completion" class="cleartotal"></td>
+								<td id="hj_strange_reception_num" class="cleartotal"></td>
+								<td id="hj_strange_deal_num" class="cleartotal"></td>
+								<td id="strange_transaction_rate" class="cleartotal"></td>
+								<td id="hj_appointment_visit_num" class="cleartotal"></td>
+								<td id="hj_appointment_deal_num" class="cleartotal"></td>
+								<td id="appointment_rate" class="cleartotal"></td>
+								<td id="hj_cust_expire_num" class="cleartotal"></td>
+								<td id="hj_cust_renewal_num" class="cleartotal"></td>
+								<td id="mc_renewal_rate" class="cleartotal"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+				
+		<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+			<input type="text" id="daochu_datemonth" name="daochu_datemonth"/>
+			<input type="text" id="daochu_mc" name="daochu_mc"/>
+		</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	selectInit($("#mc"));
+	var date = new Date();
+	date.setMonth(date.getMonth()-1);
+	$("#datemonth").val(date.format("yyyy-MM"));
+	$Dialog().yearmonth($('#datemonth'));
+	
+	var search=null;
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		//循环计算总计
+		var hj_results_money=0, hj_task_money=0, hj_strange_reception_num=0, hj_strange_deal_num=0,
+			hj_appointment_visit_num=0, hj_appointment_deal_num=0,hj_cust_expire_num=0, hj_cust_renewal_num=0;
+		$("#datagrid tr").each(function(){
+			hj_results_money+=Number($(this).find("td").eq(1).html());
+			hj_task_money+=Number($(this).find("td").eq(2).html());
+			hj_strange_reception_num+=Number($(this).find("td").eq(4).html());
+			hj_strange_deal_num+=Number($(this).find("td").eq(5).html());
+			hj_appointment_visit_num+=Number($(this).find("td").eq(7).html());
+			hj_appointment_deal_num+=Number($(this).find("td").eq(8).html());
+			hj_cust_expire_num+=Number($(this).find("td").eq(10).html());
+			hj_cust_renewal_num+=Number($(this).find("td").eq(11).html());
+		});
+		//业绩总计
+		$("#hj_results_money").html(hj_results_money);
+		//任务总计
+		$("#hj_task_money").html(hj_task_money);
+		$("#hj_strange_reception_num").html(hj_strange_reception_num);
+		$("#hj_strange_deal_num").html(hj_strange_deal_num);
+		$("#hj_appointment_visit_num").html(hj_appointment_visit_num);
+		$("#hj_appointment_deal_num").html(hj_appointment_deal_num);
+		$("#hj_cust_expire_num").html(hj_cust_expire_num);
+		$("#hj_cust_renewal_num").html(hj_cust_renewal_num);
+		//完成率
+		$("#completion").html((hj_task_money==0&&hj_results_money==0?'0.00%':(hj_task_money==0?'100%':
+			(hj_results_money==0?'0.00%':Number(hj_results_money/hj_task_money*100).toFixed(2)+"%"))));
+		//陌生成交率
+		$("#strange_transaction_rate").html((hj_strange_reception_num==0&&hj_strange_deal_num==0?'0.00%':(hj_strange_reception_num==0?'100%':
+			(hj_strange_deal_num==0?'0.00%':Number(hj_strange_deal_num/hj_strange_reception_num*100).toFixed(2)+"%"))));
+		//预约成交率
+		$("#appointment_rate").html((hj_appointment_visit_num==0&&hj_appointment_deal_num==0?'0.00%':(hj_appointment_visit_num==0?'100%':
+			(hj_appointment_deal_num==0?'0.00%':Number(hj_appointment_deal_num/hj_appointment_visit_num*100).toFixed(2)+"%"))));
+		//会籍续费率
+		$("#mc_renewal_rate").html((hj_cust_expire_num==0&&hj_cust_renewal_num==0?'0.00%':(hj_cust_expire_num==0?'100%':
+			(hj_cust_renewal_num==0?'0.00%':Number(hj_cust_renewal_num/hj_cust_expire_num*100).toFixed(2)+"%"))));
+	}}).initSearchBtn().searchData(1);
+	
+	//导出
+	$("#daochu_list").unbind().on("click", function(){
+		$("#daochu_datemonth").val($("#datemonth").val());
+		$("#daochu_mc").val($("#mc").val());
+		$("#daochuForm").submit();
+	}); 
+
+	//查询清空总计
+	$("#search_btn").click(function(){
+		//清空总计
+		$(".cleartotal").html("");
+	})
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+        <title>我的会员</title>
+        <link href="${def:context}/js/project/fitness/wx/css/bootstrap-slider.min.css" rel="stylesheet">
+     	<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/style.css?v=7" />
+     	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet">
+    </head>
+    <body>
+            <form id="filter" name="filter">
+              <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
+			<input type="hidden" id="s_stime"name="s_stime" >
+			<input type="hidden" id="s_etime"name="s_etime" >
+			<input type="hidden" id="s_sex"name="s_sex" >
+			<input type="hidden" id="s_type"name="s_type" >
+			<input type="hidden" id="s_age"name="s_age" >
+        <div class="myziyuanlisttop">
+            <div class="shurukuang">
+                    <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入资源姓名/电话" oninput="updateurl(this)">
+                 <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
+            </div>
+            <div class="searchbtn text-center" data-toggle="modal" data-target="#myModal">筛选</div>
+        </div>
+       </form>
+        
+        
+        
+        <div class="hetongbklistbody">
+		</div>
+		
+		        <!-- modal fade -->
+        <div class="modal fade" id="myModal"  role="dialog" aria-labelledby="myModalLabel" >
+            <div class="modal-dialog" role="document" style="background: white">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #CCC"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">筛选条件</h4>
+                    </div>
+                    <div class="modal-body">
+                    
+                        <div class="mokuai">
+                            <h5>性别</h5>
+                            <div class="content">
+                                <button class="btn btn-default btn1" type="submit">男<input type="hidden" name="" value="1"></button>
+                                <button class="btn btn-default btn1" type="submit">女<input type="hidden" name="" value="0"></button>
+                            </div>
+                        </div>  
+                     
+                     
+                     
+                        <div class="mokuai">
+                            <h5>入会日期</h5>
+                            <div class="content">
+                                <input type="text" name=""  class="form-control timeinput" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
+                                <span>&nbsp;至&nbsp;</span>
+                                <input type="text" name=""  class="form-control timeinput" id="datetimepickers" data-date-format="yyyy-mm-dd hh:ii">
+                            </div>
+                        </div>                    
+                    
+                        <div class="mokuai">
+                            <h5>年龄区间</h5>
+                            <div class="content">
+                            <age>
+                                        <button class="btn btn-default btn2" type="submit">${fld:domain_text_cn}<input type="hidden" name="" value="${fld:domain_value}"></button>
+                           </age>
+                            </div>
+                        </div>         
+                    
+                    
+                    
+                          <div class="mokuai">
+                            <h5>获客渠道</h5>
+                            <div class="content">
+                          	<guesttype-rows>
+                                        <button class="btn btn-default btn3" type="submit">${fld:domain_text_cn}<input type="hidden" name="" value="${fld:domain_value}"></button>
+                       		</guesttype-rows>
+                            </div>
+                        </div>                
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default fl resetbtn">重置</button>
+                        <button type="button" class="btn btn-primary fr submitbtn">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+        	 <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/bootstrap-slider.min.js" ></script> 
+         <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    <script type="text/javascript">
+    $(function(){
+    	homept();
+    	getlist();
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        
+        $("#datetimepicker").mobiscroll($.extend(opt['date'], opt['default']));
+        $("#datetimepickers").mobiscroll($.extend(opt['date'], opt['default']));
+        
+
+        // 滑块With JQuery
+        $("#ex1").slider({
+            tooltip: 'always'
+        });
+
+        //资源状态
+        $('.btn1,.btn2,.btn3').click(function(){
+            $(this).removeClass('btn-default');
+            $(this).addClass('btn-warning');
+            $(this).siblings('button').removeClass('btn-warning');
+            $(this).siblings('button').addClass('btn-default');
+        });
+
+        //重置
+        $('.resetbtn').click(function(){
+            $('.btn1,.btn2.btn3').removeClass('btn-warning');
+            $('.btn1,.btn2,.btn3').addClass('btn-default');
+            $('.timeinput').val('');
+        });
+
+        //提交
+        $('.submitbtn').click(function(){
+            var time1=$('#datetimepicker').val();
+            var time2=$('#datetimepickers').val();
+            
+            var select1=$('.btn1.btn-warning').children('input').val();
+            var select2=$('.btn2.btn-warning').children('input').val();
+            var select3=$('.btn3.btn-warning').children('input').val();
+            
+            $('#s_stime').val(time1)//开始
+            $('#s_etime').val(time2)//结束
+            $('#s_sex').val(select1)//性别
+            $('#s_age').val(select2)//年龄
+            $('#s_type').val(select3)//获客渠道
+        	getlist();
+            $('#myModal').modal('hide');
+        });
+       	$('.searchsubmit').on('click',function(){
+       	 	getlist();
+       	})
+       	
+       	
+       	
+    });
+    
+    function getlist(){
+    	postAjaxCall("/action/project/fitness/wx/pt/ptpeplelist/search?",'filter',false);
+    }
+    function pt(code){
+        	location.href="${def:context}/action/project/fitness/wx/pt/ptpeplelist/pt/crud?customercode="+code;
+    }
+    
+    function updateurl(obj){
+		   if($(obj).val()!=""){
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/sousuo_on.png")
+		   }else{
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/search.png")
+		   }
+ }
+    </script>
+</html>

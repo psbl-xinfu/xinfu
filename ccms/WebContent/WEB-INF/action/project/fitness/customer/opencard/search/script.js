@@ -1,0 +1,17 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "checklink":"${fld:checklink@js}",
+		    "cardcode":"${fld:cardcode@js}",
+		    "name":"${fld:name@js}",
+		    "mobile":"${fld:mobile@js}",
+		    "old_startdate":"${fld:old_startdate}",
+		    "old_enddate":"${fld:old_enddate}",
+		    "startdate":"${fld:startdate}",
+		    "enddate":"${fld:enddate}",
+		    "opentype":"${fld:opentype@js}",
+		    "cardtypename":"${fld:cardtypename@js}"
+	},
+	</rows>
+	{}
+]}

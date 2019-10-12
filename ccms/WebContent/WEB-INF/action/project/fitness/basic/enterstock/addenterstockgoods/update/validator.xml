@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="tuid" type="varchar" required="true" label="tuid" />
+    <parameter id="enterstockid" type="varchar" required="true" label="入库id" />
+    <parameter id="goodsid" type="varchar" required="true" label="商品" />
+    <parameter id="amount" type="integer" required="true" label="商品数量" />
+    <parameter id="price" type="double" required="true" label="商品单价" />>
+    <parameter id="money" type="double" required="true" label="商品总金额" />>
+    <parameter id="factmoney" type="double" required="true" label="实际金额" />
+    <parameter id="remark" type="varchar" required="false" label="备注 " />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="该入库记录已存在该商品，不能再次添加！" id="goodsid" sql="noRep.sql" />
+</validator>

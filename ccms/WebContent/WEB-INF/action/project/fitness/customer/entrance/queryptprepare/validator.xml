@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="customercode" type="varchar" required="true" label="客户编号"/>
+	<parameter id="unionorgid" type="varchar" required="true" label="org_id"/>
+</validator>

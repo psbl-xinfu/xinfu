@@ -1,0 +1,2 @@
+and
+	status = ${fld:status}

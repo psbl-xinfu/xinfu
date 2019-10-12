@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+		入住管理
+	</summary>
+	
+	<log>false</log>
+
+    
+    <transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-isprintpassprepare.sql" source="sql" scope="transaction" />
+		<recordset id="query-ismustownclass.sql" source="sql" scope="transaction" />
+		<recordset id="query-singleptusemoney.sql" source="sql" scope="transaction" />
+		<recordset id="query-isprintpos.sql" source="sql" scope="transaction" />
+		<recordset id="query-isshowprint.sql" source="sql" scope="transaction" />
+		<recordset id="query-htisusetempcabinet.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form" recordset="query-isprintpassprepare.sql"  />
+		<print mode="form" recordset="query-ismustownclass.sql"  />
+		<print mode="form" recordset="query-singleptusemoney.sql"  />
+		<print mode="form" recordset="query-isprintpos.sql"  />
+		<print mode="form" recordset="query-isshowprint.sql"  />
+		<print mode="form" recordset="query-htisusetempcabinet.sql"  />
+	</output>
+
+</config>

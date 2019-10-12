@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="courseid" type="integer" required="false" label="courseid" />
+	<parameter id="finished_status" type="integer" required="false" label="finished_status" />
+</validator>

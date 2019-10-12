@@ -1,0 +1,1 @@
+AND clog.createdate::date <= ${fld:s_end_date}

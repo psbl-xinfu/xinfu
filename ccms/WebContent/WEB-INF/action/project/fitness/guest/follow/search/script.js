@@ -1,0 +1,22 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"application_id":"${fld:application_id@js}",
+		"vc_code":"${fld:vc_code@js}",
+		"vc_name":"${fld:vc_name@js}",
+		"vc_mobile":"${fld:vc_mobile@js}",
+		"vc_othertel":"${fld:vc_othertel@js}",
+		"i_public":"${fld:i_public@js}",
+		"vc_newmc":"${fld:vc_newmc@js}",
+		"vc_oldmc":"${fld:vc_oldmc@js}",
+		"i_sex":"${fld:i_sex@js}",
+		"vc_visititime":"${fld:vc_visititime@yyyy-MM-dd}",
+		"vc_callitime":"${fld:vc_callitime}",
+		"i_age":"${fld:i_age}",
+		"vc_itime":"${fld:vc_itime}",
+		"entertime":"${fld:entertime@yyyy-MM-dd}",
+		"num_days":"${fld:num_days}"
+	},
+	</rows>
+	{}
+]}

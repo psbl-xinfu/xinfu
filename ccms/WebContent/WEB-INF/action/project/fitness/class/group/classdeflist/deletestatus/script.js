@@ -1,0 +1,21 @@
+if(${fld:status}==1){
+	$Dialog().confirm("确定要删除已发布团操吗？",function(){
+		/*ajaxCall("${def:actionroot}/delete?code=${fld:code}",{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});*/
+	});
+}else{
+	$Dialog().confirm("确定删除吗？",function(){
+		/*ajaxCall("${def:actionroot}/delete?code=${fld:code}",{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});*/
+	});
+}

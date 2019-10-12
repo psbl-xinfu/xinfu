@@ -1,0 +1,1 @@
+and goodsid = ${fld:searchgoodsid}

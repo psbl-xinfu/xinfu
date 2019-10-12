@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>预约查看</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="gerenyuyuexqtop">
+            <img src="${def:context}/images/icon_head.png" class="touxiangpic img-circle">
+            <p class="name text-center" id="name"></p>
+            <p class="tel text-center" id="mobile"></p>
+            <div class="gerencenter container">
+                <div class="row">
+                    <div class="col-xs-4"  id="cust">
+                        <img src="${def:context}/js/project/fitness/wx/image/huiyuanxq.png" class="centerimg">
+                        <p class="names">会员详情</p>
+                    </div>
+                    <div class="col-xs-4">
+                        <img src="${def:context}/js/project/fitness/wx/image/huiyuanxiaoxi.png" class="centerimg">
+                        <p class="names">发送信息</p>
+                    </div>
+                    <div class="col-xs-4">
+                         <a  id="tel" href=""><img src="${def:context}/js/project/fitness/wx/image/tel1.png" class="centerimg"></a>
+                        <p class="names">拨打电话</p>
+                    </div>
+                    <div class="centerone"></div>
+                    <div class="centertwo"></div>
+                </div>
+                
+            </div>
+        </div>
+
+
+        
+        <div class="gerenyuyuexqcontent">
+            <div class="listothers">
+                <div class='d1 fl'>预约内容</div>
+                <div class='d3 fr'  id="commtarget"></div>
+            </div>
+            <div class="listothers">
+                <div class='d2 fl'>日期</div>
+                <div class='d4 fr'><input type="text" name=""  class="form-control dateinput" id="datetimepicker" data-date-format="yyyy-mm-dd" readonly="readonly"></div>
+            </div>
+            <div class="listothers"  id="update">
+                <div class='d2 fl'>时间</div>
+                <div class='d4 fr'>
+                    <input type="text" name=""  class="form-control timeinput" id="datetimepickers" data-date-format="hh:ii">
+                    <span>---</span>
+                    <input type="text" name=""  class="form-control timeinput" id="datetimepickerss" data-date-format="hh:ii">
+                </div>
+            </div>
+            <div class="listothers">
+                <div class='d1 fl'>预约状态</div>
+                <div class='d3 fr' id="pre_result"></div>
+            </div>
+        </div>  
+
+        <div class="gerenyuyuexqbtn">
+            <img src="${def:context}/js/project/fitness/wx/image/quxiaoyuyue.png" class="quxiao" id="quxiao">
+        </div>
+
+        
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homemc();
+    	<gust>
+    		$('#name').text("${fld:name}");
+    		$('#mobile').text("${fld:mobile}");
+    		$('#tel').attr('href','tel:${fld:mobile}')
+		</gust>
+    	
+    	
+    	<gustcomm>
+    	$('#commtarget').text("${fld:commtarget}");
+    	$('#datetimepicker').val("${fld:shijian}");
+    	$('#datetimepickers').val("${fld:stime}");
+    	$('#datetimepickerss').val("${fld:etime}");
+    	$('#pre_result').text("${fld:pre_result}");
+    	</gustcomm>
+    	
+    	
+        var width=$(window).width();
+        if(width<=750){
+            $('.gerenyuyuexqtop').css({'height':width*410/750+'px'});
+            $('.gerenyuyuexqcontent').css({'margin-top':width*130/750+'px'});
+        }else{
+            $('.gerenyuyuexqtop').css({'height':'205px'});
+            $('.gerenyuyuexqcontent').css({'margin-top':'130px'});
+        }
+
+        $('#cust').click(function(){
+        	location.href='${def:context}/action/project/fitness/wx/mc/mycust/custinfo/crud?customercode=${fld:code}';
+        })
+        
+        $('#update').click(function(){
+        	location.href='${def:context}/action/project/fitness/wx/mc/personal/updateyuyue?'
+        			+"code=${fld:code}"
+        			+"&commcode=${fld:commcode}";
+        })
+        $('#quxiao').click(function(){
+        	save();
+        })
+        
+    });
+    function save(){
+        	getAjaxCall("/action/project/fitness/wx/mc/personal/yuyueinfo/updategust?commcode=${fld:commcode}",false);
+    }
+    function goyuyuelist(){
+    	location.href="${def:context}/action/project/fitness/wx/mc/personal/prapre/crud";
+    }
+</script>

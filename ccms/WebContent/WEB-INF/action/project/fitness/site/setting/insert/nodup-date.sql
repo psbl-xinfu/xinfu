@@ -1,0 +1,1 @@
+select 1 from dual where ${fld:opening_date}::time>=${fld:closed_date}::time

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>会籍分析</title>
+</head>
+<body>
+		<div class="bb-tab-cout-2 am-tab-panel am-active three-none"
+			id="bb-tab2">
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<button type="button" class="r-c-3-btn-1" id="search_total_btn"></button>
+					</nav>
+				</div>
+				
+				<div class="f-s-t-top">
+					<div>
+						<header>总到访量</header>
+						<span class="count" id="visitnum"></span>
+						<p>环比
+							<i id="yearvisitnum"></i>
+						</p>
+						<p>同比
+							<i id="monthvisitnum"></i>
+						</p>
+					</div>
+					<div>
+						<header>平均到访量</header>
+						<span class="count" id="averagevisitnum"></span>
+						<p>环比
+							<i id="yearaveragevisitnum"></i>
+						</p>
+						<p>同比
+							<i id="monthaveragevisitnum"></i>
+						</p>
+					</div>
+					<div>
+						<header>预约到访量</header>
+						<span class="count" id="yyvisitnum"></span>
+						<p>环比
+							<i id="yearyyvisitnum"></i>
+						</p>
+						<p>同比
+							<i id="monthyyvisitnum"></i>
+						</p>
+					</div>
+					<div>
+						<header>陌生到访量</header>
+						<span class="count" id="msvisitnum"></span>
+						<p>环比
+							<i id="yearmsvisitnum"></i>
+						</p>
+						<p>同比
+							<i id="monthmsvisitnum"></i>
+						</p>
+					</div>
+					<div>
+						<header>成交率</header>
+						<span class="count" id="rate"></span>
+						<p>环比
+							<i id="yearrate"></i>
+						</p>
+						<p>同比
+							<i id="monthrate"></i>
+						</p>
+					</div>
+				</div>
+				<div class="f-s-t-top">
+					<div>
+						<header>预约成交率</header>
+						<span class="count" id="yyrate"></span>
+						<p>环比
+							<i id="yearyyrate"></i>
+						</p>
+						<p>同比
+							<i id="monthyyrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>陌生成交率</header>
+						<span class="count" id="msrate"></span>
+						<p>环比
+							<i id="yearmsrate"></i>
+						</p>
+						<p>同比
+							<i id="monthmsrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>产品均价</header>
+						<span class="count" id="avgfee"></span>
+						<p>环比
+							<i id="yearavgfee"></i>
+						</p>
+						<p>同比
+							<i id="monthavgfee"></i>
+						</p>
+					</div>
+					<div>
+						<header>综合业绩</header>
+						<span class="count" id="total"></span>
+						<p>环比
+							<i id="yeartotal"></i>
+						</p>
+						<p>同比
+							<i id="monthtotal"></i>
+						</p>
+					</div>
+				</div>
+			
+			<div class="bb-tab-cout-1-bottom">
+				<div class="full-div">
+				<div class="tab-cout-nav-t">
+					<form role="form" method="post" id="searchForm">
+						<input name="sort" type="hidden" value="" preserve="true" />
+						<input name="order" type="hidden" value="" preserve="true" />
+						<input name="pageNo" type="hidden" value="" preserve="true" />
+						<input name="totalPages" type="hidden" value="" preserve="true" />
+						<nav class="tab-nav-my">
+							<li class="dateTime"><input type="text" id="listfdate" name="listfdate" value="" class="input-default" /></li>
+							<label> - </label>
+							<li class="dateTime"><input type="text" id="listtdate" name="listtdate" value="" class="input-default" /></li>
+							<li>
+								<select id="mc" name="mc" class="normal-select">
+									<option value="">请选择会籍</option>
+									<mc-rows>
+									<option value="${fld:userlogin@js}">${fld:name@js}</option>
+									</mc-rows>
+								</select>
+							</li>
+							<button type="button" class="r-c-3-btn-1" id="search_btn"></button>
+						</nav>
+					</form>
+				</div>
+				
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-38"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th>排名</th>
+								<th>姓名</th>
+								<th>潜在资源量</th>
+								<th>会员量</th>
+								<th>总到访量</th>
+								<th>平均到访量</th>
+								<th>预约到访量</th>
+								<th>陌生到访量</th>
+								<th>成交率</th>
+								<th>产品均价</th>
+								<th>综合业绩</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+								<td>#showorder#</td> 
+								<td>#name#</td>
+								<td>#guestnum#</td>
+								<td>#custnum#</td>
+								<td>#visitnum#</td>	
+								<td>#averagevisitnum#</td>	
+								<td>#yynum#</td>	
+								<td>#msnum#</td>										
+								<td>#rate#%</td>										
+								<td>#avgfee#</td>
+								<td>#zhfee#</td>										
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var search = null;
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	ccms.dialog.date($("#listfdate,#listtdate"));
+	$("#listfdate").val(new Date().format("yyyy-MM-01"));
+	$("#listtdate").val(new Date().format("yyyy-MM-dd"));
+
+	searchSelectInit($("#mc"));
+	/** 顶部搜索 */
+	$("#search_total_btn").unbind().on("click",function(){
+		getAjaxCall("${def:actionroot}/querytotal?fdate="+$("#fdate").val()+"&tdate="+$("#tdate").val(), true);
+	});
+	$("#search_total_btn").click();
+	this.search = search;
+	search = $Search({datagrid:"datagrid", formId:"searchForm", rowpackage:function(obj){
+		//业绩 = 到访量×成交率×产品均价    如果三个数值都为0，业绩为0 
+		if(obj.visitnum==0&&obj.rate==0&&obj.avgfee==0){
+			obj.zhfee = 0;
+		}else{
+			obj.zhfee = Number((0 == obj.visitnum ? 1 : obj.visitnum)*(0 == obj.rate ? 1 : (obj.rate/100))*(0 == obj.avgfee ? 1 : obj.avgfee)).toFixed(2);
+		}
+		if(obj.rate>100){
+			obj.rate = 100;
+		}else if(obj.rate<-100){
+			obj.rate = -100.00;
+		}
+		obj.averagevisitnum = Math.ceil(obj.visitnum/(datedifference($("#tdate").val(), $("#fdate").val())+1));
+	},success:function(){
+		
+	}}).initSearchBtn().searchData(1);
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="tuid" type="varchar" required="true" label="id" />
+    <parameter id="vc_mc" type="varchar" required="true" label="vc_mc" />
+    <parameter id="vc_remark" type="varchar" required="false" label="vc_remark" />
+    <parameter id="vc_guestcode" type="varchar" required="false" label="vc_guestcode" />
+    <parameter id="vc_contractcode" type="varchar" required="false" label="vc_contractcode" />
+    <parameter id="posptid" type="varchar" required="false" label="POS教练" />
+</validator>

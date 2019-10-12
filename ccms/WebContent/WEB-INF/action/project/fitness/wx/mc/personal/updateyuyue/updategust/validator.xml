@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/wx/util/validation/alert">
+	
+    <parameter id="commcode" type="varchar" required="true" label="commcode" maxlen="128"/>
+	<parameter id="date" type="varchar" required="false" label="date" maxlen="64"/>
+	<parameter id="time" type="varchar" required="true" label="time" maxlen="64"/>
+
+</validator>

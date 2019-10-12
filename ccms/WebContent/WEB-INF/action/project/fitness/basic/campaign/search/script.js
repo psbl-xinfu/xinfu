@@ -1,0 +1,18 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		   "application_id":"${fld:application_id@js}",
+		    "tuid":"${fld:_rowNumber}",
+		    "vc_code":"${fld:code@js}",
+		    "startdate":"${fld:startdate@yyyy-MM-dd}",
+		    "campaign_name":"${fld:campaign_name@js}",
+		    "enddate":"${fld:enddate@yyyy-MM-dd}",
+		    "discount":"${fld:discount}",
+		    "remark":"${fld:remark@js}",
+		    "vc_clubcode":"${fld:vc_clubcode@js}",
+		    "is_enabled":"${fld:is_enabled@js}",
+		    "vc_cardtype":"${fld:vc_cardtype@js}"
+	},
+	</rows>
+	{}
+]}

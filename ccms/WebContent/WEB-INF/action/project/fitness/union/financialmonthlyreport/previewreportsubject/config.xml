@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		编辑系统应用
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="getrecordshouruone.sql" source="sql" scope="transaction" />
+		<recordset id="getrecordzhichuone.sql" source="sql" scope="transaction" />
+		<recordset id="getrecordshourutwo.sql" source="sql" scope="transaction" />
+		<recordset id="getrecordzhichutwo.sql" source="sql" scope="transaction" />
+		<recordset id="getrecordshouruthree.sql" source="sql" scope="transaction" />
+		<recordset id="getrecordzhichuthree.sql" source="sql" scope="transaction" />
+		<recordset id="getrecordshourufour.sql" source="sql" scope="transaction" />
+		<recordset id="getrecordzhichufour.sql" source="sql" scope="transaction" />
+		<recordset id="querymonth.sql" source="sql" scope="transaction" />
+		<recordset id="queryreportmonthly.sql" source="sql" scope="transaction" />
+		<recordset id="querystores.sql" source="sql" scope="transaction" />
+		<recordset id="queryamonut.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="getrecordshouruone.sql" tag="shouruone-rows"/>
+		<print mode="table" recordset="getrecordzhichuone.sql" tag="zhichuone-rows"/>
+		<print mode="table" recordset="getrecordshourutwo.sql" tag="shourutwo-rows"/>
+		<print mode="table" recordset="getrecordzhichutwo.sql" tag="zhichutwo-rows"/>
+		<print mode="table" recordset="getrecordshouruthree.sql" tag="shouruthree-rows"/>
+		<print mode="table" recordset="getrecordzhichuthree.sql" tag="zhichuthree-rows"/>
+		<print mode="table" recordset="getrecordshourufour.sql" tag="shourufour-rows"/>
+		<print mode="table" recordset="getrecordzhichufour.sql" tag="zhichufour-rows"/>
+		<print mode="table" recordset="querymonth.sql" tag="month-rows"/>
+		<print mode="table" recordset="queryreportmonthly.sql" tag="reportmonthly-rows"/>
+		<print mode="table" recordset="queryreportmonthly.sql" tag="reportmonthly-rows2"/>
+		<print mode="form" recordset="querystores.sql"/>
+		<print mode="form" recordset="queryamonut.sql"/>
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

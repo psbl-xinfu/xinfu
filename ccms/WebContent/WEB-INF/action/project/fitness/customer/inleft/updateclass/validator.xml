@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="cpcode" type="varchar" required="flass" label="团操id" maxlen="64" />
+	<parameter id="incode" type="varchar" required="true" label="入场id" maxlen="64" />
+  <!--  	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该入场记录已经签课！" id="incode" sql="noRep.sql" /> -->
+</validator>

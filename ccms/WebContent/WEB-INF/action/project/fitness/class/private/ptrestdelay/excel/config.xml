@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		会员剩余
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_cust,daochu_ptdefcode,daochu_pt</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="会员剩余" filename="会员剩余记录.xls" header-background="true">
+		<col id="name" label="会员姓名" /> 
+		<col id="mobile" label="会员电话" />
+		<col id="ptlevelname" label="课程" />
+		<col id="pttype" label="来源" /> 
+		<col id="pttotalcount" label="购买课时" />
+		<col id="ptleftcount" label="剩余课时" />
+		<col id="ptid" label="私教" />
+		<col id="created" label="购买时间" /> 
+		<col id="ptenddate" label="结束时间" />
+		<col id="buyday" label="已购课天数" />
+		<col id="delayday" label="已延期天数" />
+		
+	</excel>
+
+
+</config>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="c_campaign_name" type="varchar" required="true" label="活动名称" maxlen="32" />
+    
+     <parameter id="c_validatetype" type="varchar" required="true" label="有效期" maxlen="32" />
+     <parameter id="c_startdate" type="date" required="false" label="开始日" maxlen="32" />
+     <parameter id="c_enddate" type="date" required="false" label="结束日" maxlen="32" />
+    
+     <parameter id="c_link" type="varchar" required="true" label="链接" maxlen="32" />
+     <parameter id="c_campaignrules" type="varchar" required="true" label="规则" maxlen="32" /> 
+      <parameter id="c_status" type="integer" required="true" label="状态" maxlen="32" />    
+<!-- 姓名需要验证是否重复 -->
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="c_campaign_name" sql="norep.sql" />
+</validator>
+

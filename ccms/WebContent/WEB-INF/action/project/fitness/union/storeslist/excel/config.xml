@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_org_name</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="门店列表记录" filename="门店列表记录.xls" header-background="true">
+		<col id="org_name" label="门店名称" /> 
+		<col id="short_name" label="简称" />
+		<col id="memberhead" label="编号" />
+		<col id="address" label="地址" />
+		<col id="contacts" label="负责人" />
+		<col id="contact_phone" label="联系电话" />
+		<col id="remark" label="备注" />
+	</excel>
+</config>

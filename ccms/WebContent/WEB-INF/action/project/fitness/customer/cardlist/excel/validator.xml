@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_startdate" type="varchar" required="false" label="startdate" />
+	<parameter id="daochu_enddate" type="varchar" required="false" label="enddate" />
+	<parameter id="daochu_cardall" type="varchar" required="false" label="卡号/名称/手机号" />
+	<parameter id="daochu_cardtype" type="varchar" required="false" label="卡类型" />
+	<parameter id="daochu_status" type="varchar" required="false" label="卡状态" />
+</validator>

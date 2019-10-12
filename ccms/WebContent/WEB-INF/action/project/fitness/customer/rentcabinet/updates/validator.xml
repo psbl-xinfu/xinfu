@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="type" type="varchar" required="true" label="是否退押金"/>
+</validator>

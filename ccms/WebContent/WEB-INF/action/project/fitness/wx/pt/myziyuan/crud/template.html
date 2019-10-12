@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+        <title>我的资源</title>
+        <link href="${def:context}/js/project/fitness/wx/css/bootstrap-slider.min.css" rel="stylesheet">
+     	<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/style.css?v=7" />
+     	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet">
+    </head>
+    <body>
+     <form id='filter' name='filter'>
+       <div class="myziyuanlisttop">
+            <div class="shurukuang">
+             <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入资源姓名/电话"oninput="updateurl(this)">
+                 <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
+            </div>
+             <div class="searchbtn text-center" data-toggle="modal" data-target="#myModal">筛选</div>
+        </div>
+        
+        
+       	  <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
+            <input type="hidden" id="s_period_day" name="s_period_day"  />
+			<input type="hidden" id="s_baohuqi" name="s_baohuqi" value="">
+			<input type="hidden" id="s_stime"name="s_stime" >
+			<input type="hidden" id="s_etime"name="s_etime" >
+			<input type="hidden" id="s_status"name="s_status" >
+			<input type="hidden" id="s_level"name="s_level" >
+			<input type="hidden" id="s_genjin"name="s_genjin" >
+			<input type="hidden" id="s_comm"name="s_comm" >
+     </form>
+
+        <div class="myziyuanlistbody">
+        </div>
+        
+           <div class="modal fade" id="myModal"  role="dialog" aria-labelledby="myModalLabel" >
+            <div class="modal-dialog" role="document" style="background: white">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #CCC"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">筛选条件</h4>
+                    </div>
+                    <div class="modal-body">
+                    	<div class="mokuai">
+                            <h5>剩余保护期</h5>
+                            <div class="content">
+                                <div class="well">
+                                    <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="101" data-slider-step="1" data-slider-value="101" value="101" />
+                                </div>
+                                <div class="keduzhi">
+                                    <p class="fl">0</p>
+                                    <p class="fr">100</p>
+                                </div>
+                            </div>
+                        </div>                
+                    
+                        <div class="mokuai">
+                            <h5>资源入会日期</h5>
+                            <div class="content">
+                                <input type="text" name=""  class="form-control timeinput" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
+                                <span>&nbsp;至&nbsp;</span>
+                                <input type="text" name=""  class="form-control timeinput" id="datetimepickers" data-date-format="yyyy-mm-dd hh:ii">
+                            </div>
+                        </div>                    
+                    
+                        <div class="mokuai">
+                            <h5>资源状态</h5>
+                            <div class="content">
+                                <button class="btn btn-default btn1" type="submit">本月新增<input type="hidden" name="" value="1"></button>
+                                <button class="btn btn-default btn1" type="submit">本月分配<input type="hidden" name="" value="2"></button>
+                                <button class="btn btn-default btn1" type="submit">本月未跟进<input type="hidden" name="" value="3"></button>
+                                <button class="btn btn-default btn1" type="submit">本月生日<input type="hidden" name="" value="4"></button>
+                                <button class="btn btn-default btn1" type="submit">七日内生日<input type="hidden" name="" value="5"></button>
+                            </div>
+                        </div>                    
+                    
+
+                       <div class="mokuai">
+                            <h5>关注度</h5>
+                            <div class="content">
+                            <levle>
+                                        <button class="btn btn-default btn2" type="submit">${fld:domain_text_cn}<input type="hidden" name="" value="${fld:domain_value}"></button>
+                           </levle>
+                            </div>
+                        </div> 
+
+
+                        <div class="mokuai">
+                            <h5>跟进状态</h5>
+                            <div class="content">
+                                <button class="btn btn-default btn3" type="submit">未跟进<input type="hidden" name="" value="0"></button>
+                                <button class="btn btn-default btn3" type="submit">已跟进<input type="hidden" name="" value="1"></button>
+                            </div>
+                        </div>
+                        
+                       <div class="mokuai">
+                            <h5>沟通阶段</h5>
+                            <div class="content ">
+                            <stage>
+                                        <button class="btn btn-default btn4" type="submit">${fld:domain_text_cn}<input type="hidden" name="" value="${fld:domain_value}"></button>
+                            </stage>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default fl resetbtn">重置</button>
+                        <button type="button" class="btn btn-primary fr submitbtn">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/bootstrap-slider.min.js" ></script> 
+         <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+     <script>
+     
+     $(function(){
+    		homept();
+     	<day>
+     	$('#s_period_day').val("${fld:period_day}");
+     	</day>
+     	
+     	
+     	getlist();
+     	
+         var currYear = (new Date()).getFullYear();  
+         var opt={};
+         opt.date = {preset : 'date'};
+         opt.datetime = {preset : 'datetime'};
+         opt.time = {preset : 'time'};
+         opt.default = {
+        		 theme: 'android-ics light', //皮肤样式
+                 display: 'bottom', //显示方式 
+             mode: 'scroller', //日期选择模式
+             dateFormat: 'yy-mm-dd',
+             lang: 'zh',
+             showNow: true,
+             nowText: "今天",
+             startYear: currYear - 50, //开始年份
+             endYear: currYear + 10 //结束年份
+         };
+
+         
+         $("#datetimepicker").mobiscroll($.extend(opt['date'], opt['default']));
+         $("#datetimepickers").mobiscroll($.extend(opt['date'], opt['default']));
+         
+
+         // 滑块With JQuery
+         $("#ex1").slider({
+             tooltip: 'always',
+          	formatter: function(value) {
+          		 if(Number(value) > 100 ){
+          			return "无限";
+          		 }
+          		 return value;
+          	}
+         });
+
+         //资源状态
+         $('.btn1,.btn2,.btn3,.btn4').click(function(){
+             $(this).removeClass('btn-default');
+             $(this).addClass('btn-warning');
+             $(this).siblings('button').removeClass('btn-warning');
+             $(this).siblings('button').addClass('btn-default');
+         });
+
+         //重置
+         $('.resetbtn').click(function(){
+             $('.btn1,.btn2.btn3,.btn4').removeClass('btn-warning');
+             $('.btn1,.btn2,.btn3,.btn4').addClass('btn-default');
+             $('.timeinput').val('');
+         });
+
+         //提交
+         $('.submitbtn').click(function(){
+             var baohuqi=$('#ex1').val();
+             var time1=$('#datetimepicker').val();
+             var time2=$('#datetimepickers').val();
+             
+             var select1=$('.btn1.btn-warning').children('input').val();
+             var select2=$('.btn2.btn-warning').children('input').val();
+             var select3=$('.btn3.btn-warning').children('input').val();
+             var select4=$('.btn4.btn-warning').children('input').val();
+             
+             
+             if(baohuqi>100){
+            	    $('#s_baohuqi').val('')
+             }else{
+            	    $('#s_baohuqi').val(baohuqi)
+             }
+             
+             
+             $('#s_stime').val(time1)//开始
+             $('#s_etime').val(time2)//结束
+             
+             
+             $('#s_status').val(select1)//资源状态
+             $('#s_level').val(select2)//关注度
+             $('#s_genjin').val(select3)//跟进状态
+             $('#s_comm').val(select4)//沟通状态
+         	getlist();
+             $('#myModal').modal('hide');
+         });
+      	$('.searchsubmit').on('click',function(){
+       	 	getlist();
+       	})
+     });
+     
+     
+     
+     function getlist(){
+     	postAjaxCall("/action/project/fitness/wx/pt/myziyuan/search?",'filter',false);
+     }
+     
+     
+/*     $('.searchbtn').click(function(){
+	    	var url = "${def:context}${def:actionroot}/search/";
+	    	ajaxCall(url,{
+	    		method: "post",
+	    		progress: false,
+	    		dataType: "script",
+	    		form:"search_form",
+	    		success: function() {}
+	    	})
+    }); */
+    function updateurl(obj){
+		   if($(obj).val()!=""){
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/sousuo_on.png")
+		   }else{
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/search.png")
+		   }
+ }
+    </script> 
+    </body>
+</html>

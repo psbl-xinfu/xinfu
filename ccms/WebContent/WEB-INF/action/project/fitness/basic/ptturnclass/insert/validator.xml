@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="ptrestcode" type="varchar" required="true" label="私教课库存编号" maxlen="128"/>
+    <parameter id="custcode" type="varchar" required="true" label="原会员编号" maxlen="128"/>
+    
+    <parameter id="newcustcode" type="varchar" required="true" label="新会员编号" maxlen="128"/>
+    <parameter id="newcustname" type="varchar" required="true" label="新会员姓名" maxlen="128" />
+    
+	<parameter id="turnclasspt" type="varchar" required="false" label="转课教练" maxlen="128"/>
+	<parameter id="ptclasscount" type="integer" required="true" label="转课节数" />
+	<parameter id="org_id" type="varchar" required="true" label="俱乐部编号" />
+	
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="转课节数不能大于私教剩余节数！" id="ptclasscount" sql="nodup-ptleftcount.sql" />
+</validator>

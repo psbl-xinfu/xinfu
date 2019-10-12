@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>卡号规则</title>
+</head>
+<body>
+<div>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body sz-xtgl">
+			<form method="post" name="formEditor" id="formEditor" class="titlecust">
+			   <input type="hidden" id="iscardcodelimit_id" name="iscardcodelimit_id" value="${fld:iscardcodelimit_id}" preserve="true"/>
+			   <input type="hidden" id="whichseventype_id" name="whichseventype_id" value="${fld:whichseventype_id}" preserve="true"/>
+			   <input type="hidden" id = "radios" name = "radios" value="" ></input>
+			  <div class="xt-1-div hasRadio">
+					<label for="ccc" style="color: white;"></label>
+			   	 	<input type="radio" id = "iscardcodelimit1" name = "iscardcodelimit" value="0" onclick="radioclick()"/>
+					<span style="color: white;">卡号不限制可以为任意数</span>
+				</div>
+			   <div class="xt-1-div hasRadio">
+					<label for="ccc" style="color: white;"></label>
+					<input type="radio" id = "iscardcodelimit2"  name = "iscardcodelimit" value="1" onclick="radioclick()"/>
+					<span style="color: white;">限制系统卡号为8位</span>
+				</div>
+			   <div class="xt-1-div hasRadio">
+					<label for="ccc" style="color: white;"></label>
+			   	 	<input type="radio" id = "whichseventype1" name = "whichseventype" value="0" disabled/>
+					<span style="color: white;">如果输入的卡号或卡面印刷的号码不足8位，系统卡号取为：头字母编号2位+输入卡号右6位（位数不足补0）</span>
+				</div>
+			   <div class="xt-1-div hasRadio">
+					<label for="ccc" style="color: white;"></label>
+					<input type="radio" id = "whichseventype2" name = "whichseventype" value="1" disabled/>
+					<span style="color: white;">如果输入的卡号或卡面印刷的号码为7位时，系统卡号取为：头字母编号2位+输入卡号右5位（位数不足补0）</span>
+				</div>
+		   <div class="banner-top ba1" style="margin-top:15px;">
+			   	 <button id="edit_btn" type="button" class="my-btn-default active">确定</button>
+		   </div>
+	</form>
+</div>
+</div>
+</div>
+<script language="JavaScript">
+function radioclickload(){
+	var radio2 = document.getElementById("iscardcodelimit2").value;
+	if("${fld:iscardcodelimit}"!="undefind" && "${fld:iscardcodelimit}"!=""){
+		if("${fld:iscardcodelimit}"==radio2){
+			$("#whichseventype1,#whichseventype2").iCheck('enable');
+		}else{
+			$("#whichseventype1,#whichseventype2").iCheck('disable');
+		}
+	}
+}
+
+$(document).ready(function() {
+	ccms.util.renderRadio("iscardcodelimit");
+	ccms.util.renderRadio("whichseventype");
+	radioclickload();
+	ccms.util.setCheckboxValue('iscardcodelimit',"${fld:iscardcodelimit}","formEditor");
+	ccms.util.setCheckboxValue('whichseventype',"${fld:whichseventype}","formEditor");
+	$("#radios").val("${fld:whichseventype}");
+
+	$("#whichseventype1, #whichseventype2").on('ifClicked',function(){
+		 $("#radios").val($(this).val());
+	});
+
+	$("#iscardcodelimit1").on('ifClicked',function(){
+		$("#whichseventype1,#whichseventype2").iCheck('disable');
+	});
+	$("#iscardcodelimit2").on('ifClicked',function(){
+		$("#whichseventype1,#whichseventype2").iCheck('enable');
+	});
+	
+	$("#edit_btn").click(function updateData(){
+		var whichseventype_id = $("#whichseventype_id").val();
+		var iscardcodelimit_id = $("#iscardcodelimit_id").val();
+		var iscardcodelimit = ccms.util.getRadioValue("iscardcodelimit","formEditor");
+		var whichseventype = ccms.util.getRadioValue("whichseventype","formEditor");
+		var uri = "${def:context}${def:actionroot}/update?";
+		//修改参数
+		url(uri+"tuid="+iscardcodelimit_id+"&param_text="+iscardcodelimit);
+		if(iscardcodelimit=="1"){
+			url(uri+"tuid="+whichseventype_id+"&param_text="+whichseventype);
+		}
+		ccms.dialog.alert("修改成功！");
+	})
+	
+	function url(uri){
+		ajaxCall(uri,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	 		}
+	 	});
+	}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>我的任务</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="mybaobiaolisttop">
+            <div class="shurukuang">
+                <input type="text" name=""  class="form-control dateinput" id="datetimepicker" data-date-format="yyyy-mm-dd" placeholder="">
+                <img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png" class="select_jiantou">
+            </div>
+
+        </div>
+
+       
+        <div class="mybaobiaolistbody container">
+                <div class="row">
+                    <div class="col-xs-5"style="width: 125px">
+                        <p class="biaoti">项目</p>
+                    </div>
+                    <div class="col-xs-2" style="width: 65px">
+                        <p class="biaoti">今日</p>
+                    </div>
+                    <div class="col-xs-2"style="width: 65px">
+                        <p class="biaoti">本月</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="biaoti">已完成</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-5"style="width: 125px">
+                        <p class="names">资源获取量</p>
+                    </div>
+                    <div class="col-xs-2"style="width: 65px">
+                        <p class="number"  id="guest_daynum">0</p>
+                    </div>
+                    <div class="col-xs-2"style="width: 65px">
+                        <p class="number" id="guest_monnum">0</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="number" id="guest_target">100%</p>
+                    </div>
+                </div>
+                
+                
+                
+                <div class="row">
+                    <div class="col-xs-5"style="width: 125px">
+                        <p class="names" id="">跟进量</p>
+                    </div>
+                  <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="genjin_daynum">0</p>
+                    </div>
+                   <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="genjin_monnum">0</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="number" id="follow_target">100%</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5"style="width: 125px">
+                        <p class="names">预约量</p>
+                    </div>
+                   <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="pre_daynum">0</p>
+                    </div>
+                   <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="pre_monnum">0</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="number" id="prepare_target">100%</p>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-xs-5"style="width: 125px">
+                        <p class="names">预约到访量</p>
+                    </div>
+                 <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="precome_daynum">0</p>
+                    </div>
+                   <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="precome_monnum">0</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="number"id="visit_target">100%</p>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-xs-5"style="width: 125px">
+                        <p class="names">成单量</p>
+                    </div>
+                   <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="contract_daynum">0</p>
+                    </div>
+                  <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="contract_monnum">0</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="number" id="ordernum_target">100%</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5"style="width: 125px">
+                        <p class="names">成单额</p>
+                    </div>
+                   <div class="col-xs-2" style="width: 65px">
+                        <p class="number" id="contractprice_daynum">0</p>
+                    </div>
+                  <div class="col-xs-2" style="width: 65px">
+                        <p class="number"id="contractprice_monnum">0</p>
+                    </div>
+                    <div class="col-xs-3">
+                        <p class="number" id="orderfee_target">100%</p>
+                    </div>
+                </div>
+                
+            </div>
+            <input type="hidden" id="skill_scope">
+             <input type="hidden" id="code">
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+var s_date='${def:date}';
+
+    $(function(){
+    	homemc();
+    	$('#datetimepicker').val(s_date);
+ 	   var target_date=new Date(s_date).format("yyyy-MM");
+    	getCode(target_date);
+    	
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式  
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10,//结束年份	
+            onSelect:function(valueText,inst){
+            		s_date=valueText;
+        		   var target_date=new Date(valueText).format("yyyy-MM");
+        	 	   getCode(target_date);
+        		}
+        };
+        $("#datetimepicker").mobiscroll( $.extend(opt['date'], opt['default']) );
+    });
+    function getCode(target_date){
+    	getAjaxCall("/action/project/fitness/wx/mc/personal/task/getcode?target_date="+target_date+"&skilltype=${fld:skilltype}", false);
+    }
+    
+    function gettask(code){
+    	getAjaxCall("/action/project/fitness/wx/mc/personal/task/gettask?tuid="+code+'&s_date='+s_date, false);
+    }
+</script>

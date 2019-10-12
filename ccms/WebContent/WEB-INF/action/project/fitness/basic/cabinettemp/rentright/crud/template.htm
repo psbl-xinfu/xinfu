@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>手牌设置</title>
+   
+</head>
+<style>
+            #content{
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width:100px;
+            }
+        </style>
+<body >
+<input type="hidden"  id="in_status">
+<div class="modal fade" id="modalAddnew_r"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+				<header class="header-default">
+					<span id="formTitle">新增</span>
+					<span class="header-close " id="guanbi1"></span>
+				</header>
+				<div class="b-i-main">
+					<form id="formEditor_r" name="formEditor_r" method="post">
+   						<div id="checkedNodesDiv" style="display: none"></div>
+						<input type="hidden" id="groupid_r" name="groupid_r" value=""/>
+					<nav>
+						<li >
+							<label style="width: 120px;">区域：</label>
+							<!--<div class="my-selected">-->
+							<select  id="group_r" name="group_r" class="normal-select"> 
+								<group-rows>
+									<option  code="${fld:groupcode}" value="${fld:tuid}">${fld:groupname}</option>
+								</group-rows>
+							</select>
+							<!--  </div>-->
+						</li>
+						
+						<li >
+						<label>区域编号：</label>
+						<span  id="groupcode_r"></span>
+						</li>
+						
+						<li >
+						<label style="width: 120px;">起始编号：</label>
+							<input type="text"  id="startcode_r" name="startcode_r" value="" maxlength="80"  placeholder="起始编号"/>
+						</li>
+						
+						<li >
+						<label>填充位数：</label>
+							<input type="text"  id="fillnum_r" name="fillnum_r" value="" maxlength="80"  placeholder="填充位数"/>
+						</li>
+						
+						<li >
+						<label style="width: 120px;">手牌数量：</label>
+							<input type="text"  id="codenum_r" name="codenum_r"  value="" maxlength="80" placeholder="手牌数量"/>
+						</li>
+						
+						<li >
+						<label>编号间隔：</label>
+							<input type="text"  id="codeinterval_r" name="codeinterval_r" value="" maxlength="80" placeholder="编号间隔"/>
+						</li>					
+					</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn_r" class="my-btn-default active">保存</button>
+				</footer>
+			</div>
+		</div>
+	<div class="modal fade" id="modaledit_r"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+				<header class="header-default">
+					<span id="formTitle">手牌状态</span>
+					<span class="header-close " id="guanbi2"></span>
+				</header>
+				<div class="b-i-main">
+					<form id="formStatus_r" name="formStatus_r" method="post"> 
+					<input type="hidden"  id="cab_tuid" name="cab_tuid" value="" maxlength="80"  readonly="readonly"/> <!-- zzn190320,传手牌号tuid -->
+					<nav>
+						<li >
+							<label style="width: 120px;">区域：</label>
+								<input type="text"  id="group2_r" name="group2_r" value="" maxlength="80"  readonly="readonly"/>							
+						</li>
+						<li >
+							<label>手牌编号：</label>
+							<input type="text"  id="cabinetcode2_r" name="cabinetcode2_r" value="" maxlength="80"  />							
+						</li>
+						<li >
+							<label style="width: 120px;">状态：</label>
+						   	<select id="status2_r" name="status2_r">
+								<option  value="0">空闲</option>
+								<option  value="1">已占用</option>
+								<option  value="2">无效</option>
+								<option  value="3">其他</option>
+							</select>
+						</li>	
+						<li >
+							<label>物理状态：</label>
+							<select  id="physics_status_r" name="physics_status_r">
+								<option  value="1">正常</option>
+								<option  value="0">损坏</option>
+							</select>
+						</li>						
+					</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn2_r" class="my-btn-default active">保存</button>
+				</footer>
+			</div>
+		</div>
+
+			<form  method="post" id="searchFormright" action="${def:context}${def:actionroot}/search">
+				<input name="sort" type="hidden" value="b.tuid" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+				<input type="hidden" id="s_name_r" name="s_name_r" value=""/>
+				<input type="hidden" id="s_groupid_r" name="s_groupid_r" value=""/>
+				<input type="hidden" id="s_status_r" name="s_status_r" value=""/>
+				<div class="change-left" >
+						<div class="tab-left">
+							<span>临时储物柜设置</span>
+								<!--<li  style="width:3% ;color: #D1DCDE;">-->
+								<!--<i class="am-icon-plus"  data-toggle="modal" id="addnew_btn_r" title="新增"></i>-->
+									<li  style="color: #D1DCDE;width: 6.5%;font-size: 13px;font-weight: bold;">
+								<i class="am-icon-plus"  data-toggle="modal" id="addnew_btn_r" title="新增">&nbsp;新增</i>
+								</li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="update2_btn_r">
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="delete2_btn_r">
+						</div>
+						<!-- 通用表格 -->
+						<div class="r-tab-cout-3-b">
+								<div class="to-change-background h-43"></div>
+								<table> 
+									<thead>
+										<tr>
+											<th class="table-checkbox">
+												<input id="selectAll_r"  name="r_datalist"  type="checkbox" value="" style="display: none;" >
+											</th>
+											<th>区域名称</th>
+											<th>区域编号</th>
+											<th>手牌号</th>
+											<th>使用状态</th>
+											<th>物理状态</th>
+											<th>姓名</th>
+											<th>电话</th>
+										</tr>
+									</thead>
+									
+									<tbody id="datagrid1Template" style="display: none">
+										<tr>
+										 <td class="table-checkbox">#r_application_id#</td> 
+											<td class="mustWrap">#r_groupname#</td>
+											<td >#r_gid#</td>
+											<td ><div style='width:100px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;' title='#r_bid#'>#r_bid#</div></td>
+											<td >#r_status#</td>
+											<td >#r_physics_status#</td>										
+											<td >#r_name#</td>										
+											<td >#r_mobile#</td>
+										</tr>
+									</tbody>
+									<tbody id="datagrid1">
+									</tbody>
+								</table>
+								<div class="pageDiv">
+								<ul class="pagination" data-target="datagrid1">
+									</ul>
+								</div>
+							</div>
+				</div>
+				
+				
+				
+			</form>
+	<input type="hidden" name="actionroot2" id="actionroot2" value="${def:actionroot}" />
+	<script language="JavaScript">
+	document.onload = function(){
+         content.onmouseover = function(){
+             this.title = this.innerHTML;
+         }
+     }
+
+var search2=null;
+$(document).ready(function() {
+	searchSelectInit($("#group_r,#status2_r,#physics_status_r"));
+	$("#guanbi2,#guanbi1").on("click",function(){
+		$("#modalAddnew_r").modal('hide');
+		$("#modaledit_r").modal('hide');
+		ccms.util.clearForm('formStatus_r');
+		ccms.util.clearForm('formEditor_r');
+	});
+	
+	
+	$("#groupcode_r").text($("#group_r option:selected").attr('code'))
+		//修改
+	$("#update2_btn_r").unbind().on("click",function(){
+		var leng=$('input[name="r_datalist"]:checked').length
+		var value=$('input[name="r_datalist"]:checked').val()
+		if(leng==1&&value!=""){
+			$("#modaledit_r").modal('show');
+			edit2(value);
+		}else{
+			ccms.dialog.alert('请选择一个手牌');
+		}
+	});
+	//确认修改
+	$("#save_btn2_r").unbind().on("click",function(){
+		update2();
+	}); 
+	//批量删除
+	$("#delete2_btn_r").unbind().on("click",function(){
+		deletes2();
+	}); 
+	
+	$("#group_r").change().on("change",function(){
+		$("#groupcode_r").text($("#group_r option:selected").attr('code'))
+	}); 
+	//搜索
+	$("#search_btn_r").unbind().on("click",function(){
+		searchRightList();
+	}); 
+	//批量新增
+	$("#save_btn_r").unbind().on("click",function(){
+		if($('#codenum_r').val()!=0){
+			if($('#codenum_r').val()==1){
+				inserts();
+			}else{
+				insertss();
+			}
+		}else{
+			ccms.dialog.alert("请输入手牌数量");
+		}
+	}); 
+	
+	var obj = $Crud({
+		formId:"formEditor_r",
+		button:"save_btn",
+		bpkField:"groupid_r",
+		actionroot:"${def:actionroot}",
+		modalId:"modalAddnew_r",
+		addNewButton:"addnew_btn_r",
+		updateBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			setSelectValue($("#group_r"), $("#s_groupid_r").val());
+			$("#formTitle").html("新增");
+			$("#in_status").val('');
+			$("#codenum_r").val(0);
+			$("#price_r").val(0);
+			$("#fillnum_r").val(0);
+			$("#codeinterval_r").val(1);
+		},
+		validate:function(){
+			var flag=$("#formEditor").validate({
+		});
+			return flag;
+		},
+	}).init();
+		this.search2=search2;
+		search2=$Search({datagrid:"datagrid1",formId:"searchFormright",success:function(){
+			ccms.util.renderCheckbox("r_datalist");
+			$("#selectAll_r").unbind().on("ifClicked",function(){
+				if( $(this).prop("checked") ){
+					$('input[name=r_datalist]').iCheck('uncheck');
+				}else{
+					$('input[name=r_datalist]').iCheck('check');
+				}
+			});
+	}}).initSearchBtn().searchData(1);
+});
+
+function edit2(value){
+	var url = "${def:context}${def:actionroot}/edit?id="+value
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+		}
+	});
+}
+	
+function update2(){
+	if($('#in_status').val()=='1'){
+		if($('#in_status').val()!=$('#status2_r').val()){
+			ccms.dialog.alert("已占用状态无法修改其他状态！");
+			return false;
+		}
+	}else{
+		if($('#status2_r').val()=='1'){
+			ccms.dialog.alert("状态不能修改成已占用！");
+			return false;
+		}
+	}
+	
+	var url = "${def:context}${def:actionroot}/update";
+	ajaxCall(url,{
+	   	method: "post",
+	   	form:"formStatus_r",
+		progress: true,
+		dataType: "script",
+		success: function() {
+			ccms.dialog.alert("操作成功！");
+			$("#modaledit_r").modal('hide');
+			search2.searchData(1);
+		}
+	});
+}
+
+function deletes2(){
+	var obthis = getCheckboxValue("r_datalist");
+	var flag=true;
+	$('input[name=r_datalist]:checked').each(function(){
+		if($(this).attr('code')==1){
+			flag=false;
+		}
+	})
+	
+	if(obthis!= ""){
+		if(flag){
+			$Dialog().confirm("确定要删除这些数据吗?", function(){
+				var url = "${def:context}${def:actionroot}/deletes?id="+obthis;
+				ajaxCall(url,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+						ccms.dialog.alert("操作成功！");
+						search2.searchData(1);
+					}
+				});
+			});
+		}else{
+			ccms.dialog.alert("不能删除已占用手牌！")
+		}
+	}else{
+		ccms.dialog.alert("请选择手牌！")
+	}
+} 
+
+function insertss(){
+	var divobj = $("#checkedNodesDiv");
+	var startcode= parseInt($('#startcode_r').val());//起始编号
+	var codenum=  parseInt($('#codenum_r').val());//手牌数量
+	var codeinterval=  parseInt($('#codeinterval_r').val());//编号间隔
+	var fillnum=  parseInt($('#fillnum_r').val());//填充位数
+	var price =  parseInt($('#price_r').val());
+	
+	var front=$("#group_r option:selected").attr('code');
+	var groupcode= $('#group_r').val();//区域
+	var codes = new Array();　
+	for(var i=0;i<codenum;i++){
+		codes.unshift(front+(startcode+i*codeinterval))
+	}
+	
+	for(var i=0;i<codes.length;i++){
+	 		var codeslen=codes[i].toString().length
+			if(codeslen<=fillnum){  //zzn190320 增加了等于的判断
+				var head=codes[i].substring(0,1);
+				codes[i]=codes[i].substring(1);
+				codes[i]=head+lpad(codes[i],fillnum,'0');
+			}
+
+		}  
+	
+	divobj.empty();
+	for(var i = 0; i < codes.length; i++){
+		var code = codes[i]
+    	divobj.append('<input type="hidden" name="groupid" value="' + groupcode + '" />');
+    	divobj.append('<input type="hidden" name="cabinetcode" value="' + code + '" />');
+	}
+	
+	var uri="${def:context}/action/project/fitness/basic/cabinettemp/rentright/inserts";
+	   ajaxCall(uri,{
+		   	method: "post",
+		   	form:"formEditor_r",
+		   	progress: false,
+		   	dataType: "script",
+		   	success: function() {
+		   		search2.searchData(1);
+		   		}
+		   	}); 
+}
+
+function inserts(){
+	var fillnum=  parseInt($('#fillnum_r').val());
+	var front=$("#group_r option:selected").attr('code')
+	if(fillnum!=""){
+		var startcode= front+parseInt($('#startcode_r').val());
+		if(startcode.toString().length<fillnum){
+			var head=startcode.substring(0,1);
+			startcode=startcode.substring(1);
+			startcode=head+lpad(startcode,fillnum,'0');
+			$('#startcode_r').val(startcode);
+		}
+	}
+	
+	var uri="${def:context}/action/project/fitness/basic/cabinettemp/rentright/insert";
+	   ajaxCall(uri,{
+		   	method: "post",
+		   	form:"formEditor_r",
+		   	progress: false,
+		   	dataType: "script",
+		   	success: function() {
+		   		 search2.searchData(1);
+		   		}
+		   	}); 
+}
+
+function searchRightList(){
+	 search2.searchData(1);
+}
+</script>
+</body>
+</html>

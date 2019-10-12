@@ -1,0 +1,35 @@
+
+<!-- 底部固定 tabBar -->
+<ul class="foot-nav">
+	<li data-type="location"><span class="icon-bar_location"></span></li>
+	<li data-type="notice"><span class="icon-bar_notice"></span></li>
+	<li data-type="" id="groupicon"><span class="" id="groupspanicon"></span></li>
+	<!-- <li data-type="data" id="captainicon" style="display: none;"><span class="icon-bar_table"></span></li> -->
+	<li data-type="menu"><span class="icon-bar_menu"></span></li>
+	<li data-type="myhome"><span class="icon-bar_myhome"></span></li>
+</ul>
+
+<script language="JavaScript">
+$(document).ready(function() {
+	ajaxCall("${def:actionroot}/searchskill",{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+});
+//li标签选中
+function tabswitch(type){
+	$(".foot-nav li span").removeClass("active");
+	if(type=="1"){
+		$(".icon-bar_location").addClass("active");
+	}else if(type=="2"){
+		$(".icon-bar_notice").addClass("active");
+	}else if(type=="3"){
+		$(".icon-bar_menu").addClass("active");
+	}else if(type=="4"){
+		$(".icon-bar_myhome").addClass("active");
+	}
+}
+</script>

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		员工管理修改
+	</summary>
+	
+	<log>false</log>
+
+	<audit>
+		<recordset>query.sql</recordset>
+		<cols>
+			<colname>userlogin</colname>
+		</cols>
+		<table>s_user</table>
+		<oper>修改</oper>
+		<area>密码</area>
+		<pkey>user_id</pkey>
+	</audit>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-user.sql" source="sql" scope="transaction" />
+	</transaction>
+	<query>update-customer.sql</query>
+	<query>update-hr_staff.sql</query>
+	<query>update.sql</query>
+	<query>insert-name-log.sql</query>
+	<query>insert-sex-log.sql</query>
+	<query>insert-mobile-log.sql</query>
+	<query>insert-othertel-log.sql</query>
+	
+		
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<print mode="form" recordset="query-user.sql"/>
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

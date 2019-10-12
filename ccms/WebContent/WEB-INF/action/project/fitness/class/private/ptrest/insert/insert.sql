@@ -1,0 +1,36 @@
+insert into cc_ptrest
+(
+    code,
+    ptlevelcode,
+    ptleftcount,
+    ptenddate,
+    cardcode,
+    ptid,
+    created,
+    ptfee,
+    ptfactfee,
+    scale,
+    pttype,
+    pttotalcount,
+    ptnormalmoney,
+    ptmoney,
+    org_id
+)
+values 
+(
+	${seq:nextval@seq_cc_ptrest},
+    ${fld:vc_ptlevelcode},
+    ${fld:f_ptleftcount},
+    ${fld:vc_ptenddate},
+    ${fld:vc_usercode},
+    '${def:user}',
+    {ts'${def:timestamp}'},
+    ${fld:f_ptfee},
+    ${fld:f_ptfactfee},
+    ${fld:f_scale},
+    ${fld:i_pttype},
+    ${fld:f_pttotalcount},
+    ${fld:f_ptnormalmoney},
+    ${fld:f_ptmoney},
+    ${def:org}
+)

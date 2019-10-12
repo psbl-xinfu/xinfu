@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="month_date" type="varchar" required="false" label="month_date" />
+	<parameter id="pt_name" type="varchar" required="false" label="pt_name" />
+	<parameter id="custall" type="varchar" required="false" label="custall"/>
+
+</validator>

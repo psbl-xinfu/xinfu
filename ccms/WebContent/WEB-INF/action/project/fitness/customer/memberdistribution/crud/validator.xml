@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="vc_mc" type="varchar" required="false" label="vc_mc"/>
+    <parameter id="i_public" type="varchar" required="false" label="i_public"/>
+	<parameter id="datetype" type="varchar" required="false" label="datetype"/>
+    <parameter id="i_status" type="varchar" required="false" label="i_status"/>
+</validator>

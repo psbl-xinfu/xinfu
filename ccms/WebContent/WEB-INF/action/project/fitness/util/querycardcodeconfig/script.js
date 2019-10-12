@@ -1,0 +1,1 @@
+﻿{ "iscardcodelimit": "${fld:iscardcodelimit}", "cardcodelimitlen": "${fld:cardcodelimitlen}" }

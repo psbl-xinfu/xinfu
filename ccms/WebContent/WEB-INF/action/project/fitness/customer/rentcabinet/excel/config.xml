@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochus_name,daochus_code,daochus_group,daochus_end_date,daochus_start_date</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="租柜列表" filename="租柜列表.xls" header-background="true">
+		<col id="groupname" label="区域" />
+		<col id="cabinetcode" label="柜号"/>
+		<col id="status" label="状态"/>
+		<col id="startdate" label="开始日期" />
+		<col id="enddate" label="截止日期" />
+		<col id="customercode" label="会员编号" />
+		<col id="name" label="会员姓名" />
+		<col id="mobile" label="会员手机号" />
+		<col id="createdby" label="操作人" />
+		<col id="created" label="操作时间" />
+		<col id="isdeposittype" label="押金" />
+	</excel>
+</config>

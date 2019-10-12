@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+		停卡
+	</summary>
+	
+	<log>false</log>
+
+	<set-request-attribute id="header.title" value="系统应用管理" />
+    <set-request-attribute id="formTitleAddNew" value='新增系统应用'/>
+    <set-request-attribute id="formTitleEdit" value='修改系统应用'/>
+    <set-request-attribute id="formTitleFilter" value='查询系统应用'/>
+    
+    <transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<!-- <recordset id="query-OtherPayWay.sql" source="sql" scope="transaction" />  -->
+		<recordset id="query-stopcardnum.sql" source="sql" scope="transaction" />
+		<recordset id="query-skillscopenum.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<!-- <print mode="table" recordset="query-OtherPayWay.sql" tag="OtherPayWay-list"/> -->
+		<print mode="form" recordset="query-stopcardnum.sql" />
+		<print mode="form" recordset="query-skillscopenum.sql" />
+	</output>
+
+</config>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>俱乐部logo</title>
+<style>
+.left ul li a {
+font:15px/20px \"宋体\";
+color:black;
+}
+
+.r-tab li.am-active a{
+ color:#c8c8c8 !important;
+}
+</style>
+</head>
+<body >
+	<div class="am-tabs systems-management" data-am-tabs="{noSwipe: 1}">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="logopage">
+			<li class='sub_li' onclick="sitedef()"><a href="#sitedef" class="three-none" id="sitedef">场地最低消费时间</a></li>
+		</nav>
+	</div>
+	<div src ="" width="100%" height="600px" frameborder="0" id="sitedef_manage">
+	</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	logo();
+
+	//子集菜单效果
+    $('#logopage .sub_li').parent().css('background-color','transparent');
+	$('#logopage .sub_li').children().attr('style','color:#c8c8c8;');
+	$('#logopage .sub_li').eq(0).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	$('#logopage .sub_li').on('click',function(){
+		$('#logopage .sub_li').attr('style','');
+		$(this).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	})
+	
+});
+//场地
+function logo(){
+	$("#sitedef_manage").load("${def:context}${def:actionroot}/sitedef/crud?ispubload=true");
+}
+</script>
+</body>
+</html>

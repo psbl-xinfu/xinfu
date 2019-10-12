@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="startcode_r" type="varchar" required="true" label="cabinetcode" maxlen="1000" />
+    <parameter id="group_r" type="integer" required="true" label="groupid"/>
+<!-- 姓名需要验证是否重复 -->
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="startcode_r" sql="norep.sql" />
+</validator>
+

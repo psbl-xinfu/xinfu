@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>商品管理</title>
+</head>
+<body>
+	<!--addnew/edit form-->
+	<div class="modal fade " id="modalAddnew" tabindex="-1" role="dialog" style="display:none;">
+  	  <div class="modal-dialog basic-information dialogbg">
+			<header class="header-default">
+				<span id="formTitle">新增</span>
+				<span class="header-close" onclick="$('.close').click()"></span> <!--关闭按钮无效，调用函数触发旧按钮点击事件-->
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style='display:none;'>&times;</button>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="tuid" name="tuid" value=""/>
+				<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label style="width: 110px;">商品名称：</label>
+							<input type="text" id="goods_name" name="goods_name" maxlength="80" placeholder="商品名称"/>	
+						</li>
+						<li>
+							<label style="width: 110px;">商品货号：</label>
+							<input type="text" id="fastcode" name="fastcode" maxlength="80" placeholder="商品货号"/>	
+						</li>
+						<li>
+							<label style="width: 110px;">商品类别：</label>
+							<select id="goods_type" name="goods_type" style="display: none;">
+								<option value="">请选择</option>
+								<goodtype-rows>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</goodtype-rows>
+							</select>
+						</li>
+						<li>
+							<label style="width: 110px;">规格：</label>
+							<input type="text" id="standard" name="standard" maxlength="80" placeholder="规格" />	
+						</li>
+						<li>
+							<label style="width: 110px;">商品单位：</label>
+							<select id="unit" name="unit" style="display: none;">
+								<option value="">请选择</option>
+								<goodunit-rows>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</goodunit-rows>
+							</select>
+						</li>
+						<li>
+							<label style="width: 110px;">进货价（元）：</label>
+							<input type="text" id="buyprice" name="buyprice" maxlength="80" placeholder="进货价"/>	
+						</li>
+					<!-- modified by zzn 2019-04-04 暂时隐藏，后期完善-->
+				        <!-- 
+				   		<li>
+							<label style="width: 110px;">是否为礼品：</label>
+							<select id="isgift" name="isgift" style="display: none;">
+								<option value="">请选择</option>
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</li> -->
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注：</label>
+							<textarea rows="10" cols="55" placeholder="备注" class="my-textarea" id="remark" name="remark"></textarea>	
+						</li>
+					</nav>
+				</div>
+			</form>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+		</div>
+	</div>
+
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="tuid" preserve="true"/>
+		<input name="order" type="hidden" value="desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+						<nav>
+							<li class="w-160">
+								<input type="text" id="gname" name="gname" placeholder="商品名称/商品货号" maxlength="80" class="input-default"/>
+							</li>	
+							<li>
+								<select id="type" name="type" style="display: none;">
+									<option value="">商品类别</option>
+									<goodtype-rows-two>
+										<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+									</goodtype-rows-two>
+								</select>
+					 		</li>	
+							<li>
+								<select id="goodunit" name="goodunit" style="display: none;">
+									<option value="">单位</option>
+									<goodunit-rows-two>
+										<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+									</goodunit-rows-two>
+								</select>
+					 		</li>	
+<!-- 							<li>
+								<select id="isgifttwo" name="isgifttwo" style="display: none;">
+									<option value="">是否为礼品</option>
+									<option value="1">是</option>
+									<option value="0">否</option>
+								</select>
+					 		</li> -->
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="新增" alt="" data-toggle="modal" id="addnew_btn">
+								<button class="r-c-3-btn-3" type="button" id="daochu_list" title="导出"></button>
+							</div>
+						</nav>
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+						<!-- modified by zzn 190522 商品有库存不允许删除 -->
+						  <input type="hidden" id="alert_notice" name="alert_notice" value=""/>
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/dingyijiage.svg" title="定义商品价格" alt="" id="setprice">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt="" id="edit_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="delete_btn">
+							</li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="operation" name="operation" style="display: none;"/></th>
+							    <th>商品名称</th>
+								<th>商品货号</th>
+								<th>类别</th>
+								<th>规格</th>
+								<th>单位</th>
+								<th>进货价（元）</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr id="list">
+								<td>#checklink#</td>
+				                <td>#goods_name#</td>
+				                <td>#fastcode#</td>
+				                <td>#goods_type#</td>
+				                <td>#standard#</td>
+				                <td>#unit#</td>
+				                <td>#buyprice#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_gname" name="daochu_gname" type="text" />
+		<input id="daochu_type" name="daochu_type" type="text" />
+		<input id="daochu_goodunit" name="daochu_goodunit" type="text" />
+		<input id="daochu_isgifttwo" name="daochu_isgifttwo" type="text" />
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	searchSelectInit($("#goods_type,#type,#unit,#isgift,#goodunit,#isgifttwo"));
+	ccms.util.renderCheckbox("operation");
+	var obj = $Crud({
+		formId:"formEditor",
+		button:"save_btn",
+		bpkField:"tuid",
+		insertBack:function(){
+			search.searchData();
+		},
+		updateBack:function(){
+			search.searchData();
+		},
+		deleteBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			setSelectValue($("#goods_type"), "");
+			setSelectValue($("#unit"), "");
+			setSelectValue($("#isgift"), "");
+			$("#buyprice").val("0");
+			$("#formTitle").html("新增");
+		},
+		editBack:function(){
+			$("#formTitle").html("修改");
+		},
+		validate:function(){
+		   var flag=$("#formEditor").validate({
+			   rules : {
+				},
+				messages: {
+				}
+			});
+			return flag; 
+		},
+		check:function(){
+			return true;
+		}
+	}).init();
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+			$("#edit_btn").unbind().on("click", function(){
+				var obthis = getCheckboxValue("goodlist");
+				var count = obthis.split(",").length;
+				if(obthis!= ""){
+					if(count>1){
+						ccms.dialog.notice("只能选择1条记录!");
+					}else{
+						obj.edit({id:obthis});
+					}
+				}else{
+					ccms.dialog.notice("请选择!");
+				}
+			});
+			
+		$("#searchForm #gname").val("");
+		ccms.util.renderCheckbox("goodlist");
+		$("#delete_btn").unbind().on("click", function(){
+			var obthis = getCheckboxValue("goodlist");
+			if(obthis!= ""){
+				$Dialog().confirm("确定要删除该条数据吗?", function(){
+					obj.del({id:obthis});
+				});
+			}else{
+				ccms.dialog.notice("请选择!");
+			}
+		});
+		//全选   取消全选
+	    $("#operation").unbind().on("ifClicked",function(){    //点击事件未选中
+			 if( $(this).prop("checked") ){// 
+				$('input[name=goodlist]').iCheck('uncheck');
+			 }else{
+				$('input[name=goodlist]').iCheck('check');  //
+			 }
+	    });
+	}}).initSearchBtn().searchData(1);
+
+	//导出
+	$("#daochu_list").unbind().on("click", function(){
+        $("#daochu_gname").val($("#gname").val());
+        $("#daochu_type").val($("#type").val());
+        $("#daochu_goodunit").val($("#goodunit").val());
+       	$("#daochu_isgifttwo").val($("#isgifttwo").val());
+       	$("#daochuForm").submit();
+    });	
+	//定义商品价格
+	$("#setprice").click(function(){
+		var obthis = getCheckboxValue("goodlist");
+		var count = obthis.split(",").length;
+		if(obthis!= ""){
+			if(count>1){
+				ccms.dialog.notice("只能选择1条记录!");
+			}else{
+				ccms.dialog.open({url : "${def:context}${def:actionroot}/addvicecard/crud?goodsid="+obthis, height:600})
+			}
+		}else{
+			ccms.dialog.notice("请选择!");
+		}
+	});
+	//进货价
+	$("#buyprice").blur(function(){
+		var buyprice = $(this).val();
+		if(isNaN(buyprice)){
+			buyprice = 0;
+		}
+		$(this).val(buyprice <0 ? 0 : buyprice);
+	});
+});
+</script>
+</body>
+</html>

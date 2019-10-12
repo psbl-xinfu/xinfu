@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+	<title>添加体测</title>
+	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+	
+	<style type="text/css">
+	.p1{
+	width: 69% !important
+	}
+		.p2{
+	width: 25% !important;
+	line-height: 20px !important;
+	}
+	</style>
+    </head>
+    <body>
+      <form id="formEditor" name="formEditor">
+      			<input type="hidden" id="guestcode" name="guestcode" value="${fld:guestcode}"/>
+				<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}"/>
+				<input type="hidden" id="cardcode" name="cardcode" value="${fld:cardcode}"/>
+				<input type="hidden" id="ptpreparecode" name="ptpreparecode" value="${fld:ptpreparecode}"/>
+				<input type="hidden" id="type"  value="${fld:type}">
+				<input type="hidden" id="testresultcode" name="testresultcode" value="">
+        <div class="myziyuanaddtop">
+            <div class="listother">
+                <p class='p1'>身高（厘米）</p>
+                <p class='p2'"><input type="text" name="height"  class="textinput" id="height" placeholder="身高"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>体重（公斤）</p>
+                <p class='p2'><input type="text" name="weight"  class="textinput" id="weight" placeholder="体重"></p>
+            </div>
+             <div class="listother">
+                <p class='p1'>脂肪（厘米）</p>
+                <p class='p2'><input type="text" name="fat"  class="textinput" id="fat" placeholder="脂肪"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>肌肉（公斤）</p>
+                <p class='p2'><input type="text" name="muscle"  class="textinput" id="muscle" placeholder="肌肉"></p>
+            </div>          
+            
+            
+             <div class="listother">
+                <p class='p1'>骨骼（厘米）</p>
+                <p class='p2'><input type="text" name="bone"  class="textinput" id="bone" placeholder="骨骼"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>水分（公斤）</p>
+                <p class='p2'><input type="text" name="moisture_content"  class="textinput" id="moisture_content" placeholder="水分"></p>
+            </div>
+             <div class="listother">
+                <p class='p1'>体脂比</p>
+                <p class='p2'><input type="text" name="body_fat"  class="textinput" id="body_fat" placeholder="体脂比"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>水体重指数（BMI）</p>
+                <p class='p2'><input type="text" name="weight_index"  class="textinput" id="weight_index" placeholder="水体重指数"></p>
+            </div>                  
+            
+            
+             <div class="listother">
+                <p class='p1'>大腿围（厘米）</p>
+                <p class='p2'><input type="text" name="thigh_circumference"  class="textinput" id="thigh_circumference" placeholder="大腿围"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>小腿围（公斤）</p>
+                <p class='p2'><input type="text" name="crus_circumference"  class="textinput" id="crus_circumference" placeholder="小腿围"></p>
+            </div>
+             <div class="listother">
+                <p class='p1'>肺活量（毫升）</p>
+                <p class='p2'><input type="text" name="lung_capacity"  class="textinput" id="lung_capacity" placeholder="肺活量"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>静态心率（次/分钟）</p>
+                <p class='p2'><input type="text" name="static_heart"  class="textinput" id="static_heart" placeholder="静态心率"></p>
+            </div>                     
+  
+  
+             <div class="listother">
+                <p class='p1'>血压收缩压（毫米汞柱）</p>
+                <p class='p2'><input type="text" name="systolic"  class="textinput" id="systolic" placeholder="血压收缩压"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>血压舒张压（毫米汞柱）</p>
+                <p class='p2'><input type="text" name="pressure"  class="textinput" id="pressure" placeholder="血压舒张压"></p>
+            </div>
+             <div class="listother">
+                <p class='p1'>心肺功能测试（mL/（kg...</p>
+                <p class='p2'><input type="text" name="cardiopulmonary_test"  class="textinput" id="cardiopulmonary_test" placeholder="心肺功能测试"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>上肢肌肉力量测试（个/分...</p>
+                <p class='p2'><input type="text" name="upper_limb_muscles"  class="textinput" id="upper_limb_muscles" placeholder="上肢肌肉力量测试"></p>
+            </div>     
+            <div class="listother">
+                
+                   <p class='p1'>   腹部肌肉力量测试
+                (个/分...</p>
+                <p class='p2'><input type="text" name="abdomen_muscles"  class="textinput" id="abdomen_muscles" placeholder="腹部肌肉力量测试"></p>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <div class="listother">
+                <p class='p1'>下肢肌肉力量测试（个/分...</p>
+                <p class='p2'><input type="text" name="lower_limb_muscles"  class="textinput" id="lower_limb_muscles" placeholder="下肢肌肉力量测试"></p>
+            </div>
+             <div class="listother">
+                <p class='p1'>柔韧性测试（分值）</p>
+                <p class='p2'><input type="text" name="flexibility"  class="textinput" id="flexibility" placeholder="柔韧性测试"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>平衡能力测试（秒）</p>
+                <p class='p2'><input type="text" name="equilibria"  class="textinput" id="equilibria" placeholder="平衡能力测试"></p>
+            </div>     
+        </div>
+        
+        
+        <div class="myziyuanaddbtn">
+           <img src="${def:context}/js/project/fitness/wx/image/submit.png" class="tijiao" id="save"  style="margin-left:30%;margin-bottom: 20px">
+           <img src="${def:context}/js/project/fitness/wx/image/submit.png" class="tijiao" id="update"  style="margin-left:30%;margin-bottom: 20px">
+        </div>
+        </form>
+    </body>
+    <script type="text/javascript">
+    	$(function(){
+    		if("${fld:type}"=="mc"){
+    			homemc();
+    		}else if("${fld:type}"=="pt"){
+    			homept();
+    		}else{
+    			homecust();
+    		}
+    		if("${fld:testresultcode}"!=""){
+    			getResult();
+    			$('#save').hide();
+    		}
+    		if("${fld:state}">1){
+    			$("#update").show();
+    			$("#testresultcode").val("${fld:testresultcode}");
+    		}else{
+    			$("#update").hide();
+    		}
+        	$('#save').on('click',function(){
+        		var url = "${def:context}${def:actionroot}/insert"
+        			ajaxCall(url,{
+        				method: "post",
+        				progress: true,
+        				form:'formEditor',
+        				dataType: "script",
+        				success: function() {
+        				}
+        			});
+        	})
+        	
+        	$("#update").on('click',function(){
+        		var url = "${def:context}${def:actionroot}/update"
+        			ajaxCall(url,{
+        				method: "post",
+        				progress: true,
+        				form:'formEditor',
+        				dataType: "script",
+        				success: function() {
+        				}
+        			});
+        	})
+    	})
+  			function getResult(){
+  				getAjaxCall("/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/getresult?testresultcode=${fld:testresultcode}",false);
+  			}
+    </script>
+</html>

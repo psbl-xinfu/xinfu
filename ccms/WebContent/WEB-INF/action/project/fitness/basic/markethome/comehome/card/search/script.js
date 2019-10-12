@@ -1,0 +1,14 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"name":"${fld:name@js}",
+		"cardtype":"${fld:cardtype@js}",
+		"experlimit":"${fld:experlimit}",
+		"validatetype":"${fld:validatetype@js}",
+		"status":"${fld:status@js}",
+		"application_id":"${fld:application_id@js}"
+	},
+	</rows>
+	{}
+]}

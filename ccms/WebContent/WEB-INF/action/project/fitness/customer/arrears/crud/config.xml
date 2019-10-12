@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+	单次消费
+	</summary>
+	
+	<log>false</log>
+	<set-request-attribute id="header.title" value="系统应用管理" />
+    <set-request-attribute id="formTitleAddNew" value='新增系统应用'/>
+    <set-request-attribute id="formTitleEdit" value='修改系统应用'/>
+    <set-request-attribute id="formTitleFilter" value='查询系统应用'/>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-itembin.sql" source="sql" scope="transaction" />
+	    <recordset id="query-item.sql" source="sql" scope="transaction" />
+	    <recordset id="query-saleman.sql" source="sql" scope="transaction" />
+	   <!--  <recordset id="query-OtherPayWay.sql" source="sql" scope="transaction" /> -->
+	    <!-- <recordset id="query-customer.sql" source="sql" scope="transaction" />  -->
+	</transaction>
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-itembin.sql" tag="itembin-list"/>
+		<print mode="table" recordset="query-item.sql" tag="item-list"/>
+		<print mode="table" recordset="query-saleman.sql" tag="saleman-list"/>
+		<!-- <print mode="table" recordset="query-OtherPayWay.sql" tag="OtherPayWay-list"/> -->
+		<!-- <print mode="form" recordset="query-customer.sql"/>  -->
+		<print mode="form" recordset="_request"/>
+	</output>
+</config>

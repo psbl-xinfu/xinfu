@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="goods_name" type="varchar" required="true" label="商品名称" />
+    <parameter id="fastcode" type="varchar" required="true" label="商品货号" />
+    <parameter id="goods_type" type="varchar" required="true" label="商品类别" />
+    <parameter id="standard" type="varchar" required="true" label="规格" />
+    <parameter id="unit" type="varchar" required="true" label="单位" />
+    <parameter id="buyprice" type="double" required="true" label="进货价" />
+    <parameter id="isgift" type="varchar" required="false" label="是否为礼品" />
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="该商品货号已使用，请输入其他货号！" id="fastcode" sql="noRep.sql" />
+</validator>
+
+
+
+
+

@@ -1,0 +1,1 @@
+AND clog.createdate::date <= ${fld:daochu_s_end_date}

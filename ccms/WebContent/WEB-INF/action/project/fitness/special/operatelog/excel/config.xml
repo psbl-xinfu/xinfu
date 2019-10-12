@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochu_start_date,daochu_end_date</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="操作日志" filename="操作日志.xls" header-background="true">
+		<col id="card_code" label="卡号" />           
+		<col id="contract_code" label="合同号" />
+		<col id="cust_code" label="客户编号" />
+		<col id="vc_iuser" label="操作人" />
+		<col id="c_idate" label="操作时间" />
+		<col id="vc_content" label="操作类型" />
+	</excel>
+</config>

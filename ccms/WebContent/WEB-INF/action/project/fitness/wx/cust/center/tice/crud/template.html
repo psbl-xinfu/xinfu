@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>体测记录</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+</head>
+<body>
+
+	<div class="containter tcjh">
+		<div class="top">
+			<p>
+				<span>体脂</span>
+				<span id="body_fat"></span>
+			</p>
+			<p>
+				<span>体重</span>
+					<span id="weight"></span>
+			</p>
+			<p>
+				<span>肺活量</span>
+				<span id="lung_capacity"></span>
+			</p>
+			<p>
+				<span>BMI</span>
+					<span id="weight_index"></span>
+			</p>
+			<p>
+				<span>静态心率</span>
+				<span id="static_heart"></span>
+			</p>
+			<p>
+				<span>肌肉含量</span>
+					<span id="muscle"></span>
+			</p>
+		</div>
+	
+	<div class="main" style="display: none">
+			<p id="healthy">
+				<img src="${def:context}/js/project/fitness/wx/image/new111.png" alt="">
+				<span>新增体测</span>
+			</p>
+			<p class="nn"></p>
+		<p class="duibi">
+			<img src="${def:context}/js/project/fitness/wx/image/new222.png" alt="">
+				<span>体测对比</span>
+			</p>
+		</div> 
+		
+		
+	<div class="main" style="display: none">
+		<p class="duibi" style="width: 100%">
+			<img src="${def:context}/js/project/fitness/wx/image/new222.png" alt="">
+				<span>体测对比</span>
+			</p>
+	</div>
+		
+		<div class="footer">
+		</div>
+
+</body>
+<script type="text/javascript">
+$(function(){
+	// modified by leo 190213 修正私教访问体侧返回不正确
+	if("${fld:type}"=="mc"){
+		homemc();
+	}else if("${fld:type}"=="pt"){
+		homept();	
+	}else{
+		homecust();
+	}
+	
+	if("${fld:type}"=="cust"){
+		$('.main').eq(1).show();
+	}else{
+		$('.main').eq(0).show();
+	}
+	
+	
+	if("${fld:customercode}"!=""){
+		getCustTice();
+	}else{
+		getGustTice();
+	}
+	
+    $('#healthy').on('click',function(){
+    	
+    	if("${fld:type}"=="pt"){
+        	location.href="${def:context}/action/project/fitness/wx/pt/mycust/healthy/crud?"
+    			+"customercode=${fld:customercode}"
+    	}else{
+        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/crud?guestcode=${fld:guestcode}"
+    			+"&customercode=${fld:customercode}"
+    			+"&type=${fld:type}";
+    	}
+    });
+    
+    $('.duibi').on('click',function(){
+		location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/crud?guestcode=${fld:guestcode}&type=${fld:type}"
+			+"&customercode=${fld:customercode}";
+    });
+})
+    function getCustTice(){
+        	getAjaxCall("/action/project/fitness/wx/cust/center/tice/custlist?customercode=${fld:customercode}",false);
+    }
+    
+	function getGustTice(){
+		getAjaxCall("/action/project/fitness/wx/cust/center/tice/gustlist?guestcode=${fld:guestcode}",false);
+	}
+	
+	function see(code){
+		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/crud?guestcode=${fld:guestcode}"
+			+"&customercode=${fld:customercode}"
+			+"&type=${fld:type}"
+			+"&testresultcode="+code+"&state=1";
+	}
+	
+	function updatestate(code){
+		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/crud?guestcode=${fld:guestcode}"
+			+"&customercode=${fld:customercode}"
+			+"&type=${fld:type}"
+			+"&testresultcode="+code+"&state=2";
+	}
+	
+	
+</script>
+</html>

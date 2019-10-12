@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="gname" type="varchar" required="false" label="商品名称" />
+	<parameter id="type" type="varchar" required="false" label="类别" />
+	<parameter id="goodunit" type="varchar" required="false" label="单位" />
+	<parameter id="isgifttwo" type="varchar" required="false" label="是否为礼品" />
+	
+</validator>

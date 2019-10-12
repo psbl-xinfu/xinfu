@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>会员资料明细</title>
+<style type="text/css">
+.center ul li{
+width:10%;
+}
+.center ul li a{
+text-align:center;
+font-size:16px;
+}
+.down div iframe{
+width:100%;
+height:1000px;
+}
+.zhuti {
+	margin-top:50px;
+}
+.header-filter{
+	margin-top: 10px;
+	margin-left: 50px;
+}
+</style>
+</head>
+<body>
+	<div class="Visiting header-filter">
+		<div class="banner-top ba1">
+			<label>会员编号/姓名/手机/卡号</label>&nbsp; 
+			<input type="text" id="_vc_cardcode" name="_vc_cardcode" value="${fld:vc_code}" />
+		</div>
+	</div>
+	<div class="container-fluid zhuti" id="total">
+		<input type="hidden" class="form-control" id="vc_code" name="vc_code" value="${fld:vc_code}"/>
+		<div class="center">
+			<ul class="nav nav-tabs">
+				<li onclick="setBasicInfor()"><a href="#basInfor" data-toggle="tab" id="basicInfor">基本信息</a></li>
+				<li onclick="setContractRecord()"><a href="#contRecord" data-toggle="tab">合同记录</a></li>
+				<li onclick="setAdmissionRecord()"><a href="#admRecord" data-toggle="tab">入场记录</a></li>
+				<li onclick="setClassRecord()"><a href="#claRecord" data-toggle="tab">上课记录</a></li>
+				<li onclick="setCommRecord()"><a href="#comRecord" data-toggle="tab">沟通记录</a></li>
+				<li onclick="setHealthFile()"><a href="#healthFile" data-toggle="tab">健康档案</a></li>
+				<li onclick="setResInvestigation()"><a href="#Investigation" data-toggle="tab">资源调研</a></li>
+			</ul>
+		</div>
+		<div class="down">
+		    <!-- 基本信息 -->
+	 		<div class="tab-pane fade" id="basInfor">
+	     		<iframe src ="" width="100%" name="basicInformation" frameborder="0" id="formEditor_basInfor">
+       			</iframe>
+	       </div>
+	        <!-- 合同记录 -->
+	 		<div class="tab-pane fade" id="contRecord">
+	     		<iframe src ="" width="100%" height="100%" name="conteactRecord" frameborder="0" id="formEditor_contRecord">
+       			</iframe>
+	       </div>
+	        <!-- 入场记录 -->
+	 		<div class="tab-pane fade" id="admRecord">
+	     		<iframe src ="" width="100%" height="100%" frameborder="0" id="formEditor_admRecord">
+       			</iframe>
+	       </div>
+	        <!-- 上课记录 -->
+	 		<div class="tab-pane fade" id="claRecord">
+	     		<iframe src ="" width="100%" height="100%" name="theclassrecord" frameborder="0" id="formEditor_claRecord">
+       			</iframe>
+	       </div>
+	        <!-- 沟通记录 -->
+	 		<div class="tab-pane fade" id="comRecord">
+	     		<iframe src ="" width="100%" height="100%" name="thecommRecord" frameborder="0" id="formEditor_comRecord">
+       			</iframe>
+	       </div>
+	        <!-- 健康档案 -->
+	 		<div class="tab-pane fade" id="healthFile">
+	     		<iframe src ="" width="100%" height="100%" name="thehealthFile" frameborder="0" id="formEditor_healthFile">
+       			</iframe>
+	       </div>
+	       <!-- 资源调研-->
+	 		<div class="tab-pane fade" id="Investigation">
+	     		<iframe src ="" width="100%" height="100%" frameborder="0" id="formEditor_Investigation">
+       			</iframe>
+	       </div>
+		</div>
+	</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	$("#basicInfor").click();
+	$("#_vc_cardcode").blur(function(){
+		var vc_code = $("#_vc_cardcode").val();
+		var uri = "${def:context}${def:actionroot}/querycust?vc_code="+vc_code;
+		ajaxCall(uri, {
+			method : "get",
+			progress : true,
+			dataType : "script",
+			success : function() {
+			}
+		});
+	});
+});
+//设置基本信息路径
+function setBasicInfor(){
+	$("#basInfor").show();
+	$("#contRecord,#admRecord,#claRecord,#comRecord,#healthFile,#Investigation").hide();
+	$("#formEditor_basInfor").attr("src","${def:context}/action/project/fitness/customer/basicinfor/crud");
+}
+//设置合同记录路径
+function setContractRecord()
+{
+	$("#contRecord").show();
+	$("#basInfor,#admRecord,#claRecord,#comRecord,#healthFile,#Investigation").hide();
+	$("#formEditor_contRecord").attr("src","${def:context}/action/project/fitness/customer/contractrecord/crud");
+}
+//设置上场记录路径
+function setAdmissionRecord(){
+	$("#admRecord").show();
+	$("#basInfor,#contRecord,#claRecord,#comRecord,#healthFile,#Investigation").hide();
+	$("#formEditor_admRecord").attr("src","${def:context}/action/project/fitness/customer/admissionrecord/crud");
+}
+//设置上课记录路径
+function setClassRecord(){
+	$("#claRecord").show();
+	$("#basInfor,#contRecord,#admRecord,#comRecord,#healthFile,#Investigation").hide();
+	$("#formEditor_claRecord").attr("src","${def:context}/action/project/fitness/customer/classrecord/crud");
+}
+//设置沟通记录路径
+function setCommRecord(){
+	$("#comRecord").show();
+	$("#basInfor,#contRecord,#admRecord,#claRecord,#healthFile,#Investigation").hide();
+	$("#formEditor_comRecord").attr("src","${def:context}/action/project/fitness/customer/commrecord/crud");
+}
+//设置健康档案路径
+function setHealthFile(){
+	$("#healthFile").show();
+	$("#basInfor,#contRecord,#admRecord,#claRecord,#comRecord,#Investigation").hide();
+	$("#formEditor_healthFile").attr("src","${def:context}/action/project/fitness/customer/healthfile/crud");
+}
+//设置资源调研路径
+function setResInvestigation(){
+	$("#Investigation").show();
+	$("#basInfor,#contRecord,#admRecord,#claRecord,#comRecord,#healthFile").hide();
+	$("#formEditor_Investigation").attr("src","${def:context}/action/project/fitness/customer/resinvestigation/termscore/crud?vc_customercode="+$("#vc_code").val());
+}
+</script>
+</body>
+</html>

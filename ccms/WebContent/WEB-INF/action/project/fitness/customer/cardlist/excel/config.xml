@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		提前开卡
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_startdate,daochu_enddate,daochu_cardall,daochu_cardtype,daochu_status</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="卡详情" filename="卡详情记录.xls" header-background="true">
+		<col id="cardcode" label="卡号" /> 
+		<col id="cardtypename" label="卡类型" />
+		<col id="status" label="卡状态" />
+		<col id="name" label="姓名" />
+		<col id="count" label="卡权益" />
+		<col id="nowcount" label="剩余" />
+		<col id="mobile" label="电话" />
+		<col id="mcstaff" label="会籍" />
+		<col id="startdate" label="开始日期" />
+		<col id="enddate" label="结束日期" />
+		<col id="remark" label="备注" />
+		
+	</excel>
+</config>

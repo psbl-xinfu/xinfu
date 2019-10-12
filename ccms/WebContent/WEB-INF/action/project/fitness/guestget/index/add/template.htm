@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>填写用户资料</title>
+${inc:/action/project/fitness/guestget/pub}
+<meta name="viewport" content="width=320, user-scalable=no">
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/add.css" />
+</head>
+<body>    
+	<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+		<input type="hidden" id="tuid" name="tuid" />
+		<p class="form-label">基本信息</p>
+		<div class="form-input-cell">
+			<div class="input-cell-hd">姓名</div>
+			<div class="input-cell-bd"><input type="text" id="name" name="name" placeholder="请输入姓名" class="username"></div>
+		</div>
+		<div class="form-input-cell">
+			<div class="input-cell-hd">手机号</div>
+			<div class="input-cell-bd"><input type="text" id="mobile" name="mobile" placeholder="请输入手机号码" class="tel-input" maxlength="11"><span class="icon-msg"></span><span class="icon-call"></span></div>
+		</div>
+	    <p class="form-label">完善信息</p>
+	    <div class="form-radio" id="sexPanel">
+	        <p class="cb-cell-hd">性别</p>
+	        <div class="cb-cell-bd">
+	            <label for="man">
+	                <input type="radio" name="sex" value="1" id="man" class="radio-tag" checked="checked">
+	                <span class="radio-checked" style="margin-right: 0.29rem;">男</span>
+	            </label>
+	            <label for="woman"><input type="radio" name="sex" value="0" id="woman" class="radio-tag">
+	                <span class="radio-checked">女</span>
+	            </label>
+	        </div>
+	    </div>
+	
+	    <div class="form-radio" id="agePanel">
+	        <p class="cb-cell-hd">年龄区间</p>
+	        <div class="cb-cell-bd">
+	        	<age-rows>
+		            <label>
+		                <input type="radio" name="age" value="${fld:domain_value}" class="radio-tag">
+		                <span class="radio-checked">${fld:domain_text_cn}</span>
+		            </label>
+	            </age-rows>
+	        </div>
+	    </div>
+	
+	    <div class="form-radio" id="purposePanel">
+	        <p class="cb-cell-hd">意向</p>
+	        <div class="cb-cell-bd">
+	            <label for="strong">
+	                <input type="radio" name="intention" value="1" id="strong" class="radio-tag" checked="checked">
+	                <span class="radio-checked">高关注</span>
+	            </label>
+	            <label for="general"><input type="radio" name="intention" value="2" id="general" class="radio-tag">
+	                <span class="radio-checked">普通</span>
+	            </label>
+	            <label for="weak"><input type="radio" name="intention" value="3" id="weak" class="radio-tag">
+	                <span class="radio-checked">不关注</span>
+	            </label>
+	        </div>
+	    </div>
+	
+	    <div class="form-radio" id="wechatPanel">
+	        <p class="cb-cell-hd">微信添加</p>
+	        <div class="cb-cell-bd">
+	            <label for="hadadd">
+	                <input type="radio" name="isaddwx" value="1" id="hadadd" class="radio-tag" checked="checked">
+	                <span class="radio-checked">已添加</span>
+	            </label>
+	            <label for="notadd"><input type="radio" name="isaddwx" value="0" id="notadd" class="radio-tag">
+	                <span class="radio-checked">未添加</span>
+	            </label>
+	        </div>
+	    </div>
+	
+	    <div class="form-radio" id="goutongPanel">
+	        <p class="cb-cell-hd">沟通情况</p>
+	        <div class="cb-cell-bd">
+	        	<commstage-rows>
+		            <label>
+		                <input type="radio" name="communication" value="${fld:domain_value}" class="radio-tag">
+		                <span class="radio-checked">${fld:domain_text_cn}</span>
+		            </label>
+		        </commstage-rows>
+		    </div>
+	    </div>
+	
+	    <div class="form-radio" style="display: none;" id="demandcheckbox">
+	        <p class="cb-cell-hd">需求</p>
+	   
+	       <div class="cb-cell-bd" id='demands'>
+                <input type="hidden" name="demand" id="demand">
+	        	<demand-rows>
+		            <label>
+		                <span class="radio-checked  radio_blue"><input type="checkbox" name="demandcb" value="${fld:domain_value}" class="radio-tag">
+		                ${fld:domain_text_cn}</span>
+		            </label>
+		        </demand-rows>
+		    </div> 
+	    </div>
+	    
+	    <p class="form-label">备注信息</p>
+	
+	    <div class="form-textarea">
+	        <textarea placeholder="请输入备注信息" id="remark" name="remark"></textarea>
+	    </div>
+	
+	    <div class="cancel-btn">取消</div>
+	    <div class="save-btn">保存</div>
+	</form>
+
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<!-- <script src="${def:context}/js/project/fitness/guestget/js/common/flexble.js"></script> -->
+<script src="${def:context}/js/project/fitness/guestget/js/add.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	
+	var a=$('.radio_blue')
+/* 	console.log(a[5])
+	for(var i = 0; i<=a.length;i++){
+		a[i].click(function(){
+			 console.log(i)
+			 a[i].css("background","yellow");
+		});
+	} */
+	
+	$('.radio_blue').click(function(){
+		console.log(1)
+		$(this).toggleClass("w1");
+	})
+	//1018
+	if("${fld:org_id}"=="1018"){
+		$("#demandcheckbox").show();
+	}
+	//跟进tuid判断添加或修改
+	if("${fld:tuid}"!=""){
+		var url="${def:actionroot}/editguest?tuid=${fld:tuid}";
+		ajaxCall(url,{
+			method:"GET",
+			progress:true,
+			dataType:"script",
+			success:function(){
+			}
+		});
+	}
+    $('.cancel-btn').on('click',function(){
+    	//判断权限 1大队长2组长3组员
+    	if("${fld:usertype}"=="1"){
+            location.href = contextPath+"/action/project/fitness/guestget/menu/crud";
+    	}else if("${fld:usertype}"=="2"){
+            location.href = contextPath+"/action/project/fitness/guestget/index/crud";
+    	}else if("${fld:usertype}"=="3"){
+            location.href = contextPath+"/action/project/fitness/guestget/index/crud";
+    	}
+    })
+		
+	//验证手机号码是否存在
+	$("#mobile").blur(function(){
+		if($(this).val()==""){
+			$.toptip('请输入手机号码！', 2000, 'error');
+		}else{
+			var url="${def:actionroot}/searchguest?mobile="+$(this).val()+"&tuid="+$("#tuid").val();
+			ajaxCall(url,{
+				method:"GET",
+				progress:true,
+				dataType:"script",
+				success:function(){
+				}
+			});
+		}
+	});
+	//默认选中第一个年龄
+	$("input[name=age]").eq(0).attr("checked", "checked");
+	//默认选中第一个沟通情况
+	$("input[name=communication]").eq(0).attr("checked", "checked");
+	//添加
+    $('.save-btn').on('click',function(){
+    	demand
+        var username = $('#name').val();
+        if(username==""){
+			$.toptip('请输入姓名！', 2000, 'error');
+        	return false;
+        }
+        var mobile = $('#mobile').val();
+        if(mobile==""){
+			$.toptip('请输入手机号码！', 2000, 'error');
+        	return false;
+        }
+        //验证手机号码是否正确
+        if(!(/^(13|14|15|17|18|16|19)[0-9]{9}$/.test(mobile))){ 
+			$.toptip('请输入正确的手机号码！', 2000, 'error');
+            return false;
+        }
+        var url = "${def:actionroot}/";
+        if($("#tuid").val()!=""){
+        	url+="update";
+        }else{
+        	url+="insert";
+        }
+		var obthis = getCheckboxValue("demandcb");
+		$("#demand").val(obthis);
+		ajaxCall(url,{
+			method:"post",
+			form:"formEditor",
+			progress:true,
+			dataType:"script",
+			success:function(){
+				$.toptip('成功！', 2000, 'success');
+				location.href = contextPath+"${def:actionroot}/crud";
+			}
+		});
+    	
+    })
+
+});
+</script>
+</body>
+</html>

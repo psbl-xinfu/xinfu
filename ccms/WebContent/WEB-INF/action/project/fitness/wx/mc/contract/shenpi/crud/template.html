@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+	<title>合同审批</title>
+	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="hetongsplisttop">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default btn_yes on">已审批</button>
+                <button type="button" class="btn btn-default btn_no">待审批</button>
+            </div>
+        </div>
+        
+        <!--已审批列表-->
+        <div class="hetongsplistbody">
+        </div>
+        
+        <!--待审批列表-->
+        <div class="hetongsplistbody_n" style="display: none">
+        </div>
+        
+        <input type="hidden" name="is_num" value='1'>
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homemc();
+        $('.btn_no').css({'border-left':'0'});
+        var is_num=$('input[name=is_num]').val();
+        //console.log(is_num);
+        if(is_num==1){
+            $('.hetongsplistbody').show();
+            $('.hetongsplistbody_n').hide();
+            $('.btn_yes').addClass('on');
+            $('.btn_no').removeClass('on');
+        }else{
+            $('.hetongsplistbody').hide();
+            $('.hetongsplistbody_n').show();
+            $('.btn_yes').removeClass('on');
+            $('.btn_no').addClass('on');
+        }
+
+        $('.btn_yes').click(function(){
+            $('input[name=is_num]').val(1);
+            $('.hetongsplistbody').show();
+            $('.hetongsplistbody_n').hide();
+            $('.btn_yes').addClass('on');
+            $('.btn_no').removeClass('on');
+        });
+        $('.btn_no').click(function(){
+            $('input[name=is_num]').val(2);
+            $('.hetongsplistbody').hide();
+            $('.hetongsplistbody_n').show();
+            $('.btn_yes').removeClass('on');
+            $('.btn_no').addClass('on');
+        });
+        
+        var shenpilist="";
+        var shenpiresult="";
+        <shenpi>
+        if("${fld:isaudit}"=='1'){
+        shenpilist+='<div class="list"  code="${fld:code}" code1="${fld:customercode}"style="height:100px">'
+        shenpilist+=' <div class="content fl">'
+        shenpilist+='<p class="name">办卡合同<span>${fld:createdate}</span></p>'
+        shenpilist+='<p class="jiage">${fld:cardtype}<span class="v1">原价：${fld:inimoney}</span><span class="v2">应收：${fld:normalmoney}</span></p>'
+        shenpilist+='  </div>'
+        shenpilist+='<img src="'+contextPath+'/js/project/fitness/wx/image/select_jiantou.png" class="jiantoupic fr">'
+        shenpilist+=' <p class="fr biaoshi" style="margin-top:-15px"><span  style="color:red">待审批</span></p>'
+        shenpilist+=' </div>'
+        }else{
+        shenpiresult+='<div class="list"  code="${fld:code}" code1="${fld:customercode}" style="height:100px">'
+        shenpiresult+=' <div class="content fl">'
+        shenpiresult+='<p class="name">办卡合同<span>${fld:audittime}</span></p>'
+        shenpiresult+='<p class="jiage">${fld:cardtype}<span class="v1">原价：${fld:inimoney}</span><span class="v2">应收：${fld:normalmoney}</span></p>'
+
+        if("${fld:isaudit}"=='2'){
+            shenpiresult+=' <p class="fr "><span  style="color:green">已批准</span></p>'
+       }else{
+            shenpiresult+=' <p class="fr "><span  style="color:red">未批准</span></p>'
+       } 
+       
+        shenpiresult+='  </div>'
+       	shenpiresult+='<img src="'+contextPath+'/js/project/fitness/wx/image/select_jiantou.png" class="jiantoupic fr">'
+        shenpiresult+=' </div>'
+         }
+        </shenpi>
+        $('.hetongsplistbody_n').html(shenpilist);
+        $('.hetongsplistbody').html(shenpiresult);
+        
+    	$('.list').each(function(){
+  		   $(this).on('click',function(){
+  			    var code=$(this).attr('code');
+  			 	var customercode=$(this).attr('code1');
+  		  		location.href="${def:context}/action/project/fitness/wx/cust/center/contractinfo/crud?contractcode="+code+"&customercode="+customercode+"&type=mc";
+  		  })	
+     	})
+    });
+</script>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="status" type="varchar" required="true" label="状态"/>
+	<parameter id="title" type="varchar" required="true" label="标题"/>
+	<parameter id="content" type="varchar" required="true" label="内容"/>
+</validator>

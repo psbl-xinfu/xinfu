@@ -1,0 +1,12 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"checklink":"${fld:checklink@js}",
+		"storage_name":"${fld:storage_name@js}",
+		"address":"${fld:address@js}",
+		"status":"${fld:status@js}"
+	},
+	</rows>
+	{}
+]}

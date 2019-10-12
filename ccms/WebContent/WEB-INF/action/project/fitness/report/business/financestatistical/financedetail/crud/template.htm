@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>卡列表</title>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm" class="dialogbg" style="height: 570px;">
+		<header class="header-default">
+			<span id="formTitle"></span>
+		</header>
+		<input name="sort" type="hidden" value="f.created" preserve="true" />
+		<input name="order" type="hidden" value="desc" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<input name="type" type="hidden" value="${fld:type}" preserve="true" />
+		<input name="item" type="hidden" value="${fld:item}" preserve="true" />
+		<input name="startdate" type="hidden" value="${fld:startdate}" preserve="true" />
+		<input name="enddate" type="hidden" value="${fld:enddate}" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr>
+							    <th>卡号</th>
+							    <th>姓名</th>
+							    <th>电话</th>
+							    <th>预付款</th>
+							    <th>收入</th>
+							    <th>欠款变更</th>
+							    <th>销售人</th>
+							    <th>操作时间</th>
+							    <th>操作明细</th>
+							    <th>备注</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+				                <td>#cardcode#</td>
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#premoney#</td>
+				                <td>#money#</td>
+				                <td>#moneyleft#</td>
+				                <td>#salesman#</td>
+				                <td>#created#</td>
+				                <td>#detail#</td>
+				                <td>#remark#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+	}}).initSearchBtn().searchData(1);
+});
+</script>
+</body>
+</html>

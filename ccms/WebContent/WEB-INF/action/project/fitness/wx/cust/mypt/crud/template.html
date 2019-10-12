@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <title>我的私教</title>
+        <link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet">
+        
+    </head>
+    <body>
+        <div class="huiyuanmysjlistbody">
+         <pt-rest>
+            <div class="list">
+                <img src="${def:context}${fld:headpic}" class="touxiangpic fl">
+                <div class="content fl">
+                    <p class="name">${fld:ptlevelname}<span></span></p>
+                    <p class="jiaolian">教练：${fld:ptname} 剩余${fld:ptleftcount}课时</p>
+                    <p class="time">最近跟进：${fld:lasttime}</p>
+                </div>
+                <img src="${def:context}/js/project/fitness/wx/image/huiyuanyuyuesijiao.png" class="huiyuanyuyuesijiao fr" code="${fld:code}"  >
+            </div>
+           </pt-rest>
+        </div>
+        
+     
+    </body>
+   <script type="text/javascript">
+   $(function(){
+	   homecust();
+	   $('.huiyuanyuyuesijiao').each(function(){
+		   $(this).on('click',function(){
+			  var code=$(this).attr('code');
+		  		location.href="${def:context}/action/project/fitness/wx/cust/mypt/yuyue/crud?code="+code+"&customercode=${fld:customercode}";
+		   })
+	   })
+   })
+   </script>
+</html>

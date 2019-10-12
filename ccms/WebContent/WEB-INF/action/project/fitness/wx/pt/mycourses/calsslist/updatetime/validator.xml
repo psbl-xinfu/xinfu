@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="courseid" type="integer" required="true" label="courseid"/>
+	<parameter id="classid" type="integer" required="true" label="classid"/>
+	<parameter id="course_skill_id" type="integer" required="true" label="course_skill_id"/>
+	<parameter id="skill_id" type="integer" required="true" label="skill_id"/>
+	<parameter id="currentsecond" type="integer" required="true" label="currentsecond"/>
+</validator>

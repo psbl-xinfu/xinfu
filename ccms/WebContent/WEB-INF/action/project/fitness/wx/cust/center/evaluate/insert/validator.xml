@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="ptlogcode" type="varchar" required="true" label="ptlogcode" maxlen="32" />
+    <parameter id="ptlevelcode" type="varchar" required="true" label="ptlevelcode" maxlen="32" />
+    <parameter id="customercode" type="varchar" required="true" label="customercode"/>
+     <parameter id="ptid" type="varchar" required="true" label="ptid"/>
+     
+    <parameter id="service_attitude" type="integer" required="false" label="service_attitude"/>
+     <parameter id="technical_guidance" type="integer" required="false" label="technical_guidance"/>
+     <parameter id="teach_length" type="integer" required="false" label="teach_length"/>
+     <parameter id="final_eval" type="varchar" required="false" label="final_eval"/>
+     
+      <parameter id="remark" type="varchar" required="false" label="remark"/>
+</validator>

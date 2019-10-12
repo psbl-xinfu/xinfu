@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="vc_cardcode" type="varchar" required="false" label="会员卡号"/>
+	<parameter id="vc_tempcabinet" type="varchar" required="false" label="手牌号"/>
+	<parameter id="to_mc" type="varchar" required="false" label="to_mc"/>
+	<parameter id="temporaryinleft" type="varchar" required="false" label="临时入场"/>
+	<parameter id="inlefttype" type="varchar" required="false" label="入场类型"/>
+</validator>

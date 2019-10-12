@@ -1,0 +1,22 @@
+insert into cc_classkq
+(
+	code,
+	rules_name,
+	isrules,
+	percent_value,
+	fixed_value,
+	remark,
+	status,
+	org_id
+)
+values
+(
+	${seq:nextval@seq_cc_classkq},
+	${fld:vc_content},
+	${fld:i_isrules},
+	${fld:f_bfb}::float,
+	${fld:f_gdz}::float,
+	${fld:vc_remark},
+	${fld:i_status},
+	${def:org}
+)

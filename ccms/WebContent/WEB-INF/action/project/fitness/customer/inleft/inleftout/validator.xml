@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="inleftcode" type="varchar" required="true" label="inleftcode" />
+	<parameter id="org_id" type="varchar" required="true" label="门店编号"/>
+</validator>
+			
+
+
+

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/analysis-org.js" type="text/javascript"></script>
+<title>回访分析</title>
+</head>
+<body>
+	<div class="am-tabs-bd r-tab-cont">
+		<div class="bb-tab-cout-1 am-tab-panel am-in am-active am-fade three-none">
+			
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<button id="searchAll" class="freshen">刷新</button>
+					</nav>
+				</div>
+			</div>
+			
+			<div class="bb-tab-cout-1-bottom">
+				
+				
+				<!-- 未成交客户 -->
+				<div class="addTop" code="chartsgroup" data-area="nomakebargain">
+					<header>
+						<span>未成交客户分析</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="nomakebargain" id="nomakebargainfdate" name="nomakebargainfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="nomakebargain" id="nomakebargaintdate" name="nomakebargaintdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="nomakebargain" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="nomakebargain" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="nomakebargaindaterangespan"></p></div>
+					<div id="nomakebargainDiv" style="" class="other-full"></div>
+					<div id="nomakebargainDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 首次私教第一节课  -->
+				<div class="addTop" code="chartsgroup" data-area="ptfirstlesson">
+					<header>
+						<span>首次私教第一节课</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="ptfirstlesson" id="ptfirstlessonfdate" name="ptfirstlessonfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="ptfirstlesson" id="ptfirstlessontdate" name="ptfirstlessontdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="ptfirstlesson" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="ptfirstlesson" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="ptfirstlessondaterangespan"></p></div>
+					<div id="ptfirstlessonDiv" class="other-full"></div>
+					<div id="ptfirstlessonDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 未成交私教客户分析 -->
+				<div class="addTop" code="chartsgroup" data-area="nomakebargainpt">
+					<header>
+						<span>未成交私教客户</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="nomakebargainpt" id="nomakebargainptfdate" name="nomakebargainptfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="nomakebargainpt" id="nomakebargainpttdate" name="nomakebargainpttdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="nomakebargainpt" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="nomakebargainpt" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="nomakebargainptdaterangespan"></p></div>
+					<div id="nomakebargainptDiv" class="other-full"></div>
+					<div id="nomakebargainptDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 未续费私教客户 -->
+				<div class="addTop" code="chartsgroup" data-area="norenewalptcust">
+					<header>
+						<span>未续费私教客户</span>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="norenewalptcust" id="norenewalptcustfdate" name="norenewalptcustfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="norenewalptcust" id="norenewalptcusttdate" name="norenewalptcusttdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="norenewalptcust" data-type="pie" name="changeMagicType" class="pie-btn active pielistbtn"></button>
+							<button data-area="norenewalptcust" data-type="list" name="changeMagicType" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="norenewalptcustdaterangespan"></p></div>
+					<div id="norenewalptcustDiv" class="other-full"></div>
+					<div id="norenewalptcustDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 未续费会籍客户 -->
+				<div class="addTop" data-role="mc" style="">
+					<header>
+						<span>未续费会籍客户</span>
+						<nav>
+							<li id="norenewaltongbi" name="norenewaltongbi" data-name="compareflag" data-area="norenewal" data-code="T">同比</li>
+							<li id="norenewalhuanbi" name="norenewalhuanbi" data-name="compareflag" data-area="norenewal" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="norenewaldatatype" name="norenewaldatatype" 
+										data-name="datatype" data-area="norenewal">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="norenewal" id="norenewalfdate" name="norenewalfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="norenewal" id="norenewaltdate" name="norenewaltdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="norenewal" data-type="bar" name="changeMagicType"></button>
+							<button data-area="norenewal" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="norenewal" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="norenewaldaterangespan"></p></div>
+					<div id="norenewalDiv" class="other-full"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var norw = null, nomakebargainendPic = null, nomakebargainptendPic = null, norenewalptcustendPic = null;
+$(document).ready(function() {
+	//searchSelectInit($("#norenewaldatatype"), "70px");
+	ccms.dialog.date($("#fdate,#tdate"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	// 循环图表
+	$("div[code=chartsgroup]").each(function(i,ele){
+		var darea = $(this).data("area");
+		$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		$("button[name=changeMagicType][data-area="+darea+"]").attr("data-idx", i);
+		// 视图模式
+		//$("button[name=changeMagicType][data-area="+darea+"].active").removeClass("active");
+		//$("button[name=changeMagicType][data-area="+darea+"][data-type=line]").addClass("active");
+		$("button[name=changeMagicType][data-area="+darea+"]").unbind().on("click",function(){
+			$(this).siblings(".active").removeClass("active");
+			$(this).addClass("active");
+			//changeMagicType($(this).attr("data-idx"), dataArea+"Div", $(this).data("type"));
+		});
+		
+		
+	});
+	/** 同比、环比 */
+	$("li[data-name=compareflag]").on("click",function(){
+		if($(this).hasClass('baobiao-active')){
+			$(this).removeClass("baobiao-active");
+		}else{
+			$(this).siblings().removeClass("baobiao-active");
+			$(this).addClass("baobiao-active");
+		}
+		var dataarea = $(this).attr("data-area");
+		refreshSingleCharts(dataarea);
+	});
+	
+	/** 各图表区域日期变更事件 */
+	$("input[data-name=fdate],input[data-name=tdate]").each(function(idx,ele){
+		ccms.dialog.date($(ele), function(){
+			var dataarea = $(ele).attr("data-area");
+			refreshSingleCharts(dataarea);
+		});
+	});
+	
+	/** 顶部搜索 */
+	$("#searchAll").unbind().on("click",function(){// 顶部搜索条件同步
+		$("div[code=chartsgroup]").each(function(i,ele){
+			var darea = $(this).data("area");
+			$("#"+darea+"daterangespan").html($("#fdate").val() + " ~ " + $("#tdate").val());
+		});
+		$("input[id$=fdate]").not("#fdate").each(function(idx,ele){
+			$(ele).val($("#fdate").val());
+		});
+		$("input[id$=tdate]").not("#tdate").each(function(idx,ele){
+			$(ele).val($("#tdate").val());
+		});
+		$("select[id$=datatype]").not("#datatype").each(function(idx,ele){
+			$(ele).val($("#datatype").val());
+		});
+		
+		// 未成交客户
+		nomakebargainend();
+
+		//首次私教第一节课
+		var ptfirstlessonendPic = new pieCharts("ptfirstlessonDiv");
+		ptfirstlessonendPic.setConfig({isLegendShow: true, titlename: "首次私教第一节课"});
+		var seriesArr = [
+			{value: 100, name: '教练态度'},
+			{value: 340, name: '表达能力'},
+			{value: 300, name: '亲和力', selected: true},
+			{value: 400, name: '专业度'}
+		];
+		ptfirstlessonendPic.createCharts(seriesArr);
+
+		//未成交私教客户
+		nomakebargainptend();
+
+		// 未续费私教客户
+		norenewalptcustend();
+		
+		/** 未续费会籍客户 **/
+		norw = new noRenewal();
+		norw.loadData();
+	});
+	$("#searchAll").click();
+
+	//饼图、饼图列表切换
+	$(".pielistbtn").unbind().on("click",function(){
+		var name = $(this).attr("data-area");
+		var datatype = $(this).attr("data-type");
+		if(datatype=="pie"){
+			$("#"+name+"Divlist").hide();
+			$("#"+name+"Div").show();
+			$("[data-area="+name+"][data-type=list]").removeClass("active");
+			$("[data-area="+name+"][data-type=pie]").addClass("active");
+		}else if(datatype=="list"){
+			$("#"+name+"Divlist").show();
+			$("#"+name+"Div").hide();
+			$("[data-area="+name+"][data-type=pie]").removeClass("active");
+			$("[data-area="+name+"][data-type=list]").addClass("active");
+		}
+	})
+});
+
+
+/** 刷新单个图表 */
+function refreshSingleCharts(dataarea){
+	if( undefined != dataarea && "" != dataarea ){
+		if( "norenewal" == dataarea){	/** 未续费会籍客户 */
+			norw.loadData();
+		}else if( "ptfirstlesson" == dataarea ){	/** 首次私教第一节课 */
+			
+		}else if( "nomakebargain" == dataarea){	/** 未成交客户 */
+			nomakebargainend();
+		}else if( "nomakebargainpt" == dataarea){	/** 未成交私教客户 */
+			nomakebargainptend();
+		}else if( "norenewalptcust" == dataarea){	/** 未续费私教客户 */
+			norenewalptcustend();
+		}
+		$("#"+dataarea+"daterangespan").html($("#"+dataarea+"fdate").val() + " ~ " + $("#"+dataarea+"tdate").val());
+	}
+}
+
+// 未成交客户
+function nomakebargainend(){
+	nomakebargainendPic = new pieCharts("nomakebargainDiv");
+	nomakebargainendPic.setConfig({isLegendShow: true, titlename: "未成交客户"});
+	getAjaxCall("${def:actionroot}/loaddata/nomakebargainend?fdate="+$("#nomakebargainfdate").val()+"&tdate="+$("#nomakebargaintdate").val(), false, function(){
+	});
+}
+//未成交私教客户
+function nomakebargainptend(){
+	nomakebargainptendPic = new pieCharts("nomakebargainptDiv");
+	nomakebargainptendPic.setConfig({isLegendShow: true, titlename: "未成交私教客户"});
+	getAjaxCall("${def:actionroot}/loaddata/nomakebargainptend?fdate="+$("#nomakebargainptfdate").val()+"&tdate="+$("#nomakebargainpttdate").val(), false, function(){
+	});
+}
+
+// 未续费私教客户
+function norenewalptcustend(){
+	norenewalptcustendPic = new pieCharts("norenewalptcustDiv");
+	norenewalptcustendPic.setConfig({isLegendShow: true, titlename: "未续费私教客户"});
+	getAjaxCall("${def:actionroot}/loaddata/norenewalptcustend?fdate="+$("#norenewalptcustfdate").val()+"&tdate="+$("#norenewalptcusttdate").val(), false, function(){
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>私教预约明细</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="p.preparedate;p.preparetime" preserve="true"/>
+		<input name="order" type="hidden" value="desc;desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="sj-tab-cout-1 am-tab-panel am-in am-active am-fade three-none" id="sj-tab1">
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+						<nav class="tab-nav-my">
+							<li class="dateTime">
+								<input id="_date" name="_date" type="text" required="required" class="input-default" readonly />
+							</li>
+							<li class="dateTime">
+								<input id="end_date" name="end_date" type="text" required="required" class="input-default" readonly />
+							</li>
+							<li class="inputName">
+									<input type="text" id="custall" name="custall" class="input-default" placeholder="会员姓名/电话/卡号"/>
+								</li>
+								<li style="width: 120px">
+									<select id="_status" name="_status" class="normal-select">
+										<option value="">状态</option>
+										<option value="0">已取消</option>
+										<option value="1">预约中</option>
+										<option value="2">已上课</option>
+										<option value="3">爽约</option>
+									</select>
+								</li>
+								<li style="width: 160px">
+									<select id="vc_ptid" name="vc_ptid">
+										<option value="">全部教练</option>
+										<staff-rows>
+											<option value="${fld:userlogin}">${fld:name}</option>
+										</staff-rows>
+									</select>
+								</li>
+								<div>
+									<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+									<button type="button" class="r-c-3-btn-2" id="add_btn" title="预约"></button>
+									<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出1"></button>
+								</div>
+						</nav>
+						
+					</div>
+					
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+							<li class="wenzi">
+								视图模式：
+							</li>
+							<li id="to-sjyy-xx">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/liebiao.svg" alt="" title="列表" id="liebiao">
+							</li>
+							<li id="to-sjyy-zhou">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/zhou.svg" alt="" title="周表" id="zhoubiao">
+							</li>
+							<li id="to-sjyy-yue">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/yue.svg" alt="" title="月表" id="yuebiao">
+							</li>
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+									<img src="${def:context}/js/project/fitness/image/SVG/nav/yulan.svg" title="查看" alt="" id="find_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/qiandao.svg" title="签到" alt=""id="in_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/quxiaoyuyue.svg" title="取消预约" alt=""id="cancel_prepare_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/xunlianjihua.svg" title="训练计划" alt=""id="plan_btn">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/tice.svg" title="体测结果" alt=""id="test_btn">
+							</li>
+							<li>
+									<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印" alt="" id="print_btn">
+							</li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr>
+								<th></th>
+								<th>预约时间</th>
+								<th>教练</th>
+								<th>姓名</th>
+								<th>手机</th>
+								<th>课程名称</th>
+								<th>状态</th>
+								<th>刷课时间</th>
+								<th>实际单价</th>
+								<th>课程价格</th>
+								<th>剩余次数</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr id="list" code="#vc_code#">
+								<td>#radiolink#</td>
+								<td>#prepare_time#</td>
+								<td>#pt_name#</td>
+								<td>#vc_name#</td>
+								<td>#vc_mobile#</td>
+								<td>#ptlevelname#</td>
+								<td>#i_statusname#</td>
+								<td>#c_itime#</td>
+								<td>#ptfactfee#</td>
+								<td>#f_ptfee#</td>
+								<td>#f_leftcount#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				</div>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_date" name="daochu_date" type="text"/>
+		<input id="daochu_end_date" name="daochu_end_date" type="text"/>
+		<input id="daochu_status" name="daochu_status" type="text"/>
+		<input id="daochu_vc_ptid" name="daochu_vc_ptid" type="text"/>
+		<input id="daochu_custall" name="daochu_custall" type="text"/>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var scaletype = "1";	// 私教提成方式 0-固定金额  1-比例
+var search = null;
+$(document).ready(function() {
+	//月表周表列表切换
+    $("#liebiao").click(function(){listptprepare();});
+    $("#zhoubiao").click(function(){weekptprepare();});
+    $("#yuebiao").click(function(){monthptprepare();});
+    checkMenuBtn();
+	searchSelectInit($("#vc_ptid,#_status"));
+	//页面点击事件
+	 $(document).click(function(){ 
+		$(".error").html("");
+	 }); 
+	<scaletype-rows>
+		scaletype = "${fld:vc_content}";
+	</scaletype-rows>
+	$("#_date,#end_date").val("${def:date}");
+	if( "undefined" != "${fld:vc_ptid}" && "" != "${fld:vc_ptid}" ){
+		$("#vc_ptid").val("${fld:vc_ptid}" );
+	}
+	if("undefined" != "${fld:vc_date}" && "" != "${fld:vc_date}"){
+		$("#_date").val("${fld:vc_date}" );
+		$("#end_date").val("${fld:vc_date}" );
+	}
+	$Dialog().date($('#_date'),function(){});
+	$Dialog().date($('#end_date'),function(){});
+	this.search = search;
+	search = $Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+		if( scaletype == "0" ){	// 私教提成方式 0-固定金额
+		}else{	// 私教提成方式  1-比例
+			obj.f_scale = "";
+		}
+	},success:function(){
+		$("table").css("table-layout","auto");
+		$("#searchForm #custall").val("");
+		
+		ccms.util.renderRadio("preparelist");
+		$("input[name=preparelist]").iCheck({
+			radioClass : 'iradio_square-blue',
+			increaseArea : '20%'
+		});
+	}}).initSearchBtn().searchData(1);
+	//取消预约
+	$("#cancel_prepare_btn").unbind().on("click",function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			var _status = $("input[name=preparelist]:checked").attr("code");
+			//判断当前状态是否可以取消预约
+			if("2"==_status||"0"==_status){
+				ccms.dialog.notice("该会员已上课或已取消，不能取消！");
+			}else{
+				var uri="${def:actionroot}/cancellation?id="+target_id;
+				ajaxCall(uri,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+					}
+				});
+			}
+		}else{
+			ccms.dialog.notice("请选择会员!");
+		} 
+	});
+	//补打小票
+	$("#print_btn").unbind().on("click",function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			var _status = $("input[name=preparelist]:checked").attr("code");
+			//判断是否已上课
+			if( "2" != _status ){
+				ccms.dialog.notice("未上课记录无法打印小票！");
+				return false;
+			}else{
+				var uri="${def:context}/action/project/fitness/print/ticket/ptdetailprepareprint?pk_value="+target_id+"&print_type="+_status;
+				ajaxCall(uri,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+					}
+				});
+			}
+		}else{
+			ccms.dialog.notice("请选择会员!");
+		}
+	});
+	//体侧
+	$("#test_btn").unbind().on("click",function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			var vc_cardcode=$("input:radio:checked").attr('code-card');
+			var vc_customercode=$("input:radio:checked").attr('customer-code');
+			ccms.dialog.open({url:"${def:context}/action/project/fitness/class/private/testresults/form?cardcode="+vc_cardcode+"&customercode="+vc_customercode+"&ptpreparecode="+target_id,id:"dialogPic", width:900,height:600});
+		}else{
+			
+			ccms.dialog.notice("请选择会员!");
+		}
+	});
+	//训练计划
+	$("#plan_btn").unbind().on("click",function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			var vc_cardcode=$("input:radio:checked").attr('code-card');
+			var vc_preparecode=$("input:radio:checked").val();
+			var vc_customercode=$("input:radio:checked").attr('customer-code');
+			var _date=$("#_date").val();
+			ccms.dialog.open({url:"${def:context}/action/project/fitness/class/private/trainplan/form?vc_cardcode="+vc_cardcode+"&_date="+_date+"&vc_ptpreparecode="+vc_preparecode+"&vc_customercode="+vc_customercode,id:"dialogPic", width:'800',height:'700'});
+		}else{
+			ccms.dialog.notice("请选择会员!");
+		}
+	});
+
+	//导出
+	$("#daochu_list").click(function(){
+		$("#daochu_date").val($("#_date").val());
+		$("#daochu_end_date").val($("#end_date").val());
+		$("#daochu_status").val($("#_status").val());
+		$("#daochu_vc_ptid").val($("#vc_ptid").val());
+		$("#daochu_custall").val($("#custall").val());
+        $("#daochuForm").submit();
+	});
+	//新增预约
+	$("#add_btn").click(function(){
+		ccms.dialog.open({url : 
+			'${def:context}/action/project/fitness/class/private/privateteach/covenantclass/form', height:500});
+	});
+	//查看预约信息
+	$("#find_btn").click(function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			ccms.dialog.open({url : 
+				'${def:context}/action/project/fitness/class/private/privateteach/covenantclass/form?ptpreparecode='+target_id, height:500});
+		}else{
+			ccms.dialog.notice("请选择会员!");
+		}
+	});
+	//签到
+	$("#in_btn").click(function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			$Dialog().confirm("确定要签课吗？", function(){
+				var restcode = $("input[name=preparelist]:checked").attr("restcode");
+				var url = '${def:actionroot}/signin?code='+target_id+"&restcode="+restcode;
+				ajaxCall(url,{
+					method: "get",
+					progress: true,
+					dataType: "script",
+					success: function() {
+						 search.searchData(1);
+					}
+				});
+			});
+		}else{
+			ccms.dialog.notice("请选择会员!");
+		}
+	});
+});
+function searchPrepare(){
+	search.searchData(1);
+}
+</script>
+</body>
+</html>

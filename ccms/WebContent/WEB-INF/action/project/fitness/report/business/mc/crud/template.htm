@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>会籍业绩</title>
+</head>
+<body>
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="dateTime">
+									<input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
+							</li>
+							<li class="dateTime">
+								<input id="s_end_date" name="s_end_date" type="text"class="input-default"/>
+
+							</li>
+							
+							<li>
+								<select id="s_skill_name" name="s_skill_name" style="display: none;">
+									<option value="">全部会籍</option>
+									<staff-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows>
+								</select>
+							</li>
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<button type="button"  class="r-c-3-btn-3" id="excel" title="导出"></button>
+							</div>
+						</nav>
+					</div>
+				</div>
+						<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th  ></th>
+								<th ></th>
+								<th colspan="2"style="width: 170px">会员卡销售</th>
+								<th colspan="2">会员卡续费</th>
+								<th colspan="2">私教销售</th>
+								<th  colspan="2">租赁柜销售</th>
+								<th  colspan="2">金额合计</th>
+							</tr>
+							<tr>
+								<th >排名</th>
+								<th >会籍</th>
+								<th >数量</th>
+								<th >金额</th>
+								<th >数量</th>
+								<th>金额</th>
+								<th >数量</th>
+								<th >金额</th>
+								<th >数量</th>
+								<th >金额</th>
+								<th >数量</th>
+								<th >金额</th>
+							</tr>
+						</thead>
+						
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+								<td style="width:8%">#show_order#</td>
+								<td style="width:8%">#name#</td>
+								<td style="width:8%">
+									<a href="#" onclick="detailcontract('#userlogin#', '1')">#cardnum#</a>
+								</td>										
+								<td style="width:8%">#cardfee#</td>											
+								<td style="width:8%">
+									<a href="#" onclick="detailcontract('#userlogin#', '2')">#xunum#</a>
+								</td>										
+								<td style="width:8%">#xufee#</td>				
+								<td style="width:8%">
+									<a href="#" onclick="detailcontract('#userlogin#', '3')">#ptnum#</a>
+								</td>
+								<td style="width:8%">#ptfee#</td>										
+								<td style="width:8%">
+									<a href="#" onclick="detailcontract('#userlogin#', '4')">#upnum#</a>
+								</td>
+								<td style="width:8%">#upfee#</td>									
+								<td style="width:8%">#zongnum#</td>										
+								<td  style="width:8%">#zongprice#</td>			
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+							<tr>
+								<td style="width:8%" colspan="2">总计：</td>
+								<td style="width:8%" id="cardnum"></td>										
+								<td style="width:8%" id="cardfee"></td>										
+								<td style="width:8%" id="xunum"></td>										
+								<td style="width:8%" id="xufee"></td>				
+								<td style="width:8%" id="ptnum"></td>
+								<td style="width:8%" id="ptfee"></td>										
+								<td style="width:8%" id="upnum"></td>
+								<td style="width:8%" id="upfee"></td>										
+								<td style="width:8%" id="zongnum"></td>										
+								<td style="width:8%" id="zongprice"></td>			
+							</tr>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form id="daochuForm"  name="daochuForm">
+		<input type="hidden" id="daochu_start_date" name="daochu_start_date" type="text"/>
+		<input  type="hidden" id="daochu_end_date" name="daochu_end_date" type="text"/>
+		<input type="hidden" id="daochu_skill_name" name="daochu_skill_name" type="text"/>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
+	searchSelectInit($("#s_skill_name"));
+	
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_start_date").val($("#s_start_date").val());
+		$("#daochu_end_date").val($("#s_end_date").val());
+		$("#daochu_skill_name").val($("#s_skill_name").val());
+		
+		var url = "${def:context}${def:actionroot}/excel"
+			ajaxCall(url,{
+				method: "post",
+				progress: true,
+				form:'daochuForm',
+				dataType: "script",
+				success: function() {
+				}
+			});
+	});  
+	
+ 	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		var cardnum=0,cardfee=0,xunum=0,xufee=0,ptnum=0,ptfee=0,upnum=0,upfee=0,zongnum=0,zongprice=0;
+		$("#datagrid tr").each(function(){
+			cardnum+=parseInt($(this).find("td").eq(2).find("a").html());//会员卡销售数量
+			cardfee+=Number($(this).find("td").eq(3).html());//会员卡销售金额
+			xunum+=parseInt($(this).find("td").eq(4).find("a").html());//会员卡续费数量
+			xufee+=Number($(this).find("td").eq(5).html());//会员卡续费金额
+			ptnum+=parseInt($(this).find("td").eq(6).find("a").html());//私教销售数量
+			ptfee+=Number($(this).find("td").eq(7).html());//私教销售金额
+			upnum+=parseInt($(this).find("td").eq(8).find("a").html());//租凭柜数量
+			upfee+=Number($(this).find("td").eq(9).html());//租凭柜金额
+			zongnum+=parseInt($(this).find("td").eq(10).html());//合计数量
+			zongprice+=Number($(this).find("td").eq(11).html());//合计金额
+		});
+		$("#cardnum").html(cardnum);
+		$("#cardfee").html(cardfee);
+		$("#xunum").html(xunum);
+		$("#xufee").html(xufee);
+		$("#ptnum").html(ptnum);
+		$("#ptfee").html(ptfee);
+		$("#upnum").html(upnum);
+		$("#upfee").html(upfee);
+		$("#zongnum").html(zongnum);
+		$("#zongprice").html(zongprice);
+	}}).initSearchBtn().searchData(1); 
+})
+//查询会籍合同
+function detailcontract(userlogin, type){
+	ccms.dialog.open({url : "${def:context}${def:actionroot}/detailcontract/crud?userlogin="+userlogin+"&startdate="+$("#s_start_date").val()
+		+"&enddate="+$("#s_end_date").val()+"&type="+type, height: 600});
+}
+
+</script>
+</body>
+</html>

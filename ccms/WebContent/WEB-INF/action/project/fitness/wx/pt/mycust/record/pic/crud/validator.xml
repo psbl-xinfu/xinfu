@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="customercode" type="varchar" required="day" label="customercode"/>
+	<parameter id="day" type="integer" required="true" label="type"/>
+	<parameter id="dates" type="varchar" required="true" label="dates"/>
+	<parameter id="boot" type="varchar" required="false" label="boot"/>
+</validator>

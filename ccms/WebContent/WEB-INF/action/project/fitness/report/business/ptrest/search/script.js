@@ -1,0 +1,25 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"e_code":"${fld:e_code@js}",
+		"_rowNumber":"${fld:_rowNumber}",
+		"cust_code":"${fld:cust_code@js}",
+		"vc_name":"${fld:vc_name@js}",
+		"vc_ptlevelname":"${fld:vc_ptlevelname@js}",
+		"i_pttype":"${fld:i_pttype}",
+		"f_pttotalcount":"${fld:f_pttotalcount}",
+		"f_ptfee":"${fld:f_ptfee}",
+		"f_ptfactfee":"${fld:f_ptfactfee}",
+		"f_ptleftcount":"${fld:f_ptleftcount}",
+		"totalfee":"${fld:totalfee}",
+		"f_scale":"${fld:f_scale}",
+		"pt_name":"${fld:pt_name@js}",
+		"c_itime":"${fld:c_itime}",
+		"vc_ptenddate":"${fld:vc_ptenddate}",
+		"buyday":"${fld:buyday}",
+		"we":"${fld:we}",
+		"ptmoney":"${fld:ptmoney}"
+	},
+	</rows>
+	{}
+]}

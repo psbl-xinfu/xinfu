@@ -1,0 +1,1 @@
+select 1 from cc_market_campaign where campaign_name=${fld:campaign_name} and campaigntype=3

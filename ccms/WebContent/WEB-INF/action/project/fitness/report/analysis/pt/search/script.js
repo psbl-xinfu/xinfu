@@ -1,0 +1,19 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"showorder":"${fld:_rowNumber}",
+		"name":"${fld:name@js}",
+		"avgfee":"${fld:avgfee}",
+		"pos":"${fld:pos}",
+		"p1":"${fld:p1}",
+		"p2":"${fld:p2}",
+		"rate":"${fld:rate}",
+		"income":"${fld:income}",
+		"haokelv":"${fld:haokelv}",
+		"cknum":"${fld:cknum}",
+		"firstcttn":"${fld:firstcttn}"
+			
+	},
+	</rows>
+	{}
+]}

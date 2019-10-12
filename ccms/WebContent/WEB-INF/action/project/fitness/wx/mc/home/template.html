@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+	<title>会籍首页</title>
+	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+	   <link href="${def:context}/js/project/fitness/wx/css/swiper.min.css" rel="stylesheet">
+	
+    </head>
+    <body style="background: white">
+        <!-- Swiper -->
+        <div class="swiper-container"id="swiper1">
+            <div class="swiper-wrapper">
+            
+            
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        
+
+        <div class="huijitop">
+            <div class="topone fl">
+                <p class="name">本月销售业绩</p>
+                <p class="baifenbi" id="orderfee_target">100%</p>
+                <p class="shuliang" id="contractprice_monnum">0</p>
+            </div>
+            <div class="toptwo fr">
+                <p class="name">本月跟进任务</p>
+                <p class="baifenbi" id="follow_target">100%</p>
+                <p class="shuliang" id="genjin_monnum">0</p>
+            </div>
+            <div class="topthree"></div>
+        </div>
+        
+        <div class="huijitiao" ></div>
+
+        <div class="huijibottom container">
+            <div class="row">
+                <div class="col-xs-4">
+                        <img src="${def:context}/js/project/fitness/wx/image/myziyuan.png" class="bottomimg" id="gust">
+                        <p class="name">我的资源</p>
+                </div>
+                <div class="col-xs-4">
+                        <img src="${def:context}/js/project/fitness/wx/image/myhuiyuan.png" class="bottomimg" id="custom">
+                        <p class="name">我的会员</p>
+                </div>
+                <div class="col-xs-4">
+                        <img src="${def:context}/js/project/fitness/wx/image/hetongbanli.png" class="bottomimg" id="contract">
+                        <p class="name">合同办理</p>
+                </div>
+                <div class="col-xs-4">
+                        <img src="${def:context}/js/project/fitness/wx/image/peixunxuexi.png" class="bottomimg"id="mycourse">
+                        <p class="name">培训学习</p>
+                </div>
+                <div class="col-xs-4">
+                        <img src="${def:context}/js/project/fitness/wx/image/gerenzhongxin.png" class="bottomimg" id="personal">
+                        <p class="name">个人中心</p>
+                </div>
+               <div class="col-xs-4" style="display: none" id="yiji">
+                        <img src="${def:context}/js/project/fitness/wx/image/baobiao@2x.png" class="bottomimg" id="report">
+                        <p class="name">业绩报表</p>
+                </div>
+            </div>
+        </div>
+        <script src="${def:context}/js/project/fitness/wx/js/swiper-4.0.7/js/swiper.min.js"></script>
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	if("${fld:skill_name}"=="会籍经理"){
+    		$('#yiji').show();
+    	}
+    	getAjaxCall("/action/project/fitness/wx/basic/bannerorg", false, function(){});
+    	getRepot();
+    	
+        $('#gust').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/crud?type=mc";
+        })
+    	 $('#custom').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/mycust/crud?type=mc";
+        })
+        $('#contract').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/contract/crud?type=mc";
+        })
+   		$('#personal').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/mc/personal/crud?type=mc";
+        })
+        $('#report').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/mc/report/crud?type=mc";
+        })
+        var width=$(window).width();
+        if(width<=750){
+            $('.bannerimg').css({'height':width*320/750+'px'});
+            $('.huijitop').css({'height':width*195/750+'px'});
+            $('.huijibottom').css({'height':width*660/750+'px'});
+        }else{
+            $('.bannerimg').css({'height':'320px'});
+            $('.huijitop').css({'height':'195px'});
+            $('.huijibottom').css({'height':'660px'});
+        }
+
+        /*轮播*/
+        
+        $('#mycourse').on('click',function(){
+           	location.href="${def:context}/action/project/fitness/wx/pt/mycourses/crud?type=mc";
+        })
+    });
+  	  function getRepot(){
+  		  var target_date=new Date().format("yyyy-MM");
+  	    	getAjaxCall("/action/project/fitness/wx/mc/home/gettask/getcode?skilltype=2&target_date="+target_date,false);
+  	    }
+</script>

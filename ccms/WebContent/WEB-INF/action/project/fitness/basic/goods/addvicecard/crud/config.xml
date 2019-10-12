@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		添加副卡
+	</summary>
+	
+	<log>true</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-storage.sql" source="sql" scope="transaction" />
+		<recordset id="query-goodsname.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-storage.sql" tag="storage-rows" />
+		<print mode="table" recordset="query-storage.sql" tag="storage-rows-two" />
+		<print mode="form" recordset="query-goodsname.sql" />
+		<print mode="form" recordset="_request" />
+	</output>
+</config>

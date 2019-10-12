@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="daochu_ptlevelname" type="varchar" required="false" label="课程名称" />
+	<parameter id="daochu_status" type="varchar" required="false" label="课程状态" />
+	<parameter id="daochu_classtype" type="varchar" required="false" label="课程类型" />
+	<custom-validator 
+		classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="daochu_ptlevelname" 
+		rule="contains" 
+		ifnull="%" />
+</validator>

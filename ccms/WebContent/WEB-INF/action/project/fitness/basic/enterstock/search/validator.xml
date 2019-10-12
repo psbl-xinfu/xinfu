@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="searchstorageid" type="varchar" required="false" label="仓库名称" />
+	<parameter id="status" type="varchar" required="false" label="状态" />
+</validator>

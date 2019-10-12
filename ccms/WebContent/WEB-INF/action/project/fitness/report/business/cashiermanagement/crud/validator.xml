@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="flag" type="varchar" required="false" label="flag"/>
+	<parameter id="start_date" type="varchar" required="false" label="start_date"/>
+	<parameter id="end_date" type="varchar" required="false" label="end_date"/>
+	<parameter id="vc_type" type="varchar" required="false" label="vc_type"/>
+	<parameter id="vc_item" type="varchar" required="false" label="vc_item"/>
+</validator>

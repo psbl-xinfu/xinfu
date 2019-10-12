@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+       <parameter id="remark" type="varchar" required="false" label="remark" maxlen="32" />
+       <parameter id="cust_name" type="varchar" required="true" label="cust_name" maxlen="32" />
+       <parameter id="sex" type="varchar" required="false" label="sex" maxlen="32" />
+       <parameter id="mobile" type="varchar" required="false" label="mobile" maxlen="32" />
+       <parameter id="cardtype" type="varchar" required="true" label="cardtype" maxlen="32" />
+       <parameter id="customercode" type="varchar" required="true" label="customercode" maxlen="32" />
+       <parameter id="why" type="varchar" required="true" label="why" maxlen="32" />
+       
+        <parameter id="daycount" type="integer" required="false" label="i_sex" maxlen="32" />
+       <parameter id="giveday" type="integer" required="false" label="vc_cardtype" maxlen="32" />
+       <parameter id="money" type="varchar" required="false" label="yuanyin" maxlen="32" />
+        <parameter id="count" type="varchar" required="false" label="yuanyin" maxlen="32" />
+        <parameter id="cardfee" type="varchar" required="false" label="yuanyin" maxlen="32" />
+        
+        
+        <parameter id="enablement" type="varchar" required="true" label="启用方式" maxlen="32" />
+        <parameter id="startdate" type="varchar" required="false" label="startdate" maxlen="32" />
+        <parameter id="enddate" type="varchar" required="false" label="enddate" maxlen="32" />
+        
+</validator>
+

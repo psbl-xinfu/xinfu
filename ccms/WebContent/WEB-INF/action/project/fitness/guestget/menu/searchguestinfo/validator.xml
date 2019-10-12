@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="name" type="varchar" required="false" label="客户姓名/电话搜索"/>
+	<parameter id="startdate" type="varchar" required="false" label="开始时间"/>
+	<parameter id="enddate" type="varchar" required="false" label="结束时间"/>
+	<parameter id="intentions" type="varchar" required="false" label="意向强度"/>
+	<parameter id="sexs" type="varchar" required="false" label="性别"/>
+	<parameter id="ages" type="varchar" required="false" label="年龄"/>
+	<parameter id="communications" type="varchar" required="false" label="沟通情况"/>
+	<parameter id="usertype" type="varchar" required="false" label="权限判断"/>
+	<parameter id="team_id" type="varchar" required="false" label="分组"/>
+	<parameter id="userlogin" type="varchar" required="false" label="组员"/>
+	
+	<parameter id="demand" type="varchar" required="false" label="需求"/>
+</validator>

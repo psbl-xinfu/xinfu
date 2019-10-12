@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_start_date" type="varchar" required="false" label="daochu_start_date"/>
+	<parameter id="daochu_end_date" type="varchar" required="false" label="daochu_end_date"/>
+	<parameter id="daochu_salename_query" type="varchar" required="false" label="daochu_salename_query"/>
+	<parameter id="daochu_xiaoshouyuan" type="varchar" required="false" label="daochu_xiaoshouyuan"/>
+	<parameter id="daochu_shouyinyuan" type="varchar" required="false" label="daochu_shouyinyuan"/>
+	<parameter id="daochu_yewuleixing" type="varchar" required="false" label="daochu_yewuleixing"/>
+</validator>
+

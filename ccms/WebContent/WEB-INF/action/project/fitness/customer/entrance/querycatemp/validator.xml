@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<!-- <parameter id="cabinettempcode" type="varchar" required="false" label="手牌号"/> -->
+	<!-- <parameter id="customercode" type="varchar" required="false" label="会员编号"/> -->
+</validator>

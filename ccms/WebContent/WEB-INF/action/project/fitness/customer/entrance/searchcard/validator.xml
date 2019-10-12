@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="custall" type="varchar" required="false" label="会员编号"/>
+	<parameter id="cardcode" type="varchar" required="false" label="会员卡号"/>
+	<parameter id="unionorgid" type="varchar" required="true" label="org_id"/>
+	<parameter id="checkedcard" type="varchar" required="false" label="checkedcard"/>
+</validator>

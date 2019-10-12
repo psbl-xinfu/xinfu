@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/util/validation/alert">
+	
+    <parameter id="newcontractcode" type="varchar" required="true" label="合同编号" maxlen="128"/>
+	<parameter id="customercode" type="varchar" required="true" label="会员编号" maxlen="64"/>
+	<parameter id="cardcontractcode" type="varchar" required="true" label="会员卡合同编号" maxlen="64"/>
+	<parameter id="cardcode" type="varchar" required="true" label="会员卡号" maxlen="64"/>
+	<parameter id="salemember" type="varchar" required="true" label="默认会籍" maxlen="64"/>
+	<parameter id="normalmoney" type="double" required="true" label="应收"/>
+	<parameter id="remark" type="varchar" required="false" label="备注" maxlen="2000"/>
+
+	<parameter id="oldinimoney" type="double" required="true" label="原价"/>
+	<parameter id="oldnormalmoney" type="double" required="true" label="成交价"/>
+	<parameter id="leftmoney" type="double" required="false" label="合同欠款金额"/>
+	<parameter id="moneyleft" type="double" required="false" label="总欠款金额"/>
+	<parameter id="usedays" type="integer" required="true" label="已使用天数"/>
+</validator>

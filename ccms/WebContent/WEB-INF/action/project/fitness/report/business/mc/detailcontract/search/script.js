@@ -1,0 +1,23 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "code":"${fld:code@js}",
+		    "card_code":"${fld:card_code@js}",
+		    "name":"${fld:name@js}",
+		    "mobile":"${fld:mobile@js}",
+		    "normalmoney":"${fld:normalmoney}",
+		    "factmoney":"${fld:factmoney}",
+		    "cardname":"${fld:cardname@js}",
+		    "ncardname":"${fld:ncardname@js}",
+		    "collectdate":"${fld:collectdate@yyyy-MM-dd HH:mm:ss}",
+		    "net_code":"${fld:net_code@js}",
+		    "net_start":"${fld:net_start}",
+		    "net_end":"${fld:net_end}",
+		    "ptlevelname":"${fld:ptlevelname@js}",
+		    "pt":"${fld:pt@js}",
+		    "pttotalcount":"${fld:pttotalcount@js}",
+		    "ptenddate":"${fld:ptenddate}"
+	},
+	</rows>
+	{}
+]}

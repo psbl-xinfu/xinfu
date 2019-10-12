@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>私教合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+	<div class="basic-dialog dialogbg" style="height: 500px">
+			<header class="header-default">
+			私教合同
+			</header>
+			<form id="contractForm" name="contractForm" method="post">
+				<input type="hidden" id="contractcode" name="contractcode" value="" preserve="true" />
+				<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+				<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
+				<input type="hidden" id="recommendcode" name="recommendcode" value="" />
+				<input type="hidden" id="normalmoney" name="normalmoney" value="" />
+				<input type="hidden" id="ptfee" name="ptfee" value="" />
+				<div class="b-i-main">
+					<nav>
+						<li>
+							<label style="width: 120px;">会员：</label>
+							<span id="custnamespan"></span>		
+			     		</li>
+						<li>
+							<label style="width: 120px;">电话：</label>
+							<span id="mobilespan"></span>
+			     		</li>
+			     		
+						<div class="b-c-c-support" style="display: none">
+							<p >已购私教课：</p>
+							<div class="r-tab-cout-3-b" style="width: 80%">
+								<div class="to-change-background"></div>
+								<table class="am-table">
+									<thead>
+										<tr>
+											<th>私教课名称</th>
+											<th>私教</th>
+											<th>剩余节数</th>
+											<th>开始日期</th>
+											<th>截止日期</th>
+										</tr>
+									</thead>
+									<tbody id="classList">
+										<ptrest-rows>
+										<tr>
+											<td align="center">${fld:ptlevelname@js}</td>
+											<td align="center">${fld:ptname@js}</td>
+											<td align="center">${fld:ptleftcount}</td>
+											<td align="center">${fld:startdate}</td>
+											<td align="center">${fld:ptenddate}</td>
+										</tr>
+										</ptrest-rows>
+									</tbody>
+								</table>
+							</div>
+			     		</div>
+			     		
+						<li>
+							<label style="width: 120px;">销售员：</label>
+							<select  id="salemember" name="salemember" style="display: none;">
+								<option value="">默认会籍</option>
+								<sale-rows>
+								<option value="${fld:userlogin}">${fld:name@js}</option>
+								</sale-rows>
+							</select>
+			     		</li>
+						<li>
+							<label style="width: 120px;">第二会籍：</label>
+							<select  id="salemember1" name="salemember1" style="display: none;">
+								<option value="">第二销售</option>
+								<sale2-rows>
+								<option value="${fld:userlogin}">${fld:name@js}</option>
+								</sale2-rows>
+							</select>
+			     		</li>
+						<li>
+							<label style="width: 120px;">教练：</label>
+							<select id="pt" name="pt" style="display: none;">
+								<option value="">请选择</option>
+								<pt-rows>
+								<option value="${fld:userlogin}">${fld:name@js}</option>
+								</pt-rows>
+							</select>
+			     		</li>
+						<li>
+							<label style="width: 120px;">获课渠道：</label>
+							<select id="channel" name="channel" style="display: none;">
+								<option value="">请选择</option>
+								<source-rows>
+								<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</source-rows>
+							</select>
+			     		</li>
+						<li id="recommendDiv" style="display:none;">
+							<label style="width: 120px;">推荐人：</label>
+							<input type="text" id="recommend" placeholder="推荐人" name="recommend" size="30" />
+			     		</li>
+						<li>
+							<label style="width: 120px;">课程名称：</label>
+							<select  id="ptlevelcode" name="ptlevelcode" style="display: none;">
+								<option value="">请选择</option>
+								<ptlevel-rows>
+								<!-- <option value="${fld:code}" code1="${fld:ptfee}" code2="${fld:scale}">${fld:ptlevelname@js}</option> -->
+								</ptlevel-rows>
+							</select>
+			     		</li>
+						<li>
+							<label style="width: 120px;">课程单价：</label>
+							<span id="ptfeespan"></span>
+			     		</li>
+						<li>
+							<label style="width: 120px;">购买课时：</label>
+							<input type="text" id="ptcount" name="ptcount" value="1" placeholder="购买课时" />
+			     		</li>
+						<li>
+							<label style="width: 120px;">截止日期：</label>
+							<input type="text" id="ptenddate" name="ptenddate" readonly="readonly" placeholder="截止日期"/>
+			     		</li>
+						<li>
+							<label style="width: 120px;">应收：</label>
+							<span id="normalmoneyspan" style="color: #fdb346;font-size: 16px;font-weight: 600;"></span>
+			     		</li>
+						<li>
+							<label style="width: 120px;">折扣金额：</label>
+							<input type="text" id="ptamount" name="ptamount" value="0" placeholder="折扣金额"/>
+			     		</li>
+						<li class="to100w" >
+							<label>备注：</label>
+							<textarea id="remark" name="remark" class="my-textarea" ></textarea>
+			     		</li>		
+			     		
+					</nav>
+				</div>
+				<footer class="footer-default">
+					<button class="my-btn-default" type="button" id="save_btn" >保存</button>
+					<button class="my-btn-default active" id="pay_btn" type="button" style="display: none;">收款</button>
+				</footer>
+				</form>
+			</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var ptday = 1.00;	// 每节课几天上完
+var istopay = false;
+var currentDate = new Date();
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#pay_btn").show();
+	}
+	searchSelectInit($("#salemember,#salemember1,#pt,#channel,#ptlevelcode")); 
+	setSelectValue($("#salemember"), "${def:user}");
+	$("#salemember").selectpicker("refresh");
+	$("#salemember").selectpicker("render"); 
+	<cust-rows>
+		$("#customercode").val("${fld:code}");
+		$("#custnamespan").text("${fld:name@js}");
+		$("#mobilespan").text("${fld:mobile@js}");
+	</cust-rows>
+	ccms.dialog.date($("#ptenddate"));
+/* 	if( $("#classList").find("tr").length > 0 ){	// 已购买私教课
+		//$("#ptenddate").removeAttr("readonly");
+		ccms.dialog.date($("#ptenddate"));
+	}else{
+		//$("#ptenddate").attr("readonly", "true");
+		$("#startdate").datetimepicker('remove');
+	} */
+	<ptday-rows>
+		if( isFloat("${fld:param_value}") ){
+			ptday = (isFloat("${fld:param_value}") || isNumber("${fld:param_value}") ? parseFloat("${fld:param_value}") : ptday);
+		}
+	</ptday-rows>
+	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}", true);
+	}
+	// 根据教练重新加载私教课
+	$("#pt").on("change",function(){
+		$("#ptenddate").val("");
+		$("#ptfeespan,#normalmoneyspan").html("");
+		loadPtlevelByPT($(this).val());
+	});
+	// 私教变更
+	$("#ptlevelcode").on("change",function(){
+		var ptfee = $(this).find("option:selected").attr("code1");
+		ptfee = isFloat(ptfee) || isNumber(ptfee) ? parseFloat(ptfee) : 0.00;
+		$("#ptfee").val(ptfee);
+		$("#ptfeespan").text(ptfee);
+		setptfee();
+	});
+	// 获取渠道
+	$("#channel").on("change",function(){
+		if( "2" == $(this).val() ){
+			$("#recommendDiv").show();
+		}else{
+			$("#recommendDiv").hide();
+			$("#recommendcode,#recommend").val("");
+		}
+	});
+	// 推荐人
+	$("#recommend").on("blur",function(){
+		if($(this).val()==""){
+			ccms.dialog.alert("请输入推荐人手机号！");
+			$("#recommendcode").val("");
+			return false;
+		}
+		ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="
+			+$(this).val()+"&objid=recommendcode&objidtwo=recommend&random_number="+Math.random(), height:650});
+	});
+	// 购买课时
+	$("#ptcount").unbind().on("blur",function(){
+		var ptcount = $(this).val();
+		if(isNaN(ptcount)){
+			$("#ptcount").val("1");
+			ccms.dialog.notice("请输入数字！", 3000);
+		}
+		ptcount = isNumber(ptcount) && Number(ptcount) > 0 ? parseInt(ptcount) : 1;
+		setptfee();
+	});
+	// 保存
+	$("#save_btn").unbind().on("click",function(){
+		var ptamount = Number($("#ptamount").val());
+		var normalmoney = Number($("#normalmoney").val());
+		if(ptamount>normalmoney){
+			ccms.dialog.notice("折扣金额不能大于应收金额！");
+		}else{
+			istopay = false;
+			saveContract();
+		}
+	});
+	// 收款
+	$("#pay_btn").unbind().on("click",function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		istopay = true;
+		saveContract();
+	});
+
+	//折扣金额
+	$("#ptamount").blur(function(){
+		var money = 0;
+		var ptamount = Number($(this).val());
+		var normalmoney = Number($("#normalmoney").val());
+		if(isNaN(ptamount)){
+			ccms.dialog.notice("请输入数字！", 3000);
+		}else if(ptamount<0){
+			ccms.dialog.notice("折扣金额不能小于0！", 3000);
+		}else if(ptamount>normalmoney){
+			ccms.dialog.notice("折扣金额不能大于应收金额！", 3000);
+		}else{
+			normalmoney-=ptamount.toFixed(2);
+			money = ptamount.toFixed(2);
+		}
+		$("#ptamount").val(money);
+		$("#normalmoneyspan").html(normalmoney);
+	});
+});
+function loadPtlevelByPT(pt, callback){
+	getAjaxCall("/action/project/fitness/contract/util/queryptdefbypt?objid=ptlevelcode&pt="+pt, true, function(){
+		if( typeof(callback) == "function" && undefined != callback ){
+			callback();
+		}
+	});
+}
+function saveContract(){
+	//判断销售员和第二会籍是否一致
+	if($("#salemember").val()==$("#salemember1").val()){
+		ccms.dialog.notice("销售员和第二会籍不能一致！", 3000);
+		return false;
+	}
+	var contractcode = $("#contractcode").val();
+	if( "" != contractcode ){
+		// 判断合同状态
+		getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
+			if( data && Number(data.status) >= 2 ){
+				if( istopay ){
+					topay(contractcode);
+				}else{
+					ccms.dialog.notice("已付款合同不允许修改！", 2000);
+				}
+			}else{
+				postAjaxCall("${def:actionroot}/update", "contractForm", true);	// 未付款合同可修改
+			}
+		});
+	}else{
+		getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", true, function(){
+			if( "" == $("#newcontractcode").val() ){
+				ccms.dialog.notice("合同号生成失败", 2000);
+			}else{
+				postAjaxCall("${def:actionroot}/insert", "contractForm", true);
+			}
+		});
+	}
+}
+function topay(contractcode){
+	var  Obj=parent.document.getElementsByTagName('iframe')     
+	$(Obj).height(400);   
+	location.href = contextPath + "${def:actionroot}/view?contractcode="+contractcode;
+}
+function setptfee(){
+	var ptcount = parseInt($("#ptcount").val());
+	var reate = 0;
+	if($("#ptlevelcode").val()!=""){
+		ajaxCall("${def:context}/action/project/fitness/contract/util/queryptdefdiscount?ptlevelcode="+$("#ptlevelcode").val()+"&ptcount="+ptcount,{
+			method:"get",
+			dataType:"json",
+			async:false,
+			success:function(data){
+				reate = Number(data[0].reate).toFixed(2);
+			}
+		});
+	}
+	var ptfee = $("#ptlevelcode").find("option:selected").attr("code1");
+	var fee = parseFloat(ptfee) * parseFloat(ptcount);
+	if(isNaN((fee*reate*0.01).toFixed(2))){
+		$("#ptamount").val(0);
+	}else{
+		$("#ptamount").val((fee*reate*0.01).toFixed(2));
+	}
+	$("#normalmoney").val(fee);
+	var normalmoneyspan = fee-Number($("#ptamount").val());
+	if(isNaN(normalmoneyspan)){
+		normalmoneyspan=0;
+	}
+	$("#normalmoneyspan").text(normalmoneyspan.toFixed(2));
+	$("#ptenddate").val(addDate(currentDate, Math.ceil((ptday*ptcount).toFixed(2))).format("yyyy-MM-dd"));
+}
+//回调查询方法
+function pickcustCallback(){
+}
+</script>
+</body>
+</html>

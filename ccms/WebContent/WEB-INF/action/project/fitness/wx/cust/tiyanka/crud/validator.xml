@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="codes" type="varchar" required="false" label="对比编号"/>
+		<parameter id="customercode" type="varchar" required="false" label="customercode"/>
+</validator>

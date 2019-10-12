@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>私教约课</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    		 <link href="${def:context}/js/project/fitness/wx/css/weui.css" rel="stylesheet" />
+	<link href="${def:context}/js/swiper/swiper.min.css" rel="stylesheet" />
+    		         <style type="text/css">
+        	.yellow1{
+					background: #fee17e !important
+			};
+	        .r-black1{
+					background: #b5ebe
+			};
+			.r-black1 span{
+			width:84px;
+			height:40px; 
+			font-size:28px;
+			font-family:PingFangSC-Regular;
+			color:rgba(72,114,114,1);
+			line-height:40px;
+			}
+        </style>
+</head>
+<body>
+
+         <input type="text" name="" id="datetimepicker" style="color: white">
+		 <input type="hidden" id="code">
+		  <input type="hidden" id="inorup" value="0">
+
+<pt-rest>
+	<div class="containter hy-sjyy">
+		<header>
+			<img src="${def:context}${fld:headpic}" alt="">
+		<input type="hidden" name="ptid"  id="ptid"value="${fld:ptid}">
+			<div>
+				<h2>${fld:ptlevelname}</h2>
+				<p>
+					教练：
+					<span>${fld:ptname} </span>剩余
+					<span>${fld:ptleftcount}</span>课时
+				</p>
+			</div>
+	</pt-rest>
+			<!-- <button class="message"></button> -->
+			<button class="tel"></button>
+		</header>
+
+		<nav class="nav swiper-container">
+			<nav class="swiper-wrapper" id="swiper">
+			</nav>
+		</nav>
+
+		<section class="main">
+			<nav class="left">
+		<!-- 		<li>
+					<div>
+						<h3>大大的</h3>
+						<p>
+							<span>08:00-09:00</span>
+							<span>预约中</span>
+						</p>
+						<p class="hide">
+							<span>取消预约</span>
+							<span>变更时间</span>
+						</p>
+					</div>
+				</li>
+				
+				<li class="yellow">
+					<div>
+						<h3>大大的</h3>
+						<p>
+							<span>08:00-09:00</span>
+							<span>预约中</span>
+						</p>
+						<p class="hide">
+							<span>取消预约</span>
+							<span>变更时间</span>
+						</p>
+					</div>
+				</li> -->
+				
+			</nav>
+			<nav class="right">
+			</nav>
+		</section>
+
+
+
+
+
+
+<form id="info"  name="info">
+	<input type="hidden" name="ptcode"  id="ptcode"  value="${fld:code}">
+	<input type="hidden" name="hour"  id="hour" value="">
+	<input type="hidden" name="minute"  id="minute"value="">
+	<input type="hidden" name="pdate"  id="pdate"value="">
+	<input type="hidden" name="custcode"  id="custcode"value="${fld:customercode}">
+</form>
+	</div>
+
+</body>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+<script type="text/javascript" src="${def:context}/js/swiper/swiper.min.js"></script>
+<script type="text/javascript">
+var d = new Date();
+var mySwiper ;
+$(function(){
+	homecust();
+	appendWeek();
+	$('li').on('click',function(){
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+	});
+	appendHouse();
+	
+	
+	$('.hasNone').on('click',function(){
+		 $('.hide').hide();
+	});
+	
+	
+	$('.right').on('click',function(){
+		 $('.hide').hide();
+	});
+	
+	
+	$('.hasNone img').on('click',function(){
+		$('#datetimepicker').focus();
+		$('#inorup').val(0)
+	});
+	
+	$('.nav li').on('click',function(){
+		var moon=$(this).children('span').text();
+		moon=moon.replace('/','-');
+		var parpreYear=d.getFullYear();
+		parpreYear=parpreYear+'-'+moon;
+		$('.hasNone').show();
+		$('.moreDiv').remove();
+		getyuyue(parpreYear);
+	});
+	getyuyue('${def:date}');
+	$('.message').on('click',function(){
+  		location.href="${def:context}/action/project/fitness/wx/cust/center/messagelist?recuser="+$('#ptid').val();
+  })	
+  
+  
+  var currYear = (new Date()).getFullYear();  
+    var opt={};
+    opt.date = {preset : 'date'};
+    opt.datetime = {preset : 'datetime'};
+    opt.time = {preset : 'time'};
+    opt.default = {
+        theme: 'android-ics light', //皮肤样式
+        display: 'bottom', //显示方式 
+        dateFormat: 'mm-dd ',
+        timeFormat: 'HH:ii:ss',
+        lang: 'zh',
+        nowText: "今天",
+        startYear: currYear - 50, //开始年份
+        stepMinute: 15, 
+        endYear: currYear + 10,      
+        onSelect:function(valueText,inst){
+        	var date=valueText.substring(0,2);
+        	var start=$('.right li').first().text()
+        	var end=$('.right li').last().text()
+        	start=start.substring(0,2);
+        	end=end.substring(0,2);
+        	if(Number(date)>Number(end)||Number(date)<Number(start)){
+        		ccms.dialog.notice("预约时间不在可预约范围内！");
+        		return false
+        	}
+        	if($('#inorup').val()=="0"){
+        		var time=valueText
+        		var moon=$('.active').children('span').text();
+        		moon=moon.replace('/','-');
+        		var parpreYear=d.getFullYear();
+        		parpretime=moon+'日 '+time;
+        		var time=time.split(':');
+        		
+        		$('#hour').val(time[0]);
+        		$('#minute').val(time[1]);
+        		$('#pdate').val(parpreYear+'-'+moon);
+        		yuyue(parpretime); 
+        	}else{
+        		biangengConmit(valueText);	
+        	}
+        	
+		} //结束年份
+    };
+    $("#datetimepicker").mobiscroll( $.extend(opt['time'], opt['default']) );
+})
+
+function appendWeek(){
+	var str = "";
+	for(var i = -14; i < 21;i++){
+		var tdate = addDate(d, i);
+		var date = getFormatDate(tdate.getMonth() + 1) + '/' + getFormatDate(tdate.getDate());
+ 		var week = getWeekDay(tdate);
+ 		var date1 = date.replace('/','-');
+		if([i]==0){
+			str+='<li class="active swiper-slide">';
+			str+='<p>'+week+'</p>';
+			str+='<span code="'+date1+'">'+date+'</span>';
+			str+='</li>';
+		}else{
+			str+='<li class="swiper-slide">';
+			str+='<p>'+week+'</p>';
+			str+='<span code="'+date1+'">'+date+'</span>';
+			str+='</li>';
+		}
+	} 
+	$('#swiper').html(str);
+	mySwiper = new Swiper('.swiper-container',{
+		autoplay: false,
+		slidesPerGroup:7,
+	    slidesPerView: 7,
+	    spaceBetween: 0,
+	    initialSlide: 14
+	});
+}
+
+function getWeekDay(d){
+	var weekday = new Array(7);
+	weekday[0]="周日";
+	weekday[1]="周一";
+	weekday[2]="周二";
+	weekday[3]="周三";
+	weekday[4]="周四";
+	weekday[5]="周五";
+	weekday[6]="周六";
+	var num = d.getDay();
+	return weekday[num];
+}
+
+function getFormatDate(arg) {
+    if (arg == undefined || arg == '') {
+        return '';
+    }
+    var re = arg + '';
+    if (re.length < 2) {
+        re = '0' + re;
+    }
+    return re;
+}
+
+function	appendHouse(){
+		var start="${fld:ptstarttime}".substring("${fld:ptstarttime}", 2);
+		var end="${fld:ptendtime}".substring("${fld:ptendtime}", 2);
+		var str="";
+		var btn="";
+		for(var i=start;i<=end;i++){
+			var hou=getFormatDate(i);
+			var nowhou=d.getHours();
+			if(hou==nowhou){
+				str+='<li class="r-black"style="height:40px">'+hou+':00</li>';
+			}else{
+				str+='<li  style="height:40px">'+hou+':00</li>';
+			}		
+				btn+='<li class="hasNone" >';
+				btn+='<img src="${def:context}/js/project/fitness/wx/image/add2.png" alt=""  code="'+hou+':00">';
+				btn+='</li>';
+				
+				btn+='<li class="hasNone" >';
+				btn+='<img src="${def:context}/js/project/fitness/wx/image/add2.png" alt=""  code="'+hou+':30">';
+				btn+='</li>';
+				
+		} 
+	$('.right').html(str);
+	$('.left').html(btn);
+	
+}
+
+
+ function yuyue(parpretime){
+	//$Dialog().confirm("确定"+parpretime+"预约该课程吗？",function(){
+    	postAjaxCall("/action/project/fitness/wx/cust/mypt/yuyue/crud/insert?",'info',false);
+//	});
+}
+
+function getyuyue(parpreYear){
+    	getAjaxCall("/action/project/fitness/wx/cust/mypt/yuyue/crud/getprepare?customercode=${fld:customercode}&parpreYear="+parpreYear,false);
+}
+
+
+
+
+function quxiao(code){
+		var id=code
+		getAjaxCall("/action/project/fitness/wx/cust/mypt/yuyue/crud/cancellation?id="+code,false);
+}
+
+function biangeng(code){
+	$('#inorup').val(1)
+	$('#code').val(code);
+	$('#datetimepicker').focus();
+}
+
+function biangengConmit(time){
+	var code=$('#code').val();
+	/* var time=time.split(':');
+	var hour=time[0];
+	var minute=time[1]; */
+	
+	
+	var time=time
+	var moon=$('.active').children('span').text();
+	moon=moon.replace('/','-');
+	var parpreYear=d.getFullYear();
+	parpretime=moon+'日 '+time;
+	 time=time.split(':');
+	     var hour=time[0];
+		 var minute=time[1]; 
+		 var pdate=parpreYear+'-'+moon;
+		 $('#pdate').val(pdate)
+	getAjaxCall("/action/project/fitness/wx/cust/mypt/yuyue/crud/biangeng?code="+code
+			+"&hour="+hour
+			+"&minute="+minute
+			+"&pdate="+pdate
+			+"&customercode=${fld:customercode}"
+			,false);
+}
+  
+</script>
+</html>

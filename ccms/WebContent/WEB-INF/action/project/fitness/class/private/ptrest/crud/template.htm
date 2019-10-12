@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>期初私教节数设置</title>
+</head>
+<body>
+	<!--addnew/edit form-->
+	<div class="modal fade" id="modalAddnew" tabindex="-1" role="dialog">
+  	  <div class="modal-dialog" style="width:60%">
+   	    <div  class="modal-content">
+   	      <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="formTitle">修改</h4>
+          </div>
+          <div class="modal-body">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			<input name="vc_code" id="vc_code" type="hidden" value=""/>
+				<table class="table table-bordered">
+				      <tbody>
+							<tr>
+								<td class="back">私教类型</td>
+								<td><select id="vc_ptlevelcode" name="vc_ptlevelcode">
+								<option value="">--请选择--</option>
+								<ptdef-list>
+								<option value="${fld:vc_code}">${fld:vc_code}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${fld:vc_ptlevelname}</option>
+								</ptdef-list>
+								</select></td>
+								<td class="back">余额</td>
+								<td><input type="text" id="f_ptleftcount" name="f_ptleftcount" value=""/>
+								</td>
+					            </tr>
+							<tr>
+					            <td class="back">有效日期</td>
+					            <td><input type="text" id="vc_ptenddate" name="vc_ptenddate" value=""/></td>
+								<td class="back">会员卡号</td>
+								<td><input type="text" id="vc_usercode" name="vc_usercode" value="" readonly="readonly" preserve="true"/></td> 
+					           </tr>
+							<tr> 
+					            <td class="back">教练姓名</td>
+								<td><select id="vc_iuser" name="vc_iuser">
+								<option value="">--请选择--</option>
+								<teacher-list>
+								<option value="${fld:userlogin}">${fld:name_en}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${fld:name}</option>
+								</teacher-list>
+								</select></td>
+								<td class="back">原价</td>
+								<td><input type="text" id="f_ptfee" name="f_ptfee" value=""/></td>
+								</tr>
+							<tr>
+								<td class="back">成交价</td>
+					            <td><input type="text" id="f_ptfactfee" name="f_ptfactfee" value=""/></td>
+							    <td class="back">提成金额</td>
+							    <td><input type="text" id="f_scale" name="f_scale" value=""/></td>
+							    </tr>
+							<tr>
+							    <td class="back">会员姓名</td>
+							    <td><input type="text" id="vc_addname" name="vc_addname" value="" readonly preserve="true"/>
+							    </td>
+							   <td class="back">购课类型</td>
+							    <td><select id="i_pttype" name="i_pttype">
+								<option value="">--请选择--</option>
+								<option value="1">新买课</option>
+								<option value="2">场地开发</option>
+								<option value="3">续课</option>
+								<option value="4">转课</option>
+								<option value="5">赠课</option>
+								</select></td>
+							    </tr>
+							<tr>
+							    <td class="back">原始节数</td>
+							    <td><input type="text" id="f_pttotalcount" name="f_pttotalcount" value=""/>
+							    </td>
+							    <td class="back">总原价金额</td>
+							    <td><input type="text" id="f_ptnormalmoney" name="f_ptnormalmoney" value=""/></td>
+							   </tr>
+							<tr>
+							    <td class="back">总成交金额</td>
+							    <td><input type="text" id="f_ptmoney" name="f_ptmoney" value=""/></td>
+							</tr>
+					</tbody>
+				</table>
+			</form>
+		  </div>
+		  <div class="modal-footer">
+		    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-8 col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-lg-offset-2">
+			  <button type="button" id="save_btn" class="btn btn-info btn-md">保&nbsp;存</button>
+			  <button type="button" id="save_btnadd" class="btn btn-info btn-md">保存并新增</button>
+			  <button type="button" class="btn btn-info btn-md" id="cancel" data-dismiss="modal">取&nbsp;消</button>
+		    </div>
+	      </div>
+	    </div>
+      </div>
+    </div>
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form class="form-inline" role="form" method="post" id="searchForm" name="searchForm">
+			    <input name="sort" type="hidden" value="model_id" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+				<input name="vc_cardcode" id="vc_cardcode" type="hidden" value=""/>
+				<div class="Visiting">
+					<div class="banner-top ba3">
+						<label>卡号/姓名</label>
+						<input type="text" id="vc_cardname" name="vc_cardname" value="" maxlength="80" />
+					</div>
+					<div class="banner-top ba3">
+						<label>会&nbsp;&nbsp;员&nbsp;&nbsp;号</label>
+						<input type="text" id="vc_customercode" name="vc_customercode" value=""  readonly="readonly"/>
+					</div>
+					<div class="banner-top ba3">
+						<label>会员姓名</label>
+						<input type="text" id="vc_name" name="vc_name" value="" readonly="readonly"/>
+					</div>
+				</div>
+				<div class="Visiting">
+					<div class="banner-top ba3">
+						<label class="form-label-split" for="vc_singletype">卡&nbsp;&nbsp;类&nbsp;&nbsp;型&nbsp;</label>
+						<input type="text"  id="vc_cardtype" name="vc_cardtype" value="" readonly="readonly"/>
+					</div>
+					<div class="banner-top ba3">
+						<label class="form-label-split" for="vc_singletype">截止日期</label>
+						<input type="text" id="c_enddate" name="c_enddate" value="" readonly="readonly"/>
+					</div>
+					<div class="banner-top ba3">
+						<button class="btn btn-info btn-sm" type="button" id="addnew_btn">新增</button>
+					</div>
+				</div>
+			</form>
+			<table class="table table-bordered" style="margin-top:80px;">
+				<thead>
+					<tr>
+					    <th class="sortable" code="bills_code"  nowrap>编辑</th>
+						<th class="sortable" code="bills_code"  nowrap>编号</th>
+						<th class="sortable" code="vc_ptlevelcode" nowrap >私教类型</th>
+					    <th class="sortable" code="vc_ptlevelname" nowrap>类型名称</th>
+					    <th class="sortable" code="f_ptleftcount" nowrap>余额</th>
+					    <th class="sortable" code="vc_ptenddate" nowrap>有效日期</th>
+					    <th class="sortable" code="vc_cardcode" nowrap>用户帐号</th>
+					    <th class="sortable" code="vc_iuser" nowrap>教练姓名</th>
+					    <th class="sortable" code="c_itime" nowrap>销售日期</th>
+					    <th class="sortable" code="f_ptfee" nowrap>原价</th>
+						<th class="sortable" code="f_ptfactfee" nowrap>成交价</th>
+						<th class="sortable" code="f_scale" nowrap>提成金额</th>
+						<th class="sortable" code="vc_name" nowrap>会员姓名</th>
+						<th class="sortable" code="i_pttype" nowrap>购课类型</th>
+						<th class="sortable" code="f_pttotalcount" nowrap>原始节数</th>
+						<th class="sortable" code="f_ptnormalmoney" nowrap >总原价金额</th>
+						<th class="sortable" code="f_ptmoney" nowrap >总成交金额</th>
+					</tr>
+				</thead>
+				<tbody id="datagridTemplate" style="display: none">
+					<tr id="list">
+					        <td class="text-center" style="color:#8c8c8c;" nowrap>
+                                <p><span style="padding-left: 24px;padding-top: 1px" class="glyphicon glyphicon-edit edit_btn" code="#vc_code#"></span>
+								</td>
+							<td class="text-center"  nowrap>#_rowNumber#</td>
+			                <td class="text-center"  nowrap>#vc_ptlevelcode#</td>
+			                <td class="text-center"  nowrap>#vc_ptlevelname#</td>
+			                <td class="text-center"  nowrap>#f_ptleftcount#</td>
+			                <td class="text-center"  nowrap>#vc_ptenddate#</td>
+			                <td class="text-center"  nowrap>#vc_cardcode#</td>
+			                <td class="text-center"  nowrap>#vc_iuser#</td>
+			                <td class="text-center"  nowrap>#c_itime#</td>
+			                <td class="text-center"  nowrap>#f_ptfee#</td>
+						    <td class="text-center"  nowrap>#f_ptfactfee#</td>
+						    <td class="text-center"  nowrap>#f_scale#</td>
+			                <td class="text-center"  nowrap>#vc_name#</td>
+			                <td class="text-center"  nowrap>#i_pttype#</td>
+						    <td class="text-center"  nowrap>#f_pttotalcount#</td>
+			                <td class="text-center"  nowrap >#f_ptnormalmoney#</td>
+			                <td class="text-center"  nowrap >#f_ptmoney#</td>
+					</tr>
+				</tbody>
+				<tbody id="datagrid">
+				</tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search = null;
+$(document).ready(function() {
+	selectInit($("#vc_ptlevelcode,#vc_iuser,#i_pttype"));
+	$("table").css("table-layout","auto");
+	$("#addnew_btn").hide();
+	$Dialog().date($('#vc_ptenddate'));
+	$("#vc_cardname").unbind().keydown(function(e){
+		   if (e.which == 13) {
+			   diaoyong();
+	       }
+	   });
+	$("#vc_cardname").unbind().on('blur',function(){
+		diaoyong();
+	});
+});
+function diaoyong(){
+    $("#vc_cardcode,#c_enddate,#vc_cardtype,#vc_addname,#vc_name,#vc_customercode").val('');
+   	var uri="${def:actionroot}/cardsearch";
+	    ajaxCall(uri,{
+		method: "post",
+		progress: true,
+		form:'searchForm',
+		dataType: "script",
+		success: function() {
+			$("#addnew_btn").show();
+			if($("#vc_cardcode").val()==''){
+				this.search=search;
+				search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+				}}).initSearchBtn().searchData(1);
+				$("#addnew_btn").hide();
+				ccms.dialog.notice("查找不到此人的相关信息！");
+				return false;
+			}else{
+				this.search=search;
+				search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+					$("#cancel").unbind().on("click", function(){
+						ccms.util.clearForm('formEditor');
+						search.searchData();
+					});
+					$("#addnew_btn").unbind().on("click", function(){
+						$("#modalAddnew").modal('show');
+						$("#save_btnadd").show();
+						ccms.util.clearForm('formEditor');
+						$("#vc_iuser").val("${def:user}");
+						var vc_cardcode=$("#vc_cardcode").val();
+					    $("#vc_usercode").val(vc_cardcode);
+					    $("#vc_addname").val($("#vc_name").val());
+						$("#formTitle").html("新增");
+						$("#save_btn").unbind().on("click", function(){
+							var uri="${def:actionroot}/insert";
+							number(uri);
+						});
+						$("#save_btnadd").unbind().on("click", function(){
+							var uri="${def:actionroot}/insert";
+							ajaxCall(uri,{
+								method: "post",
+								progress: true,
+								form:'formEditor',
+								dataType: "script",
+								success: function() {
+									ccms.util.clearForm('formEditor');
+									$("#vc_iuser").val("${def:user}");
+								}
+							});
+						});
+					});
+					$(".edit_btn").unbind().on("click", function(){
+						$("#modalAddnew").modal('show');
+						$("#save_btnadd").hide();
+						$("#formTitle").html("修改");
+						if($(this).attr("code") != undefined && $(this).attr("code") != ""){
+							id=$(this).attr("code");
+							var uri="${def:actionroot}/edit?id="+id;
+							ajaxCall(uri,{
+								method: "get",
+								progress: true,
+								dataType: "script",
+								success: function() {
+									$("#save_btn").unbind().on("click", function(){
+										 var uri="${def:actionroot}/update";
+										 number(uri);
+									});
+								}
+							});
+						}
+					});
+				}}).initSearchBtn().searchData(1);
+			}
+		  }
+  });
+}
+
+function number(uri){
+	ajaxCall(uri,{
+		method: "post",
+		progress: true,
+		form:'formEditor',
+		dataType: "script",
+		success: function() {
+			ccms.util.clearForm('formEditor');
+			$('#modalAddnew').modal('hide');
+			search.searchData();
+		 }
+	});
+}
+</script>
+</body>
+</html>

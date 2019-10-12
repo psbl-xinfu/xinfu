@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="skill_name" type="varchar" required="false" label="会籍" />
+	<parameter id="vc_all" type="varchar" required="false" label="卡号/姓名" />
+	<parameter id="period_day" type="varchar" required="false" label="会员保护期" />
+	<parameter id="public" type="varchar" required="false" label="只看公海" />
+	<parameter id="overdue_day" type="varchar" required="false" label="过去的期天" />
+</validator>

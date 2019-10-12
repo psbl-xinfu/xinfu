@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>预约查看</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="gerenyuyuexqtop">
+            <img src="${def:context}${fld:headpic}" class="touxiangpic img-circle">
+            <p class="name text-center" id="name">${fld:name}</p>
+            <p class="tel text-center" id="mobile">${fld:mobile}</p>
+            <div class="gerencenter container">
+                <div class="row">
+                    <div class="col-xs-6"  id="cust"  >
+                        <img src="${def:context}/js/project/fitness/wx/image/huiyuanxq.png" class="centerimg">
+                        <p class="names">会员详情</p>
+                    </div>
+                    <!-- <div class="col-xs-4" id="xiaoxi">
+                        <img src="${def:context}/js/project/fitness/wx/image/huiyuanxiaoxi.png" class="centerimg">
+                        <p class="names">发送信息</p>
+                    </div> -->
+                    <div class="col-xs-6">
+                        <img src="${def:context}/js/project/fitness/wx/image/tel1.png" class="centerimg">
+                        <p class="names">拨打电话</p>
+                    </div>
+                    <!-- <div class="centerone"></div>
+                    <div class="centertwo"></div> -->
+                </div>
+                
+            </div>
+        </div>
+
+
+        
+        <div class="gerenyuyuexqcontent">
+            <div class="listothers">
+                <div class='d1 fl'>预约课程</div>
+                <div class='d3 fr'  id="ptlevelname">${fld:ptlevelname}</div>
+            </div>
+            
+            
+            
+            <div class="listothers" id="update">
+                <div class='d2 fl'>日期</div>
+<!--                 <div class='d4 fr'><input type="text" name=""  class="form-control dateinput" id="datetimepicker1" data-date-format="yyyy-mm-dd" value="${fld:preparedate}" readonly="readonly">
+ -->        		
+        		<div class='d4 fl' style="width: 70%">
+        		<span id="preparedate">${fld:preparedate}</span>
+        		<span>${fld:preparetime}-${fld:preparetime1}</span>
+      			</div>
+       <!--         
+				<div class='d4 fl' style="width:200px ;margin-left: 5%">
+                    <input type="text" name=""  class="form-control timeinput" id=""  value="${fld:preparetime}">
+                    <span>---</span>
+                    <input type="text" name=""  class="form-control timeinput" id="" data-date-format="hh:ii" value="${fld:preparetime1}">
+                </div> -->
+                
+                
+                 <div class='d2 fl' style="width:5% ;margin-left: -10%">
+                 	 <img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png" >
+                </div>
+            </div>
+            
+            
+            <div class="listothers">
+                <div class='d1 fl'>预约状态</div>
+                <div class='d3 fr' id="pre_result">${fld:status}</div>
+            </div>
+        </div>  
+
+   	<!--   <div class="hetongxqbtn">
+            <img src="${def:context}/js/project/fitness/wx/image/确认预约@2x.png" class="tijiao  conmit" id="queren" code="1">
+        </div> -->
+        
+        <div class="gy-save conmit"  code="1"  id="queren" style="margin-top: 20px" >
+   	  	确&nbsp;认&nbsp;预&nbsp;约
+     </div>
+        
+        
+                
+        <div class="gy-save conmit"   code="0"  id="quxiao"  >
+   	  	取&nbsp;消&nbsp;预&nbsp;约
+     </div>
+        
+        
+<!--         
+        <div class="gerenyuyuexqbtn" style="margin-top: -20px">
+            <img src="${def:context}/js/project/fitness/wx/image/quxiaoyuyue.png" class="quxiao conmit" id="quxiao"  code="0">
+        </div> -->
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homept();
+    	
+        var width=$(window).width();
+        if(width<=750){
+            $('.gerenyuyuexqtop').css({'height':width*410/750+'px'});
+            $('.gerenyuyuexqcontent').css({'margin-top':width*130/750+'px'});
+        }else{
+            $('.gerenyuyuexqtop').css({'height':'205px'});
+            $('.gerenyuyuexqcontent').css({'margin-top':'130px'});
+        }
+
+        if("${fld:status}"=="已上课"){
+    		$("#queren").hide();
+    		$("#quxiao").hide();
+    	}
+       
+        $('#cust').click(function(){
+        	location.href='${def:context}/action/project/fitness/wx/pt/mycust/sijiaohuiyuanmsg?customercode=${fld:customercode}&type=pt';
+        })
+      
+     	/* $('#xiaoxi').on('click',function(){
+	  		location.href="${def:context}/action/project/fitness/wx/mc/personal/message/list?recuser=${fld:mobile}";
+	  }) */	
+        
+	  //zyb 2019-3-21 修改预约中和待确认不可以修改时间
+        if("${fld:status}"=="预约中"||"${fld:status}"=="待确认"){
+        	 $('#update').click(function(){
+             	location.href='${def:context}/action/project/fitness/wx/pt/course/updateyuyue?'
+             			+"code=${fld:code}";
+             })
+    	}else{
+    		 $('#update').addClass("disable");
+    	}
+       
+        
+        $('.conmit').click(function(){
+        	var status=$(this).attr('code');
+        	save(status);
+        })
+        
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+        opt.defaults = {
+            theme: 'ios', //皮肤样式
+            display: 'modal', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            width:90,
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#datetimepicker").mobiscroll( $.extend(opt['date'], opt['default']) );
+        $("#datetimepickers").mobiscroll( $.extend(opt['time'], opt['defaults']) );
+        $("#datetimepickerss").mobiscroll( $.extend(opt['time'], opt['defaults']) );
+    });
+    
+    
+    function save(status){
+    	if(status==0){
+    		$Dialog().confirm("确定要取消吗？",function(){
+    			//zyb 2019-3-21  添加取消预约方法加上取消预约时间和操作人
+            	getAjaxCall("/action/project/fitness/wx/pt/course/yuyueinfo/delete?code=${fld:code}&status="+status,false);
+    		});
+    	}else{
+        	getAjaxCall("/action/project/fitness/wx/pt/course/yuyueinfo/updategust?code=${fld:code}&status="+status,false);
+    	}
+    }
+    
+    
+    
+    
+    function goyuyuelist(){
+    	var date=$('#preparedate').text();
+    	date=date.substring(0,10)
+    	location.href="${def:context}/action/project/fitness/wx/pt/course/crud?years="+date;
+    }
+</script>

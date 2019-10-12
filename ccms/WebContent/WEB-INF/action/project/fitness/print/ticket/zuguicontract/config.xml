@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+	
+	<!-- word模板路径 -->
+	<doc-template>/erpclubdoc/template/zuguicontract.docx</doc-template>
+	<!-- 模板中参数列表 ，多个用英文分号隔开-->
+	<params>vc_club;codeper;vc_billcode;contractcode;username;cardname;goods;deposit;Originalprice;shouldfee;factfee;discount;pay_detail;saler;shoukuanpeo;shoukuantime;jieshuyu</params>
+	<!-- 参数对应的字段列表 -->
+	<fields>vc_club;vc_billcode;vc_billcode;vc_code;vc_name;vc_cardcode;vc_detail;f_deposit;f_inimoney;f_normalmoney;f_factmoney;f_discountmoney;paydetail;vc_iusername;vc_auser;c_atime;jieshuyu</fields>
+
+	<transaction>
+		<classname>transactions.project.fitness.doc.WordTemplateReplace</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<on-error>/action/project/fitness/util/error/alert</on-error>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="_rsdoc" />
+	</output>
+
+</config>

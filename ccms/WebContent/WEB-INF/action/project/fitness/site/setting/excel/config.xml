@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		场地导出
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_searchsitetype</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="场地信息" filename="场地信息.xls" header-background="true">
+		<col id="sitename" label="场地" /> 
+		<col id="sitetype" label="场地类型" />
+		<col id="status" label="场地状态" />
+		<col id="opening_date" label="开场时间" />
+		<col id="closed_date" label="闭场时间" />
+	</excel>
+</config>

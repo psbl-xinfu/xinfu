@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="start_date" type="date" required="false" label="开始日期" />
+	<parameter id="end_date" type="date" required="false" label="结束日期" />
+	<parameter id="isguazhang" type="varchar" required="false" label="isguazhang" />
+	<parameter id="cust_all" type="varchar" required="false" label="会员编号/姓名/手机号" />
+	<parameter id="itemcode" type="varchar" required="false" label="项目" />
+</validator>

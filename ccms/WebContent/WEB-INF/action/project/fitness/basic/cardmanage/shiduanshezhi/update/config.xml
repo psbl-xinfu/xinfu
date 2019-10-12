@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		Producto - Insertar registro
+	</summary>
+	
+	<log>false</log>
+
+	<colname>i_weekday,c_starttime1,c_endtime1,c_starttime2,c_endtime2</colname>
+	<sql-template>update.sql</sql-template>
+
+	<transaction>
+		<classname>com.ccms.InsertMaster</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<!-- query>update.sql</query -->
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+	</output>
+
+
+</config>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		入场刷卡
+	</summary>
+
+	<log>false</log>
+   
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	    <recordset id="getrecord.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-isautomaticentry.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-delaytime.sql" source="sql" scope="transaction"/>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="getrecord.sql" tag="rows" />
+		<print mode="form" recordset="query-isautomaticentry.sql" />
+		<print mode="form" recordset="query-delaytime.sql" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

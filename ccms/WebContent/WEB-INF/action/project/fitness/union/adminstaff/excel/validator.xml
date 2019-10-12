@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="daochu_staffname" type="varchar" required="false" label="管理员名称/登录名/手机号" />
+</validator>

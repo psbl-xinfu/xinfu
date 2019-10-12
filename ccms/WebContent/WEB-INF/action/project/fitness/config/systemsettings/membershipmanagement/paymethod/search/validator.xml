@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="stu_name" type="varchar" required="false" label="姓名" />
+	<custom-validator 
+		classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="stu_name" 
+		rule="contains" 
+		ifnull="%"/>
+</validator>

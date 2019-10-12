@@ -1,0 +1,106 @@
+insert into cc_guest
+(
+    code,
+	name,
+	sex,
+	mobile,
+	birth,
+	birthday,
+	
+	wx,
+	qq,
+	mc,
+	type,
+	cardtype,
+	card,
+--
+	nationality,
+	nation,
+	occupation,
+	email,
+	
+	province,
+	city,
+	addr,
+	officename,
+	officetel,
+	
+	province2,
+	city2,
+	officeaddr,
+
+	urgent,
+othertel,
+purpose,
+participate,
+brand,
+ismember,
+leave,
+customtype,
+gethobbit,
+personalhobbit,
+marriage,
+children,
+remark,
+initmc,
+created,
+recommend,
+age,
+org_id,
+updated,
+level
+)
+values 
+(
+	'XG'||to_char({ts'${def:date}'},'yy')||lpad(${seq:nextval@seq_cc_guest}::varchar, 6, '0'),
+    ${fld:cc_name},
+	${fld:cc_sex},
+	${fld:cc_mobile},
+	${fld:cc_birth},
+	${fld:cc_day},
+	
+	${fld:cc_wx},
+	${fld:cc_qq},
+	${fld:cc_mc},
+	${fld:cc_type},
+	${fld:cc_cardtype},
+	${fld:cc_card},
+	--
+	${fld:cc_nationality},
+	${fld:cc_nation},
+	${fld:cc_occupation},
+	${fld:cc_email},
+	${fld:province},
+	
+	${fld:city},
+	${fld:cc_addr},
+	${fld:cc_officename},
+	${fld:cc_officetel},
+	
+	${fld:province2},
+	${fld:city2},
+	${fld:cc_officeaddr},
+	${fld:cc_urgent},
+	${fld:cc_othertel},
+	${fld:cc_purpose},
+	
+	${fld:cc_participate},
+	${fld:cc_brand},
+	${fld:cc_ismember},
+	${fld:cc_leave},
+	${fld:cc_customtype},
+	
+	${fld:cc_gethobbit},
+	${fld:cc_personalhobbit},
+	${fld:cc_marriage},
+	${fld:cc_children},
+	${fld:cc_remark},
+	
+	${fld:cc_mc},
+	{ts '${def:timestamp}'},
+	${fld:cus_code},
+	${fld:cc_age},
+	'${def:org}',
+	{ts '${def:timestamp}'},
+	${fld:cc_level}
+)

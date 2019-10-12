@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="dev_deviceid" type="varchar" required="true" label="设备号"/>
+	<parameter id="dev_appid" type="varchar" required="true" label="认证id"/>
+	<parameter id="dev_status" type="varchar" required="true" label="是否可用"/>
+	<parameter id="dev_remark" type="varchar" required="false" label="备注"/>
+	<parameter id="dev_type" type="varchar" required="true" label="类型"/>
+	
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="该设备号已存在，请重新输入" id="dev_deviceid" sql="noRep.sql" />
+    <!--  <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="appid已存在，请重新输入" id="dev_appid" sql="noRep-appid.sql" /> -->
+</validator>
+

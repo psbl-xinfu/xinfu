@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="weixin_userid" type="varchar" required="true" label="weixin_userid" />
+</validator>

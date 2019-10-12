@@ -1,0 +1,30 @@
+insert into cc_goods
+(
+	tuid,
+	goods_name,
+	fastcode,
+	goods_type,
+	standard,
+	unit,
+	buyprice,
+	isgift,
+	remark,
+	created,
+	createdby,
+	org_id
+)
+values
+(
+	${seq:nextval@seq_cc_goods},
+	${fld:goods_name},
+	${fld:fastcode},
+	${fld:goods_type},
+	${fld:standard},
+	${fld:unit},
+	${fld:buyprice},
+	${fld:isgift},
+	${fld:remark},
+    {ts'${def:timestamp}'},
+    '${def:user}',
+	${def:org}
+)

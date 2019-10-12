@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>日志管理</title>
+</head>
+<body>
+		<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="code" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+				<input type="hidden" name="org_id" value="${fld:org_id}" preserve="true"/>
+				<div class=" r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="input-default-li">
+										<input id="userName"  name="userName" class="input-default" type="text" placeholder="操作人名称">
+									</li>
+									<li class="dateTime">
+											<input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
+									</li>
+									<li class="dateTime">
+										<input id="s_end_date" name="s_end_date" type="text" class="input-default"/>
+
+									</li>
+								  	<div class="r-c-btnList">
+										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+										<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+									</div>						
+								</nav>
+							</div>
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+									
+								</nav>
+							</div>
+						</div>
+				<div class="r-tab-cout-3-b ">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th>操作人工号</th>
+										<th>操作人</th>
+										<th>合同编号</th>
+										<th>会员名称</th>
+										<th>手机号</th>
+										<th>操作类型</th>
+										<th>操作时间</th>	
+										<th>备注</th>
+										<th></th>										
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										<td>#createdby#</td>
+										<td>#name#</td>
+										<td>#pk_value#</td>
+										<td>#cname#</td>
+										<td>#mobile#</td>
+										<td>#type#</td>
+										<td>#createdate#</td>
+										<td>#remark#</td>
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none;" >
+					<input id="daochu_s_start_date" name="daochu_s_start_date" type="text" />
+					<input id="daochu_s_end_date" name="daochu_s_end_date" type="text" />
+					<input id="daochu_userName" name="daochu_userName" type="text" />
+					
+					<input type="hidden" name="org_id" value="${fld:org_id}" preserve="true" />
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+		var search = null;
+		$(document).ready(function() {
+			$Dialog().date($('#s_start_date'));
+			$Dialog().date($('#s_end_date'));
+			$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+			$("#s_end_date").val("${def:date}");
+			this.search = search;
+			search = $Search({datagrid : "datagrid", formId : "searchForm",rowpackage:function(obj){
+			}, success : function() {
+				$("#searchForm #userName").val("");
+			}}).initSearchBtn().searchData(1);
+			//导出
+			$("#daochu_list").unbind().on("click", function () {
+				$("#daochu_s_start_date").val($("#s_start_date").val());
+			    $("#daochu_s_end_date").val($("#s_end_date").val());
+			    $("#daochu_userName").val($("#userName").val());
+				$("#daochuForm").submit();
+			});
+		});
+		
+
+	</script> 
+</body>
+</html>

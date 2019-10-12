@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="largecategories" type="varchar" required="true" label="器械" />
+	<parameter id="trainingsite" type="varchar" required="true" label="训练部位" />
+</validator>

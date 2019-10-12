@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+      <parameter id="code" type="varchar" required="true" label="code" />
+      <parameter id="ecode" type="varchar" required="true" label="ecode" />
+       <parameter id="share_link" type="varchar" required="true" label="share_link" />
+       <parameter id="customercode" type="varchar" required="true" label="customercode" />
+</validator>

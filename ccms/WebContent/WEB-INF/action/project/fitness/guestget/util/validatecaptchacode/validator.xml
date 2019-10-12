@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="mobile" type="varchar" required="true" label="手机号码" maxlen="32" />
+	<parameter id="captcha_code" type="varchar" required="true" label="短信验证码" maxlen="8" />
+</validator>

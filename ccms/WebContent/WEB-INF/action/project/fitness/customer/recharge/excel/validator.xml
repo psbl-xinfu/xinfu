@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_c_startdate" type="date" required="false" label="daochu_c_startdate" />
+	<parameter id="daochu_c_enddate" type="date" required="false" label="daochu_c_enddate" />
+	<parameter id="daochu_cust" type="varchar" required="false" label="daochu_cust" />
+	<parameter id="daochu_minmoney" type="varchar" required="false" label="daochu_minmoney" />
+	<parameter id="daochu_maxmoney" type="varchar" required="false" label="daochu_maxmoney" />
+	<parameter id="daochu_recharge_type" type="varchar" required="false" label="daochu_recharge_type" />
+	
+</validator>

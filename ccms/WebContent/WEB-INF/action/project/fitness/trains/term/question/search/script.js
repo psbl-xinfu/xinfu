@@ -1,0 +1,16 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"tuid":"${fld:tuid}"
+		,"question_name":"${fld:question_name}"
+		,"question_code":"${fld:question_code}"
+		,"question_score":"${fld:question_score}"
+		,"question_type":"${fld:question_type}"
+		,"createdby":"${fld:createdby}"
+		,"created":"${fld:created}"
+		,"updatedby":"${fld:updatedby}"
+		,"updated":"${fld:updated}"
+	},
+	</rows>
+	{}
+]}

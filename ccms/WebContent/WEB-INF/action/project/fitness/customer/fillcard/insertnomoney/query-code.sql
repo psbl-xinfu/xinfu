@@ -1,0 +1,1 @@
+select ${seq:nextval@seq_cc_fillcard} as vc_code from dual

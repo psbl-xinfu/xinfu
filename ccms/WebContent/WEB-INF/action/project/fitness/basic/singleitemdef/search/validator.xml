@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="vc_fastcode" type="varchar" required="false" label="姓名" />
+	<parameter id="i_status" type="varchar" required="false" label="姓名" />
+	<custom-validator 
+		classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="vc_fastcode" 
+		rule="contains" 
+		ifnull="%" />
+</validator>

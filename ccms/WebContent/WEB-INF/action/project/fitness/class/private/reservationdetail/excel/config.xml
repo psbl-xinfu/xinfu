@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+    <colname>daochu_date,daochu_status,daochu_vc_ptid,daochu_custall</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="私教预约明细记录" filename="私教预约明细记录.xls" header-background="true">
+		<col id="prepare_time" label="预约时间" />
+		<col id="pt_name" label="教练" />
+		<col id="vc_name" label="姓名" />
+		<col id="vc_mobile" label="手机" />
+		<col id="ptlevelname" label="课程名称" />
+		<col id="i_statusname" label="状态" />
+		<col id="c_itime" label="刷课时间" />
+		<col id="ptfactfee" label="实际单价" />
+		<col id="f_ptfee" label="课程价格" />
+		<col id="f_leftcount" label="剩余次数" />
+	</excel>
+
+</config>

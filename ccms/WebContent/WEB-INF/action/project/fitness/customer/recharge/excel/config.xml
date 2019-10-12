@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_c_startdate,daochu_cust,daochu_minmoney,daochu_maxmoney,daochu_recharge_type</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+
+	<excel recordset="query-base.sql" sheetname="充值、退费" filename="充值、退费记录.xls" header-background="true">
+		<col id="recharge_type" label="操作类型" />
+		<col id="customercode" label="会员编号" />
+		<col id="name" label="姓名" />
+		<col id="factmoney" label="本次充值金额" />
+		<col id="givemoney" label="本次赠送金额" />
+		<col id="moneycash" label="当前金额" />
+		<col id="refund" label="已退费金额" />
+		<col id="createdby" label="操作人" />
+		<col id="created" label="操作时间" />
+	</excel>
+</config>

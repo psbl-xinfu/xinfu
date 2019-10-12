@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="groupname" type="varchar" required="true" label="团体名称" />
+    <parameter id="customertype" type="varchar" required="true" label="类型" />
+    <parameter id="pkvalue" type="varchar" required="true" label="资源会员编号" />
+</validator>
+
+
+
+
+

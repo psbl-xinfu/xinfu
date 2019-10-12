@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="storage_name" type="varchar" required="true" label="仓库名称" />
+    <parameter id="address" type="varchar" required="true" label="仓库地址" />
+    <parameter id="status" type="varchar" required="true" label="状态" />
+</validator>
+
+
+
+
+

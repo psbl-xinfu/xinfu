@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="cnfg_id" type="varchar" required="false" label="cnfg_id"/>
+	<parameter id="vc_topic" type="varchar" required="true" label="vc_topic"/>
+	<parameter id="vc_content" type="varchar" required="true" label="vc_content"/>
+	<parameter id="category" type="varchar" required="true" label="category"/>
+	<parameter id="vc_remark" type="varchar" required="false" label="vc_remark"/>
+	<!-- 1增加		2修改		3删除 -->
+	<parameter id="crud" type="varchar" required="true" label="crud"/>
+	
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="该名已经存在，请重新命名" id="vc_content" sql="noRep.sql" />
+</validator>
+

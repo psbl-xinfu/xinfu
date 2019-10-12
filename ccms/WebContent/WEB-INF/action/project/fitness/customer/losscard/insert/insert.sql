@@ -1,0 +1,28 @@
+insert into cc_losscard
+(
+   code,
+   cardcode,
+   customercode,
+   status,
+   remark,
+   cardstartdate,
+   cardenddate,
+   startdate,
+   createdby,
+   created,
+   org_id
+)
+values 
+(
+	${seq:nextval@seq_cc_losscard},
+    ${fld:cardcode},
+    ${fld:customercode},
+    1,
+    ${fld:remark},
+    ${fld:cardstartdate},
+    ${fld:cardenddate},
+    {ts'${def:timestamp}'},
+    '${def:user}',
+    {ts'${def:timestamp}'},
+    ${def:org}
+)

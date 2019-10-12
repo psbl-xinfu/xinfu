@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>营销活动设置</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg"  style="height: 650px">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" name="c_img" id="c_img">
+				<input type="hidden" name="bannertype" id="bannertype">
+          		<div class="modal-body b-i-main" style="margin-top: 50px">
+					<nav>
+						<li style="margin-left: 36%">
+						<label for="" style="width: 130px;">轮播图片：	</label>
+						<button type="button" id="img_btn" >上传图片</button>	
+						</li>
+						
+						<div id="img_div"  style="margin-left: 45.5%">
+							<label for=""></label>
+							<div   id="img" >
+								
+							</div>
+						</div>
+						
+						<li style="margin-left: 36%;margin-top: 10px">
+							<label for="" style="width: 130px;">点击后跳转链接：</label>
+							<input type="text"  name="c_link"  id="c_link"> 
+						</li>
+					</nav>
+				</div>
+				
+			<footer class="footer-default" style="margin-top: 10px">
+				<button type="button" id="save">确定</button>
+			</footer>
+			</form>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+
+$(function(){
+	$('#bannertype').val("${fld:bannertype}");
+	getInfo(); 
+	
+	$("#img_btn").unbind().on("click",function(){
+		ccms.dialog.open({url : '${def:context}/action/project/fitness/attachment/crud?pk_value=&table_code=', width:'750',height:'400'});
+	});
+	
+	$("#save").unbind().on("click",function(){
+	var uri="${def:context}${def:actionroot}/insert";
+	   ajaxCall(uri,{
+		   	method: "post",
+		   	form:"formEditor",
+		   	progress: false,
+		   	dataType: "script",
+		   	success: function() {
+		   		ccms.dialog.alert("保存成功！")
+		   	}
+  		}); 
+	 }); 
+})
+
+function uploadOk(id){
+	$('#img_div').show();
+	$('#img').html(
+			'<img src="'+contextPath+'/action/ccms/attachment/download?id='+id+'&type=1&t='+new Date().getTime()+'" height="250" width="250">'
+			)
+	$('#c_img').val(id);
+}
+
+function getInfo(bannertype){
+	var uri="${def:context}${def:actionroot}/edit?bannertype=${fld:bannertype}";
+	   ajaxCall(uri,{
+		   	method: "get",
+		   	progress: false,
+		   	dataType: "script",
+		   	success: function() {
+		   	}
+		}); 
+}
+</script>
+</body>
+</html>

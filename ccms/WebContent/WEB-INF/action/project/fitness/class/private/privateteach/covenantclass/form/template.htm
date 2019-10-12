@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>新增约课</title>
+</head>
+<body>
+			<div class="basic-dialog yyc_basic-dialog dialogbg" style="height: 500px;">
+          		<header class="header-default">
+					<span id="formTitle">新增约课
+						<span style="color: red;margin-left: 30px;">（预约成功后如需取消，请在开课前${fld:cancelbooktime}小时取消预约！）</span>
+					</span>
+				</header>
+				<input type="hidden" id="ptcount"/>
+			<form style="width: 100%;" id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="custcode" name="custcode" />
+				<input type="hidden" id="code" name="code" />
+          		<div class="modal-body b-i-main yyc_modal-body">
+					<nav>
+						<li>
+							<label style="width: 150px;">会员编号/姓名/手机号：</label>
+							<input type="text" id="custall" name="custall" value="" placeholder="会员编号/姓名/手机号"/>
+						</li>
+						<li>
+							<label>会员截止日期：</label>
+							<span id="startenddate"></span>
+						</li>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main yyc_modal-body">
+					<nav>
+						<input type="hidden" id="vc_pt"/>
+					</nav>
+				</div>
+          		<div class="modal-body b-i-main yyc_modal-body">
+					<nav>
+						<li>
+							<label style="width: 150px;">预约时间：</label>
+							<input type="text" id="pdate" name="pdate" value="" maxlength="80" placeholder="预约时间"/>
+							<select class="normal-select" id="hour" name="hour">
+								<option value="">请选择</option>
+								<hour-list>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</hour-list>
+							</select>
+							<select class="normal-select" id="minute" name="minute">
+								<option value="">请选择</option>
+								<moment-list>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</moment-list>
+							</select>
+						</li>
+					</nav>
+				</div>
+				<div class="r-tab-cout-3-b">
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="sortable">编号</th>
+								<th class="sortable">课程名称</th>
+								<th class="sortable">可预约课时</th>
+								<th class="sortable">教练</th>
+								<th class="sortable">课程状态</th>
+								<th class="sortable">课时费</th>
+							</tr>
+						</thead>
+						<tbody id="ptrest">
+						</tbody>
+					</table>
+				</div>
+			<footer class="footer-default">
+			  	<button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+			<form>
+		</div>
+	
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	searchSelectInit($("#cardcode,#hour,#minute"));
+	var ptpreparecode = '${fld:ptpreparecode}';
+	if(ptpreparecode!=""){
+		var url = "${def:actionroot}/edit?id="+ptpreparecode;
+		urls(url);
+		$("#save_btn").hide();
+	}
+	//页面点击事件
+	 $(document).click(function(){ 
+		$(".error").html("");
+	 }); 
+	var obj = $Crud({
+		formId:"formEditor",
+		button:"save_btn",
+		bpkField:"code",
+		insertBack:function(){
+			//search.searchData();
+		},
+		updateBack:function(){
+			//search.searchData();
+		},
+		deleteBack:function(){
+			ccms.dialog.notice("取消预约成功！");
+			//search.searchData();
+		},
+		addNewBack:function(){
+			$("#formTitle").html("新增预约");
+		},
+		editBack:function(){
+			$("#formTitle").html("修改预约");
+		},
+		validate:function(){
+			var flag=$("#formEditor").validate({
+				rules : {
+					cardcode : { required : true}
+				},
+				messages: {
+					cardcode:{
+						required:"请选择！"
+					}
+				}
+		    });
+			return flag;
+		},
+		check:function(){
+			if($("#ptcount").val()=="0"){
+				ccms.dialog.alert("该会员未购买您的私教课，不能预约！");
+				return false;
+			}
+			return true;
+		}
+	}).init();
+	$Dialog().date($('#pdate'));
+	
+/* 	//根据会员查询
+	$("#custall").blur(function(){
+		var custall = $(this).val();
+		$("#cardcode").html("<option value=''>请选择</option>");
+		$("#custcode").val("");
+		$("#startenddate").html("");
+		if(undefined==custall||custall ==""){
+			ccms.dialog.alert("请输入会员编号/姓名/手机号！");
+		}else{
+			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+custall+"&objid=custcode&objidtwo=custall&random_number="+Math.random()});
+		}
+	}); */
+	
+	//根据会员查询添加回车事件 zzn
+	var isRunning   = [];
+	document.onkeydown=function(event){
+		var custall = $("#custall").val();
+		$("#cardcode").html("<option value=''>请选择</option>");
+		$("#custcode").val("");
+		$("#startenddate").html("");
+	    var e = event || window.event || arguments.callee.caller.arguments[0];
+		if(e && e.keyCode==13){ // enter 键
+			if(undefined==custall||custall ==""){
+				ccms.dialog.alert("请输入会员编号/姓名/手机号！");
+				return false;
+			}else if(custall !=""){
+				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+custall+"&objid=custcode&objidtwo=custall&random_number="+Math.random()});
+				return false;
+			}	
+	    }
+	}; 
+	
+
+	
+});
+function urls(url){
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){	
+		}
+	});
+}
+//回调查询方法
+function pickcustCallback(){
+	var dateurl = "${def:actionroot}/querycarddate?custcode="+$("#custcode").val();
+	urls(dateurl);
+	var url = "${def:actionroot}/queryptrest?custcode="+$("#custcode").val();
+	urls(url)
+}
+</script>
+</body>
+</html>

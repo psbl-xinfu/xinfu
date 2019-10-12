@@ -1,0 +1,26 @@
+insert into cc_market_campaign_votelog 
+(
+code,
+campaigncode,
+votedate,
+
+
+createdby,
+created,
+org_id,
+enrollcode
+)
+values 
+(
+${seq:nextval@seq_cc_market_campaign_votelog},
+(select code  from  cc_market_campaign where campaigntype=3 and org_id=
+(select org_id from cc_market_campaign_enroll where code=${fld:enrollcode})
+and status=1 ),
+'${def:date}',
+
+ 
+${fld:wxuserid},
+{ts'${def:timestamp}'},
+(select org_id from cc_market_campaign_enroll where code=${fld:enrollcode}),
+${fld:enrollcode}
+)

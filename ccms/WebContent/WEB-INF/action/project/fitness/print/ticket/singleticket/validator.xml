@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="pk_value" type="varchar" required="true" label="pk_value"/>
+	<parameter id="print_type" type="varchar" required="false" label="print_type"/><!-- 打印类型：contract、ticket，默认为ticket -->
+	<!-- <parameter id="vc_rebate" type="double" required="false" label="折扣金额"/> -->
+</validator>

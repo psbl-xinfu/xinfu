@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="searchsitetype" type="varchar" required="false" label="场地类型" />
+</validator>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>入场记录</title>
+</head>
+<body>
+	<!--addnew/edit form-->
+	<div id="jibenxixi" class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form class="form-horizonta" role="form" method="post" id="searchForm" name="searchForm">
+				<div class="Visiting">
+					<div  class="banner-top ba4">
+						<input name="sort" type="hidden" value="model_id" preserve="true" />
+						<input name="order" type="hidden" value="desc" preserve="true" />
+						<input name="pageNo" type="hidden" value="" preserve="true" />
+						<input name="totalPages" type="hidden" value="" preserve="true" />
+						<input id="vc_custcode" name="vc_custcode" type="hidden" value="" preserve="true" />
+					</div>
+				</div>
+			</form>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+			<div id="chartDiv" style="height:360px;width:99.5%;"></div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+    <script type="text/javascript" src="${def:context}/js/echarts-2.2.7/echarts.js"></script>
+	<script language="JavaScript">
+		$(document).ready(function() {
+			var vc_custcode=parent.$("#vc_code").val();
+			if(vc_custcode==null || vc_custcode==undefined){
+				vc_custcode="${fld:vc_code}";
+			}
+			$("#vc_custcode").val(vc_custcode);
+			var uri = "${def:context}${def:actionroot}/search";
+			ajaxCall(uri, {
+				method : "post",
+				form: "searchForm",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
+			loadEcharts();
+		});
+		function loadEcharts(){
+			require.config({
+				paths: {
+					echarts: '${def:context}/js/echarts-2.2.7/build/dist'
+				}
+			});
+			var curdate = new Date();
+			var fdate = (curdate.getFullYear()-1) + "-" + (curdate.getMonth()+1) + "-01";
+			var uri = "${def:context}${def:actionroot}/creategraphs?fdate=" + fdate;
+			ajaxCall(uri, {
+				method : "post",
+				form: "searchForm",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
+		}
+	</script>
+</body>
+</html>

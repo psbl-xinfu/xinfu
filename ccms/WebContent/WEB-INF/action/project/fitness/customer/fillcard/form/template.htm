@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>补卡</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 520px;">
+			<header class="header-default">
+				<span id="formTitle">收款</span>
+			</header>
+		<div class="panel-body col_main_body basic-dialog dialogbg">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}" />
+				<input type="hidden" id="cardtypecode" name="cardtypecode" value="${fld:cardtypecode}" />
+                <input type="hidden" id="vc_code" name="vc_code" value="${fld:code}" />
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label style="width: 120px;">姓名：</label>
+							<input type="text" id="cust_name" name="cust_name" value="${fld:cust_name}" readonly="readonly" placeholder="姓名" />
+						</li>
+						<li>
+							<label>手机号：</label>
+						<input type="text" id="mobile" name="mobile" value="${fld:mobile}" readonly="readonly" placeholder="手机号" />
+						</li>
+						<li>
+							<label style="width: 120px;">现金储值：</label>
+							<input type="text" id="moneycash" name="moneycash" value="${fld:moneycash}" readonly="readonly" placeholder="现金储值" />
+						</li>
+						<li>
+							<label>运动基金：</label>
+							<input type="text" id="moneygift" name="moneygift" value="${fld:moneygift}" readonly="readonly" placeholder="运动基金" />
+						</li>
+						<li>
+							<label style="width: 120px;">卡类型：</label>
+							<select id="cardcode" name="cardcode" class="normal-select">
+								<option value="${fld:oldcardcode}">${fld:cardtype}</option>
+							</select>
+						</li>
+						<li>
+							<label>有效期限：</label>
+							<span id="carddate">${fld:cardstartdate}~${fld:cardenddate}</span>
+							<input type="hidden" id="cardstartdate" name="cardstartdate" value="${fld:cardstartdate}" />
+							<input type="hidden" id="cardenddate" name="cardenddate"  value="${fld:cardenddate}" />
+						</li>
+						<li>
+							<label style="width: 120px;">新会员卡号：</label>
+							<input type="text" id="new_vc_code" name="new_vc_code" value="${fld:cardcode}" maxlength='8' placeholder="新会员卡号" readonly="readonly"/>
+							<input type="hidden" id="incode" name="incode" maxlength='8' value="${fld:incode}" placeholder="卡内码" />
+						</li>
+						<li>
+							<label>原卡号：</label>
+							<input type="text" value="${fld:oldcardcode}" readonly="readonly"/>
+						</li>
+						<li>
+							<label style="width: 120px;">补卡费：</label>
+							<input type="text" id="fillcardmoney" name="fillcardmoney" value="${fld:money}" readonly="readonly" placeholder="补卡费" />
+						</li>
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注：</label>
+							<textarea id="remark" cols="50" rows="3" placeholder="备注" class="my-textarea" name="remark" readonly="readonly" maxlength="6000">${fld:remark}</textarea>
+						</li>
+					</nav>
+				</div>
+				<div id="i_paytypeone" style="display: none;">
+	          		<div class="modal-body " id="paymoney" style="margin-left: 6%;height: 30px"  >
+					</div>
+	          		<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label>支付方式</label>
+								<select id="moneytype" class="normal-select">
+									<option value="">请选择</option>
+									<OtherPayWay-list>
+										<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+									</OtherPayWay-list>
+								</select>
+								<label>金额</label>
+								<input type="text" id="money" name="money" placeholder="金额" />
+								&nbsp;
+								<i class="am-icon-plus" id="addmoney" title="添加"></i>
+							</li>
+						</nav>
+					</div>
+					<input type="hidden" id="pay_detail" name="pay_detail"/>
+				</div>
+			<footer class="footer-default">
+				<button type="button" id="update" style="display: none;">确认收款</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	if("${fld:type}"=="1"){
+		$("#i_paytypeone").show();
+		//判断该登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")>0){
+			$("#update").show();
+		}
+	}
+	///收款
+	$("#update").click(function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		 var moneydetail = "";
+			//获取所有支付类型option
+			$("#moneytype option").each(function(){  
+				if($(this).val()!=""){
+					moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+				}
+				moneydetail = moneydetail.replace("undefined", "0");
+			});
+			//明细
+			$("#pay_detail").val(moneydetail);
+			//获取所有退费金额
+			var paymoney = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				paymoney+=Number(item.value);
+			});
+			
+			if(parseFloat($("#fillcardmoney").val())!=paymoney){
+				ccms.dialog.alert("实收金额与支付补卡金额不相同，请确认！");
+				return false;
+			}
+
+			if($("#cardcode").val()==$("#new_vc_code").val()){
+				ccms.dialog.alert("新会员卡号和旧会员卡号一致，请确认！");
+				/* $Dialog().confirm("新会员卡号和旧会员卡号一致，确定要补卡吗?", function(){
+					incodevalidation();
+				}); zzn卡号相等不允许补卡*/
+				return false;
+			}else{
+				
+				incodevalidation();
+			}
+	});
+	
+	//支付加载
+   $("#addmoney").click(function(){
+	   	var moneytype = $("#moneytype").val();
+	   	var moneytypetext = $("#moneytype option:selected").text();
+	   	var money = $("#money").val();
+	   	if(moneytype==""){
+	   		ccms.dialog.alert("请选择方式！");
+	   	}else if(money==""){
+	   		ccms.dialog.alert("请输入金额！");
+	   	}else{
+	   		var count = 0;
+			$("input[name='paytypemoney']").each(function(j,item){
+				   if($(item).attr("code")==moneytype)count++;
+			});
+			if(count==0){
+				$("#paymoney").append(
+						"<li style='margin-left:25px;float:left'><span><span>"+moneytypetext+"：</span><span>"+money+"元</span></span>"
+					+"<input type='hidden' value='"+money+"' code='"+moneytype+"'  name='paytypemoney'/>"
+					+ '<img   onclick="delhour(this)" style="margin-left:5px;margin-top:-2px" height="20" width="45"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+				);
+				
+				
+				$("#moneytype,#money").val("");
+				$("#moneytype").selectpicker("refresh");
+				$("#moneytype").selectpicker("render");
+	   		}else
+				ccms.dialog.alert(moneytypetext+"已存在！");
+	   	}
+   });
+	//支付方式
+	$("#moneytype").change(function(){
+		document.getElementById("money").focus();
+	});
+
+	$("#money").blur(function(){
+		var money = $(this).val();
+		if(isNaN(money)){
+			money = 0;
+		}
+		money = Number(money).toFixed(2);
+		$(this).val(money <0 ? 0 : money);
+	});
+	selectInit($("#cardcode,#moneytype"));
+});
+
+function delhour(val){
+	$(val).parent().remove();
+}
+function incodevalidation(){
+	var url = "${def:actionroot}/insert";
+	if($("#incode").val()==""){
+		$Dialog().confirm("是否确定使用虚拟卡？", function(){
+			posturls(url);
+		});
+	}else{
+		posturls(url);
+	}
+}
+function posturls(url){
+	ajaxCall(url,{
+		method:"post",
+		form:"formEditor",
+		progress:true,
+		dataType:"script",
+		success:function(){
+			//zyb 关闭的界面
+			ccms.dialog.notice("收款成功！",2000,function(){
+				parent.search.searchData(1);
+				ccms.dialog.close();
+			});
+		}
+	});
+}
+</script>
+</body>
+</html>

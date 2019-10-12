@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教分析</title>
+</head>
+<body>
+		<div class="bb-tab-cout-2 am-tab-panel am-active three-none"
+			id="bb-tab2">
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<button type="button" class="r-c-3-btn-1" id="search_total_btn"></button>
+					</nav>
+				</div>
+				
+				<div class="f-s-t-top">
+					<div>
+						<header>综合成交率</header>
+						<span class="count" id="rate"></span>
+						<p>环比
+							<i id="yearrate"></i>
+						</p>
+						<p>同比
+							<i id="monthrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>成交均价</header>
+						<span class="count" id="avgfee"></span>
+						<p>环比
+							<i id="yearavgfee"></i>
+						</p>
+						<p>同比
+							<i id="monthavgfee"></i>
+						</p>
+					</div>
+					<div>
+						<header>POS成交率</header>
+						<span class="count" id="pos"></span>
+						<p>环比
+							<i id="yearpos"></i>
+						</p>
+						<p>同比
+							<i id="monthpos"></i>
+						</p>
+					</div>
+					<div>
+						<header>P1成交率</header>
+						<span class="count" id="p1"></span>
+						<p>环比
+							<i id="yearp1"></i>
+						</p>
+						<p>同比
+							<i id="monthp1"></i>
+						</p>
+					</div>
+					<div>
+						<header>P2成交率</header>
+						<span class="count" id="p2"></span>
+						<p>环比
+							<i id="yearp2"></i>
+						</p>
+						<p>同比
+							<i id="monthp2"></i>
+						</p>
+					</div>
+				</div>
+				<div class="f-s-t-top">
+					<div>
+						<header>场开成交率</header>
+						<span class="count" id="gdpos"></span>
+						<p>环比
+							<i id="yeargdpos"></i>
+						</p>
+						<p>同比
+							<i id="monthgdpos"></i>
+						</p>
+					</div>
+					<div style="display: none;">
+						<header>POS接待率</header>
+						<span class="count" id="posreception"></span>
+						<p>环比
+							<i id="yearposreception"></i>
+						</p>
+						<p>同比
+							<i id="monthposreception"></i>
+						</p>
+					</div>
+					<div>
+						<header>耗课率</header>
+						<span class="count" id="haokelv"></span>
+						<p>环比
+							<i id="yearhaokelv"></i>
+						</p>
+						<p>同比
+							<i id="monthhaokelv"></i>
+						</p>
+					</div>
+					<div>
+						<header>首次课续费率</header>
+						<span class="count" id="cttnrate"></span>
+						<p>环比
+							<i id="yearcttnrate"></i>
+						</p>
+						<p>同比
+							<i id="monthcttnrate"></i>
+						</p>
+					</div>
+					<div>
+						<header>综合业绩</header>
+						<span class="count" id="total"></span>
+						<p>环比
+							<i id="yeartotal"></i>
+						</p>
+						<p>同比
+							<i id="monthtotal"></i>
+						</p>
+					</div>
+				</div>
+			
+			<div class="bb-tab-cout-1-bottom">
+				<div class="full-div">
+				<div class="tab-cout-nav-t">
+					<form role="form" method="post" id="searchForm">
+						<input name="sort" type="hidden" value="" preserve="true" />
+						<input name="order" type="hidden" value="" preserve="true" />
+						<input name="pageNo" type="hidden" value="" preserve="true" />
+						<input name="totalPages" type="hidden" value="" preserve="true" />
+						<nav class="tab-nav-my">
+							<li class="dateTime"><input type="text" id="listfdate" name="listfdate" value="" class="input-default" /></li>
+							<label> - </label>
+							<li class="dateTime"><input type="text" id="listtdate" name="listtdate" value="" class="input-default" /></li>
+							<li>
+								<select id="pt" name="pt" class="normal-select">
+									<option value="">请选择私教</option>
+									<pt-rows>
+									<option value="${fld:userlogin@js}">${fld:name@js}</option>
+									</pt-rows>
+								</select>
+							</li>
+							<button type="button" class="r-c-3-btn-1" id="search_btn"></button>
+						</nav>
+					</form>
+				</div>
+				
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-38"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th>排名</th>
+								<th class="sortable" code="name" sort="name">姓名</th>
+								<th class="sortable" code="rate" sort="rate">综合成交率</th>
+								<th>成交均价</th>
+								<th style="display: none;">POS接待率</th>
+								<th>P1成交率</th>
+								<th>P2成交率</th>
+								<th>场开成交率</th>
+								<th>耗课率</th>
+								<th>首次课续费率</th>
+								<th>综合业绩</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+								<td>#showorder#</td> 
+								<td>#name#</td>
+								<td>#rate#%</td>
+								<td>#avgfee#</td>
+								<td style="display: none;">#pos#%</td>
+								<td>#p1#%</td>
+								<td>#p2#%</td>
+								<td>#cknum#</td>
+								<td>#haokelv#</td>
+								<td>#firstcttn#%</td>
+								<td>#income#</td>										
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var search = null;
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	ccms.dialog.date($("#listfdate,#listtdate"));
+	$("#listfdate").val(new Date().format("yyyy-MM-01"));
+	$("#listtdate").val(new Date().format("yyyy-MM-dd"));
+
+	searchSelectInit($("#pt"));
+	/** 顶部搜索 */
+	$("#search_total_btn").unbind().on("click",function(){
+		getAjaxCall("${def:actionroot}/querytotal?fdate="+$("#fdate").val()+"&tdate="+$("#tdate").val(), true);
+	});
+	$("#search_total_btn").click();
+	this.search = search;
+	search = $Search({datagrid:"datagrid", formId:"searchForm", rowpackage:function(obj){
+	},success:function(){
+		
+	}}).initSearchBtn().searchData(1);
+});
+</script>
+</body>
+</html>

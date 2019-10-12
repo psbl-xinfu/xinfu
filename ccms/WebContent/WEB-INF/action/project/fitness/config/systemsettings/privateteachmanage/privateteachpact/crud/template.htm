@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教管理</title>
+<style type="text/css">
+.titlecust{
+  margin-top: 20px;
+}
+.pl_2{ padding-left:10px; padding-top:10px; font-weight:bold; color:#555}
+.day{
+   text-align:center;
+   width:45px;
+}
+</style>
+</head>
+<body>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+	<form class="form-horizontal" role="form" method="post" id="searchForm" name ="searchForm">
+	   <input type="hidden" id="pt_id" name="pt_id" value="${fld:pt_id}"/>
+	   <input type="hidden" id="ptscaletype_id" name="ptscaletype_id" value="${fld:ptscaletype_id}"/>
+	   <input type="hidden" id="isxkgivept_id" name="isxkgivept_id" value="${fld:isxkgivept_id}"/>
+	   
+	  	<div class="xt-1-div m-t-b-10">
+			<label for="ccc" style="color: white;">私教合同上，假设每节课程</label>
+	    	<input type="text" id = "pt" name = "pt" value="${fld:pt}"  class="day input-1"/>
+			<span style="color: white;">天内上完，使用购买节数X天数算出私教课的有效期</span>
+		</div>
+	  	<div class="xt-1-div m-t-b-10 hasCheck" style="margin-left: -6px;">
+			<label for="ccc" style="color: white;"></label>
+			<input type="checkbox" value="1" id="isxkgivept1" name="isxkgivept1" class="pl_2"/>
+	   	    <span style="color: white;">续卡赠送私教课（选中为赠送，不选中为不赠送）</span>
+		</div>
+			  	<input type="hidden" value="0" id="isxkgivept" name="isxkgivept" class="pl_2"/>
+	  	<div class="xt-1-div m-t-b-10">
+			<label for="ccc" style="color: white;">办卡后</label>
+    		<input type="text" id = pos name = "pos" value="${fld:pos_day}"  class="day input-1"/>
+    		<input type="hidden" id = pos_id name = "pos_id" value="${fld:pos_id}"  class="day"/>
+	   	    <span style="color: white;">天内购买私教课的为POS</span>
+		</div>
+		
+   <div class="banner-top ba1" style="margin-top:15px;">
+				  <button type="button" id="edit_btn">确&nbsp;定</button>
+   </div>
+</form></div></div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+function queryradiodateisoneortworcard(){
+	ccms.util.setCheckboxValue('ptscaletype',"${fld:ptscaletype}","searchForm");
+}
+
+function queryradiodateisprintpos(){
+	ccms.util.setMulitCheckboxValue('isxkgivept1',"${fld:isxkgivept}","searchForm");
+	$("#isxkgivept").val("${fld:isxkgivept}");
+}
+
+$(document).ready(function() {
+	ccms.util.renderRadio("ptscaletype");
+	ccms.util.renderCheckbox("isxkgivept1");
+	
+	$('#pos').blur(function(){
+		var pos=$('#pos').val();
+		var reg =/^\+?[1-999999999999]\d*$/;//有效次数必须是大于0的整数
+		 if(!reg.test(pos)&&pos!=null){
+			ccms.dialog.notice("可存卡天数必须是大于等于1的整数!",2000);
+			$('#pos').val(1);
+		}else{
+			return true;
+		}
+	}); 
+	
+	
+	queryradiodateisoneortworcard();
+	queryradiodateisprintpos();
+
+	$("#edit_btn").click(function updateData(){
+		var uri = "${def:context}${def:actionroot}/update?";
+		//修改参数
+		url(uri+"tuid="+$("#pos_id").val()+"&param_text="+$("#pos").val());
+		url(uri+"tuid="+$("#isxkgivept_id").val()+"&param_text="+$("#isxkgivept").val());
+		url(uri+"tuid="+$("#pt_id").val()+"&param_text="+$("#pt").val());
+		ccms.dialog.alert("修改成功！");
+	});
+	function url(uri){
+		ajaxCall(uri,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	 		}
+	 	});
+	}
+
+	$("#isxkgivept1").unbind().on("ifUnchecked ifChecked", function(){
+		if($(this).is(':checked')){
+			$("#isxkgivept").val("1");
+		}else{
+			$("#isxkgivept").val("0");
+		}
+	});
+});
+</script>
+</body>
+</html>

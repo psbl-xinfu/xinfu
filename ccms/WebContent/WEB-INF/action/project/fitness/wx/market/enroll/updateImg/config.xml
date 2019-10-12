@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		新增
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+			<!--  <classname>dinamica.GenericTransaction</classname>  -->
+	
+	 <classname>transactions.project.fitness.weixin.DownloadWxImageMarket</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		  <recordset id="query.sql" source="sql" scope="transaction" />
+	</transaction>
+
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		  <recordset id="query.sql" source="sql" scope="transaction" />
+	</output>
+
+</config>

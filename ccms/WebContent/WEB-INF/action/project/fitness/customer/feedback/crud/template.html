@@ -1,0 +1,613 @@
+<!doctype html>
+<html>
+	<head>
+		<title>客诉处理</title>
+	    ${inc:/action/project/fitness/home/pub}
+		<link  rel='stylesheet' href='${def:context}/js/project/fitness/trains/css/common.css'/>
+	</head>
+	<body>
+	
+	   <div class="f-s-t" >
+			<div class="tab-cout-nav kffw-ks">
+			  <form class="form-horizontal" role="form" method="post" id="searchForm" name='searchForm' style="width:100%;">
+				<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}"/>
+				<input name="pageNo" type="hidden" value="" preserve="true" /> 
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+			    
+			    <!--条件筛选开始-->
+				<input type='hidden' id='f_isanonymous' name="f_isanonymous" class="filterconditions"/>
+				<input type='hidden' id='f_complainttype' name="f_complainttype" class="filterconditions"/>
+				<input type='hidden' id='f_complaint_userid' name="f_complaint_userid" class="filterconditions"/>
+				<input type='hidden' id='f_complaint_skill' name="f_complaint_skill" class="filterconditions"/>
+				<input type='hidden' id='f_complaint_item' name="f_complaint_item" class="filterconditions"/>
+				<input type='hidden' id='f_complaint_envir' name="f_complaint_envir" class="filterconditions"/>
+				<input type='hidden' id='f_evalstar' name="f_evalstar" class="filterconditions"/>
+				<input type='hidden' id='f_status' name="f_status" class="filterconditions"/>
+			    <!--条件筛选结束-->
+			  <div class="tab-cout-nav-t">
+				<nav class="tab-nav-my">
+					<li class="dateTime" style="width: 110px;">
+				  		<input id="startdate" name="startdate" type="text" class="input-default"/>
+					</li>
+					<li class="dateTime" style="width: 110px;">
+				  		<input id="enddate" name="enddate" type="text" class="input-default"/>
+					</li>
+					<li>
+						<select  class="normal-select" id='fbtype'  name='fbtype'>
+							<option value=''>全部客诉类型</option>
+							<option value='0'>意见建议</option>
+							<option value='1'>投诉</option>
+						</select>
+					</li>
+					<input type="hidden" id="thismonth"  name='created' value=""/>
+					
+					<li class="w-160 hasCheck" style="width: 140px;">
+						<input type="checkbox" id="benyueweichuli"  name='thismonth_un' value="1" style="display: none;">
+						<span class='my_span'>本月未处理</span>
+					</li>
+					<li class="w-160 hasCheck" style="width: 140px;">
+						<input type="checkbox" id="benyuefenpei"  name='thismonth' value="1" style="display: none;">
+						<span class='my_span'>本月分配</span>
+					</li>
+				<div >
+					<button class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+					<img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/>
+					<img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" data-toggle="modal" id="addnew_btn"/>
+					<button class="r-c-3-btn-3" id="daochuexcel" type="button" title="导出"></button>
+				</div>
+			</nav>
+			 
+			</div>
+			  </form>
+			<div class="tab-cout-nav-b">
+				<nav class="r-c-3-t-b-l">	
+				<li>
+					<button type="button" id='distribute_c_s_btn'  class="" data-dismiss="modal">分配客服</button>
+					</li>
+					<li>
+					<button type="button" id="follow_up_btn" class="">回&nbsp;访</button>
+					</li>
+				</nav>
+				<nav class="r-c-3-t-b-r">
+					<li>
+						<img src="${def:context}/js/project/fitness/image/SVG/nav/yulan.svg" title="查看" class='yulan_btn' alt="">
+					</li>
+					<li>
+						<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" class='edit_btn' alt="">
+					</li>
+					<li>
+						<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" class='delete_btn' alt="">
+					</li>
+				</nav>
+			</div>
+		</div>
+		<!-- 通用表格 -->
+		<div class="r-tab-cout-3-b">
+			<div class="to-change-background"></div>
+			<table> 
+				<!-- am-table -->
+				<thead>
+					<tr>
+				 	<th class="checkToleft-9"><input type="checkbox" class="selectAll" name="selectAll" id="selectAll" style="display: none;" /></th>
+						<th>客诉类型</th>
+						<th>姓名</th>
+						<!-- <th>性别</th> -->
+						<th>客服</th>
+						<th>联系方式</th>
+						<!-- <th>投诉类别</th> -->
+						<th>处理状态</th>
+						<!-- <th>客户反馈</th> -->
+						<th>处理时间</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+				<tbody id="datagridTemplate" style="display: none">
+					<tr>
+						<td class="table-checkbox">
+							#application_id#
+						</td>
+						<td>#fbtype#</td>
+						<td class='t_customer_name'>#name#</td>
+						<!-- <td>#sex#</td> -->
+						<td>#kefu#</td>
+						<td class='t_customer_mobile'>#mobile#</td>
+						<!-- <td>#complainttype#</td> -->
+						<td>#status#</td>
+						<td>#updated#</td>
+						<!-- <td>#evalstar#</td> -->
+						<td>#remark#</td>
+						<input type='hidden' value='#followupid#' class='followupid'/>
+						<input type='hidden' value='#customercode#' class='s_customercode'/>
+					</tr>
+				</tbody>
+				<tbody id="datagrid"></tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modalAddnew" tabindex="-1" role="dialog" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+			<header class="header-default">
+				<span id="formTitle">新增客诉</span>
+				<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+			</header>
+				<div class="b-i-main">
+					<form id="formEditor" name="formEditor"  role="form" method="post">
+						<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}"/>
+						<input type="hidden" id="kf_tuid" name="tuid" value='' preserve='true'/>
+						<nav>
+								<li style="width: 200px">
+								<input type='radio'  class='fbtype_item'  value='0' name='fbtype'>意见建议</input>
+								<input type='radio'  class='fbtype_item'  value='1' name='fbtype'>投诉</input>
+							</li>
+							<li></li>
+							
+							<li  >
+							<!-- 	<label class="am-checkbox"> -->
+									<input type="checkbox" id="isanonymous_checkbox" name="isanonymous_checkbox" value="0">
+									<input type="hidden" id="isanonymous"  name='isanonymous' value="0" preserve="true">
+							<!-- 	</label> -->
+								<span>匿名</span>
+							</li>
+							
+							<li></li>
+							
+							
+							<li  class="input_customer_name ">
+								<label>客户姓名：</label>
+								<!-- <div class="my-selected customer_search"> -->
+									<input type='text' class='customer_search' id='customer_code_input'  value=''  preserve="true" placeholder="客户姓名/手机号/卡号" />
+									<input type='hidden'  id='customer_code' name='customer_code' value=''  preserve="true" />
+								<!-- </div> -->
+							</li>
+							
+							<li class="niming"></li>
+							
+							
+							<li class='my_li complainttype ' style='display:none;'>
+								<label>投诉类别：</label>
+									<select class='normal-select' id='complainttype'  name='complainttype'>
+										<option selected='selected' value=''>全部投诉类别</option>
+										<op-type><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-type>
+									</select>
+							</li>
+							
+							
+							
+							<li class='my_li complaint_userid complaint_type_item' style='display:none;'>
+								<label>员工：</label>
+									<select class='normal-select' id='complaint_userid'  name='complaint_userid'>
+										<option selected='selected' value=''>全部员工</option>
+										<op-staff><option value=${fld:user_id}>${fld:name@js}</option></op-staff>
+									</select>
+							</li>
+							
+							<li class='my_li complaint_skill complaint_type_item '      style='display:none;'>
+								<label>部门：</label>
+									<select class='normal-select' id='complaint_skill'  name='complaint_skill'>
+										<option selected='selected' value=''>全部部门</option>
+										<op-skill><option value="${fld:skill_id}">${fld:skill_name@js}</option></op-skill>
+									</select>
+							</li>
+							
+							<li class='my_li complaint_item complaint_type_item' style='display:none;'>
+								<label>项目：</label>
+									<select class='normal-select' id='complaint_item'  name='complaint_item'>
+										<option selected='selected' value=''>全部项目</option>
+										<op-item><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-item>
+									</select>
+							</li>
+							
+							
+							<li class='my_li complaint_envir complaint_type_item'  style='display:none;'>
+								<label>环境：</label>
+									<select class='normal-select' id='complaint_envir'  name='complaint_envir'>
+										<option selected='selected' value=''>全部环境</option>
+										<op-envir><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-envir>
+									</select>
+							</li>
+							
+							<li class='my_li complaint_fbremark to100w' style='display:none;'>
+							    <!--客诉类型不同label可能为意见建议和投诉原因-->
+								<label>投诉原因：<span style='visibility:hidden;'>0000000000000</span></label><!--用后部分的字符加宽label使得文本域不换行-->
+								<textarea  id="fbremark" name="fbremark" class="my-textarea" rows="" cols="4"></textarea>
+							</li>
+							<li class='my_li to100w' style='display:none;' id="resultremark">
+							    <!--客诉类型不同label可能为意见建议和投诉原因-->
+								<label>处理结果：<span style='visibility:hidden;'>0000000000000</span></label><!--用后部分的字符加宽label使得文本域不换行-->
+								<textarea  id="remark" readonly="readonly" name="remark" class="my-textarea" rows="" cols="4"></textarea>
+							</li>
+							
+						</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button type="button" id="save_btn" class="my-btn-default active">保&nbsp;存</button>
+					<button type="button" class="my-btn-default active" data-dismiss="modal">取&nbsp;消</button>
+				</footer>
+			</div>
+		</div>
+		
+		
+		<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+ 			<input id="daochu_startdate" name="daochu_startdate" type="hidden" value="" preserve='true'/> 
+			<input id="daochu_enddate" name="daochu_enddate" type="hidden" value="" preserve='true'/>
+			<input id="daochu_fbtype"  name="daochu_fbtype" type="hidden" value="" preserve='true'/>
+			<input id="daochu_status" name="daochu_status" type="hidden" value="" preserve='true'/>
+			<input id="daochu_benyueweichuli" name="daochu_benyueweichuli" type="hidden" value="" preserve='true'/>
+			<input id="daochu_benyuefenpei" name="daochu_benyuefenpei" type="hidden" value="" preserve='true'/>
+			<input type='hidden' id='daochu_f_isanonymous' name="daochu_f_isanonymous"/>
+			<input type='hidden' id='daochu_f_complainttype' name="daochu_f_complainttype"/>
+			<input type='hidden' id='daochu_f_complaint_userid' name="daochu_f_complaint_userid"/>
+			<input type='hidden' id='daochu_f_complaint_skill' name="daochu_f_complaint_skill"/>
+			<input type='hidden' id='daochu_f_complaint_item' name="daochu_f_complaint_item"/>
+			<input type='hidden' id='daochu_f_complaint_envir' name="daochu_f_complaint_envir"/>
+			<input type='hidden' id='daochu_f_status' name="daochu_f_status"/>
+			<input type='hidden' id='daochu_f_evalstar' name="daochu_f_evalstar"/>
+		</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+		<script>
+		var searchObj=null;
+		var IS_SCAN=false; //是否属于查看
+		$(document).ready(function(){	
+			ccms.util.renderRadio("fbtype");
+			ccms.util.renderCheckbox("isanonymous_checkbox");
+			ccms.util.renderCheckbox("selectAll");		
+			ccms.util.renderCheckbox("thismonth_un");		
+			ccms.util.renderCheckbox("thismonth");		
+			selectInit($("#to_mc"));
+			$("#startdate").val(new Date("${def:date}").format("yyyy-MM-01")); 
+			$("#enddate").val("${def:date}");
+			$Dialog().date($('#startdate'));
+			$Dialog().date($('#enddate'));
+			
+			$(".header-close").unbind().on("click",function(){
+				$("#allocation_win").modal('hide');
+				ccms.util.clearForm('allocation_form');
+			});
+			
+			$(".fbtype_item").unbind().on("ifChecked",function(){  
+			    if($(this).val()=='0')
+			    {
+			    	showSuggestion();
+			    }
+			    if($(this).val()=='1')
+			    {
+			    	$('.niming').css('display','none');
+			    	showComplaint();
+			    }
+		    })
+		    
+		    $("#isanonymous_checkbox").on("ifChecked",function(){ //新增客诉匿名
+			    $('.input_customer_name').css('display','none');
+			    $('.niming').css('display','none');
+				$("#isanonymous").val(1);
+		    }).on("ifUnchecked",function(){
+		    	 $('.input_customer_name').css('display','block');
+		    	   $('.niming').css('display','block');
+				   $("#isanonymous").val(0);
+		    })
+		    
+		    $("select#complainttype").change(function(){
+		    	var code=$(this).val();	    	
+		    	showComplaintTypeItem(code);	
+		    })
+		    
+		    
+		    $('#follow_up_btn').click(function(){  //弹出回访弹窗
+		    	var obthis =getCheckboxValue("custcomm");
+		    
+		    
+				if ( obthis != undefined && obthis != "") {
+					if(checkCheckBox(obthis))
+					{
+						ccms.dialog.notice('请选择其中一条记录回访！')
+					}else{
+						var name=$('input[name=custcomm][value='+obthis+']').parent().parent().parent().find('.t_customer_name').text();
+						var mobile=$('input[name=custcomm][value='+obthis+']').parent().parent().parent().find('.t_customer_mobile').text();
+/* 						var followupid=$('.datalist[value='+obthis+']').parent().parent().parent().parent().find('.followupid').val();
+ */					var customercode=$('input[name=custcomm][value='+obthis+']').parent().parent().parent().find('.s_customercode').val();
+						var followupid=$('input[name=custcomm][value='+obthis+']').parent().parent().parent().find('.followupid').val();
+						//$('#followup_customer_name').text(name);
+						//$('#followup_customer_mobile').text(mobile);
+						//$('.my_li2').css('display','none');
+						//followUp();
+						if(followupid==''||followupid==undefined)
+                        {
+							ccms.dialog.notice('该客诉未分配客服！');
+                        }else{
+                        	var commurl = '${def:context}${def:actionroot}/validation?';
+							commurl+='name='+name;
+							commurl+='&mobile='+mobile;
+							commurl+='&feedbackid='+obthis;
+							commurl+='&customercode='+customercode;
+							ajaxCall(commurl,{
+							   	method: "get",
+							   	progress: true,
+							   	dataType: "script",
+							   	success: function() {
+								}
+							});
+                        }
+					}
+				}else
+				{
+					ccms.dialog.notice('请选择一条记录');
+				}
+		    })
+		    
+		    $('#distribute_c_s_btn').unbind().on('click',function(){ //显示分配窗口
+		    	var obthis =getCheckboxValue("custcomm");
+				if ( obthis != undefined && obthis != "") {
+					var codecount = 0;
+					$("input[name=custcomm]:checked").each(function(){
+						if($(this).attr("code1")=="1")
+							codecount++;
+					});
+					if(codecount>0){
+						ccms.dialog.notice("选择的客诉存在已分配记录，请确认！");
+					}else{
+						fenpei(obthis);
+					}
+				}else{
+					ccms.dialog.notice('请选择一条记录');
+				}
+		    })
+				    var obj = $Crud({
+					formId: "formEditor", 
+					button: "save_btn",  
+					bpkField:"tuid", 
+					insertBack: function () {
+						searchObj.searchData();
+					},
+				    updateBack: function () {
+						searchObj.searchData(); 
+					},
+				    deleteBack: function () {
+						searchObj.searchData();
+					},
+					addNewBack: function () { 
+						$(".my_li").css('display','none');
+						$("#customer_code_input").val(""); //清空名字搜索栏
+						$("#formTitle").html("新增客诉");
+						readOnlyFalse();
+						searchObj.searchData();
+						setSelectValue($("#complainttype"), "");
+                    },
+                    editBack: function () {
+					    if(IS_SCAN)
+						{
+							$("#formTitle").html("查看客诉");
+							IS_SCAN=false;
+						}else{
+							$("#formTitle").html("更新客诉");
+						}
+                    },
+                    validate: function () {
+                    	var flag = $("#formEditor").validate({
+                            rules: {
+          
+                            },
+                            messages: {   
+                            }
+                        });
+                    	if($("input[name=fbtype]:checked").val()=="1"){
+                    		if($("#complainttype").val()==""){
+                    			ccms.dialog.notice("请选择投诉类别！", 2000);
+                    			return false;
+                    		}
+                    	}
+                        return flag;
+					},
+					check: function(){
+						
+						return true;
+					}
+				}).init();
+			searchObj=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+			},success:function(){
+				ccms.util.renderCheckbox("custcomm");
+				$(".delete_btn").unbind().on("click", function() {
+				var obthis =getCheckboxValue("custcomm");
+				if(obthis!=""){
+			 	$Dialog().confirm("确定要删除吗?", function() {
+					var url="${def:context}${def:actionroot}/delete?id="+obthis;
+					ajaxCall(url,{
+					method: "get",
+					progress: false,
+					dataType: "script",
+					success: function() {
+						ccms.dialog.notice("删除成功！");
+						searchObj.searchData(1);
+					}
+				}); 
+				});
+				}else{
+					ccms.dialog.notice('请选择一条记录!');
+				}
+			});
+				
+			$(".edit_btn").unbind().on("click", function() {
+				$("#resultremark").hide();
+				var obthis =getCheckboxValue("custcomm");
+				if ( obthis != undefined && obthis != "") {
+					if(checkCheckBox(obthis))
+					{
+						ccms.dialog.notice('请选择其中一条记录更新！')
+					}else{
+					    $('#kf_tuid').val(obthis); //修改隐藏域的值
+						readOnlyFalse();
+						obj.edit({id : obthis});
+					}
+				}else
+				{
+					ccms.dialog.notice('请选择一条记录!');
+				}
+			});
+				
+				$(".yulan_btn").unbind().on("click", function() {  //查看
+					$("#resultremark").hide();
+				var obthis =getCheckboxValue("custcomm");
+				if ( obthis != undefined && obthis != "") {
+					if(checkCheckBox(obthis))
+					{
+						ccms.dialog.notice('请选择其中一条记录查看！')
+					}else{
+						IS_SCAN=true;
+					    $('#kf_tuid').val(obthis); //修改隐藏域的值
+						readOnly();
+						obj.edit({id : obthis});
+					}
+				}else
+				{
+					ccms.dialog.notice('请选择一条记录!');
+				}
+				
+			});
+				
+				
+				
+				$Dialog().date($('#sequence_call_time'));
+				$Dialog().date($('#search_start_time'));
+				$Dialog().date($('#search_end_time'));
+				
+			}}).initSearchBtn().searchData(1);
+			
+			selectInit($('#fbtype,#status,#complainttype,#complaint_envir'));
+			searchSelectInit($("#complaint_userid,#complaint_skill,#complaint_item"));	
+		})
+		
+		function checkCheckBox(string) //检查是否多选,多选返回真，否则为假
+		{
+			var arr=new Array();
+			arr=string.split(',')
+			if(arr.length>1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		 
+		 function showSuggestion()
+		 {
+			 $(".my_li").css('display','none');
+			 $(".my_li.complaint_fbremark").css('display','block').find('label').text('意见建议：');
+		 }
+		 
+		 function showComplaint()
+		 {
+			 $(".my_li").css('display','none');
+			 $("select#complainttype").val("");
+			 $(".my_li.complainttype").css('display','block');
+			 $(".my_li.complaint_fbremark").css('display','block').find('label').text('投诉原因：');
+		 }
+
+		 function showComplaintTypeItem(code)
+		 {
+			 switch(code)
+			 {
+			   case '1':
+				        $('.complaint_type_item').css('display','none');
+				        $('.my_li.complaint_userid').css('display','block');
+				        break;
+			   case '2':
+				  		$('.complaint_type_item').css('display','none');
+				   		$('.my_li.complaint_skill').css('display','block');
+				        break;
+			   case '3':
+				        $('.complaint_type_item').css('display','none');
+				  		$('.my_li.complaint_item').css('display','block');
+				  	    break;
+			   case '4':
+				        $('.complaint_type_item').css('display','none');
+				  		$('.my_li.complaint_envir').css('display','block');
+				  	    break;
+			   case '5':	
+				   		$('.complaint_type_item').css('display','none');
+				   	    break;
+			 }
+		 }
+		 
+		 $('#customer_code_input').unbind().on('blur',function(){
+			 getCustomerCode(); 
+		});
+		 
+		 function getCustomerCode() {
+			var pickcustname=$('#customer_code_input').val();
+			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+pickcustname+"&objid=customer_code&objidtwo=customer_code_input&random_number="+Math.random()});
+		  }	
+		//回调联想查询方法,不要删除
+		 function pickcustCallback(){}
+		 
+		 function followUp() //
+		 {
+			 $('#followUp').modal('show');
+		 }
+		 
+		 
+		 
+		 $("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
+			 if( $(this).prop("checked") ){// 
+				$('input[name=custcomm]').iCheck('uncheck');
+			 }else{
+				$('input[name=custcomm]').iCheck('check');  //
+			 }
+		    });
+		
+		function readOnly() //禁止操作表单
+		{
+			$('#formEditor').find('input').attr('disabled','disabled');
+			$('#formEditor').find('select').attr('disabled','disabled');
+			$('#formEditor').find('textarea').attr('disabled','disabled');
+			$("#save_btn").css('display','none');
+		}
+		 
+		function readOnlyFalse() //解除禁止操作表单
+		{
+			$('#formEditor').find('input').attr('disabled',false);
+			$('#formEditor').find('select').attr('disabled',false);
+			$('#formEditor').find('textarea').attr('disabled',false);	
+			$("#save_btn").css('display','inline-block');
+		}
+		
+		$("#daochuexcel").unbind().on("click", function(){  //导出
+			$("#daochu_startdate").val($("#startdate").val());
+			$("#daochu_enddate").val($("#enddate").val());
+			$("#daochu_fbtype").val($("#fbtype").val());
+			if($('#benyueweichuli').is(':checked'))
+			{
+				$("#daochu_benyueweichuli").val($("#benyueweichuli").val());
+			}else{
+				$("#daochu_benyueweichuli").val("");
+			}
+			if($('#daochu_benyuefenpei').is(':checked'))
+			{
+				$("#daochu_benyuefenpei").val($("#daochu_benyuefenpei").val());
+			}else{
+				$("#daochu_benyuefenpei").val("");
+			}
+	         //条件筛选条件
+	     	$(".filterconditions").each(function(){
+	     		$("#daochu_"+$(this).attr("id")).val($("#"+$(this).attr("id")).val());
+	     	})
+			$("#daochuForm").submit();
+		});  
+		//条件筛选
+		$("#filter_btn").unbind().on('click',function(){
+			ccms.dialog.open({url : '${def:context}${def:actionroot}/filter', width: 900, height: 340});
+		})
+		
+		
+	function fenpei(customercodes){
+		ccms.dialog.open({url : '${def:context}${def:actionroot}/distribution/crud?customercode='+customercodes, width:'1000',height:'600'});
+	}
+		</script>
+	</body>
+</html>

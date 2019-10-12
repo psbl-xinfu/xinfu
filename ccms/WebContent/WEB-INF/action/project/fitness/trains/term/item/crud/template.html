@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+	<head>
+		<title>题目选项定义</title>
+	    ${inc:/action/project/fitness/home/pub}
+		<link  rel='stylesheet' href='${def:context}/js/project/fitness/trains/css/common.css'/>
+	</head>
+	<body>
+	<div class="f-s-t dialogbg" style="height: 600px;">
+		<header class="header-default">
+			<span>题目选项定义</span>
+		</header>
+		 <div class="tab-cout-nav">
+			<div class="tab-cout-nav-t">
+			  <form class="form-horizontal" role="form" method="post" id="searchForm">
+				<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}"/>
+				<input type="hidden" id="tuid" name="tuid" value=''/>
+				<input type="hidden" id="questionid" name="questionid" value="${fld:questionid}" preserve="true"/>
+				<input name="sort" type="hidden" value="i.showorder"preserve="true" />
+				<input name="order" type="hidden" value="asc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" /> 
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+				<div class="r-hea-search">
+					<input name="item_name" type="text" size="20" value="" placeholder="请输入选项名称" />			
+				</div>
+			  </form>
+			   <div class="r-c-btnList">
+					<button class="r-c-3-btn-1" id="search_btn"></button>
+					<img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" data-toggle="modal" id="addnew_btn"/>
+			  </div>
+			</div>
+			<div class="tab-cout-nav-b">
+				<nav class="r-c-3-t-b-l">	
+				</nav>
+				<nav class="r-c-3-t-b-r">
+					<li>
+						<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" class='edit_btn' alt="">
+					</li>
+					<li>
+						<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" class='delete_btn' alt="">
+					</li>
+				</nav>
+			</div>
+		</div>
+		<!-- 通用表格 -->
+		<div class="r-tab-cout-3-b">
+			<div class="to-change-background"></div>
+			<table> 
+				<!-- am-table -->
+				<thead>
+					<tr>
+						<th><input type="checkbox" class="selectAll" name="selectAll" id="selectAll" style="display: none;" /></th>
+						<th class="sortable" code="tuid">选项号</th>
+						<th class="sortable" code="item_name">选项名称</th>
+						<th class="sortable" code="item_score">选项分值</th>
+						<th class="sortable" code="createdby">创建者</th>
+						<th class="sortable" code="updated">更改日期</th>
+						<th class="sortable" code="updatedby">更改者</th>
+						<th class="sortable" code="created">创建日期</th>
+					</tr>
+				</thead>
+				<tbody id="datagridTemplate" style="display: none">
+					<tr>
+						<td>
+								 #checklink#
+						</td>
+						<td align="center">#tuid#</td>
+						<td align="center">#item_name#</td>
+						<td align="center">#item_score#</td>
+						<td align="center">#createdby#</td>
+						<td align="center">#created#</td>
+						<td align="center">#updatedby#</td>
+						<td align="center">#updated#</td>
+					</tr>
+				</tbody>
+				<tbody id="datagrid"></tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modalAddnew" tabindex="-1" role="dialog">
+		<div class="basic-information modal-dialog dialogbg" style="height: 300px;">
+			<header class="header-default">
+				<span>新增测评选项</span>
+				<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+			</header>
+			<div class="b-i-main">
+					<form id="formEditor" name="formEditor" role="form" method="post">
+						<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}"/>
+						<input type="hidden" id="tuid" name="tuid" value=''/>
+						<input type="hidden" id="questionid" name="questionid" value="${fld:questionid}" preserve="true"/>
+						<nav>
+							<li>
+								<label>名称</label>
+								<input type="text" id="item_name" name="item_name" value='' placeholder="请输入"/>
+							</li>
+							
+							<li>
+								<label>选项分值</label>
+								<input type="text" id="item_score" name="item_score" value='' placeholder="请输入"/>
+							</li>
+							
+							<li>
+								<label>显示顺序</label>
+								<input type='text'  id='showorder' name='showorder' placeholder="请输入"/>
+							</li>
+						</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+				<button type="button" id="save_btn" class="my-btn-default active">确&nbsp;定</button>
+				<button type="button" class="my-btn-default active" data-dismiss="modal">取&nbsp;消</button>
+			</footer>
+			</div>
+		</div>
+	<!--用于传递当前目录到header模版中-->
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script>
+$(document).ready(function(){
+		var searchObj=null;
+		    var obj = $Crud({
+			formId: "formEditor", 
+			button: "save_btn",  
+			bpkField:"tuid", 
+			insertBack: function () {
+				searchObj.searchData();
+			},
+		    updateBack: function () {
+				searchObj.searchData(); 
+			},
+		    deleteBack: function () {
+				searchObj.searchData();
+			},
+			addNewBack: function () { 
+				searchObj.searchData();
+                  },
+                  editBack: function () {
+				$("#formTitle").html("更新选项");
+                  },
+                  validate: function () {
+                  	var flag = $("#formEditor").validate({
+                          rules: {
+                          },
+                          messages: {
+                          }
+                      });
+                      return flag;
+			}
+		}).init();
+	searchObj=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+		obj.checklink = '<input type="checkbox"  name="datalist" value="'+obj.tuid+'">';
+	},success:function(){
+		ccms.util.renderCheckbox('datalist');
+		$(".delete_btn").unbind().on("click", function(){
+			var obthis =getCheckboxValue("datalist");
+			if(obthis!=""){
+			$Dialog().confirm("确定要删除吗?", function() {
+				var url="${def:context}${def:actionroot}/delete?id="+obthis;
+				ajaxCall(url,{
+				method: "get",
+				progress: false,
+				dataType: "script",
+				success: function() {
+					ccms.dialog.notice("删除成功！");
+					searchObj.searchData(1);
+				}
+			}); 
+			});
+			}else{
+				ccms.dialog.notice('请选择一条记录!')
+			}
+		});
+		
+		$(".edit_btn").unbind().on("click", function(){
+			var obthis =getCheckboxValue("datalist");
+			if ( obthis != undefined && obthis != "") {
+				if(checkCheckBox(obthis))
+				{
+					ccms.dialog.notice('请选择其中一条记录更新！')
+				}else{
+					obj.edit({id : obthis});
+				}
+			}else
+			{
+				ccms.dialog.notice('请选择一条记录!');
+			}
+		});
+	}}).initSearchBtn().searchData(1);
+	$("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
+		if( $(this).prop("checked") ){// 
+			$('input[name=datalist]').iCheck('uncheck');
+		}else{
+			$('input[name=datalist]').iCheck('check');  //
+		}
+	});
+})
+
+function checkCheckBox(string) //检查是否多选,多选返回真，否则为假
+{
+	var arr=new Array();
+	arr=string.split(',')
+	if(arr.length>1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+</script>
+	</body>
+</html>

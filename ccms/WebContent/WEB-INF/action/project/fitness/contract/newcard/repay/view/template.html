@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>办卡还款合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+	<div class="basic-dialog dialogbg" style="height: 550px">
+		<header class="header-default">
+		办卡还款合同
+		</header>
+		<form id="contractForm" name="contractForm" method="post">
+			<input type="hidden" id="contractcode" name="contractcode" value="${fld:code}" preserve="true" />
+			<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}" preserve="true" />
+			<input type="hidden" id="recommendcode" name="recommendcode" value="${fld:recommendcode}" />
+			<input type="hidden" id="normalmoney" name="normalmoney" value="${fld:normalmoney}" preserve="true"/>
+			<input type="hidden" id="factmoney" name="factmoney" value="" />
+			<input type="hidden" id="paydetail" name="paydetail" value="" />
+			<div class="b-i-main">
+				<nav>
+					<li>
+						<label style="width: 120px;">会员：</label>
+						<span id="custnamespan">${fld:custname@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">电话：</label>
+						<span id="mobilespan">${fld:custmobile@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">会员卡号：</label>
+						<span id="cardcodespan">${fld:cardcode@js}</span>
+		     		</li>
+					<li id="recommendDiv">
+						<label style="width: 120px;">推荐人：</label>
+						<span id="recommendnamespan">${fld:recommendname@js}</span>
+						<!-- <span id="recommendmobilespan">${fld:recommendmobile@js}</span> -->
+		     		</li>
+					<li>
+						<label style="width: 120px;">销售员：</label>
+						<span id="salememberspan">${fld:salemembername@js}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<span id="salemember1span">${fld:salemembername1@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">卡类型：</label>
+						<span id="cardtypespan">${fld:cardtypename@js}</span>
+		     		</li>
+		     		<div class="b-c-c-support" style="margin-left: 54px;">
+						<p>支持门店：</p>
+						<div class="more" id="supportorgsspan" style="margin-top:-10px">
+						</div>
+					</div>
+					<li>
+						<label style="width: 120px;">启用方式：</label>
+						<span id="starttypespan">${fld:starttypename@js}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">启用日期：</label>
+						<span id="startdatespan">${fld:startdate}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">截止日期：</label>
+						<span id="enddatespan">${fld:enddate}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">赠送免费私教课时：</label>
+						<span id="ptcountspan">${fld:ptcount}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">赠送免费入会天数：</label>
+						<span id="givedayspan">${fld:giveday}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">原价：</label>
+						<span id="inimoneyspan">${fld:inimoney}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">折扣类型：</label>
+						<span id="discounttypespan">${fld:discounttype}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">折扣金额：</label>
+						<span id="discountmoneyspan">${fld:discountmoney}</span>
+		     		</li>
+					<li id="stagetimesDiv" style="display:none;">
+						<label style="width: 120px;">分期说明：</label>
+						合计<span id="totalmoneyspan"></span>元，账单共分为<span id="stagetimesspan"></span>
+						期，当前为第<span id="currentstagespan"></span>期
+		     		</li>
+					<li>
+						<label style="width: 120px;">应收金额：</label>
+						<span id="normalmoneyspan">${fld:normalmoney}</span>元
+		     		</li>
+					<li>
+						<label style="width: 120px;">实收：</label>
+						<span id="factmoneyspan" style="color: #fdb346;font-size: 16px;font-weight: 600;">${fld:factmoney}元</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">备注：</label>
+						<span id="remarkspan">${fld:remark@js}</span>
+		     		</li>
+		     		<li id="paydiv" style="margin-left: 5%"></li>
+		     		<li></li>
+		     		<li id="paymethodDiv" style="margin-left: 5%">
+		     			<nav>
+		     				<li style="width: 800px">
+								<select class="normal-select" id="paymethod" name="paymethod" >
+									<option value="">请选择支付方式</option>
+								</select>
+								<input id="paymoney" name="paymoney" placeholder="请输入支付金额"  style="margin-left: 10%"/>
+							<i class="am-icon-plus" id="addpay_btn" title="添加"></i>
+		     				</li>
+		     			</nav>
+		     		</li>	
+		     		<li id="moneycashDiv">
+		     			<label style="width: 120px;">现金储值：</label>
+						<span id="moneycash"><money-rows>${fld:moneycash}</money-rows></span>
+		     		</li>
+		     	</nav>
+		     </div>
+			<div class="b-i-main">
+				<nav>
+					<li>
+						<label style="width: 120px;">办理人：</label>
+						<span id="createdbyspan">${fld:createdby}</span>
+		     		</li>	
+					<li>
+						<label style="width: 120px;">办理时间：</label>
+						<span id="createdatespan">${fld:createdate}&nbsp;${fld:createtime}</span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">收款人：</label>
+						<span id="collectbyspan">${fld:collectby}</span>
+		     		</li>	
+					<li>
+						<label style="width: 120px;">收款时间：</label>
+						<span id="collectdatespan">${fld:collectdate}&nbsp;${fld:collecttime}</span>
+		     		</li>
+		     		
+				</nav>
+			</div>
+			<footer class="footer-default" id="paybtnDiv">
+				<button type="button" id="save_btn" style="display: none;">确认支付</button>
+			</footer>
+			</form>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var paytotal = 0;	//已 支付金额
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#save_btn").show();
+	}
+	$("#moneycashDiv").hide();
+	selectInit($("#paymethod"));
+	var topaymoney = parseFloat("${fld:normalmoney}");
+	getAjaxCall("/action/project/fitness/util/querysupportorgs?cardtype=${fld:cardtype}"+"&objid=supportorgsspan", false);
+	
+	if( Number("${fld:stage_times}") > 1 ){
+		$("#totalmoneyspan").text("${fld:normalmoney}");
+		$("#stagetimesspan").text("${fld:stage_times}");
+		$("#currentstagespan").text(parseInt("${fld:stage_times_pay}"));
+		$("#stagetimesDiv").show();
+		$("#normalmoneyspan").text("${fld:stagemoney}");
+		topaymoney = parseFloat("${fld:stagemoney}");
+	}else{
+		$("#stagetimesDiv").remove();
+		$("#normalmoneyspan").text("${fld:current_normalmoney}");
+		topaymoney = parseFloat("${fld:current_normalmoney}");
+	}
+	
+	//zyb 20190506根据支付方式显示和隐藏标签
+	$("#paymethod").change(function(){
+		if($("#paymethod").val()=="f_chuzhika"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
+	
+	// 加载支付方式
+	loadPayType("paymethod", function(){
+		if( Number("${fld:status}") >= 2 ){
+			var arr = "${fld:pay_detail}".split(";");
+			$("#paymethod").find("option").each(function(idx,ele){
+				if( "" != $(ele).attr("code") ){
+					if(arr[idx-1]!=""&&arr[idx-1]!=undefined){
+						if(parseInt(arr[idx-1])!=0){
+							addShowPaymethod($(ele).val(), arr[idx-1], $(ele).text(), true);
+						}
+					}
+				}
+			});
+			$("#paymethodDiv").hide();
+			$("#paybtnDiv").hide();
+		}else{
+			$("#paymethodDiv").show();
+			$("#paybtnDiv").show();
+		}
+	});
+	
+	// 添加支付方式
+	$("#addpay_btn").unbind().on("click",function(){
+		var paymethod = $("#paymethod").val();
+		var paymoney = $("#paymoney").val();
+		if( "" == paymethod ){
+			ccms.dialog.notice("请选择支付方式", 2000);
+			return false;
+		}else if( "" == paymoney || !(isFloat(paymoney) || isNumber(paymoney)) || Number(paymoney) <= 0 ){
+			ccms.dialog.notice("请输入支付金额", 2000);
+			return false;
+		}
+		//zyb 20190506提示金额不足
+		if($("#paymethod").val()=="f_chuzhika"){
+			if($("#moneycash").text()==""||$("#moneycash").text()==null){
+				$("#moneycash").text("0");
+			}
+			if(parseFloat($("#moneycash").text())<parseFloat($("#paymoney").val())){
+				ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+				return false;
+			}
+		}
+		
+		var mobj = $("#paydiv").find("[code1="+paymethod+"]");
+		if( mobj.length > 0 ){
+			var _paymoney = (parseFloat(paymoney) + parseFloat(mobj.attr("code2"))).toFixed(2);
+			$("#paymethod").find("option:selected").attr("code", _paymoney);
+			mobj.attr("code2", _paymoney);
+			mobj.find("[name=fee]").text(_paymoney);
+		}else{
+			$("#paymethod").find("option:selected").attr("code", paymoney);
+			addShowPaymethod(paymethod, paymoney, $("#paymethod").find("option:selected").text(), false);
+		}
+		paytotal = (parseFloat(paytotal) + parseFloat(paymoney)).toFixed(2);
+		$("#factmoneyspan").text(paytotal);
+	});
+	
+	// 支付
+	$("#save_btn").unbind().on("click",function(){
+		if( parseFloat(topaymoney) != parseFloat(paytotal) ){
+			ccms.dialog.notice("实付金额不等于应收金额，还款合同应一次付清，请确认！", 2000);
+		}else{
+			checkCardToPay();
+		}
+	});
+});
+function checkCardToPay(){
+	if( "" == $("#incode").val() ){
+		ccms.dialog.confirm("未检测到有读取到卡内码，是否确定使用虚拟卡？", function(){
+			if($("#f_chuzhika").length>0){
+				getAjaxCall("/action/project/fitness/contract/cabinet/repay/updatecust?paymoney="+$("#f_chuzhika").attr("code2")+"&customercode="+$("#customercode").val(), false);
+			}else{
+				pay();
+			}
+		});
+	}else{
+		if($("#f_chuzhika").length>0){
+			getAjaxCall("/action/project/fitness/contract/cabinet/repay/updatecust?paymoney="+$("#f_chuzhika").attr("code2")+"&customercode="+$("#customercode").val(), false);
+		}else{
+			pay();
+		}
+	}
+}
+</script>
+</body>
+</html>

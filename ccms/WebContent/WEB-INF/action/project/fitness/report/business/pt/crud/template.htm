@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教业绩</title>
+</head>
+<body>
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="dateTime">
+									<input id="start_date" name="start_date" type="text" class="input-default"/>
+							</li>
+							<li class="dateTime">
+								<input id="end_date" name="end_date" type="text"class="input-default"/>
+							</li>
+							<li>
+								<select id="skill_name" name="skill_name" style="display: none;">
+									<option value="">全部私教</option>
+									<staff-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows>
+								</select>
+							</li>
+							 <div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<button type="button"  class="r-c-3-btn-3" id="excel" title="导出"></button>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th colspan="4">上课数据</th>
+								<th colspan="3">剩余课时</th>
+								<th colspan="3">新购课</th>
+								<th colspan="3">续课</th>
+								<th colspan="3">赠课</th>
+								<th colspan="3">金额合计</th>
+							</tr>
+							<tr>
+								<th>排名</th>
+								<th>私教</th>
+								<th>体验课</th>
+								<th>收费课</th>
+								<th>赠课</th>
+								<th>耗课率</th>
+								<th>体验课</th>
+								<th>收费课</th>
+								<th>赠课</th>
+								<th>课时</th>
+								<th>金额</th>
+								<th>课时均价</th>
+								<th>课时</th>
+								<th>金额</th>
+								<th>课时均价</th>
+								<th>课时</th>
+								<th>金额</th>
+								<th>课时均价</th>
+								<th>课时</th>
+								<th>金额</th>
+								<th>课时均价</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr>
+								<td style="width:8%">#show_order#</td>
+								<td style="width:8%">#staff_name#</td>
+								<td style="width:8%">
+									<a href="#" onclick="detailptrest('#userlogin#', '1')">#freenum#</a>
+								</td>												
+								<td style="width:8%">
+									<a href="#" onclick="detailptrest('#userlogin#', '2')">#feenum#</a>
+								</td>
+								<td style="width:8%">
+									<a href="#" onclick="detailptrest('#userlogin#', '5')">#giverestnum#</a>
+								</td>	
+								<td style="width:8%" >#haokelv#</td>
+								<td style="width:8%">#shengyutiyan#</td>										
+								<td style="width:8%">#shengyushoufei#</td>								
+								<td style="width:8%">#shengyuzengke#</td>	
+								<td style="width:8%">
+									<a href="#" onclick="detailptrest('#userlogin#', '3')">#xingouke#</a>
+								</td>							
+								<td style="width:8%">#xingoukejine#</td>
+								<td style="width:8%">#xingoukejunjia#</td>	
+								<td style="width:8%">
+									<a href="#" onclick="detailptrest('#userlogin#', '4')">#xufeike#</a>
+								</td>												
+								<td style="width:8%">#xufeikejine#</td>										
+								<td style="width:8%">#xufeikejunjia#</td>
+											
+								<td style="width:8%">
+									<a href="#" onclick="detailptrest('#userlogin#', '6')">#zkptleftcount#</a>
+								</td>												
+								<td style="width:8%">#zkptmoney#</td>			
+								<td style="width:8%">#zkjunjia#</td>										
+																
+								<td style="width:8%">#totalnum#</td>								
+								<td style="width:8%">#totalfee#</td>								
+								<td style="width:8%">#keshijunjia#</td>	
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+						<tr>
+							<td style="width:8%" colspan="2">总计：</td>
+							<td style="width:8%" id="freenum"></td>										
+							<td style="width:8%" id="feenum"></td>										
+							<td style="width:8%" id="giverestnum"></td>										
+							<td style="width:8%" id="haokelv"></td>
+							<td style="width:8%" id="shengyutiyan"></td>										
+							<td style="width:8%" id="shengyushoufei"></td>									
+							<td style="width:8%" id="shengyuzengke"></td>	
+							<td style="width:8%" id="xingouke"></td>				
+							<td style="width:8%" id="xingoukejine"></td>
+							<td style="width:8%" id="xingoukejunjia"></td>	
+							<td style="width:8%" id="xufeike"></td>										
+							<td style="width:8%" id="xufeikejine"></td>										
+							<td style="width:8%" id="xufeikejunjia"></td>	
+							<td style="width:8%" id="zkptleftcount"></td>										
+							<td style="width:8%" id="zkptmoney"></td>										
+							<td style="width:8%" id="zkjunjia"></td>								
+							<td style="width:8%" id="totalnum"></td>								
+							<td style="width:8%" id="totalfee"></td>								
+							<td style="width:8%" id="keshijunjia"></td>	
+						</tr>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form id="daochuForm"  name="daochuForm">
+		<input type="hidden" id="daochu_start_date" name="daochu_start_date" type="text"/>
+		<input  type="hidden" id="daochu_end_date" name="daochu_end_date" type="text"/>
+		<input type="hidden" id="daochu_skill_name" name="daochu_skill_name" type="text"/>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	$Dialog().date($('#start_date,#end_date'));
+	$("#start_date").val(new Date().format("yyyy-MM-01"));
+	$("#end_date").val("${def:date}");
+	searchSelectInit($("#skill_name"));
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_start_date").val($("#start_date").val());
+		$("#daochu_end_date").val($("#end_date").val());
+		$("#daochu_skill_name").val($("#skill_name").val());
+
+		var url = "${def:context}${def:actionroot}/excel"
+		ajaxCall(url,{
+			method: "post",
+			progress: true,
+			form:'daochuForm',
+			dataType: "script",
+			success: function() {
+			}
+		});
+	});  
+	
+ 	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		var shengyutiyan=0,shengyushoufei=0,xingouke=0,xingoukejine=0,xufeike=0,
+		xufeikejine=0,totalnum=0,totalfee=0,freenum=0,feenum=0,giverestnum=0,shengyuzengke=0,
+		zkptleftcount=0,zkptmoney=0;
+		$("#datagrid tr").each(function(){freenum
+			freenum+=parseInt($(this).find("td").eq(2).find("a").html());//体验课
+			feenum+=parseInt($(this).find("td").eq(3).find("a").html());//收费课
+			giverestnum+=parseInt($(this).find("td").eq(4).find("a").html());//赠课
+			shengyutiyan+=parseInt($(this).find("td").eq(6).html());//剩余体验课
+			shengyushoufei+=parseInt($(this).find("td").eq(7).html());//剩余收费课
+			shengyuzengke+=parseInt($(this).find("td").eq(8).html());//剩余赠课
+			xingouke+=parseInt($(this).find("td").eq(9).find("a").html());//新购课课时
+			xingoukejine+=Number($(this).find("td").eq(10).html());//新购课金额
+			xufeike+=parseInt($(this).find("td").eq(12).find("a").html());//续课课时
+			xufeikejine+=Number($(this).find("td").eq(13).html());//续课金额
+
+			zkptleftcount+=parseInt($(this).find("td").eq(15).find("a").html());//续课课时
+			zkptmoney+=Number($(this).find("td").eq(16).html());//续课金额
+			
+			totalnum+=parseInt($(this).find("td").eq(18).html());//合计课时
+			totalfee+=Number($(this).find("td").eq(19).html());//合计金额
+		});
+		$("#shengyutiyan").html(shengyutiyan);
+		$("#shengyushoufei").html(shengyushoufei);
+		$("#shengyuzengke").html(shengyuzengke);
+		$("#xingouke").html(xingouke);
+		$("#xingoukejine").html(xingoukejine);
+		if(xingouke==0){$("#xingoukejunjia").html('0.00');}else{$("#xingoukejunjia").html(Number(xingoukejine/xingouke).toFixed(2));}
+		$("#xufeike").html(xufeike);
+		$("#xufeikejine").html(xufeikejine);
+		if(xufeike==0){$("#xufeikejunjia").html('0.00');}else{$("#xufeikejunjia").html(Number(xufeikejine/xufeike).toFixed(2));}
+		$("#zkptleftcount").html(zkptleftcount);
+		$("#zkptmoney").html(zkptmoney);
+		if(zkptleftcount==0){$("#zkjunjia").html('0.00');}else{$("#zkjunjia").html(Number(zkptmoney/zkptleftcount).toFixed(2));}
+		$("#freenum").html(freenum);
+		$("#feenum").html(feenum);
+		$("#giverestnum").html(giverestnum);
+		$("#totalnum").html(totalnum);
+		$("#totalfee").html(totalfee);
+		if(totalnum==0){
+			$("#keshijunjia").html('0.00');
+			$("#haokelv").html('0.00%');
+		}else{
+			$("#keshijunjia").html(Number(totalfee/totalnum).toFixed(2));
+			$("#haokelv").html(Number((freenum+feenum)/totalnum*100).toFixed(2)+"%");
+		}
+	}}).initSearchBtn().searchData(1); 
+})
+//查询会籍合同
+function detailptrest(skill, type){
+	ccms.dialog.open({url : "${def:context}${def:actionroot}/detailptrest/crud?skill="+skill+"&startdate="+$("#start_date").val()
+		+"&enddate="+$("#end_date").val()+"&type="+type, height: 600});
+}
+</script>
+</body>
+</html>

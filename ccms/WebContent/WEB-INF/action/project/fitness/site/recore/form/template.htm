@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>场地预约记录</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 640px;">
+		<header class="header-default">
+			<span id="formTitle">场地预约明细</span>
+		</header>
+		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+       		<div class="modal-body b-i-main">
+				<nav>
+					<li>
+						<label style="width: 130px;">客户类型：</label>
+						${fld:customertype}
+					</li>
+					<li>
+						<label style="width: 130px;">团体：</label>
+						${fld:groupname}
+					</li>
+					<li>
+						<label style="width: 130px;">场地类型：</label>
+						${fld:sitetype}
+					</li>
+					<li>
+						<label style="width: 130px;">场地：</label>
+						${fld:sitename}
+					</li>
+					<li>
+						<label style="width: 130px;">会员编号：</label>
+						${fld:customercode}
+					</li>
+					<li>
+						<label style="width: 130px;">姓名：</label>
+						${fld:name}
+					</li>
+					<li>
+						<label style="width: 130px;">手机号：</label>
+						${fld:mobile}
+					</li>
+					<li>
+						<label style="width: 130px;">预约日期：</label>
+						${fld:prepare_date}
+					</li>
+					<li>
+						<label style="width: 130px;">预约开始时间：</label>
+						${fld:prepare_starttime}
+					</li>
+					<li>
+						<label style="width: 130px;">预约结束时间：</label>
+						${fld:prepare_endtime}
+					</li>
+					<li>
+						<label style="width: 130px;">状态：</label>
+						${fld:status}
+					</li>
+					<li>
+						<label style="width: 130px;"></label>
+					</li>
+					<li>
+						<label style="width: 130px;">预订时长(分钟)：</label>
+						${fld:pretimes}
+					</li>
+					<li>
+						<label style="width: 130px;">实际时长(分钟)：</label>
+						${fld:times}
+					</li>
+					<li>
+						<label style="width: 130px;">原价：</label>
+						${fld:inimoney}
+					</li>
+					<li>
+						<label style="width: 130px;">预付款：</label>
+						${fld:premoney}
+					</li>
+					<li>
+						<label style="width: 130px;">应收：</label>
+						${fld:normalmoney}
+					</li>
+					<li>
+						<label style="width: 130px;">实收：</label>
+						${fld:factmoney}
+					</li>
+					<li>
+						<label style="width: 130px;">到场时间：</label>
+						${fld:starttime}
+					</li>
+					<li>
+						<label style="width: 130px;">退场时间：</label>
+						${fld:endtime}
+					</li>
+					<li class="to100w" style="margin-left: 6%">
+						<label>备注：</label>
+						<textarea id="remark" cols="50" rows="1" class="my-textarea" name="remark" readonly="readonly" maxlength="6000">${fld:remark}</textarea>
+					</li>
+					<li class="to100w" style="margin-left: 6%">
+						<label>场地变更记录：</label>
+						<textarea cols="50" rows="1" class="my-textarea" readonly="readonly" maxlength="6000">${fld:sitechange}</textarea>
+					</li>
+				</nav>
+			</div>
+		</form>
+	</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+});
+</script>
+</body>
+</html>

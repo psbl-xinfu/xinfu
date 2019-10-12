@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html style="height:100%;">
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>课程人数</title>
+</head>
+<body style="height:100%;">
+		<div class="col_mainInner dialogbg" style="height: 400px;">
+		<div class=" basic-dialog">
+			<header class="header-default">
+				<span id="formTitle">课程人数</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="code" name="code" value="${fld:code}"/>
+				<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="">课程人数</label>				
+							<input type="text" id="personcount" name="personcount" value="${fld:personcount}" placeholder="课程人数" />	
+						</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn" style="margin-top:10%;">确&nbsp;定</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script language="JavaScript">
+$(document).ready(function() {
+	//修改课程人数
+	$("#save_btn").click(function(){
+		var url="${def:context}${def:actionroot}/updatepersoncount?code="+$("#code").val()+"&personcount="+$("#personcount").val();
+		ajaxCall(url,{
+			method:"GET",
+			dataType:"script",
+			progress:true,
+			success:function(){
+			}
+		});
+	});
+	$("#close").click(function(){ccms.dialog.close();});
+});
+</script>
+</html>

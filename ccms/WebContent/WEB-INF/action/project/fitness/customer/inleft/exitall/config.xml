@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		私教刷课
+	</summary>
+
+	<log>false</log>
+   
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	    <recordset id="query-card.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-customer.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-inleft.sql" source="sql" scope="transaction"/>
+	   <!--  <recordset id="query-cabinettemp.sql" source="sql" scope="transaction"/> -->
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query-card.sql" />
+		<print mode="form" recordset="query-customer.sql" />
+		<print mode="form" recordset="query-inleft.sql" />
+		<!-- <print mode="table" recordset="query-cabinettemp.sql" tag="rows" /> -->
+	</output>
+
+</config>

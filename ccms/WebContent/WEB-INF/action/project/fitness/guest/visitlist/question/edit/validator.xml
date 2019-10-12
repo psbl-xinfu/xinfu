@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="relation_id" type="varchar" label="relation_id" required="false"/>
+</validator>

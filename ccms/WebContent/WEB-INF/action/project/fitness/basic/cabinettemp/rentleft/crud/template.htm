@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>区域设置</title>
+</head>
+<body>
+	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg">
+				<header class="header-default">
+					<span id="formTitle"></span>
+					<span class="header-close" id="guanbi3"></span>
+				</header>
+				<div class="b-i-main">
+					<form id="formEditor1" name="formEditor1" method="post">
+					<input type="hidden" id="groupid" name="groupid" value=""/>
+					<input type="hidden" id="in_groupcode" name="in_groupcode" value=""/>
+					<nav>
+						<li >
+						<label style="width: 130px;">区域名称：</label>
+								<input type="text"  id="groupname" name="groupname" value="" maxlength="80" placeholder="区域名称" />
+						</li>
+						
+						<li  >
+						<label style="width: 130px;">区域编号：</label>
+							<div class="my-selected">
+								<select  id="groupcode" name="groupcode"class="normal-select"> 
+								</select>
+							</div>
+						</li>
+					</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn1" class="my-btn-default active">保存</button>
+				</footer>
+			</div>
+		</div>
+			<form role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="tuid" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+				<input name="pageSize" type="hidden" value="500" preserve="true" />
+
+					<div class="change-left" >
+						<div class="tab-left">
+							<span>区域设置</span>
+						<!-- 	<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" alt="" id="search_btn"> -->
+								<li  style="color: #D1DCDE;width: 14%;font-size: 13px;font-weight: bold;">
+								<i class="am-icon-plus"  data-toggle="modal" id="addnew_btn" title="新增">&nbsp;新增</i>
+								</li>
+<!-- 							<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" alt="" data-toggle="modal" id="addnew_btn">
+ -->							<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="update_btn">
+							<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="delete_btn">
+							<span id="deleteError"></span>
+						</div>
+						<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;" >
+										</th>
+										<th>区域名称</th>
+										<th>区域</th>
+										<th>空</th>
+										<th>占</th>
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+										<tr onclick="loadRitht(#tuid#,this)">
+										 <td class="table-checkbox">#application_id#</td> 
+										<td >#groupname#</td>
+										<td >#groupcode#</td>
+										<td >#kong#</td>
+										<td >#zhan#</td>
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+								<div  style="display: none;">
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div></div>
+						</div>
+					</div>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	var search=null;
+	$(document).ready(function() {
+		printAZ();
+		selectInit($("#groupcode"))
+		$("#guanbi3").on("click",function(){
+			$("#modalAddnew").modal('hide');
+			ccms.util.clearForm('formEditor1');
+		});
+		//修改
+		$("#update_btn").unbind().on("click",function(){
+			$("#formTitle").html("修改");
+			var leng=$('input[name="datalist"]:checked').length
+			var value=$('input[name="datalist"]:checked').val()
+			if(leng==1&&value!=""){
+				$(".error").hide();
+				$("#modalAddnew").modal('show');
+				$("#groupid").val(value);
+				edit(value);
+			}else{
+				ccms.dialog.notice("请选择一条区域");
+			}
+		});
+		
+		
+		//批量删除
+		$("#delete_btn").unbind().on("click",function(){
+			$("#deleteError").html('');
+			deletes();
+		});
+		
+		var obj = $Crud({
+			formId:"formEditor1",
+			button:"save_btn1",
+			bpkField:"groupid",
+			actionroot:"${def:actionroot}",
+			insertBack:function(){
+				search.searchData();
+				initright();
+			},
+			updateBack:function(){
+				search.searchData(1);
+				search2.searchData(1);
+			},
+			addNewBack:function(){
+				$("#formTitle").html("新增");
+			},
+			validate:function(){
+				var flag=$("#formEditor1").validate({
+					rules : {
+					},
+					messages : {
+					}
+			});
+				return flag;
+			},
+			check:function(){
+				return true;
+			}
+		}).init();
+			this.search=search;
+			search=$Search({datagrid:"datagrid",formId:"searchForm",
+			rowpackage:function(obj){
+				if(obj.zhan==""){
+					obj.zhan=0
+				}
+				if(obj.kong==""){
+					obj.kong=0
+				}
+			},
+				success:function(){
+				ccms.util.renderCheckbox("datalist");
+			    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+					$('input[name=datalist]').iCheck('check');  //
+			    }).on("ifUnchecked",function(){    //点击事件未选中
+					$('input[name=datalist]').iCheck('uncheck');  //
+			    });
+		}}).initSearchBtn().searchData(1);
+	});
+	
+function printAZ(){
+	var str=""
+	for(var i=0;i<26;i++){
+	str+='<option value='+String.fromCharCode(65+i)+'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+String.fromCharCode(65+i)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>'
+	}
+	$('#groupcode').append(str);
+}
+
+function edit(value){
+	var url = "${def:context}${def:actionroot}/edit?id="+value
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+		}
+	});
+}
+
+function deletes(){
+	var obthis = getCheckboxValue("datalist");
+	if(obthis!= ""){
+		$Dialog().confirm("确定要删除这些数据吗?", function(){
+			var url = "${def:context}${def:actionroot}/deletes?id="+obthis;
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+				}
+			});
+		});
+	}else{
+		ccms.dialog.notice("请选择区域！")
+	}
+}
+
+function loadRitht(tuid,obj){
+	$('input[name=datalist]').each(function(){
+		$(this).iCheck('uncheck');
+	})
+		$(obj).find($('input[name=datalist]')).iCheck('check');
+	  $('#s_name_r').val($('#s_name').val());
+	  $('#s_status_r').val($('#s_status').val());
+	  $('#s_groupid_r').val(tuid);
+	  searchRightList();
+}
+
+function searchleftList(){
+	search.searchData();
+}
+
+</script>
+</body>
+</html>

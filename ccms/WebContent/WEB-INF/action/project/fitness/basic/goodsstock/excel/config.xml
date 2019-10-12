@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		库存导出
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_goodstuid,daochu_storagetuid</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="库存记录" filename="库存记录.xls" header-background="true">
+		<col id="storage_name" label="仓库名称" /> 
+		<col id="goods_name" label="商品名称" />
+		<col id="quantity" label="当前库存" />
+		<col id="totalprice" label="库存总价" />
+	</excel>
+</config>

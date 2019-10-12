@@ -1,0 +1,1 @@
+ AND storageid = ${fld:searchstorageid}

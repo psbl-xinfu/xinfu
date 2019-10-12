@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_code" type="varchar" required="false" label="tuid"/>
+	<parameter id="vc_name" type="varchar" required="false" label="tuid"/>
+	<parameter id="bukafei" type="varchar" required="true" label="tuid"/>
+	<parameter id="new_vc_code" type="varchar" required="true" label="tuid"/>
+	<parameter id="in_bianhao" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_vc_cardtype" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_i_totalday" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_i_giveday" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_f_factmoney" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_c_savestartdate" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_i_count" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_f_money" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_vc_passwd" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_c_mdate" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_i_savedays" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_f_moneyleft" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_vc_remark" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_vc_comabr" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_i_nowcount" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_f_continuecardfee" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_vc_contractcode" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_f_liliaomoney" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_i_xiyucount" type="varchar" required="false" label="stu_name"/>
+	<parameter id="in_c_startdate" type="varchar" required="false" label="stu_name"/>
+	<parameter id="c_enddate" type="varchar" required="false" label="stu_name"/>
+	<parameter id="yingcang_name" type="varchar" required="false" label="stu_name"/>
+	<parameter id="vc_club" type="varchar" required="false" label="stu_name"/>
+	<parameter id="vc_remark" type="varchar" required="false" label="stu_name"/>
+	<parameter id="incode" type="varchar" required="true" label="incode"/>
+	<parameter id="pay_detail" type="varchar" required="true" label="pay_detail"/>
+</validator>

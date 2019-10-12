@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/wx/util/validation/alert">
+			<parameter id="code" type="varchar" required="code" label="code"/>
+</validator>

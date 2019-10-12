@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="gust_code" type="varchar" required="false" label="id"/>
+     <parameter id="cus_code" type="varchar" required="false" label="id"/>
+     <parameter id="menuorgid" type="varchar" required="true" label="menuorgid"/>
+</validator>

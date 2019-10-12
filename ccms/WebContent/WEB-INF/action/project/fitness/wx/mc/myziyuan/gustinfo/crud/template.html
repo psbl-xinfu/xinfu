@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+	<title>资源详情</title>
+	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        
+        
+        <div class="myziyuanxqtop">
+            <div class="list">
+                <img src="${def:context}/images/icon_head.png"  class="touxiangpic fl">
+                <div class="content fl">
+                    <p class="name" id="name"><span id="sex"></span><span id="mobile"></span></p>
+                    <p class="time"  id="lasttime"></p>
+                </div>
+               <a  id="tel" href=""> <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"> </a>
+            </div>
+            <div class="listother">
+                <p class='p1'>关注度</p><p class='p2'  id="level"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>客服</p><p class='p2' id="mc"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>资源有效期</p><p class='p2' id="vc_itime"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>客户来源</p><p class='p2' id="type"></p>
+            </div>
+        </div>
+
+        <div class="myziyuanxqcenter container">
+            <div class="row">
+                <div class="col-xs-4" id="healthy">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqtc.png" class="centerimg" >
+                    <p class="name">新增体测</p>
+                </div>
+                    <div class="col-xs-4" id="comm">
+                        <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqgj.png" class="centerimg" >
+                        <p class="name">新增跟进</p>
+                    </div>
+                <div class="col-xs-4" id="question">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqlr.png" class="centerimg">
+                    <p class="name">GFP录入</p>
+                </div>
+                <div class="centerone"></div>
+                <div class="centertwo"></div>
+            </div>
+            
+        </div>
+
+        <div class="myziyuanxqbottom container">
+            <div class="row">
+                <div class="col-xs-6" id="followrecord">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbgj.png" class="bottomimg" >
+                    <p class="name">跟进记录</p>
+                </div>
+                <div class="col-xs-6" id="tice">
+                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbtc.png" class="bottomimg">
+                    <p class="name">体测记录</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        $(function(){
+        	homemc();
+    	<info>
+    	$('#sex').before('<label style="width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:name}">${fld:name}</label>');
+    	$('#sex').html('${fld:sex}');
+    	$('#mobile').html('${fld:mobile}');
+    	$('#mc').html('会籍-${fld:mc}');
+    	$('#level').html('${fld:level}');
+    	$('#type').html('${fld:type}');
+    	
+    	$('#vc_itime').html('${fld:vc_itime} ~ ${fld:fenpei}');
+    	var lasttime="${fld:lasttime}"
+    	if(lasttime=='&nbsp;'){
+    		lasttime=""
+    	}
+    		$('#lasttime').html('最近跟进：'+lasttime);
+    		 $('#tel').attr('href','tel:${fld:mobile}')
+    	</info>
+    	
+    	
+		  $('#tice').on('click',function(){
+		  		location.href="${def:context}/action/project/fitness/wx/cust/center/tice/crud?guestcode=${fld:guestcode}&type=mc";
+		  })		 
+		
+		
+        $('#comm').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/comm/crud?guestcode=${fld:guestcode}"
+        		+"&customercode="
+    			+"&cust_type=0";
+        })
+    	
+         $('#healthy').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/crud?guestcode=${fld:guestcode}"
+        			+"&customercode="
+        			+"&cardcode="
+        			+"&ptpreparecode=";
+        })
+        
+        $('#followrecord').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/followrecord?guestcode=${fld:guestcode}"
+        }) 
+        
+          $('#question').on('click',function(){
+              	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/quesion/crud?guestcode=${fld:guestcode}"
+        })       
+    })
+     </script>
+</html>

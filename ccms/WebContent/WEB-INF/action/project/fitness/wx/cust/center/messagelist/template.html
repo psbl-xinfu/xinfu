@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>消息记录</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+        	 <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet" />
+    </head>
+     <body style="height:100px;overflow:auto;" >
+        
+        <div class="huijiliaotiantop" >
+            <div class="list">
+               <img id="headpic" src="${def:context}/images/icon_head.png" class="touxiangpic fl">
+                <div class="content fl">
+                    <p class="name" id="name"></p>
+                    <p class="time" id="lasttime"></p>
+                </div>
+            </div>
+        </div>   
+		
+        <div class="huijiliaotiancontent"  id="divmsg"  style="height:100px;overflow:auto;margin-bottom: 50px">
+        </div>
+        
+        <div class="huijiliaotianinput">
+            <input type="text" class="form-control liuyaninput" id="content"  placeholder="" name="content">
+            <img src="${def:context}/js/project/fitness/wx/image/liuyansubmit.png" class="liuyansubmit"  id="send"> 
+        </div>
+        
+        
+        
+        
+            <input type="hidden" id="type"   value="">
+    </body>
+    <script type="text/javascript">
+    
+    var userid = "";    
+    $(function(){
+    	homecust();
+    	<name>
+    	$('#name').text("${fld:type}：${fld:name}");
+    	 userid="${fld:user_id}";
+    	</name>
+    	loadHeadpic("headpic", userid);
+    	search();
+    	
+    	
+       $('#send').on('click',function(){
+    	   if($('#content').val()!=""){
+    		   sends($('#content').val());
+    	   }else{
+    		   ccms.dialog.notice("信息不能为空！");
+    	   }
+       })
+       
+       setInterval("search()", 2000);
+    })
+    
+    	
+    function sends(content){
+    	getAjaxCall("/action/project/fitness/wx/cust/center/messagelist/insert?content="+content+"&code=${fld:recuser}",false);
+    }
+    
+    
+    function search(){
+    	getAjaxCall("/action/project/fitness/wx/cust/center/messagelist/search?recuser=${fld:recuser}",false);
+    }
+    
+    </script>
+    
+    <script language="javascript">
+    var flag=true;
+	function sc(){
+          var div = document.getElementById('divmsg');
+          var el=document.documentElement;
+          div.scrollTop = div.scrollHeight;
+          el.scrollTop = div.scrollHeight+1000;
+	}
+</script>
+</html>

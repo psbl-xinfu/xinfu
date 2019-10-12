@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/util/validation/alert">
+	
+    <parameter id="contractcode" type="varchar" required="true" label="合同编号" maxlen="128"/>
+	<parameter id="recommendcode" type="varchar" required="false" label="推荐人" maxlen="64"/>
+	<parameter id="salemember" type="varchar" required="true" label="默认会籍" maxlen="64"/>
+	<parameter id="salemember1" type="varchar" required="false" label="第二会籍" maxlen="64"/>
+	<parameter id="inimoney" type="double" required="true" label="原价"/>
+	<parameter id="normalmoney" type="double" required="true" label="应收"/>
+	<parameter id="discountmoney" type="double" required="false" label="折扣金额"/>
+	<parameter id="remark" type="varchar" required="false" label="备注" maxlen="2000"/>
+	<parameter id="campaigncode" type="varchar" required="false" label="优惠活动" maxlen="64"/>
+	<parameter id="cardtype" type="varchar" required="true" label="卡类型" maxlen="64"/>
+	<parameter id="starttype" type="integer" required="true" label="启用方式" maxlen="10"/>
+	<parameter id="startdate" type="date" required="false" label="启用日期" maxlen="10"/>
+	<parameter id="enddate" type="date" required="false" label="截止日期" maxlen="10"/>
+	<parameter id="giveday" type="integer" required="true" label="赠送入会天数" maxlen="10"/>
+	<parameter id="stage_times" type="integer" required="false" label="分期次数" maxlen="10"/>
+	<parameter id="stagemoney" type="double" required="false" label="本期付款" maxlen="32"/>
+	<parameter id="ptcount" type="integer" required="true" label="赠送免费私教课时" maxlen="10"/>
+	<parameter id="daycount" type="integer" required="false" label="有效天数" maxlen="10"/>
+
+</validator>

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>transactions.project.fitness.report.AnalysisOrgBase</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+	
+	<query>query-inleft.sql</query>
+	<query>query-visit.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query-inleft.sql" tag="inleft-rows" />
+		<print mode="table" recordset="query-visit.sql" tag="visit-rows" />
+		<print mode="table" recordset="tb-query-visit.sql" tag="tb-rows" />
+		<print mode="table" recordset="hb-query-visit.sql" tag="hb-rows" />
+		<print mode="table" recordset="tb-query-inleft.sql" tag="tb-rows-left" />
+		<print mode="table" recordset="hb-query-inleft.sql" tag="hb-rows-left" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

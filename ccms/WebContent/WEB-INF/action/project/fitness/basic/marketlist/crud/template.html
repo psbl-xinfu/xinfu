@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+${inc:/action/project/fitness/home/pub}
+<head>
+	<title>活动信息</title>
+<link href="${def:context}/js/project/fitness/css/marketlist.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="am-container" style="margin-left: -14%">
+	<section class="conR">
+	<nav class="yingxiao">
+				<!-- <li>
+					<img src="${def:context}/js/project/fitness/image/yiqilai.jpg" alt="">
+					<p>
+						<span>大家一起来</span>
+						<button class="type1">马上开始</button>
+					</p>
+				</li>
+				<li>
+					<img src="${def:context}/js/project/fitness/image/doutu.jpg" alt="">
+					<p>
+						<span>斗图帝</span>
+						<button class="type2">停止活动</button>
+					</p>
+				</li>
+				<li>
+						<img src="${def:context}/js/project/fitness/image/dafuweng.jpg" alt="">
+					<p>
+						<span>大富翁</span>
+						<button class="type1">启用中</button>
+					</p>
+				</li>
+				<li>
+				<img code="newtab" url="/action/project/fitness/basic/marketzan/crud" addtabs="" title="分享集赞" src="${def:context}/js/project/fitness/image/jizan.jpg" alt="" id="zan">
+					<p>
+						<span>红心飘飘飘-分享集赞</span>
+						<button class="type1">马上开始</button>
+					</p>
+				</li>--> 
+				<li>
+				<img code="newtab" url="/action/project/fitness/basic/marketcampaign/crud" addtabs="" title="体验卡" src="${def:context}/js/project/fitness/image/tiyanka/tiyankatwo.png" alt="" id="tiyanka">
+					<p>
+						<span>体验卡</span>
+						<button class="type1">马上开始</button>
+					</p>
+				</li>
+				<li>
+				</li>					
+			</nav>
+</section>
+
+	</div>
+
+<script type="text/javascript">
+$(function(){
+	/**$('#tiyanka').on('click',function(){
+  		location.href="${def:context}/action/project/fitness/basic/marketcampaign/crud";
+	}) 
+	
+	$('#zan').on('click',function(){
+  		location.href="${def:context}/action/project/fitness/basic/marketzan/crud";
+	})*/
+	$("img[code=newtab]").each(function(){
+		var uri = $(this).attr("url");
+		if( undefined != uri && "" != uri ){
+			$(this).attr("url", $Base64.encode(escape(uri)));
+			$(this).attr("addtabs", "campaign_tab_" + $(this).attr("id"));
+		}
+	}).unbind().on('click',function(e){
+   	 	var thisobj = $(this);
+		e.preventDefault();
+		thisobj.unbind();
+		thisobj.addtabs();
+		thisobj.click();
+    });;
+})
+</script>
+</body>
+
+</html>

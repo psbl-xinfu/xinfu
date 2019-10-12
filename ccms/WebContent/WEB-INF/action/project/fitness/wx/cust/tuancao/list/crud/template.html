@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>团操课表</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    		 <link href="${def:context}/js/project/fitness/wx/css/weui.css" rel="stylesheet" />
+	<link href="${def:context}/js/swiper/swiper.min.css" rel="stylesheet" />
+</head>
+<body>
+
+<form action="${def:context}/action/project/fitness/wx/cust/tuancao/info/crud" method="post">
+  <input type="hidden" name="dcode"  id="dcode"/>
+   <input type="hidden" name="isprepare"  id="isprepare"/>
+  <input type="hidden" name="ccode"  id="ccode"/>
+   <input type="hidden" name="status"  id="status"/>
+    <input type="hidden" name="isyuyue"  id="isyuyue"/>
+   <input type="hidden" name="customercode"  id="customercode" value="${fld:customercode}"/>
+  <input type="submit" value="Submit"  id ="sub" style="display: none"/>
+</form>
+
+	<div class="containter tckb hy-sjyy">
+		<nav class="nav swiper-container">
+			<nav class="swiper-wrapper" id="swiper">
+			</nav>
+		</nav>
+
+		<section class="main">
+			<nav class="left">
+				<!-- <li>
+					<div>
+						<h3>
+							<p>大大的</p>
+							<p>
+								已预约<span>50</span>人/可预约<span>50</span>人
+							</p>
+						</h3>
+						<p>
+							<span>60分钟</span>
+							<span>这段话</span>
+							<span>阿大的</span>
+						</p>
+					</div>
+					<p>
+						<span>08:00</span>
+						<span>预约中</span>
+					</p>
+				</li>
+				<li class="yellow">
+					<div>
+						<h3>
+							<p>大大的</p>
+							<p>
+								已预约<span>50</span>人/可预约<span>50</span>人
+							</p>
+						</h3>
+						<p>
+							<span>60分钟</span>
+							<span>这段话</span>
+							<span>阿大的</span>
+						</p>
+					</div>
+					<p>
+						<span>08:00</span>
+						<span>预约中</span>
+					</p>
+				</li>
+				
+				
+				<li class="type1">
+					<div>
+						<h3>
+							<p>大大的</p>
+							<p>
+								已预约<span>50</span>人/可预约<span>50</span>人
+							</p>
+						</h3>
+						<p>
+							<span>60分钟</span>
+							<span>这段话</span>
+							<span>阿大的</span>
+						</p>
+					</div>
+					<p>
+						<span>08:00</span>
+						<span>已开课</span>
+					</p>
+				</li> -->
+			
+			</nav>
+		</section>
+
+	</div>
+</body>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+<script type="text/javascript" src="${def:context}/js/swiper/swiper.min.js"></script>
+<script type="text/javascript">
+var d = new Date();
+$(function(){
+	homecust();
+	appendWeek();
+	$('li').on('click',function(){
+		$(this).siblings().removeClass('active');
+		$(this).addClass('active');
+	});
+	
+	$('.nav li').on('click',function(){
+		var moon=$(this).children('span').text();
+		moon=moon.replace('/','-');
+		var parpreYear=d.getFullYear();
+		parpreYear=parpreYear+'-'+moon;
+		getyuyue(parpreYear);
+	});
+	
+	getyuyue('${def:date}');
+})
+
+function appendWeek(){
+	var str="";
+	for(var i = -14; i < 21;i++){
+		var tdate = addDate(d, i);
+		var date = getFormatDate(tdate.getMonth() + 1) + '/' + getFormatDate(tdate.getDate());
+ 		var week = getWeekDay(tdate);
+		if([i]==0){
+			str+='<li class="active swiper-slide">';
+			str+='<p>'+week+'</p>';
+			str+='<span>'+date+'</span>';
+			str+='</li>';
+		}else{
+			str+='<li class="swiper-slide">';
+			str+='<p>'+week+'</p>';
+			str+='<span>'+date+'</span>';
+			str+='</li>';
+		}
+	} 
+	$('#swiper').html(str);
+	mySwiper = new Swiper('.swiper-container',{
+		autoplay: false,
+		slidesPerGroup:7,
+	    slidesPerView: 7,
+	    spaceBetween: 0,
+	    initialSlide: 14
+	});
+}
+
+function getWeekDay(d){
+	var weekday = new Array(7);
+	weekday[0]="周日";
+	weekday[1]="周一";
+	weekday[2]="周二";
+	weekday[3]="周三";
+	weekday[4]="周四";
+	weekday[5]="周五";
+	weekday[6]="周六";
+	var num = d.getDay();
+	return weekday[num];
+}
+
+function getFormatDate(arg) {
+	if (arg == undefined || arg == '') {
+	    return '';
+	}
+	var re = arg + '';
+	if (re.length < 2) {
+	    re = '0' + re;
+	}
+	return re;
+}
+
+function getyuyue(parpreYear){
+	var customercode=$('#customercode').val();
+	getAjaxCall("/action/project/fitness/wx/cust/tuancao/list/search?parpreyear="+parpreYear+"&customercode="+customercode,false);
+}
+</script>
+</html>

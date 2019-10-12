@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>任务目标</title>
+</head>
+<body>
+	<form method="post" name="formEditor" id="formEditor" class="titlecust">
+	   <input type="hidden" id="goodsreceipts_id" name="goodsreceipts_id" value="${fld:goodsreceipts_id}" preserve="true"/>
+	   <input type="hidden" id = "radios" name = "radios" value="" ></input>
+		<div class="modal-body b-i-main" style="padding: 0;">
+			<nav>
+				<li class="inpRadio">
+					商品销售是否打印小票
+					<input type="radio" name = "goodsreceipts" value="1" />是
+					<input type="radio" name = "goodsreceipts" value="0" />否
+				</li>
+			</nav>
+		</div>
+	   <div class="banner-top ba1" style="margin-top:15px;padding: 0 0 10px 20px;">
+			<button id="edit_btn" type="button">确定</button>
+	   </div>
+	</form>
+<script language="JavaScript">
+$(document).ready(function() {
+	ccms.util.renderRadio("goodsreceipts");
+	ccms.util.setCheckboxValue('goodsreceipts',"${fld:roodsreceipts}","formEditor");
+
+	$("#edit_btn").click(function(){
+		var goodsreceipts_id = $("#goodsreceipts_id").val();
+		var goodsreceipts = ccms.util.getRadioValue("goodsreceipts","formEditor");
+		//修改参数
+		var url = "${def:context}${def:actionroot}/update?"+"tuid="+goodsreceipts_id+"&param_text="+goodsreceipts;
+		ajaxCall(url,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	   			ccms.dialog.notice("修改成功！", 2000);
+	 		}
+	 	});
+	})
+});
+</script>
+</body>
+</html>

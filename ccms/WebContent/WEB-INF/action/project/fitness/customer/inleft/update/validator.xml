@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="oldcabinettempcode" type="varchar" required="true" label="手牌老号码" maxlen="64" />
+	<parameter id="newcabinettempcode" type="varchar" required="true" label="手牌新号码" maxlen="64"/>
+	<parameter id="leftcode" type="varchar" required="true" label="入场出场记录code" maxlen="64"/>
+	
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
+		on-error-label="该手牌不可使用，请重新检查!" id="cabinettempcode" sql="noduptwo.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"  
+		on-error-label="该手牌无效或没有该手牌，请确认！" id="cabinettempcode" sql="nodup.sql" />
+</validator>

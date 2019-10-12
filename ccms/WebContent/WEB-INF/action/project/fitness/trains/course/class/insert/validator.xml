@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="class_name" type="varchar" required="true" label="class_name" />
+	<parameter id="courseid" type="integer" required="true" label="courseid"/>
+	<parameter id="resourceid" type="integer" required="true" label="resourceid"/>
+	<parameter id="showorder" type="integer" required="true" label="resource_name"/>
+</validator>

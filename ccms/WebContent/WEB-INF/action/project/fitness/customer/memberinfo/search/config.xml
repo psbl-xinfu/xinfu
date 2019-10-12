@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		员工管理
+	</summary>
+
+	<log>false</log>
+
+	<colname>skill_name,_start_date,_end_date,vc_all,vc_cardtype,i_status
+	,f_sex,f_age,f_nofollowstartdate,f_nofollowenddate,f_startmonth,f_startday,f_endmonth
+	,f_endday,f_type,f_mc,f_purpose,f_stage,f_personalhobbit
+	,f_marriage,f_children,f_leave,f_protection,f_calltimes,f_overduecard
+	,f_distributioncount,f_inleftnum</colname>
+	<sql-template>query-base.sql</sql-template>
+	<paging-recordset>query.sql</paging-recordset>
+	<total-recordset>query-count.sql</total-recordset>
+
+	<transaction>
+		<classname>com.ccms.SearchForJson</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query.sql" tag="rows" />
+		<print mode="form" recordset="query-count.sql" />
+	</output>
+
+</config>

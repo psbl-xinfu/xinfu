@@ -1,0 +1,40 @@
+insert into cc_savestopcard
+(
+	code,
+	stoptype,
+	cardcode,
+	customercode,
+	cardtype,
+	leftdays,
+	startdate,
+	prestopdays,
+	money,
+	reason,
+	createdby,
+	remark,
+	status,
+	created,
+	cardstartdate,
+	cardenddate,
+	org_id
+)
+values 
+(
+	${seq:nextval@seq_cc_savestopcard},
+	'2',
+    ${fld:cardcode},
+    ${fld:customercode},
+    ${fld:cardtype},
+    ${fld:daysremain},
+    ${fld:stopcarddate},
+    ${fld:prestopdays},
+    0,
+    ${fld:reason},
+    '${def:user}',
+    ${fld:remark},
+    1,
+    {ts'${def:timestamp}'},
+    ${fld:cardstartdate},
+    ${fld:cardenddate},
+	${def:org}
+)

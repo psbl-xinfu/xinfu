@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+    <request-encoding>UTF-8</request-encoding>
+	<colname>groups</colname>
+	<sql-template>insert-trainplan_detail_group.sql</sql-template>
+
+	<transaction>
+		<classname>com.ccms.InsertMaster</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<query>insert.sql</query>
+	<query>insert-trainplan_detail.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query.sql"/>
+	</output>
+
+</config>

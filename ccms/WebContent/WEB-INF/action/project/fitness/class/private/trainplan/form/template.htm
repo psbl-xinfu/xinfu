@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>训练计划</title>
+</head>
+<body>
+<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="customercode" name="customercode" value="${fld:vc_customercode}"/>
+				<input type="hidden" id="cardcode" name="cardcode" value="${fld:vc_cardcode}"/>
+				<input type="hidden" id="ptpreparecode" name="ptpreparecode" value="${fld:vc_ptpreparecode}"/>
+				<input type="hidden" id="traincode" name="traincode" value="${fld:code}"/>
+				<input type="hidden" id="pdcode" name="pdcode" value="${fld:pdcode}"/>
+				<input type="hidden" id="ptid" name="ptid" value="${fld:ptid}"/>
+<section class="conPupUp" >
+		<div class="newly-increased"  >
+				<header class="header-default">新增训练计划</header>
+				<div class="n-i-top">
+					<div class="n-i-t-left" >
+						<div>
+							<p>训练日期：
+								<span>${fld:preparedate}</span>
+							</p>
+							<p>课程：
+								<span>${fld:ptlevelname}</span>
+							</p>
+						</div>
+						<div>
+							<p>执行教练：
+								<span>${fld:staff_name}</span>
+							</p>
+							<p>时长：
+								<span>${fld:times}</span>
+							</p>
+						</div>
+					</div>
+					<div class="n-i-t-right">
+						<p>
+							<span>热身时间：</span>
+							<input type="text" id="warmup_mins" name="warmup_mins" value="" placeholder="热身时间"/>min
+						</p>
+						<p>
+							<span>有氧时间：</span>
+							<input type="text" id="aerobic_mins" name="aerobic_mins" value="" placeholder="有氧时间"/>min
+						</p>
+						<p>
+							<span>跑步里程：</span>
+							<input type="text" id="run_mileage" name="run_mileage" value="" placeholder="跑步里程"/>km
+						</p>
+					</div>
+				</div>
+				<section class="n-i-main"  id="trainplandetail"> 
+				
+				</section>
+				<button   type="button" id="addactions"  class="addNewAction"><i class="am-icon-plus-circle"></i> 新增动作</button>
+				<footer >
+					<button class="my-btn-default" type="button" id="save_btn"  >保存</button>
+					<button class="my-btn-default" type="button" id="execution_btn" >执行</button>
+					<button class="my-btn-default" type="button" id="cancel_btn" >取消</button>
+				</footer>
+			</div>
+		</section>
+	</form> 
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#cancel_btn").click(function(){
+		ccms.dialog.close();
+	});	
+	
+	//新增动作
+	$("#addactions").click(function(){
+		var url = "${def:context}${def:actionroot}/querytraindetail";
+		ajaxCall(url,{
+		   	method: "get",
+		   	progress: true,
+		   	dataType: "script",
+		   	success: function() {
+			}
+		});
+	});
+	if("${fld:code}"!=""){
+		var url = "${def:context}${def:actionroot}/edit?code=${fld:code}";
+		ajaxCall(url,{
+		   	method: "post",
+		   	form:"formEditor",
+		   	progress: true,
+		   	dataType: "script",
+		   	success: function() {
+			}
+		});
+	}else{
+		$("#addactions").click();
+	}
+	$("#save_btn").click(function(){
+		if("${fld:code}"==""){
+			var url = "${def:context}${def:actionroot}/insert";
+		}else{
+			var url = "${def:context}${def:actionroot}/update";
+		}
+		ajaxCall(url,{
+		   	method: "post",
+		   	form:"formEditor",
+		   	progress: true,
+		   	dataType: "script",
+		   	success: function() {
+			}
+		});
+	});
+	//执行
+	$("#execution_btn").click(function(){
+		var traincode = $("#traincode").val();
+		if(traincode==""||traincode==undefined){
+			ccms.dialog.alert("请保存后在进行执行！");
+		}else{
+			$Dialog().confirm("确定要标记为已执行吗?", function(){
+				var url = "${def:context}${def:actionroot}/updatetrain?code="+traincode;
+				ajaxCall(url,{
+				   	method: "get",
+				   	progress: true,
+				   	dataType: "script",
+				   	success: function() {
+					}
+				});
+			});
+		}
+	})
+});
+</script>
+</body>
+</html>

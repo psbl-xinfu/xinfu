@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="start_date" type="date" required="false" label="开始日期" />
+	<parameter id="end_date" type="date" required="false" label="结束日期" />
+	<parameter id="custcode" type="varchar" required="true" label="custcode" />
+</validator>

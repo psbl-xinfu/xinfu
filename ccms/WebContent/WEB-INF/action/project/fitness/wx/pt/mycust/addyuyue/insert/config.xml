@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>true</jdbc-log>
+		
+	</transaction>
+	<query>insert.sql</query>
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

@@ -1,0 +1,20 @@
+select	
+code,
+  name,
+  covertype,
+  covervalue,
+  descr,
+  contact_phone,
+  address,
+  expertype,
+  experlimit,
+  validatetype,
+  startdate,
+  enddate,
+  isneddmobile,
+  useremark,
+  status
+from 
+	cc_expercard
+where 
+	code = ${fld:id};

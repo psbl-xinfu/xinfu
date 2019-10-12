@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="cc_num" type="varchar" required="true" label="cc_num" />
+	<parameter id="cc_weight" type="varchar" required="true" label="cc_weight" />
+	<parameter id="cc_custfeel" type="varchar" required="true" label="cc_custfeel" />
+	<parameter id="cc_code" type="varchar" required="true" label="cc_code" />
+</validator>
+

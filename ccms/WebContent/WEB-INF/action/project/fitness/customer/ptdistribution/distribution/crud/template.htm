@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>私教分配</title>
+</head>
+<body>
+	<form name="formEditor" id ="formEditor">
+			<div id="checkedNodesDiv"></div>
+	</form>
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+
+		<div class="am-tabs-bd r-tab-cont dialogbg">
+			<header class="header-default">
+				<span>分配</span>
+			</header>
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+			 	<div class="tab-cout-nav"  style="margin-left: -70%">
+					<div class="tab-cout-nav-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							 <li>
+					    		 <span>已选择会员：</span>	<span id="num"></span>
+							</li>
+					    	 <li>
+					    	 	<button  type="button"id="save_btn">确定</button>
+							</li>		
+						</nav>
+					</div>
+				</div>
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background"></div>
+					<table> 
+						<thead>
+							<tr>
+									<th></th>
+								<th>教练姓名</th>
+								<th>私教资源数量</th>
+								<th>私教会员数量</th>
+							</tr>
+						</thead>
+					<tbody id="datagridTemplate" style="display: none">
+						<td>#application_id#</td>
+						<td >#name#</td>
+						<td >#gustnum#</td>
+						<td >#customernum#</td>
+					</tbody>
+					<tbody id="datagrid">
+					</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var customercodes="${fld:customercode}".split(',');
+var cardcodes="${fld:cardcode}".split(',');
+var search2=null;
+$(document).ready(function() {
+	   $('#num').text(customercodes.length+'人');
+		this.search2=search2;
+		search2=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+			ccms.util.renderRadio("datalist");
+	}}).initSearchBtn().searchData(1);
+		$('#save_btn').click(function(){
+			var pt=$('input[name="datalist"]:checked').val();
+			if(pt==""){
+				alert("请选择教练");
+			}else{
+				insert(pt);
+			}
+		})
+});
+function insert(pt){
+	var divobj = $("#checkedNodesDiv");
+	divobj.empty();
+	for(var i = 0; i < customercodes.length; i++){
+		var customercode = customercodes[i];
+		var cardcode = cardcodes[i];
+    	divobj.append('<input type="hidden" name="customercode" value="' + customercode + '" />');
+    	divobj.append('<input type="hidden" name="cardcode" value="' + cardcode + '" />');
+    	divobj.append('<input type="hidden" name="pt" value="' + pt + '" />');
+	}
+	
+	var url = "${def:context}${def:actionroot}/insert"
+		ajaxCall(url,{
+			method: "post",
+			progress: true,
+			form:'formEditor',
+			dataType: "script",
+			success: function() {
+				alert("分配成功！");
+			}
+		});
+}
+</script>
+</body>
+</html>

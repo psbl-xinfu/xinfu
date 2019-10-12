@@ -1,0 +1,18 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		    "vc_code":"${fld:_rowNumber}",
+		    "name":"${fld:name@js}",
+		    "mobile":"${fld:mobile@js}",
+		    "sex":"${fld:sex@js}",
+		    "age":"${fld:age@js}",
+		    "cardtype":"${fld:cardtype@js}",
+		    "card":"${fld:card@js}",
+		    "urgent":"${fld:urgent@js}",
+		    "othertel":"${fld:othertel@js}",
+		    "cardcode":"${fld:cardcode@js}",
+		    "incode":"${fld:incode@js}"
+	},
+	</rows>
+	{}
+]}

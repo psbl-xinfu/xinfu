@@ -1,0 +1,19 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{		"application_id":"${fld:application_id@js}",
+			"card_code":"${fld:card_code@js}",
+		    "huiyuankahao":"${fld:vc_code@js}",
+		    "vc_name":"${fld:vc_name@js}",
+		    "vc_cardtype":"${fld:card_type@js}",
+		    "i_status":"${fld:card_status@js}",
+		    "c_startdate":"${fld:c_startdate}",
+		    "c_enddate":"${fld:c_enddate}",
+		    "c_idate":"${fld:c_idate}",
+		    "c_itime":"${fld:c_itime}",
+		    "zengkaren":"${fld:vc_iuser@js}",
+		    "why":"${fld:why@js}",
+		    "vc_remark":"${fld:vc_remark@js}"
+	},
+	</rows>
+	{}
+]}

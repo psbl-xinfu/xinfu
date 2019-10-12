@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="category" type="varchar" required="false" label="科目类别" />
+	<parameter id="subjectname" type="varchar" required="false" label="科目名称" />
+	<parameter id="grade" type="varchar" required="false" label="等级" />
+</validator>

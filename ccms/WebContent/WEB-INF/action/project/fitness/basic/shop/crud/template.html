@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>商品销售</title>
+<link href="${def:context}/js/project/fitness/css/contract1.css" rel="stylesheet">
+<style type="text/css">
+.bg{
+background: rgba(42, 48, 56, -1.2) !important
+}
+.top-table{
+    margin-top: 13px;
+	width:100%;
+	height:220px;
+	overflow:auto;
+}
+.goodsSale .sec-1 .btn-save {
+    width: 47px;
+    background-image: url(${def:context}/js/project/fitness/image/SVG/nav/fukuan.svg);
+}
+</style>
+</head>
+    <body style="font-size: 14px">
+	<form id="goodsForm" name="goodsForm" class="form-horizontal" role="form" method="post">
+		<input type="hidden" name="findtype" id="findtype"/>
+		<input type="hidden" name="paydivgoodsinp" id="paydivgoodsinp"/>
+		<input type="hidden" name="paytheprice" id="paytheprice"/>
+		
+		<input type="hidden" name="getmoney" id="getmoney"/>
+		
+		<input type="hidden" name="paidupprice" id="paidupprice"/>
+		
+				<div class="am-tabs r-tab-container goodsSale">
+					<div class="sec-1">
+						<label for="id">编号：</label>
+						<input type="text" name="leave_stockid" readonly="readonly" id="leave_stockid" value="${fld:leave_stockid}" title="编号" placeholder="编号" />
+						<input type="hidden" name="searchgptuid" id="searchgptuid"/>
+						<label for="id">状态：</label>
+						<label class="status">未支付</label>
+						<span class="fr sec-btn btn-save" id="save_btn" title="购买" style="display: none;"></span>
+					</div>
+					<div class="sec-2" style="height: 300px;">
+						<div class="sec-top">
+							<label for="depot">当前仓库：</label>
+							<div class="my-selected" >
+								<select id="storage_id" name="storage_id" style="display: none;">
+									<option value="">全部仓库</option>
+									<storage-rows>
+										<option value="${fld:tuid}">${fld:storage_name}</option>
+									</storage-rows>
+								</select>
+							</div>
+							<label for="name">商品：</label>
+							<select id="goodsname" name="goodsname" class="select-btn" style="position: static!important;display: none!important;data-width="fit";">
+								<option value="">全部商品</option>
+							</select>
+							<!-- <input type="text" id="goodsname" name="goodsname" title="名称/货号" placeholder="名称/货号" /> -->
+							<label for="total">合计：</label>
+							<input type="hidden" id="ystotal" name="ystotal" />
+							<input type="text" id="total" name="total" class="total" readonly="readonly" value="0" title="合计" placeholder="合计" />
+							<span class="fr sec-btn btn-remove" title="删除"></span>
+						</div>
+						<div class="sec-bottom r-tab-cout-3-b top-table">
+							<table>
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<input type="checkbox" id="selectAll" style="display: none;">
+										</th>
+										<th>序号</th>
+										<th>品名</th>
+										<th>规格</th>
+										<th>单位</th>
+										<th>单价</th>
+										<th>数量</th>
+										<th>折扣(%)</th>
+										<th>实收金额</th>
+									</tr>
+								</thead>
+								<tbody id="goodslist">
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="sec-3">
+						<div class="sec-3-left fl" style="height: 263px">
+							<div class="sec-3-left-title">			
+								<label class="am-checkbox">
+									<input type="hidden" value="0" id="staff_type" />
+									<input type="checkbox" value="1" id="staff_price" name="staff_price" style="display: none;">员工价
+								</label>
+							</div>
+							<div class="form-control bg" style="border: none;">
+								<div class="cont-div">
+									<label class="cont-label">卡号：</label>
+									<input type="text" id="cardcode" name="cardcode" title="卡号" placeholder="卡号">
+									<input type="hidden" id="drinkdiscount" name="drinkdiscount" value="1">
+								</div>
+								<div class="cont-div">
+									<label class="cont-label">手机号：</label>
+									<input type="text" id="mobile" title="手机号" placeholder="手机号" readonly="readonly">
+									<input type="hidden" id="custcode" name="custcode">
+								</div>
+								<div class="cont-div">
+									<label class="cont-label">姓名：</label>
+									<input type="text" id="custname" title="姓名" placeholder="姓名" readonly="readonly">
+								</div>
+							</div>
+						</div>
+						<div class="sec-3-right fl">
+							<div class="sec-3-left-title">			
+								<label class="sec-top">
+									<label for="total">折扣价：</label>
+									<input type="text" id="adiscount" name="adiscount" placeholder="0.00"/>
+									<label for="total">实收：</label>
+									<span id="paidin"></span>元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									
+								</label>
+								<label class="sec-top">
+									<input type="radio" name="othertype" value="3" style="display: none;">挂账
+								</label>
+							</div>
+							<div class="sec-3-right-con">
+								<div class="bottom  ">
+									<label class="sec-3-right-title">付款方式</label>
+									<input type="hidden" name="pay_detail" id="pay_detail">
+								
+									<div class="b-i-main" style="margin-left: 5px">
+										<nav>
+											<li id="paydivbin" style="margin-left: 6%"></li>
+											<li id="paymethodDiv" style="margin-left: 5%">
+								     			<nav>
+								     				<li style="width: 800px">
+														<select class="normal-select" id="paymethodbin" name="paymethodbin" >
+															<option value="">请选择支付方式</option>
+														</select>
+														<input id="paymoneybin" name="paymoneybin" placeholder="请输入支付金额"  style="margin-left: 10%"/>
+														<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>
+								     				</li>
+								     			</nav>
+								     		</li>		
+								     		<li id="moneycashDiv">
+								     			<label style="width: 120px;">现金储值：</label>
+												<span id="moneycash"></span>
+								     		</li>
+										</nav>
+									</div>
+						     		
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div class="sec-4">
+						<label>操作员：</label>
+						<input type="text" value="${fld:staff_name}" readonly="readonly">
+						<label>操作日期：</label>
+						<input type="text" value="${def:date}" readonly="readonly">
+						<label>收款人员：</label>
+						<input type="text" value="${fld:staff_name}" readonly="readonly">
+						<label>收款人日期：</label>
+						<input type="text" value="${def:date}" readonly="readonly">
+					</div>
+				</div>
+     </form>
+    </body>
+<script type="text/javascript">
+var paytotalbin = 0;
+$(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#save_btn").show();
+	}
+	//页面点击事件
+	$(document).click(function(){ 
+		$(".error").html("");
+	}); 
+	
+	$("#moneycashDiv").hide();
+	//searchSelectInit($("#storage_id,#paymethodbin,#goodsname"));
+	searchSelectInit($("#storage_id,#paymethodbin"));
+	searchSelectInit($("#goodsname"),"240px");
+	//js实施监听
+	 $('#adiscount').bind('input propertychange', function() {  
+		 if($('#adiscount').val()<0){
+			 ccms.dialog.notice("折扣价不可以为负数！", 2000);
+			 return false;
+		 }
+		 
+		 var a = $('#ystotal').val();
+		 var b = $('#adiscount').val();
+		 if((a-b)<0){
+			 ccms.dialog.notice("实收不可以为负数！", 2000);
+			 return false;
+		 }
+		
+		var sum= a - b;
+	    $('#paidin').text(sum); 
+	    $('#paidupprice').val(sum);
+	}); 
+	
+	//查询商品
+	$("#goodsname").change(function(){
+		$("#findtype").val("1");
+		$("#searchgptuid").val("");
+		if($("#storage_id").val()==""){
+			ccms.dialog.notice("请选择仓库！", 2000);
+			return false;
+		}
+		var goodsname = $(this).val();
+		if(goodsname!=""){
+			var url = "${def:actionroot}/querygoods?searchgptuid="+goodsname;
+			ajaxCall(url,{
+				method:"get",
+				progress:true,
+				dataType:"script",
+				success:function(){	
+				}
+			});
+		}
+		$("#goodsname").val("").trigger("change");
+	});
+	
+ 	//加回车事件 zzn
+	  var isRunning   = [];
+	document.onkeydown=function(event){
+		var cardcode = $("#cardcode").val();
+	    var e = event || window.event || arguments.callee.caller.arguments[0];
+		if(e && e.keyCode==13){ // enter 键
+			$("#findtype").val("2");
+			if(cardcode !=""){
+				ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycardcodelist/crud?pickcustname="
+					+cardcode+"&objid=cardcode&random_number="+Math.random(),width:'800',height:'500'});
+				return false;
+			}else {
+				$("#mobile,#custname,#moneygift,#moneycash").val("");
+				return false;
+			}	
+	    }
+	}; 
+	
+	
+	ccms.util.renderCheckbox("selectAll");
+	ccms.util.renderCheckbox("staff_price");
+	ccms.util.renderRadio("othertype");
+	//全选
+	$("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
+		 if( $(this).prop("checked") ){// 
+			$('input[name=gptuidcheckbox]').iCheck('uncheck');
+		 }else{
+			$('input[name=gptuidcheckbox]').iCheck('check');  //
+		 }
+	});
+
+	//付款方式切换
+	$("input[name=othertype]").unbind().on("ifClicked",function(){  
+			 $("#paymoneybin").html("");
+			 $("#paydivbin").children('span').remove();
+			 $("#moneycashDiv").hide();
+			 setSelectValue($("#paymethodbin"), "");
+			 $('input[name=othertype]').iCheck('check');
+	});
+	
+	//员工价正常价
+	$("#staff_price").unbind().on("ifClicked",function(){ 
+		if( $(this).prop("checked") ){// 
+			$("#staff_type").val("0");
+		}else{
+			$("#staff_type").val("1");
+		}
+		calculate();
+	});
+	//仓库
+	$("#storage_id").change(function(){
+		$("#goodsname").html("<option value=''>全部商品</option>");
+		$("#goodsname").selectpicker("refresh");
+		$("#goodsname").selectpicker("render");
+		$("#goodslist").html("");
+		$("#total").val("0");
+		if($(this).val()!=""){
+			var url = "${def:actionroot}/querygoodprice?storage_id="+$(this).val();
+			ajaxCall(url,{
+				method:"get",
+			   	progress: true,
+			   	dataType: "script",
+				success:function(data){
+				}
+			});
+		}
+	})
+	//删除
+	$(".btn-remove").click(function(){
+		$("input[name='gptuidcheckbox']:checkbox").each(function(){ 
+			 if( $(this).prop("checked") ){
+				$(this).parent().parent().parent().remove();
+			 }
+		});
+		//重新计算总计金额
+		calculate();
+	})
+
+	
+	// 加载支付方式
+	loadPayTypebin("paymethodbin", function(){
+			$("#paymethodDiv").show();
+			$("#paybtnDiv").show();
+	});
+	
+	//zyb 20190506根据支付方式显示和隐藏标签
+	$("#paymethodbin").change(function(){
+		if($("#paymethodbin").val()=="f_chuzhika"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
+	// 添加支付方式
+	$("#addpay_btnbin").unbind().on("click",function(){
+		var paymethodbin = $("#paymethodbin").val();
+		var paymoney = $("#paymoneybin").val();
+		$('input[name=othertype]').iCheck('uncheck');
+		if( "" == paymethodbin ){
+			ccms.dialog.notice("请选择支付方式", 2000);
+			return false;
+		}else if( "" == paymoney || !(isFloat(paymoney) || isNumber(paymoney)) || Number(paymoney) <= 0 ){
+			ccms.dialog.notice("请输入支付金额", 2000);
+			return false;
+		}
+		//zyb 20190506提示金额不足
+		if($("#paymethodbin").val()=="f_chuzhika"){
+			   if($("#moneycash").text()==""||$("#moneycash").text()==null){
+			    	$("#moneycash").text("0");
+			   }
+			   if(parseFloat($("#moneycash").text())<parseFloat($("#paymoneybin").val())){
+			    	ccms.dialog.notice("储值账户剩余金额不足,请充值！", 2000);
+			   		 return false;
+			   }
+		}
+		
+		if($("#custcode").val()==""||$("#custcode").val()==null){
+				ccms.dialog.notice("请选择会员！", 2000);
+				 $("#paymoneybin").html("");
+				 $("#paydivbin").children('span').remove();
+				 setSelectValue($("#paymethodbin"), "");
+				return false;
+		}
+		
+		var mobj = $("#paydivbin").find("[code1="+paymethodbin+"]");
+		
+		if( mobj.length > 0 ){
+			var _paymoney = (parseFloat(paymoney) + parseFloat(mobj.attr("code2"))).toFixed(2);
+			$("#paymethodbin").find("option:selected").attr("code", _paymoney);
+			mobj.attr("code2", _paymoney);
+			mobj.find("[name=fee]").text(_paymoney);
+		}else{
+			$("#paymethodbin").find("option:selected").attr("code", paymoney);
+			addShowPaygoods(paymethodbin, paymoney, $("#paymethodbin").find("option:selected").text(), false);
+		}
+		paytotalbin = (parseFloat(paytotalbin) + parseFloat(paymoney)).toFixed(2);
+		
+	});
+	
+	
+	//购买
+	$("#save_btn").click(function(){
+		//alert($("#leave_stockid").val());
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		//有些赠送商品是0元-礼品  zzn 2019-04-04
+		if(Number($("#total").val())<0){
+			ccms.dialog.notice("请购买商品再进行付款！", 2000);
+			return false;
+		}
+		
+		if($("#custcode").val()==""){
+			ccms.dialog.notice("请输入卡号！", 2000);
+			return false;
+		}
+		var goodcount = 0;
+		
+		var goods_namebin="";
+		var quantitybin=0;
+		$("input[name=gptuid]").each(function(){
+			var url = "${def:actionroot}/querygoodquantity?gptuid="+$(this).val()+"&goodid="+$(this).attr("code");
+			ajaxCall(url,{
+				method:"get",
+				progress:true,
+				dataType:"json",
+				success:function(data){
+						var num = $("#"+data.gptuid+"num").val();
+						if(parseInt(num)>data.quantity){
+							goodcount = 1;
+							goods_namebin = data.goods_name;
+							quantitybin = data.quantity;
+							ccms.dialog.notice("库存不足，"+data.goods_name+"最大购买数量为"+data.quantity+"！", 2000);
+						}
+						if(goodcount==0){
+							goodcount=1;
+							 if(getCheckboxValue("othertype")==""||getCheckboxValue("othertype")==null){
+								   var moneydetail = "";
+									
+									//获取所有支付类型option
+									$("#paymethodbin").find("option").each(function(idx,ele){
+										if( "" != $(ele).attr("code") ){
+											moneydetail += $(ele).attr("code") + ";";
+										}
+									});
+									
+									//明细
+									$("#pay_detail").val(moneydetail);
+									
+									if(parseFloat($("#paidupprice").val())!=parseFloat(paytotalbin)){
+										ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
+										return false;
+									}
+									$("#paydivgoodsinp").val($("#f_chuzhikabin").attr("code1"));//获取储值卡的code
+									$("#paytheprice").val($("#f_chuzhikabin").attr("code2"));//储值卡收的钱
+									$("#getmoney").val(paytotalbin);//实收
+									insert();
+								}else{
+									insert();
+								} 
+						}
+				}
+			});
+		})
+		
+		
+	});
+	
+});
+function serachgoods(){
+	ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querygoodslist/crud?storage_id="
+		+$("#storage_id").val()+"&goodsname="+$("#goodsname").val()+"&objid=searchgptuid&random_number="+Math.random(), height:650});
+}
+
+function insert(){
+	var url = "${def:context}${def:actionroot}/insert";
+	ajaxCall(url,{
+	   	method: "post",
+	   	form:"goodsForm",
+	   	progress: true,
+	   	dataType: "script",
+	   	success: function() {
+		}
+	});
+}
+
+//查询商品回调
+function pickcustCallback(){
+	if($("#findtype").val()=="1"){
+		var url = "${def:actionroot}/querygoods?searchgptuid="+$("#searchgptuid").val();
+		ajaxCall(url,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});
+	}else if($("#findtype").val()=="2"){
+		var url = "${def:actionroot}/querycustmoney?cardcode="+$("#cardcode").val();
+		ajaxCall(url,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});
+	}
+}
+function delhour(val){
+	$(val).parent().remove();
+}
+
+function calculate(){
+	var money = 0;
+	var drinkdiscount = Number($("#drinkdiscount").val());
+	$("input[name='gptuidcheckbox']:checkbox").each(function(){ 
+		var price = 0;
+		//1员工价 
+		if($("#staff_type").val()=="1"){
+			price = $("#"+$(this).val()+"staff_price").val();
+		}else{
+			price = $("#"+$(this).val()+"price").val();
+		}
+		$("#"+$(this).val()+"pricetd").html(price);
+		money+=Number($("#"+$(this).val()+"num").val()*price);
+		$("#price").val(price);
+		$("#"+$(this).val()+"formprice").val(price);
+		$("#"+$(this).val()+"drinkdiscount").html(drinkdiscount*100);
+		$("#"+$(this).val()+"money").html(Number($("#"+$(this).val()+"num").val()*price*drinkdiscount).toFixed(2));
+		$("#"+$(this).val()+"tdmoney").val(Number($("#"+$(this).val()+"num").val()*price*drinkdiscount).toFixed(2));
+	});
+	$("#total").val((money*drinkdiscount).toFixed(2));
+	$("#ystotal").val(money.toFixed(2));
+	var b = $('#adiscount').val();
+	$("#paidin").text(($("#total").val() - b).toFixed(2));
+	$("#paidupprice").val(($("#total").val() - b).toFixed(2));
+}
+//增加数量
+function addNum(id){
+	var num=$('#'+id).val();
+	$('#'+id).val(++num);
+	calculate();
+}
+//减少数量
+function reduceNum(id){
+	var num=$('#'+id).val();
+	if(num>1){
+		$('#'+id).val(--num);
+		calculate();
+	}else{
+		ccms.dialog.alert("已经是最小数量");
+	}
+}
+</script>
+</html>

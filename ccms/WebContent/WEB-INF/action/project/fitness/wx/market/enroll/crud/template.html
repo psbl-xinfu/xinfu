@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <title>参赛报名</title>
+         <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="${def:context}/js/project/fitness/wx/css/market/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/market/enroll.css" rel="stylesheet">
+         <script type="text/javascript" src="${def:context}/js/ccms/jweixin-1.js"></script>
+        <style type="text/css">
+        .btn-submit {
+    width: 100%;
+    background: #4AA3FF;
+    color: white;
+    font-size: 1.7rem;
+    height: 4.4rem;
+    line-height: 4.4rem;
+    border-radius: 8px;
+    text-align: center;
+}
+        </style>
+    </head>
+
+
+<body>
+<form id="messageForm" name="messageForm" method="post">
+
+<input type='hidden' id="customercode" value="${fld:customercode}">
+<input type='hidden' id="logoid" value="">
+
+
+
+	<div class="containter bg">
+		<div class="go-back" onclick="goIndex()">
+			<img src="${def:context}/js/project/fitness/wx/image/cx/btn-back.png">
+		</div>
+		<div class="form-info">
+			<div class="form-control clearlr">
+				<label for="name" class="fl">会员姓名</label>
+				<input tyoe="text" id="cusstname" name="cusstname"  class="form-input fl" placeholder="请输入会员姓名" value="${fld:name}" readonly="readonly">
+			</div>
+			<div class="form-control clearlr no-border">
+				<label for="tel" class="fl">电话</label>
+				<input tyoe="text" id="mobile" name="mobile" class="form-input fl" placeholder="请输入联系电话" value="${fld:mobile}" readonly="readonly">
+			</div>
+		</div>
+		<div class="form-info">
+			<div class="form-control clearlr">
+				<label for="name" class="fl">参赛名称</label>
+				<input tyoe="text" id="enrollname" name="enrollname"  class="form-input fl" placeholder="请输入参赛名称">
+			</div>
+			<div class="form-control no-border">
+				<textarea placeholder="请输入个人简介/拉票宣言" id="descr" name="descr"></textarea>
+			</div>
+			<div class="form-control no-border"  id="imglist">
+				<span class="upload" id="head"></span>
+				
+				<!-- <img width="100" height="100"   src="/ccms/action/ccms/attachment/download?id=1024&amp;type=0&amp;t=1525318449387&quot;"> -->
+			</div>
+		</div>
+		
+		<div class="btn-submit" >提交</div>
+	</div>
+</form>		
+			
+</body>
+<script type="text/javascript" src="${def:context}/js/jquery/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/datetimepicker/js/datetimepicker.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/bootstrap/js/datetimepicker/js/locales/datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/bootbox.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/ccms/jquery.validate.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/ccms.js"></script>
+<script type="text/javascript" src="${def:context}/js/ccms/common.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/util.js"></script>
+<script type="text/javascript">
+var contextPath = "${def:context}";
+function homept(){
+    var str='<a  href="${def:context}/action/project/fitness/wx/pt/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+	$('body').append(str);
+}
+function homecust(){
+    var str='<a  href="${def:context}/action/project/fitness/wx/cust/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+	$('body').append(str);
+}
+function homemc(){
+    var str='<a  href="${def:context}/action/project/fitness/wx/mc/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+	$('body').append(str);
+}
+</script>
+
+
+
+
+
+<script type="text/javascript">
+$(function(){
+	homecust();
+	$('.btn-submit').on('click',function(){
+		if($("#logoid").val()==""){
+			ccms.dialog.notice("至少上传一张照片");
+		}else{
+			postAjaxCall("${def:actionroot}/insert", "messageForm", false);	
+		}
+	})
+	
+	
+   	wx.config({
+		    debug: false,
+		    appId:  "${fld:appid}",
+		    timestamp: ${fld:timestamp},
+		    nonceStr: "${fld:noncestr}",
+		    signature: "${fld:signature}",
+		    jsApiList: [ 'chooseImage','uploadImage']
+		}); 
+		wx.ready(function(){
+			$("#head").on("click",function(){
+	    		wx.chooseImage({
+	    		    count: 1, // 默认9
+	    		    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+	    		    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+	    		    success: function (res) {
+	    		        var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+	    		        uploadImage(localIds);
+	    		    }
+	    		});
+	    	});
+	});
+})
+
+function uploadImage(localIds){
+	wx.uploadImage({
+	    localId:localIds.toString() , // 需要上传的图片的本地ID，由chooseImage接口获得
+	    isShowProgressTips: 1, // 默认为1，显示进度提示
+	    success: function (res) {
+	        var media_id = res.serverId; // 返回图片的服务器端ID
+	        var url = "/action/project/fitness/wx/market/enroll/updateImg?user_id=111&field_name=file_name&customercode=${fld:customercode}&media_id="+media_id+"&org_id=${def:org}";
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+				}
+		    });
+	    }
+	});
+}
+
+function goIndex(){
+	location.href="${def:context}/action/project/fitness/wx/market/index/crud?customercode=${fld:customercode}";
+}
+
+function uploadOk(id){
+	$("#logoid").val(id);
+	$('#imglist').append('<img width="100" height="100"src="/ccms/action/ccms/attachment/download?id='+id+'">');
+}
+</script>
+</html>

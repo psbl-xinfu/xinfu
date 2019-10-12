@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>营销活动</title>
+</head>
+<body>
+		<div class="am-tabs-bd r-tab-cont rcsk">
+					<div class="rc-tab-cout-1 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<button onclick="comeHome()"  type="button"   id="execution" title="执行">体验卡活动</button>
+									<button  onclick="bucketDiagram()"    type="button"  >⽃图帝</button>
+									<button type="button"  >大富翁</button>
+									<button type="button"  > 红❤ ⾶⾶⾶-分享集赞</button>
+								</nav>
+							</div>
+						</div>
+				</div>
+			</div>
+
+			
+			 <div src ="" width="100%" height="690px" frameborder="0" id="marketMain" style="background: rgb(42, 48, 56)"></div>
+</form> 
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javaScript">
+$(function(){
+	comeHome();
+})
+//体验卡
+function comeHome(){
+	$("#marketMain").load("/action/project/fitness/basic/markethome/comehome/crud?");
+}
+
+//斗图
+function bucketDiagram(){
+	$("#marketMain").load("/action/project/fitness/basic/markethome/buckethome/crud?");
+}
+</script>
+</body>
+</html>

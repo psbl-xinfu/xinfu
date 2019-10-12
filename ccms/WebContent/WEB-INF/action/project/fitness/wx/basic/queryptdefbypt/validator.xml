@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+    <parameter id="objid" type="varchar" required="true" label="objid" maxlen="64"/>
+    <parameter id="pt" type="varchar" required="false" label="pt" maxlen="64"/>
+
+</validator>

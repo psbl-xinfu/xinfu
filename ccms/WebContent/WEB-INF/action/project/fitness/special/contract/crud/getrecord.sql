@@ -1,0 +1,1 @@
+select '${def:date}'::date - '1 month'::interval as find

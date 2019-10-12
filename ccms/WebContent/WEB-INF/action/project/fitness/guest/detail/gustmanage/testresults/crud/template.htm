@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>体测结果</title>
+</head>
+<body>
+
+
+<div class="modal fade hide" id="modalAddnew" tabindex="-1" role="dialog">
+		<div class="basic-information modal-dialog">
+				<header class="header-default">
+					<span id="formTitle"></span>
+					<span class="header-close"></span>
+				</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input name="sort" type="hidden" value="model_id" preserve="true"/>
+				<input name="order" type="hidden" value="desc" preserve="true" /> 
+				<input name="pageNo" type="hidden" value="" preserve="true" /> 
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+          		<input type="hidden" id="guestid" name="guestid" value="${fld:guestid}" preserve="true"/>
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label>编&nbsp;&nbsp;号</label>&nbsp;&nbsp;&nbsp;
+							<input type="text" id="vc_code" name="vc_code" value="" readonly="readonly"/>
+						</li>
+						<li>
+							<label>身&nbsp;&nbsp;高</label>&nbsp;&nbsp;&nbsp;
+							<input type="text" id="i_height" name="i_height" value=""/>
+						</li>
+					</nav>
+				</div>
+		
+		        <div class="modal-body b-i-main">
+					<nav>
+						<li>
+						<label>年&nbsp;&nbsp;龄</label>&nbsp;&nbsp;&nbsp;
+						<input type="text" id="i_age" name="i_age" value=""/>
+						</li>
+						<li>
+								<label>性&nbsp;&nbsp;别</label>
+								<select id="i_sex" name="i_sex" class="normal-select" />
+									<option value="1">男</option>
+									<option value="0">女</option>
+								</select>
+						</li>
+					</nav>
+				</div>		
+				
+	          	<div class="modal-body b-i-main">
+					<nav>
+					<li>身体成分</li>
+					<li>
+					<label>体重</label>
+						<input type="text" id="f_weight" name="f_weight" value=""/>
+						<input type="text" id="weight" name="weight" placeholder="正常范围（54.0~73.1）" readonly="readonly"/>
+					</li>
+					
+						<li>
+						<label>骨骼肌</label>
+						<input type="text" id="f_skeletal_muscle" name="f_skeletal_muscle" value=""/>
+						<input type="text" id="skeletal_muscle" name="skeletal_muscle" placeholder="正常范围（27.1~33.1）" readonly="readonly"/>
+					</li>
+					
+					<li>
+						<label>脂肪</label>
+						<input type="text" id="f_boday_fat" name="f_boday_fat" value=""/>
+						<input type="text" id="boday_fat" name="boday_fat" placeholder="正常范围（7.6~15.3）" readonly="readonly"/>
+					</li>
+					</nav>
+				</div>			
+				
+				
+				<div class="modal-body b-i-main">
+					<nav>
+						 <button type="button" id="calculation_btn"  name="calculation_btn" >计算</button>
+					</nav>
+				</div>
+			
+				<div class="modal-body b-i-main">
+					<nav>
+						<li>
+						<label>身体质量指数</label><span>(BMI,kg/㎡)</span>
+						<input type="text" id="f_bmi" name="f_bmi" value=""/>
+						<input type="text" placeholder="正常范围（18.5~25.0）" readonly="readonly"/>
+						</li>
+					
+						<li>
+						<label>体脂百分比</label><span class="pa">(PBF,%)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" id="f_pbf" name="f_pbf" value=""/>
+						<input type="text" id="pbf" name="pbf" placeholder="正常范围（10.0~20.0）" readonly="readonly"/>
+						</li>
+					
+						<li>
+						<label>腰臀比</label><span class="pa">(WHR)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" id="f_whr" name="f_whr" value=""/>
+						<input type="text" id="whr" name="whr" placeholder="正常范围（0.80~0.90）" readonly="readonly"/>
+						</li>
+					
+						<li>
+						<label>基础代谢</label><span class="pa">(kcal)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" id="f_kcal" name="f_kcal" value=""/>
+						<input type="text" id="kcal" name="kcal" placeholder="正常范围（1378~1602）" readonly="readonly"/>
+						</li>
+					
+					<li>
+						<img id="chart1" style="width:180px;" src="${def:context}/js/project/fitness/image/BMI.png"/>
+					</li>	
+						
+					<li>	
+						<img id="chart2" style="width:190px;" src="${def:context}/js/project/fitness/image/PBF.png"/>
+					</li>
+					
+					<li>
+						<img id="chart3" style="width:169px;" src="${def:context}/js/project/fitness/image/WHR.png"/>
+					</li>
+					
+					<li>
+						<label>健康评估：</label>
+						<input type="text" id="i_health" name="i_health" value=""/>			
+					</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn" >保存</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+
+	<form  role="form" method="post" id="searchForm">
+				<input type="hidden" id="s_guestid" name="s_guestid" value="${fld:guestid}"/>
+				<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li>
+										<button type="button" id="addnew_btn" name="addnew_btn" value="新增">新增</button>
+					 			 	</li>									
+								</nav>
+								
+								<div class="r-c-btnList">
+								</div>
+							</div>
+						
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+									
+								</nav>
+								<nav class="r-c-3-t-b-r">
+								</nav>
+							</div>
+						</div>
+				<div class="r-tab-cout-3-b">
+							<div class="to-change-background"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th>操作</th>
+										<th>测试时间</th>
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										<td>
+											<button  type="button"  class="edit_btn" code="#vc_code#">修改</button>
+											<button  type="button"   class="delete_btn" code="#vc_code#">删除</button>
+										</td>
+										<td >#c_itime#</td>
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	searchSelectInit($("#i_sex"));
+	$(".header-close").unbind().on("click",function(){
+		$("#modalAddnew").modal('hide');
+		ccms.util.clearForm('formEditor');
+	});
+	
+	var search = null;
+	var obj = $Crud({
+		formId:"formEditor",
+		button:"save_btn",
+		bpkField:"vc_code",
+		insertBack:function(){
+			search.searchData();
+		},
+		updateBack:function(){
+			search.searchData();
+		},
+		deleteBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			$("#formTitle").html("新增");
+			$("#idate").hide();
+			$("#itime").hide();
+		},
+		editBack:function(){
+			$("#formTitle").html("修改");
+		},
+		validate:function(){
+			var flag=$("#formEditor").validate({
+				
+		});
+			return flag;
+		},
+		check:function(){
+			return true;
+		}
+	}).init();
+	this.search = search;
+	search = $Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		$(".edit_btn").unbind().on("click", function(){
+			$("#idate").show();
+			$("#itime").show();
+			if($(this).attr("code") != undefined && $(this).attr("code") != ""){
+				obj.edit({id:$(this).attr("code")});
+			}
+		});
+		$(".delete_btn").unbind().on("click", function(){	
+			var obthis = $(this);
+			$Dialog().confirm("确定要删除该条数据吗?", function(){
+				if(obthis.attr("code") != undefined && obthis.attr("code") != ""){
+					obj.del({id:obthis.attr("code")});
+				}
+		 });
+		});
+	}}).initSearchBtn().searchData(1);
+	$("#calculation_btn").unbind().on("click", function() {
+		var i_sex=$("#i_sex").val();
+		var i_age=$("#i_age").val();
+		var f_bmi=$("#f_bmi").val();
+		var f_pbf=$("#f_pbf").val();
+		var f_whr=$("#f_whr").val();
+		var f_kcal=$("#f_kcal").val();
+		var i_height=$("#i_height").val();
+		var f_weight=$("#f_weight").val();
+		var f_boday_fat=$("#f_boday_fat").val();
+		var f_skeletal_muscle=$("#f_skeletal_muscle").val();
+		var a,b,temp;
+		if(i_height!="" && i_height>=0 && f_weight!=""&& f_weight>=0){
+			f_bmi = (f_weight/((i_height/100)*(i_height/100))).toFixed(1);
+		}else{
+			ccms.dialog.notice("请输入正确的身高或体重！");
+		}
+		if(i_sex=='1'){
+			f_boday_fat = (1.2*f_bmi+0.23*i_age-5.4-10.8*1).toFixed(1);
+		}else{
+			f_boday_fat = (1.2*f_bmi+0.23*i_age-5.4-10.8*0).toFixed(1);
+		}
+		if(f_boday_fat!="" && f_boday_fat>=0 && f_weight!="" && f_weight>=0){
+			f_pbf = ((f_boday_fat/f_weight)*100).toFixed(1);
+		}else{
+			ccms.dialog.notice("请输入正确的体脂肪或体重！");
+		}
+		if(i_sex == '0'){
+			f_kcal = (66.1+9.6*f_weight+1.72*i_height-4.7*i_age).toFixed(0);
+		}else{
+			f_kcal = (67+13.73*f_weight+5*i_height-6.9*i_age).toFixed(0);
+		}
+		if(i_height !=""&&i_height>0){
+			f_whr = ((i_height*0.365)/(i_height*0.565)).toFixed(2);
+		}else{
+			ccms.dialog.notice("请输入正确的身高！");
+		}
+		if(i_sex == '0'){
+			if(i_age>=18 && i_age<40){
+				f_skeletal_muscle=((f_weight-1.7)/f_weight).toFixed(1);
+			}if(i_age>=40 && i_age<=60){
+				f_skeletal_muscle=((f_weight-2.1)/f_weight).toFixed(1);
+			}else{
+				f_skeletal_muscle=((f_weight-2.4)/f_weight).toFixed(1);
+			}
+		}else{
+			if(i_age>=18 && i_age<=54){
+				f_skeletal_muscle=((f_weight-2.4)/f_weight).toFixed(1);
+			}if(i_age>=55 && i_age<=75){
+				f_skeletal_muscle=((f_weight-2.8)/f_weight).toFixed(1);
+			}else{
+				f_skeletal_muscle=((f_weight-3.1)/f_weight).toFixed(1);
+			}
+		}
+		$("#f_bmi").val(f_bmi);
+		$("#f_pbf").val(f_pbf);
+		$("#f_boday_fat").val(f_boday_fat);
+		$("#f_whr").val(f_whr);
+		$("#f_kcal").val(f_kcal);
+		$("#f_skeletal_muscle").val(f_skeletal_muscle);
+	});
+	var now=new Date();
+	$('#c_idate').val(now.format("yyyy-MM-dd"));
+	$('#c_itime').val(now.format("hh:mm:ss"));
+});
+</script>
+</body>
+</html>

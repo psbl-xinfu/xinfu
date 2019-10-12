@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+		入住管理
+	</summary>
+	
+	<log>false</log>
+    
+    <transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-custerrules.sql" source="sql" scope="transaction" />
+		<recordset id="query-count.sql" source="sql" scope="transaction" />
+		<recordset id="query-MembershipProtectionPeriod.sql" source="sql" scope="transaction" />
+		<recordset id="query-maxnum.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form" recordset="query-custerrules.sql" tag="custerules-list"/>
+		<print mode="form" recordset="query-count.sql" tag="count-list"/>
+		<print mode="form" recordset="query-MembershipProtectionPeriod.sql" tag="period-list"/>
+		<print mode="form" recordset="query-maxnum.sql" tag="maxnum-list"/>
+	</output>
+
+</config>

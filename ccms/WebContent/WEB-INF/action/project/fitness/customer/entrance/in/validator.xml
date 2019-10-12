@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="cust_code" type="varchar" required="true" label="客户编号" />
+    <parameter id="cust_name" type="varchar" required="true" label="客户姓名" />
+    <parameter id="cpcode" type="varchar" required="false" label="团操课程客户预约记录code" />
+    <parameter id="rudge_code" type="varchar" required="false" label="手牌号" />
+    <parameter id="cardcode" type="varchar" required="true" label="会员卡code" />
+    <parameter id="cardtype" type="varchar" required="true" label="会员卡类型" />
+    <parameter id="nowcount" type="varchar" required="false" label="次卡次数" />
+	<parameter id="unionorgid" type="varchar" required="true" label="org_id"/>
+
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="手牌号不能使用，请确认手牌号是否存在及状态！" id="errorinfo" sql="noRep.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="此卡剩余进场次数不足，不能进场！" id="errorinfo" sql="noRep-nowcount.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="此客户现金储值金额、运动基金（赠送）余额都为0，不能入场！" id="errorinfo" sql="noRep-money.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该门店正在放假中，不能入场！" id="errorinfo" sql="nodup-date.sql" />
+    <!--<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该卡类型已禁用，不能入场！" id="errorinfo" sql="noRep-cardtype.sql" />-->
+</validator>
+			
+
+
+

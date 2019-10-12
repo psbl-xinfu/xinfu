@@ -1,0 +1,111 @@
+<!DOCTYPE >
+<html >
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>更改我的密码</title>
+<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+<style type="text/css">
+input {
+	line-height: 45px
+}
+.d2{
+width: 30% !important
+}
+</style>
+</head>
+<body>
+		<form name="formEditor" class="form-horizontal" role="form" method="post" id="formEditor">
+				<input type="hidden" id="tuid" name="tuid" value="${def:user}" />
+				<input type="hidden" id="userlogin" name="userlogin" value="${def:user}" />
+						
+		 <div class="myziliaocontent">
+					<div class="listothers">
+							 <div class='d2 fl'>旧密码：</div>
+							<input   name="oldPasswd" id="oldPasswd"  type="password" size="20" maxlength="15" />
+							<div style="margin-left: 15%"><input  name="oldPasswd_mw" id="oldPasswd_mw" type="hidden" /></div>
+						</div>
+						
+					<div class="listothers">
+							 <div class='d2 fl'>${lbl:s_fld_newpassword}：</div>
+							<input  name="passwd" id="passwd"  type="password" size="20" maxlength="15" />
+						</div>
+						
+					<div class="listothers">
+							 <div class='d2 fl'>${lbl:s_fld_confirm}：</div>
+							<input   name="confirm" id="confirm"  type="password" size="20" maxlength="15" />
+						</div>
+						<div >${lbl:s_invalid_password}	</div>
+			</div>
+						
+						<div>
+				                  <button class="huiyuanbtn"  type="button" id="save_btn"> 提交</button>				
+						</div>
+			</form>
+	
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+
+	<script language="javascript">
+		$(document).ready(function() {
+			if("${fld:type}"=="mc"){
+				homemc();
+			}else if("${fld:type}"=="pt"){
+				homept();
+			}else{
+				homecust();
+			}
+			
+			
+			
+			var obj = $Crud({
+				formId : "formEditor",
+				button : "save_btn",
+				validate : function() {
+					var flag = $("#formEditor").validate({
+						rules : {
+							oldPasswd: {
+								required : true
+							},
+							passwd : {
+								required : true
+							},
+							confirm : {
+								required : true
+							}
+						},
+						messages : {
+							oldPasswd: {
+								required : "请输入旧密码"
+							},
+							passwd : {
+								required : "请输入新密码"
+							},
+							confirm : {
+								required : "请再次输入新密码"
+							}
+						}
+					});
+					return flag;
+				},
+				check:function(){
+					$("#oldPasswd_mw").val($("#oldPasswd").val());
+					return true;
+				}
+			}).init();
+		});
+		
+		
+		function homept(){
+		    var str='<a  href="${def:context}/action/project/fitness/wx/pt/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+			$('body').append(str);
+		}
+		function homecust(){
+		    var str='<a  href="${def:context}/action/project/fitness/wx/cust/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+			$('body').append(str);
+		}
+		function homemc(){
+		    var str='<a  href="${def:context}/action/project/fitness/wx/mc/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+			$('body').append(str);
+		}
+	</script>
+</body>
+</html>

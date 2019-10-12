@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>会员首页</title>
+    	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+    	  <link href="${def:context}/js/project/fitness/wx/css/swiper.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Swiper -->
+        <div class="swiper-container" id="swiper1">
+            <div class="swiper-wrapper"  >
+        		<!-- 	<div class="swiper-slide"><img src="${def:context}/js/project/fitness/wx/image/banner.png" class="bannerimg"></div>
+                   <div class="swiper-slide"><img src="${def:context}/js/project/fitness/wx/image/banner.png" class="bannerimg"></div>
+                   <div class="swiper-slide"><img src="${def:context}/js/project/fitness/wx/image/banner.png" class="bannerimg"></div> -->
+            </div>
+            <!-- 分页器 -->
+            <div class="swiper-pagination"></div>
+        </div>
+        
+        <!--活动图片-->
+        <div class="swiper-container" id="swiper2">
+            <div class="swiper-wrapper">
+            </div>
+            <!-- 分页器 -->
+        </div>
+
+        
+        <div class="huiyuantiao"></div>
+
+        <div class="huiyuanbottom container">
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/huiyuanmyziliao.png" class="bottomimg" id="center">
+                    <p class="name">我的资料</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/huiyuanmysijiao.png" class="bottomimg" id="mypt">
+                    <p class="name">我的私教</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/huiyuantuancao.png" class="bottomimg" id="tuancao">
+                    <p class="name">团操课表</p>
+                </div>
+                <div class="col-xs-4">
+                    <img src="${def:context}/js/project/fitness/wx/image/huiyuanmyfankui.png" class="bottomimg" id="complaintsuggest">
+                    <p class="name">意见反馈</p>
+                </div>
+              <!--  <div class="col-xs-4">
+                        <img src="${def:context}/js/project/fitness/wx/image/yuyue.png" class="bottomimg" id="site">
+                        <p class="name">场地预约</p>
+                </div> -->
+        
+            </div>
+        </div>
+        <div class="huiyuandivhengxian"></div>
+	 
+	 
+<!--   	<div class="huiyuanwoxingwoxiu">
+           <div class="shuxian fl"></div>
+           <div class="biaoti fl">分享集赞</div>
+           <div class="more fr"  onclick="goIndex()">more>></div>
+      </div> -->
+<!-- 
+	<div id="activeDate">
+        <div class="huiyuanshow">
+            <p class="biaoti">给我点个赞吧——（此位置标题）</p>
+            <div class="showdiv">
+                <img src="${def:context}/js/project/fitness/wx/image/show1.png" class="showimg fl">
+                <img src="${def:context}/js/project/fitness/wx/image/show2.png" class="showimg fr">
+                <span class="textf">健身前</span>
+                <span class="textn">健身后</span>
+            </div>
+            <div class="bottomdiv">
+                <div class="name fl">李心蕊</div>
+                <div class="time fl">30分钟前</div>
+                <div class="number fr">33</div>
+                <div class="aixin fr"><img src="${def:context}/js/project/fitness/wx/image/aixin_white.png"></div>
+            </div>
+            <div class="showxiantiao"></div>
+        </div>
+     </div> -->
+
+        
+
+        
+       <script src="${def:context}/js/project/fitness/wx/js/swiper-4.0.7/js/swiper.min.js"></script>
+    </body>
+</html>
+<script type="text/javascript">
+getAjaxCall("/action/project/fitness/wx/basic/banner", false, function(){});
+var customercode='';
+    $(function(){
+    	<info>
+    		customercode='${fld:code}';
+    	</info>
+    	
+    	
+        $('#center').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/cust/center/crud?customercode="+customercode;
+        })
+         $('#mypt').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/cust/mypt/crud?customercode="+customercode;
+        })
+         $('#complaintsuggest').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/cust/complaintsuggest/crud?customercode="+customercode;
+        })
+    	$('#tuancao').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/cust/tuancao/list/crud?customercode="+customercode;
+        })
+        /* $('#site').on('click',function(){
+        	<servicetwo>
+            var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/site/crud";
+           	location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+           	</servicetwo>
+        }) */
+        
+    });
+    
+    
+    function goIndex(){
+    	<service>
+        var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/market/index/crud?sid=${fld:tuid}&customercode="+customercode;
+    	var _uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+    	</service>
+    	window.location.href = _uri;
+    	//location.href="${def:context}/action/project/fitness/wx/market/index/crud?customercode="+customercode;
+    }
+    
+    
+    
+</script>

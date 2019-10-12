@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="customercode" type="varchar" required="true" label="customercode" maxlen="20" />
+ 	 <parameter id="name" type="varchar" required="true" label="name" maxlen="20" />
+	<parameter id="sex" type="integer" required="true" label="sex" maxlen="20" />
+	<parameter id="nicheng" type="varchar" required="true" label="sex" maxlen="20" />
+</validator>

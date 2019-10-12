@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="unionid" type="integer" required="true" label="unionid" maxlen="20" />
+
+</validator>
+

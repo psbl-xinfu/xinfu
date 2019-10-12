@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="vc_all" type="varchar" required="false" label="卡号/姓名" />
+	<parameter id="ptlevelname" type="varchar" required="false" label="私教类型" />
+	<parameter id="pt_name" type="varchar" required="false" label="私教" />
+	<parameter id="overdue" type="integer" required="false" label="是否过期" />
+	<custom-validator 
+		classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="vc_all" 
+		rule="contains" 
+		ifnull="%" />
+</validator>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>退卡合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+	<div class="basic-dialog  dialogbg" style="height: 700px">
+		<header class="header-default">
+		退卡合同
+		</header>
+		<form id="contractForm" name="contractForm" method="post">
+			<input type="hidden" id="contractcode" name="contractcode" value="" preserve="true" />
+			<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+			<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
+			<input type="hidden" id="cardcontractcode" name="cardcontractcode" value="" />
+			<input type="hidden" id="oldinimoney" name="oldinimoney" value="" />
+			<input type="hidden" id="oldnormalmoney" name="oldnormalmoney" value="" />
+			<input type="hidden" id="leftmoney" name="leftmoney" value="" />
+			<input type="hidden" id="moneyleft" name="moneyleft" value="" />
+			<input type="hidden" id="usedays" name="usedays" value="0" />
+			<div class="b-i-main">
+				<nav>
+					<li>
+						<label for="" style="width: 120px;">会员：</label>
+						<span id="custnamespan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">电话：</label>
+						<span id="mobilespan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">销售员：</label>
+						<select id="salemember" name="salemember" style="display: none;">
+							<sale-rows>
+							<option value="${fld:userlogin}">${fld:name@js}</option>
+							</sale-rows>
+						</select>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">会员卡号：</label>
+						<select  id="cardcode" name="cardcode" style="display: none;">
+							<option value="">请选择</option>
+							<card-rows>
+							<option code="${fld:contractcode@js}" value="${fld:code}">${fld:code@js}${fld:isgoonname}</option>
+							</card-rows>
+						</select>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">卡类型：</label>
+						<span id="cardtypespan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">有效期：</label>
+						<span id="startdatespan"></span>至<span id="enddatespan"></span>
+		     		</li>
+					<li id="countDiv" style="display:none;">
+						<label for="" style="width: 120px;">剩余次数/总次数：</label>
+						<span id="nowcountspan"></span>/<span id="countspan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">原价：</label>
+						<span id="inimoneyspan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">成交价：</label>
+						<span id="normalmoneyspan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">合同尚欠金额：</label>
+						<span id="leftmoneyspan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">总尚欠金额：</label>
+						<span id="moneyleftspan"></span>
+		     		</li>
+					<li>
+						<label for="" style="width: 120px;">应收：</label>
+						<input type="text" placeholder="应收" id="normalmoney" name="normalmoney" value="" />
+		     		</li>
+		     		<li></li>
+					<li class="to100w" >
+						<label for="">备注：</label>
+						<textarea class="my-textarea" id="remark" name="remark" ></textarea>
+		     		</li>		
+				</nav>
+			</div>
+					<footer class="footer-default">
+						<button class="my-btn-default" type="button" id="save_btn" >保存</button>
+						<button class="my-btn-default active" id="pay_btn" type="button" style="display: none;">收款</button>
+					</footer>
+			</form>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var istopay = false;
+var currentDate = new Date();
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#pay_btn").show();
+	}
+	searchSelectInit($("#salemember,#cardcode"));
+	$("#salemember").val("${def:user}");
+	searchSelectInit($("#salemember"));
+	selectInit($("#cardcode"));  
+	<cust-rows>
+		$("#customercode").val("${fld:code}");
+		$("#custnamespan").text("${fld:name@js}");
+		$("#mobilespan").text("${fld:mobile@js}");
+	</cust-rows>
+
+	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}", true);
+	}
+	
+	// 会员卡
+	$("#cardcode").on("change",function(){
+		var cardcontractcode = $(this).find("option:selected").attr("code");
+		$("#cardcontractcode").val(cardcontractcode);
+		if( "" == cardcontractcode || "" == $(this).val() ){
+			clearcarddetail();
+		}else{
+			getcarddetail($(this).val(), cardcontractcode);
+		}
+	});
+	
+	// 保存
+	$("#save_btn").unbind().on("click",function(){
+		istopay = false;
+		saveContract();
+	});
+	// 收款
+	$("#pay_btn").unbind().on("click",function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		istopay = true;
+		saveContract();
+	});
+});
+function clearcarddetail(){
+	$("#cardtypespan").text("");
+	$("#startdatespan").text("");
+	$("#enddatespan").text("");
+	$("#nowcountspan").text("");
+	$("#countspan").text("");
+	$("#inimoneyspan").text("");
+	$("#normalmoneyspan").text("");
+	$("#leftmoneyspan").text("");
+	$("#moneyleftspan").text("");
+	
+	$("#oldinimoney").val("");
+	$("#oldnormalmoney").val("");
+	$("#leftmoney").val("");
+	$("#moneyleft").val("");
+	$("#usedays").val("0");
+	$("#countDiv").hide();
+}
+function getcarddetail(cardcode, contractcode, callback){
+	getAjaxCall("/action/project/fitness/contract/sendback/querycarddetail?cardcode="+cardcode+"&contractcode="+contractcode, true, callback);
+}
+function saveContract(){
+	var cardcode = $("#cardcode").val();
+	var cardcontractcode = ("" != cardcode ? $("#cardcode").find("option:selected").attr("code") : "");
+	if( "" == cardcode || "" == cardcontractcode ){
+		ccms.dialog.notice("请先选择会员卡号！", 2000);
+		return false;
+	}
+	getcarddetail(cardcode, cardcontractcode, function(){
+		var contractcode = $("#contractcode").val();
+		if( "" != contractcode ){
+			// 判断合同状态
+			getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
+				if( data && Number(data.status) >= 2 ){
+					if( istopay ){
+						topay(contractcode);
+					}else{
+						ccms.dialog.notice("已付款合同不允许修改！", 2000);
+					}
+				}else{
+					postAjaxCall("${def:actionroot}/update", "contractForm", true);	// 未付款合同可修改
+				}
+			});
+		}else{
+			getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", true, function(){
+				if( "" == $("#newcontractcode").val() ){
+					ccms.dialog.notice("合同号生成失败", 2000);
+				}else{
+					postAjaxCall("${def:actionroot}/insert", "contractForm", true);
+				}
+			});
+		}
+	});
+}
+function topay(contractcode){
+	var  Obj=parent.document.getElementsByTagName('iframe')     
+	$(Obj).height(400);   
+	location.href = contextPath + "${def:actionroot}/view?contractcode="+contractcode;
+}
+</script>
+</body>
+</html>

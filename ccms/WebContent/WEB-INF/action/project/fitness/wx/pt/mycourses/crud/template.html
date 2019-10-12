@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        ${inc:/action/project/fitness/wx/pub}
+        <title>我的课程</title>
+        <link href="${def:context}/js/project/fitness/wx/css/courses/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/courses/courseList.css" rel="stylesheet">
+    </head>
+   <body>
+	<div class="containter bg">
+		<div class="header clearlr">
+			<img class="fl head-img" src="${def:context}${fld:headpic}"  >
+			<div class="user-info clearlr">
+				<label class="user-name fl">${fld:name}</label>
+				<label class="fl user-sex sex-girl " style="display: none" id="woman"></label>
+				<label class="fl user-sex user-sex"style="display: none" id="man"></label>
+			</div>
+			<div>
+				<label class="user-tel">${fld:mobile}</label>
+				<label class="user-duties">${fld:skill_name}</label>
+			</div>
+		</div>
+		<div class="con-title">
+			我的课程
+			<select class="fr" id="cousrse">
+				<option value="10">全部</option>
+				<option value="0">未开始</option>
+				<option value="1">正在进行</option>
+				<option value="2">已完成</option>
+			</select>
+		</div>
+		<div class="con-list">
+			<div class="no-data disNone">
+				您当前没有正在进行的课程
+			</div>
+			
+			<group>
+				<div class="con-details clearlr" onclick="gotoList(${fld:groupid})" code="${fld:status}">
+					<img class="fl" src="${fld:coverurl}" >
+					<div class="cour-info">
+						<label class="cour-name">${fld:groupname}</label>
+						<label class="cour-brief">${fld:remark}</label>
+						<label class="cour-desc">共${fld:coursenum}章，总计${fld:classnum}节</label>
+						<label class="cour-status">${fld:status}</label>
+					</div>
+				</div>
+			</group>
+			
+			
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+	$(function(){
+		if("${fld:type}"=="mc"){
+			homemc()
+		}else{
+			homept()
+		}
+		
+		if("${fld:sex}"==1){
+			$('#woman').show();
+		}else{
+			$('#man').show();
+		}
+		
+		
+		$('#cousrse').on('change',function(){
+			var code=$(this).val();
+			$('.con-details').hide();
+			if(code==0){
+				$('.con-details[code="未开始"]').show();
+			}else if(code==1){
+				$('.con-details[code="进行中"]').show();
+			}else if(code==2){
+				$('.con-details[code="已完成"]').show();
+			}else if(code==10){
+				$('.con-details').show();
+			}
+		})
+		
+	})
+	
+	
+	function gotoList(id){
+       	location.href="${def:context}/action/project/fitness/wx/pt/mycourses/calsslist/crud?id="+id+"&type=${fld:type}";
+	}
+	</script>
+</body>
+
+</html>
+
+
+

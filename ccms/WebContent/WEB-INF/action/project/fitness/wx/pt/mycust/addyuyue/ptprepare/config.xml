@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTableManager</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>true</jdbc-log>
+		<recordset id="query-dat.sql" source="sql" scope="transaction"/>
+		<recordset id="query-num.sql" source="sql" scope="transaction"/>
+		<recordset id="query-ptprepare.sql" source="sql" scope="transaction"/>
+		<recordset id="query-ptstatus.sql" source="sql" scope="transaction"/>
+		<recordset id="query-time.sql" source="sql" scope="transaction"/>
+		<recordset id="query-work.sql" source="sql" scope="transaction"/>
+		<recordset id="query-workdate.sql" source="sql" scope="transaction"/>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<print mode="form" recordset="query-dat.sql" />
+		<print mode="form" recordset="query-num.sql" />
+		<print mode="form" recordset="query-ptprepare.sql" />
+		<print mode="form" recordset="query-ptstatus.sql" />
+		<print mode="form" recordset="query-time.sql" />
+		<print mode="form" recordset="query-work.sql" />
+		<print mode="form" recordset="query-workdate.sql" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

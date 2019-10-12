@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="sitetype" type="varchar" required="true" label="场地类型" />
+    <parameter id="prepare_date" type="varchar" required="true" label="当前页面日期" />
+    <parameter id="org_id" type="varchar" required="true" label="门店" />
+    <parameter id="choose_way" type="varchar" required="true" label="选择方式" />
+</validator>

@@ -1,0 +1,22 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+			"tuid":"${fld:tuid}",
+		    "results_money":"${fld:results_money}",
+		    "task_money":"${fld:task_money}",
+		    "strange_reception_num":"${fld:strange_reception_num}",
+		    "strange_deal_num":"${fld:strange_deal_num}",
+		    "appointment_visit_num":"${fld:appointment_visit_num}",
+		    "appointment_deal_num":"${fld:appointment_deal_num}",
+		    "cust_expire_num":"${fld:cust_expire_num}",
+		    "cust_renewal_num":"${fld:cust_renewal_num}",
+		    "name":"${fld:name@js}",
+		    "completion":"${fld:completion@js}",
+		    "strange_transaction_rate":"${fld:strange_transaction_rate@js}",
+		    "appointment_rate":"${fld:appointment_rate@js}",
+		    "mc_renewal_rate":"${fld:mc_renewal_rate@js}"
+		    	
+	},
+	</rows>
+	{}
+]}

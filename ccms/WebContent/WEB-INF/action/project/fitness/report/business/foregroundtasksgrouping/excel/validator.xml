@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	
+	<parameter id="daochu_start_date" type="date" required="true" label="时间"/>
+	<parameter id="daochu_end_date" type="date" required="true" label="时间"/>
+	<parameter id="daochu_skill_name" type="varchar" required="false" label="会籍"/>
+	<parameter id="daochu_team_id" type="varchar" required="false" label="分组"/>
+</validator>

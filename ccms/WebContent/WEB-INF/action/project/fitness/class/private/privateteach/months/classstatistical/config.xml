@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>transactions.project.fitness.report.AnalysisOrgBase</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+	
+	<query>query.sql</query>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query.sql" tag="rows" />
+		<!-- <print mode="table" recordset="tb-query.sql" tag="tb-rows" />
+		<print mode="table" recordset="hb-query.sql" tag="hb-rows" /> -->
+	</output>
+
+</config>

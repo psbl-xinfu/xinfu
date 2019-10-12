@@ -1,0 +1,17 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{	
+			"radiolink":"${fld:radiolink@js}",	
+			"xuhao":"${fld:_rowNumber}",
+		    "relatedetail":"${fld:relatedetail}",
+		    "inimoney":"${fld:inimoney}",
+		    "normalmoney":"${fld:normalmoney}",
+		    "factmoney":"${fld:factmoney}",
+		    "createdby":"${fld:createdby}", 
+		    "createtime":"${fld:createtime}",
+		    "opertype":"${fld:opertype}",
+		    "createdate":"${fld:createdate}"
+	},
+	</rows>
+	{}
+]}

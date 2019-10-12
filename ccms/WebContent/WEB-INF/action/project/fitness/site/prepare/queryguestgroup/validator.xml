@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="customertype" type="varchar" required="true" label="类型" />
+    <parameter id="pkvalue" type="varchar" required="true" label="资源会员编号" />
+    <parameter id="tuid" type="varchar" required="false" label="tuid" />
+</validator>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="pt" type="varchar" required="false" label="私教" />
+	<parameter id="datemonth" type="varchar" required="true" label="月份" />
+	<parameter id="ptlevelcode" type="varchar" required="false" label="课程" />
+
+</validator>

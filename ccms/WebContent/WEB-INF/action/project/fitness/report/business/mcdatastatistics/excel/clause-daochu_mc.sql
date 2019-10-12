@@ -1,0 +1,1 @@
+AND userlogin = ${fld:daochu_mc}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <title>实时排名</title>
+        <link href="${def:context}/js/project/fitness/wx/css/market/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/market/ranking.css" rel="stylesheet">
+    </head>
+
+
+<body>
+	<div class="containter bg">
+		<div class="desc-time"></div>
+		<div class="comm-width bg-white">
+			<ul class="rank-ul">
+				<li class="rank-title">
+					<span class="r-t-1">排名</span>
+					<span class="r-t-2">参赛选手</span>
+					<span class="r-t-3">票数</span>
+				</li>
+			<!-- 	<li class="clearlr" onclick="goToupiao()">
+					<span class="rank-num fl">1</span>
+					<img class="fl" src="${def:context}/js/project/fitness/wx/image/cx/btn-head.png" >
+					<span class="user-name fl">康新文</span>
+					<span class="ticket-num fr">2989票</span>
+				</li>
+				<li class="clearlr">
+					<span class="rank-num fl">2</span>
+					<img class="fl" src="${def:context}/js/project/fitness/wx/image/cx/btn-head.png">
+					<span class="user-name fl">康新文</span>
+					<span class="ticket-num fr">2989票</span>
+				</li>
+				<li class="clearlr">
+					<span class="rank-num fl">3</span>
+					<img class="fl" src="${def:context}/js/project/fitness/wx/image/cx/btn-head.png">
+					<span class="user-name fl">康新文</span>
+					<span class="ticket-num fr">2989票</span>
+				</li>
+				<li class="clearlr">
+					<span class="rank-num fl">4</span>
+					<img class="fl" src="${def:context}/js/project/fitness/wx/image/cx/btn-head.png">
+					<span class="user-name fl">康新文</span>
+					<span class="ticket-num fr">2989票</span>
+				</li>
+				<li class="clearlr">
+					<span class="rank-num fl">5</span>
+					<img class="fl" src="${def:context}/js/project/fitness/wx/image/cx/btn-head.png">
+					<span class="user-name fl">康新文</span>
+					<span class="ticket-num fr">2989票</span>
+				</li> -->
+			</ul>
+		</div>
+		<!-- <div class="desc">由XXX科技公司提供技术支持</div>
+ -->	</div>
+</body>
+<script type="text/javascript">
+
+$(function(){
+	homecust();
+	
+	var edate="${fld:enddate}";
+	var d = new Date();
+	var time = d.getFullYear()+"-"+((d.getMonth()+1)>=10?+(d.getMonth()+1):"0"+(d.getMonth()+1))+"-"+((d.getDate())>=10?d.getDate():'0'+d.getDate())
+
+	$('.desc-time').text("投票倒计时："+getTime2Time(edate,time)+'天')
+	
+	var index=0;
+	var str=""
+	<rows>
+	index++;
+	 str+='<li class="clearlr"  onclick="info(${fld:code})">'
+	 str+='<span class="rank-num fl">'+index+'</span>'
+	 str+='<img class="fl" src="${def:context}${fld:headpic}">'
+	 str+='<span class="user-name fl">${fld:enrollname}</span>'
+	 str+='<span class="ticket-num fr">${fld:num}票</span>'
+	 str+='</li>'
+	</rows>
+	 $('.rank-ul').append(str);
+	
+})
+function goToupiao(){
+	location.href="${def:context}/action/project/fitness/wx/market/ballot/crud?customercode=${fld:customercode}";
+}
+function getTime2Time(time1,time2)
+{
+var time1 = arguments[0], time2 = arguments[1];
+time1 = Date.parse(time1)/1000;
+time2 = Date.parse(time2)/1000;
+var time_ = time1 - time2;
+return (time_/(3600*24));
+}
+
+
+
+function info(id){
+	<service>
+    var suburi = "${fld:access_address}" + contextPath + "/action/project/fitness/wx/market/ballot/crud?sid=${fld:tuid}&customercode="+customercode+"&id="+id;
+	var _uri = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=${fld:appid}&redirect_uri=" + encodeURIComponent(suburi) + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+	</service>
+	window.location.href = _uri;
+}
+
+</script>
+</html>

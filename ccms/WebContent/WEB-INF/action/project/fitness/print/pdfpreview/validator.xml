@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="path" type="varchar" required="true" label="pdf路径"/>
+</validator>

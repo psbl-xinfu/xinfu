@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>体测记录</title>
+	  ${inc:/action/project/fitness/wx/newpub}
+	      		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    		 	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    		 	<style type="text/css">
+    		 	.bg{
+    		 	background: #FFDAB9  !important
+    		 	}
+    		 	</style>
+</head>
+<body>
+
+<form  id="filter"  name="filter">
+	<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}">
+	   
+	   
+	   
+	   <div class="gerenyuyuexqcontent"  style="margin-top: 0px">
+	             <div class="listothers">
+	                <div class='d2 fl'>日期</div>
+	                <div class='d4 fr'><input  style="margin-top: 10px;font-size: 16px" type="text" name="datetimepicker"  data-date-format="yyyy-mm-dd" class="form-control dateinput" id="datetimepicker"  placeholder="请选择日期"></div>
+	            </div>
+		</div>
+		
+		
+		
+	<div class="containter xljhb xljh">
+ 		<nav  id="pt">
+			<li>
+				<select name="ptname"   id="ptname">
+					<option value="">请选择教练</option>
+					<list>
+						<option value="${fld:ptid}">${fld:ptname}</option>
+					</list>
+				</select>
+				<p></p>
+			<select name="ptcoure"   id="ptcoure">
+					<option value="">请选择课程</option>
+					<list1>
+					`<option value="${fld:ptlevelcode}">${fld:ptlevelname} ${fld:ptfee}元</option>
+					</list1>
+				</select>
+			</li>
+		</nav> 
+</form>		
+		
+		<ul id="data">
+		</ul> 
+
+		<div class="hetongxqbtn"  style="display: none">
+            <img src="${def:context}/js/project/fitness/wx/image/tijiao.png" class="tijiao" id="save">
+        </div>
+
+	</div>
+	    <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+		<script type="text/javascript">
+		$(function(){
+			// modified by leo 190213 修正私教访问体侧返回不正确
+			if("${fld:type}"=="mc"){
+				homemc();
+			}else if("${fld:type}"=="pt"){
+				homept();	
+			}else{
+				homecust();
+			}
+			$('#pt').hide();
+			if("${fld:customercode}"!=""){
+				getCustTice();
+			}else{
+				getGustTice();
+			}
+			
+			$('#ptname,#ptcoure').on('change',function(){
+				getCustTice();
+			})
+			
+			  var currYear = (new Date()).getFullYear();  
+			    var opt={};
+			    opt.date = {preset : 'date'};
+			    opt.datetime = {preset : 'datetime'};
+			    opt.time = {preset : 'time'};
+			    opt.default = {
+			    		theme: 'android-ics light', //皮肤样式
+			      		display: 'bottom', //显示方式 
+			            mode: 'scroller', //日期选择模式
+			            dateFormat: 'yy-mm-dd ',
+			        timeFormat: 'HH:ii:ss',
+			        lang: 'zh',
+			        showNow: true,
+			        nowText: "今天",
+			        startYear: currYear - 50, //开始年份
+			        endYear: currYear + 10,      
+			        onSelect:function(valueText,inst){
+			        	$('#datetimepicker').val(valueText)
+			        	if("${fld:guestcode}"!=""){
+			        		getGustTice()
+			        	}else{
+			        		getCustTice();
+			        	}
+					} //结束年份
+			    };
+			    $("#datetimepicker").mobiscroll( $.extend(opt['date'], opt['default']) );
+			    
+			    $('#save').on('click',function(){
+			    	var len=$('.bg').length;
+			    	if(len==2){
+			        	var codes="";
+				    	$('.bg').each(function(){
+				    		codes+=$(this).attr('code')+';';
+				    	})
+			    		codes=codes.substring(codes,codes.length-1);
+				    	// modified by leo 190213 修正会籍调用对比详情页返回问题
+						if("${fld:type}"=="mc"||"${fld:type}"=="pt"){
+							duibiInfoMc(codes,"${fld:type}");
+						}else{
+					    	duibiInfo(codes);
+						}
+						// duibiInfo(codes);
+			    	}else{
+			    		ccms.dialog.notice("只能对比两条记录！");
+			    	}
+			    })
+		})
+		
+  function getCustTice(){
+        	postAjaxCall("/action/project/fitness/wx/cust/center/tice/duibi/custlist?","filter",false);
+    }
+    
+	function getGustTice(){
+		getAjaxCall("/action/project/fitness/wx/cust/center/tice/duibi/gustlist?guestcode=${fld:guestcode}",false);
+	}
+	
+	
+	function duibiInfo(codes){
+	  	location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?codes="+codes+"&type=${fld:type}";
+	}
+	// add by leo 190213 会籍查看增加识别
+	function duibiInfoMc(codes,type){
+	  	location.href="${def:context}/action/project/fitness/wx/cust/center/tice/duibi/duibipic?type="+type+"&codes="+codes;
+	}
+
+		</script>
+</body>
+
+</html>

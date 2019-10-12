@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="ptpcode" type="varchar" required="true" label="私教课程预约记录code"/>
+    <parameter id="ptrestcode" type="varchar" required="true" label="私教课库存code"/>
+    <parameter id="isprint" type="varchar" required="false" label="是否打印签课小票"/>
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="签课只能选择当天私教课程预约记录" id="execution" sql="noRep.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该门店正在放假中，不能签课！" id="execution" sql="nodup-date.sql" />
+</validator>

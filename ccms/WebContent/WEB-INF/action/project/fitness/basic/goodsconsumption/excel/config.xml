@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		商品销售记录
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_startdate,daochu_enddate,daochu_cust,daochu_paystatus</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="商品销售记录" filename="商品销售记录.xls" header-background="true">
+		<col id="tuid" label="订单编号" /> 
+		<col id="goodsname" label="商品名称" /> 
+		<col id="custname" label="顾客" />
+		<col id="cardcode" label="卡号" />
+		<col id="standard" label="规格" />
+		<col id="amount" label="数量" />
+		<col id="factmoney" label="标价金额（元）" />
+		<col id="discount" label="折扣金额（元）" />
+		<col id="getmoney" label="实收金额（元）" />
+		<col id="paystatus" label="状态" />
+		<col id="created" label="购买日期" />
+		<col id="staff_name" label="操作人" />
+	</excel>
+
+</config>

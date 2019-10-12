@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>系统管理</title>
+<style>
+.left ul li a {
+font:15px/20px \"宋体\";
+color:black;
+}
+
+.r-tab li.am-active a{
+ color:#c8c8c8 !important;
+}
+</style>
+</head>
+<body >
+	<div class="am-tabs systems-management" data-am-tabs="{noSwipe: 1}">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="twopage">
+			<li class='sub_li' onclick="Card_number_rule()"><a href="#card_Number_rule" class="three-none" id="card_number_rule">卡号规则</a></li>
+			<li class='sub_li' onclick="Posbar_print()"><a href="#posbar_Print" class="three-none">POS条打印</a></li>
+		    <li class='sub_li' onclick="Weather_setting()"><a href="#weather_Setting" class="three-none">天气设置</a></li>
+			<li class='sub_li' onclick="taskgoal()"><a href="#taskgoal" class="three-none" id="taskgoal">任务目标</a></li>
+			<li class='sub_li' onclick="ishand()"><a href="#ishand" class="three-none" id="ishand">入场规则</a></li>
+			<li class='sub_li' onclick="orgdisclaimer()"><a href="#orgdisclaimer" class="three-none" id="orgdisclaimer">俱乐部免责声明</a></li>
+			
+			<li class='sub_li' onclick="ptaim()"><a href="#ptaim" class="three-none" id="ptaim">健身目的</a></li>
+			<li class='sub_li' onclick="customerclassification()"><a href="#customerclassification" class="three-none" id="customerclassification">客户分类</a></li>
+			<li class='sub_li' onclick="GuestType()"><a href="#GuestType" class="three-none" id="guesttype">获客渠道</a></li>
+			<li class='sub_li' onclick="PersonalHobbies()"><a href="#personalhobbies" class="three-none" id="personalhobbies">个人爱好</a></li>
+			<li class='sub_li' onclick="Nation()"><a href="#nation" class="three-none" id="nation">民族</a></li>
+			<li class='sub_li' onclick="ConsultingHabit()"><a href="#consultingHabit" class="three-none" id="consultingHabit">获取咨询习惯</a></li>
+			<li class='sub_li' onclick="sitetype()"><a href="#sitetype" class="three-none" id="sitetype">场地类型</a></li>
+			<li class='sub_li' onclick="equipmentManagement()"><a href="#equipmentManagement" class="three-none" id="equipmentManagement">设备管理</a></li>
+			<li class='sub_li' onclick="venues()"><a href="#venues" class="three-none" id="venues">场馆管理</a></li>
+		</nav>
+	</div>
+		    <!-- 卡号规则 -->
+     		<div src ="" width="100%" height="600px" frameborder="0" id="formEditor_manage">
+      			</div>
+	<div onclick="updatecarddate()" style="display: none;"><span style="color: white;">修改会员卡办卡日期</span></div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	$("#card_number_rule").click();
+
+	//子集菜单效果
+    $('#twopage .sub_li').parent().css('background-color','transparent');
+	$('#twopage .sub_li').children().attr('style','color:#c8c8c8;');
+	$('#twopage .sub_li').eq(0).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	$('#twopage .sub_li').on('click',function(){
+		$('#twopage .sub_li').attr('style','');
+		$(this).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	})
+	
+});
+//设置市场调研
+function Card_number_rule(){
+	$("#").load("${def:context}${def:actionroot}/cardnumberrule/crud?ispubload=true");
+}
+//设置会员兴趣
+function Posbar_print()
+{
+	$("#formEditor_manage").load("${def:context}${def:actionroot}/posbarprint/crud?ispubload=true");
+}
+//设置会员兴趣
+function Weather_setting()
+{
+	$("#formEditor_manage").load("${def:context}${def:actionroot}/weathersetting/crud?ispubload=true");
+}
+//任务目标
+function taskgoal(){
+	$("#formEditor_manage").load("${def:context}${def:actionroot}/taskgoal/crud?ispubload=true");
+}
+//入场刷卡规则
+function ishand(){
+	$("#formEditor_manage").load("${def:context}${def:actionroot}/ishand/crud?ispubload=true");
+}
+//俱乐部免责声明
+function orgdisclaimer(){
+	$("#formEditor_manage").load("${def:context}${def:actionroot}/orgdisclaimer/crud?ispubload=true");
+}
+
+//健身目的
+function ptaim(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/ptaim/crud?ispubload=true");
+}
+//客户分类
+function customerclassification(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/customerclassification/crud?ispubload=true");
+}
+//获客渠道
+function GuestType(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/guesttype/crud?ispubload=true");
+}
+//个人爱好
+function PersonalHobbies(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/personalhobbies/crud?ispubload=true");
+}
+//民族
+function Nation(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/nation/crud?ispubload=true");
+}
+//获取咨询习惯
+function ConsultingHabit(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/consultingHabit/crud?ispubload=true");
+}
+//场地类型
+function sitetype(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/sitetype/crud?ispubload=true");
+}
+function updatecarddate(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/systemmanage/updatecarddatetime/crud?ispubload=true");
+}
+//设备
+function equipmentManagement(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/equipmentManagement/crud?ispubload=true");
+}
+
+//场馆
+function venues(){
+	$("#formEditor_manage").load("${def:context}/action/project/fitness/config/systemsettings/maintenance/venues/crud?ispubload=true");
+}
+</script>
+</body>
+</html>

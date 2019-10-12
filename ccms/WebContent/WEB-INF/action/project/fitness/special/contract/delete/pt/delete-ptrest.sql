@@ -1,0 +1,1 @@
+DELETE FROM cc_ptrest WHERE contractcode = ${fld:vc_code} and org_id = ${def:org}

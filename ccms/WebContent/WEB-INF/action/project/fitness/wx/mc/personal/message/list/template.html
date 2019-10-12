@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>消息记录</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+        	 <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet" />
+    </head>
+     <body>
+        
+        <div class="huijiliaotiantop"  >
+            <div class="list">
+               <img id="headpic" src="" class="touxiangpic fl">
+                <div class="content fl">
+                    <p class="name" id="name"></p>
+                    <p class="time" id="lasttime"></p>
+                </div>
+            </div>
+        </div>   
+		
+        <div class="huijiliaotiancontent"  id="divmsg" style="height:200px;overflow:auto;margin-bottom: 50px"></div>
+        
+                 <div class="huijiliaotianinput">
+            <input type="text" class="form-control liuyaninput" id="content"  placeholder="" name="content">
+            <img src="${def:context}/js/project/fitness/wx/image/liuyansubmit.png" class="liuyansubmit"  id="send"> 
+        </div>
+        
+        
+            <input type="hidden" id="type"   value="">
+    </body>
+    <script type="text/javascript">
+    
+    
+    $(function(){
+     	if("${fld:type}"=="pt"){
+    		homept();
+    	}else{
+    		homemc();
+    	}
+    	<name>
+    	$('#name').text("${fld:name}");
+    	$('#lasttime').text("最近跟进：${fld:lasttime}");
+    	$('#headpic').attr('src',contextPath+"${fld:headpic}");
+    	</name>
+    	search();
+    	
+    	
+       $('#send').on('click',function(){
+    	   if($('#content').val()!=""){
+    		   sends($('#content').val());
+    	   }else{
+    		   ccms.dialog.notice("信息不能为空");
+    	   }
+       })
+       
+       setInterval("search()", 2000);
+    })
+    
+    	
+    function sends(content){
+    	getAjaxCall("/action/project/fitness/wx/mc/personal/message/insert?content="+content+"&code=${fld:recuser}",false);
+    }
+    
+    
+    function search(){
+    	getAjaxCall("/action/project/fitness/wx/mc/personal/message/list/search?recuser=${fld:recuser}",false);
+    }
+    
+    </script>
+    
+    
+        <script language="javascript">
+        var flag=true;
+    	function sc(){
+              var div = document.getElementById('divmsg');
+              var el=document.documentElement;
+              div.scrollTop = div.scrollHeight;
+              el.scrollTop = div.scrollHeight+1000;
+    	}
+</script>
+</html>

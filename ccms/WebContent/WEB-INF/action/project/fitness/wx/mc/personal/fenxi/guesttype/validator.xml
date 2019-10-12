@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="typedate" type="date" required="false" label="typedate" />
+	<parameter id="enddate" type="date" required="false" label="enddate" />
+</validator>

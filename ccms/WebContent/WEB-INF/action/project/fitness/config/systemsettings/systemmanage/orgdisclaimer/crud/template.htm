@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>俱乐部免责声明</title>
+</head>
+<body>
+	<div class="panel-default col_mainInner">
+		<div class="panel-body col_main_body sz-xtgl">
+			<form method="post" name="formEditor" id="formEditor" class="titlecust">
+				<div class="xt-1-div hasRadio">
+					<label for="ccc" style="color: white;"></label>
+					<textarea rows="12" cols="" id="disclaimer" name="disclaimer">${fld:disclaimer}</textarea>
+				</div>
+			   	<div class="banner-top ba1" style="margin-top:15px;">
+				   	 <button id="edit_btn" type="button" class="my-btn-default active">确定</button>
+			   	</div>
+			</form>
+		</div>
+	</div>
+<script language="JavaScript">
+$(document).ready(function() {
+	
+	$("#edit_btn").click(function(){
+		ajaxCall("${def:context}${def:actionroot}/update",{
+	   		method: "post",
+	   		form:"formEditor",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	   			ccms.dialog.notice("成功！", 2000);
+	 		}
+	 	});
+	})
+});
+</script>
+</body>
+</html>

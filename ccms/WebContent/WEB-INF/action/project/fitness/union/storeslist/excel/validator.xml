@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="daochu_org_name" type="varchar" required="false" label="门店名称" />
+	<custom-validator 
+		classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="daochu_org_name" 
+		rule="contains" 
+		ifnull="%" />
+</validator>

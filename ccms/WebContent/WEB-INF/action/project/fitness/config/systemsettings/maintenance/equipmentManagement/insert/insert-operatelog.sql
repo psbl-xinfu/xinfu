@@ -1,0 +1,21 @@
+insert into cc_operatelog(
+code
+,opertype
+,status
+,remark
+,createdby
+,createdate
+,createtime
+,org_id,
+customercode
+)values(
+NEXTVAL('seq_cc_operatelog')
+,103
+,1
+,concat('添加设备号：',${fld:dev_deviceid})
+,'${def:user}'
+,'${def:date}'
+,'${def:timestamp}'
+,'${def:org}',
+${fld:dev_deviceid}
+)

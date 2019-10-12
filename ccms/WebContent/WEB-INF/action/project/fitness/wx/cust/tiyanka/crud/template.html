@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>体验卡领取</title>
+        	<link href="${def:context}/js/project/fitness/css/tiyanka/base.css" rel="stylesheet" />
+        	 <link href="${def:context}/js/project/fitness/css/tiyanka/index.css" rel="stylesheet" />
+    </head>
+<body>
+	<div class="containter bg">
+		<div class="comm-widht">
+			<section class="brief">恭喜获得一张分享卡</section>
+			<header>
+				<span class="h-t-1" id="name"></span>
+				<span class="h-t-2" id="enddate"></span>
+			<!-- 	<span class="h-t-3">1次</span> -->
+			</header>
+			<section class="com-name">
+				${fld:org_name}
+			</section>
+			<section class="con">
+				<input type="text" placeholder="请输入姓名" id="cc_name"  name="cc_name">
+				<select  id="cc_sex"  name="cc_sex">
+				<gender>
+					<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+				</gender>
+				</select>
+				<input type="tel" placeholder="请输入手机号"  id="cc_mobile"  name="cc_mobile">
+				<button type="button"  id="lingka">立即领取</button>
+			</section>
+		</div>
+	</div>
+	
+					<input type="hidden" name="code" id="code" value="">
+					<input type="hidden" name="ecode" id="ecode" value="">
+					<input type="hidden" name="codes" id="codes" value="${fld:codes}">
+						<input type="hidden" name="customercode" id="customercode" value="${fld:customercode}">
+	
+</body>
+<script type="text/javascript">
+$(function(){
+	var name="";
+	<list>
+	$('#code').val("${fld:code}");
+	$('#ecode').val("${fld:ecode}");
+	
+	
+	if('${fld:enddate}'==""){
+		$('#enddate').html('有效期：不限');
+	}else{
+		$('#enddate').html('截止日期：${fld:enddate}');
+	} 
+	
+	var danwei="";
+	if("${fld:cardtype}"=="时效卡"){
+		danwei="天";
+	}if("${fld:cardtype}"=="计次卡"){
+		danwei="次";
+	}else if("${fld:cardtype}"=="私教免费课"){
+		danwei="节";
+	}
+	$('#name').html('${fld:name}     <span style="font-size:14px">(${fld:cardtype} ${fld:experlimit}'+danwei+')</span>');
+	
+	 linglimit="${fld:personnum}";
+	</list>
+	
+	$('#cc_mobile').on('blur',function(){
+		var falg=isPhone($('#cc_mobile').val());
+		if(!falg){
+			ccms.dialog.notice("请输入正确手机号");
+			$('#cc_mobile').val('');
+		}
+	})
+	
+	
+	$('#lingka').on('click',function(){
+		if($('#cc_name').val()==""||$('#cc_sex').val()==""||$('#cc_mobile').val()==""){
+			ccms.dialog.notice("请填写完整资料");
+		}else{
+			getAjaxCall("/action/project/fitness/wx/cust/tiyanka/getnum?customercode=${fld:customercode}&codes=${fld:codes}&cc_mobile="+$('#cc_mobile').val(), false, function(){});
+		}
+	})
+})
+
+</script>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>日志管理</title>
+</head>
+<body>
+		<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="code" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+				<input type="hidden" name="org_id" value="${fld:org_id}" preserve="true"/>
+				<div class=" r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li>
+										 <select id="mc" name="mc" style="display: none;">
+											<option value="">会籍</option>
+										 		<mc-rows>
+													<option value="${fld:userlogin}">${fld:name}</option>
+										 		</mc-rows>
+										 </select>	
+									</li>
+									<li>
+									    <select id="shijian" name="shijian" style="display: none;">
+											<option value="30">近30天</option>
+											<option value="7">一周内</option>
+											<option value="3">三个月内</option>
+											<option value="4">三个月以上</option>
+										 </select>
+									</li>	
+								  	<div class="r-c-btnList">
+										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+									</div>						
+								</nav>
+							</div>
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+									
+								</nav>
+							</div>
+						</div>
+				<div class="r-tab-cout-3-b ">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th>姓名</th>
+										<th>性别</th>
+										<th>手机</th>
+										<th>会籍</th>
+										<th>卡状态</th>
+										<th>最后锻炼日期</th>
+										<th>未锻炼天数</th>
+										<th></th>										
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										<td>#name#</td>
+										<td>#sex#</td>
+										<td>#mobile#</td>
+										<td>#mc#</td>
+										<td>#status#</td>
+										<td>#indate#</td>
+										<td>#tians#</td>
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+		var search = null;
+		$(document).ready(function() {
+			searchSelectInit($("#mc,#shijian"));
+		/* 	$Dialog().date($('#s_start_date'));
+			$Dialog().date($('#s_end_date'));
+			$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+			$("#s_end_date").val("${def:date}"); */
+			this.search = search;
+			search = $Search({datagrid : "datagrid", formId : "searchForm",rowpackage:function(obj){
+			}, success : function() {
+			}}).initSearchBtn().searchData(1);
+		});
+	</script> 
+</body>
+</html>

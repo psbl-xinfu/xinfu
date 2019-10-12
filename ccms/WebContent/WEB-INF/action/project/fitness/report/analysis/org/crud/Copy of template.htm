@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/analysis-org.js" type="text/javascript"></script>
+<title>会所诊断</title>
+</head>
+<body>
+	<div class="am-tabs-bd r-tab-cont">
+		<div class="bb-tab-cout-1 am-tab-panel am-in am-active am-fade three-none">
+			<div class="tab-cout-nav f-s-t">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li class="dateTime"><input type="text" id="fdate" name="fdate" value="" class="input-default" /></li>
+						<label> - </label>
+						<li class="dateTime"><input type="text" id="tdate" name="tdate" value="" class="input-default" /></li>
+						<li>
+							<div class="my-selected">
+								<select class="normal-select-30" id="datatype" name="datatype">
+									<option value="0" selected>按天</option>
+									<option value="1">按周</option>
+									<option value="2">按月</option>
+								</select>
+							</div>
+						</li>
+						<button id="searchAll" class="freshen">刷新</button>
+						<div class="r-c-btnList">
+							<button name="rolebtn" data-code="pt" class="my-btn-default active">教练</button>
+							<button name="rolebtn" data-code="mc" class="my-btn-default">会籍</button>
+						</div>
+					</nav>
+				</div>
+			</div>
+			<div class="bb-tab-cout-1-bottom">
+				<!-- pt -->
+				<!-- 综合成交率 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>综合成交率（POS、P1、P2）</span>
+						<nav>
+							<li id="postongbi" name="postongbi" class="clearclass" data-name="compareflag" data-area="pos" data-code="T">同比</li>
+							<li id="poshuanbi" name="poshuanbi" class="clearclass" data-name="compareflag" data-area="pos" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="posdatatype" name="posdatatype" data-name="datatype" data-area="pos">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="pos" id="posfdate" name="posfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="pos" id="postdate" name="postdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="pos" data-type="bar" name="changeMagicType"></button>
+							<button data-area="pos" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="pos" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="posdaterangespan"></p></div>
+					<div id="posDiv" class="other-full"></div>
+				</div>
+				<!-- POS接待率 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>POS接待率</span>
+						<nav>
+							<li id="recepttongbi" name="recepttongbi" data-name="compareflag" data-area="recept" data-code="T">同比</li>
+							<li id="recepthuanbi" name="recepthuanbi" data-name="compareflag" data-area="recept" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="receptdatatype" name="receptdatatype" data-name="datatype" data-area="recept">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="recept" id="receptfdate" name="receptfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="recept" id="recepttdate" name="recepttdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="recept" data-type="bar" name="changeMagicType"></button>
+							<button data-area="recept" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="recept" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="receptdaterangespan"></p></div>
+					<div id="receptDiv" class="other-full"></div>
+				</div>
+				<!-- 课时成交单价 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>课时成交单价</span>
+						<nav>
+							<li id="feetongbi" name="feetongbi" data-name="compareflag" data-area="fee" data-code="T">同比</li>
+							<li id="feehuanbi" name="feehuanbi" data-name="compareflag" data-area="fee" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="feedatatype" name="feedatatype" data-name="datatype" data-area="fee">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="fee" id="feefdate" name="feefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="fee" id="feetdate" name="feetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="fee" data-type="bar" name="changeMagicType"></button>
+							<button data-area="fee" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="fee" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="feedaterangespan"></p></div>
+					<div id="feeDiv" class="other-full"></div>
+				</div>
+				<!-- 首节课续费率 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>首节课续费率</span>
+						<nav>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="cttn" id="cttnfdate" name="cttnfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="cttn" id="cttntdate" name="cttntdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="cttn" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="cttn" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="cttndaterangespan"></p></div>
+					<div id="cttnDiv" class="other-full"></div>
+					<div id="cttnDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 未成交原因指数 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>未成交原因指数</span>
+						<nav>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="failed" id="failedfdate" name="failedfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="failed" id="failedtdate" name="failedtdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="failed" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="failed" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="faileddaterangespan"></p></div>
+					<div id="failedDiv" class="other-full"></div>
+					<div id="failedDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 平均授课量 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>平均授课量</span>
+						<nav>
+							<li id="avgpttongbi" name="avgpttongbi" data-name="compareflag" data-area="avgpt" data-code="T">同比</li>
+							<li id="avgpthuanbi" name="avgpthuanbi" data-name="compareflag" data-area="avgpt" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="avgptdatatype" name="avgptdatatype" data-name="datatype" data-area="avgpt">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="avgpt" id="avgptfdate" name="avgptfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="avgpt" id="avgpttdate" name="avgpttdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="avgpt" data-type="bar" name="changeMagicType"></button>
+							<button data-area="avgpt" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="avgpt" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="avgptdaterangespan"></p></div>
+					<div id="avgptDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 耗课率 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>耗课率</span>
+						<nav>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="pt" id="ptfdate" name="ptfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="pt" id="pttdate" name="pttdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="pt" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="pt" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="ptdaterangespan"></p></div>
+					<div id="ptDiv" class="other-full"></div>
+					<div id="ptDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 任务达标率 -->
+				<div class="addTop" data-role="pt">
+					<header>
+						<span>任务达标率</span>
+						<nav>
+							<li id="tasktongbi" name="tasktongbi" data-name="compareflag" data-area="task" data-code="T">同比</li>
+							<li id="taskhuanbi" name="taskhuanbi" data-name="compareflag" data-area="task" data-code="H">环比</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fmonth" data-area="task" id="taskfmonth" name="taskfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="task" id="tasktdate" name="tasktdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="task" data-type="bar" name="changeMagicType"></button>
+							<button data-area="task" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="task" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="taskdaterangespan"></p></div>
+					<div id="taskDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 首次课续费率 -->
+				<div class="addTop" data-role="firstcttn">
+					<header>
+						<span>首次课续费率</span>
+						<nav>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="firstcttn" id="firstcttnfdate" name="firstcttnfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="firstcttn" id="firstcttntdate" name="firstcttntdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="firstcttn" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="firstcttn" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="firstcttndaterangespan"></p></div>
+					<div id="firstcttnDiv" class="other-full"></div>
+					<div id="firstcttnDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				<!-- pt end -->
+				
+				<!-- mc -->
+				<!-- 综合到访量 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>综合到访量</span>
+						<nav>
+							<li id="visittongbi" name="visittongbi" data-name="compareflag" data-area="visit" data-code="T">同比</li>
+							<li id="visithuanbi" name="visithuanbi" data-name="compareflag" data-area="visit" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="visitdatatype" name="visitdatatype" data-name="datatype" data-area="visit">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="visit" id="visitfdate" name="visitfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="visit" id="visittdate" name="visittdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="visit" data-type="bar" name="changeMagicType"></button>
+							<button data-area="visit" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="visit" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="visitdaterangespan"></p></div>
+					<div id="visitDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 综合成交率 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>综合成交率</span>
+						<nav>
+							<li id="inclubtongbi" name="inclubtongbi" data-name="compareflag" data-area="inclub" data-code="T">同比</li>
+							<li id="inclubhuanbi" name="inclubhuanbi" data-name="compareflag" data-area="inclub" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="inclubdatatype" name="inclubdatatype" data-name="datatype" data-area="inclub">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="inclub" id="inclubfdate" name="inclubfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="inclub" id="inclubtdate" name="inclubtdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="inclub" data-type="bar" name="changeMagicType"></button>
+							<button data-area="inclub" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="inclub" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="inclubdaterangespan"></p></div>
+					<div id="inclubDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 产品均价 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>产品均价</span>
+						<nav>
+							<li id="avgcardtongbi" name="avgcardtongbi" data-name="compareflag" data-area="avgcard" data-code="T">同比</li>
+							<li id="avgcardhuanbi" name="avgcardhuanbi" data-name="compareflag" data-area="avgcard" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="avgcarddatatype" name="avgcarddatatype" data-name="datatype" data-area="avgcard">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="avgcard" id="avgcardfdate" name="avgcardfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="avgcard" id="avgcardtdate" name="avgcardtdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="avgcard" data-type="bar" name="changeMagicType"></button>
+							<button data-area="avgcard" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="avgcard" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="avgcarddaterangespan"></p></div>
+					<div id="avgcardDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 续费率 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>续费率</span>
+						<nav>
+							<li id="cttncardtongbi" name="cttncardtongbi" data-name="compareflag" data-area="cttncard" data-code="T">同比</li>
+							<li id="cttncardhuanbi" name="cttncardhuanbi" data-name="compareflag" data-area="cttncard" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="cttncarddatatype" name="cttncarddatatype" data-name="datatype" data-area="cttncard">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="cttncard" id="cttncardfdate" name="cttncardfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="cttncard" id="cttncardtdate" name="cttncardtdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="cttncard" data-type="bar" name="changeMagicType"></button>
+							<button data-area="cttncard" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="cttncard" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="cttncarddaterangespan"></p></div>
+					<div id="cttncardDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 渠道占比指数 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>渠道占比指数</span>
+						<nav style="display: none;">
+							<li id="sourcetongbi" name="sourcetongbi" data-name="compareflag" data-area="source" data-code="T">同比</li>
+							<li id="sourcehuanbi" name="sourcehuanbi" data-name="compareflag" data-area="source" data-code="H">环比</li>
+							<li>
+								<div class="my-selected" style="display:none;">
+									<select class="normal-select-30" id="sourcedatatype" name="sourcedatatype" data-name="datatype" data-area="source">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="source" id="sourcefdate" name="sourcefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="source" id="sourcetdate" name="sourcetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="source" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="source" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="sourcedaterangespan"></p></div>
+					<div id="sourceDiv" class="other-full"></div>
+					<div id="sourceDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 渠道未成交占比 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>渠道未成交占比</span>
+						<nav style="display: none;">
+							<li id="guestsourcetongbi" name="guestsourcetongbi" data-name="compareflag" data-area="guestsource" data-code="T">同比</li>
+							<li id="guestsourcehuanbi" name="guestsourcehuanbi" data-name="compareflag" data-area="guestsource" data-code="H">环比</li>
+							<li>
+								<div class="my-selected" style="display:none;">
+									<select class="normal-select-30" id="guestsourcedatatype" name="sourcedatatype" data-name="datatype" data-area="guestsource">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="guestsource" id="guestsourcefdate" name="guestsourcefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="guestsource" id="guestsourcetdate" name="guestsourcetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="guestsource" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="guestsource" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="guestsourcedaterangespan"></p></div>
+					<div id="guestsourceDiv" class="other-full"></div>
+					<div id="guestsourceDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 未成交原因指数 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>未成交原因指数</span>
+						<nav style="display: none;">
+							<li id="guestreasontongbi" name="guestreasontongbi" data-name="compareflag" data-area="guestreason" data-code="T">同比</li>
+							<li id="guestreasonhuanbi" name="guestreasonhuanbi" data-name="compareflag" data-area="guestreason" data-code="H">环比</li>
+							<li>
+								<div class="my-selected" style="display:none;">
+									<select class="normal-select-30" id="guestreasondatatype" name="sourcedatatype" data-name="datatype" data-area="guestreason">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="guestreason" id="guestreasonfdate" name="guestreasonfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="guestreason" id="guestreasontdate" name="guestreasontdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="guestreason" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="guestreason" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="guestreasondaterangespan"></p></div>
+					<div id="guestreasonDiv" class="other-full"></div>
+					<div id="guestreasonDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 未续费原因指数 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>未续费原因指数</span>
+						<nav style="display: none;">
+							<li id="custreasontongbi" name="custreasontongbi" data-name="compareflag" data-area="custreason" data-code="T">同比</li>
+							<li id="custreasonhuanbi" name="custreasonhuanbi" data-name="compareflag" data-area="custreason" data-code="H">环比</li>
+							<li>
+								<div class="my-selected" style="display:none;">
+									<select class="normal-select-30" id="custreasondatatype" name="sourcedatatype" data-name="datatype" data-area="custreason">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="custreason" id="custreasonfdate" name="custreasonfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="custreason" id="custreasontdate" name="custreasontdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="custreason" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="custreason" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="custreasondaterangespan"></p></div>
+					<div id="custreasonDiv" class="other-full"></div>
+					<div id="custreasonDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- 员工任务达标率 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>员工任务达标率</span>
+						<nav>
+							<li id="mctasktongbi" name="mctasktongbi" data-name="compareflag" data-area="mctask" data-code="T">同比</li>
+							<li id="mctaskhuanbi" name="mctaskhuanbi" data-name="compareflag" data-area="mctask" data-code="H">环比</li>
+							<li>
+								<div class="my-selected">
+									<select class="normal-select-30" id="mctaskdatatype" name="mctaskdatatype" data-name="datatype" data-area="mctask">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="mctask" id="mctaskfdate" name="mctaskfdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="mctask" id="mctasktdate" name="mctasktdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="mctask" data-type="bar" name="changeMagicType"></button>
+							<button data-area="mctask" data-type="line" name="changeMagicType" class="active"></button>
+							<button data-area="mctask" data-type="list" name="changeMagicType"></button>
+						</li>
+					</nav>
+					<div><p id="mctaskdaterangespan"></p></div>
+					<div id="mctaskDiv" class="other-full"></div>
+				</div>
+				
+				<!-- 产品销量占比 -->
+				<div class="addTop" data-role="mc" style="display:none;">
+					<header>
+						<span>产品销量占比</span>
+						<nav style="display: none;">
+							<li id="cardtypetongbi" name="cardtypetongbi" data-name="compareflag" data-area="cardtype" data-code="T">同比</li>
+							<li id="cardtypehuanbi" name="cardtypehuanbi" data-name="compareflag" data-area="cardtype" data-code="H">环比</li>
+							<li>
+								<div class="my-selected" style="display:none;">
+									<select class="normal-select-30" id="cardtypedatatype" name="sourcedatatype" data-name="datatype" data-area="cardtype">
+										<option value="0" selected>按天</option>
+										<option value="1">按周</option>
+										<option value="2">按月</option>
+									</select>
+								</div>
+							</li>
+						</nav>
+					</header>
+					<nav>
+						<div class="nav-li-group">
+							<li class="dateTime small"><input type="text" data-name="fdate" data-area="cardtype" id="cardtypefdate" name="cardtypefdate" value="" class="input-default" /></li>
+							<li class="dateTime small"><input type="text" data-name="tdate" data-area="cardtype" id="cardtypetdate" name="cardtypetdate" value="" class="input-default" /></li>
+						</div>
+						<li>
+							<button data-area="cardtype" data-type="pie" name="" class="pie-btn active pielistbtn"></button>
+							<button data-area="cardtype" data-type="list" name="" class="pielistbtn"></button>
+						</li>
+					</nav>
+					<div><p id="cardtypedaterangespan"></p></div>
+					<div id="cardtypeDiv" class="other-full"></div>
+					<div id="cardtypeDivlist" class="other-full" style="display: none;"></div>
+				</div>
+				
+				<!-- mc end -->
+			</div>
+		</div>
+	</div>
+	
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+</body>
+<script type="text/javaScript">
+var posCharts = null, receptCharts = null, feeCharts = null, cttnCharts = null, failedCharts = null, avgptCharts = null, ptCharts = null, taskCharts = null;
+var visitCharts = null, inclubCharts = null, avgcardCharts = null, cttncardCharts = null, sourceCharts = null, firstcttnCharts = null;
+var guestsourceCharts = null, guestreasonCharts = null, custreasonCharts = null, mctaskCharts = null, cardtypeCharts = null;
+$(document).ready(function() {
+	ccms.dialog.date($("#fdate,#tdate"));
+	$("#fdate").val(new Date().format("yyyy-MM-01"));
+	$("#tdate").val(new Date().format("yyyy-MM-dd"));
+	
+	// 更改角色
+	$("button[name=rolebtn]").unbind().on("click",function(){
+		$(this).siblings(".active").removeClass("active");
+		$(this).addClass("active");
+		var rolename = $(this).data("code");
+		if( "mc" == rolename ){
+			$("div[data-role=pt]").hide();
+			$("div[data-role=mc]").show();
+			initMC();
+		}else{
+			$("div[data-role=mc]").hide();
+			$("div[data-role=pt]").show();
+			initPT();
+		}
+		$("#searchAll").click();
+	});
+	
+	initPT();
+	/** 顶部搜索 */
+	$("#searchAll").unbind().on("click",function(){
+		$("#posDiv,#receptDiv,#feeDiv,#cttnDiv,#failedDiv,#avgptDiv,#ptDiv,#taskDiv").html("");
+		// 顶部搜索条件同步
+		$("input[id$=fdate]").not("#fdate").each(function(idx,ele){
+			$(ele).val($("#fdate").val());
+		});
+		$("input[id$=tdate]").not("#tdate").each(function(idx,ele){
+			$(ele).val($("#tdate").val());
+		});
+		$("select[id$=datatype]").not("#datatype").each(function(idx,ele){
+			$(ele).val($("#datatype").val());
+		});
+		// 显示图表
+		if( $("button[name=rolebtn].active").data("code") == "mc" ){
+			loadMCData();
+		}else{
+			loadPTData();
+		}
+	});
+	$("#searchAll").click();
+	
+	/** 同比、环比 */
+	$("li[data-name=compareflag]").on("click",function(){
+		if($(this).hasClass('baobiao-active')){
+			$(this).removeClass("baobiao-active");
+		}else{
+			$(this).siblings().removeClass("baobiao-active");
+			$(this).addClass("baobiao-active");
+		}
+		var dataarea = $(this).attr("data-area");
+		refreshSingleCharts(dataarea);
+	});
+	
+	/** 各图表区域日期变更事件 */
+	$("input[data-name=fdate],input[data-name=tdate]").each(function(idx,ele){
+		ccms.dialog.date($(ele), function(){
+			var dataarea = $(ele).attr("data-area");
+			refreshSingleCharts(dataarea);
+		});
+	});
+	//饼图、饼图列表切换
+	$(".pielistbtn").on("click",function(){
+		var name = $(this).attr("data-area");
+		var datatype = $(this).attr("data-type");
+		if(datatype=="pie"){
+			$("#"+name+"Divlist").hide();
+			$("#"+name+"Div").show();
+			$("[data-area="+name+"][data-type=list]").removeClass("active");
+			$("[data-area="+name+"][data-type=pie]").addClass("active");
+		}else if(datatype=="list"){
+			$("#"+name+"Divlist").show();
+			$("#"+name+"Div").hide();
+			$("[data-area="+name+"][data-type=pie]").removeClass("active");
+			$("[data-area="+name+"][data-type=list]").addClass("active");
+		}
+	})
+	
+});
+
+/** 刷新单个图表 */
+function refreshSingleCharts(dataarea){
+	if( undefined != dataarea && "" != dataarea ){
+		if( "pos" == dataarea && null != posCharts ){	/** 综合成交率 */
+			posCharts.loadData();
+		}else if( "recept" == dataarea && null != receptCharts ){	/** POS接待率 */
+			receptCharts.loadData();
+		}else if( "fee" == dataarea && null != feeCharts ){	/** 课时成交单价 */
+			feeCharts.loadData();
+		}else if( "cttn" == dataarea && null != cttnCharts ){	/** 首节课续费率 */
+			cttnCharts.loadData();
+		}else if( "failed" == dataarea && null != failedCharts ){	/** 未成交原因指数 */
+			failedCharts.loadData();
+		}else if( "avgpt" == dataarea && null != avgptCharts ){	/** 平均授课量 */
+			avgptCharts.loadData();
+		}else if( "pt" == dataarea && null != ptCharts ){	/** 耗课率 */
+			ptCharts.loadData();
+		}else if( "task" == dataarea && null != taskCharts ){	/** 任务达标率 */
+			taskCharts.loadData();
+		}else if( "visit" == dataarea && null != visitCharts ){	/** 综合到访量 */
+			visitCharts.loadData();
+		}else if( "inclub" == dataarea && null != inclubCharts ){	/** 综合成交率 */
+			inclubCharts.loadData();
+		}else if( "avgcard" == dataarea && null != inclubCharts ){	/** 产品均价 */
+			avgcardCharts.loadData();
+		}else if( "cttncard" == dataarea && null != cttncardCharts ){	/** 续费率 */
+			cttncardCharts.loadData();
+		}else if( "source" == dataarea && null != sourceCharts ){	/** 渠道占比指数 */
+			sourceCharts.loadData();
+		}else if( "guestsource" == dataarea && null != guestsourceCharts ){	/** 渠道未成交占比 */
+			guestsourceCharts.loadData();
+		}else if( "guestreason" == dataarea && null != guestreasonCharts ){	/** 未成交原因指数 */
+			guestreasonCharts.loadData();
+		}else if( "custreason" == dataarea && null != custreasonCharts ){	/** 未续费原因指数 */
+			custreasonCharts.loadData();
+		}else if( "mctask" == dataarea && null != mctaskCharts ){	/** 员工任务达标率 */
+			mctaskCharts.loadData();
+		}else if( "cardtype" == dataarea && null != cardtypeCharts ){	/** 产品销量占比 */
+			cardtypeCharts.loadData();
+		}else if( "firstcttn" == dataarea && null != firstcttnCharts ){	/** 首次课续费率 */
+			firstcttnCharts.loadData();
+		}
+	}
+}
+function initPT(){
+	/** 综合成交率 */
+	posCharts = new posClass();
+	/** POS接待率 */
+	receptCharts = new receptClass();
+	/** 课时成交单价 */
+	feeCharts = new feeClass();
+	/*** 首节课续费率 */
+	cttnCharts = new cttnClass();
+	/** 未成交原因指数 */
+	failedCharts = new failedClass();
+	/** 平均授课量 */
+	avgptCharts = new avgptClass();
+	/** 耗课率 */
+	ptCharts = new ptClass();
+	/*** 员工任务达标率 */
+	taskCharts = new taskClass();
+	/*** 首次课续费率 */
+	firstcttnCharts = new firstcttn();
+}
+function loadPTData(){
+	posCharts.loadData();
+	receptCharts.loadData();
+	feeCharts.loadData();
+	cttnCharts.loadData();
+	failedCharts.loadData();
+	avgptCharts.loadData();
+	ptCharts.loadData();
+	taskCharts.loadData();
+	firstcttnCharts.loadData();
+}
+function initMC(){
+	/** 总和到访量 */
+	visitCharts = new visitClass();
+	/*** 综合成交率 */
+	inclubCharts = new inclubClass();
+	/** 产品均价 **/
+	avgcardCharts = new avgcardClass();
+	/** 续费率 */
+	cttncardCharts = new cttncardClass();
+	/** 渠道占比指数 */
+	sourceCharts = new sourceClass();
+	/** 渠道未成交占比 */
+	guestsourceCharts = new guestsourceClass();
+	/** 未成交原因指数 */
+	guestreasonCharts = new guestreasonClass();
+	/** 未续费原因指数 */
+	custreasonCharts = new custreasonClass();
+	/*** 员工任务达标率 */
+	mctaskCharts = new mctaskClass();
+	/** 产品销量占比 */
+	cardtypeCharts = new cardtypeClass();
+}
+function loadMCData(){
+	visitCharts.loadData();
+	inclubCharts.loadData();
+	avgcardCharts.loadData();
+	cttncardCharts.loadData();
+	sourceCharts.loadData();
+	guestsourceCharts.loadData();
+	guestreasonCharts.loadData();
+	custreasonCharts.loadData();
+	mctaskCharts.loadData();
+	cardtypeCharts.loadData();
+}
+</script>
+</body>
+</html>

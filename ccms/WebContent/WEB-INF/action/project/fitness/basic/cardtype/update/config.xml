@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		Producto - Insertar registro
+	</summary>
+	
+	<log>false</log>
+
+	<colname>weekday,starttime1,endtime1;discount,storage</colname>
+	<sql-template>updatetimelimit.sql;insert-discount.sql</sql-template>
+
+	<transaction>
+		<classname>com.ccms.InsertMaster</classname>
+		<validator>true</validator>
+		<transaction>true</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<query>update.sql</query>
+	<query>updatecardfee.sql</query>
+	<query>deletetimelimit.sql</query>
+	<query>delete-discount.sql</query>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+	</output>
+
+</config>

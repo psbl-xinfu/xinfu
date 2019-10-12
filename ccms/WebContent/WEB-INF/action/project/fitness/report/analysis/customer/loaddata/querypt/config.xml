@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>transactions.project.fitness.report.AnalysisOrgBase</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-guest.sql" source="sql" scope="transaction" />
+		<recordset id="query-newcard.sql" source="sql" scope="transaction" />
+		<recordset id="query-cust.sql" source="sql" scope="transaction" />
+	</transaction>
+	
+	<query>query-pt.sql</query>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="form" recordset="query-guest.sql" />
+		<print mode="form" recordset="query-newcard.sql" />
+		<print mode="form" recordset="query-cust.sql" />
+		<print mode="table" recordset="query-pt.sql" tag="pt-rows" />
+	</output>
+
+</config>

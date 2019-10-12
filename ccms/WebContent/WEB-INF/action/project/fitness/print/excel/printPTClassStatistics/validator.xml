@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="_end_date" type="date" required="false" label="结束时间" />
+	<parameter id="_start_date" type="date" required="false" label="开始时间" />
+	<parameter id="pt_name" type="varchar" required="false" label="私教" />
+	<parameter id="vc_storager" type="varchar" required="false" label="vc_storager" />
+	<parameter id="_month" type="varchar" required="false" label="_month" />
+	<parameter id="userlogin" type="varchar" required="false" label="userlogin" />
+	
+</validator>

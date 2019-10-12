@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/newpub}
+    <link href="${def:context}/js/project/fitness/wx/css/weui.css" rel="stylesheet" />
+    
+    <title>课程评价</title>
+    </head>
+
+
+<body>
+<form id="contractForm"  name="contractForm">
+			<input type="hidden" id="ptlogcode" name="ptlogcode" value="${fld:lcode}"  />
+			<input type="hidden" id="ptlevelcode" name="ptlevelcode" value="${fld:ptrestcode}"  />
+			<input type="hidden" id="customercode" name="customercode" value="${fld:customercode}"  />
+			<input type="hidden" id="ptid" name="ptid" value="${fld:ptid}"  />
+			
+			<input type="hidden" id="service_attitude" name="service_attitude" value="0"  />
+			<input type="hidden" id="technical_guidance" name="technical_guidance" value="0"  />
+			<input type="hidden" id="teach_length" name="teach_length" value="0"  />
+			<input type="hidden" id="final_eval" name="final_eval" value="0"  />
+			
+	<div class="containter kcpj">
+		<header>
+			<img src="${def:context}/js/project/fitness/wx/image/1.jpg" alt="">
+			<div>
+				<p>
+					<span>${fld:ptlevelname}</span>
+					<span>教练：${fld:ptname}</span>
+				</p>
+				<p>
+					上课时间：${fld:preparedate} ${fld:starttime} -${fld:endtime} 
+				</p>
+			</div>
+		</header>
+		<nav>
+			<li>
+				<span>服务态度</span>
+				<div id="fuwu">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt=""  code="0">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="0">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="0">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="0">
+					<img class="active"  src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="">
+				</div>
+			</li>
+			<li>
+				<span>技术指导</span>
+				<div id="zhidao">
+				<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="1">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="1">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="1">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="1">
+					<img class="active"  src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="">
+				</div>
+			</li>
+			<li>
+				<span>授课时长</span>
+				<div id="shouke">
+			<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="2">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="2">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="2">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="" code="2">
+					<img class="active"  src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="">
+				</div>
+			</li>
+			<li>
+				<span>总体评价</span>
+				<div>
+				<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt=""code="3">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt=""code="3">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt=""code="3">
+					<img src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt=""code="3">
+					<img class="active"  src="${def:context}/js/project/fitness/wx/image/Artboard3@2x.png" alt="">
+				</div>
+			</li>
+			<li>
+				<textarea name="remark" id="remark" cols="30" rows="10" placeholder="请输入评价"></textarea>
+			</li>
+		</nav>
+		<button type="button" id="save">提交评价</button>
+	</div>
+</form>
+	<script>
+	$(function(){
+		$('nav img').on('click', function () {
+			var code=$(this).attr('code');
+			$(this).attr('src', function (t, tt) {
+				if (tt.indexOf('Artboard3') !== -1) {
+					rect(code,'+');
+					return '${def:context}/js/project/fitness/wx/image/Artboard@2x.png';
+				} else {
+					rect(code,'-');
+					return '${def:context}/js/project/fitness/wx/image/Artboard3@2x.png';
+				}
+			})
+		})
+		
+		$('#save').on('click',function(){
+			postAjaxCall("/action/project/fitness/wx/cust/center/evaluate/insert", "contractForm", false);
+		})
+	})
+	
+	function rect(id,Symbol){
+		if(id==0){
+			var num=$('#service_attitude').val();
+			if(Symbol=='+'){
+				num++;
+			}else{
+				num--;
+			}
+			$('#service_attitude').val(num);
+		}else if(id==1){
+			var num=$('#technical_guidance').val();
+			if(Symbol=='+'){
+				num++;
+			}else{
+				num--;
+			}
+			$('#technical_guidance').val(num);
+		}else if(id==2){
+			var num=$('#teach_length').val();
+			if(Symbol=='+'){
+				num++;
+			}else{
+				num--;
+			}
+			$('#teach_length').val(num);
+		}else{
+			var num=$('#final_eval').val();
+			if(Symbol=='+'){
+				num++;
+			}else{
+				num--;
+			}
+			$('#final_eval').val(num);
+		}
+	}
+	</script>
+	
+</body>
+
+</html>

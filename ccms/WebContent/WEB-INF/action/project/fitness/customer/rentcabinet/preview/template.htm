@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>查看</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="height: 400px;">
+			<header class="header-default">
+				<span id="formTitle">查看</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label style="width: 130px;">区域：</label>
+							<input type="text" value="${fld:groupname}" readonly="readonly" placeholder="区域"/>	
+						</li>
+						<li>
+							<label style="width: 130px;">柜号：</label>
+							<input type="text" value="${fld:cabinetcode}" readonly="readonly" placeholder="柜号"/>	
+						</li>
+						<li>
+							<label style="width: 130px;">状态：</label>
+							<input type="text" value="${fld:status}" readonly="readonly" placeholder="状态"/>	
+						</li>
+						<li>
+							<label style="width: 130px;">开始日期：</label>
+							<input type="text" value="${fld:startdate}" readonly="readonly" placeholder="开始日期"/>	
+						</li>
+						<li>
+							<label style="width: 130px;">截止日期：</label>
+							<input type="text" value="${fld:enddate}" readonly="readonly" placeholder="截止日期"/>	
+						</li>
+						<li>
+							<label style="width: 130px;">会员编号：</label>
+							<input type="text" value="${fld:customercode}" readonly="readonly" placeholder="会员编号"/>	
+						</li>
+						<li>
+							<label style="width: 130px;">会员姓名：</label>
+							<input type="text" value="${fld:name}" readonly="readonly" placeholder="会员姓名"/>	
+						</li>
+						<li>
+							<label style="width: 130px;">会员手机号：</label>
+							<input type="text" value="${fld:mobile}" readonly="readonly" placeholder="会员手机号"/>	
+						</li>
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注</label>
+							<textarea id="remark" cols="50" rows="3" class="my-textarea" name="remark" readonly="readonly" placeholder="备注" maxlength="6000">${fld:remark}</textarea>
+						</li>
+					</nav>
+				</div>
+			</form>
+		</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	if("${fld:recharge}"=="2"){
+		$("#chargecardtype").html("本次退费金额：");
+		$("#zengsong,#tuifei").hide();
+		$("#factmoney").val(-Number("${fld:factmoney}"));
+	}
+});
+</script>
+</body>
+</html>

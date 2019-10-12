@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="classcode" type="varchar" required="true" label="classcode" maxlen="50" />
+    <parameter id="classroomcode" type="varchar" required="true" label="classroomcode" maxlen="50" />
+    <parameter id="teacherid" type="varchar" required="true" label="teacherid" maxlen="50" />
+    <!--zzn 2019-04-04  教室人数限制是只读的所以就没有必要加验证了 -->
+    <parameter id="limitcount" type="integer" required="false" label="limitcount" maxlen="53" />
+    <parameter id="price" type="double" required="false" label="price" maxlen="53" />
+    <parameter id="classdate" type="varchar" required="true" label="classdate" maxlen="64" />  
+	<parameter id='classtime' type="varchar" required="true" label="classtime" maxlen="50" /> 
+	<parameter id="status" type="varchar" required="true" label="status" maxlen="500" />
+	<parameter id="remark" type="varchar" required="false" label="remark" maxlen="32" />
+	<parameter id="week" type="varchar" required="false" label="week" maxlen="32" />
+	
+	<parameter id="isprepare" type="varchar" required="true" label="是否预约" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该门店正在放假中，不能预约！" id="classdate" sql="noRep.sql" />
+  
+      	
+</validator>
+
+
+
+
+

@@ -1,0 +1,1 @@
+AND g.tuid = ${fld:goodstuid}

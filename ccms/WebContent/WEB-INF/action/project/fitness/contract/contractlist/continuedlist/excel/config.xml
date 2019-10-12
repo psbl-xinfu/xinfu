@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	<colname>daochu_type,daochu_end_date,daochu_name,daochu_statusall,daochu_contracttype,
+	daochu_skill_name,daochu_start_date,daochu_status,daochu_relatecode</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="续卡合同列表" filename="续卡合同列表.xls" header-background="true">
+		<col id="code" label="合同编号" />
+		<col id="contracttype" label="合同类型"/>
+		<col id="i_status" label="状态" />
+		<col id="name" label="姓名" />
+		<col id="mobile" label="手机号" />
+		<col id="cardname" label="原卡类型" />
+		<col id="ncardname" label="新卡类型" />
+		<col id="normalmoney" label="应收金额" />
+		<col id="factmoney" label="实收金额" />
+		<col id="salemember" label="销售员1" />
+		<col id="salemember1" label="销售员2" />
+	</excel>
+</config>

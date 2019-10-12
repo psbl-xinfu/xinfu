@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>分配会籍</title>
+</head>
+<body>
+	<form name="formEditor" id ="formEditor">
+		<div id="checkedNodesDiv"></div>
+	</form>
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="code" preserve="true" />
+		<input name="order" type="hidden" value="desc" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="am-tabs-bd r-tab-cont dialogbg"  style="height: 570px">
+			<header class="header-default">
+				<span>分配会籍</span>
+			</header>
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+			 	<div class="tab-cout-nav">
+					<div class="tab-cout-nav-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							 <li>
+					    		 <span>已选择会员：</span>	<span id="num"></span>
+							</li>
+					    	 <li>
+					    	 	<button  type="button"id="save_btn">确定</button>
+							</li>		
+						</nav>
+					</div>
+				</div>
+			
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-38"></div>
+					<table> 
+						<thead>
+							<tr >
+								<th></th>
+								<th>会籍姓名</th>
+								<th>会籍资源数量</th>
+								<th>会籍会员数量</th>
+							</tr>
+						</thead>
+					<tbody id="datagridTemplate" style="display: none">
+						<tr>
+								<td>#application_id#</td>
+								<td >#name#</td>
+								<td >#gustnum#</td>
+								<td >#customernum#</td>
+						</tr>
+					</tbody>
+					<tbody id="datagrid" >
+					</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var customercodes="${fld:guestcode}".split(',');
+var search2=null;
+$(document).ready(function() {
+	   $('#num').text(customercodes.length+'人');
+		this.search2=search2;
+		search2=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+			ccms.util.renderRadio("datalist");
+	}}).initSearchBtn().searchData(1);
+		$('#save_btn').click(function(){
+			var mc=$('input[name="datalist"]:checked').val();
+			if(mc==""){
+				alert("请选择会籍");
+			}else{
+				insert(mc);
+			}
+		})
+});
+function insert(mc){
+	var divobj = $("#checkedNodesDiv");
+	divobj.empty();
+	for(var i = 0; i < customercodes.length; i++){
+		var customercode = customercodes[i];
+    	divobj.append('<input type="hidden" name="id" value="' + customercode + '" />');
+    	divobj.append('<input type="hidden" name="mc" value="' + mc + '" />');
+	}
+	var url = "${def:context}${def:actionroot}/updatemc"
+		ajaxCall(url,{
+			method: "post",
+			progress: true,
+			form:'formEditor',
+			dataType: "script",
+			success: function() {
+			}
+		});
+}
+</script>
+</body>
+</html>

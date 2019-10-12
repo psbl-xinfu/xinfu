@@ -1,0 +1,1 @@
+select nextval('seq_cc_savestopcard')::varchar as code from dual

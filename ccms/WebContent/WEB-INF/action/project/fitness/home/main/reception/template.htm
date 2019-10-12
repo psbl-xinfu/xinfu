@@ -1,0 +1,119 @@
+<script src="${def:context}/js/echarts-2.2.7/liquidfill/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/echarts-2.2.7/liquidfill/echarts-liquidfill.min.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/echarts-liquidfill-util.js" type="text/javascript"></script>
+
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/echarts-2.2.7/build/dist/chart/line.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/main.js"></script>
+<div class="r-index	">
+	<section class="r-i-1" >
+		<div class="home-a-title">任务完成情况</div>
+		<div id="receptionDiv" style="float:left ;width:60%;height:100%;margin-top:-20px;margin-left: 5%"></div>
+		<div class="home-a-right">
+			<div class="divs" style="margin-top: 75px">本月计划回访量</div>
+			<div class="divs" id="receptionFee"></div>
+			<div class="divs"style="margin-top: 30px">完成百分比</div>
+			<div class="divs" style="color: rgba(51,143,226,1)" id="receptionRate"></div>
+		</div>
+	</section>
+	
+	<section class="r-i-2">
+		<article class="r-i-2-1">
+			<p class="title smallpersontitle">预约到访量</p>
+			<div class="keshi smallperson">
+				<span id="visitnum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="monthFinishRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar am-progress-bar-danger" id="monthFinishProgress"></div>
+				</div>
+			</div>
+		</article>
+		<article class="r-i-2-2">
+			<p class="title smallpersontitle">会员入场量</p>
+			<div class="keshi smallperson">
+				<span id="inleftnum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="todayFinishRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar am-progress-bar-success" id="todayFinishProgress"></div>
+				</div>
+			</div>
+		</article>
+		<article class="r-i-2-3">
+			<p class="title smallpersontitle">私教签课量</p>
+			<div class="keshi smallperson">
+				<span id="classnum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="testFinishRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar" id="testFinishProgress"></div>
+				</div>
+			</div>
+		</article>
+		<article class="r-i-2-4">
+			<p class="title smallpersontitle">今日客诉提醒</p>
+			<div class="keshi smallperso">
+				<span id="todaynum"></span>人
+			</div>
+			<p></p>
+			<div class="tprogress">
+				<!-- margin-left (数值 - 5)% -->
+				<p id="guestRate"></p>
+				<div class="am-progress am-active am-progress-striped">
+					<div class="am-progress-bar am-progress-bar-secondary" id="guestProgress"></div>
+				</div>
+			</div>
+		</article>
+	</section>
+	
+	<section class="r-i-4 long">
+		<button class="r-i-set" type="button" id="quickmenu_btn"></button>
+	</section>
+	<section class="r-i-7 long">
+		<header>
+			客诉处理
+			<span class="count" id="nofeedbackcount"></span>
+			<p class="right"></p>
+		</header>
+		<article class="r-tab-cout-3-b">
+			<table class="">
+				<tbody id="feedback">
+				</tbody>
+			</table>
+		</article>
+	</section>
+</div>
+
+<script type="text/javaScript">
+$(document).ready(function() {
+	getAjaxCall("${def:actionroot}/reception/loadtarget", false);
+	//入场量等
+	var url="${def:actionroot}/reception/findnum";
+	receptionurl(url);
+	
+	//客诉
+	var url="${def:actionroot}/reception/feedback";
+	receptionurl(url);
+});
+function receptionurl(url){
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){	
+		}
+	});
+}
+</script>

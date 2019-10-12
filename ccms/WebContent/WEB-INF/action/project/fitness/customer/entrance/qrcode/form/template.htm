@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>扫码入场</title>
+</head>
+<body>
+	 <form role="form" method="post" id="formEditor" name="formEditor">
+		<div class="am-tabs-bd r-tab-cont rcsk">
+			<div class="rc-tab-cout-1 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="input-default-li">
+								<input id="qrcode" name="qrcode" class="input-default" type="text" placeholder="请输入会员卡号">
+							</li>
+							<li class="label-p">
+								<span id="msg"></span>
+							</li>
+						</nav>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</form> 
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javaScript">
+$(document).ready(function() {
+	$("#qrcode").focus();
+	$("#msg").empty();
+	//回车事件
+	document.onkeydown = function(event){
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if( e && (e.keyCode == 13 || e.keyCode == 108) ){ // enter 键
+			inleftSave();
+			return false;
+		}
+	};
+});
+function inleftSave(){
+	$("#msg").empty();
+	if( "" == $("#qrcode").val() ){
+		$("#qrcode").focus();
+		return false;
+	}
+	ajaxCall("${def:actionroot}/insert",{
+		method:"post",
+		form:"formEditor",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+</body>
+</html>

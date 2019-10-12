@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		编辑系统应用
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-cardlist.sql" source="sql" scope="transaction" />
+		<recordset id="query-tiyanka.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query-cardlist.sql" tag="card"/>
+		<print mode="table" recordset="query-tiyanka.sql" tag="tiyanka"/>
+		<print mode="form" recordset="_request"/>
+	</output>
+
+</config>

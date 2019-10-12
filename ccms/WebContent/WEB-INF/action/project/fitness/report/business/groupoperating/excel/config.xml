@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	<colname>daochu_start_date,daochu_end_date,daochu_s_class_name,daochu_s_skill_name</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="团操分析列表" filename="团操分析列表.xls" header-background="true">
+		
+		<col id="show" label="序号" />
+		<!--<col id="code" label="团操编号" />-->
+		<col id="classtime" label="开课时间" />
+		<col id="class_name" label="课程名称"/>
+		<col id="name" label="团操教练" />
+		<col id="nowcount" label="预约人数" />
+		<col id="personcount" label="到场人数" />
+		
+		
+	</excel>
+</config>

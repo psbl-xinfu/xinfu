@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>预约来访一览表</title>
+</head>
+<body>
+	<div class="modal fade dialogbg" id="modalAddnew" tabindex="-1" role="dialog" style="display:none;">
+  	  <div class="modal-dialog">
+   	    <div class="modal-content basic-information">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input name="vc_editguestcode" id="vc_editguestcode" type="hidden" value="" /> 
+				<input name="vc_name" id="vc_name" type="hidden" value="" /> 
+				<input name="vc_code" id="vc_code" type="hidden" value="" /> 
+				<input name="user_id" id="user_id" type="hidden" value="" />
+			</form>
+		</div>
+	</div>
+	</div>
+					
+	<!--addnew/edit form-->
+	<div class="modal fade " id="modalToStore" tabindex="-1" role="dialog" style="display:none;margin-left: -80px;">
+  	  <div class="modal-dialog dialogbg" style="width: 750px;">
+   	    <div class="modal-content basic-information">
+          <header class="header-default">
+					<span id="formTitle">确认到店</span>
+				<span class="header-close" onclick="$('.close').click()"></span> <!--关闭按钮无效，调用函数触发旧按钮点击事件-->
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style='display:none;'>&times;</button>
+				</header>
+			<form id="formstoreEditor" name="formstoreEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="tuid" name="tuid" value="" />
+				<input type="hidden" id="vc_guestcode" name="vc_guestcode" value="" />
+				<input type="hidden" id="vc_contractcode" name="vc_contractcode" value="" />
+				<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label style="width: 120px;">姓名<span style="color: red;">*</span>：</label>
+							<input type="text" id="vc_name1" name="vc_name1" value="" maxlength="80" readonly="readonly" />
+						</li>
+						<li>
+							<label style="width: 120px;">接待会籍<span style="color: red;">*</span>：</label>
+							<select id="vc_mc" name="vc_mc">
+								<option value="">请选择</option>
+								<ptdef-rows>
+									<option value="${fld:userlogin}">${fld:name}</option>
+								</ptdef-rows>
+							</select>	
+						</li>
+						<li style="display: none;">
+							<label style="width: 120px;">POS接待教练：</label>
+							<select id="posptid" name="posptid">
+								<option value="">请选择</option>
+								<mc-rows>
+									<option value="${fld:userlogin}">${fld:name}</option>
+								</mc-rows>
+							</select>	
+						</li>
+					</nav>
+				</div>
+				<div class="modal-body b-i-main">
+					<nav>
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注</label>
+							<textarea id="vc_remark" name="vc_remark" class="my-textarea" placeholder="备注"></textarea>
+						</li>
+					</nav>
+				</div>
+			</form>
+			<footer class="footer-default">
+				<button type="button" id="Savebtn">保&nbsp;存</button>
+			</footer>
+		</div>
+	</div>
+	</div>
+	
+	<form role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="model_id" preserve="true" /> 
+		<input name="order" type="hidden" value="desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t daofangyuyue">
+						<nav class="nnn"> 
+							<li>
+								预约
+								<input type="text" id="statusy" readonly="readonly" class="input-default" style="width: 150px;" value="0"/>
+							</li>
+							<li>
+								到访
+								<input type="text" id="statusl" readonly="readonly" class="input-default" style="width: 150px;" value="0"/>
+							</li>
+							<li>
+								成交
+								<input type="text" id="statusc" readonly="readonly" class="input-default" style="width: 150px;" value="0"/>
+							</li>
+							<li>
+								成交额
+								<input type="text" id="normalmoney" readonly="readonly" class="input-default" style="width: 150px;" value="0" />
+							</li>
+						</nav>
+						<nav class="nnn-2">
+							
+							<li  class="dateTime">
+								<input id="start_date" name="start_date" type="text" class="input-default"/>
+							</li>
+							<li class="dateTime">
+								<input id="end_date" name="end_date" type="text" class="input-default"/>
+							</li>
+							<li class="telInput" style="width: 180px;">
+								<input id="cust_all" name="cust_all" type="text" placeholder="资源编号/姓名/电话" class="input-default" />
+							</li>
+							<li style="width: 100px;">
+								<select id="status" name="status" class="normal-select">
+									<option value="">状态</option>
+									<option value="1">预约中</option>
+									<option value="4">已到访</option>
+									<option value="3">爽约</option>
+									<option value="5">已取消</option>
+								</select>
+							</li>
+							<li class="noBg">
+								<select id="mc" name="mc" style="display: none;">
+									<option value="">会籍</option>
+									<ptdef-rowstwo>
+									<option value="${fld:userlogin}">${fld:name}</option>
+									</ptdef-rowstwo>
+								</select>
+							</li>
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addnew_btn">
+								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+							</div>
+						</nav>
+						
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-r">	
+						</nav>
+						<nav class="r-c-3-t-b-r">	
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
+							</li>
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/daodian.svg" title="确认到店" alt=""id="confirmToStore">
+							</li>						
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/GFPwenjuan.svg" title="GFP问卷" alt=""id="writePro">
+							</li>					
+							<!-- <li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/goutongjieguo.svg" title="沟通结果" alt=""id="communicaRecord">
+							</li> -->				
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/quxiaoyuyue.svg" title="取消预约" alt=""id="cancel">
+							</li>
+						</nav>
+					</div>
+				</div>	
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead id="showlist">			
+						<tbody id="datagridTemplate"></tbody>
+						<tbody id="datagrid"></tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+			<input id="daochu_vc_code" name="daochu_vc_code" type="text" />
+			<input id="daochu_cust_all" name="daochu_cust_all" type="text" />
+			<input id="daochu_status" name="daochu_status" type="text" />
+			<input id="daochu_i_age" name="daochu_i_age" type="text" />
+			<input id="daochu_vc_contacttype" name="daochu_vc_contacttype" type="text" />
+			<input id="daochu_vc_preparetime" name="daochu_vc_preparetime" type="text" />
+			<input id="daochu_vc_iuser" name="daochu_vc_iuser" type="text" />
+			<input id="daochu_vc_visittime" name="daochu_vc_visittime" type="text" />
+			<input id="daochu_start_date" name="daochu_start_date" type="text" />
+			<input id="daochu_end_date" name="daochu_end_date" type="text" />
+			<input id="daochu_mc" name="daochu_mc" type="text" />
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	searchSelectInit($("#status,#posptid,#mc,#vc_mc"));
+	loadDategridTemplate();
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		suceessMethod();
+		var url="${def:context}${def:actionroot}/findstatus";
+		ajaxCall(url,{
+			method: "post",
+			progress: true,
+			form:'searchForm',
+			dataType: "script",
+			success: function() {
+			}
+		});
+		$("#searchForm #cust_all").val("");
+	}}).initSearchBtn().searchData(1);
+});
+function parentsearch(){
+	search.searchData(1);
+}
+//初始化
+function loadDategridTemplate(){
+	var date = new Date().format("yyyy-MM-dd");
+	$("#start_date").val(date);
+	$("#end_date").val(date);
+	$Dialog().date($('#start_date'));
+	$Dialog().date($('#end_date'));
+	var user_id = "";
+	<user-rows>
+	user_id = "${fld:user_id}";
+	</user-rows>
+	if(user_id == ""){
+		addNoSignTemplate();
+	}else{
+		addSignTemplate();
+	}
+}
+//无登录模板
+function addNoSignTemplate(){
+	$("#showlist").empty();
+	$("#showlist").append('<tr >'
+	+ '<th></th>'
+	+ '<th>序号</th>'
+	+ '<th>姓名</th>'
+	+ '<th>性别</th>'
+	+ '<th>联系方式</th>'
+	+ '<th>预约时间</th>'
+	+ '<th>预约会籍</th>'
+	+ '<th>来访时间</th>'
+	+ '<th>来访会籍</th>'
+	+ '<th>预约状态</th>'
+	+ '</tr>');
+	$("#datagridTemplate").empty();
+	$("#datagrid").empty();
+	$("#datagridTemplate").append('<tr>'
+			+ '<td>#application_id#</td>'
+			+  '<td nowrap>#show_order#</td>'
+			+ '<td>#vc_name#</td>'
+			+ '<td>#i_sex#</td>'
+			+ '<td>#vc_contactway#</td>'
+			+ '<td>#vc_preparedate# #vc_preparetime#</td>'
+			+  '<td>#preparemc#</td>'
+			+ '<td>#vc_visitdate# #vc_visittime#</td>'
+			+ '<td>#vc_visitmc#</td>'
+			+  '<td>#prepare_type#</td>'
+	+ '</tr>');
+}
+//有登陆模板
+function addSignTemplate(){
+	$("#showlist").empty();
+	$("#showlist").append('<tr >'
+	+ '<th></th>'
+	+ '<th>序号</th>'
+	+ '<th>姓名</th>'
+	+ '<th>性别</th>'
+	+ '<th>联系方式</th>'
+	+ '<th>预约时间</th>'
+	+ '<th>预约会籍</th>'
+	+ '<th>来访时间</th>'
+	+ '<th>来访会籍</th>'
+	+ '<th>预约状态</th>'
+	+ '</tr>');
+	$("#datagridTemplate").empty();
+	$("#datagrid").empty();
+	$("#datagridTemplate").append('<tr>'
+	+ '<td>#application_id#</td>'
+	+  '<td nowrap>#show_order#</td>'
+	+ '<td>#vc_name#</td>'
+	+ '<td>#i_sex#</td>'
+	+ '<td>#vc_contactway#</td>'
+	+ '<td>#vc_preparedate# #vc_preparetime#</td>'
+	+  '<td>#preparemc#</td>'
+	+ '<td>#vc_visitdate# #vc_visittime#</td>'
+	+ '<td>#vc_visitmc#</td>'
+	+  '<td>#prepare_type#</td>'
+	+ '</tr>');
+}
+//查询成功回调
+function suceessMethod(){
+	$("table").css("table-layout","auto");
+	//复选框变大
+	ccms.util.renderRadio("preparelist");
+	//确认到店
+	$("#confirmToStore").unbind().on("click",function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			var vc_preparedate=$('input:radio:checked').attr("code_date");
+			var date=new Date();
+			var codenum=$('input:radio:checked').attr("codenum");
+			if(codenum>0){
+				ccms.dialog.notice("已到店，无需重复到店！");
+				return false;
+			}
+			if(vc_preparedate==''){
+				ccms.dialog.notice("没有预约记录，无法确认到店！");
+			}else if(vc_preparedate!=date.format('yyyy-MM-dd')){
+				ccms.dialog.notice("到店日期与预约日期不符不能确认到店，请重新预约！");
+			}else{
+				$Dialog().confirm("确定已到店吗?", function(){
+					var i_status=$('input:radio:checked').attr("code2");
+					if(i_status=='4'){
+						ccms.dialog.notice("已来访!");
+					}else if(i_status=='5'){
+						ccms.dialog.notice("已取消!");
+					}else{
+						$("#vc_mc").val("${def:user}");
+						$("#modalToStore").modal("show");
+						var vc_name=$('input:radio:checked').attr("code1");
+						var vc_preparecode=$('input:radio:checked').attr("code");
+						var vc_contractcode=$('input:radio:checked').attr("code3");
+						$("#vc_name1").val(vc_name);
+						$("#tuid").val(vc_preparecode);
+						$("#vc_guestcode").val(target_id);
+						$("#vc_contractcode").val(vc_contractcode);
+						$("#Savebtn").unbind().on("click",function(){
+							var url="${def:context}${def:actionroot}/updatepre";
+							ajaxCall(url,{
+								method: "post",
+								progress: true,
+								form:'formstoreEditor',
+								dataType: "script",
+								success: function() {
+									ccms.dialog.notice("操作成功！",1500);
+									window.location.href = window.location.href;
+									ccms.util.clearForm('formstoreEditor');
+								}
+							});
+						});
+					}
+				});
+			}
+		}else{
+			ccms.dialog.notice("请选择!");
+		}
+	});
+
+	//填写问卷
+	$("#writePro").unbind().on('click',function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			var i_status=$('input:radio:checked').attr("code2");
+			var codenum=$('input:radio:checked').attr("codenum");
+			var vc_contracode=$('input:radio:checked').attr("code3");
+			if(vc_contracode==''){
+				if(i_status=='4'||codenum>0){
+					var url = "${def:context}${def:actionroot}/question/crud?vc_guestcode="+target_id;
+					ccms.dialog.open({url:url,id:"dialogPic",width:1000,height:600});
+				}else{
+					ccms.dialog.notice("客户未来访，不能填写问卷！");
+				}
+			}else{
+				var url = "${def:context}${def:actionroot}/question/crud?vc_guestcode="+target_id;
+				ccms.dialog.open({url:url,id:"dialogPic",width:1000,height:600});
+			}
+		}else{
+			ccms.dialog.notice("请选择!");
+		}
+	});
+	
+	//取消预约
+	$("#cancel").unbind().on('click',function(){
+		var code=$('input:radio:checked').attr("code");
+		var i_status=$('input:radio:checked').attr("code2");
+		if(code==""){
+			ccms.dialog.alert("临时到访无法取消预约！");
+			return false;
+		}
+		if(code!=undefined){
+			if(i_status=='1'){
+				$Dialog().confirm("确定取消预约吗?", function(){
+					var url = "${def:context}${def:actionroot}/updatestatus?code="+code;
+					ajaxCall(url,{
+						method: "get",
+						progress: true,
+						dataType: "script",
+						success: function() {
+							search.searchData(1);
+							ccms.dialog.notice("成功！",1500);
+						}
+					});
+				});
+			}else{
+				ccms.dialog.alert("不能取消,请核对状态！");
+			}
+		}else{
+			ccms.dialog.alert("请选择！");
+		}
+	});
+	
+	//沟通记录
+	$("#communicaRecord").unbind().on('click',function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!= ""&&target_id!=undefined){
+			$Dialog().confirm("确定执行此操作吗?", function(){
+				var pi_status=$('input:radio:checked').attr("code2");
+				var codenum=$('input:radio:checked').attr("codenum");
+				if(pi_status!=4&&codenum==0){
+					ccms.dialog.notice("未来访，不能执行此操作！");
+				}else{
+					top.ccms.dialog.open({url : '${def:context}${def:actionroot}/custcomm?guestcode='+target_id+'&cust_type=0&type=0', width:'1160',height:'600'});
+				}
+			});
+		}else{
+			ccms.dialog.notice("请选择!");
+	    } 
+	});
+	//新增
+	$("#addnew_btn").unbind().on('click',function(){
+		ccms.dialog.open({url : '${def:context}${def:actionroot}/form?', height:500});
+	})
+	//导出
+	$("#daochu_list").unbind().on("click", function(){
+         $("#daochu_vc_code").val($("#vc_code").val());
+         $("#daochu_cust_all").val($("#cust_all").val());
+         $("#daochu_status").val($("#status").val());
+         $("#daochu_i_age").val($("#i_age").val());
+         $("#daochu_vc_contacttype").val($("#vc_contacttype").val());
+         $("#daochu_vc_preparetime").val($("#vc_preparetime").val());
+         $("#daochu_vc_iuser").val($("#vc_iuser").val());
+         $("#daochu_vc_visittime").val($("#vc_visittime").val());
+         $("#daochu_start_date").val($("#start_date").val());
+         $("#daochu_end_date").val($("#end_date").val());
+         $("#daochu_mc").val($("#mc").val());
+         $("#daochuForm").submit();
+    });	
+	$("#look").unbind().on("click", function(){
+		var target_id = getRadioValue("preparelist");
+		if(target_id!=""){
+			ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='+1+'&guestcode='+target_id+"&status="});
+		}else{
+			ccms.dialog.notice("请选择!");
+		}
+	});
+}
+</script>
+</body>
+</html>

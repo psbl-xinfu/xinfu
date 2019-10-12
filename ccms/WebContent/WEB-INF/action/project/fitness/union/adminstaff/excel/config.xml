@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_staffname</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="管理员记录" filename="管理员记录.xls" header-background="true">
+		<col id="name" label="管理员名称" /> 
+		<col id="userlogin" label="登录名" />
+		<col id="mobile" label="电话" />
+		<col id="org_name" label="负责门店" />
+		<col id="status" label="状态" />
+		<col id="remark" label="备注" />
+	</excel>
+</config>

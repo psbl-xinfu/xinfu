@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="tuid" type="varchar" required="true" label="tuid" />
+    <parameter id="storageid" type="varchar" required="true" label="仓库" />
+<!--     <parameter id="enter_date" type="varchar" required="true" label="入库日期" /> -->
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+    
+</validator>

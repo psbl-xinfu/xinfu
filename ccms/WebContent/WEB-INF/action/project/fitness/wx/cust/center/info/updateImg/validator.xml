@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="user_id" type="integer" required="true" label="user_id"/>
+	<parameter id="media_id" type="varchar" required="true" label="server_id"/>
+	<parameter id="field_name" type="varchar" required="true" label="field_name"/>
+	<parameter id="org_id" type="integer" required="false" label="org_id"/>
+</validator>
+

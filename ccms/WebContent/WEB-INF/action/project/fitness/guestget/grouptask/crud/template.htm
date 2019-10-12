@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<head>
+    <meta charset="utf-8">
+	<title>组任务详情</title>
+	<meta name="viewport" content="width=320, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- head 中 -->
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/jquery-weui_custom.min.css">
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/weui.min.css">
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/group_task.css" />
+</head>
+<body >    
+<ul class="top-nav">
+	<li class="active" data-id="monthTab" id="monthtab">月</li>
+	<li data-id="dayTab" id="daytab">日</li>
+</ul>
+
+<section >
+	<div class="lists active" id="monthTab">
+		<div class="task-period">任务周期
+			<span class="value">
+				<input type="text" id="monthdate">
+				<input type="hidden" id="monthdateinfo" name="monthdateinfo" />
+			</span>
+			<span class="icon-more"></span>
+		</div>
+
+		<h1 class="gg-task-hd">${fld:team_name}</h1>
+		<ul class="gg-task-mid">
+			<li>
+				<p class="num-wrap"><span class="num">${fld:teamnum}<i style="color: #848999" id="completenum"></i></span></p>
+				<p>人员达标率</p>
+				<span class="sep"></span>
+			</li>
+			<li>
+				<p class="num-wrap"><span class="num" id="monthguestnum"></span>个</p>
+				<p>获客数量</p>
+				<span class="sep"></span>
+			</li>
+			<li>
+				<p class="num-wrap"><span class="num" id="monthtargetnum"></span>个</p>
+				<p>任务总量</p>
+			</li>
+		</ul>
+
+		<ul class="gg-task-ft">
+			<li>
+				<span class="label">任务完成比例</span>
+				<div class="progress">
+				 	<span class="zongmonth-progress-play"></span>
+				</div>
+				<span class="percent" id="zongpercentage"></span>
+			</li>
+		</ul>
+
+		<h1 class="gg-task-hd">组员进度</h1>
+		<ul class="gg-task-ft" id="monthstaff">
+		</ul>
+	</div>
+
+
+	<div class="lists" id="dayTab">
+		<div class="task-period">任务周期<span class="value">
+			<input type="text" id="daydate"></span>
+			<input type="hidden" id="daydateinfo" name="daydateinfo" value="${def:date}" />
+			<span class="icon-more"></span>
+		</div>
+
+		<h1 class="gg-task-hd">${fld:team_name}</h1>
+		<ul class="gg-task-mid">
+			<li>
+				<p class="num-wrap"><span class="num">${fld:teamnum}<i style="color: #848999" id="completedaynum"></i></span></p>
+				<p>人员达标率</p>
+				<span class="sep"></span>
+			</li>
+			<li>
+				<p class="num-wrap"><span class="num" id="dayguestnum"></span>个</p>
+				<p>获客数量</p>
+				<span class="sep"></span>
+			</li>
+			<li>
+				<p class="num-wrap"><span class="num" id="daytargetnum"></span>个</p>
+				<p>任务总量</p>
+			</li>
+		</ul>
+		<ul class="gg-task-ft">
+			<li>
+				<span class="label">任务完成比例</span>
+				<div class="progress">
+				 	<span class="zongday-progress-play"></span>
+				</div>
+				<span class="percent" id="zongdaypercentage"></span>
+			</li>
+		</ul>
+
+		<h1 class="gg-task-hd">组员进度</h1>
+		<ul class="gg-task-ft" id="daystaff">
+		</ul>
+	</div>
+	
+</section>
+
+${inc:/action/project/fitness/guestget/end}
+
+<!-- body 最后 -->
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/common/jquery-weui.min.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/group_task.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	if("${fld:teamtype}"=="2"){
+		//底部选中
+		tabswitch("4");
+	}
+	findmonthtarget();
+	$("#monthtab").click(function(){
+		findmonthtarget();
+	})
+	$("#daytab").click(function(){
+		finddaytarget();
+	})
+});
+//按日统计
+function finddaytarget(){
+	var url="${def:actionroot}/searchdaytarget?daydateinfo="+new Date($("#daydateinfo").val()).format("yyyy-MM-dd")+"&pk_value=${fld:team_id}";
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+//按月统计
+function findmonthtarget(){
+	var url="${def:actionroot}/searchmonthtarget?monthdateinfo="+$("#monthdateinfo").val()+"&pk_value=${fld:team_id}";
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>办卡合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<style>
+.upload_btn {
+    position: absolute;
+    cursor: pointer;
+    bottom: 0px;
+    right: 0px;
+    width: 32px;
+    height: 32px;
+    background: url(${def:context}/js/project/fitness/image/SVG/common/photo.svg) center center no-repeat;
+}
+</style>
+<body>
+		<form id="contractForm" name="contractForm" method="post">
+			<input type="hidden" id="contractcode" name="contractcode" value="" preserve="true" />
+			<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+			<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
+			<input type="hidden" id="guestcode" name="guestcode" value="" preserve="true" />
+			<input type="hidden" id="recommendcode" name="recommendcode" value="" />
+			<input type="hidden" id="inimoney" name="inimoney" value="" />
+			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
+			<input type="hidden" id="count" name="count" value="" />
+			<input type="hidden" id="daycount" name="daycount" value="" />
+			<input type="hidden" id="moneyleft" name="moneyleft" value="" />
+	<div class="business-card-contract  dialogbg " style="width: 100%;height: 700px"  >
+				<header class="header-default">
+					办卡合同
+					<p></p>
+				</header>
+				<section class="b-c-c-main dialogbg	" style="position: relative">
+					<div class="head-img" style="position: absolute;right: 11px;cursor: pointer;
+					z-index: 999;border: 1px solid #272424;">
+						<img src="${def:context}/js/project/fitness/image/SVG/50X50.svg" id="headpic"
+						onerror="javascript:this.src='${def:context}/js/project/fitness/image/SVG/170X220.svg'" height="150" width="120">
+						<span class="upload_btn" id="upload_btn"></span>
+					</div>
+					<header>
+						<p>客户姓名：
+							<span  id="custnamespan" ></span>	
+						</p>
+						<p>电话：
+							<span  id="mobilespan" ></span>
+						</p>
+					</header>
+					
+					<div class="b-c-c-input-group">
+						<div class="label-p-input">
+							<label for="b-c-c-g-1">推荐人：</label>
+							<input  id="recommend" name="recommend" type="text" placeholder="输入名称或手机号搜索">
+						</div>
+						
+						<div class="b-c-c-i-2">
+							<label>销售员：</label>
+								<select  id="salemember" name="salemember" style="display: none;">
+									<option value="">销售员</option>
+									<sale-rows>
+									<option value="${fld:userlogin}">${fld:name@js}</option>
+									</sale-rows>
+								</select>
+								<div style="margin-left: 20px">
+								<select  id="salemember1" name="salemember1" style="display: none;">
+									<option value="">第二会籍</option>
+									<sale2-rows>
+									<option value="${fld:userlogin}">${fld:name@js}</option>
+									</sale2-rows>
+								</select>
+								</div>
+						</div>
+						
+						<div class="b-c-c-i-2">
+							<label>卡类型：</label>
+							<div class="my-selected b-c-c-long">
+								<select id="cardtype" name="cardtype" style="display: none;">
+									<option value="">请选择</option>
+									<cardtype-rows>
+										<option value="${fld:code}" code="${fld:cardfee}" codeday="${fld:daycount}" type="${fld:type}"
+										codegiveday="${fld:giveday}" opencarddeadline="${fld:opencarddeadline}" codept="${fld:ptcount}" 
+										moneyleft="${fld:moneyleft}">${fld:name@js}</option>
+									</cardtype-rows>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="b-c-c-support" >
+						<p>支持门店：</p>
+						<div class="more" id="supportorgsspan" style="margin-top:-10px">
+						</div>
+					</div>
+					<div class="b-c-c-i-2" code= "moneyleft" style="display: none;">储值金额：						
+						<span  id="moneyleftspan" name="moneyleftspan"></span>
+					</div>
+					
+					<div class="b-c-c-4" code="starttype">
+						<label>启用方式：</label>
+							<select id="starttype" name="starttype" style="display: none;">
+							<option value="">请选择</option>
+							<starttype-rows>
+							<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+							</starttype-rows>
+						</select>
+							
+						<p class="label-p-input">	
+						<input type="text" id="startdate" name="startdate" maxlength="80" value=""  placeholder="起用日期"/>
+						</p>
+						
+						<p class="label-p-input">截止时间
+							<input type="text" id="enddate" name="enddate" readonly="readonly" maxlength="80" value="" placeholder="截止日期"  />
+						</p>
+					</div>
+					
+					<div class="b-c-c-5" code="give" >
+						<p class="label-p-input">
+							<label for="b-c-c-5-1">赠送免费私教课时：</label>
+							<span  id="ptcountspan" >0</span>
+							<input type="hidden" id="ptcount" name="ptcount" value="0" />
+						</p>
+						<p class="label-p-input" >
+							<label for="b-c-c-5-1">赠送入会天数：</label>
+							<input type="text" id="giveday" name="giveday" maxlength="80" placeholder="赠送天数"  value="0" />
+						</p>
+					</div>
+					
+					<div class="b-c-c-5-6">原价：
+						<span  id="inimoneyspan" name="inimoneyspan"></span>
+					</div>
+					
+					<div class="b-c-c-6">
+						<label>优惠活动：</label>
+							<select  id="campaigncode" name="campaigncode" style="display: none;">
+								
+							</select>
+						<p class="label-p-input">
+							<label for="b-c-c-5-1">折扣金额：</label>
+							<input type="text" id="discountmoney" name="discountmoney" maxlength="80"  value="0"  /> 元
+						</p>
+					</div>
+					
+					<!-- <div class="b-c-c-7" id="isstagediv" style="display: none;">
+						<label class="am-checkbox three-none">
+							<input type="checkbox" value="" name="isstage" style="display: none;">
+						</label>
+						<span>分期支付</span>
+					</div> -->
+					
+					<div class="b-c-c-8" code="stageDiv" style="display:none;">
+						<p class="label-p-input">
+							<label for="b-c-c-5-1">账单分期：</label>
+							<span style="font-size: 20px" onclick="numjian()">-</span>
+							<input type="text" id="stage_times" name="stage_times" maxlength="80"  value=""  />
+							<span style="font-size: 20px" onclick="numjia()">+</span>期
+						</p>
+						
+						<p class="label-p-input" style="margin-left: 10px">
+							<label for="b-c-c-5-1">本期付款&nbsp;：</label>
+							<input type="text" id="stagemoney" name="stagemoney" maxlength="80" style="width: 120px;" value="0"  /> 元,
+						</p>
+						
+						<p class="label-p-input" style="margin-left: 10px">
+							<label for="b-c-c-5-1">剩余&nbsp;：</label>
+							<input type="text" id="shengyuqi" name="shengyuqi" maxlength="80" value="1" style="width: 100px;" readonly="readonly"/> 期,
+							每期还款<span id="meiqiprice"></span>元
+						</p>		 			
+						
+					</div>
+					
+					<div class="b-c-c-9">
+						应收：
+					<span  id="normalmoneyspan"  name="normalmoneyspan" ></span>
+					</div>
+					
+					<div class="b-c-c-10">
+						<p>备注</p>
+						<textarea id="remark" name="remark" placeholder="暂无数据" class="my-textarea"></textarea>
+					</div>
+					
+					<footer class="footer-default">
+						<button class="my-btn-default" type="button" id="save_btn" >保存</button>
+						<button class="my-btn-default active" id="pay_btn" type="button" style="display: none;">收款</button>
+					</footer>
+				</section>
+			</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var istopay = false;
+var discount = 1.00;	// 折扣比例
+var cardfee = 0, days = 0, giveday = 0, ptcount = 0;
+var stagetimes = 1;
+var currentDate = new Date();
+
+$(".head-img").hover(function() {
+   $('.hoverhowTable').css('display', 'block');
+}, function() {
+   $('.hoverhowTable').css('display', 'none');
+});
+// 计算合同费用
+function setcontractfee(){
+	// 原价
+	$("#inimoneyspan").text(cardfee);
+	$("#inimoney").val(cardfee);
+	// 应收
+	var normalmoney = 0;
+	// 折扣金额
+	var discountfee = 0;
+	if( "" == $("#campaigncode").val() && parseFloat($("#discountmoney").val()) > 0 ){	// 特批折扣合同
+		discountfee = $("#discountmoney").val();
+		normalmoney = (cardfee - discountfee).toFixed(2);
+	}else{
+		normalmoney = (cardfee*discount).toFixed(2);
+		discountfee = (cardfee-normalmoney).toFixed(2);
+	}
+	$("#discountmoney").val(discountfee);
+	$("#normalmoney").val(normalmoney);
+	$("#normalmoneyspan").text(normalmoney);
+	// 分期付款
+	if( $("input[name=isstage]").is(':checked') ){
+		var stagemoney = (parseFloat(normalmoney)/parseFloat(stagetimes)).toFixed(2);
+		$("#stagemoney").val(stagemoney);	// 本期付款
+		$("#meiqiprice").text(stagemoney);	// 本期付款
+	}else{
+		$("#stagemoney").val("");	// 本期付款
+		$("#meiqiprice").text("");	// 本期付款
+	}
+}
+// 根据启用方式重写卡有效时间
+function setvaliddate(){
+	var starttype = $("#starttype").val();
+	if( "1" == starttype ){	// 首次训练启用
+		$("#startdate").datetimepicker('remove');
+		$("#startdate").attr("readonly", true);
+		$("#startdate").val("");
+		$("#enddate").val("");
+	}else if( "2" == starttype ){	// 固定时间启用
+		$("#startdate").removeAttr("readonly");
+		ccms.dialog.date($("#startdate"), function(){
+			setendate();
+		});
+		$("#startdate").val(addDate(currentDate, 1).format("yyyy-MM-dd"));
+		$("#enddate").val(addDate(currentDate, days+giveday+1).format("yyyy-MM-dd"));
+	}else{	// 当天启用
+		$("#startdate").datetimepicker('remove');
+		$("#startdate").attr("readonly", true);
+		$("#startdate").val(currentDate.format("yyyy-MM-dd"));
+		$("#enddate").val(addDate(currentDate, days+giveday).format("yyyy-MM-dd"));
+	}
+}
+// 计算卡结束日期
+function setendate(){
+	$("#enddate").val(addDate($("#startdate").val(), days+giveday).format("yyyy-MM-dd"));
+}
+
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#pay_btn").show();
+	}
+	
+	searchSelectInit($("#salemember,#salemember1,#cardtype,#starttype,#campaigncode"));  
+	setSelectValue($("#salemember"), "${def:user}");
+	$("#salemember").selectpicker("refresh");
+	$("#salemember").selectpicker("render");
+
+ 	<cust-rows>
+	 	if( "" != "${fld:custimgid}" ){
+			$("#headpic").attr("src", contextPath + "/action/project/fitness/util/attachment/download?tuid=${fld:custimgid}&type=1");
+		}else{
+			$("#headpic").attr("src", "${def:context}/js/project/fitness/image/SVG/50X50.svg");
+		}
+		$("#customercode").val("${fld:code}");
+		$("#guestcode").val("${fld:guestcode}");
+		$("#custnamespan").text("${fld:name@js}");
+		$("#mobilespan").text("${fld:mobile@js}");
+		var recommendcode = "${fld:recommendcode}";
+		if(recommendcode=="&nbsp;")
+			$("#recommendcode").val("");
+		else
+			$("#recommendcode").val(recommendcode);
+		var recommend = "${fld:recommend}";
+		if(recommend=="&nbsp;")
+			$("#recommend").val("");
+		else
+			$("#recommend").val(recommend);
+		/* $("#isstagediv").show(); */
+	</cust-rows>
+	<guest-rows>
+	 	if( "" != "${fld:guestimgid}" ){
+			$("#headpic").attr("src", contextPath + "/action/project/fitness/util/attachment/download?tuid=${fld:guestimgid}&type=1");
+		}else{
+			$("#headpic").attr("src", "${def:context}/js/project/fitness/image/SVG/50X50.svg");
+		}
+		$("#customercode").val("");
+		$("#guestcode").val("${fld:code}");
+		$("#custnamespan").text("${fld:name@js}");
+		$("#mobilespan").text("${fld:mobile@js}");
+		var recommendcode = "${fld:recommendcode}";
+		if(recommendcode=="&nbsp;")
+			$("#recommendcode").val("");
+		else
+			$("#recommendcode").val(recommendcode);
+		var recommend = "${fld:recommend}";
+		if(recommend=="&nbsp;")
+			$("#recommend").val("");
+		else
+			$("#recommend").val(recommend);
+		
+		/* $("#isstagediv").show(); */
+	</guest-rows> 
+	
+	getAjaxCall("/action/project/fitness/contract/newcard/querycampaign?cardtype=", true);
+	
+	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}", true);
+	}
+	
+	// 上传头像
+	$("#upload_btn").unbind().on("click",function(){
+		var table_code = "cc_guest", codeval="${fld:guestcode}";
+		if("${fld:guestcode}"==""){
+			table_code = "cc_customer";
+			codeval="${fld:customercode}";
+		}
+		if(codeval==""){
+			codeval = $("#customercode").val();
+		}
+		ccms.dialog.open({url: contextPath+"/action/project/fitness/util/attachment/photo/crud?table_code="
+				+table_code+"&pk_value="+codeval+"&imgid=headpic", height: "600", width: "630"});
+	});
+	
+	// 分期付款
+	$("input[name=isstage]").unbind().on("ifChecked", function(){
+		if($('#contractcode').val()==""){
+			stagetimes = 2;
+			$("div[code=stageDiv]").show();
+			$("#stage_times").val(stagetimes);
+			setcontractfee();
+		}
+	});
+	
+	
+	$("input[name=isstage]").on("ifUnchecked", function(){
+		stagetimes = 1;
+		$("div[code=stageDiv]").hide();
+		$("#stage_times").val(stagetimes);
+	});
+	// 分期次数
+	$("#stage_times").unbind().on("blur",function(){
+		var _stagetimes = $(this).val();
+		if( "" != _stagetimes && isNumber(_stagetimes) && parseInt(_stagetimes) >= 2 ){
+			stagetimes = parseInt(_stagetimes);
+		}else{
+			stagetimes = 2;
+			ccms.dialog.notice("分期次数必须为大于1的整数", 2000);
+		}
+		$(this).val(stagetimes);
+		
+		$("#shengyuqi").val(stagetimes-1);
+		
+		var yingshouprice=$("#normalmoneyspan").text();
+		var benqiprice=$("#stagemoney").val();
+		var finalprice=(yingshouprice-benqiprice)/(stagetimes-1)
+		$("#meiqiprice").text(finalprice.toFixed(2));
+	});
+	
+	// 本期付款
+	$("#stagemoney").unbind().on("blur",function(){
+		var stagemoney = $(this).val();
+		if( "" == stagemoney || ( "" == stagemoney && !isFloat(stagemoney) && !isNumber(stagemoney)) ){
+			ccms.dialog.notice("请输入有效的本期付款金额", 2000);
+			return false;
+		}else if( parseFloat(stagemoney) >= parseFloat(normalmoney) ){
+			ccms.dialog.notice("本期付款金额不能超过应付金额", 2000);
+			return false;
+		}
+		
+		var yingshouprice=$("#normalmoneyspan").text();
+		var benqiprice=$("#stagemoney").val();
+		var stagetimes=$("#stage_times").val();
+		var finalprice=(yingshouprice-benqiprice)/(stagetimes-1)
+		$("#meiqiprice").text(finalprice.toFixed(2));
+		
+	});
+	
+	// 卡启用方式
+	$("#starttype").on("change",function(){
+		setvaliddate();
+	});
+	
+	// 根据卡类型加载活动；zzn设置控件显示情况
+	$("#cardtype").on("change",function(){
+		if($(this).val()!=""){
+			setSelectValue($("#starttype"), "0");
+			type = $("#cardtype").find("option:selected").attr("type");
+			moneyleft = $("#cardtype").find("option:selected").attr("moneyleft");
+			//alert(moneyleft);
+			if(type == 2){ //储值卡隐藏部分div zzn
+				$("div[code=starttype]").hide();;
+				$("div[code=give]").hide();
+				$("div[code=moneyleft]").show();
+				$("#moneyleftspan").text(moneyleft);
+				$("#moneyleft").val(moneyleft);
+				
+			}else{
+				$("div[code=starttype]").show();;
+				$("div[code=give]").show();
+				$("div[code=moneyleft]").hide();
+			}
+	
+		}else{
+			setSelectValue($("#starttype"), "");
+		}
+		getAjaxCall("/action/project/fitness/contract/newcard/querycampaign?cardtype="+$(this).val(), true);
+		var cardtypeobj = $("#cardtype").find("option:selected");
+		cardfee = $(cardtypeobj).attr("code");
+		cardfee = ("" != cardfee && (isFloat(cardfee) || isNumber(cardfee)) ? parseFloat(cardfee) : 0.00);
+		days = $(cardtypeobj).attr("codeday");
+		days = ("" != days && isNumber(days) ? parseInt(days) : 0);
+		giveday = $(cardtypeobj).attr("codegiveday");
+		giveday = ("" != giveday && isNumber(giveday) ? parseInt(giveday) : 0);
+		ptcount = $(cardtypeobj).attr("codept");
+		ptcount = ("" != ptcount && isNumber(ptcount) ? parseInt(ptcount) : 0);
+		$("#daycount").val(days);
+		$("#giveday").val(giveday);
+		$("#ptcountspan").text(ptcount);
+		$("#ptcount").val(ptcount);
+		$("#inimoneyspan").text(cardfee);
+		$("#inimoney").val(cardfee);
+		setcontractfee();
+		setvaliddate();
+		var id=$(this).val();
+		getAjaxCall("/action/project/fitness/util/querysupportorgs?cardtype="+id+"&objid=supportorgsspan", false);
+	});
+	
+	// 根据活动
+	$("#campaigncode").on("change",function(){
+		var discountStr = $("#campaigncode").find("option:selected").attr("code-discount");
+		if( discountStr == "" || (!isNumber(discountStr) && !isFloat(discountStr)) ){
+			discount = 1.00;
+		}else{
+			discount = parseFloat(discountStr).toFixed(2);
+		}
+		setcontractfee();
+	});
+	
+	// 推荐人
+	$("#recommend").unbind().on("blur",function(){
+		$("#recommendcode").val("");
+		if($(this).val()==""){
+			/*ccms.dialog.alert("请输入推荐人手机号！");
+			$("#recommendcode").val("");*/
+			return false;
+		}
+		ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+$(this).val()+"&objid=recommendcode&objidtwo=recommend&random_number="+Math.random()});
+	});
+	
+	// 免费赠送天数
+	$("#giveday").unbind().on("blur",function(){
+		if( "" != $(this).val() && isNumber($(this).val()) ){
+			giveday = parseInt($(this).val());
+		}else{
+			giveday = 0;
+		}
+		$(this).val(giveday);
+		setvaliddate();
+	});
+	// 修改折扣金额
+	$("#discountmoney").unbind().on("blur",function(){
+		var discountmoney = 0;
+		if( "" != $(this).val() && (isFloat($(this).val()) || isNumber($(this).val()))){
+			discountmoney = parseFloat($(this).val()).toFixed(2);
+		}
+		$(this).val(discountmoney);
+		setSelectValue($("#campaigncode"), "");
+		setcontractfee();
+	});
+	
+	// 保存
+	$("#save_btn").unbind().on("click",function(){
+		if($("#salemember").val()==$("#salemember1").val()){
+			ccms.dialog.notice("销售员不能重复！", 2000);
+			return false;
+		}
+		istopay = false;
+		saveContract();
+	});
+	// 收款
+	$("#pay_btn").unbind().on("click",function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		if($("#salemember").val()==$("#salemember1").val()){
+			ccms.dialog.notice("销售员不能重复！", 2000);
+			return false;
+		}
+		istopay = true;
+		saveContract();
+	});
+	
+	$("#discountmoney").focus();
+});
+function saveContract(){
+	//跟进卡类型期限判断，如果启用方式为固定时间启用，那么根据卡类型的开卡期限判断日期
+	if($("#starttype").val()=="2"){
+		var opencarddeadline = $("#cardtype").find("option:selected").attr("opencarddeadline");
+		if(opencarddeadline!=""&&opencarddeadline!="0"){
+			var odate = new Date();
+			odate.setDate(odate.getDate()+parseInt(opencarddeadline));
+			if(new Date($("#startdate").val())>odate){
+				ccms.dialog.notice("启用方式日期最大为"+odate.format("yyyy-MM-dd"), 2000);
+				return false;
+			}
+		}
+	}
+	var contractcode = $("#contractcode").val();
+	if( "" != contractcode ){
+		// 判断合同状态
+		getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
+			if( data && Number(data.status) >= 2 ){
+				if( istopay ){
+					topay(contractcode);
+				}else{
+					ccms.dialog.notice("已付款合同不允许修改！", 2000);
+				}
+			}else{
+				postAjaxCall("${def:actionroot}/update", "contractForm", true);	// 未付款合同可修改
+			}
+		});
+	}else{
+		getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", true, function(){
+			if( "" == $("#newcontractcode").val() ){
+				ccms.dialog.notice("合同号生成失败", 2000);
+			}else if( "" == $("#customercode").val() ){
+				postAjaxCall("${def:actionroot}/insertnew", "contractForm", true);
+			}else{
+				postAjaxCall("${def:actionroot}/insert", "contractForm", true);
+			}
+		});
+	}
+}
+function topay(contractcode){
+	var  Obj=parent.document.getElementsByTagName('iframe');
+	$(Obj).height(550);
+location.href = contextPath + "${def:actionroot}/view?contractcode="+contractcode;
+}
+
+function loadCardType(cardtype, callback){
+	getAjaxCall("/action/project/fitness/contract/newcard/querycampaign?cardtype="+cardtype, true, function(){
+		if( typeof(callback) == "function" && undefined != callback ){
+			callback();
+		}
+	});
+}
+
+
+//推荐人回调查询方法不要删除
+function pickcustCallback(){}
+
+//分期减
+function numjian(){
+	var _stagetimes = parseInt($("#stage_times").val());
+	_stagetimes-=1;
+	numcalculate(_stagetimes);
+}
+//分期加
+function numjia(){
+	var _stagetimes = parseInt($("#stage_times").val());
+	_stagetimes+=1;
+	numcalculate(_stagetimes);
+}
+function numcalculate(_stagetimes){
+	if( "" != _stagetimes && isNumber(_stagetimes) && parseInt(_stagetimes) >= 2 ){
+		stagetimes = parseInt(_stagetimes);
+	}else{
+		stagetimes = 2;
+		ccms.dialog.notice("分期次数必须为大于1的整数", 2000);
+	}
+	$("#stage_times").val(stagetimes);
+	
+	$("#shengyuqi").val(stagetimes-1);
+	
+	var yingshouprice=$("#normalmoneyspan").text();
+	var benqiprice=$("#stagemoney").val();
+	var finalprice=(yingshouprice-benqiprice)/(stagetimes-1)
+	$("#meiqiprice").text(finalprice.toFixed(2));
+}
+</script>
+</body>
+</html>

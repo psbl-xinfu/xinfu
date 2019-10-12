@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config nodb="false">
+
+	<summary>
+		合同管理
+	</summary>
+	
+	<log>false</log>
+    <transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-cardrate.sql" source="sql" scope="transaction" />
+		<recordset id="query-duse.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-salescount.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-NOCollectionContract.sql" source="sql" scope="transaction" />
+		<recordset id="query-skillscope.sql" source="sql" scope="transaction" /> 
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="form" recordset="query-cardrate.sql" />
+		<print mode="form" recordset="query-duse.sql"/>
+        <print mode="form" recordset="query-salescount.sql" />
+        <print mode="form" recordset="query-NOCollectionContract.sql" />
+        <print mode="form" recordset="query-skillscope.sql" />
+	</output>
+
+</config>

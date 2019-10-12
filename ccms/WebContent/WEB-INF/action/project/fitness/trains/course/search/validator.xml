@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="course_name" type="varchar" required="false" label="course_name" />
+
+	<custom-validator classname="dinamica.validators.SQLPatternTransformer" 
+		parameter="course_name" rule="contains" ifnull="%" />
+
+</validator>

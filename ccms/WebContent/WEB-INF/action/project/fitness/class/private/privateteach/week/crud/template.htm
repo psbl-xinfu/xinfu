@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<title>私教预约-周表</title>
+<head>
+<body>
+	<form role="form" method="post" id="searchForm">
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="sj-tab-cout-1 am-tab-panel am-in am-active am-fade three-none" id="sj-tab1">
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="toChange" style="font-size: 18px;">
+								<p>
+									<span class="am-icon-chevron-left" id="last-week"></span>
+									<span id="last_date"></span>
+									<span>~</span>
+									<span id="next_date"></span>
+									<span class="am-icon-chevron-right" id="next-week"></span>
+								</p>
+							</li>
+							<li>
+								<select id="ptlevelcode" name="ptlevelcode">
+									<option value="">全部课程</option>
+									<def-rows>
+										<option value="${fld:code}">${fld:ptlevelname}</option>
+									</def-rows>
+								</select>
+							</li>
+							<li>
+								<select id="pt" name="pt">
+									<option value="">全部教练</option>
+									<staff-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows>
+								</select>
+							</li>
+							<div class="r-c-btnList">
+									<button type="button" class="r-c-3-btn-1" id="search" title="查询"></button>
+									<button type="button" class="r-c-3-btn-2" id="add_btn" title="预约"></button>
+								</div>
+						</nav>
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+							<li class="wenzi">
+								视图模式：
+							</li>
+							<li id="to-sjyy-xx">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/liebiao.svg" alt="" title="列表" id="liebiao">
+							</li>
+							<li id="to-sjyy-zhou">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/zhou.svg" alt="" title="周表" id="zhoubiao">
+							</li>
+							<li id="to-sjyy-yue">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/yue.svg" alt="" title="月表" id="yuebiao">
+							</li>
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/btn/dangqianzhou.svg" title="当前周" alt=""id="current-week">
+							</li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			</div>	
+    	</form>
+		<div class="r-tab-cout-3-b">
+			<nav class="sj-1-bottom-2" id="monitor">
+				<li>
+					<p class="top" code="" id="startdate"></p>
+					<div class="main">
+						<p class="toNonenow" id="numdayone">1</p>
+						<p>共计:<span  id="yizong"></span>人</p>
+					</div>
+					<nav class="type-list" id="yinav">
+					</nav>
+					<nav class="nav-list-bot">
+						<li>
+							预约中:<span id="yiyy"></span>人
+						</li>
+						<li>
+							已取消:<span id="yiqx"></span>人
+						</li>
+						<li>
+							已上课:<span id="yisk"></span>人
+						</li>
+						<li>
+							爽约:<span id="yisy"></span>人
+						</li>
+					</nav>
+				</li>
+				<li>
+					<p class="top" code="" id="ercode"></p>
+					<div class="main">
+						<p class="toNonenow" id="numdaytwo">2</p>
+						<p>共计:<span  id="erzong"></span>人</p>
+					</div>
+					<nav class="type-list" id="ernav">
+					</nav>
+					<nav class="nav-list-bot">
+						<li>
+							预约中:<span id="eryy"></span>人
+						</li>
+						<li>
+							已取消:<span id="erqx"></span>人
+						</li>
+						<li>
+							已上课:<span id="ersk"></span>人
+						</li>
+						<li>
+							爽约:<span id="ersy"></span>人
+						</li>
+					</nav>
+				</li>
+				<li>
+					<p class="top" code="" id="sancode"></p>
+					<div class="main">
+						<p class="toNonenow" id="numdaytwo">3</p>
+						<p>共计:<span  id="sanzong"></span>人</p>
+					</div>
+					<nav class="type-list" id="sannav">
+					</nav>
+					<nav class="nav-list-bot">
+						<li>
+							预约中:<span id="sanyy"></span>人
+						</li>
+						<li>
+							已取消:<span id="sanqx"></span>人
+						</li>
+						<li>
+							已上课:<span id="sansk"></span>人
+						</li>
+						<li>
+							爽约:<span id="sansy"></span>人
+						</li>
+					</nav>
+				</li>
+				<li>
+					<p class="top" code="" id="sicode"></p>
+					<div class="main">
+						<p class="toNonenow" id="numdaytwo">5</p>
+						<p>共计:<span  id="sizong"></span>人</p>
+					</div>
+					<nav class="type-list" id="sinav">
+					</nav>
+					<nav class="nav-list-bot">
+						<li>
+							预约中:<span id="siyy"></span>人
+						</li>
+						<li>
+							已取消:<span id="siqx"></span>人
+						</li>
+						<li>
+							已上课:<span id="sisk"></span>人
+						</li>
+						<li>
+							爽约:<span id="sisy"></span>人
+						</li>
+					</nav>
+				</li>
+				<li>
+					<p class="top" code="" id="wucode"></p>
+					<div class="main">
+						<p class="toNonenow" id="numdaytwo">6</p>
+						<p>共计:<span  id="wuzong"></span>人</p>
+					</div>
+					<nav class="type-list" id="wunav">
+					</nav>
+					<nav class="nav-list-bot">
+						<li>
+							预约中:<span id="wuyy"></span>人
+						</li>
+						<li>
+							已取消:<span id="wuqx"></span>人
+						</li>
+						<li>
+							已上课:<span id="wusk"></span>人
+						</li>
+						<li>
+							爽约:<span id="wusy"></span>人
+						</li>
+					</nav>
+				</li>
+				<li>
+					<p class="top" code="" id="liucode"></p>
+					<div class="main">
+						<p class="toNonenow" id="numdaytwo">7</p>
+						<p>共计:<span  id="liuzong"></span></p>
+					</div>
+					<nav class="type-list" id="liunav">
+					</nav>
+					<nav class="nav-list-bot">
+						<li>
+							预约中:<span id="liuyy"></span>人
+						</li>
+						<li>
+							已取消:<span id="liuqx"></span>人
+						</li>
+						<li>
+							已上课:<span id="liusk"></span>人
+						</li>
+						<li>
+							爽约:<span id="liusy"></span>人
+						</li>
+					</nav>
+				</li>
+				<li>
+					<p class="top" code="" id="enddate"></p>
+					<div class="main">
+						<p class="toNonenow" id="numdaytwo">8</p>
+						<p>共计:<span  id="qizong"></span>人</p>
+					</div>
+					<nav class="type-list" id="qinav">
+					</nav>
+					<nav class="nav-list-bot">
+						<li>
+							预约中:<span id="qiyy"></span>人
+						</li>
+						<li>
+							已取消:<span id="qiqx"></span>人
+						</li>
+						<li>
+							已上课:<span id="qisk"></span>人
+						</li>
+						<li>
+							爽约:<span id="qisy"></span>人
+						</li>
+					</nav>
+				</li>
+			</nav>
+		</div>
+</body>
+    <script>
+    $(document).ready(function() {
+        //月表周表列表切换
+        $("#liebiao").click(function(){listptprepare();});
+        $("#zhoubiao").click(function(){weekptprepare();});
+        $("#yuebiao").click(function(){monthptprepare();});
+        checkMenuBtn();
+		searchSelectInit($("#pt,#ptlevelcode"));
+       		var cells = $("#monitor>li>p");
+            var clen = cells.length;
+            var currentFirstDate;
+            var formatDate = function(date){
+                var year = date.getFullYear()+'年';
+                var month = (date.getMonth()+1)+'月';
+                var day = date.getDate()+'日';
+                var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()];
+                return week;
+            };
+            var addDate= function(date,n){       
+                date.setDate(date.getDate()+n);        
+                return date;
+            };
+            var setDate = function(date){
+                var week = date.getDay();
+                date = addDate(date,week*-1);
+                currentFirstDate = new Date(date);
+                for(var i = 0;i<clen;i++){
+                    cells[i].innerHTML = formatDate(i==0 ? date : addDate(date,1));
+                    $(cells[i]).attr("code",date.format("yyyy-MM-dd"));
+                    $(cells[i]).next().find("p").eq(0).html(date.getDate());
+                }
+            };
+            //上一周
+            document.getElementById('last-week').onclick = function(){
+                setDate(addDate(currentFirstDate,-7));         
+            };
+            //下一周
+            document.getElementById('next-week').onclick = function(){
+                setDate(addDate(currentFirstDate,7));
+            };
+            //当前周
+            document.getElementById('current-week').onclick = function(){
+                setDate(addDate(new Date(),0));
+            };
+            setDate(new Date());
+            //查询数据
+    		$("#search,#last-week,#next-week,#current-week").click(function(){
+    			searchPrepare();
+    		});
+            //初始加载数据
+    		searchPrepare();
+    		
+			//添加预约
+    		$("#add_btn").click(function(){
+    			ccms.dialog.open({url : 
+    				'${def:context}/action/project/fitness/class/private/privateteach/covenantclass/form', height:500});
+    		});
+        });
+    	//更多跳转列表页面
+    	function morelist(val){
+    		var date = $(val).parent().prev().prev().attr("code");
+			var vcpt = $("#pt").val();
+			$("#formEditor_manage").load('${def:context}/action/project/fitness/class/private/reservationdetail/crud?vc_date='+date+'&ispubload=true'+'&vc_ptid='+vcpt);
+    	}
+    	// 查询选择周的预约记录
+    	function searchPrepare(){
+    		var vcpt = $("#pt").val();
+    		var startdate = $("#startdate").attr("code");
+    		var enddate = $("#enddate").attr("code");
+    		$("#last_date").html(startdate);
+    		$("#next_date").html(enddate);
+    		var ptlevelcode = $("#ptlevelcode").val();
+    		ajaxCall("${def:actionroot}/queryprepare?pt="+vcpt+"&startweek="+startdate+"&endweek="+enddate+"&ptlevelcode="+ptlevelcode,{
+    			method:"get",
+    			progress:true,
+    			dataType:"script",
+    			success:function(){	
+    			}
+    		});
+    	}
+    </script>
+</head>
+</html>

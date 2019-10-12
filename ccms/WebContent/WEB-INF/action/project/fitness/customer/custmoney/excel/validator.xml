@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_custall" type="varchar" required="false" label="卡号/名称/手机号/会员编号" />
+</validator>

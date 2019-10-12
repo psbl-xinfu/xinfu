@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>团队详情</title>
+    <link href="${def:context}/js/project/fitness/wx/css/team/team_detail.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/team/more_team.css" rel="stylesheet" />
+    <style>
+        .iradio_square-blue {
+
+            transform: scale(0.7);
+        }
+    </style>
+</head>
+
+<body>
+    <input id="weixinlogin" type="hidden" value="${fld:weixinlogin}" />
+    <input id="weixin_userid" type="hidden" value="${fld:weixin_userid}" />
+    <div class="bg_nav">
+        <div class="header_left">
+            <span>
+                <input id="xiaozu" type="text" value="" disabled="disabled">
+            </span>
+            <img id="upt" src="${def:context}/js/project/fitness/wx/image/team/updata.png" alt="修改" style="display: none;">
+            <p id="gremark"></p>
+        </div>
+        <a href="../code/crud" class="code"></a>
+
+    </div>
+    <div class="team_member">
+        <div class="tit">
+            <span class="lt member">团队成员</span>
+            <span class="rt num" id="membernum"></span>
+        </div>
+        <ul class="head_pic" id="memberimg">
+            
+        </ul>
+    </div>
+    <div class="bao_info">
+        <div class="tit">包场信息</div>
+        <div class="cont" id="siteusedetail">
+            <!-- <div>
+                <div class="lt">
+                    <img src="${def:context}/js/project/fitness/wx/image/team/remark.png" />
+                </div>
+                <div class="rt tip">
+                    <p>2017-06-22</p>
+                    <p>嘟嘟健身俱乐部篮球场A1场，30人场，1点、2点场</p>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+    <div class="foot" style="display: none;" id="leaderdiv">
+        <div class="lt disband">解散团队</div>
+        <div class="rt change">转让群主</div>
+    </div>
+
+    <div id="tean_member" style="width: 100%;height: 100%;z-index: 999; display: none;">
+
+        <div class="search">
+            <input type="text" placeholder="搜索" id="name" name="name">
+        </div>
+        <div class="admin member">
+            <div class="lt" style="width: 5.5rem;">
+                <div class="head_pic" id="qzimg">
+                    
+                </div>
+                <div class="admin_mark">群主</div>
+                <div class="name" id="qzname"></div>
+
+            </div>
+        </div>
+        <div class="chengyuan">成员(29人)</div>
+        <ul class="member_list">
+            <!-- <li class="member">
+                <div class="lt">
+                    <div class="head_pic">
+                        <img src="${def:context}/js/project/fitness/wx/image/team/bg.png" />
+                    </div>
+
+                    <div class="name">那年夏天的瓜那年</div>
+
+                </div>
+                <div class="right">
+                    <span class="remove">移除</span>
+                    <span class="check-mark">
+                        <input type="radio" name="radio" value="1" checked>
+                    </span>
+                </div>
+            </li> -->
+        </ul>
+        <button id="transfer">转让</button>
+    </div>
+
+<script src="${def:context}/js/project/fitness/wx/js/team/rem.js"></script>
+<script>
+$(function () {
+	//判断当前登录人是否是群主
+	if("${fld:weixinlogin}"=="${fld:weixin_userid}"){
+		$("#leaderdiv,#upt").show();
+	}
+	searchguestgroup()
+    $('#upt').click(function () {
+        $("#xiaozu").removeAttr("disabled");
+        $("#xiaozu").css("border", '1px solid #eeeeee');
+    })
+    $("#xiaozu").blur(function () {
+        $("#xiaozu").attr("disabled", "disabled");
+        $("#xiaozu").css("border", 'none');
+    });
+    // 解散群
+    $('.disband').click(function () {
+        if(confirm('是否解散团队?')){
+        	ajaxCall("${def:actionroot}/updatestatus?tuid=${fld:groupid}&org_id=${fld:org_id}",{
+        		method:"get",
+        		dataType:"script",
+        		success:function(){
+                	location.href = "${def:context}/action/project/fitness/wx/team/myteam/crud"
+        		}
+        	});
+        }
+    })
+	//修改团队名称
+    $("#xiaozu").blur(function(){
+    	ajaxCall("${def:actionroot}/updateguestgroup?tuid=${fld:groupid}&org_id=${fld:org_id}&name="+$(this).val(),{
+    		method:"get",
+    		dataType:"script",
+    		success:function(){
+    		}
+    	});
+    });
+    
+    //转让群主
+    $("#transfer").click(function(){
+		var obthis = getRadioValue("membervalue");
+    	if(obthis==""){
+    		alert("请选择！");
+    	}else{
+    		ajaxCall("${def:actionroot}/updateleader?tuid=${fld:groupid}&org_id=${fld:org_id}&leader="+obthis,{
+    			method:"get",
+    			dataType:"script",
+    			success:function(){
+    			}
+    		});
+    	}
+    });
+    //根据条件搜索
+    $("#name").blur(function(){
+    	searchguestgroup();
+    	$(this).val("");
+    })
+})
+
+
+//查询
+function searchguestgroup(){
+	ajaxCall("${def:actionroot}/queryguestgroup?groupid=${fld:groupid}&org_id=${fld:org_id}&weixin_userid=${fld:weixin_userid}",{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+	ajaxCall("${def:actionroot}/queryguestgroupmember?groupid=${fld:groupid}&org_id=${fld:org_id}&name="+$("#name").val(),{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+	ajaxCall("${def:actionroot}/querysiteusedetail?groupid=${fld:groupid}&org_id=${fld:org_id}",{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"ptrestradio":"${fld:ptrestradio@js}",
+		"name":"${fld:name@js}",
+		"mobile":"${fld:mobile@js}",
+		"pttype":"${fld:pttype@js}",
+		"pttotalcount":"${fld:pttotalcount}",
+		"ptleftcount":"${fld:ptleftcount}",
+		"ptid":"${fld:ptid@js}",
+		"created":"${fld:created@yyyy-MM-dd}",
+		"ptenddate":"${fld:ptenddate@yyyy-MM-dd}",
+		"buyday":"${fld:buyday}",
+		"delayday":"${fld:delayday}",
+		"ptlevelname":"${fld:ptlevelname@js}"
+			
+	},
+	</rows>
+	{}
+]}

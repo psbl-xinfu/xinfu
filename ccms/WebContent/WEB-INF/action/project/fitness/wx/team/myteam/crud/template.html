@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的团队</title>
+    <link href="${def:context}/js/project/fitness/wx/css/team/my_team.css" rel="stylesheet" />
+
+</head>
+
+<body>
+	<input type="hidden" id="weixinlogin" name="weixinlogin" value="${fld:weixinlogin}" />
+	<input type="hidden" id="org_id" name="org_id" value="${fld:org_id}" />
+	<div id="guestgroup">
+
+    </div>
+    <a href="javascript:;" onclick="addteam()"><div class="create_team">创建团队</div></a>
+
+    <script src="${def:context}/js/project/fitness/wx/js/team/rem.js"></script>
+
+<script>
+$(function () {
+	ajaxCall("${def:actionroot}/queryteam?org_id=${fld:org_id}&weixin_userid=${fld:weixin_userid}",{
+		method:"get",
+		dataType:"script",
+		success:function(){
+		}
+	});
+})
+
+function addteam(){
+	location.href="${def:context}/action/project/fitness/wx/team/createteam/crud?weixin_userid=${fld:weixin_userid}&org_id=${fld:org_id}";
+}
+</script>
+
+</body>
+
+</html>

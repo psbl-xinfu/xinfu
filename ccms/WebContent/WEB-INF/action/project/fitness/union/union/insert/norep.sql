@@ -1,0 +1,1 @@
+select 1 from t_union where group_name=${fld:group_name}

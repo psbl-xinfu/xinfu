@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="${def:context}/js/project/fitness/js/bootstrap-calendar-0.2.5/css/calendar.css" />
+
+<script src="${def:context}/js/require.js" data-main="js/main" defer="true" async="true"></script> 
+<title>私教预约-月表</title>
+<style>
+.leftchart .addTop{
+	position:absolute;
+	right:0px;
+	top:0px;
+	font-size:12px;
+}
+.leftchart .addTop .nav{
+	position: absolute;
+    right: 13px;
+    top: 48px;
+    width: auto;
+}
+.leftchart{
+	color:white;
+}
+</style>
+</head>
+<body>
+	<form role="form" method="post" id="searchForm">
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="sj-tab-cout-1 am-tab-panel am-in am-active am-fade three-none" id="sj-tab1">
+				<div class="tab-cout-nav">
+					<div class="tab-cout-nav-t">
+						<nav class="tab-nav-my">
+							<li class="toChange">
+								<!-- <input id="" name="datemonth" type="text" class="input-default" readonly /> -->
+								<p>
+									<span class="am-icon-chevron-left" id="lastmonth"></span>
+									<span id="datemonth"></span>
+									<span class="am-icon-chevron-right" id="nextmonth"></span>
+								</p>
+							</li>	
+							<li>
+								<select id="ptlevelcode" name="ptlevelcode" class="normal-select">
+									<option value="">全部课程</option>
+									<def-rows>
+										<option value="${fld:code}">${fld:ptlevelname}</option>
+									</def-rows>
+								</select>
+							</li>	
+							<li>
+								<select id="pt" name="pt">
+									<option value="">全部教练</option>
+									<staff-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows>
+								</select>
+							 </li>	
+							 <div class="r-c-btnList">
+									<button type="button" class="r-c-3-btn-1" id="search" title="查询"></button>
+									<button type="button" class="r-c-3-btn-2" id="add_btn" title="预约"></button>
+								</div>			
+						</nav>	
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+							<li class="wenzi">
+								视图模式：
+							</li>
+							<li id="to-sjyy-xx">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/liebiao.svg" alt="" title="列表" id="liebiao">
+							</li>
+							<li id="to-sjyy-zhou">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/zhou.svg" alt="" title="周表" id="zhoubiao">
+							</li>
+							<li id="to-sjyy-yue">
+								<img src="${def:context}/js/project/fitness/image/SVG/table/yue.svg" alt="" title="月表" id="yuebiao">
+							</li>
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li><img src="${def:context}/js/project/fitness/image/SVG/btn/dangqianyue.svg" title="当前月" alt="" id="currentmonth"></li>
+						</nav>
+					</div>
+				</div>				
+			</div>
+		</div>	
+	</form>
+	<div class="r-tab-cout-3-b" id="calendar"></div>
+	<div class="bottom-con clearlr">
+		<div class="con-left">
+			<label class="con-title">私教授课统计</label>
+			<div class="list-type">
+				<div class="type-title">
+					<span>已取消</span>
+					<span>预约中</span>
+					<span>已签课</span>
+					<span>爽约</span>
+				</div>
+				<div class="type-value">
+					<span id="zerostatusnum">0</span>
+					<span id="onestatusnum">0</span>
+					<span id="twostatusnum">0</span>
+					<span id="threestatusnum">0</span>
+				</div>
+				<div class="leftchart">
+					<div class="addTop">
+						<input id="ptteachingstatisticalfdate" type="hidden"/>
+						<input id="ptteachingstatisticaltdate" type="hidden"/>
+						<header>
+							<nav>
+								<li id="ptteachingstatisticaltongbi" name="ptteachingstatisticaltongbi" data-name="compareflag" data-area="ptteachingstatistical" data-code="T">同比</li>
+								<li id="ptteachingstatisticalhuanbi" name="ptteachingstatisticalhuanbi" data-name="compareflag" data-area="ptteachingstatistical" data-code="H">环比</li>
+								<li>
+									<div class="my-selected">
+										<select class="normal-select-30" id="ptteachingstatisticaldatatype" 
+											name="ptteachingstatisticaldatatype" data-name="datatype" 
+											data-area="ptteachingstatistical" style="display: none;">
+											<option value="0" selected>按天</option>
+											<option value="1">按周</option>
+											<option value="2">按月</option>
+										</select>
+									</div>
+								</li>
+							</nav>
+						</header>
+						<nav class="nav">
+							<li>
+								<button data-area="ptteachingstatistical" data-type="bar" name="changeMagicType"></button>
+								<button data-area="ptteachingstatistical" data-type="line" name="changeMagicType" class="active"></button>
+								<button data-area="ptteachingstatistical" data-type="list" name="changeMagicType"></button>
+							</li>
+						</nav>
+					</div>
+					<div id="ptteachingstatisticalDiv" class="other-full" style="width: 100%;height: 213px;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="con-right">
+			<label class="con-title">当月教练签课排行</label>
+			<table>
+				<thead>
+					<tr>
+						<td></td>
+						<td>教练</td>
+						<td>签课量</td>
+						<td>排行</td>
+					</tr>
+				<thead>
+				<tbody id="ptranking">
+					<tr>
+						<td colspan="4" style="color: red;font-size: 16px;">该月没有签课记录</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<style>
+	.con-right table thead tr td{
+		font-size:16px;
+		color:white;
+		line-height:50px;
+		text-align:center;
+	}
+		.con-right table{
+			width:98%;
+			margin-left:1%;
+			color:white;
+			margin-top:10px;
+		}
+		.con-right table tr:nth-child(2n){
+			background:#282E34;
+		}
+		.con-right tbody tr:hover td {
+		    background: rgba(240, 238, 238, 0.1);
+		}
+		.con-right table tbody td{
+			font-size:14px;
+			padding:5px;
+			text-align:center;
+		}
+		.con-right table td:first-child img{
+			width:40px;
+			height:40px;
+			border-radius:50%;
+		}
+		.con-right table td:last-child img{
+			width:20px;
+			height:25px;
+		}
+		.con-right table tr:nth-child(1) .name{
+			color:#FF8989;
+		}
+		.con-right table tr:nth-child(2) .name{
+			color:#9ACCFF;
+		}
+		.con-right table tr:nth-child(3) .name{
+			color:#FFD6BB;
+		}
+		.type-title span:nth-child(1){
+			color:#FF5A6E;
+		}
+		.type-title span:nth-child(2){
+			color:#F5A623;
+		}
+		.type-title span:nth-child(3){
+			color:#7ED321;
+		}
+		.type-title span:nth-child(4){
+			color:#7ED321;
+		}
+		.type-title span,
+		.type-value span{
+			display:inline-block;
+			width:20%;
+			font-size:14px;
+			line-height:20px;
+			color:white;
+		}
+		.type-value{
+			text-align:center;
+		}
+		.type-title{	
+			text-align:center;
+			margin-top:46px;
+		}
+		.left-icon span{
+			margin:6px;
+			width:15px;
+			height:15px;
+			display:inline-block;
+			
+		}
+		.left-icon{
+			position:absolute;
+			top:46px;
+			right:13px;
+		}
+		.left-type{
+			position:absolute;
+			top:10px;
+			right:13px;
+		}
+		.left-type span{
+			display:inline-block;
+			font-size:12px;
+			color:white;
+			margin-left:23px;
+		}
+		.left-type .left-select{
+			margin-left:14px;
+			background-color:#282E34;
+			width:56px;
+			border-radius:4px;
+			height:20px;
+			font-size:12px;
+			line-height:20px;
+			color:white;
+			border:none;
+		}
+		.con-title{
+			display:inine-block;
+			font-size:16px;
+			color:white;
+			line-height:22px;
+			padding:15px 0 5px 17px;
+			width:100%;
+		}
+		.left-time{
+			font-size:12px;
+			color:#FFFFFF;
+			line-height:17px;
+			padding-left:15px;
+		}
+		.left-time i{
+			background:url(/js/project/fitness/image/btn-update.png) no-repeat;
+			background-size:100%;
+			width:8px;
+			height:8px;
+			display:inline-block;
+		}
+		.bottom-con{
+			margin:7px 0;
+		}
+		.con-left{
+			float:left;
+			width:49.5%;
+			height:351px;
+			background:rgba(42,48,56,0.8);
+			border-radius: 4px; 
+			position:relative;
+		}
+		.con-right{
+			float:left;
+			width:49.5%;
+			margin-left:1%;
+			height:351px;
+			background:rgba(42,48,56,0.8);
+			border-radius: 4px;
+		}
+	</style>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/bootstrap-calendar-0.2.5/components/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/bootstrap-calendar-0.2.5/components/jstimezonedetect/jstz.min.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/bootstrap-calendar-0.2.5/js/language/zh-CN.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/bootstrap-calendar-0.2.5/js/calendar.js"></script>
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/bootstrap-calendar-0.2.5/js/app.js"></script>
+<script src="${def:context}/js/echarts-2.2.7/build/dist/echarts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/base-charts.js" type="text/javascript"></script>
+<script src="${def:context}/js/project/fitness/js/report/analysis-org.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var teachingStatistical = null;
+	$(document).ready(function() {
+		searchSelectInit($("#pt,#ptlevelcode"));
+		searchSelectInit($("#ptteachingstatisticaldatatype"), "70px");
+		$("#datemonth").html(new Date().format("yyyy-MM"));
+		$("#ptteachingstatisticalfdate").val(new Date().format("yyyy-MM-01"));
+		var ptdate = new Date(new Date().format("yyyy-MM-01"));
+		ptdate.setMonth(ptdate.getMonth()+1);
+		ptdate.setDate(ptdate.getDate()-1);
+		$("#ptteachingstatisticaltdate").val(ptdate.format("yyyy-MM-dd"));
+		$Dialog().yearmonth($('#datemonth'), function() {
+			if (undefined != calendar && null != calendar) {
+				calendar.changeMonth($('#datemonth').html() + "-01",function(){
+					searchPrepare();
+				});
+			}
+		});
+		searchPrepare();	// 查询选择年月的预约记录
+		checkMenuBtn();
+		$("#search").click(function(){searchPrepare();});
+		$("#add_btn").click(function(){
+			ccms.dialog.open({url : 
+				'${def:context}/action/project/fitness/class/private/privateteach/covenantclass/form', height:500});
+		});
+		//查看
+		$(".cal-cell1 .cal-month-day").unbind().on("click",function(){
+			var thisobj =$(this).find("span").attr("data-cal-date");
+			var vcpt = $("#pt").val();
+			$("#formEditor_manage").load('${def:context}/action/project/fitness/class/private/reservationdetail/crud?vc_date='+thisobj+'&ispubload=true'+'&vc_ptid='+vcpt);
+		});
+
+        //上一月
+		$("#lastmonth").click(function(){
+        	var date = new Date($('#datemonth').html());
+        	date.setMonth(date.getMonth() - 1);
+        	$('#datemonth').html(new Date(date).format("yyyy-MM"));
+    		switchmonth(); 
+    		if (undefined != calendar && null != calendar) {
+				calendar.changeMonth($('#datemonth').html() + "-01",function(){
+					searchPrepare();
+				});
+			}
+		});
+        //下一月
+		$("#nextmonth").click(function(){
+        	var date = new Date($('#datemonth').html());
+        	date.setMonth(date.getMonth() + 1);
+        	$('#datemonth').html(new Date(date).format("yyyy-MM"));
+    		switchmonth(); 
+    		if (undefined != calendar && null != calendar) {
+				calendar.changeMonth($('#datemonth').html() + "-01",function(){
+					searchPrepare();
+				});
+			}
+		});
+        //当前月
+		$("#currentmonth").click(function(){
+        	$('#datemonth').html(new Date().format("yyyy-MM"));
+    		switchmonth();  
+    		if (undefined != calendar && null != calendar) {
+				calendar.changeMonth($('#datemonth').html() + "-01",function(){
+					searchPrepare();
+				});
+			}
+		});
+        //月表周表列表切换
+        $("#liebiao").click(function(){listptprepare();});
+        $("#zhoubiao").click(function(){weekptprepare();});
+        $("#yuebiao").click(function(){monthptprepare();});
+
+    	/** 同比、环比 */
+    	$("li[data-name=compareflag]").on("click",function(){
+    		if($(this).hasClass('baobiao-active')){
+    			$(this).removeClass("baobiao-active");
+    		}else{
+    			$(this).siblings().removeClass("baobiao-active");
+    			$(this).addClass("baobiao-active");
+    		}
+    		var dataarea = $(this).attr("data-area");
+    		teachingStatistical.loadData();
+    	});
+	});
+	// 查询选择年月的预约记录
+	function searchPrepare(){
+		var vcpt = $("#pt").val();
+		var datemonth = $("#datemonth").html();
+		var ptlevelcode= $("#ptlevelcode").val();
+		ajaxCall("${def:actionroot}/queryprepare?pt="+vcpt+"&datemonth="+datemonth+"&ptlevelcode="+ptlevelcode,{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});
+		ptranking();
+		/** 私教授课统计 **/
+		teachingStatistical = new PtTeachingStatistical();
+		teachingStatistical.loadData();
+	}
+
+    //查询私教排名
+	function ptranking(){
+		ajaxCall("${def:actionroot}/queryptranking?datemonth="+new Date("${def:date}").format("yyyy-MM"),{
+			method:"get",
+			progress:true,
+			dataType:"script",
+			success:function(){	
+			}
+		});
+	}
+	function getAttrValue(obj, attrname){
+		var attrvalue = "";
+		if( undefined != obj && null != obj && 0 != obj.length ){
+			attrvalue = obj.attr(attrname);
+		}
+		return (undefined != attrvalue && null != attrvalue ? attrvalue : "");
+	}
+
+	</script>
+</body>
+</html>

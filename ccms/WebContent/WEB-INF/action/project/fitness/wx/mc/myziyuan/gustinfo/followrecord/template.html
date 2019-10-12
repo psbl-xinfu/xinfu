@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html >
+    <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>跟进记录</title>
+        	<link href="${def:context}/js/project/fitness/wx/css/huiyuan.css" rel="stylesheet" />
+    </head>
+    <body>
+        
+        <div class="huiyuanhtjllistbody">
+        </div>
+    </body>
+    <script type="text/javascript">
+    $(function(){
+    	homemc();
+    	var str="";
+    	<list>
+    	str+=' <div class="list" >'
+    	str+='<div class="content fl">'
+    	str+=' <p class="name">${fld:call_result}<span>${fld:vc_iuser}</span></p>'
+    	str+='<p class="time">${fld:shijian@yyyy-MM-dd HH:mm}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>'
+    	str+='</div>'
+    	str+='</div>'
+    	</list>
+    	$('.huiyuanhtjllistbody').html(str);
+    })
+    </script>
+</html>

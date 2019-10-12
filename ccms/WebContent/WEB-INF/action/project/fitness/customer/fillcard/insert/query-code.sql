@@ -1,0 +1,1 @@
+select ${seq:nextval@seq_cc_finance} as vc_code from dual

@@ -1,0 +1,23 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"code":"${fld:code@js}",
+		"i_status":"${fld:i_status@js}",
+		"card_code":"${fld:card_code@js}",
+		"name":"${fld:name@js}",
+		"mobile":"${fld:mobile@js}",
+		"normalmoney":"${fld:normalmoney}",
+		"factmoney":"${fld:factmoney}",
+		"remark":"${fld:remark}",
+		"c_idate":"${fld:c_idate}",
+		"createdate":"${fld:createdate}",
+		"cardname":"${fld:cardname@js}",
+		"salemember":"${fld:salemember@js}",
+		"application_id":"${fld:application_id@js}",
+		"contracttype":"${fld:contracttype@js}",
+		"createdby":"${fld:createdby}"
+	},
+	</rows>
+	{}
+]}

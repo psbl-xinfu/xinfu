@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="vc_code" type="varchar" required="true" label="vc_code" />
+
+</validator>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>客诉处理条件筛选</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="width: 1000px;height: 300px;">
+			<header class="header-default">
+				<span id="formTitle">条件筛选</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          		<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 130px;">处理状态</label>
+							<select class="filterconditions" id='f_status'  name='f_status' style="display: none;">
+								<option value=''>全部</option>
+								<option value='1'>未处理</option>
+								<option value='2'>已处理</option>
+								<option value='3'>未成功</option>
+								<option value='4'>不作处理</option>
+								<option value='5'>未分配</option>
+							</select>
+						</li>
+						<li>
+							<label for="" style="width: 130px;">投诉方式</label>
+							<select id='f_isanonymous' name='f_isanonymous' class="filterconditions" style="display: none;">
+							    <option value=''>全部</option>
+								<option value='0'>实名</option>
+								<option value='1'>匿名</option>
+							</select>
+						</li>
+						<li>
+							<label for="" style="width: 130px;">投诉类别</label>
+							<select id='f_complainttype' name='f_complainttype' class="filterconditions" style="display: none;">
+								<option selected='selected' value=''>全部</option>
+								<op-type><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-type>
+							</select>
+						</li>
+						<li class="tousutype" id="yugong">
+							<label style="width: 130px;">员工：</label>
+							<select id='f_complaint_userid'  name='f_complaint_userid' class="filterconditions" style="display: none;">
+								<option selected='selected' value=''>全部</option>
+								<op-staff><option value=${fld:user_id}>${fld:name@js}</option></op-staff>
+							</select>
+						</li>
+						<li class="tousutype" id="bumen">
+							<label style="width: 130px;">部门：</label>
+							<select id='f_complaint_skill'  name='f_complaint_skill' class="filterconditions" style="display: none;">
+								<option selected='selected' value=''>全部</option>
+								<op-skill><option value="${fld:skill_id}">${fld:skill_name@js}</option></op-skill>
+							</select>
+						</li>
+						<li class="tousutype" id="xiangmu">
+							<label style="width: 130px;">项目：</label>
+							<select id='f_complaint_item'  name='f_complaint_item' class="filterconditions" style="display: none;">
+								<option selected='selected' value=''>全部</option>
+								<op-item><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-item>
+							</select>
+						</li>
+						<li class="tousutype" id="huanjing">
+							<label style="width: 130px;">环境：</label>
+							<select id='f_complaint_envir'  name='f_complaint_envir' class="filterconditions" style="display: none;">
+								<option selected='selected' value=''>全部</option>
+								<op-envir><option value=${fld:domain_value@js}>${fld:domain_text_cn@js}</option></op-envir>
+							</select>
+						</li>
+						<li>
+							<label for="" style="width: 130px;">处理满意度</label>
+							<select id='f_evalstar'  name='f_evalstar' class="filterconditions" style="display: none;">
+								<option value=''>全部</option>
+								<option value='1'>不满意</option>
+								<option value='2'>一般</option>
+								<option value='3'>比较满意</option>
+								<option value='4'>非常满意</option>
+							</select>
+						</li>
+					</nav>
+				</div>
+				
+			<footer class="footer-default">
+				<button type="button" id="filter">确定</button>&nbsp;
+				<button type="button" id="clearfilter">重置</button>
+			</footer>
+			</form>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {	
+	//隐藏
+	$(".tousutype").hide();
+	//加载条件
+	loadingfilter();
+	
+    $("#f_complainttype").change(function(){
+    	//清空
+    	$(".tousutype select").each(function(){
+    		$("#"+$(this).attr("id")).val('');
+    		$("#"+$(this).attr("id")).selectpicker("refresh");
+    		$("#"+$(this).attr("id")).selectpicker("render");
+    	})
+    	showComplaintTypeItem($(this).val());
+   	});
+	
+	//筛选
+	$("#filter").click(function(){
+		//清空父级页面
+		clearparentfilter();
+		//往父页面赋值
+		$("li .filterconditions").each(function(){
+			parent.$("#"+$(this).attr("id")).val($("#"+$(this).attr("id")).val());
+		})
+		parent.searchObj.searchData(1);
+		ccms.dialog.close();
+	});
+
+	$("#clearfilter").click(function(){
+		///清空本页面
+		clearfilter();
+		//清空父级页面
+		clearparentfilter();
+		$(".tousutype").hide();
+	});
+	selectInit($('#f_isanonymous,#f_complainttype,#f_complaint_userid,#f_complaint_skill,#f_complaint_item,#f_complaint_envir,#f_status,#f_evalstar')); 
+});
+
+//加载条件
+function loadingfilter(){
+	$("li .filterconditions").each(function(){
+		$("#"+$(this).attr("id")).val(parent.$("#"+$(this).attr("id")).val());
+	});
+	showComplaintTypeItem($("#f_complainttype").val());
+}
+
+//清空本页面
+function clearfilter(){
+	$("li .filterconditions").each(function(){
+		$("#"+$(this).attr("id")).val('');
+		$("#"+$(this).attr("id")).selectpicker("refresh");
+		$("#"+$(this).attr("id")).selectpicker("render");
+	})
+}
+//清空父级页面
+function clearparentfilter(){
+	$("li .filterconditions").each(function(){
+		parent.$("#"+$(this).attr("id")).val('');
+	})
+}
+function showComplaintTypeItem(code){
+	$(".tousutype").hide();
+	 switch(code){
+	   case '1':
+		        $("#yugong").show();
+		        break;
+	   case '2':
+	        	$("#bumen").show();
+		        break;
+	   case '3':
+	        	$("#xiangmu").show();
+		  	    break;
+	   case '4':
+	        	$("#huanjing").show();
+		  	    break;
+	 }
+}
+
+</script>
+</body>
+</html>

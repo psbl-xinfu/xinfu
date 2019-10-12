@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>预约列表</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="myyuyuelisttop">
+            <div class="shurukuang">
+                <input type="text" name=""  class="form-control dateinput" id="datetimepicker" data-date-format="yyyy-mm-dd" >
+                <img src="${def:context}/js/project/fitness/wx/image/select_jiantou.png" class="select_jiantou">
+            </div>
+
+        </div>
+
+       
+        <div class="myyuyuelistbody">
+        </div>
+        <form id="filter" name="filter">
+        <input type="hidden" id="s_date" name="s_date">
+        </form>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+    $(function(){
+    	homemc();
+    	$('#s_date').val('${def:date}');
+    	$('#datetimepicker').val('${def:date}');
+    	getlist()
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10,
+            onSelect:function(valueText,inst){
+            	$('#s_date').val(valueText);
+            	getlist();
+        		}//结束年份
+        };
+       
+        $("#datetimepicker").mobiscroll( $.extend(opt['date'], opt['default']) );
+    });
+    
+    function getlist(){
+    	postAjaxCall("/action/project/fitness/wx/mc/personal/prapre/search?",'filter',false);
+    }
+    
+    function getinfo(code,commcode,status){
+    	if(status=="预约中"){
+        	location.href="${def:context}/action/project/fitness/wx/mc/personal/yuyueinfo?code="+code+"&commcode="+commcode;
+    	}else{
+    		ccms.dialog.notice("只有预约中才能修改时间");
+    	}
+    }
+</script>

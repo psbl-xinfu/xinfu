@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>储物柜</title>
+<style type="text/css">
+.day{
+   text-align:center;
+   width:45px;
+}
+.days{
+   text-align:center;
+   width:45px;
+   margin-left: 15px;
+}
+</style>
+</head>
+<body>
+	<form class="form-horizontal" role="form" method="post" id="searchForm">
+		<input type="hidden" id="unitprice_id" name="unitprice_id" value="${fld:unitprice_id}"/>
+		<input type="hidden" id="rentunit_id" name="rentunit_id" value="${fld:rentunit_id}"/>		
+		<div class="modal-body b-i-main">
+			<nav>
+				<li>
+					押金：
+	     			<input type="text" id ="unitprice" name ="unitprice" value="${fld:unitprice}" class="days input-1"/>
+	     			元
+				</li>
+				<li></li>  
+			</nav>
+		</div>
+	   <div class="banner-top ba1" style="margin-top:15px;padding: 0 0 10px 15px;">
+		 <button id="edit_btn" type="button"  >确定</button>
+	   </div>
+	</form>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#edit_btn").click(function updateData(){
+		if(Number($("#unitprice").val())>=0){
+			var uri = "${def:context}${def:actionroot}/update?";
+			//修改参数
+			url(uri+"tuid="+$("#rentunit_id").val()+"&param_text="+$("#rentunit").val());
+			url(uri+"tuid="+$("#unitprice_id").val()+"&param_text="+$("#unitprice").val());
+			ccms.dialog.alert("修改成功！");
+		}else{
+			ccms.dialog.notice("押金不能为负数,请输入正确的格式！",2000);
+		}
+			 
+	})
+
+	function url(uri){
+		ajaxCall(uri,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	 		}
+	 	});
+	}
+});
+</script>
+</body>
+</html>

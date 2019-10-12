@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochu_start_date,daochu_end_date,daochu_vc_all,daochu_thismonthcustone,daochu_thismonthcusttwo,daochu_thismonthcustthree,
+	daochu_f_sex,daochu_f_age,daochu_f_nofollowstartdate,daochu_f_nofollowenddate,daochu_f_entrystartdate,
+	daochu_f_entryenddate,daochu_f_startmonth,daochu_f_startday,daochu_f_endmonth,daochu_f_endday,daochu_f_genjintype,daochu_f_type,daochu_f_mc,
+	daochu_f_level,daochu_f_purpose,daochu_f_stage,daochu_f_personalhobbit,daochu_f_marriage,daochu_f_children,daochu_f_leave,daochu_f_participate,
+	daochu_f_ismember,daochu_f_calltimes,daochu_f_stage,daochu_f_pt</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="会员分配及跟进记录" filename="会员分配及跟进记录.xls" header-background="true">
+		<col id="mc_code" label="会员号" />
+		<col id="ispublic" label="公海" />
+		<col id="mc_name" label="姓名" />
+		<col id="i_sex" label="性别" />
+		<col id="mobile" label="手机" />
+		<col id="age" label="年龄" />
+		<col id="vc_mc" label="会籍" />
+		<col id="indate" label="入会日期" />
+		<col id="enddate" label="到期日期" />
+		<col id="com_count" label="沟通次数" />
+		<col id="com_date" label="最新沟通日期" />
+	</excel>
+
+</config>

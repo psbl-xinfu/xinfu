@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>基本信息</title>
+</head>
+<body style="width: 100%">
+	<div class="panel panel-default col_mainInner">
+		<div class="panel-body col_main_body">
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="vc_bianhao" name="vc_bianhao" value="${fld:vc_bianhao}" readonly />
+				<div class="Visiting">
+					<div class="banner-top ba1">
+						<label>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>&nbsp; 
+						<input type="text" id="vc_code" name="vc_code" value="" readonly />
+						<input type="hidden" id="status1" name="status1" value=""  />
+					</div>
+					<div class="banner-top ba1">
+						<label>&nbsp;&nbsp;姓&nbsp;&nbsp;&nbsp;&nbsp;名</label>&nbsp; 
+						<input type="text" id="vc_name" name="vc_name" value="" readonly />
+					</div>
+					<div class="banner-top ba1">
+						<label>性&nbsp;&nbsp;&nbsp;&nbsp;别</label>&nbsp; 
+						<select id="i_sex" name="i_sex" disabled>
+							<option value="0">未知</option>
+							<option value="1">男</option>
+							<option value="2">女</option>
+						</select>
+					</div>
+					<div class="banner-top ba1">
+						<label>出生日期</label>&nbsp; 
+						<input type="text" id="c_birthdate" name="c_birthdate" value="" disabled />
+					</div>
+				</div>
+				<div class="Visiting">
+					<div class="banner-top ba1">
+						<label>状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态</label>&nbsp; 
+						<input type="text" id="i_status" name="i_status" value="" readonly />
+					</div>
+					<div class="banner-top ba1">
+						<label>俱&nbsp;乐&nbsp;部</label>&nbsp; 
+						<select id="vc_club" name="vc_club" disabled>
+							<club-list>
+							<option value="${fld:vc_code}">${fld:vc_fullname}</option>
+							</club-list>
+						</select>
+					</div>
+					<div class="banner-top">
+						<button class="btn btn-info btn-sm" type="button" id="eidt_btn">修改</button>
+						<button class="btn btn-info btn-sm" type="button" id="save_btn">保存</button>
+						<button type="button" id="reset_btn" class="btn btn-info btn-sm">新增</button>
+						<button type="button" id="message_board" class="btn btn-info btn-sm" addtabs="" title="" url="">会员留言</button>
+						<button type="button" id="clearmc_btn" class="btn btn-info btn-sm">放弃会籍</button>
+					</div>
+				</div>
+				<br />
+				<table class="table table-bordered" style="margin-top: 70px;" id="list">
+					<tbody>
+						<tr>
+							<td class="back" style="width: 15%;" colspan=2 nowrap>会员级别</td>
+							<td style="width: 20%;" colspan=2>
+								<select id="vc_rank" name="vc_rank" disabled>
+									<option value="01">普通会员</option>
+								</select>
+							</td>
+							<td style="width: 15%;" class="back" colspan=2>Email</td>
+							<td style="width: 20%;" colspan=2>
+								<input type="text" id="vc_email" name="vc_email" value="" maxlength="50" readonly />
+								<!-- <span id="span" style="color: red; display: none">请输入正确Email格式</span> -->
+							</td>
+							<td rowspan="9" style="width:20%;" id="tdPic" >(无照片)</td>
+							<td rowspan="9" style="width:10%;" >
+								<button type="button" id="uploadPic" class="btn btn-sm btn-info">上传照片</button>
+								<button type="button" id="clearPic" class="btn btn-sm btn-info" style="margin-top:20px;">&nbsp;清&nbsp;&nbsp;&nbsp;&nbsp;除&nbsp;</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>身份证号</td>
+							<td colspan=2>
+								<input type="text" id="vc_idnumber" name="vc_idnumber" value="" maxlength="200" readonly />
+							</td>
+							<td class="back" colspan=2>国籍</td>
+							<td colspan=2>
+								<select id="vc_nation" name="vc_nation" disabled>
+									<option value="中国">中国</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>其他电话</td>
+							<td colspan=2>
+								<input type="text" id="vc_officetel" name="vc_officetel" value="" maxlength="50" readonly />
+							</td>
+							<td class="back" colspan=2>家庭地址</td>
+							<td colspan=2>
+								<input type="text" id="vc_addr" name="vc_addr" value="" maxlength="200" readonly />
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>公司电话</td>
+							<td colspan=2>
+								<input type="text" id="vc_hometel" name="vc_hometel" value="" maxlength="40" readonly />
+							</td>
+							<td class="back" colspan=2>邮编</td>
+							<td colspan=2>
+								<input type="text" id="vc_zip" name="vc_zip" value="" maxlength="50" readonly />
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>手机</td>
+							<td colspan=2>
+								<input type="text" id="vc_mobile" name="vc_mobile" value="" maxlength="40" readonly />
+							</td>
+							<td class="back" colspan=2>车牌号</td>
+							<td colspan=2>
+								<input type="text" id="vc_contact" name="vc_contact" value="" maxlength="50" readonly />
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>工作单位</td>
+							<td colspan=2>
+								<input type="text" id="vc_company" name="vc_company" value="" maxlength="200" readonly />
+							</td>
+							<td class="back" colspan=2>职业</td>
+							<td colspan=2>
+								<input type="text" id="vc_jobtype" name="vc_jobtype" value="" maxlength="50" readonly />
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>身体状况</td>
+							<td colspan=2>
+								<input type="text" id="vc_illnessrec" name="vc_illnessrec" value="" maxlength="500" readonly />
+							</td>
+							<td class="back" colspan=2>兴趣爱好</td>
+							<td colspan=2>
+								<input type="text" id="vc_hobby" name="vc_hobby" value="" maxlength="500" readonly />
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>私人教练</td>
+							<td colspan=2>
+								<select id="vc_pt" name="vc_pt" disabled>
+									<option value="">请选择</option>
+									<pt-list>
+									<option value="${fld:userlogin}">${fld:name_en}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${fld:name}</option>
+									</pt-list>
+								</select>
+							</td>
+							<td class="back" colspan=2>会籍顾问</td>
+							<td colspan=2>
+								<select id="vc_mc" name="vc_mc" disabled>
+									<option value="">请选择</option>
+									<ptdef-list>
+									<option value="${fld:userlogin}">${fld:name_en}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${fld:name}</option>
+
+									</ptdef-list>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>客户资源</td>
+							<td colspan=2>
+								<input type="text" id="vc_hiddencustomercode" name="vc_hiddencustomercode" value="" maxlength="500" readonly />
+							</td>
+							<td class="back" colspan=2>欠债金额</td>
+							<td colspan=2>
+								<input type="text" id="f_moneyleft" name="f_moneyleft" value="" maxlength="500" readonly />
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>紧急情况下联系方式</td>
+							<td colspan=3>
+								联系方式1<input type="text" style="width:70%" id="vc_emcontact1" name="vc_emcontact1" value="" maxlength="200" readonly />
+							</td>
+							<td colspan=3>
+								联系方式2<input type="text" style="width:70%" id="vc_emcontact2" name="vc_emcontact2" value="" maxlength="200" readonly />
+							</td>
+							<td colspan="2">持卡情况</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>备注</td>
+							<td colspan=6>
+								<textarea id="vc_remark" name="vc_remark" cols="100" rows="8" maxlength="6000" readonly></textarea>
+							</td>
+							<td colspan="2">
+								<table class="table table-bordered">
+									<thead><tr><th nowrap>卡号</th><th nowrap>卡类型</th><th nowrap>状态</th></tr></thead>
+									<tbody id="cardlist"></tbody>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td class="back" colspan=2>制单人</td>
+							<td colspan=2>
+								<input type="text" id="vc_iuser" name="vc_iuser" value="" maxlength="500" readonly />
+							</td>
+							<td class="back" colspan=2>制单日期</td>
+							<td colspan=2>
+								<input type="text" id="c_idate" name="c_idate" value="" maxlength="500" readonly />
+							</td>
+							<td colspan="2">
+								<button class="btn btn-info btn-sm" id="feerecord_btn" type="button" addtabs="" title="" url="">缴费记录</button>
+								<button class="btn btn-info btn-sm" id="custboard_btn" type="button" addtabs="" title="" url="">查看留言板</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+		function showBasicInfor(vc_code) {
+			var uri = "${def:actionroot}/editinfor?vc_code=" + vc_code;
+			ajaxCall(uri, {
+				method : "get",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
+		}
+		$(document).ready(function() {
+			
+			$("#vc_pt,#vc_mc").val('${def:user}');
+			$Dialog().date($('#c_birthdate'));
+			showBasicInfor(parent.$("#vc_code").val());
+			$("#eidt_btn").on('click',function() {
+				$("#vc_name,#vc_remark,#vc_emcontact2,#vc_emcontact1,#f_moneyleft,#vc_hiddencustomercode,#vc_hobby,#vc_illnessrec,#vc_jobtype,#vc_company,#vc_contact,#vc_mobile,#vc_zip,#vc_hometel,#vc_addr,#vc_officetel,#vc_idnumber,#vc_email").removeAttr('readonly');
+				
+				$("#i_sex,#vc_nation,#vc_mc,#vc_pt,#vc_rank,#c_birthdate").removeAttr('disabled');
+			});
+			
+			$("#reset_btn").on('click',function() {
+				ccms.util.clearForm('formEditor');
+				parent.$("#_vc_cardcode").val("");
+				$("#vc_pt,#vc_mc").val('${def:user}');
+			})
+			//会员留言
+			$("#message_board").click(function(e) {
+				if(parent.$("#_vc_cardcode").val()!=""){
+					var uri = "/action/project/fitness/customer/membermessage/crud?card_no=" + parent.$("#_vc_cardcode").val();
+					var thisobj = $(this);
+					thisobj.attr('url',$Base64.encode(uri));
+					thisobj.attr("addtabs","Member_Message");
+					thisobj.attr("title","会员留言");
+					e.preventDefault();
+					thisobj.addtabs();
+					thisobj.click();
+				}else{
+					ccms.dialog.notice("请输入会员号或者会员卡号！");
+				}
+			})
+			
+			$("#save_btn").on('click',function() {
+				if($("#vc_code").val()==''){
+					ccms.dialog.notice("无相对应记录，无法执行此操作！");
+				}else{
+					$("#i_sex,#vc_club,#vc_nation,#vc_mc,#vc_pt,#vc_rank,#c_birthdate").removeAttr('disabled');
+					var vc_email = $("#vc_email").val();
+					var vc_idnumber = $("#vc_idnumber").val();
+					var reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;//身份证号正则表达式
+					var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;//email正则表达式
+					if (!re.test(vc_email)&&vc_email!='') {
+						ccms.dialog.notice("请输入正确Email格式！");
+						return false;
+					}
+					if (!reg.test(vc_idnumber)&&vc_idnumber!='') {
+						ccms.dialog.notice("身份证号格式不正确！");
+						return false;
+					}
+					var vc_mobile=$("#vc_mobile").val();
+					var validate = true;
+					var regg =/^1\d{10}$/;//手机号正则表达式 
+					if(vc_mobile!=''&&!regg.test(vc_mobile)){
+						if( !/^\d$/.test(vc_mobile) && vc_mobile.length < 11 ) {
+							validate = false;
+							ccms.dialog.confirm("手机号码低于11位，是否为特殊号码？", function(){
+									baocun();
+								}, function(){
+							});
+						}else{
+							ccms.dialog.notice("请输入正确手机号！");
+							validate = false;
+						}
+					}
+					if( validate == true ){
+						baocun();
+					}
+				}
+			});
+			
+			$("#uploadPic").unbind().on("click",function(){
+				var vccode = $("#vc_code").val();
+				if( undefined == vccode || "" == vccode ){
+					$Dialog().notice("请先保存会员后再上传照片");
+					return false;
+				}
+				var url = "${def:context}/action/project/fitness/customer/attachment/crud?pk_value=" + vccode + "&table_code=e_customer&image_id=";
+				ccms.dialog.open({url:url,id:"upload_pic",width:500,height:500});
+			});
+			$("#clearPic").unbind().on("click",function(){
+				var tdpic = $("#tdPic").html();
+				var vccode = $("#vc_code").val();
+				if( undefined == vccode || "" == vccode ){
+					$Dialog().notice("当前无可删除照片");
+					return false;
+				}
+				$Dialog().confirm("是否确认删除该照片？",function(){
+					var url = "${def:context}${def:actionroot}/clearimage?vc_code=" + vccode;
+					ajaxCall(url,{
+						method: "get",
+						progress: false,
+						dataType: "script",
+						success: function() {
+						}
+				    });
+				});
+			});
+			// 查看留言板
+			$("#custboard_btn").unbind().click(function(e){
+				var _vcode = document.formEditor.vc_code.value;
+				if( undefined != _vcode && "" != _vcode ){
+					var uri = "/action/project/fitness/customer/membermessage/viewguestbook/crud?vc_code="+_vcode+'&random='+Math.random();
+					var thisobj = $(this);
+					thisobj.attr('url',$Base64.encode(uri));
+					thisobj.attr("addtabs","view_Guestbook");
+					thisobj.attr("title","查看留言板");
+					e.preventDefault();
+					thisobj.addtabs();
+					thisobj.click();
+				}
+			});
+			// 缴费记录
+			$("#feerecord_btn").unbind().click(function(e){
+				var _vcode = document.formEditor.vc_code.value;
+				if( undefined != _vcode && "" != _vcode ){
+					var uri = "/action/project/fitness/customer/rechconrecord/menu?vc_customercode="+_vcode+'&random='+Math.random();
+					var thisobj = $(this);
+					thisobj.attr('url',$Base64.encode(uri));
+					thisobj.attr("addtabs","rechConRecord");
+					thisobj.attr("title","缴费记录");
+					e.preventDefault();
+					thisobj.addtabs();
+					thisobj.click();
+				}
+			});
+			// 放弃会籍
+			$("#clearmc_btn").unbind().on("click",function(){
+				var _vcode = document.formEditor.vc_code.value;
+				if( undefined != _vcode && "" != _vcode ){
+					var url = "${def:context}${def:actionroot}/updatecustmerstatus?vc_code=" + _vcode;
+					ajaxCall(url,{
+						method: "get",
+						progress: false,
+						dataType: "script",
+						success: function() {
+						}
+				    });
+				}
+			});
+			
+			selectInit($("#i_sex,#vc_club,#vc_rank,#vc_nation,#vc_pt,#vc_mc"));
+		});
+
+		function uploadOk(id){
+			var url = "${def:context}${def:actionroot}/setimage?upload_id=" + id;
+			ajaxCall(url,{
+				method: "get",
+				progress: false,
+				dataType: "script",
+				success: function() {
+				}
+		    });
+		}
+		function bindingCardFunc(){
+			var objlist= $(".card_record");
+			objlist.each(function(idx,ele){
+				var _vcode = $(this).attr("code");
+				if( undefined != _vcode && "" != _vcode ){
+					var uri = "/action/project/fitness/customer/card/crud?vc_code="+_vcode+'&random='+Math.random();
+					var thisobj = $(this);
+					thisobj.attr('url',$Base64.encode(uri));
+					thisobj.attr("addtabs","CardInfoMangement");
+					thisobj.attr("title","会员卡信息管理");
+				}
+			});
+			objlist.unbind().dblclick(function(e){
+				var _vcode = $(this).attr("code");
+				if( undefined != _vcode && "" != _vcode ){
+					var thisobj = $(this);
+					e.preventDefault();
+					thisobj.addtabs({dbclick:true});
+				}
+			});
+		}
+		function baocun(){
+			var uri = "${def:actionroot}/updateup";
+			ajaxCall(uri, {
+				method : "post",
+				progress : false,
+				form : 'formEditor',
+				dataType : "script",
+				success : function() {
+					$("#vc_pt,#vc_mc").val('${def:user}');
+					$("#i_sex,#c_birthdate,#vc_rank,#vc_pt,#vc_mc,#vc_nation,#vc_club").attr('disabled','disabled');
+					$Dialog().notice("保存成功！",1200)
+				}
+			});
+		}
+		
+		
+	</script>
+</body>
+</html>

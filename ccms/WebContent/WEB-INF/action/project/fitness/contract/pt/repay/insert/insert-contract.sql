@@ -1,0 +1,50 @@
+INSERT INTO cc_contract(
+	code
+	,contracttype
+	,type
+	,poptype
+	,status
+	,salemember
+	,salemember1
+	,isaudit
+	,createdby
+	,createdate
+	,createtime
+	,customercode
+	,relatedetail
+	,inimoney
+	,normalmoney
+	,remark
+	,recommendcode
+	,relatecode
+	,org_id
+	,source
+) 
+SELECT 
+	${fld:newcontractcode}
+	,3
+	,2
+	,31
+	,1
+	,${fld:salemember}
+	,${fld:salemember1}
+	,0
+	,'${def:user}'
+	,'${def:date}'
+	,'${def:time}'
+	,customercode
+	,concat(
+		customercode,';',get_arr_value(relatedetail,1),';',get_arr_value(relatedetail,2),';',get_arr_value(relatedetail,3),';'
+		,get_arr_value(relatedetail,4),';','${def:org}',';',COALESCE(${fld:salemember1},''),';',${fld:salemember},';',get_arr_value(relatedetail,8),';'
+		,get_arr_value(relatedetail,9),';',source,';'
+		,COALESCE(recommendcode,''),';',normalmoney
+	)
+	,normalmoney
+	,normalmoney - factmoney
+	,${fld:remark}
+	,recommendcode
+	,code
+	,org_id 
+	,source 
+FROM cc_contract 
+WHERE code = ${fld:relatecode} AND org_id = ${def:org} 

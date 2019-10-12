@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_cust,daochu_c_startdate,daochu_c_enddate,daochu_vc_type,daochu_cust,daochu_sex</colname>
+	<sql-template>query-base.sql</sql-template>
+	
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="赠卡记录" filename="赠卡记录.xls" header-background="true">
+		<col id="card_code" label="卡号" /> 
+		<col id="vc_name" label="会员姓名" />
+		<col id="card_type" label="卡类型" />
+		<col id="card_status" label="卡状态" />
+		<col id="why" label="赠送原因" />
+		<col id="c_startdate" label="启用日期" />
+		<col id="c_enddate" label="截止日期" />
+		<col id="vc_iuser" label="操作人" />
+		<col id="c_idate" label="赠送日期" />
+		<col id="vc_remark" label="备注" />
+	</excel>
+
+</config>

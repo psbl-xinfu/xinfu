@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="sitecode" type="varchar" required="true" label="场地code" />
+    <parameter id="choose_way" type="varchar" required="true" label="选择方式" />
+    <parameter id="timelimitcode" type="varchar" required="true" label="场地时段定义code" />
+    
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    	on-error-label="该选择时段存在已设定，请重新打开本界面" id="sitedefkxname" sql="noRep.sql" />
+</validator>
+

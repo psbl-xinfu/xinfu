@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	${inc:/action/project/fitness/home/pub}
+	<title>私教课延期记录</title>
+</head>
+<style>
+</style>
+<body>
+	<form role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="pd.created" preserve="true" />
+		<input name="order" type="hidden" value="desc" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none">
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t swgl-tk">
+						<nav>
+							<li>
+								<input type="text" id="cust" name="cust" class="input-default" placeholder="会员编号/姓名/手机号" />
+							</li>
+							<li>
+								<select id="ptdefcode" name="ptdefcode" style="display: none;">
+									<option value="">全部课程</option>
+									<ptdef-list>
+										<option value="${fld:code}">${fld:ptlevelname}</option>
+									</ptdef-list>
+								</select>
+							</li>
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+							</div>
+						</nav>
+					</div>
+					<div class="r-tab-cout-3-t-b">
+						<nav class="r-c-3-t-b-l">
+						</nav>
+						<nav class="r-c-3-t-b-r">
+							<li>
+								<img src="/ccms/js/project/fitness/image/SVG/nav/yulan.svg" title="查看" alt="" id="see">
+							</li>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+				<table class="">
+					<thead>
+						<tr>
+							<th>操作</th>
+							<th>会员姓名</th>
+							<th>会员电话</th>
+							<th>课程</th>
+							<th>延期前结束日期</th>
+							<th>延期天数</th>
+							<th>延期后结束日期</th>
+							<th>备注</th>
+						</tr>
+					</thead>
+					<tbody id="datagridTemplate" style="display: none">
+						<tr>
+			                <td>#checklink#</td>
+							<td>#name#</td>
+							<td>#mobile#</td>
+							<td>#ptlevelname#</td>
+							<td>#yqqdate#</td>
+							<td>#delayday#</td>
+							<td>#ptenddate#</td>
+							<td>#remark#</td>
+						</tr>
+					</tbody>
+					<tbody id="datagrid">
+					</tbody>
+				</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_ptdefcode" name="daochu_ptdefcode" type="text" />
+		<input id="daochu_cust" name="daochu_cust" type="text" />
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	var search = null;
+	$(document).ready(function () {
+		searchSelectInit($("#ptdefcode"));
+		this.search = search;
+		search = $Search({		
+			datagrid: "datagrid", formId: "searchForm", success: function () {
+				ccms.util.renderRadio("ptrestdelaycode");
+
+				//查看详情
+				$("#see").unbind().on("click", function(){
+					var obthis = getCheckboxValue("ptrestdelaycode");
+					if(obthis!= ""){
+						ccms.dialog.open({url : "${def:context}${def:actionroot}/form?code="+obthis, height: 600});
+					}else{
+						ccms.dialog.notice("请选择!");
+					}
+				});
+			}
+		}).initSearchBtn().searchData(1);
+		//导出
+		$("#daochu_list").unbind().on("click", function () {
+			$("#daochu_ptdefcode").val($("#ptdefcode").val());
+			$("#daochu_cust").val($("#cust").val());
+			$("#daochuForm").submit();
+		});
+	});
+	</script>
+</body>
+</html>

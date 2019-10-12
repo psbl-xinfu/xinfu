@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="daochu_skill_name" type="varchar" required="false" label="会籍" />
+	<parameter id="daochu_startdate" type="varchar" required="false" label="查询开始时间" />
+	<parameter id="daochu_enddate" type="varchar" required="false" label="查询结束时间" />
+</validator>

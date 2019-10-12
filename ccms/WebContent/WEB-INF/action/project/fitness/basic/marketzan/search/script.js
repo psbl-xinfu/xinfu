@@ -1,0 +1,13 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"show_order":"${fld:_rowNumber}",
+		"campaign_name":"${fld:campaign_name@js}",
+		"votetype":"${fld:votetype}",
+		"totalnum":"${fld:totalnum}",
+		"status":"${fld:status}",
+		"application_id":"${fld:application_id@js}"
+	},
+	</rows>
+	{}
+]}

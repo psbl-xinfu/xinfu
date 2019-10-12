@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+    <parameter id="tuid" type="integer" required="true" label="tuid" />
+	<parameter id="groupname" type="varchar" required="true" label="分组定义"/>
+	<parameter id="remark" type="varchar" required="false" label="备注"/>
+</validator>

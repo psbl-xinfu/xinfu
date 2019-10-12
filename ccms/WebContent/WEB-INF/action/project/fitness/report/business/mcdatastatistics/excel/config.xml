@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		会籍部个人数据统计
+	</summary>
+	
+	<log>false</log>
+	
+	<colname>daochu_datemonth,daochu_mc</colname>
+
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="会籍部个人数据统计" filename="会籍部个人数据统计.xls" header-background="true">
+		<col id="name" label="会籍" />
+		<col id="results_money" label="业绩" />
+		<col id="task_money" label="任务" />
+		<col id="completion" label="完成比例" />
+		<col id="strange_reception_num" label="陌生接待量" />
+		<col id="strange_deal_num" label="陌生成交量" />
+		<col id="strange_transaction_rate" label="陌生成交率" />
+		<col id="appointment_visit_num" label="预约到访量" />
+		<col id="appointment_deal_num" label="预约成交量" />
+		<col id="appointment_rate" label="预约成交率" />
+		<col id="cust_expire_num" label="会员到期量" />
+		<col id="cust_renewal_num" label="会员续费量" />
+		<col id="mc_renewal_rate" label="会员续费率" />
+	</excel>
+
+</config>
+

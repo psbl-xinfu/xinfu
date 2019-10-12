@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/project/fitness/util/validation/alert">
+	
+    <parameter id="contractcode" type="varchar" required="true" label="合同编号" maxlen="200"/>
+	<parameter id="normalmoney" type="double" required="true" label="应收" />
+	<parameter id="factmoney" type="double" required="true" label="实收" />
+	<parameter id="paydetail" type="varchar" required="true" label="支付明细" />
+</validator>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>客户资源市场调研</title>
+</head>
+<body>
+	<div class="normalbg">
+	<form role="form" method="post" id="formEditor" name="formEditor">
+		<input id="vc_namee" name="vc_namee" value="${fld:vc_name}" type="hidden" preserve="true" /> 
+		<input id="i_sex" name="i_sex" value="${fld:i_sex}" type="hidden" preserve="true" /> 
+		<input id="vc_rank" name="vc_rank" value="${fld:vc_level}" type="hidden" preserve="true" /> 
+		<input id="agee" name="agee" value="${fld:age}" type="hidden" preserve="true" /> 
+		<input id="vc_customercode" name="vc_customercode" value="${fld:vc_customercode}" type="hidden" preserve="true" /> 
+		<input id="vc_guestcode" name="vc_guestcode" value="${fld:vc_guestcode}" type="hidden" preserve="true" /> 
+		<input id="tuid" name="tuid" value="" type="hidden" preserve="true" />
+		<table>
+			<tr class="l">
+				<td class="r b" width="10%">姓名：</td>
+				<td class="l red" width="15%" id="vc_name">${fld:vc_name}</td>
+				<td class="r b" width="10%">性别：</td>
+				<td class="l" width="15%" id="vc_sex">${fld:i_sexname}</td>
+				<td class="r b" width="10%">级别：</td>
+				<td class="l" width="15%" id="vc_rankname">${fld:vc_level}</td>
+				<td class="r b" width="10%">年龄：</td>
+				<td class="l" width="15%" id="age">${fld:age}</td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	<div id="clRecord">
+		<iframe src="" width="100%" height="1000px" name="theclassrecord" frameborder="0" id="claRecord"> </iframe>
+	</div>
+	<script language="JavaScript">
+$(document).ready(function() {
+	if( "" == "${fld:vc_guestcode}" || "undefined" == "${fld:vc_guestcode}" ){
+	}else{
+		var uri="${def:context}${def:actionroot}/edit?relation_id="+$("#vc_guestcode").val();
+		ajaxCall(uri,{
+			method: "get",
+			progress: true,
+			dataType: "script",
+			success: function() {
+				if($("#tuid").val()==''||$("#tuid").val()==undefined){
+					$("#claRecord").attr('src','${def:context}/action/project/fitness/util/termgen?term_id=1005&relation_id='+$("#vc_guestcode").val());
+				}else{
+					$("#claRecord").attr('src','${def:context}/action/project/fitness/util/termgen?term_id=1005&relation_id='+$("#vc_guestcode").val()+'&score_id='+$("#tuid").val());
+				}
+			}
+		});
+	}
+});
+function close(){
+	ccms.dialog.close();
+}
+</script>
+</body>
+</html>

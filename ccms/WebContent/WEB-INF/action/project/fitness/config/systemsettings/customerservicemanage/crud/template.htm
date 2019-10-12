@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>客服管理</title>
+<style>
+.left ul li a {
+font:15px/20px \"宋体\";
+color:black;
+}
+.r-tab li.am-active a{
+ color:#c8c8c8 !important;
+}
+</style>
+</head>
+<body >
+	<div class="am-tabs systems-management dialogbg" data-am-tabs="{noSwipe: 1}">
+		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="twopage">
+			<li class='sub_li' onclick="Member_archives()"><a href="#member_Archives" class="three-none" id="member_archives">会员档案</a></li>
+			<li class='sub_li' onclick="Front_desk_card()"><a href="#front_Desk_card" class="three-none" id="front_desk_card">前台刷卡</a></li>
+		</nav>
+	</div>
+	<div src ="" width="100%" height="600px" frameborder="0" id="customerservicemanage">
+	</div>
+<script language="JavaScript">
+$(document).ready(function() {
+	$("#member_archives").click();
+
+	//子集菜单效果
+    $('#twopage .sub_li').parent().css('background-color','transparent');
+	$('#twopage .sub_li').children().attr('style','color:#c8c8c8;');
+	$('#twopage .sub_li').eq(0).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	$('#twopage .sub_li').on('click',function(){
+		$('#twopage .sub_li').attr('style','');
+		$(this).attr('style','border-bottom: 2px solid #ffffff;background:rgba(42,48,56,0);');
+	})
+});
+//设置全部客户资源档案
+function Member_archives(){
+	$("#customerservicemanage").load("${def:context}${def:actionroot}/memberarchives/crud?ispubload=true");
+}
+//设置合同管理
+function Front_desk_card()
+{
+	$("#customerservicemanage").load("${def:context}${def:actionroot}/frontdeskcard/crud?ispubload=true");
+}
+
+</script>
+</body>
+</html>

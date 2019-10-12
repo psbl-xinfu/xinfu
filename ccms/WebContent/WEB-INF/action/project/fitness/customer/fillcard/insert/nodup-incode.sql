@@ -1,0 +1,1 @@
+select 1 from cc_cardcode where incode = ${fld:incode} and org_id = ${def:org}

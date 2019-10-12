@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="rules_name" type="varchar" required="false" label="规则名称" />
+	<parameter id="status" type="varchar" required="false" label="状态" />
+
+</validator>

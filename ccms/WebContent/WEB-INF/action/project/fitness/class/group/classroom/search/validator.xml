@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="classroom_name" type="varchar" required="false" label="名称" />
+	<parameter id="roomstatus" type="varchar" required="false" label="状态" />
+</validator>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="new_vc_code" type="varchar" required="true" label="新卡号"/>
+	<parameter id="cardcode" type="varchar" required="true" label="旧卡号"/>
+	<parameter id="customercode" type="varchar" required="true" label="会员号"/>
+	<parameter id="money" type="double" required="true" label="补卡费"/>
+	<parameter id="remark" type="varchar" required="false" label="备注"/>
+	<parameter id="cardstartdate" type="varchar" required="false" label="cardstartdate"/>
+	<parameter id="cardenddate" type="varchar" required="false" label="cardenddate"/>
+	<parameter id="incode" type="varchar" required="false" label="卡内码"/>
+	
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该卡号正在使用，不能再次使用!" id="new_vc_code" sql="nodup-card.sql" />
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+   	on-error-label="该卡内码正在使用，不能再次使用!" id="incode" sql="nodup-incode.sql" />
+</validator>

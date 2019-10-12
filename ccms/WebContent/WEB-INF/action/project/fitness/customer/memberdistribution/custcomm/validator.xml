@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+	<parameter id="customercode" type="varchar" required="false" label="客户理性" maxlen="200" />
+    <parameter id="cust_type" type="varchar" required="true" label="资源/会员" maxlen="64" />
+    <parameter id="preparecode" type="varchar" required="false" label="预约编号" maxlen="64" />
+    <parameter id="guestcode" type="varchar" required="false" label="资源编号" maxlen="64" />
+    <parameter id="homeunionorgid" type="varchar" required="false" label="homeunionorgid" maxlen="64"/>
+     
+</validator>

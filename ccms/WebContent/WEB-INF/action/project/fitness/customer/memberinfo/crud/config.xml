@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		会员管理
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-ptmcskill_name.sql" source="sql" scope="transaction" />
+		<recordset id="query-skill_name.sql" source="sql" scope="transaction" />
+		<recordset id="query-vc_cardtype.sql" source="sql" scope="transaction" />
+	  	<recordset id="query-guesttype.sql" source="sql" scope="transaction"/>
+      	<recordset id="query-consultingHabit.sql" source="sql" scope="transaction"/>
+       	<recordset id="query-fitnessPurpose.sql" source="sql" scope="transaction"/>
+       	<recordset id="query-personalHobbies.sql" source="sql" scope="transaction"/>
+        <recordset id="query-consultingNation.sql" source="sql" scope="transaction"/>
+        <recordset id="query-MembershipProtectionPeriod.sql" source="sql" scope="transaction"/>
+        <recordset id="query-leave.sql" source="sql" scope="transaction"/>
+        <recordset id="query-children.sql" source="sql" scope="transaction"/>
+        <recordset id="query-maritalstatus.sql" source="sql" scope="transaction"/> 
+        <recordset id="query-cardstatus.sql" source="sql" scope="transaction"/> 
+     	<recordset id="query-day.sql" source="sql" scope="transaction"/>
+        <recordset id="query-month.sql" source="sql" scope="transaction"/>
+        <recordset id="query-age.sql" source="sql" scope="transaction"/>
+		<recordset id="query-guoji.sql" source="sql" scope="transaction"/>
+	</transaction>
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-ptmcskill_name.sql" tag="staff-rows2" />
+		<print mode="table" recordset="query-skill_name.sql" tag="staff-rows3" />
+		<print mode="table" recordset="query-vc_cardtype.sql" tag="c_cardtype" />
+		<print mode="table" recordset="query-guesttype.sql" tag="guesttype-rows"/>
+		<print mode="table" recordset="query-consultingHabit.sql" tag="consultingHabit"/>
+		<print mode="table" recordset="query-fitnessPurpose.sql" tag="fitnessPurpose"/>
+		<print mode="table" recordset="query-personalHobbies.sql" tag="personalHobbies"/>		
+		<print mode="table" recordset="query-consultingNation.sql" tag="nation"/>		
+		<print mode="form" recordset="query-MembershipProtectionPeriod.sql"/>		
+		<print mode="table" recordset="query-leave.sql" tag="leave"/>		
+	 	<print mode="table" recordset="query-children.sql" tag="children"/>	
+		<print mode="table" recordset="query-maritalstatus.sql" tag="mariy"/>	
+		<print mode="table" recordset="query-cardstatus.sql" tag="cardstatus"/>	
+		<print mode="table" recordset="query-day.sql" tag="day"/>	
+		<print mode="table" recordset="query-month.sql" tag="month"/>	 
+		<print mode="table" recordset="query-age.sql" tag="age"/>	  
+		<print mode="table" recordset="query-guoji.sql" tag="guoji-row"/>	 
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

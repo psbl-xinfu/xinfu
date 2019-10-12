@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="vc_code" type="varchar" required="true" label="vc_code" maxlen="50" />
+    <parameter id="classcode" type="varchar" required="true" label="classcode" maxlen="50" />
+    <parameter id="classroomcode" type="varchar" required="true" label="classroomcode" maxlen="50" />
+    <parameter id="teacherid" type="varchar" required="true" label="teacherid" maxlen="50" />
+    <parameter id="limitcount" type="integer" required="true" label="limitcount" maxlen="53" />
+    <parameter id="price" type="double" required="false" label="price" maxlen="53" />
+    <parameter id="classdate" type="varchar" required="true" label="classdate" maxlen="64" />  
+	<parameter id='classtime' type="varchar" required="true" label="classtime" maxlen="50" /> 
+	<parameter id="status" type="varchar" required="true" label="status" maxlen="500" />
+	<parameter id="remark" type="varchar" required="false" label="remark" maxlen="32" />
+	<parameter id="week" type="varchar" required="false" label="week" maxlen="32" />
+</validator>
+
+
+
+
+

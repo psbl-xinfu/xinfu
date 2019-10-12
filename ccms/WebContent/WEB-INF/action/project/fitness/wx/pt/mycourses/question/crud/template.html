@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        ${inc:/action/project/fitness/wx/pub}
+        <title>我的课程</title>
+        <link href="${def:context}/js/project/fitness/wx/css/courses/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/courses/evaluation.css" rel="stylesheet">
+</head>
+<body>
+	<div class="containter bg">
+		<div class="title">
+			<!-- 第一章 ${fld:course_name}（总分 35分） -->
+		</div>
+		<div class="desc">
+			<div class="brief">
+				<label class="brief-left">题目数量</label>
+				<label class="brief-right">${fld:questionnum}道题 </label>
+			</div>
+		<!-- 	<div class="brief">
+				<label class="brief-left">提交次数</label>
+				<label class="brief-right">${fld:answernum}次（最终成绩为最高分） </label>
+			</div> -->
+			<div class="brief">
+				<label class="brief-left">截止时间</label>
+				<label class="brief-right">${fld:end_date}</label>
+			</div>
+		</div>
+	<!-- 	<div class="message">(已截止提交，再次测试不再算分）</div> -->
+		<button class="btn-begin"  onclick="goAnswer(${fld:termid})" id="test">开始测试</button>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			if("${fld:type}"=="mc"){
+				homemc()
+			}else{
+				homept()
+			}
+			
+			<score>
+			$('#test').hide(); 
+			</score>
+			
+			var index=rectNum("${fld:index}");
+			$('.title').html("第"+index+"章 ${fld:course_name}（得分 ${fld:term_score}）")
+		})
+		
+		
+	function rectNum(num){//课程序号
+		 var upperCaseNumber = [ '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
+		 var numstr="";
+			for(var i=0;i<num.toString().length;i++){
+				numstr+=upperCaseNumber[num.toString().charAt(i)]
+			}
+		return numstr;
+	}
+		
+	function goAnswer(termid){
+       	location.href="${def:context}/action/project/fitness/wx/pt/mycourses/answers/crud?termid="+termid+"&type=${fld:type}"
+       		+"&courseid=${fld:courseid}"
+       		+"&index=${fld:index}"
+       		+"&end_date=${fld:end_date}"
+	}
+	</script>
+</body>
+
+</html>

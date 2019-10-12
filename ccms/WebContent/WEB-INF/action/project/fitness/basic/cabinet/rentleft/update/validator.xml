@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="groupname" type="varchar" required="true" label="groupname" maxlen="32" />
+    <parameter id="groupcode" type="varchar" required="true" label="groupcode" maxlen="32" />
+     <parameter id="groupid" type="integer" required="true" label="groupid" maxlen="32" />
+
+<!-- 姓名需要验证是否重复 -->
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="groupname" sql="norep.sql" />
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该编号已经存在,请重新命名" id="groupcode" sql="norepcode.sql" />
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该区已有占用储物柜，不能修改编号" id="groupid" sql="norepstatus.sql" />
+</validator>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		私教延期
+	</summary>
+
+	<log>false</log>
+	
+	<colname>daochu_ptdefcode,daochu_cust</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="私教延期记录" filename="私教延期记录.xls" header-background="true">
+		<col id="name" label="会员姓名" /> 
+		<col id="mobile" label="会员电话" />
+		<col id="ptlevelname" label="课程" />
+		<col id="ptenddate" label="延期前结束日期" />
+		<col id="delayday" label="延期天数" />
+		<col id="yqqdate" label="延期后结束日期" />
+		<col id="remark" label="备注" />
+	</excel>
+</config>

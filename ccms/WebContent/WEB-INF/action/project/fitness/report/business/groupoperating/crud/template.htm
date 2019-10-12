@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>团操分析</title>
+</head>
+<body>
+		<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="" preserve="true" />
+				<input name="order" type="hidden" value="" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+	<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="dateTime">
+										<input id="_start_date" name="_start_date" type="text" class="input-default" value="${def:date}" preserve='true'/>
+									</li>
+	
+									<li class="dateTime">
+										<input id="_end_date" name="_end_date" type="text"class="input-default" value="${def:date}" preserve='true'/>
+									</li>
+					 			 	<li>
+										<select id="s_skill_name" name="s_skill_name"  placeholder='团操教练' style="display: none;">
+											<option value="">全部团操教练</option>
+											<staff-rows>
+												<option value="${fld:name}">${fld:name}</option>
+											</staff-rows>
+										</select>
+									</li>
+									 <li>
+										  <select id="s_class_name" name="s_class_name"  placeholder='团擦课程' style="display: none;">
+												<option value="">全部团操课程</option>
+											<class-rows>
+												<option value="${fld:class_name}">${fld:class_name}</option>
+											</class-rows>
+										 </select>
+								     </li>
+									<div >
+										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+										<button class="r-c-3-btn-3" id="excel" type="button" title="导出"></button>
+									</div>
+								</nav>
+							</div>
+							<div class="tab-cout-nav-b">
+							    <nav class="r-c-3-t-b-l">	
+							    </nav>
+							</div>
+						</div>
+						<!-- 通用表格 -->
+						<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>开课时间</th>
+										<th>课程名称</th>
+										<th>团操教练</th>
+										<th>预约人数</th>
+										<th>到场人数</th>
+									</tr>			
+								</thead>
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										<td style="width:8%"> 
+										   #show_order#
+										</td>
+										<td style="width:8%">#classtime#</td>
+										<td style="width:8%">#class_name#</td>										
+										<td style="width:8%">#name#</td>										
+										<td style="width:8%">#nowcount#</td>
+										<td style="width:8%">#personcount#</td>																					
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+				<input id="daochu_start_date" name="daochu_start_date" type="text"/>
+				<input id="daochu_end_date" name="daochu_end_date" type="text"/>
+				<input id="daochu_s_skill_name"  name="daochu_s_skill_name" type="text"/>
+				<input id="daochu_s_class_name"  name="daochu_s_class_name" type="text"/>
+			</form>
+			<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	</body>
+	<script language="JavaScript">
+	var search=null;
+$(document).ready(function() {
+	selectInit($("#contract_btn"));
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
+	searchSelectInit($("#s_skill_name"));
+	searchSelectInit($("#s_class_name"));
+	
+	
+ 	this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+			obj.checklink = '<label class="am-checkbox"><input type="checkbox"  name="datalist" value="'+obj.tuid+'" preserve="true"></label>';
+	},success:function(){
+    ccms.util.renderCheckbox("datalist");		
+		
+	
+}}).initSearchBtn().searchData(1); 
+	$Dialog().date($('#_start_date'));
+	$Dialog().date($('#_end_date'));
+	
+	/*if( "undefined" != "${fld:startdate}" && "" != "${fld:startdate}" ){
+		$("#_start_date").val("${fld:startdate}");
+	}else if( "all" != "${fld:datetype}" ){
+		$("#_start_date").val(new Date().format("yyyy-MM-01"));
+	}
+	if( "undefined" != "${fld:enddate}" && "" != "${fld:enddate}" ){
+		$("#_end_date").val("${fld:enddate}");
+	}else if( "all" != "${fld:datetype}" ){
+		$("#_end_date").val("${def:date}");
+	}*/
+		
+	
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_start_date").val($("#_start_date").val());
+		$("#daochu_end_date").val($("#_end_date").val());
+		$("#daochu_s_skill_name").val($("#s_skill_name").val());
+		$("#daochu_s_class_name").val($("#s_class_name").val());
+		$("#daochuForm").submit();
+	});  
+})
+
+
+
+
+</script>
+</body>
+</html>

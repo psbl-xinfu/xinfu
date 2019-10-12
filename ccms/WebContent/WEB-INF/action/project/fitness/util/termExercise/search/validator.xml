@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="mc" type="varchar" required="false" label="会籍" />
+	<parameter id="shijian" type="varchar" required="false" label="时间"/>
+</validator>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+         ${inc:/action/project/fitness/wx/pub}
+        <title>活动详情</title>
+        <link href="${def:context}/js/project/fitness/wx/css/market/base.css" rel="stylesheet">
+        <link href="${def:context}/js/project/fitness/wx/css/market/activityDetails.css" rel="stylesheet">
+    </head>
+
+
+<body>
+	<div class="containter bg">
+		<div class="comm-width">
+			<div class="act-brief">
+				<label>活动简介</label>
+				<div style="font-size: 1.4rem">${fld:remark}</div>
+			</div>
+			<div class="act-brief">
+				<label>报名时间</label>
+				<span>${fld:enrollfdate} ~ ${fld:enrolltdate}  </span>
+			</div>
+			<div class="act-brief">
+				<label>报名须知</label>
+				<span>${fld:voteremark}</span>
+			</div>
+			<div class="act-brief">
+				<label>主办单位</label>
+				<span>${fld:org_name}</span>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	homecust();
+})
+</script>
+</html>

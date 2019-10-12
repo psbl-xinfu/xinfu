@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-LargeCategories.sql" source="sql" scope="transaction" />
+		<recordset id="query-TrainingSite.sql" source="sql" scope="transaction" />
+		<recordset id="query-StuSense.sql" source="sql" scope="transaction" />
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query-LargeCategories.sql" tag="lc-rows"/>
+		<print mode="table" recordset="query-TrainingSite.sql" tag="ts-rows" />
+		<print mode="table" recordset="query-StuSense.sql" tag="stu-rows" />
+	</output>
+
+</config>

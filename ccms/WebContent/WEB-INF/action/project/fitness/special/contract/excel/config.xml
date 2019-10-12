@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		查询系统应用
+	</summary>
+
+	<log>false</log>
+
+	<colname>daochu_vc_all,daochu_skill_name,daochu_i_contracttype,daochu_i_discounttype,daochu_eend_date</colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="合同特殊操作记录" filename="合同特殊操作记录.xls" header-background="true">
+		<col id="vc_code" label="卡号" /> 
+		<col id="vc_name" label="姓名" />
+		<col id="vc_cardtype" label="卡类型" />
+		<col id="i_sex" label="性别" />
+		<col id="vc_mobile" label="手机" />
+		<col id="vc_newsale" label="会籍" />
+		<col id="vc_contractcode" label="合同编号" />
+		<col id="vc_contracttype" label="合同类型" />
+	</excel>
+
+</config>

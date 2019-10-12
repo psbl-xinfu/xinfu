@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>修改卡日期</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 560px;">
+   		<div class="modal-body b-i-main">
+			<nav>
+				<li>
+					<label style="width: 130px;">会员卡号：</label>
+					<input type="text" id="cardcode" name="cardcode" placeholder="会员卡号"/>	
+				</li>
+				<li>
+					<label style="width: 130px;">办卡日期：</label>
+					<span id="created"></span>	
+				</li>
+				<li>
+					<label style="width: 130px;">姓名：</label>
+					<span id="name"></span>	
+				</li>
+				<li>
+					<label style="width: 130px;">手机号码：</label>
+					<span id="mobile"></span>	
+				</li>
+				<li>
+					<label style="width: 130px;">卡有效期：</label>
+					<span id="carddate"></span>	
+				</li>
+				<li></li>
+				<li style="width: 1200px;">
+					<label style="width: 130px;">修改日期：</label>
+					<input type="text" id="datetime" name="datetime" placeholder="日期"/>
+					（格式为：2018-01-01 01:01:01）
+				</li>
+			</nav>
+		</div>
+		<footer class="footer-default" style="margin-top: 20px">
+			<button type="button" id="save_btn">确认修改</button>
+		</footer>
+	</div>
+<script language="JavaScript">
+$(document).ready(function() {
+	$Dialog().datetime($('#datetime'));
+	
+	$("#save_btn").click(function(){
+		var cardcode = $("#cardcode").val();
+		var datetime = $("#datetime").val();
+		if(cardcode==""){
+			ccms.dialog.notice("请输入会员卡号！", 3000);
+			return false;
+		}
+		if(datetime==""){
+			ccms.dialog.notice("请输入修改日期！", 3000);
+			return false;
+		}
+		ajaxCall("${def:actionroot}/update?cardcode="+cardcode+"&datetime="+datetime,{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	   			ccms.dialog.notice("修改成功！",2000,function(){
+	   				$("#cardcode,#datetime").val("");
+	   				$("#carddate,#created,#name,#mobile").html("");
+	   			});
+	 		}
+	 	});
+	});
+	$("#cardcode").blur(function(){
+		if($("#cardcode").val()==""){
+			return false;
+		}
+		$("#carddate,#created,#name,#mobile").html("");
+		ajaxCall("${def:actionroot}/querycardinfo?cardcode="+$("#cardcode").val(),{
+	   		method: "get",
+	   		progress: true,
+	   		dataType: "script",
+	   		success: function() {
+	 		}
+	 	});
+	});
+	$(document).click(function(){ 
+		$(".error").html("");
+	}); 
+});
+</script>
+</body>
+</html>

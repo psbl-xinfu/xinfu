@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<head>
+    <meta charset="utf-8">
+	<title>消息通知</title>
+	<meta name="viewport" content="width=320, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- head 中 -->
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/notice.css" />
+</head>
+<body >    
+<ul class="top-nav">
+	<li class="active" data-id="noticeList" onclick="detail(1)" id="noticetype">公告板
+		<span class="red-dot" id="unreadnotice" style="display: none;"></span></li>
+	<li data-id="wordsList" onclick="detail(2)" id="faqtype">话术
+		<!-- <span class="red-dot">9</span> -->
+	</li>
+</ul>
+
+<section >
+	<ul class="lists active" id="noticeList">
+	</ul>
+
+	<ul class="lists" id="wordsList">
+	</ul>
+	
+</section>
+
+<div class="icon-issue fixed-issue" id="addnotice" style="display: none;"></div>
+
+${inc:/action/project/fitness/guestget/end}
+
+<!-- 遮罩 -->
+<div class="gg-mask"></div>
+
+<div class="gg-notice-dlg">
+	<span class="icon-close_circle notice-dlg-close"></span>
+	<h1 id="noticetitle"></h1>
+	<div class="notice-content" id="noticecontent"></div>
+	<span class="sign-date" id="noticedate"></span>
+</div>
+
+<!-- body 最后 -->
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/notice.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//底部选中
+	tabswitch("2");
+	//判断权限 1大队长2组长3组员
+	if("${fld:usertype}"=="1"){
+		$("#addnotice").show();
+	}else if("${fld:usertype}"=="2"){
+		$("#unreadnotice").show();
+	}else if("${fld:usertype}"=="3"){
+		$("#unreadnotice").show();
+	}
+	
+	noticelist();
+	//个人中心跳转
+	if("${fld:listtype}"!=""){
+		if("${fld:listtype}"=="1"){
+			$("#noticetype").click();
+		}else if("${fld:listtype}"=="2"){
+			$("#faqtype").click();
+		}
+	}
+    $('.fixed-issue').on('click', function(){
+    	if($("#noticetype").hasClass('active')){
+    	    location.href = contextPath+"/action/project/fitness/guestget/publish/form?types=1";
+    	}
+    	if($("#faqtype").hasClass('active')){
+    	    location.href = contextPath+"/action/project/fitness/guestget/publish/form?types=2";
+    	}
+    })
+});
+//公告
+function noticelist(){
+	findurl("${def:actionroot}/searchnotice");
+}
+//话术
+function faqlist(){
+	findurl("${def:actionroot}/faq");
+}
+
+//url
+function findurl(url){
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+//公告话术切换
+function detail(val){
+	if(val=="1"){
+		noticelist();
+	}else{
+		faqlist();
+	}
+}
+</script>
+</body>
+</html>

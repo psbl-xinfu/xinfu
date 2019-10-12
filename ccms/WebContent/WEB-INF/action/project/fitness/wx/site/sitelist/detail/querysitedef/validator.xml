@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="org_id" type="varchar" required="true" label="门店id" />
+	<parameter id="sitetype" type="varchar" required="true" label="场地类型" />
+    <parameter id="weixin_userid" type="varchar" required="true" label="weixin_userid" />
+</validator>

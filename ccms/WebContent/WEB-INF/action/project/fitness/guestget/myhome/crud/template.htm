@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/guestget/pub}
+<head>
+    <meta charset="utf-8">
+	<title>我</title>
+	<meta name="viewport" content="width=320, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- head 中 -->
+    <script src="${def:context}/js/project/fitness/guestget/js/common/flexible.min.js"></script>
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/common.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/icons.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/common/global.css" />
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/guestget/css/myhome.css" />
+</head>
+<body>    
+	<header class="gg-user-top">
+		<div class="avatar"></div>
+		<div class="mid-info">
+			<p><span class="nickname"></span><span class="" id="sexclass"></span></p>
+			<p class="contact"><span class="tel"></span>
+			<span><team-rows><input type="hidden" id="team_id" value="${fld:team_id}"/>${fld:team_name}</team-rows></span></p>
+		</div>
+		<span class="icon-more"></span>
+	</header>
+	
+	<ul class="gg-user-mid" style="display: none;" id="groupinfo">
+		<li>
+			<p class="num-wrap"><span class="num">${fld:monthguestnum}</span>个</p>
+			<p>获客数量</p>
+			<span class="sep"></span>
+		</li>
+		<li>
+			<p class="num-wrap"><span class="num" id="guest_target">0</span>个</p>
+			<p>本月任务</p>
+			<span class="sep"></span>
+		</li>
+		<li>
+			<p class="num-wrap"><span class="num" id="guestpercentage"></span>%</p>
+			<p>完成比例</p>
+		</li>
+	</ul>
+	<ul class="gg-user-mid" style="display: none;" id="captaininfo">
+		<li onclick="noticelist(1)">
+			<p class="num-wrap"><span class="num" id="noticenum">${fld:noticenum}</span></p>
+			<p>公告</p>
+			<span class="sep"></span>
+		</li>
+		<li onclick="noticelist(2)">
+			<p class="num-wrap"><span class="num" id="faqnum">${fld:faqnum}</span></p>
+			<p>话术</p>
+			<span class="sep"></span>
+		</li>
+		<li onclick="noticelist(3)">
+			<p class="num-wrap"><span class="num" id="favoritesnum">${fld:favoritesnum}</span></p>
+			<p>收藏夹</p>
+		</li>
+	</ul>
+	<ul class="gg-user-bt">
+		<li id="groupTask" style="display: none;">组任务详情<span class="icon-more"></span></li>
+		<li id="personTask" style="display: none;">个人任务详情<span class="icon-more"></span></li>
+	</ul>
+	
+	
+${inc:/action/project/fitness/guestget/end}
+
+<!-- body 最后 -->
+<script src="${def:context}/js/project/fitness/guestget/js/common/common.js"></script>
+<script src="${def:context}/js/project/fitness/guestget/js/myhome.js"></script>
+
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//底部选中
+	tabswitch("4");
+	//判断权限 1大队长2组长3组员
+	if("${fld:usertype}"=="1"){
+		$("#captaininfo").show();
+	}else if("${fld:usertype}"=="2"){
+		$("#personTask,#groupinfo,#groupTask").show();
+	}else if("${fld:usertype}"=="3"){
+		$("#personTask,#groupinfo").show();
+	}
+	
+	<info>
+	$(".nickname").text("${fld:name}");
+	$(".tel").text("${fld:mobile}");
+	$("#sexclass").attr("class", "${fld:sexclass}");
+	</info>
+	
+	var guest_target = 0;
+	<targetstaff-rows>
+		guest_target = '${fld:guest_target}';
+		$("#guest_target").html("${fld:guest_target}");
+		var percentage = Number(${fld:monthguestnum}/${fld:guest_target}*100).toFixed(2);
+		$("#guestpercentage").html(percentage);
+	</targetstaff-rows>
+	//本月已完成大于0，本月任务等于0，显示百分比为100%
+	if(${fld:monthguestnum}>0&&parseInt(guest_target)==0){
+		$("#guestpercentage").html("100");
+	}else if(${fld:monthguestnum}==0&&parseInt(guest_target)==0){
+		$("#guestpercentage").html("0.00");
+	}
+	//退出
+	$("#cancel").click(function(){
+        location.href = contextPath+"/action/project/fitness/wx/exit";
+	});
+});
+
+//公告话术收藏夹跳转
+function noticelist(val){
+	if(val==1){
+        location.href = contextPath+"/action/project/fitness/guestget/notice/crud?listtype=1";
+	}else if(val==2){
+        location.href = contextPath+"/action/project/fitness/guestget/notice/crud?listtype=2";
+	}else if(val==3){
+        location.href = contextPath+"/action/project/fitness/guestget/favorites/crud";
+	}
+}
+</script>
+</body>
+</html>

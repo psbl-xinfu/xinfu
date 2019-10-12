@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>活动设置</title>
+</head>
+<body>
+	<div class="modal fade" id="modalAddnew"  tabindex="-1" style='display:none;'>
+		<div class="basic-information modal-dialog dialogbg" style="min-height:0px;height:85%;">
+				<header class="header-default">
+					<span id="formTitle">新增</span>
+					<button type="button" class="header-close" data-dismiss="modal" aria-hidden="true"></button>
+				</header>
+					<form id="formEditor" name="formEditor" method="post">
+				<div class="b-i-main">
+						<input type="hidden" id="vc_code" name="vc_code" value=""/>
+					<nav>
+						<li>
+							<label style="width: 120px;">活动名称：</label>
+							<input type="text" id="camp_name" name="camp_name" maxlength="80" placeholder="活动名称"/>
+						</li>
+						<li> 			
+							<label>参与卡种：</label> 	
+							<select id="vc_cardtype" name="vc_cardtype"  class="normal-select">
+								<option value="">请选择</option>
+								<cardtype-list>
+				          			<option value="${fld:vc_code}">${fld:vc_name}</option>
+				          		</cardtype-list>
+							</select>
+			 			 </li>	
+						<li>
+							<label style="width: 120px;">活动折扣：</label>
+							<input type="text"  id="discount" name="discount" maxlength="80" placeholder="活动折扣"/>
+						</li>
+						<li>
+						</li>
+						<li>
+							<label style="width: 120px;">截止时间：</label>
+							<input type="text"  id="startdate" name="startdate" maxlength="80" placeholder="选择时间"/>
+							&nbsp;到&nbsp;
+							<input type="text"  id="enddate" name="enddate" maxlength="80" placeholder="选择时间"/>
+						</li>
+						<li class="to100w" style="margin-left: 6%">
+							<label>备注：</label>
+							<textarea id="vc_remark" name="vc_remark" placeholder="暂无数据" class="my-textarea"></textarea>
+						</li>	
+					</nav>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn" type="button">保存</button>
+				</footer>
+				</form>
+			</div>
+		</div>
+
+	<form  role="form" method="post" id="searchForm">
+				<input name="sort" type="hidden" value="code" preserve="true" />
+				<input name="order" type="hidden" value="desc" preserve="true" />
+				<input name="pageNo" type="hidden" value="" preserve="true" />
+				<input name="totalPages" type="hidden" value="" preserve="true" />
+	
+				<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t">
+								<nav class="tab-nav-my">
+									<li class="w-200">
+										<input type="text" id="campaign_name" name="campaign_name" placeholder="请输入活动名称" class="input-default"/>							
+									  </li>
+									  <div class="r-c-btnList">
+											<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="新增" alt="" data-toggle="modal" id="addnew_btn">
+										</div>									
+								</nav>
+							</div>
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+								</nav>
+								<nav class="r-c-3-t-b-r">
+									 <li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="edit_btn">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/kaiqi.svg" title="启用" alt=""id="start">
+									</li>
+									<li>
+										<img src="${def:context}/js/project/fitness/image/SVG/btn/jinyong.svg" title="禁用" alt=""id="disable">
+									</li>
+									<li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="delete_btn">
+									</li>	
+								</nav>
+							</div>
+						</div>
+						<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<label class="am-checkbox">
+												<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;">
+											</label>
+										</th>
+										<th>活动名称</th>
+										<th>开始时间</th>
+										<th>结束时间</th>
+										<th>参与卡种</th>
+										<th>活动折扣</th>
+										<th>状态</th>										
+										<th>备注</th>	
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+									<tr>
+										 <td class="table-checkbox">#application_id#</td> 
+										<td >#campaign_name#</td>
+										<td >#startdate#</td>
+										<td >#enddate#</td>
+										<td >#vc_cardtype#</td>
+										<td >#discount#折</td>
+										<td >#is_enabled#</td>		
+										<td >#remark#</td>										
+									</tr>
+								</tbody>
+								<tbody id="datagrid">
+								</tbody>
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	selectInit($("#vc_cardtype"));
+	$Dialog().date($('#startdate'));
+	$Dialog().date($('#enddate'));
+	$(".header-close").unbind().on("click",function(){
+		$("#modalAddnew").modal('hide');
+		ccms.util.clearForm('formEditor');
+	});
+	
+	var obj = $Crud({
+		formId:"formEditor",
+		button:"save_btn",
+		bpkField:"vc_code",
+		insertBack:function(){
+			search.searchData();
+		},
+		updateBack:function(){
+			search.searchData();
+		},
+		deleteBack:function(){
+			search.searchData();
+		},
+		addNewBack:function(){
+			setSelectValue($("#vc_cardtype"), "");
+			$("#formTitle").html("新增");
+		},
+		editBack:function(){
+			$("#formTitle").html("修改");
+		},
+		validate:function(){
+			var flag=$("#formEditor").validate({
+				rules : {
+				},
+			messages: {
+			}
+		});
+			return flag;
+		},
+		check:function(){
+		//	var reg=/^(0(\.\d+)?|1)?$/;
+		var reg=/^-?\d+(\.\d{1,2})?$/;  
+			var score=$("#discount").val();
+			if(!reg.test(score)){
+				$("#sp").show();
+				ccms.dialog.alert("小数位数不能超过三位！");
+				return false;
+			};
+			if(score>=1){
+				$("#sp").show();
+				ccms.dialog.alert("必须输入0-1之间的数！");
+				return false;
+			};
+			return true;
+		}
+	}).init();
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+			ccms.util.renderCheckbox("datalist");
+			//全选   取消全选
+		    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+				$('input[name=datalist]').iCheck('check');  //
+		    }).on("ifUnchecked",function(){    //点击事件未选中
+				$('input[name=datalist]').iCheck('uncheck');  //
+		    });
+			
+			$("#edit_btn").unbind().on("click", function(){
+				var obthis = getCheckboxValue("datalist");
+				var len=$('input[name=datalist]:checked').length
+				if(obthis!=""&&len==1){
+					obj.edit({id:obthis});
+				}else{
+					ccms.dialog.alert("请选择一个卡分类！")
+				}
+			});	
+			
+			$("#delete_btn").unbind().on("click", function(){
+				var obthis = getCheckboxValue("datalist");
+				if(obthis!=""){
+					$Dialog().confirm("确定要删除吗？",function(){
+						obj.del({id:obthis});
+					})
+				}else{
+					ccms.dialog.alert("请选择卡分类！")
+				}
+			});
+		//禁用
+		$("#disable").unbind().on("click",function(){
+			$Dialog().confirm("确定要禁用吗？",function(){
+				var obthis = getCheckboxValue("datalist");
+				if(obthis!= ""){
+					var url = "${def:context}${def:actionroot}/disable?id="+obthis;
+					operation(url, "禁用成功！");
+				}else{
+					ccms.dialog.notice('请选择商品!');
+				}
+			});
+		}); 
+		//启用
+		$("#start").unbind().on("click",function(){
+			$Dialog().confirm("确定要启用吗？",function(){
+				var obthis = getCheckboxValue("datalist");
+				if(obthis!= ""){
+					var url = "${def:context}${def:actionroot}/enable?id="+obthis;
+					operation(url, "启用成功！");
+				}else{
+				 	ccms.dialog.notice('请选择商品!');
+				}
+			});
+		}); 
+	}}).initSearchBtn().searchData(1);
+});
+
+//操作
+function operation(url, name){
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+			$Dialog().notice(name,1200,function(){
+				search.searchData(1);
+			});
+		}
+	});
+}
+
+</script>
+</body>
+</html>

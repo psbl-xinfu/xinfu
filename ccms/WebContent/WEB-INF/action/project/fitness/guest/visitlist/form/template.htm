@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>添加</title>
+</head>
+<body>
+		<div class="basic-information basic-dialog dialogbg" >
+			<header class="header-default">
+				新增来访预约
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+          		<div class="modal-body b-i-main">
+          			<input type="hidden" id="guest_code" name="guest_code" />
+					<nav>
+						<li>
+							<label style="width: 150px;">资源编号/姓名/手机号：</label>
+							<input type="text" id="guest" name="guest" placeholder="资源编号/姓名/手机号" />
+						</li>
+						<li>
+							<label>性别：</label>
+							<select  id="sex" name="sex" style="display: none;"> 
+								<option value="">未填</option>
+								<option value="1">男</option>
+								<option value="0">女</option>
+							</select>
+						</li>
+						<li>
+							<label style="width: 150px;">手机号：</label>
+							<input type="text" id="mobile" name="mobile" placeholder="手机号" />
+						</li>
+						<li>
+							<label>渠道来源：</label>
+							<select id="cc_type" name="cc_type" style="display: none;"> 
+								<option value="">请选择</option>
+								<guesttype-list>
+									<option value="${fld:vc_topic}">${fld:vc_content}</option>
+								</guesttype-list>
+							</select>
+						</li>
+						<li>
+							<label  style="width: 150px;">接待会籍：</label>
+							<select id="cc_mc" name="cc_mc" style="display: none;"> 
+								<option value="">请选择</option>
+								<mc-rows>
+									<option value="${fld:userlogin}">${fld:mcname}</option>
+								</mc-rows>
+							</select>
+						</li>
+						<li style="display: none;">
+							<label style="width: 150px;">POS接待教练：</label>
+							<select id="posptid" name="posptid" style="display: none;">
+								<option value="">请选择</option>
+								<pt-rows>
+									<option value="${fld:userlogin}">${fld:name}</option>
+								</pt-rows>
+							</select>	
+						</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+				<button type="button" id="save_btn" >预约</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	//查询资源
+	searchSelectInit($("#sex,#cc_type,#posptid,#cc_mc"));
+	$("#guest").blur(function(){
+		var guest = $(this).val();
+		$("#cc_type,#sex,#mobile,#guest_code").val("");
+		$("#save_btn").html("新增并预约");
+		if(undefined==guest||guest ==""){
+			/*ccms.dialog.alert("请输入资源编号/姓名/手机号！");*/
+		}else{
+			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlist/crud?pickcustname="+guest+"&objid=guest_code&objidtwo=guest&random_number="+Math.random()});
+		}
+	});
+	//添加
+	$("#save_btn").click(function(){
+		var guest_code = $("#guest_code").val();
+		if($("#guest").val()==""){
+			ccms.dialog.alert("请输入资源编号/姓名/手机号！");
+			return false;
+		}
+		if($("#sex").val()==""){
+			ccms.dialog.alert("请选择性别！");
+			return false;
+		}
+		if($("#mobile").val()==""){
+			ccms.dialog.alert("请输入手机号！");
+			return false;
+		}
+		if($("#cc_type").val()==""){
+			ccms.dialog.alert("请选择渠道来源！");
+			return false;
+		}
+		if($("#cc_mc").val()==""){
+			ccms.dialog.alert("请选择会籍！");
+			return false;
+		}
+		if(guest_code!=""){
+			if(yuanmc!=$("#cc_mc").val()){
+				$Dialog().confirm("确定需要跟换会籍吗？", function(){
+					addguest(); 
+				})
+			}else{
+				addguest();
+			}
+		}else{
+			$Dialog().confirm("该资源不存在，确定添加资源并预约吗？", function(){
+				addguest();
+			})
+		}
+	})
+});
+function addguest(){
+	var url = "${def:actionroot}/insert";
+	ajaxCall(url,{
+		method:"post",
+		form : "formEditor",
+		progress:true,
+		dataType:"script",
+		success:function(){	
+		}
+	});
+}
+function pickcustCallback(){
+	var url = "${def:actionroot}/queryguestinfo?guest_code="+$("#guest_code").val();
+	ajaxCall(url,{
+		method:"get",
+		progress:true,
+		dataType:"script",
+		success:function(){	
+			$("#save_btn").html("预约");
+		}
+	});
+}
+</script>
+</body>
+</html>

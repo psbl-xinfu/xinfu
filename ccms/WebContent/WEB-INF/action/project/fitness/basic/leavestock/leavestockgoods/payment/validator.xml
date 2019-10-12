@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="tuid" type="varchar" required="true" label="tuid" />
+    <parameter id="cardcode" type="varchar" required="true" label="会员卡号" />
+    <parameter id="custcode" type="varchar" required="true" label="会员号" />
+    <parameter id="ystotal" type="varchar" required="true" label="收款金额" />
+    <parameter id="total" type="varchar" required="true" label="应收金额" />
+    <parameter id="pay_detail" type="varchar" required="false" label="支付明细" />
+    <parameter id="paydivgoodsinp" type="varchar" required="false" label="储值卡的code" />
+     <parameter id="paytheprice" type="varchar" required="false" label="储值卡的钱" />
+     <parameter id="getmoney" type="varchar" required="false" label="付的总价钱" />
+	<!-- <parameter id="othermoney" type="varchar" required="false" label="现金储值/运动基金" /> -->
+	<!-- <parameter id="othertype" type="varchar" required="true" label="付款方式" /> -->
+    
+	<!-- <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="现金储值不足！" id="othermoney" sql="nodup-custmoneycash.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+		on-error-label="运动基金不足！" id="othermoney" sql="nodup-custmoneygift.sql" /> -->
+</validator>

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="appid" type="varchar" required="false" label="场馆KEY" />
+    <parameter id="reservationID" type="varchar" required="true" label="课程预约ID" />
+	<parameter id="employeeId" type="varchar" required="true" label="员工教练ID"/>
+	<parameter id="userId" type="varchar" required="true" label="会员ID"/>
+</validator>
+			
+
+
+

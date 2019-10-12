@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建团队</title>
+
+    <link href="${def:context}/js/project/fitness/wx/css/team/my_team.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/team_name.css" rel="stylesheet">
+</head>
+
+<body>
+    <form id="formEditor" name="formEditor" method="post">
+    	<input type="hidden" id="weixinlogin" name="weixinlogin" value="${fld:weixinlogin}" />
+    	<input type="hidden" id="org_id" name="org_id" value="${fld:org_id}" />
+	    <div class="select_tit">请创建您的团队</div>
+	    <div class="selected">
+	        <div class="selected_con">
+	            <input class="wr_team cre_team" id="groupname" name="groupname" style="display:block; border: none;
+	            outline: none;" type="text" placeholder="输入团队名称">
+	        </div>
+	        <div class="selected_con" style="margin-top: 0.5rem;">
+	       		<input class="wr_team cre_team" id="remark" name="remark" style="display:block; border: none;outline: none;
+	       			width: 5rem;text-align:center;" type="text" placeholder="大家一起开心组团打球！！！">
+	        </div>
+	    </div>
+	    <div class="next">保存并使用</div>
+    </form>
+<script src="${def:context}/js/project/fitness/wx/js/team/rem.js"></script>
+<script>
+$(function () {
+	$(".next").click(function(){
+		var groupname = $("#groupname").val();
+		if(groupname==""){
+			alert("请输入团队名称！");
+			return false;
+		}
+		//添加团队
+		ajaxCall("${def:actionroot}/insert",{
+			method:"post",
+			form:"formEditor",
+			dataType:"script",
+			success:function(){
+				location.href="${def:context}/action/project/fitness/wx/team/myteam/crud?weixinlogin=${fld:weixinlogin}&org_id=${fld:org_id}";
+			}
+		});
+	});
+})
+</script>
+</body>
+
+</html>

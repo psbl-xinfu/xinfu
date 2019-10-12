@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<script type="text/javascript" src="${def:context}/js/project/fitness/js/jscolor/jscolor.js"></script>
+<title>新增团课排课</title>
+</head>
+<body>
+		<div class="col_mainInner dialogbg" style="font-size: 14px;height: 460px;">
+			<header class="header-default">
+				<span id="formTitle">修改</span>
+			</header>
+			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+				<input type="hidden" id="vc_code" name="vc_code" value=""/>
+				<input type="hidden" id="timeslen" name="timeslen" value=""/>
+				<input type="hidden" id="week" name="week" value=""/>
+				<div class="modal-body b-i-main">
+					<nav>
+						<li>
+							<label for="" style="width: 120px;">课程名称：</label>					
+							<select id="classcode" name="classcode" style="display: none;">
+								<option value="">请选择</option>
+								<classdef-rows>
+									<option value="${fld:code}">${fld:class_name}</option>
+								</classdef-rows>
+							</select>		
+						</li>
+						<li>
+							<label for="" style="width: 100px;">英文名称：</label>					
+							<span id="class_ename"></span>					
+						</li>
+						<li>
+							<label for="" style="width: 120px;">背景颜色显示：</label>				
+							<input type="text" class="color" id="color" name="color" disabled="disabled" readonly="readonly" />			
+						</li>
+						<li>
+							<label for="" style="width: 100px;">日期：</label>				
+							<input type="text" id="classdate" name="classdate" value="${fld:classdate}" placeholder="日期"/>					
+						</li>
+						<li>
+							<label for="" style="width: 120px;">时间：</label>				
+							<input type="text" id="classtime" name="classtime" value="" placeholder="时间"/>					
+						</li>
+						<li>
+							<label for="" style="width: 100px;">时间：</label>				
+							<input type="text" id="endtime" name="endtime" readonly="readonly" placeholder="时间"/>					
+						</li>
+						<li>
+							<label for="" style="width: 120px;">课程教练：</label>				
+							<select id="teacherid" name="teacherid" style="display: none;">
+								<option value="">请选择</option>
+								<staff-rows>
+									<option value="${fld:userlogin}">${fld:name}</option>
+								</staff-rows>
+							</select>				
+						</li>
+						<li>
+							<label for="" style="width: 100px;">团操教室：</label>							
+							<select id="classroomcode" name="classroomcode" style="display: none;">
+								<option value="">请选择</option>
+								<classroom-rows>
+									<option value="${fld:code}">${fld:classroom_name}</option>
+								</classroom-rows>
+							</select>			
+						</li>
+						<li>
+							<label for="" style="width: 120px;">可容纳(人)：</label>							
+							<input type="text" size="2" id="limitcount" readonly="readonly" name="limitcount" placeholder="可容纳"/>	
+						</li>
+						<li class="inpRadio">
+							<label for="" style="width: 100px;">是否预约：</label>											
+							<input type="radio" name="isprepare" value="1" style="display: none;" />是
+							<input type="radio" name="isprepare" value="0" style="display: none;" />否	
+						</li>
+						<!-- <li>
+							<label for="" style="width: 120px;">收费(元/节)：</label>									
+							<input type="text" id="price" name="price" readonly="readonly" placeholder="收费"/>
+						</li> -->
+						<li>
+							<label for="" style="width: 100px;">是否启用：</label>									
+							<select id="status" name="status" style="display: none;">
+								<option value="2">否</option>
+								<option value="1">是</option>
+							</select>				
+						</li>
+						<li class="row100w">
+							<label for="">介绍：<span style="visibility:hidden;">000000000000</span></label>								
+							<textarea rows="10" cols="55" placeholder="介绍" class="my-textarea" id="remark" name="remark"></textarea>		
+						</li>
+					</nav>
+				</div>
+			<footer class="footer-default">
+			  <button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+			</form>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	if("${fld:code}"==''){
+		$("#formTitle").html("新增");	
+	}else{
+		$("#formTitle").html("修改");	
+	}
+	$("#teacherid option").css("display", "none");
+	$("#classroomcode option").css("display", "none");
+	
+	selectInit($("#classcode,#teacherid,#classroomcode,#status"));
+	var classcode = "${fld:code}";
+	//查看或修改时加载数据
+	if(classcode!=""){
+		var url="${def:context}${def:actionroot}/edit?code="+classcode;
+		ajaxCall(url,{
+			method:"GET",
+			dataType:"script",
+			progress:true,
+			success:function(){
+			}
+		});
+	}
+    var formatDate = function(date){
+        var week = ['星期天','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()];
+        return week;
+    };
+	$Dialog().date($('#classdate'));
+	$Dialog().time($('#classtime'));
+	$("#classtime").val("00:00");
+	var obj = $Crud({
+		formId:"formEditor",
+		button:"save_btn",
+		bpkField:"vc_code",
+		insertBack:function(){
+		},
+		updateBack:function(){
+		},
+		deleteBack:function(){
+		},
+		addNewBack:function(){
+			document.formEditor.class_type.style.backgroundColor = "";
+		},
+		editBack:function(){
+		},
+		validate:function(){
+		   var flag=$("#formEditor").validate({
+			   	rules : {
+			   		classcode : { required : true},	
+			   		classdate : { required : true},	
+			   		classtime : { required : true},	
+					teacherid : { required : true},	
+					classroomcode : { required : true}	
+				},
+			messages: {
+				classcode:{
+					required:"请选择！"
+				},
+				classdate:{
+					required:"请选择！"
+				},
+				classtime:{
+					required:"请选择！"
+				},
+				teacherid:{
+					required:"请选择！"
+				},
+				classroomcode:{
+					required:"请选择！"
+				}
+			}
+			});
+			$("#week").val(formatDate(new Date($("#classdate").val())));
+			return flag; 
+		},
+		check:function(){
+			return true;			
+		}
+	}).init();
+
+	//选择课程
+	$("#classcode").change(function(){
+		if($(this).val()!=""){
+			var url="${def:context}${def:actionroot}/getclassdef?code="+$(this).val()+"&classtime="+$("#classtime").val();
+			ajaxCall(url,{
+				method:"GET",
+				dataType:"script",
+				progress:true,
+				success:function(){
+				}
+			});
+		}
+    });
+	//选择教室查询可容纳数量
+	$("#classroomcode").change(function(){
+		if($(this).val()!=""){
+			var url="${def:context}${def:actionroot}/getclassroomnum?code="+$(this).val();
+			ajaxCall(url,{
+				method:"GET",
+				dataType:"script",
+				progress:true,
+				success:function(){
+				}
+			});
+		}else{
+			//清空容量
+			$("#limitcount").val("");
+		}
+    });
+	//计算结束时间
+	$("#classtime").change(function(){
+		var time=new Date($("#classdate").val()+" "+$(this).val());
+		 var timeslen = $("#timeslen").val(); //分钟数
+		 //判断是否选择课程后获取课时分钟数
+		 if(timeslen!=""){
+	         time.setMinutes(time.getMinutes() + parseInt(timeslen), time.getSeconds(), 0);
+	         $("#endtime").val(time.getHours()+":"+time.getMinutes());
+		 }
+    });
+});
+
+</script>
+</body>
+</html>

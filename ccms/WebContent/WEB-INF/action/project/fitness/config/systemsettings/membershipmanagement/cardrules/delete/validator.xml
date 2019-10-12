@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="cnfg_id" type="varchar" required="true" label="cnfg_id"/>
+	<parameter id="category" type="varchar" required="true" label="category"/>
+	<!-- 1增加		2修改		3删除 -->
+	<parameter id="crud" type="varchar" required="true" label="crud"/>
+	<parameter id="vc_remark" type="varchar" required="false" label="vc_remark"/>
+</validator>

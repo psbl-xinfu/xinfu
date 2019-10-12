@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+${inc:/action/project/fitness/wx/pub}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>场次选择</title>
+    <link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/weui.css" rel="stylesheet" />
+    <link href="${def:context}/js/swiper/swiper.min.css" rel="stylesheet" />
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/site_selected.css" rel="stylesheet">
+    <link href="${def:context}/js/project/fitness/wx/css/wx_site/team_name.css" rel="stylesheet">
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/js/wx_site/weui/weui.min.css">
+    <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/js/wx_site/weui/jquery-weui_custom.min.css">
+</head>
+<style>
+
+.nav .swiper-slide {
+    font-size: 0.24rem;
+    font-family: PingFang-SC-Regular;
+    color: rgba(51,51,51,1);
+    line-height: 0.3rem;
+    padding: 0.15rem 0;
+border-right: 0.01rem solid #E0E0E0;
+}
+</style>
+<body style="background:#eeeeee;  line-height:normal; ">
+    <form id="yyformEditor" name="yyformEditor" method="post">
+    <div class="containter tckb hy-sjyy">
+        <nav class="nav swiper-container" style="background: #ffffff;text-align: center;">
+            <nav class="swiper-wrapper" id="swiper" style="">
+            </nav>
+        </nav>
+    </div>
+    <input type="hidden" id="minhour" name="minhour" />
+    <input type="hidden" id="org_id" name="org_id" value="${fld:org_id}" />
+    <input type="hidden" id="user_id" name="user_id" value="${def:user}" />
+    <input type="hidden" id="yyinputprice" name="yyinputprice" />
+    <input type="hidden" id="customertype" name="customertype" />
+    <input type="hidden" id="prepare_date" name="prepare_date" />
+    <input type="hidden" id="bcorpc" name="bcorpc" />
+    <input type="hidden" id="maxhour" name="maxhour" />
+    <input type="hidden" id="weixin_userid" name="weixin_userid" value="${fld:weixin_userid}" />
+    <!-- 选择场次类型包场/拼场 -->
+    <div class="site_type" style="margin-top: 0;">
+        <div class="site_type_nav" id="site_type">
+            <div class="active baochang" code="1">包场</div>
+            <div code="2">拼场</div>
+            <span class="" id="spell">${fld:sitetypetext@js}</span>
+        </div>
+        <!-- 包场 -->
+        <div class="all_court court">
+            <div class="court_type">
+                <ul>
+                    <li>
+                        <div class="blue"></div>
+                        <p>已选择</p>
+                    </li>
+                    <li>
+                        <div class="white"></div>
+                        <p>可预订</p>
+                    </li>
+                    <li>
+                        <div class="grey"></div>
+                        <p>已售完</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="selectday">
+                <div class="seletimes" id="seletimes">
+                    <div style="width: 100rem; padding-left: 1.08rem;" id="siteItem" class="bcsitedeflist">
+                    </div>
+                </div>
+                <div class="selectnom" id="bchour">
+
+                </div>
+            </div>
+        </div>
+        <!-- 拼场 -->
+        <div class="spell_court court" style="display:none;">
+            <div class="court_type">
+                <ul>
+                    <li>
+                        <div class="blue"></div>
+                        <p>已选择</p>
+                    </li>
+                    <li>
+                        <div class="white"></div>
+                        <p>可预订</p>
+                    </li>
+                    <li>
+                        <div class="grey"></div>
+                        <p>已售完</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="selectday">
+                <div class="seletimes" id="seletimes">
+                    <div style="width: 100rem; padding-left: 1.08rem;" id="siteItem" class="pcsitedeflist">
+
+                    </div>
+                </div>
+                <div class="selectnom" id="pchour">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="site_list">
+        <div class="site_list_1" id="yylist" style="width: auto; height: 1.8rem;">
+
+        </div>
+    </div>
+    <div class="pay">
+        <div class="left1">共计
+            <span id="totalprice">0元</span>
+        </div>
+        <div class="right">下一步</div>
+    </div>
+
+    <div id="yyinputname">
+    </div>
+    <!-- 包场团队 -->
+    <div class="team_name" style="display: none; position: fixed;top: 0;right: 0;background: #fff; width: 100%; height: 100%;z-index: 99;">
+        <div class="select_tit">
+            请选择包场团队
+        </div>
+        <div class="selected">
+            <div class="selected_con">
+                <select class="form-control sel_team" id="guestgroup" name="guestgroup">
+                	<option value="">请选择</option>
+                </select>
+                <input class="wr_team cre_team" style="display:none;" id="groupname" name="groupname" type="text" placeholder="输入团队名称">
+            </div>
+
+        </div>
+        <div class="creat">还没团队？创建一个吧</div>
+        <div class="next">下一步</div>
+    </div>
+    <!-- 散客 -->
+    <div class="sanke_name" style="display: none; position: fixed;top: 0;right: 0;background: #fff; width: 100%; height: 100%;z-index: 99;">
+        <div class="select_tit">
+            请填写预订人信息
+        </div>
+        <div class="selected">
+            <div class="selected_con">
+
+                <input class="wr_team cre_team" id="customername" name="customername" type="text" placeholder="请输入姓名">
+            </div>
+            <div class="selected_con" style="margin-top: 0.3rem;">
+
+                <input class="wr_team cre_team" id="mobile" name="mobile" type="text" placeholder="请输入手机号码">
+            </div>
+        </div>
+
+        <div class="next">下一步</div>
+    </div>
+    </form>
+    <script src="${def:context}/js/project/fitness/wx/js/wx_site/rem.js"></script>
+    <script src="${def:context}/js/project/fitness/wx/js/wx_site/weui/jquery-weui.min.js"></script>
+    <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/wx_site/swiper/swiper.min.js"></script>
+    <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script>
+    <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script>
+
+    <script type="text/javascript">
+        var d = new Date();
+        $(function () {
+            $('.creat').click(function () {
+                $(this).hide();
+                $('.sel_team').hide()
+                $('.cre_team').show()
+                $('.select_tit').html('请创建您的团队');
+                $('.next').html('保存并使用');
+            })
+            //验证手机号码是否已存在系统
+	        $("#mobile").blur(function(){
+	    		ajaxCall("${def:actionroot}/querymobile?mobile="+$(this).val()+"&org_id=${fld:org_id}",{
+					method:"get",
+					dataType:"script",
+					success:function(){
+					}
+				});
+	        });
+            
+            $('.next').click(function () {
+                if ($('.next').html() == '下一步') {
+               		if(parseInt("${fld:isexist}")==0){
+            			if($("#customername").val()==""){
+            				ccms.dialog.notice("请输入姓名！", 2000);
+            				return false;
+            			}
+            			if($("#mobile").val()==""){
+            				ccms.dialog.notice("请输入手机号码！", 2000);
+            				return false;
+            			}
+            		}
+                	//预定
+                	ydsitedef();
+                } else {
+                	var groupname = $("#groupname").val();
+                	if(groupname==""){
+                		ccms.dialog.notice("请输入团队名称！", 2000);
+                		return false;
+                	}
+					//添加团队
+                    ajaxCall("${def:context}/action/project/fitness/wx/site/siteselected/insertguestgroup?"
+                    		+"org_id=${fld:org_id}&weixin_userid=${fld:weixin_userid}&groupname="+groupname, {
+                          method: "get",
+                          dataType: "script",
+                          success: function () {
+                              $('.sel_team').show()
+                              $('.cre_team').hide()
+                              $('.next').html('下一步');
+                          }
+                   	});
+                }
+            })
+            searchsitedef();
+            appendWeek();
+            $('li').each(function () {
+                $(this).on('click', function () {
+                    $(this).siblings().removeClass('active1');
+                    $(this).addClass('active1');
+                    $(".bcsitedeflist,.pcsitedeflist,#yylist").html("");
+                    searchsitedef();
+                })
+            })
+
+            $('.nav li').each(function () {
+                $(this).on('click', function () {
+                    var moon = $(this).children('span').text();
+                    moon = moon.replace('/', '-');
+                    var parpreYear = d.getFullYear();
+                    parpreYear = parpreYear + '-' + moon
+                })
+            })
+        })
+
+        function appendWeek() {
+            var str = "";
+            for (var i = 0; i < 30; i++) {
+                var tdate = addDate(d, i);
+                var date = getFormatDate(tdate.getMonth() + 1) + '/' + getFormatDate(tdate.getDate());
+                var week = getWeekDay(tdate);
+                str += '<li code="'+tdate.format("yyyy-MM-dd")+'" class="';
+                if (tdate.format("yyyy-MM-dd") == "${fld:parpreparedate}") {
+                    str += 'active1 ';
+                }
+                str += 'swiper-slide"><p>' + week + '</p><span>' + date + '</span></li>'
+            }
+            $('#swiper').html(str);
+            
+           
+            mySwiper = new Swiper('.swiper-container', {
+                autoplay: false,
+                slidesPerGroup: 7,
+                slidesPerView: 7,
+                spaceBetween: 0,
+                initialSlide:0
+            });
+            
+
+        }
+
+        function getWeekDay(d) {
+            var weekday = new Array(7);
+            weekday[0] = "周日";
+            weekday[1] = "周一";
+            weekday[2] = "周二";
+            weekday[3] = "周三";
+            weekday[4] = "周四";
+            weekday[5] = "周五";
+            weekday[6] = "周六";
+            var num = d.getDay();
+            return weekday[num];
+        }
+
+        function getFormatDate(arg) {
+            if (arg == undefined || arg == '') {
+                return '';
+            }
+            var re = arg + '';
+            if (re.length < 2) {
+                re = '0' + re;
+            }
+            return re;
+        }
+
+        $('#site_type div').click(function () {
+            $("#site_type div").eq($(this).index()).addClass("active").siblings().removeClass("active");
+            $(".court").hide().eq($(this).index()).show();
+
+            if (!$(this).hasClass("baochang")) {
+                $('.pay .right').html('去支付')
+            } else {
+                $('.pay .right').html('下一步')
+            }
+            searchsitedef();
+        });
+
+        $('.pay .right').click(function () {
+        	$("#prepare_date").val($("#swiper .active1").attr("code"));
+            $("#yyinputname").html("");
+        	var begintime = parseInt($("#minhour").val());	// 起始时间
+    		var endtime = parseInt($("#maxhour").val());	//
+        	var yysitedecode = "", nocount = 0;
+			//包场
+			if($("#site_type .active").attr("code")=="1"){
+    			$(".bcsitedeflist .blue").each(function(){
+    				yysitedecode+=$(this).attr("code")+" ";
+    			});
+			}
+			//拼场
+			if($("#site_type .active").attr("code")=="2"){
+    			$(".pcsitedeflist .blue").each(function(){
+    				yysitedecode+=$(this).attr("code")+" ";
+    			});
+			}
+			
+    		//循环场地
+    		var yyarr = quchongstr(yysitedecode).split(" ");
+    		var datanum = 0;
+    		for(var k = 0;k<yyarr.length;k++){
+        		var btimeStr = ",";
+    			//包场
+    			if($("#site_type .active").attr("code")=="1"){
+        			$(".bcsitedeflist .blue[code="+yyarr[k]+"]").each(function(){
+        				btimeStr+=$(this).attr("hour")+",";
+        			});
+        			$("#bcorpc").val("1");
+    			}
+    			//拼场
+    			if($("#site_type .active").attr("code")=="2"){
+        			$(".pcsitedeflist .blue[code="+yyarr[k]+"]").each(function(){
+        				btimeStr+=$(this).attr("hour")+",";
+        			});
+        			$("#bcorpc").val("2");
+    			}
+        		var ftime = null, ttime = null;
+    			var bcstarttime = "", bcendtime = "";
+        		for(var i = begintime; i <= endtime; i++){
+        			//包场
+        			if( null == ftime && btimeStr.indexOf(","+i+",") >= 0 ){
+        				ftime = i;
+        				bcstarttime = ftime;
+        				$("#yyinputname").append("<input type='text' class='yyinput' name='yystarttime' value='"+bcstarttime+":00:00' />");
+        			}
+        			if( null != ftime && null == ttime && btimeStr.indexOf(","+i+",") < 0 ){
+        				ttime = i;
+        				bcendtime = ttime;
+        				$("#yyinputname").append("<input type='text' class='yyinput' name='yyendtime' value='"+bcendtime+":00:00' />");
+        				$("#yyinputname").append("<input type='text' class='yyinput' name='yydetialsitedef' value='"+yyarr[k]+"' />");
+        				if((parseInt(bcstarttime)+parseInt("${fld:yyparam_value}"))>parseInt(bcendtime)){
+        					nocount++;
+        				}
+        				//查询该时间段是否已被预约
+        				ajaxCall("${def:actionroot}/querysiteusenum?sitecode="+yyarr[k]+"&starttime="
+        						+bcstarttime+":00:00&endtime="+bcendtime+":00:00&prepare_date="+$("#swiper .active1").attr("code")
+        						+"&org_id=${fld:org_id}",{
+        					method:"get",
+        					dataType:"json",
+        					async:false,
+        					success:function(data){
+        						datanum += parseInt(data.num);
+        					}
+        				});
+        				ftime = null;
+        				ttime = null;
+        			}
+        		}
+    		}
+    		//包场
+    		if($("#site_type .active").attr("code")=="1"){
+        		//判断是时间段
+        		if(nocount>0){
+        			ccms.dialog.notice("每个时间最少预约${fld:yyparam_value}个时间段", 2000);
+        			return false;
+        		}
+    		}
+    		//判断当前预约时间段是否已预约
+    		if(datanum>0){
+    			ccms.dialog.notice("选择时段存在已售完，请刷新！", 2000);
+    			return false;
+    		}
+    		//判断当前微信是否存在该系统
+    		if(parseInt("${fld:isexist}")==0){
+    			$("#customertype").val("3");
+    			$("#guestgroup").val("");
+    			//未登录
+    			$('.sanke_name').css('display', 'block')
+    		}else{
+    			$("#customertype").val("1");
+				//查询团队
+                ajaxCall("${def:context}/action/project/fitness/wx/site/siteselected/queryguestgroup?org_id=${fld:org_id}&weixin_userid=${fld:weixin_userid}", {
+                      method: "get",
+                      dataType: "script",
+                      success: function () {
+                      }
+               	});
+    			//已登录
+    			$('.team_name').css('display', 'block')
+    		}
+        })
+
+        function searchsitedef() {
+        	var parpreparedate = "${fld:parpreparedate}";
+        	if($("#swiper .active1").attr("code")!=undefined){
+        		parpreparedate = $("#swiper .active1").attr("code");
+        	}
+            //查询场地
+            ajaxCall("${def:actionroot}/querysitedef?org_id=${fld:org_id}&sitetype=${fld:sitetype}" +
+                "&prepare_date="+parpreparedate+"&choose_way=" + $("#site_type .active").attr("code"), {
+                    method: "get",
+                    dataType: "script",
+                    success: function () {}
+                });
+        }
+        /*字符串去重*/
+        function quchongstr(str) {
+            var a = str.match(/\S+/g); //等价于str.split(/\s+/g)//  \s空白符，\S非空白符
+            a.sort();
+            for (var i = a.length - 1; i > 0; i--) {
+                if (a[i] == a[i - 1]) {
+                    a.splice(i, 1);
+                }
+            }
+            return a.join(" ");
+        }
+        
+        function ydsitedef(){
+        	//预定
+        	ajaxCall("${def:context}/action/project/fitness/wx/site/siteselected/insert", {
+                method: "post",
+                form:"yyformEditor",
+                dataType: "script",
+                success: function () {
+                   	location.href="${def:context}/action/project/fitness/wx/site/order/crud?weixin_userid=${fld:weixin_userid}";
+                }
+         	});
+        } 
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="id" type="varchar" required="true" label="ID"/>
+	
+	 <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 
+    on-error-label="该商品尚有库存无法删除！" id="alert_notice" sql="noRep.sql" />
+    
+</validator>

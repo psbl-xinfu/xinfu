@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="startdate" type="varchar" required="true" label="开始日期" />
+	<parameter id="enddate" type="varchar" required="true" label="结束日期" />
+	
+	<parameter id="classcode" type="varchar" required="false" label="课程编号" />
+	<parameter id="classroomcode" type="varchar" required="false" label="操厅编号，" />
+	<parameter id="teacherid" type="varchar" required="false" label="教练" />
+
+</validator>

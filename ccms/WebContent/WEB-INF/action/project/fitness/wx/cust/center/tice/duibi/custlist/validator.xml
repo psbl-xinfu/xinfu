@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="customercode" type="varchar" required="true" label="customercode"/>
+		<parameter id="datetimepicker" type="varchar" required="false" label="datetimepicker"/>
+			<parameter id="ptname" type="varchar" required="false" label="ptname"/>
+				<parameter id="ptcoure" type="varchar" required="false" label="ptcoure"/>
+</validator>

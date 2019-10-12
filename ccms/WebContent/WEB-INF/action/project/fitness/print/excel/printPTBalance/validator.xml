@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="vc_all" type="varchar" required="false" label="卡号/姓名" />
+	<parameter id="vc_ptlevelname" type="varchar" required="false" label="私教类型" />
+	<parameter id="pt_name" type="varchar" required="false" label="私教" />
+	<parameter id="i_status" type="varchar" required="false" label="卡状态" />
+
+</validator>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-newguest.sql" source="sql" scope="transaction" />
+		<recordset id="query-follow.sql" source="sql" scope="transaction" />
+		<recordset id="query-prepare.sql" source="sql" scope="transaction" />
+		<recordset id="query-visit.sql" source="sql" scope="transaction" />
+	</transaction>
+	
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>script.js</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
+		<print mode="table" recordset="query-newguest.sql" tag="newguest-rows" />
+		<print mode="table" recordset="query-follow.sql" tag="follow-rows" />
+		<print mode="table" recordset="query-prepare.sql" tag="prepare-rows" />
+		<print mode="table" recordset="query-visit.sql" tag="visit-rows" />
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>转卡合同</title>
+</head>
+<style>
+		.r-tab-cout-3-b tbody tr td {
+    background: rgba(40, 46, 52, 0.8);
+    color: #d0cfcf;
+    overflow: scroll;
+}
+
+	.r-tab-cout-3-b thead th {
+    white-space: nowrap;
+    background: #213540;
+}
+</style>
+<body>
+
+			<form  role="form" method="post" id="searchForm">
+						<input name="sort" type="hidden" value="c.createdate;c.createtime" preserve="true" />
+						<input name="order" type="hidden" value="desc;desc" preserve="true" />
+						<input name="pageNo" type="hidden" value="" preserve="true" />
+						<input name="totalPages" type="hidden" value="" preserve="true" />
+			
+				<div class="am-tabs-bd r-tab-cont">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<div class="tab-cout-nav">
+							<div class="tab-cout-nav-t toColumn">
+								<nav class="tab-nav-my">
+									<li class="dateTime">
+										<input id="s_start_date" name="s_start_date" type="text" class="input-default "/>
+									</li>
+									<li class="dateTime">
+											<input id="s_end_date" name="s_end_date" type="text"class="input-default "/>
+
+									</li>
+									
+									<li>
+										<select id="s_type" name="s_type"  class="normal-select">
+											<option value="">所有卡种</option>
+											<cardtype>
+											<option value="${fld:code}">${fld:name}</option>
+											</cardtype>
+										</select>
+									</li>
+									  <li style="width: 120px;">
+										<select id="s_skill_name" name="s_skill_name" style="display: none;">
+											<option value="">全部会籍</option>
+											<staff-rows>
+												<option value="${fld:userlogin}">${fld:name}</option>
+											</staff-rows>
+										</select>
+									</li>
+									<li style="width: 100px;">
+										<select id="statusall" name="statusall" style="display: none;">
+											<option value="">全部状态</option>
+											<option value="3">未付款</option>
+											<option value="4">已付款</option>
+											<!-- 转卡合同不需要审批 zzn 2019-03-28 -->
+											<!-- 
+											<option value="1">未审批</option>
+											<option value="2">审批拒绝</option> -->
+										</select>
+									</li>
+									<li class="inputName" style="width: 170px;">
+										<input id="s_name"  name="s_name" type="text"   placeholder="姓名/电话/卡号"class="input-default" />
+									</li>	
+								<div class="r-c-btnList">
+									<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+									<!-- <button type="button" class="r-c-3-btn-2" id="" title="条件筛选"></button> -->
+									<button type="button"  class="r-c-3-btn-3" id="excel" title="导出"></button>
+								</div>
+								</nav>
+								
+							</div>
+							
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l" style="height: 30px;">
+								</nav>
+								<nav class="r-c-3-t-b-r">
+									<li><img src="${def:context}/js/project/fitness/image/SVG/nav/yulan.svg" title="查看" alt="" id="preview_btn"></li>
+									<li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu_wsk.svg" title="删除" alt=""id="delete">
+									</li>
+									<li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/dayin.svg" title="打印合同" alt=""id="printcontract">
+									</li>
+								</nav>
+							</div>
+						</div>
+						<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+							<div class="to-change-background h-43"></div>
+							<table> 
+								<thead>
+									<tr>
+										<th class="table-checkbox">
+											<label class="am-checkbox">
+												<input id="selectAll" type="checkbox" value="" style="display: none;">
+											</label>
+										</th>
+										<th>合同编号</th>
+										<th>状态</th>
+										<th>原会员名</th>
+										<th>原手机号</th>
+										<th>卡名称</th>
+										<th>新会员名</th>
+										<th>新手机号</th>
+										<th>转卡费</th>
+										<th>实收金额</th>
+										<th>签约日期</th>
+										<th>录入人</th>
+									</tr>
+								</thead>
+								
+								<tbody id="datagridTemplate" style="display: none">
+										<tr>
+												<td width='80' nowrap class="table-checkbox">#application_id#</td> 
+												<td width='80' nowrap class="">#code#</td>
+												<td width='80' nowrap>#i_status#</td>
+												<td width='120' nowrap>#oldname#</td>
+												<td width='80' nowrap>#oldmobile#</td>
+												<td width='170' nowrap>#cardname#</td>										
+												<td width='110' nowrap>#name#</td>
+												<td width='80' nowrap>#mobile#</td>		
+												<td width='80' nowrap>#normalmoney#</td>			
+												<td width='80' nowrap>#factmoney#</td>										
+												<td width='100' nowrap>#c_idate#</td>											
+												<td width='80' nowrap>#createdby#</td>		
+											</tr>
+								</tbody>
+								<tbody id="datagrid">
+										<tr>
+												<td width='80' nowrap class="table-checkbox"></td> 
+												<td width='80' nowrap class=""></td>
+												<td width='80' nowrap ></td>
+												<td width='120' nowrap ></td>
+												<td width='80' nowrap ></td>
+												<td width='170' nowrap ></td>										
+												<td width='110' nowrap ></td>
+												<td width='80' nowrap ></td>		
+												<td width='80' nowrap ></td>			
+												<td width='80' nowrap ></td>										
+												<td width='100' nowrap ></td>											
+												<td width='80' nowrap ></td>		
+											</tr>
+								</tbody>
+							
+							</table>
+							<div class="pageDiv">
+								<ul class="pagination">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+				<input id="daochu_start_date" name="daochu_start_date" type="text"/>
+				<input id="daochu_end_date" name="daochu_end_date" type="text"/>
+				<input id="daochu_name"  name="daochu_name" type="text"/>
+				<input id="daochu_skill_name" name="daochu_skill_name" type="text"/>
+				<input id="daochu_status" name="daochu_status" type="text"/>
+				<input id="daochu_type" name="daochu_type" type="text"/>
+				<input id="daochu_relatecode" name="daochu_relatecode" type="text"/>
+				<input id="daochu_statusall" name="daochu_statusall" type="text"/>
+			</form>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	var search=null;
+$(document).ready(function() {
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
+	  searchSelectInit($("#s_skill_name,#s_type"));
+	  selectInit($("#s_status,#statusall,#contracttype"));
+	//导出
+ 	$("#excel").unbind().on("click", function(){
+		$("#daochu_start_date").val($("#s_start_date").val());
+		$("#daochu_end_date").val($("#s_end_date").val());
+		$("#daochu_name").val($("#s_name").val());
+		$("#daochu_skill_name").val($("#s_skill_name").val());
+		$("#daochu_status").val($("#s_status").val());
+		$("#daochu_type").val($("#s_type").val());
+		$("#daochu_relatecode").val($("#relatecode").val());
+		$("#daochu_statusall").val($("#statusall").val());
+		$("#daochuForm").submit();
+	});  
+	
+		this.search=search;
+		search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
+	},success:function(){
+		$("#searchForm #s_name").val("");
+		ccms.util.renderCheckbox("datalist");		
+		//全选   取消全选
+	    $("#selectAll").unbind().on("ifChecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('check');  //
+	    }).on("ifUnchecked",function(){    //点击事件未选中
+			$('input[name=datalist]').iCheck('uncheck');  //
+	    });
+	    parent.getNum($('#s_start_date').val(),$('#s_end_date').val());
+}}).initSearchBtn().searchData(1);
+
+	//打印合同
+	$("#printcontract").click(function(){
+		var obthis = getCheckboxValue("datalist");
+		if(obthis==""){
+			ccms.dialog.notice("请选择合同！");
+			return false;
+		}
+		var len = obthis.split(",").length;
+		if(len>1){
+			ccms.dialog.notice("请选择一个合同！");
+			return false;
+		}
+		var code = $("input[name=datalist]:checked").attr("code");
+		if(code=="2"){
+			var url = "${def:context}/action/project/fitness/print/contract/turncardcontract?pk_value="+obthis;
+			ajaxCall(url,{
+				method: "get",
+				progress: true,
+				dataType: "script",
+				success: function() {
+				}
+			});
+		}else{
+			ccms.dialog.notice("请付款后再打印合同！");
+		}
+	});
+	// 查看合同
+	$("#preview_btn").unbind().on("click",function(){
+		if( $("input[name=datalist]:checked").length != 1 ){
+			ccms.dialog.notice("请选择一个合同！", 2000);
+			return false;
+		}
+		var contracttype = $("input[name=datalist]:checked").attr("code-cttype");
+		var type = $("input[name=datalist]:checked").attr("code-type");
+		var contractcode = getCheckboxValue("datalist");
+		var relatecode = $("input[name=datalist]:checked").attr("code-relate");
+		var uri = contextPath + getContractUri(contracttype, type, false) + "?contractcode=" + contractcode + "&relatecode=" + relatecode;
+		var status = $("input[name=datalist]:checked").attr("code");
+		var hei=0;
+		if(status>=2){
+			hei=500;
+		}else{
+			hei=700;
+		}
+		ccms.dialog.open({url : uri,height:hei});
+	});
+	//批量删除
+	$("#delete").unbind().on("click",function(){
+		deletes();
+	});
+})
+
+function deletes(){
+	var obthis = getCheckboxValue("datalist");
+	if(obthis!= ""){
+		var len = obthis.split(",").length;
+		var twocount = 0;
+		$("input[name=datalist]:checked").each(function(){
+			if($(this).attr("code")=="1"){
+				twocount++;
+			}
+		});
+		if(len!=twocount){
+			ccms.dialog.notice("只能删除未付款合同！", 3000);
+			return false;
+		}
+		$Dialog().confirm("确定要删除这些合同吗?", function(){
+			var url = "${def:context}${def:actionroot}/batchDelect?id="+obthis;
+			ajaxCall(url,{
+				method: "get",
+				progress: false,
+				dataType: "script",
+				success: function() {
+					ccms.dialog.notice('删除成功！', 2000, function(){
+						search.searchData(1);
+					});
+				}
+			});
+		});
+	}else{
+		ccms.dialog.notice('请选择合同！', 2000, function(){});
+	}
+}
+</script>
+</body>
+</html>

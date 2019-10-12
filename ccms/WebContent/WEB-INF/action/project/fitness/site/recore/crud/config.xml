@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		场地预约记录
+	</summary>
+	
+	<log>true</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>false</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>	
+		<recordset id="query-sitetype.sql" source="sql" scope="transaction" /> 
+		<recordset id="query-sitedef.sql" source="sql" scope="transaction" /> 
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.htm</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-sitetype.sql" tag="sitetype-list"/>
+		<print mode="table" recordset="query-sitedef.sql" tag="sitedef-list"/>
+	</output>
+
+</config>

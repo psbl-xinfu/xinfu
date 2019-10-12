@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title></title>
+</head>
+<body>
+	<div class='left_main_part'>
+	</div>
+	<div class='right_main_part'>
+		<div class='close_ico'></div>
+		<div class='right_main_part_comm'></div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+$(document).ready(function() {
+	var menuorgid = "${fld:homeunionorgid}";
+	if("${fld:homeunionorgid}"==""){
+		menuorgid = ${def:org};
+	}
+	$(".right_main_part_comm").load(
+			'${def:context}${def:actionroot}/comm/form?guestcode=${fld:guestcode}&cust_type=0&type=0&ispubload=true',function(){
+				$(".right_main_part").find(".header-close").click(function(){
+					$(".right_main_part").html("");
+					$(".left_main_part").css('width','99%');
+				})
+			});
+	$(".left_main_part").load(
+	"${def:context}/action/project/fitness/guest/detail/gustmenu/crud?gust_code=${fld:guestcode}&cus_code=${fld:customercode}&ispubload=true&menuorgid="+menuorgid);
+	
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>租柜合同</title>
+${inc:/action/project/fitness/home/pub}
+</head>
+<body>
+	<div class="basic-dialog dialogbg" style="height: 700px">
+		<header class="header-default">
+		租柜合同
+		</header>
+		<form id="contractForm" name="contractForm" method="post">
+			<input type="hidden" id="contractcode" name="contractcode" value="" preserve="true" />
+			<input type="hidden" id="newcontractcode" name="newcontractcode" value="" preserve="true" />
+			<input type="hidden" id="customercode" name="customercode" value="" preserve="true" />
+			<input type="hidden" id="inimoney" name="inimoney" value="" />
+			<input type="hidden" id="normalmoney" name="normalmoney" value="" />
+			<input type="hidden" id="contrstatus" name="contrstatus" value="" />
+			<input type="hidden" id="price" name="price" value="" />
+			<!-- zyb 2019-3-21 添加cabinetcode租柜编号柜子号必须有值 -->
+			<input type="hidden" id="ccabinetid" name="ccabinetid" value="" />
+			<div class="b-i-main">
+				<nav>
+					<li>
+						<label style="width: 120px;">会员：</label>
+						<span id="custnamespan"></span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">电话：</label>
+						<span id="mobilespan"></span>
+		     		</li>
+					<li>
+						<label style="width: 120px;">销售员：</label>
+						<select  id="salemember" name="salemember" style="display: none;">
+							<sale-rows>
+							<option value="${fld:userlogin}">${fld:name@js}</option>
+							</sale-rows>
+						</select>
+		     		</li>
+					<li>
+						<label style="width: 120px;">第二销售：</label>
+						<select id="salemember1" name="salemember1" style="display: none;">
+							<option value="">第二销售</option>
+							<sale2-rows>
+							<option value="${fld:userlogin}">${fld:name@js}</option>
+							</sale2-rows>
+						</select>
+		     		</li>
+					<li>
+						<label style="width: 120px;">区域：</label>
+						<select  id="cabinet_group_id" name="cabinet_group_id" onchange="queryCabinetid()" style="display: none;">
+							<option value="">请选择</option>
+							<cabinetgroup-rows>
+							<option code="${fld:groupcode@js}" value="${fld:tuid}">${fld:groupname@js}</option>
+							</cabinetgroup-rows>
+						</select>
+		     		</li>
+		     		<!-- zzn190321  改为列表取柜号 -->
+					<li>
+						<label style="width: 120px;">柜号：</label>
+						
+						<select  id="cabinetid" name="cabinetid" style="display: none;">
+						<option value=''>请选择</option>
+						</select>
+		     		</li>
+		     		<!-- zzn190321-->
+					<!-- zzn190321 原有随机取柜号逻辑注释掉
+					 <li>
+						<label style="width: 120px;">柜号：</label>
+						<input type="hidden" id="cabinetid" name="cabinetid" value="" />
+						<input placeholder="柜号" type="text" id="cabinetcode" name="cabinetcode" value="" readonly />
+						<button type="button" id="getcabinetbtn">获取柜号</button>
+		     		</li>
+		     		-->
+					<li>
+						<label style="width: 120px;">启用日期：</label>
+						<input type="text" placeholder="启用日期" id="begindate" name="begindate" size="30" value="${def:date}" readonly />
+						<input type="hidden" id="enddate" name="enddate" value="" />
+		     		</li>
+					<li>
+						<label style="width: 120px;">租期：</label>
+						<input placeholder="租期" type="text" id="months" name="months" value="1" />月
+		     		</li>
+					<li>
+						<label style="width: 120px;">押金：</label>
+						<input placeholder="押金" type="text" id="deposit" name="deposit" value="0" />元
+		     		</li>
+					<li>
+						<label style="width: 120px;">原价：</label>
+						<span id="inimoneyspan"></span>元
+		     		</li>
+					<li>
+						<label style="width: 120px;">折扣：</label>
+						<input placeholder="折扣" type="text" id="discountmoney" name="discountmoney" value="0" />元
+		     		</li>
+					<li>
+						<label style="width: 120px;">应收：</label>
+						<span id="normalmoneyspan" style="color: #fdb346;font-size: 16px;font-weight: 600;"></span>
+						<span style="color: #fdb346;font-size: 16px;font-weight: 600;">元</span>
+		     		</li>
+					<li class="to100w" >
+						<label>备注：</label>
+						<textarea class="my-textarea" id="remark" name="remark" ></textarea>
+		     		</li>		
+				</nav>
+			</div>
+					<footer class="footer-default">
+						<button class="my-btn-default" type="button" id="save_btn" >保存</button>
+						<button class="my-btn-default active" id="pay_btn" type="button" style="display: none;">收款</button>
+					</footer>
+			</form>
+		</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script type="text/javascript">
+var istopay = false;
+var deposit = 0;	// 押金
+var price = 0;	// 单价
+var currentDate = new Date();
+
+//必须传价格值  zyb 2019-3-21
+function setfee(price){
+	//必须传价格值  zyb 2019-3-21
+	$("#price").val(price);
+	// 租期
+	var months = 1;
+	if( "" != $("#months").val() && isNumber($("#months").val()) ){
+		months = parseInt($("#months").val());
+	}
+	$("#enddate").val(addMonth($("#begindate").val(), months));
+	// 折扣金额
+	var discountmoney = 0.00;
+	if( "" != $("#discountmoney").val() && (isNumber($("#discountmoney").val()) || isFloat($("#discountmoney").val())) ){
+		discountmoney = parseFloat($("#discountmoney").val());
+	}
+	// 原价
+	var inimoney = (parseFloat(price)*parseFloat(months) + parseFloat(deposit)).toFixed(2);
+	$("#inimoneyspan").text(inimoney);
+	$("#inimoney").val(inimoney);
+	// 应收
+	var normalmoney = (inimoney - discountmoney).toFixed(2);
+	$("#normalmoneyspan").text(normalmoney);
+	$("#normalmoney").val(normalmoney);
+}
+$(document).ready(function(){
+	//判断该登录人是否有收款权限
+	if(parseInt("${fld:skillscopenum}")>0){
+		$("#pay_btn").show();
+	}
+	searchSelectInit($("#salemember,#salemember1,#cabinet_group_id,#cabinetid"));
+	setSelectValue($("#salemember"), "${def:user}");
+	$("#salemember").selectpicker("refresh");
+	$("#salemember").selectpicker("render");
+	ccms.dialog.date($("#begindate"));
+	<cust-rows>
+		$("#customercode").val("${fld:code}");
+		$("#custnamespan").text("${fld:name@js}");
+		$("#mobilespan").text("${fld:mobile@js}");
+	</cust-rows>
+	<deposit-rows>
+		if( "" != "${fld:param_value}" && (isFloat("${fld:param_value}") || isNumber("${fld:param_value}")) ){
+			deposit = parseFloat("${fld:param_value}").toFixed(2);
+		}
+	</deposit-rows>
+	$("#deposit").val(deposit);
+
+	// 区域
+	$("#cabinet_group_id").on("click",function(){
+		$("#cabinetcode").val("");
+		$("#cabinetid").val("");
+		price = 0;
+	});
+	
+	
+	
+	// 获取柜台的价格 赵亚斌 2019-03-21
+	$("#cabinetid").on("change",function(){
+		var cabinetidobj = $("#cabinetid").find("option:selected");
+		price = $(cabinetidobj).attr("price");
+		setfee(price);
+	});
+	// 租期
+	$("#months").on("blur",function(){
+		var months = 1;
+		if( "" != $(this).val() && isNumber($(this).val()) ){
+			months = parseInt($(this).val());
+		}
+		$(this).val(months);
+		//必须传价格值  zyb 2019-3-21
+		setfee(price);
+		
+	});
+	
+	// 折扣金额
+	$("#discountmoney").on("blur",function(){
+		var discountmoney = 0.00;
+		if( "" != $(this).val() && (isNumber($(this).val()) || isFloat($(this).val())) ){
+			discountmoney = parseFloat($(this).val());
+		}
+		$(this).val(discountmoney);
+		//必须传价格值  zyb 2019-3-21
+		setfee(price);
+	});
+	 // 获取柜号 原有的随机取柜号zzn
+	/* $("#cabinetid").trigger("click",function(){
+		var groupid = $("#cabinet_group_id").val();
+		if( "" == groupid ){
+			ccms.dialog.notice("请先选择区域！", 2000);
+			return false;
+		}
+		$("#cabinetid").val("");
+		price = 0;
+		getJsonAjaxCall("/action/project/fitness/util/getcabinetbyrandom?groupid="+groupid, "true", function(data){
+			if( data && data.length > 0 ){
+				//必须传柜子编号  zyb 2019-3-21
+				/* $("#cabinetcode").val(data[0].cabinetcode);
+				$("#cabinetid").val(data[0].tuid); 
+				price = parseFloat(data[0].price);
+				guzir="<option code="+data[0].cabinetcode +" price="+data[0].price+" value="+data[0].tuid+">"+data[0].cabinetcode+"</option>";
+				$("#cabinetid").html(guzir);
+				//必须传价格值  zyb 2019-3-21
+				setfee(price);
+			}
+		});
+	});  */
+
+	if( "" != "${fld:contractcode}" && "undefined" != "${fld:contractcode}" ){
+		getAjaxCall("${def:actionroot}/contractstatus?contractcode=${fld:contractcode}&ispubload=true", true);
+		getAjaxCall("${def:actionroot}/load?contractcode=${fld:contractcode}&ispubload=true", true,queryCabinetid);
+	}
+	
+	
+	// 保存
+	$("#save_btn").unbind().on("click",function(){
+		istopay = false;
+		saveContract();
+	});
+	// 收款
+	$("#pay_btn").unbind().on("click",function(){
+		//判断当前登录人是否有收款权限
+		if(parseInt("${fld:skillscopenum}")==0){
+			ccms.dialog.notice("该登录人没有收款权限！", 2000);
+			return false;
+		}
+		istopay = true;
+		saveContract();
+	});
+});
+function saveContract(){
+	//判断销售员和第二会籍是否一致
+	if($("#salemember").val()==$("#salemember1").val()){
+		ccms.dialog.notice("销售员和第二会籍不能一致！", 3000);
+		return false;
+	}
+	//必须传价格值  zyb 2019-3-21
+	setfee(price);
+	var contractcode = $("#contractcode").val();
+	if( "" != contractcode ){
+		// 判断合同状态
+		getJsonAjaxCall("/action/project/fitness/contract/util/querycontractstatus?contractcode="+contractcode, "true", function(data){
+			if( data && Number(data.status) >= 2 ){
+				if( istopay ){
+					topay(contractcode);
+				}else{
+					ccms.dialog.notice("已付款合同不允许修改！", 2000);
+				}
+			}else{
+				postAjaxCall("${def:actionroot}/update", "contractForm", true);	// 未付款合同可修改
+			}
+		});
+	}else{
+		getAjaxCall("/action/project/fitness/contract/util/getnewcontractcode", true, function(){
+			if( "" == $("#newcontractcode").val() ){
+				ccms.dialog.notice("合同号生成失败", 2000);
+			}else{
+				postAjaxCall("${def:actionroot}/insert", "contractForm", true);
+			}
+		});
+	}
+}
+function topay(contractcode){
+	var  Obj=parent.document.getElementsByTagName('iframe')     
+	$(Obj).height(450);   
+	location.href = contextPath + "${def:actionroot}/view?contractcode="+contractcode;
+}
+
+//获取柜号2 zzn190321
+function queryCabinetid(){
+	var ccabinetid = $("#ccabinetid").val();
+	var cabinet_group_id=$("#cabinet_group_id").val();
+	var contrstatus=$("#contrstatus").val();
+	//zyb 20190506判断是不付款1是未付款
+	if(contrstatus=='1'){
+		postAjaxCall("${def:context}${def:actionroot}/ccabinetids?cabinet_group_id="+cabinet_group_id+"&ccabinetid="+ccabinetid, true);
+	}else{
+		postAjaxCall("${def:context}${def:actionroot}/cabinetcode?cabinet_group_id="+cabinet_group_id, true);
+	}
+	
+}
+</script>
+</body>
+</html>
