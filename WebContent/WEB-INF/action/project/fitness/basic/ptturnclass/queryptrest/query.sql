@@ -6,7 +6,7 @@ select
 	pr.ptnormalmoney,--应收金额
 	pr.ptmoney,--实收金额
 	pr.ptfee,--原单价
-	pr.ptfactfee,--实收单价
+	pr.ptfactfee ,--实收单价
 	pr.scale,--提成金额
 	(select name from hr_staff where userlogin = pr.ptid and org_id = ${def:org}) as ptname,--私教
 	pr.ptenddate,--结束日期

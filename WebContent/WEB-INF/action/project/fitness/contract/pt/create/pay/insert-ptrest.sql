@@ -26,7 +26,7 @@ SELECT
 	,COALESCE(get_arr_value(t.relatedetail, 2), '0')::double precision	-- 剩余课时
 	,${fld:normalmoney}	-- 应收
 	,${fld:normalmoney}	-- ptmoney
-	,(SELECT d.ptfee FROM cc_ptdef d WHERE d.code = get_arr_value(t.relatedetail, 1) and d.org_id = t.org_id)	-- f_ptfactfee
+	,(${fld:normalmoney}/get_arr_value(t.relatedetail, 2)::int)::float ptfactfee 	-- f_ptfactfee
 	,(SELECT d.ptfee FROM cc_ptdef d WHERE d.code = get_arr_value(t.relatedetail, 1) and d.org_id = t.org_id) -- 课程单价
 	,(SELECT d.scale FROM cc_ptdef d WHERE d.code = get_arr_value(t.relatedetail, 1) and d.org_id = t.org_id)
 	,get_arr_value(t.relatedetail, 8)

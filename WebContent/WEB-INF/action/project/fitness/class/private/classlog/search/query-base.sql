@@ -10,7 +10,9 @@ select
 	ptclass.created,--修改人
 	ptclass.oldpt,--修改前剩余节数
 	ptclass.newpt,--修改后的剩余节数
-	ptclass.remark
+	ptclass.remark,
+	ptclass.ptfee,
+	ptclass.ptfactfee
 from cc_ptrest_class  ptclass
 	left join (   
 	select cust.name,cust.mobile,
