@@ -12,7 +12,7 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-	    <recordset id="query-guesttype.sql" source="sql" scope="transaction"/>
+	    <!-- <recordset id="query-guesttype.sql" source="sql" scope="transaction"/>
       	<recordset id="query-consultingHabit.sql" source="sql" scope="transaction"/>
        	<recordset id="query-customerClassification.sql" source="sql" scope="transaction"/>
 		<recordset id="query-fitnessPurpose.sql" source="sql" scope="transaction"/>
@@ -27,7 +27,7 @@
 		<recordset id="query-age.sql" source="sql" scope="transaction"/>
 		<recordset id="query-GuestOutdate.sql" source="sql" scope="transaction"/>
 		<recordset id="query-guoji.sql" source="sql" scope="transaction"/>
-		<recordset id="query-skill_name.sql" source="sql" scope="transaction"/>
+		<recordset id="query-skill_name.sql" source="sql" scope="transaction"/> -->
 	</transaction>
 
 	<output>
@@ -35,7 +35,7 @@
 		<template>template.html</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
-		<print mode="table" recordset="query-currentskill_name.sql" tag="staff-rows3"/>
+		<!-- <print mode="table" recordset="query-currentskill_name.sql" tag="staff-rows3"/>
 		<print mode="table" recordset="query-guesttype.sql" tag="guesttype-rows2"/>
 		
 		<print mode="table" recordset="query-consultingHabit.sql" tag="consultingHabit"/>
@@ -54,7 +54,7 @@
 		<print mode="table" recordset="query-age.sql" tag="age"/>	 
 		<print mode="form" recordset="query-GuestOutdate.sql" />	 
 		<print mode="table" recordset="query-guoji.sql" tag="guoji-row"/>	
-		<print mode="table" recordset="query-skill_name.sql" tag="skillname-row"/>	 
+		<print mode="table" recordset="query-skill_name.sql" tag="skillname-row"/>	  -->
 		<print mode="form" recordset="_request" />
 	</output>
 
