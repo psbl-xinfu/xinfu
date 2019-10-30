@@ -1,54 +1,18 @@
 select
-   code,
-	name,
-	sex,
-	mobile,
-	birth,
-	birthday,
-	
-	wx,
-	qq,
-	mc,
-	type,
-	cardtype,
-	card,
---
-	nationality,
-	nation,
-	occupation,
-	email,
-	
-	province,
-	city,
-	addr,
-	officename,
-	officetel,
-	
-	province2,
-	city2,
-	officeaddr,
-
-	urgent,
-othertel,
-purpose,
-participate,
-brand,
-ismember,
-leave,
-customtype,
-gethobbit,
-personalhobbit,
-marriage,
-children,
-remark,
-initmc,
-created,
-age,
-level,
-(select t.tuid from t_attachment_files t where t.pk_value = cc_guest.code and t.table_code = 'cc_guest' and t.org_id= ${def:org} order by t.tuid desc limit 1) as imgid,
-recommend,
-(select   cc_customer.name from  cc_customer  where cc_guest.recommend=cc_customer.code) as recommend_name
+  	gt.code
+  	,gt.officeaddr --公司地址
+  	,gt.email --公司邮箱
+  	,gt.officetel --公司电话
+  	,gt.officename --公司名称
+  	,gt.province2 --省
+  	,gt.city2 --市
+  	,gt.customtype --客户类型
+  	,gt.postcode --公司邮编
+  	,gt.remark 
+  	,gt.mc
+  	,tt.code as yttcode
 from 
-	cc_guest 
+	cc_guest gt
+left join cc_thecontact tt on tt.guestcode=gt.code and tt.status=1
 where 
-	code = ${fld:code} and org_id=${def:org}
+	gt.code = ${fld:code} and gt.org_id=${def:org}

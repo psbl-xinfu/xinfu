@@ -1,7 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
 
-    <parameter id="begintime" type="varchar" required="true" label="开始时间" />
-    <parameter id="endtime" type="varchar" required="true" label="结束时间" />
-    <parameter id="remark" type="varchar" required="false" label="备注"/>
+    <parameter id="vc_lable" type="varchar" required="true" label="开始时间" />
 </validator>

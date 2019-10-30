@@ -3,6 +3,7 @@ var a=0;
 <order-rows>
     a++;
     str+='<tr>';
+    str += '<td  >${fld:officename@js}</td>';
 	str += '<td  >${fld:vc_oldmc@js}</td>';
 	str += '<td  >${fld:vc_newmc@js}</td>';
 	str += '<td  >${fld:vc_remark}</td>';

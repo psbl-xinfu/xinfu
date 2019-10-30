@@ -13,8 +13,6 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>	
 		<recordset id="query-skill_name.sql" source="sql" scope="transaction" />
-		<recordset id="query-comm_target.sql" source="sql" scope="transaction" />	
-		<recordset id="query-comm_stage.sql" source="sql" scope="transaction" />	
 	</transaction>
 
 	<output>
@@ -24,8 +22,6 @@
 		<content-type>text/html</content-type>
 		<expiration>0</expiration>
 		<print mode="table" recordset="query-skill_name.sql" tag="skillname-list"/>
-		<print mode="table" recordset="query-comm_target.sql" tag="target-list"/>
-		<print mode="table" recordset="query-comm_stage.sql" tag="commstage-list"/>	
 		<print mode="form" recordset="_request" /> 
 	</output>
 

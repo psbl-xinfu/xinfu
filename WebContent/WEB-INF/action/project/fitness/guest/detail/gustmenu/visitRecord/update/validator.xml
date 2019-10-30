@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="cc_code" type="varchar" required="true" label="code"  />
+ 	<parameter id="cc_name" type="varchar" required="true" label="客户名称"/>
+
+	<parameter id="cc_mobile" type="varchar" required="true" label="手机号"/>
+	
+	<parameter id="cc_position" type="integer" required="true" label="职位"/>
+	
+	<parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
+	
+
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该手机号已经存在,请重输入" id="cc_mobile" sql="noRep.sql" />
+</validator>

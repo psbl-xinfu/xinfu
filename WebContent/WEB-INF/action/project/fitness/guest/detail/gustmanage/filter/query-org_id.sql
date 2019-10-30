@@ -1,1 +1,0 @@
-select ${def:org} as org_id from dual

@@ -1,5 +1,6 @@
 insert into cc_public(
 	tuid
+	,officename
 	,datatype
 	,guestcode
 	,entertime
@@ -11,8 +12,9 @@ insert into cc_public(
 	,org_id
 ) values(
 	nextval('seq_cc_public')
+	,${fld:company}
 	,1
-	,'XG'||to_char({ts'${def:date}'},'yy')||lpad(${seq:currval@seq_cc_guest}::varchar, 6, '0')
+	,${seq:currval@seq_cc_guest}
 	,{ts '${def:timestamp}'}
 	,${fld:cc_mc}
 	,${fld:cc_mc}

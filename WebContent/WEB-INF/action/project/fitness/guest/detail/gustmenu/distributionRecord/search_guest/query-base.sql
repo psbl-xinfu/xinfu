@@ -1,4 +1,5 @@
 select
+	cc_guest.officename,
 	(select name from hr_staff where userlogin=cc_mcchange.oldmc) as vc_oldmc,
 	(select name from hr_staff where userlogin=cc_mcchange.newmc) as vc_newmc,
 	cc_mcchange.remark as vc_remark,

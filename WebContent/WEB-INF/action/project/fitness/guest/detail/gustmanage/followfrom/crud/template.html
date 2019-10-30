@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<head>
+<title>跟进</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 640px;">
+		<header class="header-default">
+			<span id="formTitle">跟进</span>
+		</header>
+		<form id="formEditor" name="formEditor" method="post">
+       			<input id="ofcode" name="ofcode" type="hidden" value="${fld:ofcode}"  />
+       			<input id="thecode" name="thecode" type="hidden" value="${fld:thecode}"  />
+       		<div class="modal-body b-i-main">
+				<nav>
+					<li>
+						<label style="width: 130px;">公司名称：</label><span id="gsname">${fld:officename}</span>
+					</li>
+					<li>
+						<label style="width: 130px;">联系人：</label><span id="thename">${fld:thename}</span>
+					</li>
+					<li>
+						<label style="width: 130px;">上次跟进状态：</label><span id="scgjzt">${fld:commresult}</span>
+					</li>
+					<li>
+						<label style="width: 130px;">上次跟进时间：</label><span id="scgjsj">${fld:created}</span>
+					</li>
+					<li>
+						<label style="width: 130px;">这次跟进状态：</label>
+						<div class="my-selected">
+							<select  id="the_state" name="the_state" style="display: none;"> 
+								<option value="">选择跟进状态</option>
+								<option value="1">未建立关系</option>
+								<option value="2">建立关系</option>
+								<option value="3">了解需求</option>
+								<option value="4">对接产品价值</option>
+								<option value="5">要承诺</option>
+								<option value="6">暂时搁置</option>
+								<option value="7">成交</option>
+								<option value="8">未成交</option>
+							</select>
+						</div> 
+					</li>
+					
+					<li class="to100w" style="margin-left: 6%">
+						<label>跟进内容：</label>
+						<textarea id="remark" cols="50" rows="1" class="my-textarea" name="remark" maxlength="6000"></textarea>
+					</li>
+				</nav>
+			</div>
+		</form>
+		<footer class="footer-default" style="margin-top: 20px">
+				<button type="button" id="savea_btn">确认</button>
+		</footer>
+	</div>
+<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	searchSelectInit($("#the_state"));
+	 /* $("#zcgjsj").val("${def:date}"); */
+	$Dialog().date($('#zcgjsj')); 
+	 $(document).click(function(){ 
+		$(".error").html("");
+	 });
+	/* $("#gsname").text("${fld:vc_gustname}");
+	$("#gscode").val("${fld:guestcode}");
+	 var uri = "${def:context}${def:actionroot}/these?guestcode=${fld:guestcode}";
+		ajaxCall(uri, {
+			method : "get",
+			progress : true,
+			dataType : "script",
+			success : function() {
+				search.searchData(1)
+			}
+		});  */
+	//添加跟进
+	$("#savea_btn").click(function(){
+		if($("#the_state").val()==""||$("#the_state").val()<1){
+			ccms.dialog.notice("请选择跟进状态!", 3000);
+			return false;
+		}else{
+			var url = "${def:context}/action/project/fitness/guest/detail/gustmanage/followfrom/insert";
+			ajaxCall(url,{
+			   	method: "post",
+			   	form:"formEditor",
+			   	progress: false,
+			   	dataType: "script",
+			   	success: function() {
+					ccms.dialog.notice("跟进成功!", 2000, function(){
+				   		/* ccms.util.clearForm('addForm'); */
+				   		parent.search.searchData(1);
+				   		parent.parent.search.searchData(1);
+				   		ccms.dialog.close();
+					});
+		   		}
+		   	}); 
+		}
+			
+	});
+});
+</script>
+</body>
+</html>

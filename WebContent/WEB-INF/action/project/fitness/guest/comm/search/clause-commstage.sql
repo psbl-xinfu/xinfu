@@ -1,2 +1,2 @@
 and
-	com.stage = ${fld:commstage}
+	cm.commresult = ${fld:commstage}

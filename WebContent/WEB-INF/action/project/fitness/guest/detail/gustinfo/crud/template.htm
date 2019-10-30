@@ -73,135 +73,36 @@ hr {
 <body>
 	<!-- 内容 -->
 	<div id="main" class="dialogbg" style="height: 750px;font-size:12px">
-		<div style="background:#2A2F37;">
-			<img id="headpic" width="100" height="130" style="margin: 25px 0 25px 61px; border: 1px solid black;"
-				src="${def:context}/js/project/fitness/image/SVG/170X220.svg">
-			<div class="am-tabs-bd r-tab-cont" id="cus" style="width:500px;overflow: auto;margin-right: 61px;float: right;">
-				<div
-					class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none">
-					<div class="r-tab-cout-3-b top-left">
-						<div class="to-change-background h-43 top-table"></div>
-						<table>
-							<thead>
-								<tr>
-									<th>卡号</th>
-									<th>卡类型</th>
-									<th>状态</th>
-								</tr>
-							</thead>
-							<tbody id="datagridTemplate" style="display: none">
-								<tr>
-									<td>#code#</td>
-									<td>#typename#</td>
-									<td>#status#</td>
-								</tr>
-							</tbody>
-							<tbody id="datagrid">
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row1" >
 			<div class="first">
-				<span class="lable1">姓名：</span>
+				<span class="lable1">省：</span>
 				<span class="lable2" id="name"></span>
-				<span class="lable1">性别：</span>
+				<span class="lable1">市：</span>
 				<span class="lable2" id="sex"></span>
-				<span class="lable1">电话：</span>
-				<span class="lable2" id="mobile"></span>
-				<span class="lable1">生日：</span>
-				<span class="lable2" id="birth"></span>
-			</div>
-			<div class="first">
-				<span class="lable1">年龄范围：</span>
-				<span class="lable2" id="age"></span>
-				<span class="lable1">E-mail：</span>
-				<span class="lable2" id="email"></span>
-				<span class="lable1">微信：</span>
-				<span class="lable2" id="wx"></span>
-				<span class="lable1">紧急联系人：</span>
-				<span class="lable2" id="urgent"></span>
-			</div>
-			<div class="first">
-				<span class="lable1">默认卡：</span>
-				<span class="lable2" id="mrcardcode"></span> 
-				<span class="lable1">推荐人：</span>
-				<span class="lable2" id="recommend_name"></span>
-				<span class="lable1">地址：</span>
-				<span class="lable2 nowidth" id="province"></span>
-				
+				<span class="lable1">详细地址：</span>
+				<span class="lable2" id="province"></span>
 			</div>
 		</div>
 		<div class="row1">
 			<div class="first">
-				<span class="lable1">国籍：</span>
-				<span class="lable2" id="nationality"></span>
-				<span class="lable1">民族：</span>
-				<span class="lable2" id="nation"></span>
-				<span class="lable1">证件类型：</span>
-				<span class="lable2" id="cardtype"></span>
-				<span class="lable1">证件号码：</span>
-				<span class="lable2" id="card"></span>
-			</div> 
-			<div class="first">
-				<span class="lable1">职业：</span>
-				<span class="lable2" id="occupation"></span>
 				<span class="lable1">公司名称：</span>
 				<span class="lable2" id="officename"></span>
 				<span class="lable1">公司电话：</span>
 				<span class="lable2" id="officetel"></span>
-				<span class="lable1">紧急联系人电话：</span>
-				<span class="lable2" id="othertel"></span>
+				
 			</div> 
 			<div class="first">
-				<span class="lable1">分配会籍销售：</span>
+				<span class="lable1">E-mail：</span>
+				<span class="lable2" id="email"></span>
+				<span class="lable1">分配顾问：</span>
 				<span class="lable2" id="mc"></span>
-				<span class="lable1">获取渠道：</span>
-				<span class="lable2" id="type"></span>
-				<span class="lable1">个人爱好：</span>
-				<span class="lable2" id="personalhobbit"></span>
+				
 			</div> 
 		</div>
 		<div class="row1">
-			<div class="first">
-				<span class="lable1">健身目的：</span>
-				<span class="lable2" id="purpose"></span>
-				<div id="guestinfoone" style="display: none;">
-					<span class="lable1">是否参加过俱乐部：</span>
-					<span class="lable2" id="participate"></span>
-					<span class="lable1">是否为会员：</span>
-					<span class="lable2" id="ismember"></span>
-					<span class="lable1">品牌：</span>
-					<span class="lable2" id="brand"></span>
-				</div>
-			</div>
-			<div class="first">
-				<span class="lable1">离开原因：</span>
-				<span class="lable2 nowidth" id="leave"></span>
-			</div>
-		</div>
-		<div class="row1">
-			<div class="first">
-				<div id="guestinfotwo" style="display: none;">
-					<span class="lable1">客户分类：</span>
-					<span class="lable2" id="customtype"></span>
-				</div>
-				<span class="lable1">婚姻情况：</span>
-				<span class="lable2" id="marriage"></span>
-				<span class="lable1">子女情况：</span>
-				<span class="lable2" id="children"></span>
-				<span class="lable1">获取咨询习惯：</span>
-				<span class="lable2" id="gethobbit"></span>
-			</div>
 			<div class="first">
 				<span class="lable1">备注：</span>
 				<span class="lable2 nowidth" id="remark"></span>
-				<div id="demanddiv" style="display: none;width: 800px;">
-					<span class="">需求：</span>
-					<span class="" id="demand"></span>
-				</div>
 			</div>
 		</div>  
 	</div>

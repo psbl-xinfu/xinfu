@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-<parameter id="cust_code" type="varchar" required="false" label="cust_code"/>
-<parameter id="guest_code" type="varchar" required="false" label="guest_code"/>
+	<parameter id="id" type="varchar" required="false" label="vc_code"/>
+	<parameter id="s_start_date" type="varchar" required="false" label="时间"/>
+	<parameter id="s_end_date" type="varchar" required="false" label="时间"/>
+
 </validator>

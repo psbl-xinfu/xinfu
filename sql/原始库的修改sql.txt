@@ -1,0 +1,95 @@
+
+--zyb 添加关联表
+CREATE TABLE "public"."cc_label_guest" (
+  "code" varchar(64)  NOT NULL,
+  "guestcode" varchar(64) ,
+	"labelcode" varchar(64),
+  "createdby" varchar(64) ,
+  "created" timestamp(6),
+  "org_id" int4
+);
+ALTER TABLE "public"."cc_label_guest"  OWNER TO "postgres";
+COMMENT ON COLUMN "public"."cc_label_guest"."code" IS '主键';
+COMMENT ON COLUMN "public"."cc_label_guest"."guestcode" IS '会员id';
+COMMENT ON COLUMN "public"."cc_label_guest"."labelcode" IS '标签id';
+COMMENT ON COLUMN "public"."cc_label_guest"."createdby" IS '操作人';
+COMMENT ON COLUMN "public"."cc_label_guest"."created" IS '日期';
+COMMENT ON COLUMN "public"."cc_label_guest"."org_id" IS '门店';
+
+--zyb添加可能性标签
+CREATE TABLE "public"."cc_label" (
+  "code" varchar(64)  NOT NULL,
+  "name" varchar(64) ,
+  "createdby" varchar(64) ,
+  "created" timestamp(6),
+  "org_id" int4
+);
+ALTER TABLE "public"."cc_label"  OWNER TO "postgres";
+COMMENT ON COLUMN "public"."cc_label"."code" IS '主键';
+COMMENT ON COLUMN "public"."cc_label"."name" IS '标签名称';
+COMMENT ON COLUMN "public"."cc_label"."createdby" IS '添加人';
+COMMENT ON COLUMN "public"."cc_label"."create" IS '修改日期';
+COMMENT ON COLUMN "public"."cc_label"."org_id" IS '门店';
+
+--zyb 添加沟通阶段
+alter table cc_guest add communication int;
+COMMENT ON COLUMN "public"."cc_guest"."communication" IS '沟通阶段：1,20%;2,40%;3,50%;4,80%;5,100%';
+--zyb 修改注释
+COMMENT ON COLUMN "public"."t_table_data_log"."before_value" IS '修改前，排序：公司地址；公司邮箱；公司电话；公司名称；省；市；；客户类型；公司邮编；备注';
+COMMENT ON COLUMN "public"."t_table_data_log"."after_value" IS '修改后，排序：公司地址；公司邮箱；公司电话；公司名称；省；市；；客户类型；公司邮编；备注';
+--zyb 修改注释
+COMMENT ON COLUMN "public"."cc_comm"."commresult" IS '跟进状态';
+--zyb 添加跟进联系人字段
+alter table cc_comm add thecontactcode varchar(50);
+COMMENT ON COLUMN "public"."cc_comm"."thecontactcode" IS '联系人';
+
+--zyb 添加公司名称
+alter table cc_public add officename varchar(50);
+COMMENT ON COLUMN "public"."cc_public"."officename" IS '公司名称';
+
+--zyb 修改字段的注释
+COMMENT ON COLUMN "public"."cc_guest"."customtype" IS '客户类型';
+
+--zyb 添加联系人表
+CREATE TABLE "public"."cc_thecontact" (
+  "code" varchar(64) COLLATE "pg_catalog"."default" NOT NULL,
+  "guestcode" varchar(64) COLLATE "pg_catalog"."default",
+  "name" varchar(64) COLLATE "pg_catalog"."default",
+  "sex" int4,
+  "mobile" varchar(2000) COLLATE "pg_catalog"."default",
+  "position" int4,
+  "createdby" varchar(64) COLLATE "pg_catalog"."default",
+  "created" timestamp(6),
+  "org_id" int4,
+  "remark" varchar(2000) COLLATE "pg_catalog"."default",
+  "followstate" int4,
+  "status" int4
+)
+;
+
+ALTER TABLE "public"."cc_thecontact" 
+  OWNER TO "postgres";
+
+COMMENT ON COLUMN "public"."cc_thecontact"."code" IS '主键';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."guestcode" IS 'cc_guest表中code';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."name" IS '姓名';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."sex" IS '性别';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."mobile" IS '手机号';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."position" IS '职位';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."createdby" IS '添加人';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."created" IS '添加实际';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."org_id" IS '门店';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."remark" IS '公司名称';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."followstate" IS '跟进状态';
+
+COMMENT ON COLUMN "public"."cc_thecontact"."status" IS '0显示1不显示';

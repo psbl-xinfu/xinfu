@@ -1,2 +1,2 @@
 and
-	com.createdby = ${fld:createdby}
+	g.mc = ${fld:createdby}

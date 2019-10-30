@@ -1,204 +1,33 @@
 <!DOCTYPE html>
 <html>
 ${inc:/action/project/fitness/home/pub}
+<meta charset="UTF-8">
 <head>
 <title>客户回访条件筛选</title>
 </head>
 <body> 
 		<div class="col_mainInner dialogbg" style="width: 1000px;height: 630px;">
 			<header class="header-default">
-				<span id="formTitle">条件筛选</span>
+				<span id="formTitle">标签筛选</span>
 			</header>
-			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
-          		<div class="modal-body b-i-main">
-					<nav>
-						<li>
-							<label style="width: 130px;">性别：</label>
-							<select id='f_sex' name='f_sex' class="filterconditions" style="display: none;">
-							    <option value=''>全部</option>
-								<option value='0'>女</option>
-								<option value='1'>男</option>
-								<option value='2'>未知</option>
-							</select>
-						</li>
-						<li>
-							<label style="width: 130px;">年龄区间：</label>
-							<select id='f_age'  name='f_age' class="filterconditions" style="display: none;">
-								<option selected='selected' value=''>全部</option>
-						 		<age-row>
-						 			<option  value='${fld:domain_value}'>${fld:domain_text_cn@js}</option>
-						 		</age-row>
-							</select>
-						</li>
-						<li>
-							<label style="width: 130px;">未跟进日期：</label>
-						  	<input id="f_entrystartdate" name="f_entrystartdate" type="text" class="filterconditions"/>
-						  	<label>至</label>
-						  	<input id="f_entryenddate" name="f_entryenddate" type="text" class="filterconditions"/>
-						</li>
-						<li>
-							<label style="width: 130px;">生日区间：</label>
-							<select id="f_startmonth" name="f_startmonth" class="filterconditions" style="display: none;"> 
-								<option value="">请选择月</option>
-								<month-row>
-									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
-								</month-row>
-							</select>
-							&nbsp;
-							<select id="f_startday" name="f_startday" class="filterconditions" style="display: none;"> 
-								<option value="">请选择日</option>
-								<day-row>
-									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
-								</day-row>
-							</select>
-							<label>至</label>
-							<select id="f_endmonth" name="f_endmonth" class="filterconditions" style="display: none;"> 
-								<option value="">请选择月</option>
-								<month-rowtwo>
-									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
-								</month-rowtwo>
-							</select>
-							&nbsp;
-							<select id="f_endday" name="f_endtday" class="filterconditions" style="display: none;"> 
-								<option value="">请选择日</option>
-								<day-rowtwo>
-									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
-								</day-rowtwo>
-							</select>
-						</li>
-						<li> 			
-							<label style="width: 130px;">跟进状态：</label> 	
-							<select id="f_genjintype" name="f_genjintype" class="filterconditions" style="display: none;"> 
-								<option selected='selected' value=''>全部</option>
-								<option value='0'>未跟进</option>
-								<option value='1'>已跟进</option>
-							</select>
-			 			 </li>	
-						<li> 			
-							<label style="width: 130px;">获客渠道：</label> 	
-							<select id="f_type" name="f_type" class="filterconditions" style="display: none;"> 
-								<option selected='selected' value=''>未填</option>
-								<guesttype-rows>
-									<option value="${fld:vc_topic}">${fld:vc_content}</option>
-								</guesttype-rows>
-							</select>
-			 			 </li>	
-						<li style="display: none;">
-							<label style="width: 130px;">会籍：</label>
-							<select id='f_mc'  name='f_mc' class="filterconditions" style="display: none;">
-								<option selected='selected' value=''>全部</option>
-								<mc-row>
-									<option  value='${fld:userlogin}'>${fld:name@js}</option>
-								</mc-row>
-							</select>
-						</li>
-						<li>
-							<label style="width: 130px;">关注度：</label>
-							<select id='f_level'  name='f_level' class="filterconditions" style="display: none;">
-								<option selected='selected' value=''>全部</option>
-					 			<level-row>
-					 				<option value='${fld:domain_value}'>${fld:domain_text_cn@js}</option>
-					 			</level-row>
-							</select>
-						</li>
-						<li>
-							<label style="width: 130px;">健身目的：</label> 
-							<select  id="f_purpose" name="f_purpose" class="filterconditions" style="display: none;"> 
-								<option value="">未填</option>
-								<fitnessPurpose>
-										<option value="${fld:vc_topic}">${fld:vc_content}</option>
-								</fitnessPurpose>
-							</select>
-						</li>
-						<li>
-							<label style="width: 130px;">沟通阶段：</label>
-							<select id='f_stage'  name='f_stage' class="filterconditions" style="display: none;">
-								<option selected='selected' value=''>全部</option>
-					 			<stage-row>
-					 				<option value='${fld:domain_value}'>${fld:domain_text_cn@js}</option>
-					 			</stage-row>
-							</select>
-						</li>
-				 		<li> 			
-							<label style="width: 130px;">个人爱好：</label> 	
-							<select id="f_personalhobbit" name="f_personalhobbit" class="filterconditions" style="display: none;"> 
-								<option value="">未填</option>
-								<personalHobbies>
-										<option value="${fld:vc_topic}">${fld:vc_content}</option>
-								</personalHobbies>
-							</select>
-					 	</li>		
-				 		<li> 			
-							<label style="width: 130px;">婚姻情况：</label> 	
-							<select id="f_marriage" name="f_marriage" class="filterconditions" style="display: none;"> 
-								<option value="">未填</option>
-								<mariy>
-									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
-								</mariy>
-							</select>
-					 	</li>	
-				 		<li> 			
-							<label style="width: 130px;">子女情况：</label> 	
-							<select  id="f_children" name="f_children" class="filterconditions" style="display: none;"> 
-								<option value="">未填</option>
-								<children>
-									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
-								</children>
-							</select>
-						</li>		
-						<li>
-							<label style="width: 130px;">其他俱乐部&nbsp;&nbsp;&nbsp;&nbsp;</br>未续费原因：</label>
-							<select id='f_leave'  name='f_leave' class="filterconditions" style="display: none;">
-								<option selected='selected' value=''>全部</option>
-					 			<leave-row>
-					 				<option value='${fld:domain_value}'>${fld:domain_text_cn@js}</option>
-					 			</leave-row>
-							</select>
-						</li>
-				 		<li> 			
-							<label style="width: 130px;">是否参加过俱乐部：</label> 	
-							<select  id="f_participate" name="f_participate" class="filterconditions" style="display: none;"> 
-								<option value="">请选择</option>
-								<option value="1">是</option>
-								<option value="0">否</option>
-							</select>
-					 	</li>	
-				 		<li> 			
-							<label style="width: 130px;">是否曾是</br>本俱乐部会员：</label> 	
-							<select  id="f_ismember" name="f_ismember" class="filterconditions" style="display: none;"> 
-								<option value="">请选择</option>
-								<option value="1">是</option>
-								<option value="0">否</option>
-							</select>
-					 	</li>	
-						
-						<li>
-							<label style="width: 130px;">剩余保护期<&nbsp;</label>
-							<input type='text' id="f_protection" name="f_protection" class="filterconditions"/>
-							<span>天</span>
-						</li>
-						<li>
-							<label style="width: 130px;">通话次数<&nbsp;</label>
-							<input type='text' id="f_calltimes" name="f_calltimes" class="filterconditions"/>
-							<span>次</span>
-						</li>
-						
-						<li>
-							<label style="width: 130px;">分配次数<&nbsp;</label>
-							<input type='text' id="f_distributioncount" name="f_distributioncount" class="filterconditions"/>
-							<span>天</span>
-						</li>
-						<li style="display: none;" id="demandli">
-							<label style="width: 130px;">需求</label>
-							<div style='width: 666px;'>
-							<demand-rows>
-							<div class='xuqiu'>
-								<input type="checkbox" name="demandcb" value="${fld:domain_value}" /><span>${fld:domain_text_cn}</span>
-			 				</div></demand-rows>	</div>
-						</li>
-					</nav>
-				</div>
-				
+          <form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			<input type="hidden" id="tuid" name="tuid" value="" />
+			<input type="hidden" id="unionid" name="unionid" value="${fld:unionid}" />
+			<div class="modal-body b-i-main">
+				<nav>
+					<li>
+						<label>标签</label>
+					</li>
+					<li></li>
+				</nav>
+				<nav>
+					<label-rows>
+					<li style="width: 200px;">
+						<input type="checkbox" id="lbid${fld:code}" name="label" value="${fld:code}" style="display: none;" />${fld:name@js}
+					</li>
+					</label-rows>
+				</nav>
+			</div>
 			<footer class="footer-default">
 				<button type="button" id="filter">确定</button>&nbsp;
 				<button type="button" id="clearfilter">重置</button>
@@ -209,39 +38,65 @@ ${inc:/action/project/fitness/home/pub}
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
-	//1018
-	if("${fld:org_id}"=="1018"){
-		$("#demandli").show();
-	}
+	/* <labelguest-rows>
+	ccms.util.setCheckboxValue("label", "${fld:guestcode}", "formEditor");
+	</labelguest-rows> */
 	
-	$Dialog().date($('#f_entrystartdate,#f_entryenddate,#f_nofollowstartdate,#f_nofollowenddate'));
-	//加载条件
-	$("li .filterconditions").each(function(){
-		$("#"+$(this).attr("id")).val(parent.$("#"+$(this).attr("id")).val());
-	})
-	
-	//需求赋值
-	var demand = parent.$("#f_demand").val().split(",");
-	for (var i=0;i<demand.length ;i++ ) { 
-		ccms.util.setCheckboxValue('demandcb',demand[i],'formEditor');
-	} 
-	
-	selectInit($("#f_level,#f_leave,#f_pt_status,#f_mc_status,#f_stage,#f_genjintype,"
-			+"#f_age,#f_sex,#f_mc,#f_startmonth,#f_startday,#f_endmonth,#f_endday,#f_type"
-			+",#f_purpose,#f_participate,#f_ismember,#f_personalhobbit,#f_marriage,#f_children"));
-	
+	/* var obj = $Crud({
+		formId : "formEditor",
+		button : "save_btn",
+		bpkField : "tuid",
+		insertBack : function() {
+			ccms.dialog.notice("保存成功", 2000, function(){
+				ccms.dialog.close();
+			});
+		},
+		deleteBack : function() {
+			
+		},
+		addNewBack : function() {
+			$("#formTitle").html("设置通店俱乐部");
+		},
+		editBack : function() {
+			$("#formTitle").html("修改");
+		},
+		validate : function() {
+			var flag = $("#formEditor").validate({
+				rules : {},
+				messages : {}
+			});
+			return flag;
+		},
+		check : function() {
+			return true;
+		}
+
+	}).init(); */
+	$("#cancel_btn").unbind().on("click",function(){
+		ccms.dialog.close();
+	});
 	//筛选
 	$("#filter").click(function(){
 		//清空父级页面
-		clearparentfilter();
+	/* 	clearparentfilter();
 		//往父页面赋值
-		$("li .filterconditions").each(function(){
-			parent.$("#"+$(this).attr("id")).val($("#"+$(this).attr("id")).val());
-		})
+		 $("li input[name='label']").each(function(){
+			alert($("#"+$(this).attr("id")).val($("#"+$(this).attr("id")).val()));
+			parent.$("#"+$(this).attr("id")).val($("#"+$(this).attr("id")).val()); 
+		}) */
+		var obj = document.getElementsByName("label");
+		var check_val = [];
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i].checked) {
+				check_val.push(obj[i].value);
+			}
+		}
+		var bin=check_val.join(';');
+		alert(bin);
 		//需求
-		parent.$("#f_demand").val(getCheckboxValue("demandcb"));
+		parent.$("#labelcodes").val(bin);
 		parent.search.searchData(1);
-		ccms.dialog.close();
+		ccms.dialog.close(); 
 	});
 	
 	$("#clearfilter").click(function(){

@@ -1,34 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
+
 	<parameter id="vc_name" type="varchar" required="false" label="姓名" />
-	<parameter id="i_public" type="integer" required="false" label="公共资源" />
-	<parameter id="_start_date" type="varchar" required="false" label="开始时间" />
-	<parameter id="_end_date" type="varchar" required="false" label="结束时间" />
-	<parameter id="period_day" type="varchar" required="false" label="period_day" />
 	<parameter id="newmc" type="varchar" required="false" label="会籍" />
-	
-	<parameter id="f_sex" type="varchar" required="false" label="性别" />
-	<parameter id="f_age" type="varchar" required="false" label="年龄区间" />
-	<parameter id="f_nofollowstartdate" type="varchar" required="false" label="录入日期" />
-	<parameter id="f_nofollowenddate" type="varchar" required="false" label="录入日期" />
-	<parameter id="f_startmonth" type="varchar" required="false" label="生日区间" />
-	<parameter id="f_startday" type="varchar" required="false" label="生日区间" />
-	<parameter id="f_endmonth" type="varchar" required="false" label="生日区间" />
-	<parameter id="f_endday" type="varchar" required="false" label="生日区间" />
-	<parameter id="f_genjintype" type="varchar" required="false" label="跟进状态" />
-	<parameter id="f_type" type="varchar" required="false" label="获客渠道" />
-	<parameter id="f_mc" type="varchar" required="false" label="会籍" />
-	<parameter id="f_level" type="varchar" required="false" label="关注度" />
-	<parameter id="f_purpose" type="varchar" required="false" label="健身目的" />
-	<parameter id="f_stage" type="varchar" required="false" label="沟通阶段" />
-	<parameter id="f_personalhobbit" type="varchar" required="false" label="个人爱好" />
-	<parameter id="f_marriage" type="varchar" required="false" label="婚姻情况" />
-	<parameter id="f_children" type="varchar" required="false" label="子女情况" />
-	<parameter id="f_leave" type="varchar" required="false" label="其他俱乐部未续费原因" />
-	<parameter id="f_participate" type="varchar" required="false" label="是否参加过俱乐部" />
-	<parameter id="f_ismember" type="varchar" required="false" label="是否曾是本俱乐部会员" />
-	<parameter id="f_protection" type="varchar" required="false" label="剩余保护期" />
-	<parameter id="f_calltimes" type="varchar" required="false" label="通话次数" />
-	<parameter id="f_distributioncount" type="varchar" required="false" label="分配次数" />
-	<parameter id="f_demand" type="varchar" required="false" label="需求" />
+	<parameter id="public" type="varchar" required="false" label="只看公海" />
+	<parameter id="period_day" type="varchar" required="false" label="资源保护期" />
+	<parameter id="overdue_day" type="varchar" required="false" label="过去的期天" />
+	<parameter id="province" type="varchar" required="false" label="省" />
+	<parameter id="city" type="varchar" required="false" label="过去的期天" />
+	<parameter id="communication2" type="varchar" required="false" label="沟通阶段" />
+	<parameter id="labelcodes" type="varchar" required="false" label="选中的标签值" />
 </validator>

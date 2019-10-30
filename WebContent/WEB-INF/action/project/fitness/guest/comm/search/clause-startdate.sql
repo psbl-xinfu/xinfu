@@ -1,1 +1,1 @@
-AND com.created::date >= ${fld:startdate}
+AND cm.created::date >= ${fld:startdate}

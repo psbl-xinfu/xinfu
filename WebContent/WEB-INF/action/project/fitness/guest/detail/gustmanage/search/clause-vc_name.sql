@@ -1,7 +1,7 @@
  AND
- (g.name LIKE '%'||${fld:vc_name}||'%'
+ (tt.name LIKE '%'||${fld:vc_name}||'%'
  or
- g.mobile LIKE '%'||${fld:vc_name}||'%'
- or
- g.code LIKE '%'||${fld:vc_name}||'%'
+ tt.mobile LIKE '%'||${fld:vc_name}||'%'
+  or
+ g.officename LIKE '%'||${fld:vc_name}||'%'
  )

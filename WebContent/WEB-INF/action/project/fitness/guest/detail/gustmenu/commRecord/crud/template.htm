@@ -1,49 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>跟进记录</title>
+${inc:/action/project/fitness/home/pub}
+<title>联系人</title>
 </head>
+
 <body>
-	<div class="am-tabs-bd r-tab-cont" style="height: 700px;">
-		<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
-			<div class="r-tab-cout-3-b">
-				<div class="to-change-background h-38"></div>
-				<table> 
-					<thead>
-						<tr>
-							<th>时间</th>
-							<th>通话备注</th>
-							<th>通话结果</th>
-							<th>通话人</th>
-							<th>操作时间</th>
-						</tr>
-					</thead>
-					<tbody id="datagrid">
-					</tbody>
-				</table>
-				<div class="pageDiv">
-					<ul class="pagination">
-					</ul>
+			<div class="am-tabs-bd r-tab-cont" style="height: 700px;">
+					<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+						<form  role="form" method="post" id="searchForm">
+							<input id="id" name="id" type="hidden" value="" />
+							<input name="sort" type="hidden" value="indate" preserve="true" />
+							<input name="order" type="hidden" value="desc" preserve="true" />
+							<input name="pageNo" type="hidden" value="" preserve="true" />
+							<input name="totalPages" type="hidden" value="" preserve="true" />
+								<div class="tab-cout-nav-t toColumn yyc_tab-cout-nav-t">
+									<nav class="tab-nav-my">
+										<li class="dateTime">
+											<input id="s_start_date" name="s_start_date" type="text" class="input-default"/>
+										</li>
+										<li class="dateTime">
+											<input id="s_end_date" name="s_end_date" type="text"class="input-default"/>
+										</li>
+									<div class="r-c-btnList">
+											<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+										</div>
+									</nav>
+								</div>
+								
+								<div class="r-tab-cout-3-b">
+									<div class="to-change-background h-43"></div>
+									<table> 
+										<thead>
+											<tr>
+												<th>姓名</th>
+												<th>性别</th>
+												<th>手机号</th> 
+												<th>职位</th>
+												<th>跟进状态</th>
+												<th>跟进内容</th>
+											</tr>
+										</thead>
+										<tbody id="datagridTemplate" style="display: none">
+											<tr>
+												<td>#vc_name#</td>
+												<td>#i_sex#</td>
+												<td>#vc_mobile#</td>		
+												<td>#cc_position#</td>		
+												<td>#gj_commresult#</td>
+												<td>#remark#</td>
+											</tr>
+										</tbody>
+										
+										<tbody id="datagrid">
+										</tbody>
+									</table>
+									<div class="pageDiv">
+										<ul class="pagination">
+										</ul>
+									</div>
+							</div>
+							</form>
+					</div>	
 				</div>
-			</div>
-		</div>
-	</div>
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
-
+var bin="${fld:guestcode}";
 $(document).ready(function() {
-	ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/commRecord/search?cust_code="+cus_code+"&guest_code="+gust_code);
+	$Dialog().date($('#s_start_date'));
+	$Dialog().date($('#s_end_date'));
+	$("#s_start_date").val(new Date().format("yyyy-MM-01"));
+	$("#s_end_date").val("${def:date}");
+	$("#id").val(bin);
+	$("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
+		 if( $(this).prop("checked") ){// 
+			$('input[name=datalist]').iCheck('uncheck');
+		 }else{
+			$('input[name=datalist]').iCheck('check');  //
+		 }
+	    });
+	$("#communicaRecord").unbind().on("click",function(){
+		var thecode =$('input[name="datalist"]:checked').val();
+		var leng=$('input[name="datalist"]:checked').length
+		if(thecode!=""&&leng==1){
+			ccms.dialog.open({url:"${def:context}/action/project/fitness/guest/detail/gustmanage/followfrom/crud?thecode="+thecode});
+		}else{
+			ccms.dialog.notice("请选择一条数据!");
+		}
+	});
+	
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		$("table").css("table-layout","auto");
+		ccms.util.renderCheckbox("datalist");
+	}}).initSearchBtn().searchData(1);
 });
 
-function ajax(url){
-   	ajaxCall(url,{
-   		method: "get",
-   		progress: true,
-   		dataType: "script",
-   		success: function() {
-   		}
-   	});
-}
+
 
 </script>
 </body>

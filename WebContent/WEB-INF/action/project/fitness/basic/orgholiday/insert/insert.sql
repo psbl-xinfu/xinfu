@@ -1,22 +1,16 @@
-insert into hr_org_holiday
+insert into cc_label
 (
-    tuid,
+    code,
     org_id,
-    begintime,
-    endtime,
-    remark,
-    status,
+    name,
     createdby,
     created
 )
 values 
 (
-	${seq:nextval@seq_hr_org_holiday},
+	${seq:nextval@seq_cc_label},
 	${def:org},
-    ${fld:begintime},
-    ${fld:endtime},
-    ${fld:remark},
-    2,
+    ${fld:vc_lable},
     '${def:user}',
     {ts'${def:timestamp}'}
 )

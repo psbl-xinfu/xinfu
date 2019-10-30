@@ -1,50 +1,81 @@
 select
-	 concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" code="',
-	(select  p.status from cc_guest_prepare p where  p.guestcode = g.code and p.org_id=${def:org}   order by p.code desc limit 1) 
-	::varchar,'','" code1="',g.status::varchar,'" value="',g.code::varchar,'','" > </label>') as application_id,
+
+ concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" 
+	
+ value="',g.code::varchar,'','" > </label>') as application_id,
 	g.code as vc_code,
-	g.name as vc_name,
-	(case g.sex when '0' then '女' when '1' then '男' when '2' then '未知' else '' end) as i_sex,
-	g.age as i_age,
-	g.level as vc_level,
-	g.mobile as vc_mobile,
+	tt.name as vc_name,
+	g.officename ,
+    (case tt.sex when
+    	'0' then '女'
+    	 when '1' then '男'
+    	 when '2' then '未知'
+    end) as i_sex,
+	tt.mobile as vc_mobile,
+	(case when tt.position =1 then '投资人'
+	when tt.position =2 then '总监'
+	when tt.position =3 then '会籍经理'
+	when tt.position =4 then '私教经理'
+	when tt.position =5 then '会籍'
+	when tt.position =6 then '私教'
+	end) as cc_position,
 	g.othertel as vc_othertel,
-	g.type as i_type,
-	g.created::date as vc_itime,
-	(select name from hr_staff where userlogin=g.mc) as vc_newmc,
-	(SELECT param_text FROM cc_config WHERE category = 'GuestType' and param_value::int = type and org_id = ${def:org}) as type,
-	(select t.domain_text_cn 
-		from cc_comm c 
-		left join t_domain t on  t.domain_value=c.stage  and t.namespace='CommStage'
-		where  g.code=c.guestcode and c.org_id=${def:org} order by c.created desc limit 1
-	) as domain_text_cn,--沟通阶段
-	(select (case when commresult=0 then '免打扰'
-			when commresult=1 then '下次通话提醒'
-			when commresult=2 then '预约到店'
-			when commresult=3 then '成交'
-		end) from cc_comm c 
-		where g.code=c.guestcode and c.org_id=${def:org} order by c.created desc limit 1) as commresult,--沟通状态
-	(case g.public when '0' then '否' when '1' then '是' else '' end) as i_public,
-	(case g.status when '0' then '无效' when '1' then '有效' when '50' then '免打扰/电话预约' when '80' then '过期' when '99' then '成交' else '' end) as i_status
-	,(SELECT g.updated+concat(config.param_value,'day')::interval FROM cc_config config WHERE 
-	config.category = 'GuestOutdate' and 
-	config.org_id = (case when 
-	not exists(select 1 from cc_config c where c.org_id = ${def:org} and c.category=config.category) 
-	then (select org_id from hr_org where pid is null or pid = 0) else ${def:org} end)) as fenpei,
-		(case age when '0' then '18岁以下' when '1' then '18-24' when '2' then '25-30'  
-	when '3' then '31-40' when '4' then '41-50' when '5' then '51-60'when '6' then '60以上' 
-	else '未填' end) as age
+	g.created::date as vc_itime,--录入日期
+	(select name from hr_staff where userlogin=g.mc 
+	) as vc_newmc,
+	(select (case v.commresult when 
+		'1' then '未建立关系'
+		when '2' then '建立关系'
+		when '3' then '了解需求'
+		when '4' then '对接产品价值'
+		when '5' then '要承诺'
+		when '6' then '暂时搁置'
+		when '7' then '成交'
+		when '8' then '未成交'
+	end) from cc_comm v where v.guestcode = g.code and v.org_id = g.org_id order by v.created desc limit 1) as vc_commresult,--最新跟进状态
+	(select m.remark from cc_comm m where m.guestcode = g.code and m.org_id = g.org_id order by m.created desc limit 1) as gj_remark,
+	
+	p.entertime,--最新分配日期
+	(case when
+	(p.grabtime::date+(30||'day')::interval)::date - now()::date >= 0 then '否'
+	when (p.grabtime::date+(30||'day')::interval)::date - now()::date < 0 then '是'
+	end) as i_public,--是否进入公海
+	(case when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0
+	then concat('已过期', now()::date-(p.grabtime::date+(${fld:period_day}||'day')::interval)::date,'天')
+	when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0
+	then concat('未过期', (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date ,'天')
+	end) as num_days, --保护期天数
+	g.communication, --沟通阶段
+	lablg.lablgname,
+	lablg.lablgcode
+	
 from cc_guest g 
-left join hr_staff f on f.userlogin = g.mc
+left join cc_public p on p.guestcode=g.code  and p.org_id=g.org_id
+left join (select guestcode,name,mobile,position,sex from cc_thecontact where 
+ status=1  and org_id=${def:org} ) as tt on tt.guestcode=g.code 
+left join (select lg.guestcode,string_agg(la.name,';') as lablgname,
+string_agg(lg.labelcode,';'order by lg.labelcode asc) as lablgcode
+from cc_label_guest lg
+left join cc_label la on lg.labelcode=la.code where lg.org_id=${def:org} group by lg.guestcode ) as lablg on lablg.guestcode=g.code
+
+
 /** 普通会籍只能查看自己的资源 */
 WHERE 
 (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else g.mc = '${def:user}' end)
-and g.org_id=${def:org} and g.status!=99--成交资源不显示
+and g.org_id=${def:org} 
 ${filter} 
 ${orderby}
+
+
+
+
+
+
+
+
 
 
 

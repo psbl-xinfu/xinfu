@@ -2,20 +2,24 @@
 <config>
 
 	<summary>
-		新增
 	</summary>
 	
 	<log>false</log>
 
+	<colname>labels</colname>
+	<sql-template>insertlable.sql</sql-template>
+
 	<transaction>
-		<classname>dinamica.GenericTableManager</classname>
+		<classname>com.ccms.InsertMaster</classname>
 		<validator>true</validator>
-		<transaction>false</transaction>
+		<transaction>true</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
 
 	<query>insert.sql</query>
 	<query>insert-public.sql</query>
+	<query>insertthecontact.sql</query>
+
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
@@ -26,3 +30,4 @@
 	</output>
 
 </config>
+

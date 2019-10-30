@@ -31,30 +31,19 @@ ${inc:/action/project/fitness/home/pub}
 								</select>
 					 		</li>
 					 		<li  style='width:13%;'>
-						  		<select id="commstage" name="commstage" data-live-search="true" style="display: none;" >
-									  <option value="">沟通阶段</option>
-										<commstage-list>
-											<option value="${fld:commstage_value}">${fld:commstage_name}</option>
-										</commstage-list>
-						  		</select>
-						  	</li>
-				 			<li  style='width:13%;'>
-						  		<select id="commtarget" name="commtarget" data-live-search="true" style="display: none;">
-									  <option value="">沟通目标</option>
-										<target-list>
-											<option value="${fld:commtarget_value}">${fld:commtarget_name}</option>
-										</target-list>
+						  		<select id="commstage" name="commstage" >
+									  	<option value="">选择跟进状态</option>
+										<option value="1">未建立关系</option>
+										<option value="2">建立关系</option>
+										<option value="3">了解需求</option>
+										<option value="4">对接产品价值</option>
+										<option value="5">要承诺</option>
+										<option value="6">暂时搁置</option>
+										<option value="7">成交</option>
+										<option value="8">未成交</option>
 						  		</select>
 						  	</li>
 
-					 		<li  style='width:13%;'>
-						  		<select id="commresult" name="commresult" class="normal-select" >
-									<option value="">沟通结果</option>
-									<option value="1">预约通话</option>
-									<option value="2">预约到店</option>
-									<option value="0">免打扰</option>
-						  		</select>
-						  	</li>
 							<div>
 								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
 							</div>					 										
@@ -73,30 +62,26 @@ ${inc:/action/project/fitness/home/pub}
 					<table class="am-table">
 						<thead>
 							<tr>
-								<th>客户类型</th>
-							    <th>客户姓名</th>
-							    <th>沟通阶段</th>
-							    <th>沟通目标</th>
-							    <th>沟通结果</th>
-							    <th>预约时间</th>
-							    <th>未成功原因</th>
-							    <th>通话备注</th>
+								<th>公司名称</th>
+							    <th>联系人姓名</th>
+							    <th>性别</th>
+							    <th>手机号</th>
+							    <th>职位</th>
 							    <th>跟进人</th>
-					   	 		<th>跟进时间</th>
-					</tr>
+							    <th>跟进状态</th>
+							    <th>跟进内容</th>
+							</tr>
 					</thead>
 					<tbody id="datagridTemplate" style="display: none">
 						<tr id="list">
-							<td>#cust_type#</td>
-			                <td>#name#</td>
-			                <td>#commstage#</td>
-			                <td>#commtarget#</td>
-			                <td>#commresult#</td>
-			                <td>#nexttime#</td>
-			                <td>#reason#</td>
+							<td>#officename#</td>
+			                <td>#vc_name#</td>
+			                <td>#i_sex#</td>
+			                <td>#vc_mobile#</td>
+			                <td>#cc_position#</td>
+			                <td>#vc_mc#</td>
+			                <td>#gj_commresult#</td>
 			                <td>#remark#</td>
-			                <td>#createdby#</td>
-			                <td>#created#</td>
 						</tr>
 					</tbody>
 					<tbody id="datagrid">

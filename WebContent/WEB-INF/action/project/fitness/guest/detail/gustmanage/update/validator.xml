@@ -1,56 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
-    <parameter id="cc_code" type="varchar" required="false" label="cc_code" maxlen="20" />
- 	 <parameter id="cc_name" type="varchar" required="true" label="vc_name" maxlen="20" />
-	<parameter id="cc_sex" type="integer" required="true" label="i_sex" maxlen="20" />
-	<parameter id="cc_mobile" type="varchar" required="true" label="cc_mobile" maxlen="64" />
-	 <parameter id="cc_birth" type="varchar" required="true" label="cc_birth"/>
-	  <parameter id="cc_day" type="varchar" required="true" label="cc_day"/>
-	 
-	 
-	<parameter id="cc_wx" type="varchar" required="false" label="cc_wx"/>
-	
-	<parameter id="cc_qq" type="integer" required="false" label="cc_qq" maxlen="20" />
-	<parameter id="cc_type" type="integer" required="true" label="cc_type" maxlen="20" />
-	<parameter id="cc_cardtype" type="integer" required="false" label="vc_email" maxlen="50" />
-	<parameter id="cc_card" type="varchar" required="false" label="i_public" maxlen="20" />
-	
-	 <parameter id="cc_nationality" type="integer" required="false" label="cc_nationality" maxlen="250" />
-	<parameter id="cc_nation" type="integer" required="false" label="cc_nation" maxlen="250" />
-	<parameter id="cc_occupation" type="varchar" required="false" label="cc_occupation" maxlen="64" />
-	<parameter id="cc_email" type="varchar" required="false" label="cc_email"/>
-	<parameter id="province" type="integer" required="false" label="province"/>
-	
-	 <parameter id="city" type="integer" required="false" label="city" maxlen="120" />
-	<parameter id="region" type="integer" required="false" label="region" maxlen="120" />
-	<parameter id="cc_addr" type="varchar" required="false" label="cc_addr" maxlen="120" />
-	 <parameter id="cc_officename" type="varchar" required="false" label="cc_officename"/>
-	<parameter id="cc_officetel" type="varchar" required="false" label="cc_officetel"/>
-	
-	<parameter id="province2" type="integer" required="false" label="province2"/>
-	 <parameter id="city2" type="integer" required="false" label="city2" maxlen="120" />
-	<parameter id="region2" type="integer" required="false" label="region2" maxlen="120" />
-	<parameter id="cc_officeaddr" type="varchar" required="false" label="cc_officeaddr" maxlen="120" />
-	
-	<parameter id="cc_urgent" type="varchar" required="false" label="cc_urgent" maxlen="20" />
-	<parameter id="cc_othertel" type="varchar" required="false" label="cc_othertel" maxlen="64" />
-	<parameter id="cc_purpose" type="integer" required="false" label="cc_purpose" maxlen="64" />
-	<parameter id="cc_participate" type="integer" required="false" label="cc_participate" maxlen="64" />
-	<parameter id="cc_brand" type="varchar" required="false" label="cc_brand" maxlen="64" />
-	
-	<parameter id="cc_ismember" type="integer" required="false" label="cc_ismember" maxlen="64" />
-	<parameter id="cc_leave" type="integer" required="false" label="cc_leave" maxlen="64" />
-	<parameter id="cc_customtype" type="integer" required="false" label="cc_customtype" maxlen="64" />
-	<parameter id="cc_gethobbit" type="integer" required="false" label="cc_gethobbit" maxlen="64" />
-	<parameter id="cc_personalhobbit" type="integer" required="false" label="cc_personalhobbit" maxlen="64" />
-   
-    <parameter id="cc_marriage" type="integer" required="false" label="cc_marriage" maxlen="64" />
-    <parameter id="cc_children" type="varchar" required="false" label="cc_children" maxlen="64" />
-    <parameter id="cc_remark" type="varchar" required="false" label="cc_remark" maxlen="64" />
-       <parameter id="cc_age" type="integer" required="false" label="true" maxlen="64" />
-            <parameter id="cus_code" type="varchar" required="false" label="false" maxlen="64" />
-            
-            
-   <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
-		on-error-label="该手机已经存在,请重输入" id="cc_mobile" sql="noRep.sql" />
+    <parameter id="cc_code" type="varchar" required="true" label="code"  />
+ 	<parameter id="company" type="varchar" required="true" label="公司名称"  />
+	<parameter id="cc_officetel" type="integer" required="false" label="电话" />
+	<parameter id="cc_email" type="varchar" required="false" label="邮编"  />
+	<parameter id="address" type="varchar" required="false" label="地址"/>
+	<parameter id="postalcode" type="varchar" required="false" label="邮编"/>
+	<parameter id="province2" type="integer" required="false" label="省"/>
+	<parameter id="city2" type="integer" required="false" label="市"/>
+	<parameter id="cc_birth" type="integer" required="false" label="类型"/>
+	<parameter id="cc_remark" type="varchar" required="false" label="备注"/>
+	<parameter id="ttname" type="varchar" required="false" label="联系人"/>
+	<parameter id="yttcode" type="varchar" required="false" label="原联系人"/>
+	<parameter id="ttstatus" type="varchar" required="false" label="zuangt"/>
+    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该公司已经存在,请重输入" id="company" sql="noRep.sql" />
 </validator>

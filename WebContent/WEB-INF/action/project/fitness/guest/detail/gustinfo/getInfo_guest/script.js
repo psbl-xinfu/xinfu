@@ -42,10 +42,5 @@ $('#recommend_name').text("${fld:recommend_name@js}");
 $('#age').text("${fld:age}");
 $("#demand").text("${fld:demand}");
 
-if( "" != "${fld:imgid}" ){
-	$("#headpic").attr("src", contextPath+"/action/project/fitness/util/attachment/download?tuid=${fld:imgid}&type=1");
-}else{
-	$("#headpic").attr("src", contextPath+"/js/project/fitness/image/SVG/170X220.svg");
-}
 </rows>
 

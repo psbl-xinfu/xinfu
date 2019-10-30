@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+
+    <parameter id="remark" type="varchar" required="false" label="备注"  />
+    <parameter id="the_state" type="varchar" required="false" label="这次跟进状态" />
+    <parameter id="zcgjsj" type="varchar" required="false" label="这次跟进时间" />
+	<parameter id="thecode" type="varchar" required="true" label="联系人" />	
+	<parameter id="ofcode" type="varchar" required="true" label="公司编号" />	
+</validator>

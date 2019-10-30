@@ -7,19 +7,26 @@
 
 	<log>false</log>
 
+	<colname>s_end_date,s_start_date</colname>
+	<sql-template>query-base.sql</sql-template>
+	<paging-recordset>query.sql</paging-recordset>
+	<total-recordset>query-count.sql</total-recordset>
+
 	<transaction>
-		<classname>dinamica.GenericTransaction</classname>
+		<classname>com.ccms.SearchForJson</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="query-base.sql" source="sql" scope="transaction" />
 	</transaction>
+
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-	    <template>script.js</template>
+		<template>script.js</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="query-base.sql" tag="order-rows"/>
+		<print mode="table" recordset="query.sql" tag="rows" />
+		<print mode="form" recordset="query-count.sql" />
 	</output>
+
 </config>

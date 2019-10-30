@@ -18,17 +18,7 @@ $(document).ready(function() {
 	}
 	$(".left_main_part").load(
 			"${def:context}/action/project/fitness/guest/detail/gustmenu/crud?gust_code=${fld:guestcode}&cus_code=${fld:customercode}&status=${fld:status}&ispubload=true&menuorgid="+menuorgid);
-	if("${fld:commtype}"=="0"){
-		$(".right_main_part").load(
-				'${def:context}/action/project/fitness/basic/comm/form?guestcode=${fld:guestcode}&cust_type=0&type=1&ispubload=true',function(){
-							$(".right_main_part").find(".header-close").click(function(){
-								$(".right_main_part").html("");
-								$(".left_main_part").attr("style","width:99%;");
-							})
-						});
-	}else{
 		hideright();
-	}
 });
 function hideright(){
 	$(".right_main_part").html("");

@@ -1,106 +1,39 @@
 insert into cc_guest
 (
-    code,
-	name,
-	sex,
-	mobile,
-	birth,
-	birthday,
+ 	code
+	,officename --公司名称
+	,officetel  --电话
+	,email 
+	,officeaddr --地址
+	,postcode --邮编
+	,remark 
+	,mc --顾问
+	,province2 --省
+	,city2  --市
+	,customtype   --客户类型
+	,communication --沟通阶段
+	,createdby  --操作人
+	,created  --操作时间
+	,org_id
 	
-	wx,
-	qq,
-	mc,
-	type,
-	cardtype,
-	card,
---
-	nationality,
-	nation,
-	occupation,
-	email,
-	
-	province,
-	city,
-	addr,
-	officename,
-	officetel,
-	
-	province2,
-	city2,
-	officeaddr,
-
-	urgent,
-othertel,
-purpose,
-participate,
-brand,
-ismember,
-leave,
-customtype,
-gethobbit,
-personalhobbit,
-marriage,
-children,
-remark,
-initmc,
-created,
-recommend,
-age,
-org_id,
-updated,
-level
 )
 values 
 (
-	'XG'||to_char({ts'${def:date}'},'yy')||lpad(${seq:nextval@seq_cc_guest}::varchar, 6, '0'),
-    ${fld:cc_name},
-	${fld:cc_sex},
-	${fld:cc_mobile},
-	${fld:cc_birth},
-	${fld:cc_day},
-	
-	${fld:cc_wx},
-	${fld:cc_qq},
-	${fld:cc_mc},
-	${fld:cc_type},
-	${fld:cc_cardtype},
-	${fld:cc_card},
-	--
-	${fld:cc_nationality},
-	${fld:cc_nation},
-	${fld:cc_occupation},
-	${fld:cc_email},
-	${fld:province},
-	
-	${fld:city},
-	${fld:cc_addr},
-	${fld:cc_officename},
+	${seq:nextval@seq_cc_guest},
+    ${fld:company},
 	${fld:cc_officetel},
-	
+	${fld:cc_email},
+	${fld:address},
+	${fld:postalcode},
+	${fld:cc_remark},
+	${fld:cc_mc},
 	${fld:province2},
 	${fld:city2},
-	${fld:cc_officeaddr},
-	${fld:cc_urgent},
-	${fld:cc_othertel},
-	${fld:cc_purpose},
-	
-	${fld:cc_participate},
-	${fld:cc_brand},
-	${fld:cc_ismember},
-	${fld:cc_leave},
-	${fld:cc_customtype},
-	
-	${fld:cc_gethobbit},
-	${fld:cc_personalhobbit},
-	${fld:cc_marriage},
-	${fld:cc_children},
-	${fld:cc_remark},
-	
-	${fld:cc_mc},
+	${fld:cc_birth},
+	${fld:communication},
+	'${def:user}',
 	{ts '${def:timestamp}'},
-	${fld:cus_code},
-	${fld:cc_age},
-	'${def:org}',
-	{ts '${def:timestamp}'},
-	${fld:cc_level}
+	${def:org}
 )
+
+

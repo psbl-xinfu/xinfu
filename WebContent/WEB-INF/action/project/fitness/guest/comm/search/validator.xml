@@ -2,8 +2,6 @@
 <validator>
 	<parameter id="createdby" type="varchar" required="false" label="会籍" />	
 	<parameter id="commstage" type="varchar" required="false" label="沟通阶段" />
-	<parameter id="commtarget" type="varchar" required="false" label="沟通目标" />
-	<parameter id="commresult" type="varchar" required="false" label="沟通结果" />	
 	<parameter id="startdate" type="varchar" required="false" label="查询开始时间" />
 	<parameter id="enddate" type="varchar" required="false" label="查询结束时间" />
 </validator>

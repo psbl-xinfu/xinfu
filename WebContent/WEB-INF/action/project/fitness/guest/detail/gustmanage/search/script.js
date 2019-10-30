@@ -2,29 +2,19 @@
 	<rows>
 	{
 		"application_id":"${fld:application_id@js}",
-		"show_order":"${fld:_rowNumber}",
-		"vc_code":"${fld:vc_code@js}",
-		"vc_name":"${fld:vc_name@js}",
-		"vc_level":"${fld:vc_level}",
-		"vc_mobile":"${fld:vc_mobile@js}",
-		"vc_othertel":"${fld:vc_othertel}",
-		"i_public":"${fld:i_public}",
-		"vc_newmc":"${fld:vc_newmc@js}",
-		"i_status":"${fld:i_status@js}",
-		"i_type":"${fld:i_type}",
-	    "skill_name":"${fld:skill_name@js}",
+		"officename":"${fld:officename@js}",
 		"i_sex":"${fld:i_sex@js}",
-		"i_age":"${fld:i_age}",
+		"vc_name":"${fld:vc_name@js}",
+		"vc_mobile":"${fld:vc_mobile}",
 		"vc_itime":"${fld:vc_itime}",
-		"show_guest":"${fld:show_guest@js}",
-		"fenpei":"${fld:fenpei}",
-		"age":"${fld:age}",
-		"type":"${fld:type}",
-		"domain_text_cn":"${fld:domain_text_cn@js}",
-		"age":"${fld:age}",
-		"show_params":"${fld:show_params@js}",
-		"commresult":"${fld:commresult}"
-	},
+		"vc_newmc":"${fld:vc_newmc}",
+		"vc_commresult":"${fld:vc_commresult}",
+		"entertime":"${fld:entertime}",
+		"i_public":"${fld:i_public@js}",
+		"num_days":"${fld:num_days}",
+		"cc_position":"${fld:cc_position}",
+		"gj_remark":"${fld:gj_remark}"
+			},
 	</rows>
 	{}
 ]}

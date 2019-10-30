@@ -7,7 +7,7 @@
 
 	<log>false</log>
 
-	<colname>f_demand,vc_name,newmc,i_public,_start_date,_end_date,f_sex,f_age,f_startmonth,f_startday,f_endmonth,f_endday,f_genjintype,f_type,f_mc,f_level,f_purpose,f_stage,f_personalhobbit,f_marriage,f_children,f_leave,f_participate,f_ismember,f_protection,f_calltimes,f_distributioncount</colname>
+	<colname>vc_name,newmc,public,overdue_day,province,city,communication2,labelcodes</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>
