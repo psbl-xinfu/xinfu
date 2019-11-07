@@ -38,52 +38,12 @@ ${inc:/action/project/fitness/home/pub}
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
-	/* <labelguest-rows>
-	ccms.util.setCheckboxValue("label", "${fld:guestcode}", "formEditor");
-	</labelguest-rows> */
 	
-	/* var obj = $Crud({
-		formId : "formEditor",
-		button : "save_btn",
-		bpkField : "tuid",
-		insertBack : function() {
-			ccms.dialog.notice("保存成功", 2000, function(){
-				ccms.dialog.close();
-			});
-		},
-		deleteBack : function() {
-			
-		},
-		addNewBack : function() {
-			$("#formTitle").html("设置通店俱乐部");
-		},
-		editBack : function() {
-			$("#formTitle").html("修改");
-		},
-		validate : function() {
-			var flag = $("#formEditor").validate({
-				rules : {},
-				messages : {}
-			});
-			return flag;
-		},
-		check : function() {
-			return true;
-		}
-
-	}).init(); */
 	$("#cancel_btn").unbind().on("click",function(){
 		ccms.dialog.close();
 	});
 	//筛选
 	$("#filter").click(function(){
-		//清空父级页面
-	/* 	clearparentfilter();
-		//往父页面赋值
-		 $("li input[name='label']").each(function(){
-			alert($("#"+$(this).attr("id")).val($("#"+$(this).attr("id")).val()));
-			parent.$("#"+$(this).attr("id")).val($("#"+$(this).attr("id")).val()); 
-		}) */
 		var obj = document.getElementsByName("label");
 		var check_val = [];
 		for (var i = 0; i < obj.length; i++) {
@@ -109,12 +69,7 @@ $(document).ready(function() {
 });
 //清空本页面
 function clearfilter(){
-	$('input[name=demandcb]').iCheck('uncheck');
-	$("li .filterconditions").each(function(){
-		$("#"+$(this).attr("id")).val('');
-		$("#"+$(this).attr("id")).selectpicker("refresh");
-		$("#"+$(this).attr("id")).selectpicker("render");
-	})
+	$('input[name=label]').iCheck('uncheck');
 }
 //清空父级页面
 function clearparentfilter(){

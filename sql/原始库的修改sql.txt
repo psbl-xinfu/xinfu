@@ -33,7 +33,7 @@ COMMENT ON COLUMN "public"."cc_label"."org_id" IS '门店';
 
 --zyb 添加沟通阶段
 alter table cc_guest add communication int;
-COMMENT ON COLUMN "public"."cc_guest"."communication" IS '沟通阶段：1,20%;2,40%;3,50%;4,80%;5,100%';
+COMMENT ON COLUMN "public"."cc_guest"."communication" IS '沟通分类：1客户，2重点意向客户，3咨询客户，4陌生客户;
 --zyb 修改注释
 COMMENT ON COLUMN "public"."t_table_data_log"."before_value" IS '修改前，排序：公司地址；公司邮箱；公司电话；公司名称；省；市；；客户类型；公司邮编；备注';
 COMMENT ON COLUMN "public"."t_table_data_log"."after_value" IS '修改后，排序：公司地址；公司邮箱；公司电话；公司名称；省；市；；客户类型；公司邮编；备注';

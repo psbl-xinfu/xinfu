@@ -22,8 +22,20 @@ setSelectValue($("#cc_mc"), "${fld:mc}");
 
 $("#yttcode").val("${fld:yttcode}");
 
-setSelectValue($("#cc_birth"), "${fld:customtype}");
-
+setSelectValue($("#communication"), "${fld:communication}");
+	var custclass=$("#communication").val();
+	if(custclass==''){
+		$('#businesstype1').hide();
+		setSelectValue($("#custcation"), "");
+	}else{
+		if(custclass==1){
+			$('#businesstype1').show();
+		}else{
+			$('#businesstype1').hide();
+			setSelectValue($("#custcation"), "");
+		}
+	}
+	setSelectValue($("#custcation"), "${fld:custclass}");
 var ptstr = "<option value=''>请选择</option>";
 
 <thecontact-row>

@@ -1,22 +1,26 @@
 insert into cc_guest(
 	code
-	,name
-	,sex
-	,mobile
+	,officename
+	,province2
+	,city2
+	,customtype
 	,mc
-	,age
-	,type
+	,officetel
+	,email
+	,officeaddr
 	,createdby
 	,created
 	,org_id
 ) values(
-	${seq:nextval@seq_cc_guest}
-	,${fld:name}
-	,${fld:sex}
-	,${fld:mobile}
+	${fld:guestcode}
+	,${fld:officename}
+	,${fld:province}
+	,${fld:city}
+	,${fld:customtype}
 	,${fld:mc}
-	,${fld:age}
-	,${fld:type}
+	,${fld:officetel}
+	,${fld:email}
+	,${fld:officeaddr}
 	,'${def:user}'
 	,{ts '${def:timestamp}'}
 	,${def:org}

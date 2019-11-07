@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<config nodb="false">
+<config>
 
 	<summary>
+		系统应用管理
 	</summary>
 	
 	<log>false</log>
-    
-    <transaction>
+
+	<transaction>
 		<classname>dinamica.GenericTransaction</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
@@ -15,7 +16,7 @@
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-		<template>template.htm</template>
+		<template>template.html</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<print mode="form" recordset="_request" />

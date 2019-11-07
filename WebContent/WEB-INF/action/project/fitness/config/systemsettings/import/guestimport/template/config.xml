@@ -21,13 +21,14 @@
 	</output>
 
 	<excel recordset="query-base.sql" sheetname="资源导入" filename="资源导入.xls" header-background="true">
-		<col id="name" label="姓名" />
-		<col id="sex" label="性别（男、女）" />
-		<col id="mobile" label="手机" />
-		<col id="age" label="年龄范围（18岁以下、18-24、25-30、31-40、41-50、51-60、60以上）" />
+		<col id="officename" label="公司名称" />
+		<col id="province2" label="省" />
+		<col id="city2" label="市" />
+		<col id="customtype" label="公司类型" />
 		<col id="mc" label="会籍" />
-		<col id="type" label="获客渠道（外宣收集(DM)、其他(other)、访客介绍(VR)
-			、购买名单、来访(DI)、访客(WI)、其他介绍(OR)、电话咨询(TI)、会员介绍(BR)）" />
+		<col id="officetel" label="公司电话" />
+		<col id="email" label="公司邮箱" />
+		<col id="officeaddr" label="公司地址" />
 	</excel>
 
 </config>

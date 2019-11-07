@@ -8,6 +8,8 @@ update cc_guest set
   	,customtype = ${fld:cc_birth} --客户类型
   	,postcode = ${fld:postalcode} --公司邮编
   	,remark = ${fld:cc_remark}
+  	,communication=${fld:communication}
+  	,custclass=${fld:custcation}
 where
 	code = ${fld:cc_code} and org_id='${def:org}'
 	

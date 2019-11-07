@@ -2,20 +2,14 @@
 	<rows>
 	{
 		"application_id":"${fld:application_id@js}",
-		"vc_code":"${fld:vc_code@js}",
+		"officename":"${fld:officename@js}",
 		"vc_name":"${fld:vc_name@js}",
-		"vc_mobile":"${fld:vc_mobile@js}",
-		"vc_othertel":"${fld:vc_othertel@js}",
-		"i_public":"${fld:i_public@js}",
-		"vc_newmc":"${fld:vc_newmc@js}",
-		"vc_oldmc":"${fld:vc_oldmc@js}",
 		"i_sex":"${fld:i_sex@js}",
-		"vc_visititime":"${fld:vc_visititime@yyyy-MM-dd}",
-		"vc_callitime":"${fld:vc_callitime}",
-		"i_age":"${fld:i_age}",
-		"vc_itime":"${fld:vc_itime}",
-		"entertime":"${fld:entertime@yyyy-MM-dd}",
-		"num_days":"${fld:num_days}"
+		"vc_mobile":"${fld:vc_mobile@js}",
+		"cc_position":"${fld:cc_position}",
+		"gj_commresult":"${fld:gj_commresult}",
+		"remark":"${fld:remark}",
+		"vc_mc":"${fld:vc_mc@js}"
 	},
 	</rows>
 	{}

@@ -1,4 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-<parameter id="ttid" type="varchar" required="false" label="vc_code"/>
+	<parameter id="ttid" type="varchar" required="false" label="vc_code"/>
+	<parameter id="labelthecodes" type="varchar" required="false" label="labelcodes"/>
+	<parameter id="vc_name" type="varchar" required="false" label="labelcodes"/>
 </validator>

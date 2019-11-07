@@ -3,7 +3,6 @@
 	<!-- zyb 20190418   -->
 	<parameter id="vc_name" type="varchar" required="false" label="姓名" />
 	<parameter id="skill_name" type="varchar" required="false" label="会籍" />
-	<parameter id="public" type="varchar" required="false" label="只看公海" />
-	<parameter id="period_day" type="varchar" required="false" label="资源保护期" />
-	<parameter id="overdue_day" type="varchar" required="false" label="过去的期天" />
+	<parameter id="enddate" type="varchar" required="false" label="过去的期天" />
+	<parameter id="startdate" type="varchar" required="false" label="过去的期天" />
 </validator>

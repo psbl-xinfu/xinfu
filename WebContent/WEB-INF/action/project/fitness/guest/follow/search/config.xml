@@ -7,7 +7,7 @@
 
 	<log>false</log>
 
-	<colname>vc_name,skill_name,public,overdue_day</colname>
+	<colname>vc_name,skill_name,enddate,startdate</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

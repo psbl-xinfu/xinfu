@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+${inc:/action/project/fitness/home/pub}
+<meta charset="UTF-8">
+<head>
+<title>客户回访条件筛选</title>
+</head>
+<body> 
+		<div class="col_mainInner dialogbg" style="width: 1000px;height: 630px;">
+			<header class="header-default">
+				<span id="formTitle">标签筛选</span>
+			</header>
+          <form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
+			<input type="hidden" id="tuid" name="tuid" value="" />
+			<input type="hidden" id="unionid" name="unionid" value="${fld:unionid}" />
+			<div class="modal-body b-i-main">
+				<nav>
+					<li>
+						<label>标签</label>
+					</li>
+					<li></li>
+				</nav>
+				<nav>
+					<label-rows>
+					<li style="width: 200px;">
+						<input type="checkbox" id="lbid${fld:code}" name="labels" value="${fld:code}" style="display: none;" />${fld:name@js}
+					</li>
+					</label-rows>
+				</nav>
+			</div>
+			<footer class="footer-default">
+				<button type="button" id="filter">确定</button>&nbsp;
+				<button type="button" id="clearfilter">重置</button>
+			</footer>
+			</form>
+		</div>
+
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+$(document).ready(function() {
+	
+	$("#cancel_btn").unbind().on("click",function(){
+		ccms.dialog.close();
+	});
+	
+	<labelthe-rows>
+		ccms.util.setCheckboxValue("labels", "${fld:labelcode}", "formEditor");
+	</labelthe-rows>
+	//筛选
+	$("#filter").click(function(){
+		var obj = document.getElementsByName("labels");
+		var check_val = [];
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i].checked) {
+				check_val.push(obj[i].value);
+			}
+		}
+		var bin=check_val.join(',');
+		//需求
+		parent.$("#labelcodes").val(bin);
+		/* parent.search.searchData(1); */
+		ccms.dialog.close(); 
+	});
+	
+	$("#clearfilter").click(function(){
+		///清空本页面
+		clearfilter();
+		//清空父级页面
+		clearparentfilter();
+	});
+	
+});
+//清空本页面
+function clearfilter(){
+	$('input[name=label]').iCheck('uncheck');
+}
+//清空父级页面
+function clearparentfilter(){
+	$("li .filterconditions").each(function(){
+		parent.$("#"+$(this).attr("id")).val('');
+	})
+}
+</script>
+</body>
+</html>

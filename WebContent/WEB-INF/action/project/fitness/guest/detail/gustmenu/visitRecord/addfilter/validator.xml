@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+
+	<parameter id="guestcode" type="varchar" required="true" label="guestcode"/>
+	<parameter id="thecode" type="varchar" required="false" label="thecode"/>
+</validator>

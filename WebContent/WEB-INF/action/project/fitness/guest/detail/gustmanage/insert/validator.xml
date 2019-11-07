@@ -35,10 +35,14 @@
 
 <parameter id="cc_qq" type="integer" required="false" label="qq号"/>
 
-<parameter id="cc_birth" type="integer" required="true" label="客户类型" maxlen="20" />
+<parameter id="cc_birth" type="integer" required="true" label="公司客户类型" maxlen="20" />
 <parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
 
-<parameter id="communication" type="integer" required="true" label="沟通阶段"  />
+
+<parameter id="communication" type="integer" required="true" label="客户分类"  />
+
+<parameter id="custcation" type="integer" required="false" label="客户类型"  />
+
 
 <!-- <parameter id="labels" type="integer" required="true" label="沟通阶段"  /> -->
 

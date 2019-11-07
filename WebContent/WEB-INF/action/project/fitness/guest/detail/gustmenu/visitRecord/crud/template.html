@@ -7,7 +7,7 @@ ${inc:/action/project/fitness/home/pub}
 
 <body>
 			
-			<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
 		<div class="basic-information modal-dialog dialogbg" >
 				<header class="header-default">
 					<span id="formTitle">新增</span>
@@ -15,45 +15,54 @@ ${inc:/action/project/fitness/home/pub}
 				</header>
 				<div class="b-i-main  yyc_b-i-main">
 					<form id="addForm" name="addForm" method="post">
-					<input type="hidden" id="cc_code" name="cc_code" value=""/>
-					<input id="guestttcode" name="guestttcode" type="hidden" value="" />
-					<nav >
-						
-						<li>
-							<label>联系人姓名<span style="color: red;">*</span></label>
-							<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
-						</li>
-						
-						<li>			
-							<label>性别<span style="color: red;"></span></label>
-							<div class="my-selected">
-								<select  id="cc_sex" name="cc_sex"> 
-									<option value="">请选择</option>
-									<option value="1">男</option>
-									<option value="0">女</option>
-								</select>
-							</div> 	
-			 			</li>
-			 			
-						<li class='lis'>		
-							<label>手机<span style="color: red;">*</span></label> 	
-							<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
-			 			</li>	
-			 			<li class='lis'>
-			 				<label>职位<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="cc_position" name="cc_position"> 
-									<option value="">请选择职位</option>
-									<option value="1">投资人</option>
-									<option value="2">总监</option>
-									<option value="3">会籍经理</option>
-									<option value="4">私教经理</option>
-									<option value="5">会籍</option>
-									<option value="6">私教</option>
-								</select>
-							</div>
-			 			</li>
-					</nav>
+						<input type="hidden" id="cc_code" name="cc_code" value=""/>
+						<input id="labelcodes" name="labelcodes"  type="hidden" value=""/>
+						<input id="guestttcode" name="guestttcode" type="hidden" value="" />
+						<div id="filterconditionshtml">
+						</div>
+						<nav >
+							
+							<li>
+								<label>联系人姓名<span style="color: red;">*</span></label>
+								<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
+							</li>
+							
+							<li>			
+								<label>性别<span style="color: red;"></span></label>
+								<div class="my-selected">
+									<select  id="cc_sex" name="cc_sex"> 
+										<option value="">请选择</option>
+										<option value="1">男</option>
+										<option value="0">女</option>
+									</select>
+								</div> 	
+				 			</li>
+				 			
+							<li class='lis'>		
+								<label>手机<span style="color: red;">*</span></label> 	
+								<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
+				 			</li>	
+				 			<li class='lis'>
+				 				<label>职位<span style="color: red;">*</span></label> 	
+								<div class="my-selected">
+									<select  id="cc_position" name="cc_position"> 
+										<option value="">请选择职位</option>
+										<option value="1">投资人</option>
+										<option value="2">总监</option>
+										<option value="3">会籍经理</option>
+										<option value="4">私教经理</option>
+										<option value="5">会籍</option>
+										<option value="6">私教</option>
+									</select>
+								</div>
+				 			</li>
+				 			<nav style="margin-left: 6%">	
+									<li >
+										<label class="btn-label" id="btn-label">请选择标签</label> 
+									</li>
+							</nav>
+				 			
+						</nav>
 					</form>
 				</div>
 				<footer class="footer-default">
@@ -62,21 +71,34 @@ ${inc:/action/project/fitness/home/pub}
 			</div>
 		</div>	
 			
-			<div class="am-tabs-bd r-tab-cont" style="height: 700px;">
-				<div class="tab-cout-nav-b">
-							<nav class="r-c-3-t-b-l">
-								<li>
-									<button type="button" id="communicaRecord">跟进</button>
-								</li>
-								<li>
-									<button type="button" id="addttname">添加联系人</button>
-								</li>
-								<li>
-									<button type="button" id="edit_btn">修改联系人</button>
-								</li>
-							</nav>
-				</div>
+			<div style="height: 700px;">
+				
 				<form  role="form" method="post" id="searchForm">
+					<div class="am-tabs-bd r-tab-cont">
+						<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+					
+							<div class="tab-cout-nav-b">
+								<nav class="r-c-3-t-b-l">
+									<li>
+										<button type="button" id="communicaRecord">跟进</button>
+									</li>
+									<li>
+										<button type="button" id="edit_btn">修改联系人</button>
+									</li>
+									<li class="inputName" style="width: 160px">
+										<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="姓名/电话" class="input-default"/>							
+					 			 	</li>	
+									<div class="r-c-btnList b-10 ">
+										<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询">查询</button>
+										<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addttname">
+										<img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/> 
+									</div>
+								</nav>
+							</div>
+						</div>
+					</div>
+					
+					<input id="labelthecodes" name="labelthecodes" type="hidden" value="" />
 					<input id="ttid" name="ttid" type="hidden" value="" />
 					<input name="sort" type="hidden" value="indate" preserve="true" />
 					<input name="order" type="hidden" value="desc" preserve="true" />
@@ -132,17 +154,36 @@ var bin="${fld:guestcode}";
 $(document).ready(function() {
 	searchSelectInit($("#cc_position,#cc_sex"));
 	
-	$(".header-close").unbind().on("click",function(){
+	 $(".header-close").unbind().on("click",function(){
 		$("#modalAddnew").modal('hide');
 		ccms.util.clearForm('addForm');
 	});
 	
+	
 	$('#save_btn').on('click',function(){
+		var labelcodes = $("#labelcodes").val().split(",");
+		var filterconditionshtml = "";
+		$.each(labelcodes,function(i,val){
+			filterconditionshtml+="<input name='labelname' type='hidden' value='"+val+"' class='filterconditions' />";
+		});
+		
+		$("#filterconditionshtml").html(filterconditionshtml);
+		
 		if($('#cc_code').val()!=""){
 			update();
 		}else{
 			insert();
 		}
+	});
+	
+	$("#btn-label").unbind().on('click',function(){
+		alert($('#cc_code').val());
+		ccms.dialog.open({url : "${def:context}${def:actionroot}/addfilter?guestcode="+bin+"&thecode="+$('#cc_code').val(), width:1000, height:670});
+	})
+	
+	
+	$("#filter_btn").unbind().on('click',function(){
+		ccms.dialog.open({url : "${def:context}${def:actionroot}/filter", width:1000, height:670});
 	})
 	
 	//修改信息
@@ -155,12 +196,11 @@ $(document).ready(function() {
 		edit();
 	});
 	$("#addttname").on("click", function(e){
-		ccms.util.clearForm('addForm');
+		ccms.util.clearForm('addForm'); 
 		//清空form下所有select
 		$("#addForm select").each(function(){
 			setSelectValue($("#"+$(this).attr("name")), "");
 		});
-		$('#formTitle').text('新增');
 		$('#modalAddnew').modal('show');
 	});
 	
@@ -175,14 +215,7 @@ $(document).ready(function() {
 	
 	$('#cc_mobile').on('blur',function(){
 		checkTel($('#cc_mobile').val(),"cc_mobile");
-	})
-	$("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
-		 if( $(this).prop("checked") ){// 
-			$('input[name=datalist]').iCheck('uncheck');
-		 }else{
-			$('input[name=datalist]').iCheck('check');  //
-		 }
-	    });
+	});
 	$("#communicaRecord").unbind().on("click",function(){
 		var thecode =$('input[name="datalist"]:checked').val();
 		var leng=$('input[name="datalist"]:checked').length

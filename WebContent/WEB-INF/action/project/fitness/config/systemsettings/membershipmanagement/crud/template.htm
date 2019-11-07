@@ -16,18 +16,18 @@ color:black;
 <body >
 	<div class="am-tabs systems-management dialogbg" data-am-tabs="{noSwipe: 1}">
 		<nav class="am-tabs-nav am-nav am-nav-tabs r-tab" id="twopage">
-			<li class='sub_li' onclick="Cust_resource_file()"><a href="#cust_Resource_file" class="three-none">客户资源档案</a></li>
+		<!-- 	<li class='sub_li' onclick="Cust_resource_file()"><a href="#cust_Resource_file" class="three-none">客户资源档案</a></li> -->
 			<li class='sub_li' onclick="Cust_resource_rules()"><a href="#cust_Resource_rules" class="three-none">客户资源业务规则</a></li>
-			<li class='sub_li' onclick="Contract_manage()"><a href="#contract_Manage" class="three-none">合同管理</a></li>
+			<!-- <li class='sub_li' onclick="Contract_manage()"><a href="#contract_Manage" class="three-none">合同管理</a></li>
 			<li class='sub_li' onclick="Membership_card_rules()"><a href="#membership_Card_rules" class="three-none">会员卡业务规则</a></li>
-			<li class='sub_li' onclick="Payment_method()"><a href="#payment_Method" class="three-none">支付方式</a></li>
+			<li class='sub_li' onclick="Payment_method()"><a href="#payment_Method" class="three-none">支付方式</a></li> -->
 		</nav>
 	</div>
 	<div src ="" width="100%" height="600px" frameborder="0" id="membershipdiv">
 	</div>
 	<script language="JavaScript">
 $(document).ready(function() {
-	Cust_resource_file();
+	Cust_resource_rules();
 
 	//子集菜单效果
     $('#twopage .sub_li').parent().css('background-color','transparent');

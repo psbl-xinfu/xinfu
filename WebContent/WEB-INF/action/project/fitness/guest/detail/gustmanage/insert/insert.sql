@@ -12,6 +12,7 @@ insert into cc_guest
 	,city2  --市
 	,customtype   --客户类型
 	,communication --沟通阶段
+	,custclass
 	,createdby  --操作人
 	,created  --操作时间
 	,org_id
@@ -31,6 +32,7 @@ values
 	${fld:city2},
 	${fld:cc_birth},
 	${fld:communication},
+	${fld:custcation},
 	'${def:user}',
 	{ts '${def:timestamp}'},
 	${def:org}

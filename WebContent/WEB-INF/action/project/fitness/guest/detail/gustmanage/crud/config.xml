@@ -12,7 +12,6 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-	   <!--  <recordset id="query-guesttype.sql" source="sql" scope="transaction"/> -->
 		<recordset id="query-currentskill_name.sql" source="sql" scope="transaction"/>
 		<recordset id="query-label.sql" source="sql" scope="transaction" />
 		<recordset id="query-GuestOutdate.sql" source="sql" scope="transaction"/>
@@ -25,11 +24,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<print mode="table" recordset="query-currentskill_name.sql" tag="staff-rows3"/>
-		<!-- <print mode="table" recordset="query-guesttype.sql" tag="guesttype-rows2"/> -->
-		
 		<print mode="table" recordset="query-label.sql" tag="label-rows"/>
-		
-		
 		<print mode="form" recordset="query-GuestOutdate.sql" />	 
 		<print mode="table" recordset="query-skill_name.sql" tag="skillname-row"/>	 
 		<print mode="form" recordset="_request" />

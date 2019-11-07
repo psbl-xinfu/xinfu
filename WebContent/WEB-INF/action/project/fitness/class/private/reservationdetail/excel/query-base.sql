@@ -13,7 +13,7 @@ SELECT
 	,p.starttime::time as c_starttime
 	,g.created as c_itime
 	,d.ptlevelname as vc_ptlevelname
-	,d.ptfee as f_ptfee
+	,pr.ptfee as f_ptfee
 	,d.scale as f_scale
 	,pr.ptleftcount::integer as f_leftcount
 	,(select name from hr_staff where hr_staff.userlogin = p.createdby) as vc_iuser 
@@ -25,7 +25,7 @@ SELECT
 	) AS pt_name
 	,p.ptrestcode as ptrestid,
 	d.ptlevelname
-	,round((pr.ptmoney/pr.pttotalcount)::numeric ,2) as ptfactfee
+	,pr.ptfactfee as ptfactfee
 	
 FROM cc_ptprepare p 
 LEFT JOIN cc_ptlog g ON p.code = g.preparecode and p.org_id = g.org_id

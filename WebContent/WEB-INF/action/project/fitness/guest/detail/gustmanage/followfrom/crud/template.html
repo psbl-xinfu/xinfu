@@ -26,6 +26,10 @@ ${inc:/action/project/fitness/home/pub}
 					<li>
 						<label style="width: 130px;">上次跟进时间：</label><span id="scgjsj">${fld:created}</span>
 					</li>
+					<li class="to100w" style="margin-left: 6%">
+						<label  style="width: 260px;">上次跟进内容：</label>
+						<textarea id="scremark" cols="50" rows="1" class="my-textarea" name="scremark" maxlength="6000">${fld:remark}</textarea>
+					</li>
 					<li>
 						<label style="width: 130px;">这次跟进状态：</label>
 						<div class="my-selected">
@@ -44,8 +48,13 @@ ${inc:/action/project/fitness/home/pub}
 					</li>
 					
 					<li class="to100w" style="margin-left: 6%">
-						<label>跟进内容：</label>
+						<label style="width: 260px;">这次跟进内容：</label>
 						<textarea id="remark" cols="50" rows="1" class="my-textarea" name="remark" maxlength="6000"></textarea>
+					</li>
+						
+					<li class="dateTime">
+						<label style="width: 180px;">下次跟进日期：</label></span>
+						<input id="_start_date" name="_start_date" type="text" class="input-default"/>
 					</li>
 				</nav>
 			</div>
@@ -58,24 +67,17 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 $(document).ready(function() {
 	searchSelectInit($("#the_state"));
-	 /* $("#zcgjsj").val("${def:date}"); */
-	$Dialog().date($('#zcgjsj')); 
+	 $("#_start_date").val("${def:date}");
+	$Dialog().date($('#_start_date')); 
 	 $(document).click(function(){ 
 		$(".error").html("");
 	 });
-	/* $("#gsname").text("${fld:vc_gustname}");
-	$("#gscode").val("${fld:guestcode}");
-	 var uri = "${def:context}${def:actionroot}/these?guestcode=${fld:guestcode}";
-		ajaxCall(uri, {
-			method : "get",
-			progress : true,
-			dataType : "script",
-			success : function() {
-				search.searchData(1)
-			}
-		});  */
 	//添加跟进
 	$("#savea_btn").click(function(){
+		if($("#_start_date").val()<"${def:date}"){
+			ccms.dialog.notice("日期不能小于当前日期!", 3000);
+			return false;
+		}
 		if($("#the_state").val()==""||$("#the_state").val()<1){
 			ccms.dialog.notice("请选择跟进状态!", 3000);
 			return false;

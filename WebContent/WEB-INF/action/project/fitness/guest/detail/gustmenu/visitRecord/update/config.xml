@@ -2,17 +2,20 @@
 <config>
 
 	<summary>
-		修改
 	</summary>
 	
 	<log>false</log>
 
+	<colname>labelname</colname>
+	<sql-template>insertlable.sql</sql-template>
+
 	<transaction>
-		<classname>dinamica.GenericTableManager</classname>
+		<classname>com.ccms.InsertMaster</classname>
 		<validator>true</validator>
-		<transaction>false</transaction>
+		<transaction>true</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
+	<query>delete.sql</query>
 	<query>update.sql</query>
 
 	<output>
@@ -24,3 +27,5 @@
 	</output>
 
 </config>
+
+

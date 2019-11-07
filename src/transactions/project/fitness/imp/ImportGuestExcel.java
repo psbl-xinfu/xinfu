@@ -172,89 +172,88 @@ public class ImportGuestExcel extends ImportUtil {
 					
 					if(iTemplateCurrentCol == 0){	//第一列为
 						try{
-							// 姓名
-							String name = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (name.length() <= 0) {
-								validateError.append("姓名不能为空;");
+							// 公司名称
+							String officename = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							if (officename.length() <= 0) {
+								validateError.append("公司名称不能为空;");
+							}else {
+								String _queryofficename = StringUtil.replace(getResource("query-officename.sql"), "${field_name}", "officename");
+								_queryofficename = StringUtil.replace(_queryofficename, "${field_value}", officename);
+								_queryofficename = getSQL(_queryofficename, null);
+								Recordset _rsofficename = db.get(_queryofficename);
+								_rsofficename.first();
+								if(_rsofficename.getString("officename").equals("1")){
+									validateError.append("公司名称已存在;");
+								}else{
+									rs.setValue("officename", officename);
+								}
 							}
-							rs.setValue("name", name);
+							
 						} catch (Exception e) {
-							validateError.append("姓名不能为空;");
+							validateError.append("公司名称不能为空;");
 						}
 					}else if(iTemplateCurrentCol == 1){	//第二列为
 						try{
-							// 性别
-							String querysex = getResource("query-sex.sql");
-							Recordset sexType = db.get(querysex);
-							String sex = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (sex.length() > 0) {
-								int index = super.findRecordNumber(sexType, "sex", sex);
-								if (index < 0) {
-									validateError.append("性别应为男或女;");
-								}else{
-									if(sex.equals("男")){
-										sex = "1";
-									}else if(sex.equals("女")){
-										sex = "0";
-									}else{
-										sex = "2";
-									}
-									rs.setValue("sex", sex);
-								}
+							// 省
+							String province = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							String queryprovince = StringUtil.replace(getResource("query-province.sql"), "${field_text}", "domain_text_cn");
+							queryprovince = StringUtil.replace(queryprovince, "${field_value}", province);
+							queryprovince = getSQL(queryprovince, null);
+							Recordset _rsprovince = db.get(queryprovince);
+							_rsprovince.first();
+							if (_rsprovince.getRecordCount()>0) {
+								rs.setValue("province", _rsprovince.getString("domain_value"));
 							}else{
-								validateError.append("性别不能为空;");
+								validateError.append("省不可以为空;");
 							}
 						} catch (Exception e) {
-							validateError.append("性别不能为空;");
+							validateError.append("省不可以为空;");
 						}
 					}else if(iTemplateCurrentCol == 2){	//第三列为
 						try{
-							// 手机号
-							String mobile = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (mobile.length() > 0) {
-								String _querymobile = StringUtil.replace(getResource("query-mobile.sql"), "${field_name}", "mobile");
-								_querymobile = StringUtil.replace(_querymobile, "${field_value}", mobile);
-								_querymobile = getSQL(_querymobile, null);
-								Recordset _rsmobile = db.get(_querymobile);
-								_rsmobile.first();
-								if(_rsmobile.getString("mobile").equals("1")){
-									validateError.append("该手机号码已存在;");
-								}else{
-									if(isPhoneLegal(mobile))
-										rs.setValue("mobile", mobile);
-									else
-										validateError.append("该手机号码格式不正确;");
-								}
+							// 市
+							String city = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							String querycity = StringUtil.replace(getResource("query-city.sql"), "${field_text}", "domain_text_cn");
+							querycity = StringUtil.replace(querycity, "${field_value}", city);
+							querycity = getSQL(querycity, null);
+							Recordset _rscity = db.get(querycity);
+							_rscity.first();
+							if (_rscity.getRecordCount()>0) {
+								rs.setValue("city", _rscity.getString("domain_value"));
 							}else{
-								validateError.append("手机不能为空;");
+								validateError.append("市不可以为空;");
 							}
 						} catch (Exception e) {
-							validateError.append("手机不能为空;");
+							validateError.append("市不可以为空;");
 						}
-
 					}else if(iTemplateCurrentCol == 3){	//第四列为
 						try{
-							// 年龄范围
-							String queryage = getResource("query-age.sql");
-							Recordset ageType = db.get(queryage);
-							String age = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (age.length() > 0) {
-								int index = super.findRecordNumber(ageType, "age", age);
-								if (index < 0) {
-									validateError.append("系统中不存在该年龄范围;");
-								}else{
-									String _queryage = StringUtil.replace(getResource("query-agevlue.sql"), "${field_name}", "domain_text_cn");
-									_queryage = StringUtil.replace(_queryage, "${field_value}", age);
-									_queryage = getSQL(_queryage, null);
-									Recordset _rsage = db.get(_queryage);
-									_rsage.first();
-									rs.setValue("age", _rsage.getString("age"));
-								}
+							// 公司类型
+							String custtype = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							//健身俱乐部 ，健身工作室， 瑜伽会所， 器械器，培训机构，其他 customtype
+							String querycustomtype = getResource("query-customtype.sql");
+							querycustomtype = getSQL(querycustomtype, null);
+							Recordset _customType = db.get(querycustomtype);
+							int index = super.findRecordNumber(_customType, "customtype", custtype);
+							if (index < 0) {
+								validateError.append("公司中不存在该类型，应为（健身俱乐部 ，健身工作室， 瑜伽会所， 器械器，培训机构，其他）；");
 							}else{
-								validateError.append("年龄范围不能为空;");
+								//公司类型
+								if(custtype.equals("健身俱乐部"))
+									rs.setValue("customtype", 1);
+								if(custtype.equals("健身工作室"))
+									rs.setValue("customtype", 2);
+								if(custtype.equals("瑜伽会所"))
+									rs.setValue("customtype", 3);
+								if(custtype.equals("器械器"))
+									rs.setValue("customtype", 4);
+								if(custtype.equals("培训机构"))
+									rs.setValue("customtype", 5);
+								if(custtype.equals("其他"))
+									rs.setValue("customtype", 6);
+								
 							}
 						} catch (Exception e) {
-							validateError.append("年龄范围不能为空;");
 						}
 					}else if(iTemplateCurrentCol == 4){	//第五列为
 						try{
@@ -266,7 +265,7 @@ public class ImportGuestExcel extends ImportUtil {
 							if (mc.length() > 0) {
 								int index = super.findRecordNumber(mcType, "mc", mc);
 								if (index < 0) {
-									validateError.append("系统中不存在该会籍;");
+									validateError.append("系统中不存在该顾问;");
 								}else{
 									String _querymc = StringUtil.replace(getResource("query-staffvalue.sql"), "${field_name}", "name");
 									_querymc = StringUtil.replace(_querymc, "${field_value}", mc);
@@ -282,35 +281,35 @@ public class ImportGuestExcel extends ImportUtil {
 
 					}else if(iTemplateCurrentCol == 5){	//第六列为
 						try{
-							// 获客渠道
-							String type = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if(type.indexOf("（")>=1){
-								type = type.substring(0, type.indexOf("（"));
-							}
-							if(type.indexOf("(")>=1){
-								type = type.substring(0, type.indexOf("("));
-							}
-							if (type.length() > 0) {
-								String _querytype = StringUtil.replace(getResource("query-typevalue.sql"), "${field_name}", "param_text");
-								_querytype = StringUtil.replace(_querytype, "${field_value}", type);
-								_querytype = getSQL(_querytype, null);
-								Recordset _rstype = db.get(_querytype);
-								if(_rstype.getRecordCount()==0){
-									validateError.append("获客渠道不存在；");
-								}else{
-									_rstype.first();
-									rs.setValue("type", _rstype.getString("type"));
-								}
-							}else{
-								validateError.append("获客渠道不能为空;");
-							}
+							// 电话
+							String othertel = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							rs.setValue("officetel", othertel);
 						} catch (Exception e) {
-							validateError.append("获客渠道不能为空;");
+						}
+					}else if(iTemplateCurrentCol == 6){	//第7列为
+						try{
+							// 邮箱
+							String email = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							/*if(isPhoneLegal(email))*/
+								rs.setValue("email", email);
+							/*else
+								validateError.append("该邮箱格式不正确;");*/
+						} catch (Exception e) {
+						}
+
+					}else if(iTemplateCurrentCol == 7){	//第8列为
+						try{
+							// 地址
+							String officeaddr = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							rs.setValue("officeaddr", officeaddr);
+						} catch (Exception e) {
 						}
 
 					}else{
 						validateError.append("模版文件中存在无法处理的列项："+titleNameTemplate);
 					}
+					
+					
 				}
 					
 				// 数据保存
@@ -320,7 +319,17 @@ public class ImportGuestExcel extends ImportUtil {
 					rs.copyValues(rsFailed);
 					validateError.delete(0, validateError.length());
 				}else{
+					String _queryguestcode = StringUtil.replace(getResource("query-guestcode.sql"), "${field_name}", "");
+					_queryguestcode = StringUtil.replace(_queryguestcode, "${field_value}", "");
+					_queryguestcode = getSQL(_queryguestcode, null);
+					Recordset _rsguestcode = db.get(_queryguestcode);
+					_rsguestcode.first();
+					rs.setValue("guestcode", _rsguestcode.getString("guestcode"));
+					
 					db.beginTrans();
+					String insertPublic = getResource("insert-public.sql");
+					String _insertPublic = getSQL(insertPublic, rs);
+					db.exec(_insertPublic);
 					String _insertGuest = getSQL(insertGuest, rs);
 					db.exec(_insertGuest);
 					db.commit();
@@ -350,15 +359,15 @@ public class ImportGuestExcel extends ImportUtil {
 	private Recordset initRecordset() throws RecordsetException {
 		Recordset rs = new Recordset();
 		rs.append("row_number", Types.INTEGER);
-		rs.append("name", Types.VARCHAR);	// 姓名
-		rs.append("sex", Types.VARCHAR);	// 性别
-		rs.append("mobile", Types.VARCHAR);	// 手机
-		rs.append("age", Types.VARCHAR);	// 年龄范围
+		rs.append("guestcode", Types.VARCHAR);
+		rs.append("officename", Types.VARCHAR);	// 姓名
+		rs.append("province", Types.VARCHAR);	// 省
+		rs.append("city", Types.VARCHAR);	// 市
+		rs.append("customtype", Types.INTEGER);	// 公司类型
 		rs.append("mc", Types.VARCHAR);	// 会籍
-		rs.append("type", Types.VARCHAR);	// 获客渠道
-		rs.append("resultcode", Types.INTEGER);
-		rs.append("resultdesc", Types.VARCHAR);
-		rs.append("validate_error", Types.VARCHAR);
+		rs.append("officetel", Types.VARCHAR);	// 电话
+		rs.append("email", Types.VARCHAR); // 邮箱
+		rs.append("officeaddr", Types.VARCHAR);  //地址
 		return rs;
 	}
 
@@ -384,5 +393,17 @@ public class ImportGuestExcel extends ImportUtil {
         Matcher m = p.matcher(str);    
         return m.matches();    
     }    
+    public static boolean isEmailFormat(String str)throws PatternSyntaxException {    
+        return emailFormat(str);    
+    }
+    
+    public static boolean emailFormat(String email) {
+    	boolean tag = true;
+    	if (!email.matches("[\\w\\.\\-]+@([\\w\\-]+\\.)+[\\w\\-]+")) {
+    		tag = false;
+            }
+    	return tag;
+    }
+
     
 }

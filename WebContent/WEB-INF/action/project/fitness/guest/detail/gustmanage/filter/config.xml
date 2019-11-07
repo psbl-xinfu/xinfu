@@ -12,7 +12,7 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="query-label.sql" source="sql" scope="transaction" />
-		<recordset id="query-labelguest.sql" source="sql" scope="transaction" />
+		<!-- <recordset id="query-labelguest.sql" source="sql" scope="transaction" /> -->
 	</transaction>
 
 	<output>
@@ -21,7 +21,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<print mode="table" recordset="query-label.sql" tag="label-rows"/>
-		<print mode="table" recordset="query-labelguest.sql" tag="labelguest-rows"/>
+		<!-- <print mode="table" recordset="query-labelguest.sql" tag="labelguest-rows"/> -->
 		<print mode="form" recordset="_request"/>
 	</output>
 

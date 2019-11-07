@@ -7,7 +7,7 @@
 
 	<log>false</log>
 
-	<colname>vc_name,newmc,public,overdue_day,province,city,communication2,labelcodes</colname>
+	<colname>vc_name,newmc,public,overdue_day,province,city,communication2,labelcodes,custcation2</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

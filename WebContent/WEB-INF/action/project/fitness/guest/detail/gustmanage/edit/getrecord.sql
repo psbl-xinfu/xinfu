@@ -11,6 +11,9 @@ select
   	,gt.remark 
   	,gt.mc
   	,tt.code as yttcode
+  	,gt.custclass
+  	,gt.communication
+  	
 from 
 	cc_guest gt
 left join cc_thecontact tt on tt.guestcode=gt.code and tt.status=1
