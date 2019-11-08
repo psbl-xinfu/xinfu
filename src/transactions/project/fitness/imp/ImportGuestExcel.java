@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.sql.Types;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ import dinamica.RecordsetException;
 import dinamica.StringUtil;
 
 /***
- * 资源导入
+ * 会员卡导入
  * @author C
  * 2016-08-06
  */
@@ -52,7 +53,7 @@ public class ImportGuestExcel extends ImportUtil {
 			String fileNameTemplate = super.getContext().getRealPath("/")+"/erpclubdoc/template/guest.xlsx";
 
 			fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
-			fileName = super.formatRequestEncoding(fileName);
+			fileName = super.formatRequestEncoding(fileName);	
 			inputParams.setValue("file.filename", fileName);
 			// 获取excel文件在服务器上的地址,如果不存在则创建文件夹
 			String savePath = super.getRealSavePath("upload", "engineer", false);
@@ -119,9 +120,6 @@ public class ImportGuestExcel extends ImportUtil {
 				}
 			}
 			f.delete();
-			
-			String insertGuest = getResource("insert-guest.sql");
-
 			int rowsNum = dataList.size(); // 获取行数
 			int title_line_num = 0;
 			Recordset rs = this.initRecordset();
@@ -150,16 +148,29 @@ public class ImportGuestExcel extends ImportUtil {
 				rs.addNew();
 				List<String> dataRow = dataList.get(j);
 				// 模版中，列的约定如下：
-				// 第一列为姓名
-				// 第二列为性别（男、女）
-				// 第三列为手机
-				// 第四列为年龄范围（18岁以下、18-24、25-30、31-40、41-50、51-60、60以上）
-				// 第五列为会籍
-				// 第六列为获客渠道（外宣收集(DM)、其他(other)、访客介绍(VR)    、购买名单、来访(DI)、访客(WI)、其他介绍(OR)、电话咨询(TI)、会员介绍(BR)）
+				// 第一列为会员姓名
+				// 第二列为会员卡号
+				// 第三列卡内部号
+				// 第四列为会员电话
+				// 第五列为其他电话
+				// 第六列为会籍顾问
+				// 第七列为教练
+				// 第八列为卡类型
+				// 第九列卡有效期始
+				// 第十列有效期止
+				// 第十一列卡状态
+				// 第十二列备注
+				
 				
 				// 序号
 				rs.setValue("row_number", j);
 				int iDataCurrentCol = 0;	//当前列号
+				
+				DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd"); 
+				String datepattern = "^\\d{4}\\D+\\d{2}\\D+\\d{2}$";
+				Pattern datep = Pattern.compile(datepattern);
+				Date sDate = null, edate = null;
+				String mobile="";
 				//定位数据文件中，表头项的位置
 				for (int iTemplateCurrentCol = 0; iTemplateCurrentCol < (null == dataRowTemplateTitle ? 0 : dataRowTemplateTitle.size()); iTemplateCurrentCol++) {
 					titleNameTemplate = super.formatStringValue(dataRowTemplateTitle.get(iTemplateCurrentCol));
@@ -169,6 +180,8 @@ public class ImportGuestExcel extends ImportUtil {
 							break;
 						}
 					}
+
+					int count = 0;
 					
 					if(iTemplateCurrentCol == 0){	//第一列为
 						try{
@@ -183,7 +196,7 @@ public class ImportGuestExcel extends ImportUtil {
 								Recordset _rsofficename = db.get(_queryofficename);
 								_rsofficename.first();
 								if(_rsofficename.getString("officename").equals("1")){
-									validateError.append("公司名称已存在;");
+									validateError.append("公司名称已存在;"+officename);
 								}else{
 									rs.setValue("officename", officename);
 								}
@@ -207,7 +220,7 @@ public class ImportGuestExcel extends ImportUtil {
 								validateError.append("省不可以为空;");
 							}
 						} catch (Exception e) {
-							validateError.append("省不可以为空;");
+							validateError.append("省的格式不正确;");
 						}
 					}else if(iTemplateCurrentCol == 2){	//第三列为
 						try{
@@ -224,19 +237,19 @@ public class ImportGuestExcel extends ImportUtil {
 								validateError.append("市不可以为空;");
 							}
 						} catch (Exception e) {
-							validateError.append("市不可以为空;");
+							validateError.append("市的格式不正确;");
 						}
 					}else if(iTemplateCurrentCol == 3){	//第四列为
 						try{
 							// 公司类型
 							String custtype = super.formatStringValue(dataRow.get(iDataCurrentCol));
 							//健身俱乐部 ，健身工作室， 瑜伽会所， 器械器，培训机构，其他 customtype
-							String querycustomtype = getResource("query-customtype.sql");
+							/*String querycustomtype = getResource("query-customtype.sql");
 							querycustomtype = getSQL(querycustomtype, null);
 							Recordset _customType = db.get(querycustomtype);
-							int index = super.findRecordNumber(_customType, "customtype", custtype);
-							if (index < 0) {
-								validateError.append("公司中不存在该类型，应为（健身俱乐部 ，健身工作室， 瑜伽会所， 器械器，培训机构，其他）；");
+							int index = super.findRecordNumber(_customType, "customtype", custtype);*/
+							if (custtype.length() < 0) {
+								validateError.append("公司类型不可以为空");
 							}else{
 								//公司类型
 								if(custtype.equals("健身俱乐部"))
@@ -254,6 +267,7 @@ public class ImportGuestExcel extends ImportUtil {
 								
 							}
 						} catch (Exception e) {
+							validateError.append("公司中不存在该类型，应为（健身俱乐部 ，健身工作室， 瑜伽会所， 器械器，培训机构，其他）；");
 						}
 					}else if(iTemplateCurrentCol == 4){	//第五列为
 						try{
@@ -275,8 +289,10 @@ public class ImportGuestExcel extends ImportUtil {
 									rs.setValue("mc", _rsmc.getString("mc"));
 								}
 							}else{
+								validateError.append("顾问不可以为空;");
 							}
 						} catch (Exception e) {
+							validateError.append("顾问不可以为空;");
 						}
 
 					}else if(iTemplateCurrentCol == 5){	//第六列为
@@ -285,16 +301,15 @@ public class ImportGuestExcel extends ImportUtil {
 							String othertel = super.formatStringValue(dataRow.get(iDataCurrentCol));
 							rs.setValue("officetel", othertel);
 						} catch (Exception e) {
+							validateError.append("电话格式不对;");
 						}
 					}else if(iTemplateCurrentCol == 6){	//第7列为
 						try{
 							// 邮箱
 							String email = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							/*if(isPhoneLegal(email))*/
-								rs.setValue("email", email);
-							/*else
-								validateError.append("该邮箱格式不正确;");*/
+							rs.setValue("email", email);
 						} catch (Exception e) {
+							validateError.append("email格式不对;");
 						}
 
 					}else if(iTemplateCurrentCol == 7){	//第8列为
@@ -303,15 +318,14 @@ public class ImportGuestExcel extends ImportUtil {
 							String officeaddr = super.formatStringValue(dataRow.get(iDataCurrentCol));
 							rs.setValue("officeaddr", officeaddr);
 						} catch (Exception e) {
+							validateError.append("地址格式不对;");
 						}
 
 					}else{
 						validateError.append("模版文件中存在无法处理的列项："+titleNameTemplate);
 					}
-					
-					
 				}
-					
+				
 				// 数据保存
 				if( null != validateError && validateError.length() > 0 ){
 					rs.setValue("validate_error", validateError.toString());
@@ -330,6 +344,7 @@ public class ImportGuestExcel extends ImportUtil {
 					String insertPublic = getResource("insert-public.sql");
 					String _insertPublic = getSQL(insertPublic, rs);
 					db.exec(_insertPublic);
+					String insertGuest = getResource("insert-guest.sql");
 					String _insertGuest = getSQL(insertGuest, rs);
 					db.exec(_insertGuest);
 					db.commit();
@@ -368,6 +383,10 @@ public class ImportGuestExcel extends ImportUtil {
 		rs.append("officetel", Types.VARCHAR);	// 电话
 		rs.append("email", Types.VARCHAR); // 邮箱
 		rs.append("officeaddr", Types.VARCHAR);  //地址
+		
+		rs.append("resultcode", Types.INTEGER);
+		rs.append("resultdesc", Types.VARCHAR);
+		rs.append("validate_error", Types.VARCHAR);
 		return rs;
 	}
 
@@ -404,6 +423,5 @@ public class ImportGuestExcel extends ImportUtil {
             }
     	return tag;
     }
-
     
 }

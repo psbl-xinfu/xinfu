@@ -53,7 +53,7 @@ public class ImportCustCardExcel extends ImportUtil {
 			String fileNameTemplate = super.getContext().getRealPath("/")+"/erpclubdoc/template/the.xlsx";
 
 			fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
-			fileName = super.formatRequestEncoding(fileName);
+			fileName = super.formatRequestEncoding(fileName);	
 			inputParams.setValue("file.filename", fileName);
 			// 获取excel文件在服务器上的地址,如果不存在则创建文件夹
 			String savePath = super.getRealSavePath("upload", "engineer", false);
@@ -234,26 +234,36 @@ public class ImportCustCardExcel extends ImportUtil {
 							}else if(sex.equals("女")){
 								rs.setValue("sex", "0");
 							}
-							rs.setValue("sex", sex);
 						} catch (Exception e) {
+							validateError.append("性别失败；");
 						}
 					}else if(iTemplateCurrentCol == 3){	//第二列为
 						try{
 							// 职务
 							String position = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if(position.equals("投资人"))
-								rs.setValue("position", 1);
-							if(position.equals("总监"))
-								rs.setValue("position", 2);
-							if(position.equals("会籍经理"))
-								rs.setValue("position", 3);
-							if(position.equals("私教经理"))
-								rs.setValue("position", 4);
-							if(position.equals("会籍"))
-								rs.setValue("position", 5);
-							if(position.equals("私教"))
-								rs.setValue("position", 6);
+							String querypositiontype = getResource("query-positiontype.sql");
+							querypositiontype = getSQL(querypositiontype, null);
+							Recordset _positionType = db.get(querypositiontype);
+							int index = super.findRecordNumber(_positionType, "position", position);
+							if (index < 0) {
+								validateError.append("公司中职位，应为（投资人 ，总监， 会籍经理， 教练经理，会籍，教练）；");
+							}else {
+								if(position.equals("投资人"))
+									rs.setValue("position", 1);
+								if(position.equals("总监"))
+									rs.setValue("position", 2);
+								if(position.equals("会籍经理"))
+									rs.setValue("position", 3);
+								if(position.equals("教练经理"))
+									rs.setValue("position", 4);
+								if(position.equals("会籍"))
+									rs.setValue("position", 5);
+								if(position.equals("教练"))
+									rs.setValue("position", 6);
+							}
+							
 						} catch (Exception e) {
+							validateError.append("职务失败；");
 						}
 
 					}else if(iTemplateCurrentCol == 4){	//第二列为
@@ -266,17 +276,18 @@ public class ImportCustCardExcel extends ImportUtil {
 								_querymobile = getSQL(_querymobile, null);
 								Recordset _rsmobile = db.get(_querymobile);
 								_rsmobile.first();
-								if(_rsmobile.getString("mobile").equals("1")){
+								if(_rsmobile.getString("mobilecount").equals("1")){
 									validateError.append("该手机号码已存在;");
 								}else{
-									if(isPhoneLegal(mobile))
+									if(isPhoneLegal(mobile)) {
 										rs.setValue("mobile", mobile);
-									else
+									}else {
 										validateError.append("该手机号码格式不正确;");
+									}
 								}
-							
 							}
 							} catch (Exception e) {
+								validateError.append("手机失败");
 						}
 					}else if(iTemplateCurrentCol == 5){	//第6列为
 						try{
@@ -304,13 +315,15 @@ public class ImportCustCardExcel extends ImportUtil {
 							}
 							
 						} catch (Exception e) {
+							validateError.append("跟进状态不能为空；");
 						}
-					} else if(iTemplateCurrentCol == 5){	//第6列为
+					} else if(iTemplateCurrentCol == 6){	//第7列为
 						try{
 							// 备注
 							String remark = super.formatStringValue(dataRow.get(iDataCurrentCol));
 							rs.setValue("remark", remark);
 						} catch (Exception e) {
+							validateError.append("备注失败;");
 						}
 					}else{
 						validateError.append("模版文件中存在无法处理的列项："+titleNameTemplate);
@@ -337,6 +350,7 @@ public class ImportCustCardExcel extends ImportUtil {
 					String insertcomm = getResource("insert-comm.sql");
 					String _iinsertcomm = getSQL(insertcomm, rs);
 					db.exec(_iinsertcomm);
+					
 					db.commit();
 				}
 			}
@@ -368,10 +382,14 @@ public class ImportCustCardExcel extends ImportUtil {
 		rs.append("thecode", Types.VARCHAR);	// thecode
 		rs.append("mobile", Types.VARCHAR);	// 手机
 		rs.append("commresult", Types.INTEGER);	// 跟进状态
-		rs.append("position", Types.DATE);	// 职务
+		rs.append("position", Types.INTEGER);	// 职务
 		rs.append("remark", Types.VARCHAR);	// 备注
 		rs.append("sex", Types.VARCHAR);	// 性别
 		rs.append("guestcode", Types.VARCHAR);	// 公司编号
+		
+		rs.append("resultcode", Types.INTEGER);
+		rs.append("resultdesc", Types.VARCHAR);
+		rs.append("validate_error", Types.VARCHAR);
 		return rs;
 	}
 
@@ -392,7 +410,7 @@ public class ImportCustCardExcel extends ImportUtil {
     }    
     
     public static boolean isChinaPhoneLegal(String str) throws PatternSyntaxException {    
-        String regExp = "^[0-9]{11}$";    
+        String regExp = "^[1][3,4,5,7,8][0-9]{9}$";    
         Pattern p = Pattern.compile(regExp);    
         Matcher m = p.matcher(str);    
         return m.matches();    

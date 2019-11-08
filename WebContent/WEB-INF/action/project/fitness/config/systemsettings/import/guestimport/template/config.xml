@@ -25,10 +25,10 @@
 		<col id="province2" label="省" />
 		<col id="city2" label="市" />
 		<col id="customtype" label="公司类型" />
-		<col id="mc" label="会籍" />
-		<col id="officetel" label="公司电话" />
-		<col id="email" label="公司邮箱" />
-		<col id="officeaddr" label="公司地址" />
+		<col id="mc" label="顾问" />
+		<col id="officetel" label="电话" />
+		<col id="email" label="邮箱" />
+		<col id="officeaddr" label="地址" />
 	</excel>
 
 </config>
