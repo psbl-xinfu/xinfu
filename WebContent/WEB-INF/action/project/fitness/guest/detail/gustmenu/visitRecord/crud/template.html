@@ -177,7 +177,6 @@ $(document).ready(function() {
 	});
 	
 	$("#btn-label").unbind().on('click',function(){
-		alert($('#cc_code').val());
 		ccms.dialog.open({url : "${def:context}${def:actionroot}/addfilter?guestcode="+bin+"&thecode="+$('#cc_code').val(), width:1000, height:670});
 	})
 	
@@ -196,6 +195,7 @@ $(document).ready(function() {
 		edit();
 	});
 	$("#addttname").on("click", function(e){
+		$('#formTitle').text('添加');
 		ccms.util.clearForm('addForm'); 
 		//清空form下所有select
 		$("#addForm select").each(function(){

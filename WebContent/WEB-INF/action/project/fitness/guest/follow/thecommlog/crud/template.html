@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<style>
+</style>
+<title>客户资源分配及跟进</title>
+</head>
+<body>
+	<div class="col_mainInner dialogbg" style="height: 640px;">
+		<form role="form" method="post" id="searchForm">
+			<input name="thecode" type="hidden" value="${fld:thecode}" />
+			<input name="sort" type="hidden" value="created" preserve="true" />
+			<input name="order" type="hidden" value="desc" preserve="true" /> 
+			<input name="pageNo" type="hidden" value="" preserve="true" /> 
+			<input name="totalPages" type="hidden" value="" preserve="true" />
+			<div class="r-tab-cont">
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+						<table>
+							<thead>
+								<tr>
+								    <th>联系人姓名</th>
+								    <th>跟进时间</th>
+								    <th>跟进人</th>
+								    <th>跟进状态</th>
+								    <th>跟进内容</th>
+								    <th>预约时间</th>
+								</tr>
+							</thead>
+							<tbody  id="datagridTemplate" style="display: none">
+								<tr>
+					                <td>#vc_name#</td>
+					                <td>#created#</td>
+					                <td>#vc_mc#</td>
+					                <td>#gj_commresult#</td>
+					                <td>#remark#</td>
+					                <td>#nexttime#</td>
+								</tr>
+							</tbody>
+							<tbody id="datagrid">
+							</tbody>
+						</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search = null;
+$(document).ready(function() {	
+	
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		$("table").css("table-layout","auto");
+		}}).initSearchBtn().searchData(1);
+
+}) 
+
+</script>
+</body>
+</html>

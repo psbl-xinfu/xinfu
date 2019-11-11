@@ -1,4 +1,32 @@
 
+alter table cc_guest add custclass int;
+COMMENT ON COLUMN "public"."cc_guest"."custclass" IS '客户分类：1殊途设计，2殊途平牌3单次学习4全年学习，5 6+1学习 7学习点客户，8内训客户;
+
+CREATE TABLE "public"."cc_label_the" (
+  "code" varchar(64) COLLATE "pg_catalog"."default" NOT NULL,
+  "thecode" varchar(64) COLLATE "pg_catalog"."default",
+  "labelcode" varchar(64) COLLATE "pg_catalog"."default",
+  "createdby" varchar(64) COLLATE "pg_catalog"."default",
+  "created" timestamp(6),
+  "org_id" int4
+)
+;
+
+ALTER TABLE "public"."cc_label_the" 
+  OWNER TO "postgres";
+
+COMMENT ON COLUMN "public"."cc_label_the"."code" IS '主键';
+
+COMMENT ON COLUMN "public"."cc_label_the"."thecode" IS '联系人id';
+
+COMMENT ON COLUMN "public"."cc_label_the"."labelcode" IS '标签id';
+
+COMMENT ON COLUMN "public"."cc_label_the"."createdby" IS '操作人';
+
+COMMENT ON COLUMN "public"."cc_label_the"."created" IS '日期';
+
+COMMENT ON COLUMN "public"."cc_label_the"."org_id" IS '门店';
+
 --zyb 添加关联表
 CREATE TABLE "public"."cc_label_guest" (
   "code" varchar(64)  NOT NULL,

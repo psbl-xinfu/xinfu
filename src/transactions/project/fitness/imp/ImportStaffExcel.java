@@ -206,10 +206,10 @@ public class ImportStaffExcel extends ImportUtil {
 								Recordset _rsorgmemberhead = db.get(_queryorgmemberhead);
 								_rsorgmemberhead.first();
 								
-								String memberhead = _rsorgmemberhead.getString("memberhead");
+								/*String memberhead = _rsorgmemberhead.getString("memberhead");
 								if(!userlogin.substring(0, 2).equals(memberhead)){
 									userlogin = memberhead+userlogin;
-								}
+								}*/
 								if(b){
 									String _querystaffuserlogin = StringUtil.replace(getResource("query-staffuserlogin.sql"), "${field_name}", "userlogin");
 									_querystaffuserlogin = StringUtil.replace(_querystaffuserlogin, "${field_value}", userlogin);

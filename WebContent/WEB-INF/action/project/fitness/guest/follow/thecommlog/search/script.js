@@ -1,0 +1,13 @@
+{"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
+	<rows>
+	{
+		"vc_name":"${fld:vc_name@js}",
+		"nexttime":"${fld:nexttime}",
+		"created":"${fld:created}",
+		"gj_commresult":"${fld:gj_commresult}",
+		"remark":"${fld:remark}",
+		"vc_mc":"${fld:vc_mc@js}"
+	},
+	</rows>
+	{}
+]}

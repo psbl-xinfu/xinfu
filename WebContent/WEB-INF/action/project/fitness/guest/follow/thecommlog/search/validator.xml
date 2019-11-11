@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<!-- zyb 20190418   -->
+	<parameter id="thecode" type="varchar" required="false" label="联系人编号" />
+</validator>

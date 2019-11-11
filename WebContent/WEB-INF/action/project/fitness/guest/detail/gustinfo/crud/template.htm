@@ -75,10 +75,6 @@ hr {
 	<div id="main" class="dialogbg" style="height: 750px;font-size:12px">
 		<div class="row1" >
 			<div class="first">
-				<span class="lable1">省：</span>
-				<span class="lable2" id="name"></span>
-				<span class="lable1">市：</span>
-				<span class="lable2" id="sex"></span>
 				<span class="lable1">详细地址：</span>
 				<span class="lable2" id="province"></span>
 			</div>
@@ -96,7 +92,6 @@ hr {
 				<span class="lable2" id="email"></span>
 				<span class="lable1">分配顾问：</span>
 				<span class="lable2" id="mc"></span>
-				
 			</div> 
 		</div>
 		<div class="row1">
@@ -108,9 +103,7 @@ hr {
 	</div>
 	<form class="form-horizonta" role="form" method="post" id="searchForm">
 		<input name="pageSize" type="hidden" value="1000" preserve="true" />
-		<input type="hidden" name="vc_code" value="${fld:cus_code}" /> <input
-			type="hidden" name="menuorgid" id="menuorgid"
-			value="${fld:menuorgid}" />
+		<input type="hidden" name="menuorgid" id="menuorgid" value="${fld:menuorgid}" />
 	</form>
 	<input type="hidden" name="actionroot" id="actionroot"
 		value="${def:actionroot}" />
@@ -119,16 +112,8 @@ hr {
 		$(document)
 				.ready(
 						function() {
-							var cus_code = "${fld:cus_code}";
-							var gust_code = "${fld:gust_code}";
+							var gust_code = "${fld:guestcode}";
 							var menuorgid = "${fld:menuorgid}";
-							if (cus_code != "") {
-								ajax("${def:context}/action/project/fitness/guest/detail/gustinfo/getInfo_cus?id="
-										+ cus_code + "&menuorgid=" + menuorgid);
-								$('#vc_code').val(cus_code)
-								$('#cus').show();
-								init();
-							} else {
 								//帕斯贝利资源宝
 								if("${fld:org_id}"=="1018"){
 									$("#demanddiv").show();
@@ -137,7 +122,6 @@ hr {
 								$('#cus').hide();
 								ajax("${def:context}/action/project/fitness/guest/detail/gustinfo/getInfo_guest?id="
 										+ gust_code + "&menuorgid=" + menuorgid)
-							}
 						});
 
 		function ajax(url) {

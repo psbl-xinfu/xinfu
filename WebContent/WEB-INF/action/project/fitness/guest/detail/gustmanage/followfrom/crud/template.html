@@ -73,7 +73,7 @@ $(document).ready(function() {
 		$(".error").html("");
 	 });
 	//添加跟进
-	$("#savea_btn").click(function(){
+	$("#savea_btn").one("click",function(){
 		if($("#_start_date").val()<"${def:date}"){
 			ccms.dialog.notice("日期不能小于当前日期!", 3000);
 			return false;
@@ -89,12 +89,7 @@ $(document).ready(function() {
 			   	progress: false,
 			   	dataType: "script",
 			   	success: function() {
-					ccms.dialog.notice("跟进成功!", 2000, function(){
-				   		/* ccms.util.clearForm('addForm'); */
-				   		parent.search.searchData(1);
-				   		parent.parent.search.searchData(1);
-				   		ccms.dialog.close();
-					});
+					
 		   		}
 		   	}); 
 		}

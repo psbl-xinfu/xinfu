@@ -8,6 +8,7 @@ insert into cc_guest
 	,postcode --邮编
 	,remark 
 	,mc --顾问
+	,initmc
 	,province2 --省
 	,city2  --市
 	,customtype   --客户类型
@@ -27,6 +28,7 @@ values
 	${fld:address},
 	${fld:postalcode},
 	${fld:cc_remark},
+	${fld:cc_mc},
 	${fld:cc_mc},
 	${fld:province2},
 	${fld:city2},
