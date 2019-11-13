@@ -6,7 +6,6 @@ var a=0;
     str += '<td  >${fld:officename@js}</td>';
 	str += '<td  >${fld:vc_oldmc@js}</td>';
 	str += '<td  >${fld:vc_newmc@js}</td>';
-	str += '<td  >${fld:vc_remark}</td>';
 	str += '<td  >${fld:vc_iuser@js}</td>';
 	str += '<td  >${fld:vc_itime}</td>';
 	str+='</tr>';

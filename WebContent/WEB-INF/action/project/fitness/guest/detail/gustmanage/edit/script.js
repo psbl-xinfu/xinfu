@@ -7,9 +7,9 @@ document.addForm.address.value="${fld:officeaddr}";
 document.addForm.postalcode.value="${fld:postcode}";
 document.addForm.cc_remark.value="${fld:remark}";
 
-<labelguest-row>
+/*<labelguest-row>
 	ccms.util.setCheckboxValue("labels", "${fld:labelguestcode}", "addForm");
-</labelguest-row>
+</labelguest-row>*/
 
 setSelectValue($("#province2"), "${fld:province2}");
 /*setSelectValue($("#city2"), "${fld:city2}");*/
@@ -23,19 +23,26 @@ setSelectValue($("#cc_mc"), "${fld:mc}");
 $("#yttcode").val("${fld:yttcode}");
 
 setSelectValue($("#communication"), "${fld:communication}");
-	var custclass=$("#communication").val();
-	if(custclass==''){
+	var communication=$("#communication").val();
+	if(communication==''){
 		$('#businesstype1').hide();
 		setSelectValue($("#custcation"), "");
 	}else{
-		if(custclass==1){
+		if(communication==1){
 			$('#businesstype1').show();
+			/*selectpicker($("#custcations"), );*/
+			var select_id='${fld:custclass}';
+			 var arr=select_id.split(",");
+			/* $('#custcations').val(arr).trigger('change');*/
+			/*$("#custcations").val('${fld:custclass}');*/
+			$('#custcations').selectpicker('val', arr);
+			$("#custcation").val("${fld:custclass}");
 		}else{
 			$('#businesstype1').hide();
-			setSelectValue($("#custcation"), "");
+			setSelectValue($("#custcations"), "");
 		}
 	}
-	setSelectValue($("#custcation"), "${fld:custclass}");
+	
 var ptstr = "<option value=''>请选择</option>";
 
 <thecontact-row>

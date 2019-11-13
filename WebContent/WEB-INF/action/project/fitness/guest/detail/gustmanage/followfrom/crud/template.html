@@ -73,14 +73,14 @@ $(document).ready(function() {
 		$(".error").html("");
 	 });
 	//添加跟进
-	$("#savea_btn").one("click",function(){
+	$("#savea_btn").on("click",function(){
 		if($("#_start_date").val()<"${def:date}"){
 			ccms.dialog.notice("日期不能小于当前日期!", 3000);
 			return false;
 		}
 		if($("#the_state").val()==""||$("#the_state").val()<1){
 			ccms.dialog.notice("请选择跟进状态!", 3000);
-			return false;
+			/* return false; */
 		}else{
 			var url = "${def:context}/action/project/fitness/guest/detail/gustmanage/followfrom/insert";
 			ajaxCall(url,{

@@ -13,7 +13,7 @@
 	<parameter id="ttname" type="varchar" required="false" label="联系人"/>
 	<parameter id="yttcode" type="varchar" required="false" label="原联系人"/>
 	<parameter id="ttstatus" type="varchar" required="false" label="zuangt"/>
-    <parameter id="custcation" type="integer" required="false" label="客户类型"  />
+    <parameter id="custcation" type="varchar" required="false" label="客户类型"  />
     <parameter id="communication" type="integer" required="false" label="客户分类"  />
    
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"

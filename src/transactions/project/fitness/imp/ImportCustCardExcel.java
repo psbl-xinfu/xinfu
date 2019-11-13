@@ -320,10 +320,8 @@ public class ImportCustCardExcel extends ImportUtil {
 					} else if(iTemplateCurrentCol == 6){	//第7列为
 						try{
 							// 备注
-							String remark = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							rs.setValue("remark", remark);
+							rs.setValue("remark", super.formatStringValue(dataRow.get(iDataCurrentCol)));
 						} catch (Exception e) {
-							validateError.append("备注失败;");
 						}
 					}else{
 						validateError.append("模版文件中存在无法处理的列项："+titleNameTemplate);

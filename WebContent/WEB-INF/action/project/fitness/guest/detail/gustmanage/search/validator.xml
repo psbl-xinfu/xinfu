@@ -11,6 +11,6 @@
 	<parameter id="labelcodes" type="varchar" required="false" label="选中的标签值" />
 	<parameter id="communication2" type="integer" required="false" label="客户分类"  />
 
-	<parameter id="custcation2" type="integer" required="false" label="客户类型"  />
+	<parameter id="custcation2" type="varchar" required="false" label="客户类型"  />
 	
 </validator>

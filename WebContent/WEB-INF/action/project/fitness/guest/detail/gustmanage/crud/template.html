@@ -25,6 +25,8 @@ color: red !important;
 					<form id="addForm" name="addForm" method="post">
 					<input type="hidden" id="cc_code" name="cc_code" value=""/>
 					<input type="hidden" id="yttcode" name="yttcode" value=""/>
+					<input type="hidden" id="custcation" name="custcation" value=""/>
+					
 					<nav >
 						
 						<li>
@@ -85,7 +87,18 @@ color: red !important;
 			 			
 						<li class="hasCheck" id="businesstype1">
 							<label>客户详细分类</label> 
-							<select  id="custcation" name="custcation" data-live-search="true" style="display: none;"> 
+							
+						<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
+							<option value="1">殊途设计</option>
+							<option value="2">殊途平牌</option>
+							<option value="3">单次学习</option>
+							<option value="4">全年学习</option>
+							<option value="5">6+1学习</option>
+							<option value="6">学习点客户</option>
+							<option value="7">内训客户</option>
+                         </select>
+							
+							<!-- <select  id="custcation" name="custcation" data-live-search="true" style="display: none;"> 
 								<option value="">请选择</option>
 								<option value="1">殊途设计</option>
 								<option value="2">殊途平牌</option>
@@ -94,7 +107,7 @@ color: red !important;
 								<option value="6">6+1学习</option>
 								<option value="7">学习点客户</option>
 								<option value="8">内训客户</option>
-							</select>
+							</select> -->
 						</li>
 			 			<li class='lis'>
 			 				<label>职位<span style="color: red;">*</span></label> 	
@@ -163,13 +176,15 @@ color: red !important;
 							<label >地址</label> 	
 							<textarea id="address" name="address" placeholder="地址详细信息" class="my-textarea" rows="2" cols="1"></textarea>
 			 			</li>
-			 			<nav style="margin-left: 6%">	
+			 			
+			 			
+			 			<!-- <nav style="margin-left: 6%">	
 							<label-rows>
 								<li >
 									<input type="checkbox" id="lbid${fld:code}" name="labels" value="${fld:labelcode}" style="display: none;" />${fld:labelname@js}
 								</li>
 							</label-rows>
-						</nav>
+						</nav> -->
 			 			<li> 			
 							<label>邮编</label> 	
 							<input type="text" id="postalcode" name="postalcode" value="" maxlength="80" placeholder="邮编"/>
@@ -212,6 +227,7 @@ color: red !important;
 					<div class="tab-cout-nav">
 						<div class="tab-cout-nav-t yyc_tab-cout-nav-t">
 							<nav class="tab-nav-my">
+								<input type="hidden" id="custcation2" name="custcation2" value=""/>
 								<li class="province">
 									<select  id="province" name="province"> 
 										<option value="">请选择省</option>
@@ -241,7 +257,7 @@ color: red !important;
 								<div class="r-c-btnList b-10">
 									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
 									<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addnew_btn">
-									<img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/> 
+									<!-- <img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/>  -->
 									<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
 								</div>
 							</nav>
@@ -279,7 +295,18 @@ color: red !important;
 									</select>
 								</li>
 								<li class="hasCheck" id="businesstype">
-									<select  id="custcation2" name="custcation2" data-live-search="true" style="display: none;"> 
+									<select id="custcations2" title="请选择" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
+										<option value="1">殊途设计</option>
+										<option value="2">殊途平牌</option>
+										<option value="3">单次学习</option>
+										<option value="4">全年学习</option>
+										<option value="5">6+1学习</option>
+										<option value="6">学习点客户</option>
+										<option value="7">内训客户</option>
+			                         </select>
+								
+								
+									<!-- <select  id="" name="custcation2" data-live-search="true" style="display: none;"> 
 										<option value="">请选择</option>
 										<option value="1">殊途设计</option>
 										<option value="2">殊途平牌</option>
@@ -288,7 +315,9 @@ color: red !important;
 										<option value="6">6+1学习</option>
 										<option value="7">学习点客户</option>
 										<option value="8">内训客户</option>
-									</select>
+									</select> -->
+									
+									
 								</li>
 							</nav>
 							<nav class="r-c-3-t-b-r">
@@ -366,7 +395,16 @@ var init_event_city2;
 var search = null;
 $(document).ready(function() {
 	
-	searchSelectInit($("#custcation,#custcation2,#ttname,#ttstatus,#communication2,#communication,#cc_position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
+	
+	
+	searchSelectInit($("#custcations,#custcations2,#ttname,#ttstatus,#communication2,#communication,#cc_position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
+	 $('#custcations').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 $('#custcations2').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 
 	// 上传头像
 	$("#upload_btn").unbind().on("click",function(){
 		var pkvalue = document.addForm.cc_code.value;
@@ -396,18 +434,18 @@ $(document).ready(function() {
 	});
 	
 	$("#businesstype").hide();
-	setSelectValue($("#custcation2"), "");
+	setSelectValue($("#custcations2"), "");
 	$("#communication2").change(function(){
 		var cust2=$("#communication2").val();
 			if(cust2==''){
 				$('#businesstype').hide();
-				setSelectValue($("#custcation2"), "");
+				setSelectValue($("#custcations2"), "");
 			}else{
 				if(cust2==1){
 					$('#businesstype').show();
 				}else{
 					$('#businesstype').hide();
-					setSelectValue($("#custcation2"), "");
+					setSelectValue($("#custcations2"), "");
 				}
 			}
 	});
@@ -433,8 +471,16 @@ $(document).ready(function() {
 			ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='+1+'&guestcode='+code+"&status="+status});
 		}
 	})
+	$("#custcations2").change(function(){
+		$("#custcation2").val($("#custcations2").val()); 
+		
+	})
+	
+	
+	
 	
 	$('#save_btn').on('click',function(){
+		$("#custcation").val($("#custcations").val());
 		if($('#cc_code').val()!=""){
 			$('#cc_mc').attr('disabled',true);
 			update();
@@ -452,18 +498,19 @@ $(document).ready(function() {
 		$(".ttbin").show();
 
 		$("#businesstype1").hide();
-		setSelectValue($("#custcation"), "");
+		setSelectValue($("#custcations"), "");
+		$("#custcation").val("");
 		$("#communication").change(function(){
 			var cust=$("#communication").val();
 				if(cust==''){
 					$('#businesstype1').hide();
-					setSelectValue($("#custcation"), "");
+					setSelectValue($("#custcations"), "");
 				}else{
 					if(cust==1){
 						$('#businesstype1').show();
 					}else{
 						$('#businesstype1').hide();
-						setSelectValue($("#custcation"), "");
+						setSelectValue($("#custcations"), "");
 					}
 				}
 		});
@@ -492,18 +539,19 @@ $(document).ready(function() {
 		$("#toss").show();
 		$(".ttbin").hide();
 		$("#businesstype1").hide();
-		setSelectValue($("#custcation"), "");
+		setSelectValue($("#custcations2"), "");
+		$("#custcation2").val("");
 		$("#communication").change(function(){
 			var cust=$("#communication").val();
 				if(cust==''){
 					$('#businesstype1').hide();
-					setSelectValue($("#custcation"), "");
+					setSelectValue($("#custcations"), "");
 				}else{
 					if(cust==1){
 						$('#businesstype1').show();
 					}else{
 						$('#businesstype1').hide();
-						setSelectValue($("#custcation"), "");
+						setSelectValue($("#custcations"), "");
 					}
 				}
 		});

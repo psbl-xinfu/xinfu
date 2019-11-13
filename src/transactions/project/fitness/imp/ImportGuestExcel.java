@@ -213,11 +213,11 @@ public class ImportGuestExcel extends ImportUtil {
 							queryprovince = StringUtil.replace(queryprovince, "${field_value}", province);
 							queryprovince = getSQL(queryprovince, null);
 							Recordset _rsprovince = db.get(queryprovince);
-							_rsprovince.first();
 							if (_rsprovince.getRecordCount()>0) {
+								_rsprovince.first();
 								rs.setValue("province", _rsprovince.getString("domain_value"));
 							}else{
-								validateError.append("省不可以为空;");
+								validateError.append("省的格式不正确或为空;");
 							}
 						} catch (Exception e) {
 							validateError.append("省的格式不正确;");
@@ -230,8 +230,9 @@ public class ImportGuestExcel extends ImportUtil {
 							querycity = StringUtil.replace(querycity, "${field_value}", city);
 							querycity = getSQL(querycity, null);
 							Recordset _rscity = db.get(querycity);
-							_rscity.first();
+							
 							if (_rscity.getRecordCount()>0) {
+								_rscity.first();
 								rs.setValue("city", _rscity.getString("domain_value"));
 							}else{
 								validateError.append("市不可以为空;");
@@ -306,19 +307,16 @@ public class ImportGuestExcel extends ImportUtil {
 					}else if(iTemplateCurrentCol == 6){	//第7列为
 						try{
 							// 邮箱
-							String email = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							rs.setValue("email", email);
+							rs.setValue("remark", super.formatStringValue(dataRow.get(iDataCurrentCol)));
+							
 						} catch (Exception e) {
-							validateError.append("email格式不对;");
 						}
 
 					}else if(iTemplateCurrentCol == 7){	//第8列为
 						try{
 							// 地址
-							String officeaddr = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							rs.setValue("officeaddr", officeaddr);
+							rs.setValue("officeaddr", super.formatStringValue(dataRow.get(iDataCurrentCol)));
 						} catch (Exception e) {
-							validateError.append("地址格式不对;");
 						}
 
 					}else{
