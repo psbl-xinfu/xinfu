@@ -157,7 +157,7 @@ $(document).ready(function() {
 				var thecode =$('input[name="datalist"]:checked').val();
 				var leng=$('input[name="datalist"]:checked').length
 				if(thecode!=""&&leng==1){
-					ccms.dialog.open({url:"${def:context}/action/project/fitness/guest/detail/gustmanage/followfrom/crud?thecode="+thecode});
+					ccms.dialog.open({url:"${def:context}/action/project/fitness/guest/detail/gustmanage/followfrom2/crud?thecode="+thecode});
 				}else{
 					ccms.dialog.notice("请选择一条数据!");
 				}
