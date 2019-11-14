@@ -17,7 +17,7 @@ values
 	,${fld:sex}
 	,${fld:mobile}
 	,${fld:position}	
-	,${def:user}
+	,'${def:user}'
 	,{ts '${def:timestamp}'}
 	,${def:org} 
 )
