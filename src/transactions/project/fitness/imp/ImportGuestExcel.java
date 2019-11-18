@@ -302,12 +302,11 @@ public class ImportGuestExcel extends ImportUtil {
 							String othertel = super.formatStringValue(dataRow.get(iDataCurrentCol));
 							rs.setValue("officetel", othertel);
 						} catch (Exception e) {
-							validateError.append("电话格式不对;");
 						}
 					}else if(iTemplateCurrentCol == 6){	//第7列为
 						try{
 							// 邮箱
-							rs.setValue("remark", super.formatStringValue(dataRow.get(iDataCurrentCol)));
+							rs.setValue("email", super.formatStringValue(dataRow.get(iDataCurrentCol)));
 							
 						} catch (Exception e) {
 						}
@@ -317,6 +316,27 @@ public class ImportGuestExcel extends ImportUtil {
 							// 地址
 							rs.setValue("officeaddr", super.formatStringValue(dataRow.get(iDataCurrentCol)));
 						} catch (Exception e) {
+						}
+
+					}else if(iTemplateCurrentCol == 8){	//第8列为
+						try{
+							// 客户类型
+							String communication = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							if (communication.length() < 0) {
+								validateError.append("客户不可以为空");
+							}else{
+								//公司类型
+								if(communication.equals("客户"))
+									rs.setValue("communication", 1);
+								if(communication.equals("重点意向客户"))
+									rs.setValue("communication", 2);
+								if(communication.equals("咨询客户"))
+									rs.setValue("communication", 3);
+								if(communication.equals("陌生客户"))
+									rs.setValue("communication", 4);
+							}
+						} catch (Exception e) {
+							validateError.append("客户不可以为空");
 						}
 
 					}else{
@@ -381,6 +401,7 @@ public class ImportGuestExcel extends ImportUtil {
 		rs.append("officetel", Types.VARCHAR);	// 电话
 		rs.append("email", Types.VARCHAR); // 邮箱
 		rs.append("officeaddr", Types.VARCHAR);  //地址
+		rs.append("communication", Types.INTEGER);
 		
 		rs.append("resultcode", Types.INTEGER);
 		rs.append("resultdesc", Types.VARCHAR);

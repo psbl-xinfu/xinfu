@@ -12,12 +12,21 @@ select
     	 when '2' then '未知'
     end) as i_sex,
 	tt.mobile as vc_mobile,
+	
 	(case when tt.position =1 then '投资人'
-	when tt.position =2 then '总监'
-	when tt.position =3 then '会籍经理'
-	when tt.position =4 then '私教经理'
-	when tt.position =5 then '会籍'
-	when tt.position =6 then '私教'
+	when tt.position =2 then '总经理'
+	when tt.position =3 then '会籍总监'
+	when tt.position =4 then '会籍经理'
+	when tt.position =5 then '私教总监'
+	when tt.position =6 then '私教经理'
+	when tt.position =7 then '会籍'
+	when tt.position =8 then '私教'
+	when tt.position =9 then '店长'
+	when tt.position =10 then '人事'
+	when tt.position =11 then '会籍主管'
+	when tt.position =12 then '私教主管'
+	when tt.position =13 then '运营经理'
+	when tt.position =14 then '市场部经理'
 	end) as cc_position,
 	g.othertel as vc_othertel,
 	g.created::date as vc_itime,--录入日期

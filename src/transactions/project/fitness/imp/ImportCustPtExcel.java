@@ -51,7 +51,7 @@ public class ImportCustPtExcel extends ImportUtil {
 			String file = inputParams.getString("file");
 			// 解决excel文件名中文乱码
 			String fileName = inputParams.getString("file.filename");
-			String fileNameTemplate = super.getContext().getRealPath("/")+"/erpclubdoc/template/pt.xlsx";
+			String fileNameTemplate = super.getContext().getRealPath("/")+"/erpclubdoc/template/comm.xlsx";
 
 			fileName = fileName.substring(fileName.lastIndexOf(File.separator) + 1);
 			fileName = super.formatRequestEncoding(fileName);
@@ -165,13 +165,7 @@ public class ImportCustPtExcel extends ImportUtil {
 				DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd"); 
 				String datepattern = "^\\d{4}\\D+\\d{2}\\D+\\d{2}$";
 				Pattern datep = Pattern.compile(datepattern);
-				
-				
-				String querysalemember = getResource("query-salemember.sql");
-				querysalemember = getSQL(querysalemember, null);
-				Recordset salememberType = db.get(querysalemember);
-
-				String ptcount = "";
+				Date sDate = null;
 				//定位数据文件中，表头项的位置
 				for (int iTemplateCurrentCol = 0; iTemplateCurrentCol < (null == dataRowTemplateTitle ? 0 : dataRowTemplateTitle.size()); iTemplateCurrentCol++) {
 					titleNameTemplate = super.formatStringValue(dataRowTemplateTitle.get(iTemplateCurrentCol));
@@ -181,285 +175,57 @@ public class ImportCustPtExcel extends ImportUtil {
 							break;
 						}
 					}
-					String intpattern = "^[0-9]{0,9}$";
-					Pattern intp = Pattern.compile(intpattern);
+				/*	String intpattern = "^[0-9]{0,9}$";
+					Pattern intp = Pattern.compile(intpattern);*/
 					
 					if(iTemplateCurrentCol == 0){	//第一列为
 						try{
-							//会员卡号
-							String cardcode = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (cardcode.length() > 0) {
-								/*int len = cardcode.length();
-								String str = "";
-								for (int i = 0; i < (8-len); i++) {
-									str+="0";
-								}
-								cardcode = str+cardcode;*/
-								System.out.println("-----"+cardcode);
-								String _querycardcode= StringUtil.replace(getResource("query-customercode.sql"), "${field_name}", "code");
-								_querycardcode = StringUtil.replace(_querycardcode, "${field_value}", cardcode);
-								_querycardcode = getSQL(_querycardcode, null);
-								Recordset _rscardcode = db.get(_querycardcode);
-								if(_rscardcode.getRecordCount()==0){
-									validateError.append("会员卡号不存在；");
+							//手机号
+							String mobile = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							if (mobile.length() > 0) {
+								String _querymobile= StringUtil.replace(getResource("query-mobile.sql"), "${field_name}", "mobile");
+								_querymobile = StringUtil.replace(_querymobile, "${field_value}", mobile);
+								_querymobile = getSQL(_querymobile, null);
+								Recordset _rscardmobile = db.get(_querymobile);
+								if(_rscardmobile.getRecordCount()<=0){
+									validateError.append("手机号不存在；");
 								}else{
-									_rscardcode.first();
-									rs.setValue("customercode", _rscardcode.getString("customercode"));
+									_rscardmobile.first();
+									rs.setValue("thecode", _rscardmobile.getString("code"));
+									rs.setValue("guestcode", _rscardmobile.getString("guestcode"));
 								}
 							}else{
-								validateError.append("会员卡号不能为空；");
+								validateError.append("手机号不能为空；");
 							}
 						} catch (Exception e) {
-							validateError.append("会员卡号不能为空；");
+							validateError.append("手机号不能为空；");
 						}
 					}else if(iTemplateCurrentCol == 1){	//第二列为
 						try{
-							//私教课程名称
-							String queryptlevelcode = getResource("query-ptlevelname.sql");
-							queryptlevelcode = getSQL(queryptlevelcode, null);
-							Recordset ptlevelcodeType = db.get(queryptlevelcode);
-							String ptlevelcode = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (ptlevelcode.length() > 0) {
-								int index = super.findRecordNumber(ptlevelcodeType, "ptlevelname", ptlevelcode);
-								if (index < 0) {
-									validateError.append("系统中不存在该私教课程；");
+							//跟进时间
+							String created = super.formatStringValue(dataRow.get(iDataCurrentCol));
+								//卡有效期始
+							if (created.length() > 0) {
+								Matcher m = datep.matcher(created);
+								boolean b = m.matches();
+								if(b){
+									sDate = format1.parse(created);
+									rs.setValue("created", sDate);
 								}else{
-									String _querypdcode = StringUtil.replace(getResource("query-ptlevelcode.sql"), "${field_name}", "ptlevelname");
-									_querypdcode = StringUtil.replace(_querypdcode, "${field_value}", ptlevelcode);
-									_querypdcode = getSQL(_querypdcode, null);
-									Recordset _rspdcode = db.get(_querypdcode);
-									_rspdcode.first();
-									rs.setValue("ptlevelcode", _rspdcode.getString("code"));
-									//单价
-									rs.setValue("ptfee", _rspdcode.getString("ptfee"));
+									validateError.append("跟进日期格式不正确，如（2018-01-01）；");
 								}
 							}else{
-								validateError.append("私教课程名称不能为空；");
+								validateError.append("跟进日期格式不能为空；");
 							}
 						} catch (Exception e) {
-							validateError.append("私教课程名称不能为空；");
+							validateError.append("跟进日期格式不能为空；");
 						}
 					}else if(iTemplateCurrentCol == 2){	//第三列为
 						try{
-							// 私教
-							String querypt = getResource("query-pt.sql");
-							querypt = getSQL(querypt, null);
-							Recordset ptType = db.get(querypt);
-							String pt = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (pt.length() > 0) {
-								int index = super.findRecordNumber(ptType, "pt", pt);
-								if (index < 0) {
-									validateError.append("系统中不存在该私教；");
-								}else{
-									String _querypt = StringUtil.replace(getResource("query-staffvalue.sql"), "${field_name}", "name");
-									_querypt = StringUtil.replace(_querypt, "${field_value}", pt);
-									_querypt = getSQL(_querypt, null);
-									Recordset _rspt = db.get(_querypt);
-									_rspt.first();
-									rs.setValue("pt", _rspt.getString("userlogin"));
-								}
-							}else{
-								validateError.append("私教不能为空；");
-							}
+							// 跟进内容
+							String remark = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							rs.setValue("remark", remark);
 						} catch (Exception e) {
-							validateError.append("私教不能为空；");
-						}
-
-					}else if(iTemplateCurrentCol == 3){	//第四列为
-						try{
-							//判断该私教课教练能否上
-							if(rs.getValue("pt")!=null&&rs.getValue("ptlevelcode")!=null){
-								String _queryptdeflimit = StringUtil.replace(getResource("query-ptdeflimit.sql"), "${field_name}", "ptdefcode");
-								_queryptdeflimit = StringUtil.replace(_queryptdeflimit, "${field_value}", rs.getValue("ptlevelcode").toString());
-								_queryptdeflimit = StringUtil.replace(_queryptdeflimit, "${field_name1}", "pt");
-								_queryptdeflimit = StringUtil.replace(_queryptdeflimit, "${field_value1}", rs.getValue("pt").toString());
-								_queryptdeflimit = getSQL(_queryptdeflimit, null);
-								Recordset _rsptdeflimit = db.get(_queryptdeflimit);
-								_rsptdeflimit.first();
-								if(Integer.parseInt(_rsptdeflimit.getString("count"))==0){
-									validateError.append("该私教课程未分配该教练，不能授课；");
-								}
-							}
-							
-							//购买课时
-							ptcount = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (ptcount.length() > 0) {
-								Matcher m = intp.matcher(ptcount);
-								boolean b = m.matches();
-								if(b){
-									rs.setValue("ptcount", Integer.parseInt(ptcount));
-								}else{
-									validateError.append("购买课时格式应为整数；");
-								}
-							}else{
-								validateError.append("购买课时不能为空；");
-							}
-						} catch (Exception e) {
-							validateError.append("购买课时不能为空；");
-						}
-
-					}else if(iTemplateCurrentCol == 4){	//第四列为
-						try{
-							//剩余课时
-							String ptleftcount = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (ptleftcount.length() > 0) {
-								Matcher m = intp.matcher(ptleftcount);
-								boolean b = m.matches();
-								if(b){
-									if(Integer.parseInt(ptleftcount)>Integer.parseInt(ptcount)){
-										validateError.append("剩余课时不能大于购买课时；");
-									}else{
-										rs.setValue("ptleftcount", Integer.parseInt(ptleftcount));
-									}
-								}else{
-									validateError.append("剩余课时格式应为整数；");
-								}
-							}else{
-								validateError.append("剩余课时不能为空；");
-							}
-						} catch (Exception e) {
-							validateError.append("剩余课时不能为空；");
-						}
-
-					}else if(iTemplateCurrentCol == 5){	//第五列为
-						try{
-							// 销售员1
-							String salemember = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (salemember.length() > 0) {
-								int index = super.findRecordNumber(salememberType, "name", salemember);
-								if (index < 0) {
-									validateError.append("系统中不存在该销售员1；");
-								}else{
-									String _querysalemember = StringUtil.replace(getResource("query-staffvalue.sql"), "${field_name}", "name");
-									_querysalemember = StringUtil.replace(_querysalemember, "${field_value}", salemember);
-									_querysalemember = getSQL(_querysalemember, null);
-									Recordset _rssalemember = db.get(_querysalemember);
-									_rssalemember.first();
-									rs.setValue("salemember", _rssalemember.getString("userlogin"));
-								}
-							}else{
-								validateError.append("销售员1不能为空；");
-							}
-						} catch (Exception e) {
-							validateError.append("销售员1不能为空；");
-						}
-
-					}else if(iTemplateCurrentCol == 6){	//第六列为
-						try{
-							// 销售员2
-							String salemember1 = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (salemember1.length() > 0) {
-								int index = super.findRecordNumber(salememberType, "name", salemember1);
-								if (index < 0) {
-									validateError.append("系统中不存在该销售员2；");
-								}else{
-									String _querysalemember = StringUtil.replace(getResource("query-staffvalue.sql"), "${field_name}", "name");
-									_querysalemember = StringUtil.replace(_querysalemember, "${field_value}", salemember1);
-									_querysalemember = getSQL(_querysalemember, null);
-									Recordset _rssalemember = db.get(_querysalemember);
-									_rssalemember.first();
-									rs.setValue("salemember1", _rssalemember.getString("userlogin"));
-								}
-							}else{
-								rs.setValue("salemember1", salemember1);
-							}
-						} catch (Exception e) {
-							rs.setValue("salemember1", "");
-						}
-
-					}else if(iTemplateCurrentCol == 7){	//第七列为
-						try{
-							// 获客渠道
-							String querysource = getResource("query-source.sql");
-							querysource = getSQL(querysource, null);
-							Recordset sourceType = db.get(querysource);
-							String source = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (source.length() > 0) {
-								int index = super.findRecordNumber(sourceType, "source", source);
-								if (index < 0) {
-									validateError.append("系统中不存在该获客渠道；");
-								}else{
-									String _querysource = StringUtil.replace(getResource("query-sourcevalue.sql"), "${field_name}", "domain_text_cn");
-									_querysource = StringUtil.replace(_querysource, "${field_value}", source);
-									_querysource = getSQL(_querysource, null);
-									Recordset _rssource = db.get(_querysource);
-									_rssource.first();
-									rs.setValue("source", _rssource.getString("domain_value"));
-								}
-							}else{
-								validateError.append("获客渠道不能为空；");
-							}
-						} catch (Exception e) {
-							validateError.append("获客渠道不能为空；");
-						}
-
-					}else if(iTemplateCurrentCol == 8){	//第8列为
-						try{
-							String doublepattern = "^([0-9]{0,9})|([0-9]{0,9}.[0-9]{1,2})$";
-							Pattern doublep = Pattern.compile(doublepattern);
-	
-							//折扣金额
-							String ptamount = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (ptamount.length() > 0) {
-								Matcher m = doublep.matcher(ptamount);
-								boolean b = m.matches();
-								if(b){
-									rs.setValue("ptamount", Double.parseDouble(ptamount));
-								}else{
-									validateError.append("折扣金额格式应为数字；");
-								}
-							}else{
-								validateError.append("折扣金额不能为空；");
-							}
-						} catch (Exception e) {
-							validateError.append("折扣金额不能为空；");
-						}
-
-					}else if(iTemplateCurrentCol == 9){	//第9列为
-						try{
-							//备注
-							rs.setValue("remark", super.formatStringValue(dataRow.get(iDataCurrentCol)));
-						} catch (Exception e) {
-						}
-
-					}else if(iTemplateCurrentCol == 10){	//第10列为
-						try{
-							//有效期止
-							String ptenddate = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (ptenddate.length() > 0) {
-								Matcher m = datep.matcher(ptenddate);
-								boolean b = m.matches();
-								if(b){
-									rs.setValue("ptenddate",  format1.parse(ptenddate));
-								}else{
-									validateError.append("有效期止格式不正确，如（2018-01-01）；");
-								}
-							}else{
-								validateError.append("有效期止不能为空；");
-							}
-							//count等于2说明两个时间都验证通过
-						} catch (Exception e) {
-							validateError.append("有效期止不能为空；");
-						}
-
-					}else if(iTemplateCurrentCol == 11){	//第10列为
-						try{
-							//开始期止
-							String createdate = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							if (createdate.length() > 0) {
-								Matcher m = datep.matcher(createdate);
-								boolean b = m.matches();
-								if(b){
-									rs.setValue("createdate", format1.parse(createdate));
-								}else{
-									validateError.append("有效期止格式不正确，如（2018-01-01）；");
-								}
-							}else{
-								validateError.append("有效期止不能为空；");
-							}
-							//count等于2说明两个时间都验证通过
-						} catch (Exception e) {
-							validateError.append("有效期止不能为空；");
 						}
 
 					}else{
@@ -475,62 +241,11 @@ public class ImportCustPtExcel extends ImportUtil {
 					validateError.delete(0, validateError.length());
 				}else{
 
-					//费用记录编号
-					String _queryfinancecode = StringUtil.replace(getResource("query-financecode.sql"), "${field_name}", "");
-					_queryfinancecode = StringUtil.replace(_queryfinancecode, "${field_value}", "");
-					_queryfinancecode = getSQL(_queryfinancecode, null);
-					Recordset _rsfinancecode = db.get(_queryfinancecode);
-					_rsfinancecode.first();
-					rs.setValue("financecode", _rsfinancecode.getString("financecode"));
-					
-					//每节课多少天上完
-					String _queryptday = StringUtil.replace(getResource("query-ptday.sql"), "${field_name}", "");
-					_queryptday = StringUtil.replace(_queryptday, "${field_value}", "");
-					_queryptday = getSQL(_queryptday, null);
-					Recordset _rsptday = db.get(_queryptday);
-					_rsptday.first();
-					String ptday = _rsptday.getString("param_value");
-
-					//合同编号
-					String _querycontractcode = StringUtil.replace(getResource("query-contractcode.sql"), "${field_name}", "");
-					_querycontractcode = StringUtil.replace(_querycontractcode, "${field_value}", "");
-					_querycontractcode = getSQL(_querycontractcode, null);
-					Recordset _rscontractcode = db.get(_querycontractcode);
-					_rscontractcode.first();
-					rs.setValue("contractcode", _rscontractcode.getString("contractcode"));
-					
-					//价格
-					rs.setValue("money", (Double.parseDouble(rs.getValue("ptfee").toString())*Integer.parseInt(ptcount)));
-					/*Calendar ca = Calendar.getInstance();//获取本地时间
-					ca.add(Calendar.DATE, (Integer.parseInt(ptday)*Integer.parseInt(ptcount)));// num为增加的天数，可以改变的
-					rs.setValue("ptenddate", ca.getTime()); //根据节数算出的结束日期*/
-					
 					db.beginTrans();
-					//购买私教课
-					String contractType = getResource("insert-contract.sql");
-					String _contractTypeType = getSQL(contractType, rs);
-					db.exec(_contractTypeType);
-
-					//私教课
-					String ptrestType = getResource("insert-ptrest.sql");
-					String _ptrestType = getSQL(ptrestType, rs);
-					db.exec(_ptrestType);
-
-					//费用记录
-					String financeType = getResource("insert-finance.sql");
-					String _financeType = getSQL(financeType, rs);
-					db.exec(_financeType);
-
-					//操作日志
-					String operatelogType = getResource("insert-operatelog.sql");
-					String _operatelogType = getSQL(operatelogType, rs);
-					db.exec(_operatelogType);
-
-					//消息
-					String messageType = getResource("insert-message.sql");
-					String _messageType = getSQL(messageType, rs);
-					db.exec(_messageType);
-					
+					//添加跟进记录
+					String comm = getResource("insert-comm.sql");
+					String _comm = getSQL(comm, rs);
+					db.exec(_comm);
 					db.commit();
 				}
 			}
@@ -558,22 +273,10 @@ public class ImportCustPtExcel extends ImportUtil {
 	private Recordset initRecordset() throws RecordsetException {
 		Recordset rs = new Recordset();
 		rs.append("row_number", Types.INTEGER);
-		rs.append("customercode", Types.VARCHAR);	// 会员编号
-		rs.append("ptlevelcode", Types.VARCHAR);	// 私教类型
-		rs.append("ptcount", Types.INTEGER);	// 购买课时
-		rs.append("ptleftcount", Types.INTEGER);	// 剩余课时
-		rs.append("ptenddate", Types.DATE);	// 私教课结束日期
-		rs.append("ptfee", Types.VARCHAR);	// 单价
-		rs.append("salemember", Types.VARCHAR);	// 销售员1
-		rs.append("salemember1", Types.VARCHAR);	// 销售员2
-		rs.append("pt", Types.VARCHAR);	// 私教
-		rs.append("source", Types.VARCHAR);	// 获客渠道
-		rs.append("money", Types.DOUBLE);	// 价格
-		rs.append("ptamount", Types.DOUBLE);	// 折扣金额
-		rs.append("financecode", Types.VARCHAR);	// 费用记录编号
-		rs.append("remark", Types.VARCHAR);	// 备注
-		rs.append("contractcode", Types.VARCHAR);	// 合同号
-		rs.append("createdate", Types.DATE);//购买日期
+		rs.append("thecode", Types.VARCHAR);//联系人的编号
+		rs.append("guestcode", Types.VARCHAR);	// 公司编号
+		rs.append("created", Types.DATE);	// 私教类型
+		rs.append("remark", Types.VARCHAR);	// 购买课时
 		
 		rs.append("resultcode", Types.INTEGER);
 		rs.append("resultdesc", Types.VARCHAR);

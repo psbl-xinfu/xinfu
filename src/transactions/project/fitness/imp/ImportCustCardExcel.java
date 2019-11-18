@@ -171,6 +171,7 @@ public class ImportCustCardExcel extends ImportUtil {
 				Pattern datep = Pattern.compile(datepattern);
 				Date sDate = null, edate = null;
 				String mobile="";
+				String	officename="";
 				//定位数据文件中，表头项的位置
 				for (int iTemplateCurrentCol = 0; iTemplateCurrentCol < (null == dataRowTemplateTitle ? 0 : dataRowTemplateTitle.size()); iTemplateCurrentCol++) {
 					titleNameTemplate = super.formatStringValue(dataRowTemplateTitle.get(iTemplateCurrentCol));
@@ -182,11 +183,10 @@ public class ImportCustCardExcel extends ImportUtil {
 					}
 
 					int count = 0;
-					
 					if(iTemplateCurrentCol == 0){	//第一列为
 						try{
 							// 公司名称
-							String officename = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							officename = super.formatStringValue(dataRow.get(iDataCurrentCol));
 							if(officename.length()>0) {
 								String _queryofficename = StringUtil.replace(getResource("query-officename.sql"), "${field_name}", "officename");
 								_queryofficename = StringUtil.replace(_queryofficename, "${field_value}", officename);
@@ -246,20 +246,36 @@ public class ImportCustCardExcel extends ImportUtil {
 							Recordset _positionType = db.get(querypositiontype);
 							int index = super.findRecordNumber(_positionType, "position", position);
 							if (index < 0) {
-								validateError.append("公司中职位，应为（投资人 ，总监， 会籍经理， 教练经理，会籍，教练）；");
+								validateError.append("公司中职位错误");
 							}else {
 								if(position.equals("投资人"))
 									rs.setValue("position", 1);
-								if(position.equals("总监"))
+								if(position.equals("总经理"))
 									rs.setValue("position", 2);
-								if(position.equals("会籍经理"))
+								if(position.equals("会籍总监"))
 									rs.setValue("position", 3);
-								if(position.equals("教练经理"))
+								if(position.equals("会籍经理"))
 									rs.setValue("position", 4);
-								if(position.equals("会籍"))
+								if(position.equals("私教总监"))
 									rs.setValue("position", 5);
-								if(position.equals("教练"))
+								if(position.equals("私教经理"))
 									rs.setValue("position", 6);
+								if(position.equals("会籍"))
+									rs.setValue("position", 7);
+								if(position.equals("私教"))
+									rs.setValue("position", 8);
+								if(position.equals("店长"))
+									rs.setValue("position", 9);
+								if(position.equals("人事"))
+									rs.setValue("position", 10);
+								if(position.equals("会籍主管"))
+									rs.setValue("position", 11);
+								if(position.equals("私教主管"))
+									rs.setValue("position", 12);
+								if(position.equals("运营经理"))
+									rs.setValue("position", 13);
+								if(position.equals("市场部经理"))
+									rs.setValue("position", 14);
 							}
 							
 						} catch (Exception e) {
@@ -323,6 +339,28 @@ public class ImportCustCardExcel extends ImportUtil {
 							rs.setValue("remark", super.formatStringValue(dataRow.get(iDataCurrentCol)));
 						} catch (Exception e) {
 						}
+					}else if(iTemplateCurrentCol == 7){	//第7列为
+						try{
+							// 关键负责任
+							String status = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							if(status.equals("是")){
+								String _querystatus = StringUtil.replace(getResource("query-status.sql"), "${field_name}", "officename");
+								_querystatus = StringUtil.replace(_querystatus, "${field_value}", officename);
+								_querystatus = getSQL(_querystatus, null);
+								Recordset _rsstatus = db.get(_querystatus);
+								_rsstatus.first();
+								if(_rsstatus.getString("thestatus").equals("1")){
+									validateError.append("该公司已有关键负责人；");
+								}else{
+									rs.setValue("status", 1);
+								}
+								
+							}else if(status.equals("否")){
+								rs.setValue("status", 0);
+							}
+							
+						} catch (Exception e) {
+						}
 					}else{
 						validateError.append("模版文件中存在无法处理的列项："+titleNameTemplate);
 					}
@@ -384,6 +422,7 @@ public class ImportCustCardExcel extends ImportUtil {
 		rs.append("remark", Types.VARCHAR);	// 备注
 		rs.append("sex", Types.VARCHAR);	// 性别
 		rs.append("guestcode", Types.VARCHAR);	// 公司编号
+		rs.append("status", Types.INTEGER);	// 关键负责人
 		
 		rs.append("resultcode", Types.INTEGER);
 		rs.append("resultdesc", Types.VARCHAR);

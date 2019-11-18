@@ -89,8 +89,8 @@ color: red !important;
 							<label>客户详细分类</label> 
 							
 						<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
-							<option value="1">殊途设计</option>
-							<option value="2">殊途平牌</option>
+							<option value="1">枢途设计</option>
+							<option value="2">枢途平牌</option>
 							<option value="3">单次学习</option>
 							<option value="4">全年学习</option>
 							<option value="5">6+1学习</option>
@@ -115,11 +115,19 @@ color: red !important;
 								<select  id="cc_position" name="cc_position"> 
 									<option value="">请选择职位</option>
 									<option value="1">投资人</option>
-									<option value="2">总监</option>
-									<option value="3">会籍经理</option>
-									<option value="4">私教经理</option>
-									<option value="5">会籍</option>
-									<option value="6">私教</option>
+									<option value="2">总经理</option>
+									<option value="3">会籍总监</option>
+									<option value="4">会籍经理</option>
+									<option value="5">私教总监</option>
+									<option value="6">私教经理</option>
+									<option value="7">会籍</option>
+									<option value="8">私教</option>
+									<option value="9">店长</option>
+									<option value="10">人事</option>
+									<option value="11">会籍主管</option>
+									<option value="12">私教主管</option>
+									<option value="13">运营经理</option>
+									<option value="14">市场部经理</option>
 								</select>
 							</div>
 			 			</li>
@@ -190,7 +198,7 @@ color: red !important;
 							<input type="text" id="postalcode" name="postalcode" value="" maxlength="80" placeholder="邮编"/>
 			 			</li>			
 						<li> 			
-							<label>顾问</label> 	
+							<label>咨询师</label> 	
 							<div class="my-selected">
 								<select id="cc_mc" name="cc_mc"   >
 									<staff-rows3>
@@ -244,7 +252,7 @@ color: red !important;
 				 			 	</li>		
 								<li style="width: 160px">
 								  <select id="newmc" name="newmc" style="display: none;">
-									  <option value="">全部顾问</option>
+									  <option value="">全部咨询师</option>
 									  <skillname-row>
 											<option  value='${fld:userlogin}'>${fld:name@js}</option>
 									  </skillname-row>
@@ -296,8 +304,8 @@ color: red !important;
 								</li>
 								<li class="hasCheck" id="businesstype">
 									<select id="custcations2" title="请选择" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										<option value="1">殊途设计</option>
-										<option value="2">殊途平牌</option>
+										<option value="1">枢途设计</option>
+										<option value="2">枢途平牌</option>
 										<option value="3">单次学习</option>
 										<option value="4">全年学习</option>
 										<option value="5">6+1学习</option>
@@ -347,7 +355,7 @@ color: red !important;
 									<th>性别</th>
 									<th>手机</th>
 									<th>职位</th>
-									<th>会籍归属</th>
+									<th>咨询师归属</th>
 									<th>跟进状态</th>
 									<th>跟进备注</th>
 								</tr>

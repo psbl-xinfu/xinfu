@@ -29,6 +29,7 @@
 		<col id="officetel" label="电话" />
 		<col id="email" label="邮箱" />
 		<col id="officeaddr" label="地址" />
+		<col id="communication" label="客户分类" />
 	</excel>
 
 </config>

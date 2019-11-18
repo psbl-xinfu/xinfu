@@ -11,6 +11,7 @@ insert into cc_guest(
 	,createdby
 	,created
 	,org_id
+	,communication
 ) values(
 	${fld:guestcode}
 	,${fld:officename}
@@ -24,4 +25,5 @@ insert into cc_guest(
 	,'${def:user}'
 	,{ts '${def:timestamp}'}
 	,${def:org}
+	,${fld:communication}
 )

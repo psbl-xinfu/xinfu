@@ -7,4 +7,5 @@ select
 	,''::varchar as officetel
 	,''::varchar as email
 	,''::varchar as officeaddr
+	,''::varchar as communication
 from dual 

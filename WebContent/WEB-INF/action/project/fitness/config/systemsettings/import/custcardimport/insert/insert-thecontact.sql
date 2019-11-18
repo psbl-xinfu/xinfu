@@ -7,7 +7,8 @@ insert into cc_thecontact(
 	position,
 	createdby,
 	created,
-	org_id
+	org_id,
+	status
 ) 
 values
 (
@@ -20,5 +21,6 @@ values
 	,'${def:user}'
 	,{ts '${def:timestamp}'}
 	,${def:org} 
+	,${fld:status}
 )
 
