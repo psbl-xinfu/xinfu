@@ -15,7 +15,7 @@
         	if("${fld:num}"==1){
         		str+=' <a href="tel:${fld:mobile}"> <img src="'+contextPath+'/js/project/fitness/wx/image/tel.png" class="telpic fr"></a>'
         	}else{
-        		str+='  <img onclick="qiang(\'${fld:code}\')" src="'+contextPath+'/js/project/fitness/wx/image/qiang.png" class="qiangpic fr">'
+        		/*str+='  <img onclick="qiang(\'${fld:code}\')" src="'+contextPath+'/js/project/fitness/wx/image/qiang.png" class="qiangpic fr">'*/
         	}
         	str+=' </div>'
         	</list>

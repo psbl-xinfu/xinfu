@@ -46,8 +46,8 @@ select
 	
 	p.entertime,--最新分配日期
 	(case when
-	(p.grabtime::date+(30||'day')::interval)::date - now()::date >= 0 then '否'
-	when (p.grabtime::date+(30||'day')::interval)::date - now()::date < 0 then '是'
+	(p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0 then '否'
+	when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0 then '是'
 	end) as i_public,--是否进入公海
 	(case when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0
 	then concat('已过期', now()::date-(p.grabtime::date+(${fld:period_day}||'day')::interval)::date,'天')
