@@ -1,10 +1,7 @@
 select	
     code as vc_code,
-    category_name as vc_name,
-    showorder as i_priority,
-    remark as vc_remark,
-    union_id 
+    posname as vc_name
 from 
-	cc_cardcategory
+	cc_position
 where 
 	code = ${fld:id} 

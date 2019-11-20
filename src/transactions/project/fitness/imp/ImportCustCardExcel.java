@@ -241,43 +241,16 @@ public class ImportCustCardExcel extends ImportUtil {
 						try{
 							// 职务
 							String position = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							String querypositiontype = getResource("query-positiontype.sql");
+							String querypositiontype = StringUtil.replace(getResource("query-positiontype.sql"), "${field_name}", "posname");
+							querypositiontype = StringUtil.replace(querypositiontype, "${field_value}", position);
 							querypositiontype = getSQL(querypositiontype, null);
-							Recordset _positionType = db.get(querypositiontype);
-							int index = super.findRecordNumber(_positionType, "position", position);
-							if (index < 0) {
-								validateError.append("公司中职位错误");
-							}else {
-								if(position.equals("投资人"))
-									rs.setValue("position", 1);
-								if(position.equals("总经理"))
-									rs.setValue("position", 2);
-								if(position.equals("会籍总监"))
-									rs.setValue("position", 3);
-								if(position.equals("会籍经理"))
-									rs.setValue("position", 4);
-								if(position.equals("私教总监"))
-									rs.setValue("position", 5);
-								if(position.equals("私教经理"))
-									rs.setValue("position", 6);
-								if(position.equals("会籍"))
-									rs.setValue("position", 7);
-								if(position.equals("私教"))
-									rs.setValue("position", 8);
-								if(position.equals("店长"))
-									rs.setValue("position", 9);
-								if(position.equals("人事"))
-									rs.setValue("position", 10);
-								if(position.equals("会籍主管"))
-									rs.setValue("position", 11);
-								if(position.equals("私教主管"))
-									rs.setValue("position", 12);
-								if(position.equals("运营经理"))
-									rs.setValue("position", 13);
-								if(position.equals("市场部经理"))
-									rs.setValue("position", 14);
+							Recordset _rsofficename = db.get(querypositiontype);
+							if (_rsofficename.getRecordCount()>0) {
+								_rsofficename.first();
+								rs.setValue("positioncode", _rsofficename.getString("code"));
+							}else{
+								validateError.append("未找到该职位;");
 							}
-							
 						} catch (Exception e) {
 							validateError.append("职务失败；");
 						}
@@ -418,7 +391,7 @@ public class ImportCustCardExcel extends ImportUtil {
 		rs.append("thecode", Types.VARCHAR);	// thecode
 		rs.append("mobile", Types.VARCHAR);	// 手机
 		rs.append("commresult", Types.INTEGER);	// 跟进状态
-		rs.append("position", Types.INTEGER);	// 职务
+		rs.append("positioncode", Types.VARCHAR);	// 职务
 		rs.append("remark", Types.VARCHAR);	// 备注
 		rs.append("sex", Types.VARCHAR);	// 性别
 		rs.append("guestcode", Types.VARCHAR);	// 公司编号

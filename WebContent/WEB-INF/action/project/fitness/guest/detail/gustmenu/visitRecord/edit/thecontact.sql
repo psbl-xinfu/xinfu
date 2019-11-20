@@ -3,7 +3,7 @@ select
   	,name as ttname
   	,sex as i_sex
 	,mobile as vc_mobile
-	,position as cc_position
+	,(select code as poscode from cc_position where code=cc_thecontact.positioncode)
 from 
 	cc_thecontact 
 where 

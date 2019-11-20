@@ -11,7 +11,7 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="query-union.sql" source="sql" scope="transaction" />
+		<!-- <recordset id="query-union.sql" source="sql" scope="transaction" /> -->
 	</transaction>
 
 	<output>
@@ -19,7 +19,7 @@
 		<template>template.htm</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
-		<print mode="table" recordset="query-union.sql" tag="union-rows"/>
+		<!-- <print mode="table" recordset="query-union.sql" tag="union-rows"/> -->
 		<print mode="form" recordset="_request" />
 	</output>
 

@@ -1,13 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
       <parameter id="vc_name" type="varchar" required="true" label="vc_name" maxlen="32" />
-       <parameter id="i_priority" type="integer" required="false" label="i_priority" maxlen="32" />
-        <parameter id="vc_remark" type="varchar" required="false" label="vc_remark" maxlen="32" />
-          <!-- 姓名需要验证是否重复 -->
 <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
-		on-error-label="该名已经存在,请重新命名" id="vc_name" sql="norep.sql" />
+		on-error-label="该职位已存在,请重新输入" id="vc_name" sql="norep.sql" />
 	
-	<parameter id="flag" type="varchar" required="false" label="flag"/>
-	<parameter id="union_id" type="integer" required="false" label="union_id" maxlen="100" />
 </validator>
 

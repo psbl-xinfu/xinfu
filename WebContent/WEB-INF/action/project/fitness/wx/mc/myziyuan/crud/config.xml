@@ -14,6 +14,7 @@
 		<recordset id="query-GuestOutdate.sql" source="sql" scope="transaction" />
 		<recordset id="query-stage.sql" source="sql" scope="transaction" />
 		<recordset id="query-level.sql" source="sql" scope="transaction" />
+		<recordset id="query-domain.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -25,6 +26,7 @@
 		<print mode="table" recordset="query-GuestOutdate.sql" tag="day"/>
 		<print mode="table" recordset="query-stage.sql" tag="stage"/>
 		<print mode="table" recordset="query-level.sql" tag="levle"/>
+		<print mode="table" recordset="query-domain.sql" tag="domain"/>
 	</output>
 
 </config>

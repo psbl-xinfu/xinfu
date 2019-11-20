@@ -4,7 +4,7 @@ insert into cc_thecontact(
 	name,
 	sex,
 	mobile,
-	position,
+	positioncode,
 	createdby,
 	created,
 	org_id,
@@ -17,7 +17,7 @@ values
 	,${fld:name}
 	,${fld:sex}
 	,${fld:mobile}
-	,${fld:position}	
+	,${fld:positioncode}	
 	,'${def:user}'
 	,{ts '${def:timestamp}'}
 	,${def:org} 

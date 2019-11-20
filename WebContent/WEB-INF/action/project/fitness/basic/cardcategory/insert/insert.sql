@@ -1,20 +1,16 @@
-insert into cc_cardcategory
+insert into cc_position
 (
    code,
-   category_name,
-   showorder,
-   remark,
-   status,
-   union_id,
+   posname,
+   createdby,
+   created,
    org_id
 )
 values 
 (
-	${seq:nextval@seq_cc_cardcategory},
+	${seq:nextval@seq_cc_position},
     ${fld:vc_name},
-    ${fld:i_priority},
-    ${fld:vc_remark},
-    1,
-	${fld:union_id},
+    '${def:user}',
+	{ts '${def:timestamp}'},
 	  ${def:org}
 )

@@ -1,3 +1,13 @@
+--添加职位表
+CREATE TABLE "public"."cc_position" (
+  "code" varchar(64) ,
+  "posname" varchar(64) ,
+  "createdby" varchar(64) ,
+  "created" timestamp(6),
+  "org_id" int4
+)
+;
+
 
 alter table cc_guest add custclass int;
 COMMENT ON COLUMN "public"."cc_guest"."custclass" IS '客户分类：1殊途设计，2殊途平牌3单次学习4全年学习，5 6+1学习 7学习点客户，8内训客户;

@@ -13,21 +13,7 @@ select
     end) as i_sex,
 	tt.mobile as vc_mobile,
 	
-	(case when tt.position =1 then '投资人'
-	when tt.position =2 then '总经理'
-	when tt.position =3 then '会籍总监'
-	when tt.position =4 then '会籍经理'
-	when tt.position =5 then '私教总监'
-	when tt.position =6 then '私教经理'
-	when tt.position =7 then '会籍'
-	when tt.position =8 then '私教'
-	when tt.position =9 then '店长'
-	when tt.position =10 then '人事'
-	when tt.position =11 then '会籍主管'
-	when tt.position =12 then '私教主管'
-	when tt.position =13 then '运营经理'
-	when tt.position =14 then '市场部经理'
-	end) as cc_position,
+	tt.posname as position,
 	g.othertel as vc_othertel,
 	g.created::date as vc_itime,--录入日期
 	(select name from hr_staff where userlogin=g.mc 
@@ -60,8 +46,10 @@ select
 	
 from cc_guest g 
 left join cc_public p on p.guestcode=g.code  and p.org_id=g.org_id
-left join (select guestcode,name,mobile,position,sex from cc_thecontact where 
- status=1  and org_id=${def:org} ) as tt on tt.guestcode=g.code 
+left join (select ttt.guestcode,ttt.name,ttt.mobile,pn.posname,sex from cc_thecontact ttt
+	left join cc_position pn on pn.code=ttt.positioncode
+where 
+ ttt.status=1  and ttt.org_id=${def:org} ) as tt on tt.guestcode=g.code 
 left join (select lg.guestcode,string_agg(la.name,';') as lablgname,
 string_agg(lg.labelcode,';'order by lg.labelcode asc) as lablgcode
 from cc_label_guest lg
@@ -74,7 +62,15 @@ WHERE
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else g.mc = '${def:user}' end)
-and g.org_id=${def:org} 
+and g.org_id=${def:org} and 
+(case when 
+	${fld:city} is not null then g.province2 = ${fld:province} and g.city2=${fld:city}
+	when  ${fld:city} is null then (case when 
+		${fld:province} is not null then g.province2 = ${fld:province}
+		else 1=1
+	end)
+	else 1=1
+end)
 ${filter} 
 ${orderby}
 

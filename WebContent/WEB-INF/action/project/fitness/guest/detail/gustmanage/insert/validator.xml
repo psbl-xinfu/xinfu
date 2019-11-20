@@ -21,7 +21,7 @@
 <parameter id="cc_remark" type="varchar" required="false" label="备注"/>
 <parameter id="gj_remark" type="varchar" required="false" label="跟进内容"/>
 
-<parameter id="cc_position" type="integer" required="true" label="职位"/>
+<parameter id="position" type="varchar" required="true" label="职位"/>
 
 <parameter id="cc_type" type="integer" required="false" label="跟进状态"/>
 

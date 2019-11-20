@@ -5,7 +5,7 @@ insert into cc_thecontact
  	,name
  	,sex
  	,mobile
- 	,position
+ 	,positioncode
 	,createdby  --操作人
 	,created  --操作时间
 	,org_id
@@ -18,7 +18,7 @@ values
 	${fld:cc_name},
 	${fld:cc_sex},
 	${fld:cc_mobile},
-	${fld:cc_position},
+	${fld:position},
 	'${def:user}',
 	{ts '${def:timestamp}'},
 	${def:org},

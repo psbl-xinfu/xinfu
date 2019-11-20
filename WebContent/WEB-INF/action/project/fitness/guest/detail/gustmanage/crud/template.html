@@ -112,22 +112,12 @@ color: red !important;
 			 			<li class='lis'>
 			 				<label>职位<span style="color: red;">*</span></label> 	
 							<div class="my-selected">
-								<select  id="cc_position" name="cc_position"> 
+								<select  id="position" name="position"> 
 									<option value="">请选择职位</option>
-									<option value="1">投资人</option>
-									<option value="2">总经理</option>
-									<option value="3">会籍总监</option>
-									<option value="4">会籍经理</option>
-									<option value="5">私教总监</option>
-									<option value="6">私教经理</option>
-									<option value="7">会籍</option>
-									<option value="8">私教</option>
-									<option value="9">店长</option>
-									<option value="10">人事</option>
-									<option value="11">会籍主管</option>
-									<option value="12">私教主管</option>
-									<option value="13">运营经理</option>
-									<option value="14">市场部经理</option>
+									<position-rows>
+										<option value="${fld:poscode}">${fld:posname}</option>
+									</position-rows>
+									
 								</select>
 							</div>
 			 			</li>
@@ -368,7 +358,7 @@ color: red !important;
 									<td>#vc_name#</td>		
 									<td>#i_sex#</td>		
 									<td>#vc_mobile#</td>
-									<td>#cc_position#</td>
+									<td>#position#</td>
 									<td>#vc_newmc#</td>
 									<td>#vc_commresult#</td>
 									<td>#gj_remark#</td>
@@ -405,7 +395,7 @@ $(document).ready(function() {
 	
 	
 	
-	searchSelectInit($("#custcations,#custcations2,#ttname,#ttstatus,#communication2,#communication,#cc_position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
+	searchSelectInit($("#custcations,#custcations2,#ttname,#ttstatus,#communication2,#communication,#position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
 	 $('#custcations').selectpicker({
 	        'selectedText': 'cat'
 	 });

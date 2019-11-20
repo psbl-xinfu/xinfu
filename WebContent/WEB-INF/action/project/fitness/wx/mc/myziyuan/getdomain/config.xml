@@ -2,9 +2,9 @@
 <config>
 
 	<summary>
-		系统应用管理
+
 	</summary>
-	
+
 	<log>false</log>
 
 	<transaction>
@@ -12,15 +12,15 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="query-position.sql" source="sql" scope="transaction"/>
+		<recordset id="query-domain.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-		<template>template.html</template>
+		<template>script.js</template>
 		<set-http-headers>true</set-http-headers>
-		<content-type>text/html</content-type>
-		<print mode="table" recordset="query-position.sql" tag="position-rows"/>
+		<content-type>text/javascript</content-type>
+		<print mode="table" recordset="query-domain.sql" tag="domain-rows" />
 		<print mode="form" recordset="_request" />
 	</output>
 

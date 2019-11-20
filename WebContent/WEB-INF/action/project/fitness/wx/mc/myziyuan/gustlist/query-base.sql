@@ -64,7 +64,8 @@ and
 	end) as num_days, --保护期天数
 	g.communication, --沟通阶段
 	lablg.lablgname,
-	lablg.lablgcode
+	lablg.lablgcode,
+	tt.mobile
 from cc_guest g 
 left join cc_public p on p.guestcode=g.code  and p.org_id=g.org_id
 left join (select guestcode,name,mobile,position,sex from cc_thecontact where 

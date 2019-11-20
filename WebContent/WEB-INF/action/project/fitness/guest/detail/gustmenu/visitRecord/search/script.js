@@ -5,7 +5,7 @@
 		"vc_name":"${fld:vc_name@js}",
 		"i_sex":"${fld:i_sex@js}",
 		"vc_mobile":"${fld:vc_mobile@js}",
-		"cc_position":"${fld:cc_position}",
+		"position":"${fld:position}",
 		"gj_commresult":"${fld:gj_commresult}",
 		"remark":"${fld:remark}"
 			},

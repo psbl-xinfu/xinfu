@@ -54,18 +54,28 @@ ${inc:/action/project/fitness/wx/pub}
                                 </div>
                                 <div class="keduzhi">
                                     <p class="fl">0</p>
-                                    <p class="fr">100</p>
+                                    <p class="fr">30</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mokuai">
-                            <h5>资源收集日期</h5>
-                            <div class="content">
-                                <input type="text" name=""  class="form-control timeinput" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
-                                <span>&nbsp;至&nbsp;</span>
-                                <input type="text" name=""  class="form-control timeinput" id="datetimepickers" data-date-format="yyyy-mm-dd hh:ii">
-                            </div>
+                            <h5>地址</h5>
+                            <div>
+								<div class="my-selected">
+									<select  id="province2" name="province2" class="form-control"> 
+										<option value="">请选择省</option>
+										<domain>
+											<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+										</domain>
+									</select>
+								</div>
+								<div class="my-selected">
+									<select  id="city2" name="city2" class="form-control"> 
+										
+									</select>
+								</div>
+							</div>
                         </div>
                         
                         <div class="mokuai">
@@ -123,6 +133,7 @@ ${inc:/action/project/fitness/wx/pub}
 </html>
 
 <script type="text/javascript">
+var init_event_city2;
     $(function(){
     	homemc();
     	<day>
@@ -130,6 +141,11 @@ ${inc:/action/project/fitness/wx/pub}
     	</day>
     	
     	getlist();
+    	
+    	$("#province2").change(function(){
+    		var province= $('#province2').val();
+    		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/getdomain?province="+province;
+    	});
     	
        	$('#add_btn').on('click',function(){
            	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/from?";
