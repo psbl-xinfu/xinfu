@@ -233,29 +233,13 @@ public class ImportCustCardExcel extends ImportUtil {
 								rs.setValue("sex", "1");
 							}else if(sex.equals("女")){
 								rs.setValue("sex", "0");
+							}else {
+								rs.setValue("sex", "2");
 							}
 						} catch (Exception e) {
 							validateError.append("性别失败；");
 						}
 					}else if(iTemplateCurrentCol == 3){	//第二列为
-						try{
-							// 职务
-							String position = super.formatStringValue(dataRow.get(iDataCurrentCol));
-							String querypositiontype = StringUtil.replace(getResource("query-positiontype.sql"), "${field_name}", "posname");
-							querypositiontype = StringUtil.replace(querypositiontype, "${field_value}", position);
-							querypositiontype = getSQL(querypositiontype, null);
-							Recordset _rsofficename = db.get(querypositiontype);
-							if (_rsofficename.getRecordCount()>0) {
-								_rsofficename.first();
-								rs.setValue("positioncode", _rsofficename.getString("code"));
-							}else{
-								validateError.append("未找到该职位;");
-							}
-						} catch (Exception e) {
-							validateError.append("职务失败；");
-						}
-
-					}else if(iTemplateCurrentCol == 4){	//第二列为
 						try{
 							// 手机号
 							mobile = super.formatStringValue(dataRow.get(iDataCurrentCol));
@@ -278,6 +262,24 @@ public class ImportCustCardExcel extends ImportUtil {
 							} catch (Exception e) {
 								validateError.append("手机失败");
 						}
+					}else if(iTemplateCurrentCol == 4){	//第二列为
+						try{
+							// 职务
+							String position = super.formatStringValue(dataRow.get(iDataCurrentCol));
+							String querypositiontype = StringUtil.replace(getResource("query-positiontype.sql"), "${field_name}", "posname");
+							querypositiontype = StringUtil.replace(querypositiontype, "${field_value}", position);
+							querypositiontype = getSQL(querypositiontype, null);
+							Recordset _rsofficename = db.get(querypositiontype);
+							if (_rsofficename.getRecordCount()>0) {
+								_rsofficename.first();
+								rs.setValue("positioncode", _rsofficename.getString("code"));
+							}else{
+								validateError.append("未找到该职位;");
+							}
+						} catch (Exception e) {
+							validateError.append("未找到该职位;");
+						}
+
 					}else if(iTemplateCurrentCol == 5){	//第6列为
 						try{
 							// 跟进状态
@@ -420,7 +422,7 @@ public class ImportCustCardExcel extends ImportUtil {
     }    
     
     public static boolean isChinaPhoneLegal(String str) throws PatternSyntaxException {    
-        String regExp = "^[1][3,4,5,7,8][0-9]{9}$";    
+        String regExp = "^[1][3,4,5,6,7,8,9][0-9]{9}$";    
         Pattern p = Pattern.compile(regExp);    
         Matcher m = p.matcher(str);    
         return m.matches();    

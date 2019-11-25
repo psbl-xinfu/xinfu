@@ -7,7 +7,7 @@
 		"vc_mobile":"${fld:vc_mobile@js}",
 		"cc_position":"${fld:cc_position}",
 		"gj_commresult":"${fld:gj_commresult}",
-		"remark":"${fld:remark}"
+		"remark":"${fld:remark@js}"
 			},
 	</rows>
 	{}

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
 	<head>
 ${inc:/action/project/fitness/wx/pub}
@@ -13,26 +14,24 @@ ${inc:/action/project/fitness/wx/pub}
     </head>
     <body>
     
-            <form id="filter" name="filter">
-           <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
+         <form id="filter" name="filter">
+            <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
 			<input type="hidden" id="s_period_day" name="s_period_day" >
 			<input type="hidden" id="s_baohuqi"name="s_baohuqi" value="">
-			<input type="hidden" id="s_stime"name="s_stime" >
-			<input type="hidden" id="s_etime"name="s_etime" >
-			<input type="hidden" id="s_status"name="s_status" >
-			<input type="hidden" id="s_level"name="s_level" >
-			<input type="hidden" id="s_genjin"name="s_genjin" >
-			<input type="hidden" id="s_type"name="s_type" >
+			<input type="hidden" id="s_province"name="s_province" >
+			<input type="hidden" id="s_city"name="s_city" >
+			<input type="hidden" id="s_communication"name="s_communication" >
+			<input type="hidden" id="s_custcations"name="s_custcations" >
     
-        <div class="myziyuanlisttop">
-            <div class="shurukuang">
-                <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入资源姓名/电话"oninput="updateurl(this)">
-                 <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
-            </div>
-            <div class="searchbtn text-center" data-toggle="modal" data-target="#myModal">筛选</div>
-        </div>
-        <img  src=" ${def:context}/js/project/fitness/wx/image/++@2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:100px"width="40" height="40">
-     </form>
+	        <div class="myziyuanlisttop">
+	            <div class="shurukuang">
+	                <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入资源姓名/电话"oninput="updateurl(this)">
+	                 <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
+	            </div>
+	            <div class="searchbtn text-center" data-toggle="modal" data-target="#myModal">筛选</div>
+	        </div>
+	        <img  src=" ${def:context}/js/project/fitness/wx/image/++@2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:100px"width="40" height="40">
+    	</form>
         
         
         <div class="myziyuanlistbody">
@@ -50,11 +49,11 @@ ${inc:/action/project/fitness/wx/pub}
                             <h5>剩余保护期</h5>
                             <div class="content">
                                 <div class="well">
-                                    <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="101" data-slider-step="1" data-slider-value="101" value="101" />
+                                    <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="${fld:period_day}" data-slider-step="1" data-slider-value="${fld:period_day}" value="${fld:period_day}" />
                                 </div>
                                 <div class="keduzhi">
                                     <p class="fl">0</p>
-                                    <p class="fr">30</p>
+                                    <p class="fr">${fld:period_day}</p>
                                 </div>
                             </div>
                         </div>
@@ -70,51 +69,37 @@ ${inc:/action/project/fitness/wx/pub}
 										</domain>
 									</select>
 								</div>
-								<div class="my-selected">
+								<div id="cityhtml">
 									<select  id="city2" name="city2" class="form-control"> 
-										
+										<option value="">请选择市</option>
 									</select>
 								</div>
 							</div>
                         </div>
                         
                         <div class="mokuai">
-                            <h5>资源状态</h5>
+                        	<h5>客户分类</h5>
                             <div class="content">
-                                <button class="btn btn-default btn1" type="submit">本月新增<input type="hidden" name="" value="1"></button>
-                                <button class="btn btn-default btn1" type="submit">本月分配<input type="hidden" name="" value="2"></button>
-                                <button class="btn btn-default btn1" type="submit">本月未跟进<input type="hidden" name="" value="3"></button>
-                                <button class="btn btn-default btn1" type="submit">本月生日<input type="hidden" name="" value="4"></button>
-                                <button class="btn btn-default btn1" type="submit">七日内生日<input type="hidden" name="" value="5"></button>
+                            	<select  id="communication" name="communication" class="form-control"> 
+									<option value="">请选择</option>
+									<option value="1">客户</option>
+									<option value="2">重点意向客户</option>
+									<option value="3">咨询客户</option>
+									<option value="4">陌生客户</option>
+								</select>
                             </div>
+                            <div id="businesstype">
+	                            <select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<option value="1">枢途设计</option>
+									<option value="2">枢途平牌</option>
+									<option value="3">单次学习</option>
+									<option value="4">全年学习</option>
+									<option value="5">6+1学习</option>
+									<option value="6">学习点客户</option>
+									<option value="7">内训客户</option>
+		                         </select>
+                         	</div>
                         </div>
-
-                        <div class="mokuai">
-                            <h5>关注度</h5>
-                            <div class="content">
-                            <levle>
-                                        <button class="btn btn-default btn2" type="submit">${fld:domain_text_cn}<input type="hidden" name="" value="${fld:domain_value}"></button>
-                           </levle>
-                            </div>
-                        </div>
-
-                        <div class="mokuai">
-                            <h5>跟进状态</h5>
-                            <div class="content">
-                                <button class="btn btn-default btn3" type="submit">未跟进<input type="hidden" name="" value="0"></button>
-                                <button class="btn btn-default btn3" type="submit">已跟进<input type="hidden" name="" value="1"></button>
-                            </div>
-                        </div>
-
-                        <div class="mokuai">
-                            <h5>沟通阶段</h5>
-                            <div class="content">
-                            <stage>
-                                        <button class="btn btn-default btn4" type="submit">${fld:domain_text_cn}<input type="hidden" name="" value="${fld:domain_value}"></button>
-                            </stage>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default fl resetbtn">重置</button>
@@ -136,16 +121,31 @@ ${inc:/action/project/fitness/wx/pub}
 var init_event_city2;
     $(function(){
     	homemc();
-    	<day>
-    	$('#s_period_day').val("${fld:period_day}");
-    	</day>
-    	
+    	var s_period_day= "${fld:period_day}";
     	getlist();
-    	
+    	/* searchSelectInit('#custcations'); */
     	$("#province2").change(function(){
     		var province= $('#province2').val();
-    		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/getdomain?province="+province;
+    		postAjaxCall("/action/project/fitness/wx/mc/myziyuan/getdomain?province="+province);
     	});
+    	
+    	$("#businesstype").hide();
+    	setSelectValue($("#custcations"), "");
+    	$("#communication").change(function(){
+    		var cust2=$("#communication").val();
+    			if(cust2==''){
+    				$('#businesstype').hide();
+    				setSelectValue($("#custcations"), "");
+    			}else{
+    				if(cust2==1){
+    					$('#businesstype').show();
+    				}else{
+    					$('#businesstype').hide();
+    					setSelectValue($("#custcations"), "");
+    				}
+    			}
+    	});
+    	
     	
        	$('#add_btn').on('click',function(){
            	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/from?";
@@ -155,91 +155,54 @@ var init_event_city2;
        	 	getlist();
        	})
        	
-        var currYear = (new Date()).getFullYear();  
-        var opt={};
-        opt.date = {preset : 'date'};
-        opt.datetime = {preset : 'datetime'};
-        opt.time = {preset : 'time'};
-        opt.default = {
-        		theme: 'android-ics light', //皮肤样式
-                display: 'bottom', //显示方式 
-            mode: 'scroller', //日期选择模式
-            dateFormat: 'yyyy-mm-dd',
-            lang: 'zh',
-            showNow: true,
-            nowText: "今天",
-            startYear: currYear - 50, //开始年份
-            endYear: currYear + 10 //结束年份
-        };
-
-        $("#datetimepicker").mobiscroll($.extend(opt['date'], opt['default']));
-        $("#datetimepickers").mobiscroll($.extend(opt['date'], opt['default']));
-
+        	
         // 滑块With JQuery
         $("#ex1").slider({
             tooltip: 'always',
          	formatter: function(value) {
-         		 if(Number(value) > 100 ){
+         		 if(Number(value) >= s_period_day ){
          			return "无限";
          		 }
          		 return value;
          	}
         });
-        //资源状态
-        $('.btn1,.btn2,.btn3,.btn4').click(function(){
-            $(this).removeClass('btn-default');
-            $(this).addClass('btn-warning');
-            $(this).siblings('button').removeClass('btn-warning');
-            $(this).siblings('button').addClass('btn-default');
-        });
 
         //重置
         $('.resetbtn').click(function(){
-            $('.btn1,.btn2,.btn3,.btn4').removeClass('btn-warning');
-            $('.btn1,.btn2,.btn3,.btn4').addClass('btn-default');
-            $('.timeinput').val('');
+        	alert("1");
+        	reload();
+        	//$("#ex1").refresh(s_period_day);
+        	$('#ex1').on('change',s_period_day);
+        	$("[data-slider-value]").val(s_period_day);
+        	alert($("[data-slider-value]").val());
+        	 $('#province2').val("");
+        	 $('#city2').val("");
+        	 $('#communication').val("");
+        	setSelectValue($("#custcations"), "");
+        	 /* $('#city2').html(""); */
+        	 $('#businesstype').hide();
+        	 
         });
 
         //提交
         $('.submitbtn').click(function(){
             var baohuqi=$('#ex1').val();
-            var time1=$('#datetimepicker').val();
-            var time2=$('#datetimepickers').val();
-            var select1=$('.btn1.btn-warning').children('input').val();
-            var select2=$('.btn2.btn-warning').children('input').val();
-            var select3=$('.btn3.btn-warning').children('input').val();
-            var select4=$('.btn4.btn-warning').children('input').val();
-            
-            
-            if(baohuqi>100){
-        	    $('#s_baohuqi').val('')
-         }else{
-        	    $('#s_baohuqi').val(baohuqi)
-         }
-            
-            $('#s_stime').val(time1)//开始
-            $('#s_etime').val(time2)//结束
-            $('#s_status').val(select1)//状态
-            $('#s_level').val(select2)//关注度
-            $('#s_genjin').val(select3)//跟进状态
-            $('#s_type').val(select4)//类型
+            if(baohuqi>s_period_day){
+        	    $('#s_baohuqi').val('');
+	         }else{
+	        	$('#s_baohuqi').val(baohuqi);
+	         }
+            alert($('#s_baohuqi').val());
+            $('#s_province').val($("#province2").val());//开始
+            $('#s_city').val($("#city2").val());//结束
+            $('#s_communication').val($("#communication").val());//状态
+            $('#s_custcations').val($("#custcations").val());//关注度
         	getlist();
             $('#myModal').modal('hide');
         });
     });
     
-    function qiang(code){
-    	if( window.confirm("确定抢该资源？") ){
-    		var url="${def:actionroot}/updatemc?id="+code;
-			ajaxCall(url,{
-				method: "get",
-				progress: true,
-				dataType: "script",
-				success: function() {
-				}
-		    });
-    	}
-    }
+   
     
     function getinfo(code){
     	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/crud?guestcode="+code;

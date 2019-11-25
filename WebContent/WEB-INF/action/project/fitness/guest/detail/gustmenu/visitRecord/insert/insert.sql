@@ -5,7 +5,7 @@ insert into cc_thecontact
  	,name
  	,sex
  	,mobile
- 	,position
+ 	,positioncode
 	,createdby  --操作人
 	,created  --操作时间
 	,org_id

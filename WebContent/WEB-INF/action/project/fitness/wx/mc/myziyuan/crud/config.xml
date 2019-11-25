@@ -12,8 +12,8 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="query-GuestOutdate.sql" source="sql" scope="transaction" />
-		<recordset id="query-stage.sql" source="sql" scope="transaction" />
-		<recordset id="query-level.sql" source="sql" scope="transaction" />
+		<!-- <recordset id="query-stage.sql" source="sql" scope="transaction" /> -->
+		<!-- <recordset id="query-level.sql" source="sql" scope="transaction" /> -->
 		<recordset id="query-domain.sql" source="sql" scope="transaction" />
 	</transaction>
 
@@ -23,10 +23,11 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="query-GuestOutdate.sql" tag="day"/>
-		<print mode="table" recordset="query-stage.sql" tag="stage"/>
-		<print mode="table" recordset="query-level.sql" tag="levle"/>
+		<!-- <print mode="table" recordset="query-stage.sql" tag="stage"/> -->
+		<!-- <print mode="table" recordset="query-level.sql" tag="levle"/> -->
 		<print mode="table" recordset="query-domain.sql" tag="domain"/>
+		<print mode="form" recordset="query-GuestOutdate.sql"/>
+		<print mode="form" recordset="_request" />
 	</output>
 
 </config>

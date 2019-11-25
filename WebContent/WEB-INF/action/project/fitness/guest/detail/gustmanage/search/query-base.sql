@@ -13,7 +13,7 @@ select
     end) as i_sex,
 	tt.mobile as vc_mobile,
 	
-	tt.posname as position,
+	tt.posname as c_position,
 	g.othertel as vc_othertel,
 	g.created::date as vc_itime,--录入日期
 	(select name from hr_staff where userlogin=g.mc 

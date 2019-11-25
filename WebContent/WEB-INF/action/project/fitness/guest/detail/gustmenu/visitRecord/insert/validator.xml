@@ -5,7 +5,7 @@
 
 <parameter id="cc_mobile" type="varchar" required="true" label="手机号"/>
 
-<parameter id="cc_position" type="integer" required="true" label="职位"/>
+<parameter id="cc_position" type="varchar" required="true" label="职位"/>
 
 <parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
 

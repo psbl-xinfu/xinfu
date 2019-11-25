@@ -12,8 +12,8 @@
 		"entertime":"${fld:entertime}",
 		"i_public":"${fld:i_public@js}",
 		"num_days":"${fld:num_days}",
-		"cc_position":"${fld:cc_position}",
-		"gj_remark":"${fld:gj_remark}"
+		"c_position":"${fld:c_position}",
+		"gj_remark":"${fld:gj_remark@js}"
 			},
 	</rows>
 	{}

@@ -1,5 +1,5 @@
 SELECT
-	config.param_value as period_day
+	((config.param_value)::int + 1) as period_day
 FROM 
 	cc_config config 
 WHERE 
