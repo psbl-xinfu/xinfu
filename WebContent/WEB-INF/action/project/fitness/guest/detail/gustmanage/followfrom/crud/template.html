@@ -45,6 +45,8 @@ ${inc:/action/project/fitness/home/pub}
 								<option value="8">未成交</option>
 							</select>
 						</div> 
+						<label style="width: 180px;">下次跟进日期：</label></span>
+							<input id="_start_date" name="_start_date" type="text" class="input-default"/>
 					</li>
 					
 					<li class="to100w" style="margin-left: 6%">
@@ -53,8 +55,7 @@ ${inc:/action/project/fitness/home/pub}
 					</li>
 						
 					<li class="dateTime">
-						<label style="width: 180px;">下次跟进日期：</label></span>
-						<input id="_start_date" name="_start_date" type="text" class="input-default"/>
+						
 					</li>
 				</nav>
 			</div>
@@ -92,7 +93,7 @@ $(document).ready(function() {
 			   		ccms.dialog.notice("跟进成功!", 2000, function(){
 				   		/* ccms.util.clearForm('addForm'); */
 				   		parent.search.searchData(1);
-				   		parent.parent.search.searchData(1);
+				   		/* parent.parent.search.searchData(1); */
 				   		ccms.dialog.close();
 					});
 		   		}

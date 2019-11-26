@@ -4,12 +4,40 @@
 <head>
 ${inc:/action/project/fitness/home/pub}
 <title>客户资源列表</title>
-<!-- <style type="text/css">
- .inputs{
-background: #2A3038 !important;
-color: red !important;
-}
-</style> -->
+<style type="text/css">
+		/* .table{
+            width:100%;
+            max-width: 100%;
+        } */
+       /*  .table>thead>tr{
+            background: #edf7ff;
+        } */
+       /*  .table>thead>tr>th {
+            white-space: nowrap;
+            padding: 8px;
+            line-height: 1.42857143;
+        } */
+ 
+        /* .table>tbody>tr:nth-child(odd){
+             background: #fff;
+         }
+        .table>tbody>tr:nth-child(even){
+            background: #f7f7f7;
+        } */
+       .table>tbody>tr:hover{
+            background:olive;
+        } 
+        .table-cont{
+            /**make table can scroll**/
+            max-height: 500px;
+            overflow: auto;
+            /** add some style**/
+            /*padding: 2px;*/
+           /*  background: #ddd; */
+            margin: 20px 10px;
+            /* border: 1px solid #ddd; */
+        }
+</style> 
 </head>
 <body>
 	
@@ -329,9 +357,9 @@ color: red !important;
 							</nav>
 						</div>
 					</div>
-					<div class="r-tab-cout-3-b">
+					<div class="r-tab-cout-3-b table-cont">
 						<div class="to-change-background h-43"></div>
-						<table> 
+						<table class="table"> 
 							<thead>
 								<tr>
 									<th class="table-checkbox">
