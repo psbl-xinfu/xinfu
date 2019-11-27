@@ -45,7 +45,7 @@ select
 	
 from cc_guest g   
 left join cc_public p on p.guestcode=g.code  and p.org_id=g.org_id
-left join (select ttt.guestcode,ttt.name,ttt.mobile,pn.posname,sex from cc_thecontact ttt
+left join (select ttt.guestcode,ttt.name,ttt.mobile,pn.posname,pn.code as pncode,sex from cc_thecontact ttt
 	left join cc_position pn on pn.code=ttt.positioncode
 where 
  ttt.status=1  and ttt.org_id=${def:org} ) as tt on tt.guestcode=g.code 

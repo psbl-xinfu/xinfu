@@ -1,3 +1,3 @@
  and
-	tt.posname = ${fld:c_position}
+	tt.pncode = ${fld:position}
 
