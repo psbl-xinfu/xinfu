@@ -279,7 +279,17 @@ ${inc:/action/project/fitness/home/pub}
 								<li class="hasCheck">
 									<input type="checkbox" name="public" value="1" style="display: none;"/>公海
 								</li>
-								
+								<li class='lis'>
+							<div class="my-selected">
+								<select  id="position" name="position"> 
+									<option value="">请选择职位</option>
+									<position-rows>
+										<option value="${fld:poscode}">${fld:posname}</option>
+									</position-rows>
+									
+								</select>
+							</div>
+			 			</li>
 								<div class="r-c-btnList b-10">
 									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
 									<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addnew_btn">
@@ -320,6 +330,8 @@ ${inc:/action/project/fitness/home/pub}
 										<option value="4">陌生客户</option>
 									</select>
 								</li>
+								</li>
+			 			
 								<li class="hasCheck" id="businesstype">
 									<select id="custcations2" title="请选择" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
 										<option value="1">枢途设计</option>

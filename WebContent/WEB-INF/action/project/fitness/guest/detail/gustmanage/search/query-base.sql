@@ -1,4 +1,4 @@
-select
+select 
 
  concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" 
 	
@@ -12,7 +12,6 @@ select
     	 when '2' then '未知'
     end) as i_sex,
 	tt.mobile as vc_mobile,
-	
 	tt.posname as c_position,
 	g.othertel as vc_othertel,
 	g.created::date as vc_itime,--录入日期
@@ -44,7 +43,7 @@ select
 	lablg.lablgname,
 	lablg.lablgcode
 	
-from cc_guest g 
+from cc_guest g   
 left join cc_public p on p.guestcode=g.code  and p.org_id=g.org_id
 left join (select ttt.guestcode,ttt.name,ttt.mobile,pn.posname,sex from cc_thecontact ttt
 	left join cc_position pn on pn.code=ttt.positioncode
