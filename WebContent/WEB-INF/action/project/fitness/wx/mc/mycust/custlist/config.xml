@@ -7,7 +7,7 @@
 	<log>false</log> 
 	 
 	 
-	<colname>s_name,s_baohuqi</colname>
+	<colname>theposition,s_name,s_communication</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

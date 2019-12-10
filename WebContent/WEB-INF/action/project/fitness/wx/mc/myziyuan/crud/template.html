@@ -11,6 +11,48 @@ ${inc:/action/project/fitness/wx/pub}
     	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
     	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
         <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet">
+    <style>
+	  
+	    #filter {
+		    border-bottom: 1px solid #ccc
+		  }
+		  
+		  #filter div {
+		    text-align: center;
+		    line-height: 54px;
+		    font-size: 16px;
+		  }
+		 .list-ul {
+		    overflow: hidden
+		  } 
+		   /* li{overflow:hidden;list-style:none;}  */
+		   .list-li {
+			  /* line-height: 60px; */
+			  /* border-bottom: 1px solid #fcfcfc; */
+			  position: relative;
+			  padding: 0 12px;
+			  color: #666;
+			  background: #f2f2f2;
+			  -webkit-transform: translateX(0px);
+			 }
+			  
+			 .guestbtn {
+			 line-height:10px;
+			 font-size:18px;
+			 line-height: 40px;
+			  position: absolute;
+			  top: 0;
+			  right: -90px;
+			  text-align: center;
+			  background: #ffcb20;
+			  color: #fff;
+			  width: 90px;
+			 }
+			  .moveleft{
+				transform:translateX(-20%);
+				-webkit-transform:translateX(-20%);
+			}
+		  </style>
     </head>
     <body>
     
@@ -28,9 +70,8 @@ ${inc:/action/project/fitness/wx/pub}
 	                <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入资源姓名/电话"oninput="updateurl(this)">
 	                 <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
 	            </div>
-	            <div class="searchbtn text-center" data-toggle="modal" data-target="#myModal">筛选</div>
+	            <div class="searchbtn text-center" data-toggle="modal" id="addnew_btn">筛选</div>
 	        </div>
-	        <img  src=" ${def:context}/js/project/fitness/wx/image/++@2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:100px"width="40" height="40">
     	</form>
         
         
@@ -120,15 +161,19 @@ ${inc:/action/project/fitness/wx/pub}
 <script type="text/javascript">
 var init_event_city2;
     $(function(){
+    	btnreturn();
+    	addthe();
     	homemc();
     	var s_period_day= "${fld:period_day}";
-    	getlist();
+    	
     	/* searchSelectInit('#custcations'); */
     	$("#province2").change(function(){
     		var province= $('#province2').val();
     		postAjaxCall("/action/project/fitness/wx/mc/myziyuan/getdomain?province="+province);
     	});
-    	
+    	$("#addnew_btn").on('click',function(){
+    		$('#myModal').modal('show');
+       	});
     	$("#businesstype").hide();
     	setSelectValue($("#custcations"), "");
     	$("#communication").change(function(){
@@ -146,21 +191,22 @@ var init_event_city2;
     			}
     	});
     	
-    	
        	$('#add_btn').on('click',function(){
-           	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/from?";
+	       	sessionStorage.removeItem('index_list');
+	        sessionStorage.removeItem('index_scroll');
+           	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/from";
        	})
     	
        	$('.searchsubmit').on('click',function(){
        	 	getlist();
-       	})
-       	
-        	
+       	});
+		
+        var sday=s_period_day-1;	
         // 滑块With JQuery
         $("#ex1").slider({
             tooltip: 'always',
          	formatter: function(value) {
-         		 if(Number(value) >= s_period_day ){
+         		 if(Number(value) > sday ){
          			return "无限";
          		 }
          		 return value;
@@ -169,18 +215,21 @@ var init_event_city2;
 
         //重置
         $('.resetbtn').click(function(){
-        	alert("1");
-        	reload();
-        	//$("#ex1").refresh(s_period_day);
-        	$("#ex1").slider({});
-        	$('#ex1').on('change',s_period_day);
-        	$("[data-slider-value]").val(s_period_day);
-        	alert($("[data-slider-value]").val());
+        	$(".well").innerHTML="";
+        	$(".well").html('<input id="ex1" data-slider-id="ex1Slider" type="text" data-slider-min="0" data-slider-max="${fld:period_day}" data-slider-step="1" data-slider-value="${fld:period_day}" value="${fld:period_day}" />');
+        	$("#ex1").slider({
+                 tooltip: 'always',
+              	formatter: function(value) {
+              		 if(Number(value) > sday ){
+              			return "无限";
+              		 }
+              		 return value;
+              	}
+             });
         	 $('#province2').val("");
         	 $('#city2').val("");
         	 $('#communication').val("");
         	setSelectValue($("#custcations"), "");
-        	 /* $('#city2').html(""); */
         	 $('#businesstype').hide();
         	 
         });
@@ -193,7 +242,6 @@ var init_event_city2;
 	         }else{
 	        	$('#s_baohuqi').val(baohuqi);
 	         }
-            alert($('#s_baohuqi').val());
             $('#s_province').val($("#province2").val());//开始
             $('#s_city').val($("#city2").val());//结束
             $('#s_communication').val($("#communication").val());//状态
@@ -201,13 +249,84 @@ var init_event_city2;
         	getlist();
             $('#myModal').modal('hide');
         });
+        var l = sessionStorage.getItem('index_list');
+        if(null !== l && '' !== l){
+            //恢复数据
+             $(".myziyuanlistbody").html(l);
+            $(window).scrollTop(sessionStorage.getItem('index_scroll'));
+
+        }else{
+        	getlist();
+        };
+        
+        gethuadong();
+        $("#ten_btn").click(function(){
+        	location.href = "${def:context}/action/project/fitness/wx/mc/home";
+        });
     });
     
-   
-    
-    function getinfo(code){
-    	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/crud?guestcode="+code;
+    function gethuadong(){
+    	var open = null;//open初始化，判断是否是已展开元素
+        var list = document.getElementsByClassName("list-li");//list获取所有的待展开框
+        for(var i = 0;i < list.length; i++){
+          var x,y,X,Y,moveX,moveY;
+          list[i].addEventListener('touchstart',function(e){
+            /*获取最初的触摸位置*/
+            x = e.changedTouches[0].pageX;
+            y = e.changedTouches[0].pageY;
+            moveX = true;
+            moveY = true;
+          });
+          
+          
+          list[i].addEventListener('touchmove',function(e){
+            X = e.changedTouches[0].pageX;
+            Y = e.changedTouches[0].pageY;
+            
+            //左右滑动
+            if(moveX && Math.abs(X - x) - Math.abs(Y -y) > 0){
+              e.stopPropagation();//阻止冒泡事件
+              //右滑收起删除按钮
+              if(X - x > 12){
+                e.preventDefault();
+                this.classList.remove("moveleft");
+              }
+              //左滑显示删除按钮
+              if(x - X > 12){
+                e.preventDefault();
+                this.classList.add("moveleft");
+                open = this;//存入展开的li元素
+              }
+              moveY = false;//左右滑动时不执行上下滑动时的事件
+            }
+            
+            //上下滑动
+            if(moveY && Math.abs(X - x) - Math.abs(Y - y) < 0){
+              moveX = false;//上下滑动时不执行左右滑动时的事件
+            }
+          });
+          
+          list[i].addEventListener('click',function(e){
+            //在已展开的元素中执行操作
+            if(open){
+              var obj = e.target;
+              var objli = e.target.closest(".list-li");
+              
+              //点击li元素里不是删除按钮的部分，li元素收起
+              if(obj.className != "guestbtn"){
+                  open.classList.remove("moveleft");
+              }/*else if(obj.className == "thebtn"){//点击删除按钮执行删除
+           	   location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/from?guestcode="+$("#guestcode").val();
+              }*/
+            }
+          });
+          
+        }
     }
+    
+    /* function getinfo(code){
+    	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/crud?guestcode="+code;
+    } */
     
     function getlist(){
     	postAjaxCall("/action/project/fitness/wx/mc/myziyuan/gustlist?",'filter',false);
@@ -219,5 +338,61 @@ var init_event_city2;
 		   }else{
 			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/search.png")
 		   }
- }
+ 	}
+    function guestbtn(guestcode){
+    	sessionStorage.setItem('index_list',$(".myziyuanlistbody").html());//存储列表数据
+        sessionStorage.setItem('index_scroll',$(window).scrollTop());//存储滚动条位置
+    	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode="+guestcode+"&state=1";
+    	return false;
+    }
+  /*   function save_in_cookie(hash_id){
+        var d = new Date();
+        d.setTime(d.getTime() + (50 * 365 * 24 * 60 * 60 * 1000)); // 有效期50年
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = "hash_id=" + hash_id + "; " + expires;
+    }
+
+    function get_cookie(cname){
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return null;
+    }
+
+    function scroll(){
+        var hash_id = get_cookie('hash_id');
+        document.getElementById(hash_id).scrollIntoView(true);
+    }
+
+    window.onload = function (){
+        setTimeout(scroll, 1000);
+    } */
+
+    function getinfo(dom,code) {
+        /*存cookie*/
+       /*  var hash_id= dom.getAttribute("id");
+        save_in_cookie(hash_id); */
+        
+        sessionStorage.setItem('index_list',$(".myziyuanlistbody").html());//存储列表数据
+
+        sessionStorage.setItem('index_scroll',$(window).scrollTop());//存储滚动条位置
+		
+        location.href = "${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/crud?guestcode="+code;
+
+        return false;
+    }
+    /* $(window).scroll(function(){
+        if($(document).scrollTop()!=0){
+            sessionStorage.setItem("offsetTop", $(window).scrollTop());//保存滚动位置
+        }
+    });
+    window.onload = function(){
+        var _offset = sessionStorage.getItem("offsetTop");
+        $(document).scrollTop(_offset);
+    }; */
+    
 </script>

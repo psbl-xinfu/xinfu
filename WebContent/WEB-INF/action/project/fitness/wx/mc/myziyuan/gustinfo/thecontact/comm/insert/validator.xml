@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="guestcode" type="varchar" required="true" label="公司"  />
+    <parameter id="thecode" type="varchar" required="false" label="联系人" maxlen="20" />
+    <parameter id="nexttime" type="varchar" required="false" label="下次通话/预约到店时间" maxlen="20" />
+    <parameter id="zcremark" type="varchar" required="false" label="备注"  />
+    <parameter id="commresult" type="varchar" required="false" label="备注" />
+</validator>

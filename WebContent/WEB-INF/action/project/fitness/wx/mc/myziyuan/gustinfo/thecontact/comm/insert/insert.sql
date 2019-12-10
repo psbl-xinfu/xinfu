@@ -1,0 +1,24 @@
+insert into cc_comm
+(
+    code,
+    guestcode,
+    commresult,
+    thecontactcode,
+    nexttime,
+    remark,
+    createdby,
+    created,
+    org_id
+)
+values 
+(
+	${seq:nextval@seq_cc_comm},
+	${fld:guestcode},
+	${fld:commresult},
+	${fld:thecode},
+	${fld:nexttime},
+    ${fld:zcremark},
+    '${def:user}',
+    {ts'${def:timestamp}'},
+    ${def:org}
+)

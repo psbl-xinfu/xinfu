@@ -1,12 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-		<parameter id="s_baohuqi" type="varchar" required="false" label="s_baohuqi " />
-		<parameter id="s_stime" type="varchar" required="false" label="s_stime " />
-		<parameter id="s_etime" type="varchar" required="false" label="s_etime " />
-		<parameter id="s_status" type="varchar" required="false" label="s_status " />
-		<parameter id="s_level" type="varchar" required="false" label="s_level " />
-		<parameter id="s_genjin" type="varchar" required="false" label="s_genjin " />
-		<parameter id="s_type" type="varchar" required="false" label="s_type " />
-		<parameter id="s_period_day" type="varchar" required="false" label="s_period_day " />
-		<parameter id="s_name" type="varchar" required="false" label="s_name " />
+	<parameter id="s_baohuqi" type="varchar" required="false" label="保护器 " />
+	<parameter id="s_province" type="integer" required="false" label="省" />
+	<parameter id="s_city" type="integer" required="false" label="市" />
+	<parameter id="s_communication" type="integer" required="false" label="客户分类 " />
+	<parameter id="s_custcations" type="varchar" required="false" label="客户详细分类 " />
+	<parameter id="s_name" type="varchar" required="false" label="客户详细分类 " />
 </validator>

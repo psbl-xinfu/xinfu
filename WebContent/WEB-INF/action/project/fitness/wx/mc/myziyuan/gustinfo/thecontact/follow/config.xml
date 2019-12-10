@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+	</summary>
+
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<recordset id="query-thecontact.sql" source="sql" scope="transaction" />
+		<recordset id="query-comm.sql" source="sql" scope="transaction" /> 
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+	 	<print mode="form" recordset="query-thecontact.sql" />
+	 	<print mode="table" recordset="query-comm.sql" tag="info"/>
+	 	<print mode="form" recordset="_request" />
+	</output>
+
+</config>

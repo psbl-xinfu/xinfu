@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html >
+     <head>
+    ${inc:/action/project/fitness/wx/pub}
+    <title>会员新增跟进</title>
+    		<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/style.css?v=7" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    		<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+        	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        	<style type="text/css">
+        	.lablewidth{
+        	width: 140px !important;
+        	text-align: right
+        	}
+        	div p{
+	   		padding:0;
+	   		margin:0;
+	   		float:left;
+		   }
+		   div .thespan{
+		   		display:block;
+				margin-left: 11px;
+				height:30px;
+				line-height:-30px;
+		   }
+        	</style>
+        	</head>
+    <body>
+        
+       <form id="formEditor" name="formEditor">
+       	<input type="hidden" name="guestcode" id="guestcode" value="${fld:ofcode}">
+     	<input type="hidden" name="thecode"  id="customercode"value="${fld:thecode}"/>
+		<input type="hidden" id="nexttime" name="nexttime" />
+       	<input type="hidden" id="zcremark" name="zcremark" />
+       	<input type="hidden" id="commresult" name="commresult" />
+      	<div class="myhuiyuangenjintop">
+ 				<div class="list">
+		        	<img src="${def:context}/images/icon_head.png" class="touxiangpic fl">
+		        	
+		            <div class="content fl">
+		            	<p class="name" style="width:120%;"><label style="width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:thename}">${fld:thename}</label><span>${fld:i_sex}&ensp;${fld:vc_mobile}</span></p>
+		            	   <span class="thespan">${fld:posname}</span><p class="time">最近跟进：${fld:created}</p>
+		        	</div>
+		        	<a href="tel:${fld:vc_mobile}"> <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"></a>
+		        </div>
+		</div>
+               
+
+       <div class="myhuiyuangenjincontent">
+            <div class="listother">
+                <p class='p1'>公司名称:</p>
+                <p class='p3'><label style="width:90%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:officename}">${fld:officename}</label></p>
+            </div>
+            
+            <div class="listother">
+                <p class='p1'>联系人名称:</p>
+                <p class='p3'><label style="width:90%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:thename}">${fld:thename}</label></p>
+            </div>         
+            
+            
+            <div class="listother">
+                <p class='p1'>上次跟进状态:</p>
+                <p class='p3'><label style="width:90%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:commresult}">${fld:commresult}</label></p>
+            </div>  
+            <div class="listother">
+                <p class='p1'>上次跟进时间:</p>
+                <p class='p3'><span>${fld:created}</span></p>
+            </div>
+            <div class="list">
+                <p class='p1 fl'>上次跟进备注:</p>
+                <p class='p2 fl'><textarea class="form-control" rows="3" placeholder="上次跟进内容" id="scremark" name="scremark">${fld:remark}</textarea></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>跟进状态:</p>
+                <p class='p3'>
+    						<select id="the_state" name="the_state" class="form-control" >
+								<option value="">请选择</option>
+								<option value="1">未建立关系</option>
+								<option value="2">建立关系</option>
+								<option value="3">了解需求</option>
+								<option value="4">对接产品价值</option>
+								<option value="5">要承诺</option>
+								<option value="6">暂时搁置</option>
+								<option value="7">成交</option>
+								<option value="8">未成交</option>
+							</select>
+                </p>
+            </div>
+            <div class="listother">
+                <p class='p1'>下次跟进时间:</p>
+                <p class='p3'><input type="text" name="nextcalltime"  class="form-control timeinput" id="nextcalltime" data-date-format="yyyy-mm-dd hh:ii"></p>
+            </div>
+
+            <div class="list">
+                <p class='p1 fl'>这次跟进备注:</p>
+                <p class='p2 fl'><textarea class="form-control" rows="3" placeholder="请写入备注" id="remark" name="remark"></textarea></p>
+            </div>
+        </div>
+       </form>
+            <div class="myhuiyuangenjinbtn">
+                <img src="${def:context}/js/project/fitness/wx/image/submit2.png" class="tijiao"  id="save">
+            </div>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+</html>
+<script type="text/javascript">
+	var state="${fld:state}";
+    $(function(){
+    	btnreturn();
+    	homemc();
+    	
+        var currYear = (new Date()).getFullYear();  
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+        		theme: 'android-ics light', //皮肤样式
+                display: 'bottom', //显示方式 
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+
+        $("#nextcalltime").mobiscroll($.extend(opt['datetime'], opt['default']));
+        $("#ten_btn").click(function(){
+        	if(state==3){
+        		location.href = "${def:context}/action/project/fitness/wx/mc/mycust/crud";
+        	}else{
+        		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode="+$('#guestcode').val()+"&state=1";
+        	}
+        });
+        
+        
+    	$('#save').on('click',function(){
+    		if($("#nextcalltime").val()==""){
+				ccms.dialog.notice("请选择下次跟进日期！");
+				return false;
+			}
+    		if($("#the_state").val()==""){
+				ccms.dialog.notice("请选择跟进状态！");
+				return false;
+			}
+			$("#nexttime").val($("#nextcalltime").val());
+			$("#zcremark").val($("#remark").val());
+			$("#commresult").val($("#the_state").val());
+		       
+		       	
+    		var url = "${def:context}${def:actionroot}/insert"
+    			ajaxCall(url,{
+    				method: "post",
+    				progress: true,
+    				form:'formEditor',
+    				dataType: "script",
+    				success: function() {
+    					
+    					ccms.dialog.notice("跟进成功！",1000,function(){
+    						if(state==3){
+    							location.href = "${def:context}/action/project/fitness/wx/mc/mycust/crud";
+        					}else{
+        						location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode="+$('#guestcode').val()+"&state=1";
+        					}
+    						
+    					});
+    				}
+    			});
+    	})
+    });
+</script>

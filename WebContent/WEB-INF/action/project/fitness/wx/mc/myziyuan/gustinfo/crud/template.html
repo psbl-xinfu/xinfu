@@ -4,32 +4,31 @@
 ${inc:/action/project/fitness/wx/pub}
 	<title>资源详情</title>
 	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
-        
-        
+         <!-- <img  src=" ${def:context}/js/project/fitness/wx/image/bntreturn.png" id="ten_btn" style="position: fixed;right: 6%;bottom:100px"width="40" height="40" onclick="javascript:history.back();"> -->
         <div class="myziyuanxqtop">
             <div class="list">
                 <img src="${def:context}/images/icon_head.png"  class="touxiangpic fl">
                 <div class="content fl">
-                    <p class="name" id="name"><span id="sex"></span><span id="mobile"></span></p>
-                    <p class="time"  id="lasttime"></p>
+                    <p class="offname" id="offname"><span id="thename"></span><span id="mobile2"></span></p>
                 </div>
-               <a  id="tel" href=""> <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"> </a>
+               <a id="tel" href=""> <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"> </a>
             </div>
             <div class="listother">
-                <p class='p1'>关注度</p><p class='p2'  id="level"></p>
+                <p class='p1'>公司类型</p><p class='p2'  id="customtype"></p>
             </div>
             <div class="listother">
-                <p class='p1'>客服</p><p class='p2' id="mc"></p>
+                <p class='p1'>客户分类</p><p class='p2' id="communication"></p>
             </div>
-            <div class="listother">
-                <p class='p1'>资源有效期</p><p class='p2' id="vc_itime"></p>
+            <div class="list" id="xxfl">
+                <p class='p1'>详细分类</p>
+                <p class='p2 fl'><p class='p2' id="custclass"></p>
             </div>
-            <div class="listother">
-                <p class='p1'>客户来源</p><p class='p2' id="type"></p>
+            <div class="list">
+                <p class='p1'>公司地址</p><p class='p2' id="officeaddr"></p>
             </div>
         </div>
 
-        <div class="myziyuanxqcenter container">
+       <!--  <div class="myziyuanxqcenter container">
             <div class="row">
                 <div class="col-xs-4" id="healthy">
                     <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqtc.png" class="centerimg" >
@@ -47,46 +46,92 @@ ${inc:/action/project/fitness/wx/pub}
                 <div class="centertwo"></div>
             </div>
             
-        </div>
+        </div> -->
 
         <div class="myziyuanxqbottom container">
             <div class="row">
-                <div class="col-xs-6" id="followrecord">
+                <!-- <div class="col-xs-6" id="followrecord">
                     <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbgj.png" class="bottomimg" >
                     <p class="name">跟进记录</p>
-                </div>
-                <div class="col-xs-6" id="tice">
-                    <img src="${def:context}/js/project/fitness/wx/image/myziyuanxqbtc.png" class="bottomimg">
-                    <p class="name">体测记录</p>
+                </div> -->
+                <div class="col-xs-6" id="btnck" >
+                    <img src="${def:context}/js/project/fitness/wx/image/chakan.png" class="bottomimg">
+                    <p class="name">查看</p>
                 </div>
             </div>
         </div>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
     </body>
     <script type="text/javascript">
         $(function(){
-        	homemc();
-    	<info>
-    	$('#sex').before('<label style="width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:name}">${fld:name}</label>');
-    	$('#sex').html('${fld:sex}');
-    	$('#mobile').html('${fld:mobile}');
-    	$('#mc').html('会籍-${fld:mc}');
-    	$('#level').html('${fld:level}');
-    	$('#type').html('${fld:type}');
-    	
-    	$('#vc_itime').html('${fld:vc_itime} ~ ${fld:fenpei}');
-    	var lasttime="${fld:lasttime}"
-    	if(lasttime=='&nbsp;'){
-    		lasttime=""
-    	}
-    		$('#lasttime').html('最近跟进：'+lasttime);
-    		 $('#tel').attr('href','tel:${fld:mobile}')
-    	</info>
-    	
-    	
-		  $('#tice').on('click',function(){
-		  		location.href="${def:context}/action/project/fitness/wx/cust/center/tice/crud?guestcode=${fld:guestcode}&type=mc";
-		  })		 
+        	btnreturn();
+        homemc();
+        <info>
+    	$('#offname').before('<label style="width:90%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:officename}">${fld:officename}</label>');
+    	/* $('#offname').html('${fld:officename}'); */
+    	$('#thename').html('${fld:name}');
+    	$('#mobile2').html('&emsp;${fld:mobile}');
+    	$('#tel').attr('href','tel:${fld:mobile}');
+		var customtype="${fld:customtype}";
+		var communication="${fld:communication}";
+		var custclass="${fld:custclass}";
+		var officeaddr="${fld:province}${fld:city}${fld:officeaddr}";
+		</info>
+		$("#officeaddr").html(officeaddr);
+		var count = custclass.split(",");
+		var classbin ="";//根据值去获取客户详细分类
 		
+		
+		//公司分类
+		if(customtype==1){
+			$("#customtype").html("健身俱乐部");
+		}else if(customtype==2){
+			$("#customtype").html("健身工作室");
+		}else if(customtype==3){
+			$("#customtype").html("瑜伽会所");
+		}else if(customtype==4){
+			$("#customtype").html("器械器");
+		}else if(customtype==5){
+			$("#customtype").html("培训机构");
+		}else if(customtype==6){
+			$("#customtype").html("其他");
+		}
+		$("#xxfl").hide();
+		//这是客户分类
+		if(communication==1){
+			$("#communication").html("客户");
+			$("#xxfl").show();
+			//客户详细分类
+			for(var i=0;i<count.length;i++){
+				if(count[i]==1){
+					classbin+="枢途设计";
+				}else if(count[i]==2){
+					classbin+="枢途平牌";
+				}else if(count[i]==3){
+					classbin+="单次学习";
+				}else if(count[i]==4){
+					classbin+="全年学习";
+				}else if(count[i]==5){
+					classbin+="6+1学习";
+				}else if(count[i]==6){
+					classbin+="学习点客户";
+				}else if(count[i]==7){
+					classbin+="内训客户";
+				}
+				var a=i+1;
+				if(a!=count.length){
+					classbin+=";";
+				}
+			}
+			$("#custclass").html(classbin);
+		}else if(communication==2){
+			$("#communication").html("重点意向客户");
+		}else if(communication==3){
+			$("#communication").html("咨询客户");
+		}else if(communication==4){
+			$("#communication").html("陌生客户");
+		}
 		
         $('#comm').on('click',function(){
         	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/comm/crud?guestcode=${fld:guestcode}"
@@ -94,20 +139,23 @@ ${inc:/action/project/fitness/wx/pub}
     			+"&cust_type=0";
         })
     	
-         $('#healthy').on('click',function(){
-        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/healthy/crud?guestcode=${fld:guestcode}"
-        			+"&customercode="
-        			+"&cardcode="
-        			+"&ptpreparecode=";
+        $('#btnck').on('click',function(){
+        	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode=${fld:guestcode}&state=2";
         })
         
         $('#followrecord').on('click',function(){
         	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/followrecord?guestcode=${fld:guestcode}"
         }) 
         
-          $('#question').on('click',function(){
+        $('#question').on('click',function(){
               	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/quesion/crud?guestcode=${fld:guestcode}"
-        })       
-    })
+        })   
+        
+		$("#ten_btn").click(function(){
+        	
+        	location.href = "${def:context}/action/project/fitness/wx/mc/myziyuan/crud";
+        });
+    });
+      
      </script>
 </html>

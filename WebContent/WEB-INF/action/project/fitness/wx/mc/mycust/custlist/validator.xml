@@ -1,12 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-		<parameter id="s_baohuqi" type="integer" required="false" label="s_pt " />
-		<parameter id="s_stime" type="varchar" required="false" label="s_stime " />
-		<parameter id="s_etime" type="varchar" required="false" label="s_etime " />
-		<parameter id="s_status" type="varchar" required="false" label="s_status " />
-		<parameter id="s_genjin" type="varchar" required="false" label="s_genjin " />
-		<parameter id="s_huiyuan" type="varchar" required="false" label="是否显示过期会员 " />
-		<parameter id="s_level" type="varchar" required="false" label="s_level " />
-		<parameter id="s_period_day" type="varchar" required="false" label="s_period_day " />
-		<parameter id="s_name" type="varchar" required="false" label="s_name " />
+	<parameter id="enddate" type="varchar" required="true" label="结束如期"/>
+	<parameter id="startdate" type="varchar" required="true" label="开始日期"/>
+	<parameter id="theposition" type="varchar" required="false" label="职位"/>
+	<parameter id="s_communication" type="varchar" required="false" label="跟进"/>
+	<parameter id="s_name" type="varchar" required="false" label="名字手机号"/>
 </validator>

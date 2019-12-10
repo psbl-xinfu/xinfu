@@ -37,8 +37,17 @@ var contextPath = "${def:context}";
 <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/util.js"></script>
 <script type="text/javascript" src="${def:context}/js/project/fitness/wx/js/select.js"></script>
 <script type="text/javascript">
-function homept(){
+/* function homept(){
     var str='<a  href="${def:context}/action/project/fitness/wx/pt/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+	$('body').append(str);
+} */
+function btnreturn(){
+    var str='<img  src=" ${def:context}/js/project/fitness/wx/image/bntreturn.png" id="ten_btn" style="position: fixed;right: 6%;bottom:100px;top:79%"width="40" height="40" onclick="javascript:history.back();">'
+	$('body').append(str);
+}
+
+function addthe(){
+    var str='<img  src="${def:context}/js/project/fitness/wx/image/++@2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:100px;top:72%"width="40" height="40" >'
 	$('body').append(str);
 }
 function homecust(){
@@ -46,8 +55,11 @@ function homecust(){
 	$('body').append(str);
 }
 function homemc(){
-    var str='<a  href="${def:context}/action/project/fitness/wx/mc/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btn" style="position: fixed;right: 6%;bottom:50px"width="40" height="40" ></a>'
+    var str='<a  href="${def:context}/action/project/fitness/wx/mc/home"><img  src="${def:context}/js/project/fitness/wx/image/home2x.png" id="add_btnbinns" style="position: fixed;right: 6%;bottom:50px;top:86%""width="40" height="40" ></a>'
 	$('body').append(str);
+    document.getElementById("add_btnbinns").onclick = function(){
+        sessionStorage.clear();
+    }
 }
 
 function loadHeadpic(objid, user_id){

@@ -1,32 +1,17 @@
-SELECT
-name,
-(case sex when '0' then '女' when '1' then '男'  else '未填' end) as sex,
-mobile,
-
-(SELECT param_text FROM cc_config WHERE category = 'GuestType' 
-and param_value::int =cc_guest.type and org_id=cc_guest.org_id) as type,
-
-(select name from hr_staff where userlogin=cc_guest.mc and org_id = ${def:org}) as mc,--销售员
-(
-	select t.domain_text_cn from t_domain t 
-	where t.namespace = 'GuestLevel' 
-	and t.domain_value = cast(cc_guest.level as char) 
-) as level,
-
-created::date as vc_itime,
-
-
-(select comm.created from  cc_comm comm
-   where  comm.operatortype=0  and cust_type=0   and comm.guestcode=cc_guest.code and comm.createdby='${def:user}'
-   and comm.org_id = cc_guest.org_id order by comm.created desc limit 1 ) as lasttime,
-   
-   
-  	(SELECT cc_guest.updated+concat(config.param_value,'day')::interval FROM cc_config config WHERE 
-	config.category = 'GuestOutdate' and 
-	config.org_id = (case when 
-	not exists(select 1 from cc_config c where c.org_id = ${def:org} and c.category=config.category) 
-	then (select org_id from hr_org where pid is null or pid = 0) else ${def:org} end)) as fenpei 
-   
-FROM cc_guest 
-where code=${fld:guestcode}
-and org_id=${def:org}
+select 
+	gt.code,
+	gt.officename,--公司名称
+	(select domain_text_cn from t_domain 
+	WHERE namespace = 'Province' AND is_enabled = '1' and domain_value::int=gt.province2) as province,--省
+	(select domain_text_cn from t_domain 
+	WHERE namespace = 'City' AND is_enabled = '1' and domain_value::int=gt.city2) as city,--市
+	gt.officeaddr,--地址
+	gt.customtype,--公司类型
+	gt.communication,--客户分类
+	gt.custclass, --客户详细分类
+	the.code as thecode,
+	the.name,
+	the.mobile
+from cc_guest gt
+left join cc_thecontact the on gt.code=the.guestcode
+where gt.code=${fld:guestcode} and the.status=1

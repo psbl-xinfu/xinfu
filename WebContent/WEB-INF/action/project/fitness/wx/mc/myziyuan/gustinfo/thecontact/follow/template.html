@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+        <title>我的资源</title>
+        <link href="${def:context}/js/project/fitness/wx/css/bootstrap-slider.min.css" rel="stylesheet">
+     	<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/style.css?v=7" />
+     	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet">
+    	<style type="text/css">
+        	div p{
+	   		padding:0;
+	   		margin:0;
+	   		float:left;
+		   }
+		   div .thespan{
+		   		display:block;
+				margin-left: 11px;
+				height:30px;
+				line-height:-30px;
+		   }
+		   .zfollow{margin-left:10px};
+		   .yfollow{margin-right:10px};
+		   body{font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#747d67; background:#fff}
+		
+		.clear{clear:both}
+		.myziyuanxqtop{
+			position:fixed;
+		}
+		.list-ul {
+		    overflow: hidden
+		  } 
+		 .list-li {
+			  /* line-height: 60px; */
+			  /* border-bottom: 1px solid #fcfcfc; */
+			  position: relative;
+			  padding: 0 12px;
+			  color: #666;
+			  background: #f2f2f2;
+			  -webkit-transform: translateX(0px);
+			 }
+		   .thebtn {
+			 line-height:10px;
+			 font-size:18px;
+			 line-height: 40px;
+			  position: absolute;
+			  top: 0;
+			  right: -90px;
+			  text-align: center;
+			  background: #ffcb20;
+			  color: #fff;
+			  width: 90px;
+			 }
+			  .moveleft{
+				transform:translateX(-20%);
+				-webkit-transform:translateX(-20%);
+			}  
+		   .followlistbody{
+		   		padding-top: 29%;
+		   }
+        </style>
+    </head>
+    <body>
+    
+    
+        <div class="myziyuanxqtop">
+        <section>
+			<ul class="list-ul">
+	        	<li class="list-li">
+					<div class="list">
+			        	<img src="${def:context}/images/icon_head.png" class="touxiangpic fl">
+			        	
+			            <div class="content fl">
+			            	<p class="name" style="width:120%;"><label style="width:40%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:thename}">${fld:thename}</label><span>${fld:i_sex}&ensp;${fld:vc_mobile}</span></p>
+			            	   <span class="thespan">${fld:posname}</span><p class="time">最近跟进：${fld:created}</p>
+			        	</div>
+			        	<a href="tel:${fld:vc_mobile}"> <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"></a>
+			        </div>
+			        <div class="thebtn" id="thecomm" onclick="getcomm(\'${fld:the_code})\'">跟进</div>
+		        </li>
+		      </ul>
+		  </section>
+		  
+        </div>
+        <div class="followlistbody">
+		</div>
+        
+        
+		
+    	<script src="${def:context}/js/project/fitness/wx/js/timepacker/js/bootstrap-slider.min.js" ></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+    
+</html>
+
+<script type="text/javascript">
+var init_event_city2;
+var guestcode="${fld:guestcode}";
+var thecode ="${fld:thecode}";
+    $(function(){
+    	btnreturn();
+        homemc();
+        var str="";
+        <info>
+        str+='<div class="flwlist">';
+        str+=' <div class="listother">';
+		        str+='  <p class="p1">跟进状态:</p>';
+			        str+='  <p class="p3"><label style="width:90%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;" title="${fld:commresult}">${fld:commresult}</label></p>';
+			        str+=' </div>  ';
+			    str+='  <div class="listother">';
+			    str+='     <p class="p1">跟进时间:</p>';
+			        str+='    <p class="p3"><span>${fld:created}</span></p>';
+			        str+='  </div>';
+			    str+='  <div class="listother">';
+			    str+='     <p class="p1">下次跟进时间:</p>';
+			        str+='    <p class="p3"><span>${fld:nexttime}</span></p>';
+			        str+='  </div>';
+			    str+='  <div class="list">';
+			    str+='      <p class="p1 fl">跟进备注:</p>';
+			        str+='       <p class="p2 fl"><textarea class="form-control" rows="3" placeholder="上次跟进内容" id="scremark" name="scremark">${fld:remark}</textarea></p>';
+			        str+=' </div>';
+        
+			
+			str+='</div>';
+		</info>
+		$(".followlistbody").html(str);
+		 $("#ten_btn").click(function(){
+	        	if(state==3){
+	        		location.href = "${def:context}/action/project/fitness/wx/mc/mycust/crud";
+	        	}else{
+	        		location.href = "${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/crud?guestcode="+$("#guestcode").val();
+	        	}
+	        });
+		 var open = null;//open初始化，判断是否是已展开元素
+         var list = document.getElementsByClassName("list-li");//list获取所有的待展开框
+         for(var i = 0;i < list.length; i++){
+           var x,y,X,Y,moveX,moveY;
+           list[i].addEventListener('touchstart',function(e){
+             /*获取最初的触摸位置*/
+             x = e.changedTouches[0].pageX;
+             y = e.changedTouches[0].pageY;
+             moveX = true;
+             moveY = true;
+           });
+           
+           
+           list[i].addEventListener('touchmove',function(e){
+             X = e.changedTouches[0].pageX;
+             Y = e.changedTouches[0].pageY;
+             
+             //左右滑动
+             if(moveX && Math.abs(X - x) - Math.abs(Y -y) > 0){
+               e.stopPropagation();//阻止冒泡事件
+               //右滑收起删除按钮
+               if(X - x > 12){
+                 e.preventDefault();
+                 this.classList.remove("moveleft");
+               }
+               //左滑显示删除按钮
+               if(x - X > 12){
+                 e.preventDefault();
+                 this.classList.add("moveleft");
+                 open = this;//存入展开的li元素
+               }
+               moveY = false;//左右滑动时不执行上下滑动时的事件
+             }
+             
+             //上下滑动
+             if(moveY && Math.abs(X - x) - Math.abs(Y - y) < 0){
+               moveX = false;//上下滑动时不执行左右滑动时的事件
+             }
+           });
+           
+           list[i].addEventListener('click',function(e){
+             //在已展开的元素中执行操作
+             if(open){
+               var obj = e.target;
+               var objli = e.target.closest(".list-li");
+               
+               //点击li元素里不是删除按钮的部分，li元素收起
+               if(obj.className != "thebtn"){
+                   open.classList.remove("moveleft");
+               }else if(obj.className == "thebtn"){//点击删除按钮执行删除
+            	   location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/comm/crud?thecode="+thecode+"&guestcode="+guestcode;
+               }
+             }
+           });
+           
+         }
+		
+		
+		
+    });
+    
+</script>
+

@@ -7,11 +7,28 @@ ${inc:/action/project/fitness/wx/pub}
     </head>
     <body>
       <form id="formEditor" name="formEditor">
+      	
         <div class="myziyuanaddtop">
-            
+          	<input type="hidden" id="custcation" name="custcation">
+            <div class="listother">
+                <p class='p1'>公司名称</p>
+                <p class='p2'><input type="text" name="company"  class="textinput" id="company" placeholder="请输入公司名称"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>公司电话</p>
+                <p class='p2'><input type="text" name="cc_officetel"  class="textinput" id="cc_officetel" placeholder="请输入公司电话" value=""></p>
+	        </div>
+	        <div class="listother">
+                <p class='p1'>公司邮箱</p>
+                <p class='p2'><input type="text" name="cc_email"  class="textinput" id="cc_email" placeholder="请输入公司邮箱" value=""></p>
+	        </div>
             <div class="listother">
                 <p class='p1'>姓名</p>
-                <p class='p2'><input type="text" name="name"  class="textinput" id="name" placeholder="请输入姓名"></p>
+                <p class='p2'><input type="text" name="thename"  class="textinput" id="thename" placeholder="请输入联系人姓名"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>手机号</p>
+                <p class='p2'><input type="text" name="cc_mobile"  class="textinput" id="cc_mobile" placeholder="请输入联系人手机号" value=""></p>
             </div>
             <div class="listother">
                 <p class='p1'>性别</p>
@@ -22,51 +39,94 @@ ${inc:/action/project/fitness/wx/pub}
                 <label class="radio-inline">
                     <input type="radio" name="sex" value="0">女
                 </label>
-                
             </div>
-            <div class="listother">
-                <p class='p1'>手机号</p>
-                <p class='p2'><input type="text" name="mobile"  class="textinput" id="mobile" placeholder="请输入手机号" value=""></p>
+            <hr/>
+            <div class="mokuai">
+            	<h5>职位</h5>
+				<div class="my-selected">
+					<select  id="position" name="position" class="form-control"> 
+						<option value="">请选择职位</option>
+						<position-rows>
+							<option value="${fld:poscode}">${fld:posname}</option>
+						</position-rows>
+					</select>
+				</div>
             </div>
-            <div class="listother">
-                <p class='p1'>年龄</p>
-                <p class='p3'>
-                    <select class="form-control"   name="age" id="age">
-						<age>
-							<option value="${fld:domain_value}">${fld:domain_text_cn@js}</option>
-						</age>
-                    </select>
-                </p>
+             <div class="mokuai">
+             	<h5>关键负责人</h5>
+             	<div class="my-selected">
+					<select  id="ttstatus" name="ttstatus" class="form-control"> 
+						<option value="">请选择</option>
+						<option value="1">是</option>
+						<option value="0">不是</option>
+					</select>
+				</div>
+             </div>
+							
+            <div class="mokuai">
+            	<h5>公司类型</h5>
+            	<p class='p3'>
+					<select  id="cc_birth" name="cc_birth" class="form-control"> 
+						<option value="">选择客户类型</option>
+						<option value="1">健身俱乐部</option>
+						<option value="2">健身工作室</option>
+						<option value="3">瑜伽会所</option>
+						<option value="4">器械器</option>
+						<option value="5">培训机构</option>
+						<option value="6">其他</option>
+					</select>
+				</p>
             </div>
             
-            <div class="listother">
-                <p class='p1'>关注度</p>
-                <p class='p3'>
-                    <select class="form-control"   name="level" id="level">
-                        <option value="">请选择</option>
-						<leavel>
+            <div class="mokuai">
+            	<p class='p1'>公司分类</p>
+            	<p class='p3'>
+                   	<select  id="communication" name="communication" class="form-control"> 
+						<option value="">请选择</option>
+						<option value="1">客户</option>
+						<option value="2">重点意向客户</option>
+						<option value="3">咨询客户</option>
+						<option value="4">陌生客户</option>
+					</select>
+					<div id="businesstype">
+	                    <select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
+							<option value="1">枢途设计</option>
+							<option value="2">枢途平牌</option>
+							<option value="3">单次学习</option>
+							<option value="4">全年学习</option>
+							<option value="5">6+1学习</option>
+							<option value="6">学习点客户</option>
+							<option value="7">内训客户</option>
+				         </select>
+			         </div>
+			   	</p>      
+            </div>
+            <div class="mokuai">
+            	<h5>地址</h5>
+				<div class="my-selected">
+					<select  id="province2" name="province2" class="form-control"> 
+						<option value="">请选择省</option>
+						<domain>
 							<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
-						</leavel>
-                    </select>
-                </p>
+						</domain>
+					</select>
+				</div>
+				<div id="cityhtml">
+					<select  id="city2" name="city2" class="form-control"> 
+						<option value="">请选择市</option>
+					</select>
+				</div>
             </div>
-            <div class="listother">
-                <p class='p1'>获客渠道</p>
-                <p class='p3'>
-                    <select class="form-control"  name="type" id="type">
-                        <option value="">请选择</option>
-  						<guesttype-rows2>
-							<option value="${fld:vc_topic}">${fld:vc_content}</option>
-						</guesttype-rows2>
-                    </select>
-                </p>
-            </div>
+           
             <div class="list">
-                <p class='p1 fl'>备注</p>
-                <p class='p2 fl'><textarea class="form-control" rows="3" placeholder="备注"name="remark" id="remark"></textarea></p>
+                <p class='p1 fl'>详细地址</p>
+                <p class='p2 fl'><textarea class="form-control" rows="3" placeholder="备注"name="address" id="address"></textarea></p>
             </div>
-        </div>
-
+             <div class="list">
+                <p class='p1 fl'>公司备注</p>
+                <p class='p2 fl'><textarea class="form-control" rows="3" placeholder="备注"name="cc_remark" id="cc_remark"></textarea></p>
+            </div>
+ 		</div>
         <div class="myziyuanaddbtn">
            <img src="${def:context}/js/project/fitness/wx/image/submit.png" class="tijiao" id="save" >
          	<img src="${def:context}/js/project/fitness/wx/image/quxiao.png" class="quxiao" id="back" >
@@ -76,7 +136,39 @@ ${inc:/action/project/fitness/wx/pub}
     <script type="text/javascript">
     	$(function(){
     		homemc();
+    		$("#province2").change(function(){
+        		var province= $('#province2').val();
+        		postAjaxCall("/action/project/fitness/wx/mc/myziyuan/getdomain?province="+province);
+        	});
+    		$('#cc_mobile').on('blur',function(){
+    			checkTel($('#cc_mobile').val(),"cc_mobile");
+    		});
+    		$('#cc_email').on('blur',function(){
+    			checkEmail($('#cc_email').val(),"cc_email");
+    		});
+    		$('#cc_officetel').on('blur',function(){
+    			checkTel($('#cc_officetel').val(),"cc_officetel");
+    		});
+        	$("#businesstype").hide();
+        	setSelectValue($("#custcations"), "");
+        	$("#communication").change(function(){
+        		var cust2=$("#communication").val();
+        			if(cust2==''){
+        				$('#businesstype').hide();
+        				setSelectValue($("#custcations"), "");
+        			}else{
+        				if(cust2==1){
+        					$('#businesstype').show();
+        				}else{
+        					$('#businesstype').hide();
+        					setSelectValue($("#custcations"), "");
+        				}
+        			}
+        	});
+    		
+    		
         	$('#save').on('click',function(){
+        		$("#custcation").val($("#custcations").val());
         		var url = "${def:context}${def:actionroot}/insert"
         			ajaxCall(url,{
         				method: "post",
@@ -91,6 +183,24 @@ ${inc:/action/project/fitness/wx/pub}
        		$('#back').on('click',function(){
            		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/crud";
        	  	})
-    	})
+    	});
+    	function checkTel(value,str){
+		    var isPhone = /^[1][3,4,5,7,8][0-9]{9}$/;
+		    var isMob=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+		    var value= value
+		    if(!isMob.test(value)&&!isPhone.test(value)){
+		    	ccms.dialog.notice("请输入正确手机号或电话号!");
+			    	 $('#'+str).val('');
+			}
+		}
+    	function checkEmail(value,str){
+    		var value=value
+    		var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    		if(!myreg.test(value)){
+    			ccms.dialog.notice('请输入有效的E_mail！');
+    		 	$('#'+str).val('');
+    		}
+    	}
+    	
     </script>
 </html>

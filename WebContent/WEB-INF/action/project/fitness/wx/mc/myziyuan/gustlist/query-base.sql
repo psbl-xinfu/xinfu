@@ -62,7 +62,14 @@ from cc_label_guest lg
 left join cc_label la on lg.labelcode=la.code where lg.org_id=${def:org} group by lg.guestcode ) as lablg on lablg.guestcode=g.code
 WHERE 
 g.mc='${def:user}'
-
+and (case when 
+	${fld:s_city} is not null then g.province2 = ${fld:s_province} and g.city2=${fld:s_city}
+	when  ${fld:s_city} is null then (case when 
+		${fld:s_province} is not null then g.province2 = ${fld:s_province}
+		else 1=1
+	end)
+	else 1=1
+end)
 and
  	g.org_id = ${def:org}
  	${filter}

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
 	<head>
-${inc:/action/project/fitness/wx/pub}
-        <title>我的会员</title>
+	${inc:/action/project/fitness/wx/pub}
+        <title>我的资源</title>
         <link href="${def:context}/js/project/fitness/wx/css/bootstrap-slider.min.css" rel="stylesheet">
      	<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/style.css?v=7" />
@@ -10,33 +11,90 @@ ${inc:/action/project/fitness/wx/pub}
     	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
     	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
         <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet">
+   	 <style>
+	  
+	   div p{
+	   		padding:0;
+	   		margin:0;
+	   		float:left;
+	   }
+	   div .thespan{
+	   		display:block;
+			margin-left: 11px;
+			height:30px;
+			line-height:-30px;
+	   }
+	   .off{
+	   	display:block;
+			margin-left: 30px;
+	   }
+	    #filter {
+		    border-bottom: 1px solid #ccc
+		  }
+		  
+		  #filter div {
+		    text-align: center;
+		    line-height: 54px;
+		    font-size: 16px;
+		  }
+		 .list-ul {
+		    overflow: hidden
+		  } 
+		   /* li{overflow:hidden;list-style:none;}  */
+		   .list-li {
+			  /* line-height: 60px; */
+			  /* border-bottom: 1px solid #fcfcfc; */
+			  position: relative;
+			  padding: 0 12px;
+			  color: #666;
+			  background: #f2f2f2;
+			  -webkit-transform: translateX(0px);
+			 }
+			  
+			 .thebtn {
+			 line-height:10px;
+			 font-size:18px;
+			 line-height: 40px;
+			  position: absolute;
+			  top: 0;
+			  right: -90px;
+			  text-align: center;
+			  background: #ffcb20;
+			  color: #fff;
+			  width: 90px;
+			 }
+			  .moveleft{
+				transform:translateX(-20%);
+				-webkit-transform:translateX(-20%);
+			}
+		  </style>
     </head>
     <body>
-            <form id="filter" name="filter">
-             <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
-        	<input type="hidden" id="s_period_day" name="s_period_day"  />
-			<input type="hidden" id="s_baohuqi" name="s_baohuqi" value="">
-			<input type="hidden" id="s_stime"name="s_stime" >
-			<input type="hidden" id="s_etime"name="s_etime" >
-			
-			<input type="hidden" id="s_status"name="s_status" >
-			<input type="hidden" id="s_level"name="s_level" >
-			<input type="hidden" id="s_genjin"name="s_genjin" >
-			<input type="hidden" id="s_huiyuan"name="s_huiyuan" >
-        <div class="myziyuanlisttop">
-            <div class="shurukuang">
-                <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入资源姓名/电话"oninput="updateurl(this)">
-                <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
-            </div>
-            <div class="searchbtn text-center" data-toggle="modal" data-target="#myModal">筛选</div>
-        </div>
-        </form>
-        	
-        	
+    
+         <form id="filter" name="filter">
+            <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
+			<input type="hidden" id="s_communication"name="s_communication" >
+			<input type="hidden" id="theposition"name="theposition" >
+			<input type="hidden" id="enddate"name="enddate" >
+			<input type="hidden" id="startdate"name="startdate" >
+    
+	        <div class="myziyuanlisttop">
+	            <div class="shurukuang">
+	                <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入联系人姓名/手机号"oninput="updateurl(this)">
+	                <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
+	            </div>
+	            <div class="searchbtn text-center" data-toggle="modal" id="addnew_btn">筛选</div>
+	            
+	        </div>
+	       
+    	</form>
+        
+        
         <div class="myziyuanlistbody">
+
 		</div>
         <!-- modal fade -->
-        <div class="modal fade" id="myModal"  role="dialog" aria-labelledby="myModalLabel" >
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
             <div class="modal-dialog" role="document" style="background: white">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -44,66 +102,43 @@ ${inc:/action/project/fitness/wx/pub}
                         <h4 class="modal-title" id="myModalLabel">筛选条件</h4>
                     </div>
                     <div class="modal-body">
-                    	<div class="mokuai">
-                            <h5>剩余保护期</h5>
-                            <div class="content">
-                                <div class="well">
-                                    <input id="ex1" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="101" data-slider-step="1" data-slider-value="101" value="101" />
-                                </div>
-                                <div class="keduzhi">
-                                    <p class="fl">0</p>
-                                    <p class="fr">100</p>
-                                </div>
-                            </div>
-                        </div>                
-                    
+	                    <div class="mokuai">
+	                        <h5>下次联系日期</h5>
+	                        <div class="content">
+	                            <input type="text" name="datetimepicker"  class="form-control timeinput" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
+	                            <span>&nbsp;至&nbsp;</span>
+	                            <input type="text" name="datetimepickers"  class="form-control timeinput" id="datetimepickers" data-date-format="yyyy-mm-dd hh:ii">
+	                        </div>
+	                    </div>
+	                    
                         <div class="mokuai">
-                            <h5>未跟进日期</h5>
+                        	<h5>跟进状态</h5>
                             <div class="content">
-                                <input type="text" name=""  class="form-control timeinput" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii">
-                                <span>&nbsp;至&nbsp;</span>
-                                <input type="text" name=""  class="form-control timeinput" id="datetimepickers" data-date-format="yyyy-mm-dd hh:ii">
-                            </div>
-                        </div>                    
-                    
-                        <div class="mokuai">
-                            <h5>资源状态</h5>
-                            <div class="content">
-                                <button class="btn btn-default btn1" type="submit">本月新增<input type="hidden" name="" value="0"></button>
-                                <button class="btn btn-default btn1" type="submit">本月未跟进<input type="hidden" name="" value="1"></button>
-                                <button class="btn btn-default btn1" type="submit">本月生日<input type="hidden" name="" value="2"></button>
-                                <button class="btn btn-default btn1" type="submit">七日内生日<input type="hidden" name="" value="3"></button>
-                            </div>
-                        </div>                    
-                    
-
-                       <div class="mokuai">
-                            <h5>关注度</h5>
-                            <div class="content">
-                            <levle>
-                                        <button class="btn btn-default btn2" type="submit">${fld:domain_text_cn}<input type="hidden" name="" value="${fld:domain_value}"></button>
-                           </levle>
-                            </div>
-                        </div> 
-
-
-                        <div class="mokuai">
-                            <h5>跟进状态</h5>
-                            <div class="content">
-                                <button class="btn btn-default btn3" type="submit">未跟进<input type="hidden" name="" value="0"></button>
-                                <button class="btn btn-default btn3" type="submit">已跟进<input type="hidden" name="" value="1"></button>
+                            	<select  id="the_state" name="the_state" class="form-control"> 
+									<option value="">选择跟进状态</option>
+									<option value="1">未建立关系</option>
+									<option value="2">建立关系</option>
+									<option value="3">了解需求</option>
+									<option value="4">对接产品价值</option>
+									<option value="5">要承诺</option>
+									<option value="6">暂时搁置</option>
+									<option value="7">成交</option>
+									<option value="8">未成交</option>
+								</select>
                             </div>
                         </div>
-						 <div class="mokuai">
-                            <h5>历史会员</h5>
+                        <div class="mokuai">
+                        	<h5>职位</h5>
                             <div class="content">
-                                <button class="btn btn-default btn4" type="submit">不显示<input type="hidden" name="" value="0"></button>
-                                <button class="btn btn-default btn4" type="submit">要显示<input type="hidden" name="" value="1"></button>
+                            	<select  id="position" name="position" class="form-control"> 
+									<option value="">请选择职位</option>
+									<position-rows>
+										<option value="${fld:poscode}">${fld:posname}</option>
+									</position-rows>
+								</select>
                             </div>
                         </div>
-
-
-                    </div>
+	                </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default fl resetbtn">重置</button>
                         <button type="button" class="btn btn-primary fr submitbtn">确定</button>
@@ -113,7 +148,6 @@ ${inc:/action/project/fitness/wx/pub}
         </div>
         
 		
-		
     	 <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/bootstrap-slider.min.js" ></script> 
          <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
         <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
@@ -122,103 +156,161 @@ ${inc:/action/project/fitness/wx/pub}
 </html>
 
 <script type="text/javascript">
-    $(function(){
-    	homemc();
-    	<day>
-    	$('#s_period_day').val("${fld:period_day}");
-    	</day>
-    	
-    	
-    	getlist();
-    	
-    	
-        var currYear = (new Date()).getFullYear();  
-        var opt={};
-        opt.date = {preset : 'date'};
-        opt.datetime = {preset : 'datetime'};
-        opt.time = {preset : 'time'};
-        opt.default = {
-        		theme: 'android-ics light', //皮肤样式
-                display: 'bottom', //显示方式 
-            mode: 'scroller', //日期选择模式
-            dateFormat: 'yyyy-mm-dd',
-            lang: 'zh',
-            showNow: true,
-            nowText: "今天",
-            startYear: currYear - 50, //开始年份
-            endYear: currYear + 10 //结束年份
-        };
 
-        
+var init_event_city2;
+    $(function(){
+    	var state ="${fld:state}";
+    	addthe();
+    	btnreturn();
+    	homemc();
+    	var date=new Date();
+    	  var currYear = (new Date()).getFullYear();  
+          var opt={};
+          opt.date = {preset : 'date'};
+          opt.datetime = {preset : 'datetime'};
+          opt.time = {preset : 'time'};
+          opt.default = {
+          		theme: 'android-ics light', //皮肤样式
+                  display: 'bottom', //显示方式 
+              mode: 'scroller', //日期选择模式
+              dateFormat: 'yyyy-mm-dd',
+              lang: 'zh',
+              showNow: true,
+              nowText: "今天",
+              startYear: currYear - 50, //开始年份
+              endYear: currYear + 10 //结束年份
+          };
+
+          
         $("#datetimepicker").mobiscroll($.extend(opt['date'], opt['default']));
         $("#datetimepickers").mobiscroll($.extend(opt['date'], opt['default']));
-        
-
-        // 滑块With JQuery
-        $("#ex1").slider({
-            tooltip: 'always',
-         	formatter: function(value) {
-         		 if(Number(value) > 100 ){
-         			return "无限";
-         		 }
-         		 return value;
-         	}
-        });
-
-        //资源状态
-        $('.btn1,.btn2,.btn3,.btn4').click(function(){
-            $(this).removeClass('btn-default');
-            $(this).addClass('btn-warning');
-            $(this).siblings('button').removeClass('btn-warning');
-            $(this).siblings('button').addClass('btn-default');
-        });
+       	var datek=date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+    	var datej=date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+       
+    	$('#datetimepicker').val(datek);
+        $('#datetimepickers').val(datej);
+        $("#startdate").val($('#datetimepicker').val());
+        $("#enddate").val($('#datetimepickers').val());
+        /* searchSelectInit('#custcations'); */
+    	$("#addnew_btn").on('click',function(){
+    		$('#myModal').modal('show');
+       	});
+    	
+       	$('#add_btn').on('click',function(){
+	       	sessionStorage.removeItem('the_list');
+	        sessionStorage.removeItem('the_scroll');
+           	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/from?guestcode="+$("#guestcode").val();
+       	});
+    	
+       	$('.searchsubmit').on('click',function(){
+       	 	getlist();
+       	});
+       	
 
         //重置
         $('.resetbtn').click(function(){
-            $('.btn1,.btn2,.btn3,.btn4').removeClass('btn-warning');
-            $('.btn1,.btn2,.btn3,.btn4').addClass('btn-default');
-            $('.timeinput').val('');
+        	 $('#datetimepicker').val(datek);
+             $('#datetimepickers').val(datej);
+             $("#the_state").val("");//状态
+             $("#position").val("");//关注度
+        	 
         });
-
+	
+        $("#ten_btn").click(function(){
+        	location.href = "${def:context}/action/project/fitness/wx/mc/home";
+        });
+        
         //提交
         $('.submitbtn').click(function(){
-            var baohuqi=$('#ex1').val();
-            var time1=$('#datetimepicker').val();
-            var time2=$('#datetimepickers').val();
-            
-            var select1=$('.btn1.btn-warning').children('input').val();
-            var select2=$('.btn2.btn-warning').children('input').val();
-            var select3=$('.btn3.btn-warning').children('input').val();
-            var select4=$('.btn4.btn-warning').children('input').val();
-            
-            
-            if(baohuqi>100){
-        	    $('#s_baohuqi').val('')
-         }else{
-        	    $('#s_baohuqi').val(baohuqi)
-         }
-            
-            
-            $('#s_stime').val(time1)//开始
-            $('#s_etime').val(time2)//结束
-            $('#s_status').val(select1)//资源状态
-            $('#s_level').val(select2)//关注度
-            $('#s_genjin').val(select3)//跟进状态
-            $('#s_huiyuan').val(select4)//跟进状态
+        	 $("#startdate").val($('#datetimepicker').val());
+             $("#enddate").val($('#datetimepickers').val());
+            $("#s_communication").val($("#the_state").val());//状态
+            $("#theposition").val($("#position").val());//关注度
         	getlist();
             $('#myModal').modal('hide');
         });
-        
-       	$('.searchsubmit').on('click',function(){
-       	 	getlist();
-       	})
+       
+        var l = sessionStorage.getItem('theylxr_list');
+        if(null !== l && '' !== l){
+            //恢复数据
+             $(".myziyuanlistbody").html(l);
+            $(window).scrollTop(sessionStorage.getItem('theylxr_scroll'));
+
+        }else{
+        	getlist();
+        };
+        var open = null;//open初始化，判断是否是已展开元素
+        var list = document.getElementsByClassName("list-li");//list获取所有的待展开框
+        for(var i = 0;i < list.length; i++){
+          var x,y,X,Y,moveX,moveY;
+          list[i].addEventListener('touchstart',function(e){
+            /*获取最初的触摸位置*/
+            x = e.changedTouches[0].pageX;
+            y = e.changedTouches[0].pageY;
+            moveX = true;
+            moveY = true;
+          });
+          
+          
+          list[i].addEventListener('touchmove',function(e){
+            X = e.changedTouches[0].pageX;
+            Y = e.changedTouches[0].pageY;
+            
+            //左右滑动
+            if(moveX && Math.abs(X - x) - Math.abs(Y -y) > 0){
+              e.stopPropagation();//阻止冒泡事件
+              //右滑收起删除按钮
+              if(X - x > 12){
+                e.preventDefault();
+                this.classList.remove("moveleft");
+              }
+              //左滑显示删除按钮
+              if(x - X > 12){
+                e.preventDefault();
+                this.classList.add("moveleft");
+                open = this;//存入展开的li元素
+              }
+              moveY = false;//左右滑动时不执行上下滑动时的事件
+            }
+            
+            //上下滑动
+            if(moveY && Math.abs(X - x) - Math.abs(Y - y) < 0){
+              moveX = false;//上下滑动时不执行左右滑动时的事件
+            }
+          });
+          
+          list[i].addEventListener('click',function(e){
+            //在已展开的元素中执行操作
+            if(open){
+              var obj = e.target;
+              var objli = e.target.closest(".list-li");
+              
+              //点击li元素里不是删除按钮的部分，li元素收起
+              if(obj.className != "thebtn"){
+                  open.classList.remove("moveleft");
+              }/*else if(obj.className == "thebtn"){//点击删除按钮执行删除
+           	   location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/from?guestcode="+$("#guestcode").val();
+              }*/
+            }
+          });
+          
+        }
     });
     
+   
     
-    function getinfo(code){
-    	location.href="${def:context}/action/project/fitness/wx/mc/mycust/custinfo/crud?customercode="+code+"&type=mc";
+   function getinfo(guestcode,thecode){
+	     sessionStorage.setItem('theylxr_list',$(".myziyuanlistbody").html());//存储列表数据
+         sessionStorage.setItem('theylxr_scroll',$(window).scrollTop());//存储滚动条位置
+    	 location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/follow?guestcode="+guestcode+"&thecode="+thecode+"&state=3"; 
     }
     
+    
+    function getcomm(guestcode,thecode){
+    	 sessionStorage.setItem('theylxr_list',$(".myziyuanlistbody").html());//存储列表数据
+         sessionStorage.setItem('theylxr_scroll',$(window).scrollTop());//存储滚动条位置
+    	 location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/comm/crud?thecode="+thecode+"&guestcode="+guestcode+"&state=3"; 
+    }
     function getlist(){
     	postAjaxCall("/action/project/fitness/wx/mc/mycust/custlist?",'filter',false);
     }
@@ -229,5 +321,9 @@ ${inc:/action/project/fitness/wx/pub}
 		   }else{
 			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/search.png")
 		   }
- }
+ 	}
+    
+    
+
+    
 </script>

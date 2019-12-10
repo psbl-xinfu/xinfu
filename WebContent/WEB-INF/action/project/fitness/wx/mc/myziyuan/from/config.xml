@@ -11,10 +11,8 @@
 		<validator>false</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="query-guesttype.sql" source="sql" scope="transaction" />
-			<recordset id="query-guestlevel.sql" source="sql" scope="transaction" />
-				<recordset id="query-age.sql" source="sql" scope="transaction" />
-			
+		<recordset id="query-domain.sql" source="sql" scope="transaction" />
+		<recordset id="query-position.sql" source="sql" scope="transaction" />		
 	</transaction>
 
 	<output>
@@ -23,9 +21,9 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<expiration>0</expiration>
-	 	<print mode="table" recordset="query-guesttype.sql" tag="guesttype-rows2" />  
-	 	<print mode="table" recordset="query-guestlevel.sql" tag="leavel" />  
-	 		<print mode="table" recordset="query-age.sql" tag="age" />  
+		<print mode="table" recordset="query-position.sql" tag="position-rows"/>
+		<print mode="table" recordset="query-domain.sql" tag="domain"/>
+		<print mode="form" recordset="_request" />
 	</output>
 
 </config>

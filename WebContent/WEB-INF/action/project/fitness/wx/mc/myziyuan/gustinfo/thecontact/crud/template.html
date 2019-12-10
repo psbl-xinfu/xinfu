@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+	<head>
+	${inc:/action/project/fitness/wx/pub}
+        <title>我的资源</title>
+        <link href="${def:context}/js/project/fitness/wx/css/bootstrap-slider.min.css" rel="stylesheet">
+     	<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/style.css?v=7" />
+     	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet">
+   	 <style>
+	  
+	   div p{
+	   		padding:0;
+	   		margin:0;
+	   		float:left;
+	   }
+	   div .thespan{
+	   		display:block;
+			margin-left: 11px;
+			height:30px;
+			line-height:-30px;
+	   }
+	    #filter {
+		    border-bottom: 1px solid #ccc
+		  }
+		  
+		  #filter div {
+		    text-align: center;
+		    line-height: 54px;
+		    font-size: 16px;
+		  }
+		 .list-ul {
+		    overflow: hidden
+		  } 
+		   /* li{overflow:hidden;list-style:none;}  */
+		   .list-li {
+			  /* line-height: 60px; */
+			  /* border-bottom: 1px solid #fcfcfc; */
+			  position: relative;
+			  padding: 0 12px;
+			  color: #666;
+			  background: #f2f2f2;
+			  -webkit-transform: translateX(0px);
+			 }
+			  
+			 .thebtn {
+			 line-height:10px;
+			 font-size:18px;
+			 line-height: 40px;
+			  position: absolute;
+			  top: 0;
+			  right: -90px;
+			  text-align: center;
+			  background: #ffcb20;
+			  color: #fff;
+			  width: 90px;
+			 }
+			  .moveleft{
+				transform:translateX(-20%);
+				-webkit-transform:translateX(-20%);
+			}
+		  </style>
+    </head>
+    <body>
+    
+         <form id="filter" name="filter">
+            <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
+			<input type="hidden" id="s_period_day" name="s_period_day" >
+			<input type="hidden" id="guestcode"name="guestcode" value="${fld:guestcode}">
+			<input type="hidden" id="s_province"name="s_province" >
+			<input type="hidden" id="s_city"name="s_city" >
+			<input type="hidden" id="s_communication"name="s_communication" >
+			<input type="hidden" id="s_custcations"name="s_custcations" >
+    
+	        <div class="myziyuanlisttop">
+	            <div class="shurukuang">
+	                <input type="text" name="s_name" class="searchinput" id="s_name" placeholder="输入联系人姓名/手机号"oninput="updateurl(this)">
+	                <img  src=" ${def:context}/js/project/fitness/wx/image/search.png"  class="searchsubmit">
+	            </div>
+	            <div class="searchbtn text-center" data-toggle="modal" id="addnew_btn">筛选</div>
+	            
+	        </div>
+	       
+    	</form>
+        
+        
+        <div class="myziyuanlistbody">
+
+		</div>
+        <!-- modal fade -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+            <div class="modal-dialog" role="document" style="background: white">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #CCC"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">筛选条件</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mokuai">
+                        	<h5>跟进状态</h5>
+                            <div class="content">
+                            	<select  id="the_state" name="the_state" class="form-control"> 
+									<option value="">选择跟进状态</option>
+									<option value="1">未建立关系</option>
+									<option value="2">建立关系</option>
+									<option value="3">了解需求</option>
+									<option value="4">对接产品价值</option>
+									<option value="5">要承诺</option>
+									<option value="6">暂时搁置</option>
+									<option value="7">成交</option>
+									<option value="8">未成交</option>
+								</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mokuai">
+                        	<h5>职位</h5>
+                            <div class="content">
+                            	<select  id="position" name="position" class="form-control"> 
+									<option value="">请选择职位</option>
+									<position-rows>
+										<option value="${fld:poscode}">${fld:posname}</option>
+									</position-rows>
+								</select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default fl resetbtn">重置</button>
+                        <button type="button" class="btn btn-primary fr submitbtn">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+		
+    	 <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/bootstrap-slider.min.js" ></script> 
+         <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
+    </body>
+    
+</html>
+
+<script type="text/javascript">
+
+var init_event_city2;
+    $(function(){
+    	var state ="${fld:state}";
+    	addthe();
+    	btnreturn();
+    	homemc();
+    	/* searchSelectInit('#custcations'); */
+    	$("#addnew_btn").on('click',function(){
+    		$('#myModal').modal('show');
+       	});
+    	
+       	$('#add_btn').on('click',function(){
+	       	sessionStorage.removeItem('the_list');
+	        sessionStorage.removeItem('the_scroll');
+           	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/from?guestcode="+$("#guestcode").val();
+       	});
+    	
+       	$('.searchsubmit').on('click',function(){
+       	 	getlist();
+       	});
+       	
+
+        //重置
+        $('.resetbtn').click(function(){
+        	 $('#province2').val("");
+        	 $('#city2').val("");
+        	 $('#communication').val("");
+        	 setSelectValue($("#custcations"), "");
+        	 $('#businesstype').hide();
+        	 
+        });
+	
+        $("#ten_btn").click(function(){
+        	if(state==1){
+        		location.href = "${def:context}/action/project/fitness/wx/mc/myziyuan/crud?guestcode="+$("#guestcode").val();
+        	}else{
+        		location.href = "${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/crud?guestcode="+$("#guestcode").val();
+        	}
+        });
+        
+        //提交
+        $('.submitbtn').click(function(){
+            var baohuqi=$('#ex1').val();
+            if(baohuqi>s_period_day){
+        	    $('#s_baohuqi').val('');
+	         }else{
+	        	$('#s_baohuqi').val(baohuqi);
+	         }
+            $('#s_province').val($("#province2").val());//开始
+            $('#s_city').val($("#city2").val());//结束
+            $('#s_communication').val($("#communication").val());//状态
+            $('#s_custcations').val($("#custcations").val());//关注度
+        	getlist();
+            $('#myModal').modal('hide');
+        });
+       
+        var l = sessionStorage.getItem('the_list');
+        if(null !== l && '' !== l){
+            //恢复数据
+             $(".myziyuanlistbody").html(l);
+            $(window).scrollTop(sessionStorage.getItem('the_scroll'));
+
+        }else{
+        	getlist();
+        };
+        var open = null;//open初始化，判断是否是已展开元素
+        var list = document.getElementsByClassName("list-li");//list获取所有的待展开框
+        for(var i = 0;i < list.length; i++){
+          var x,y,X,Y,moveX,moveY;
+          list[i].addEventListener('touchstart',function(e){
+            /*获取最初的触摸位置*/
+            x = e.changedTouches[0].pageX;
+            y = e.changedTouches[0].pageY;
+            moveX = true;
+            moveY = true;
+          });
+          
+          
+          list[i].addEventListener('touchmove',function(e){
+            X = e.changedTouches[0].pageX;
+            Y = e.changedTouches[0].pageY;
+            
+            //左右滑动
+            if(moveX && Math.abs(X - x) - Math.abs(Y -y) > 0){
+              e.stopPropagation();//阻止冒泡事件
+              //右滑收起删除按钮
+              if(X - x > 12){
+                e.preventDefault();
+                this.classList.remove("moveleft");
+              }
+              //左滑显示删除按钮
+              if(x - X > 12){
+                e.preventDefault();
+                this.classList.add("moveleft");
+                open = this;//存入展开的li元素
+              }
+              moveY = false;//左右滑动时不执行上下滑动时的事件
+            }
+            
+            //上下滑动
+            if(moveY && Math.abs(X - x) - Math.abs(Y - y) < 0){
+              moveX = false;//上下滑动时不执行左右滑动时的事件
+            }
+          });
+          
+          list[i].addEventListener('click',function(e){
+            //在已展开的元素中执行操作
+            if(open){
+              var obj = e.target;
+              var objli = e.target.closest(".list-li");
+              
+              //点击li元素里不是删除按钮的部分，li元素收起
+              if(obj.className != "thebtn"){
+                  open.classList.remove("moveleft");
+              }/*else if(obj.className == "thebtn"){//点击删除按钮执行删除
+           	   location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/from?guestcode="+$("#guestcode").val();
+              }*/
+            }
+          });
+          
+        }
+    });
+    
+   
+    
+   function getinfo(code){
+	     sessionStorage.setItem('the_list',$(".myziyuanlistbody").html());//存储列表数据
+         sessionStorage.setItem('the_scroll',$(window).scrollTop());//存储滚动条位置
+    	 location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/follow?guestcode="+$("#guestcode").val()+"&thecode="+code+"&state=2"; 
+    }
+    
+    
+    function getcomm(code){
+    	 sessionStorage.setItem('the_list',$(".myziyuanlistbody").html());//存储列表数据
+         sessionStorage.setItem('the_scroll',$(window).scrollTop());//存储滚动条位置
+    	 location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/comm/crud?thecode="+code+"&guestcode="+$("#guestcode").val()+"&state=2"; 
+    }
+    function getlist(){
+    	postAjaxCall("/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/gustlist?",'filter',false);
+    }
+    
+    function updateurl(obj){
+		   if($(obj).val()!=""){
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/sousuo_on.png")
+		   }else{
+			   $('.searchsubmit').attr('src',"${def:context}/js/project/fitness/wx/image/search.png")
+		   }
+ 	}
+    
+    
+
+    
+</script>

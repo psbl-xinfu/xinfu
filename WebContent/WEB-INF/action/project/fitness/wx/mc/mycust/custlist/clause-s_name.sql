@@ -1,2 +1,1 @@
-AND (c.name like CONCAT('%',${fld:s_name},'%') or c.mobile like CONCAT('%',${fld:s_name},'%')
-)
+ AND (the.name LIKE concat('%', ${fld:s_name}, '%') or the.mobile LIKE concat('%', ${fld:s_name}, '%'))

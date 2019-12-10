@@ -1,12 +1,6 @@
-and--保护期
-	(${fld:s_period_day}::int-('${def:date}'::date -
-		(case when 
-			(select   created 
-				 from cc_mcchange 
-			where guestcode = g.code and org_id = ${def:org} order by created desc limit 1)is null then '${def:date}'::date
-		else 
-		(select   created 
-				 from cc_mcchange 
-		where guestcode = g.code and org_id = ${def:org} order by created desc limit 1)
-		end)
-::date))<=${fld:s_baohuqi}::int 
+ and  
+ (case when ${fld:s_baohuqi}::int>(select dayval from protectdey)::int
+ 	then 1=1 
+ 	else ('${def:date}'::date-p.grabtime::date)::int<=${fld:s_baohuqi}::int
+ end)
+

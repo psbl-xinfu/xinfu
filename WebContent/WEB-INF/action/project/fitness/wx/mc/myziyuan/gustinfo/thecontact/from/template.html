@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+${inc:/action/project/fitness/wx/pub}
+	<title>添加联系人</title>
+	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+    </head>
+    <body>
+      <form id="formEditor" name="formEditor">
+      	
+        <div class="myziyuanaddtop">
+          	<input type="hidden" id="guestcode" name="guestcode" value="${fld:guestcode}">
+            <div class="listother">
+                <p class='p1'>姓名</p>
+                <p class='p2'><input type="text" name="thename"  class="textinput" id="thename" placeholder="请输入联系人姓名"></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>手机号</p>
+                <p class='p2'><input type="text" name="cc_mobile"  class="textinput" id="cc_mobile" placeholder="请输入联系人手机号" value=""></p>
+            </div>
+            <div class="listother">
+                <p class='p1'>性别</p>
+                
+                <label class="radio-inline">
+                    <input type="radio" name="sex" value="1">男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="sex" value="0">女
+                </label>
+            </div>
+            <hr/>
+            <div class="mokuai">
+            	<h5>职位</h5>
+				<div class="my-selected">
+					<select  id="position" name="position" class="form-control"> 
+						<option value="">请选择职位</option>
+						<position-rows>
+							<option value="${fld:poscode}">${fld:posname}</option>
+						</position-rows>
+					</select>
+				</div>
+            </div>
+        <div class="myziyuanaddbtn">
+            <img src="${def:context}/js/project/fitness/wx/image/submit.png" class="tijiao" id="save" >
+         	<img src="${def:context}/js/project/fitness/wx/image/quxiao.png" class="quxiao" id="back" >
+        </div>
+        </form>
+    </body>
+   
+    <script type="text/javascript">
+    	$(function(){
+    		homemc();
+    		$('#cc_mobile').on('blur',function(){
+    			checkTel($('#cc_mobile').val(),"cc_mobile");
+    		});
+    		
+        	$('#save').on('click',function(){
+        		var url = "${def:context}${def:actionroot}/insert"
+        			ajaxCall(url,{
+        				method: "post",
+        				progress: true,
+        				form:'formEditor',
+        				dataType: "script",
+        				success: function() {
+        					ccms.dialog.notice("新增成功！",1000,function(){
+        						location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode="+$("#guestcode").val()+"&state=1";
+        					});
+        				}
+        			});
+        	})
+        	
+       		$('#back').on('click',function(){
+           		location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode="+$("#guestcode").val()+"&state=1";
+       	  	})
+    	});
+    	function checkTel(value,str){
+		    var isPhone = /^[1][3,4,5,7,8,9][0-9]{9}$/;
+		  /*   var isMob=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/; */
+		    var value= value;
+		    if(!isPhone.test(value)){
+		    	alert("请输入正确手机号或电话号!");
+			    	 $('#'+str).val('');
+			}
+		}
+    	
+    </script>
+</html>
