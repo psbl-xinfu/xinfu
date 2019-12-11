@@ -69,12 +69,9 @@
     
          <form id="filter" name="filter">
             <input name="pageSize" type="hidden" value="100000" preserve="true"  id="pageSize"/>'
-			<input type="hidden" id="s_period_day" name="s_period_day" >
 			<input type="hidden" id="guestcode"name="guestcode" value="${fld:guestcode}">
-			<input type="hidden" id="s_province"name="s_province" >
-			<input type="hidden" id="s_city"name="s_city" >
 			<input type="hidden" id="s_communication"name="s_communication" >
-			<input type="hidden" id="s_custcations"name="s_custcations" >
+			<input type="hidden" id="theposition"name="theposition" >
     
 	        <div class="myziyuanlisttop">
 	            <div class="shurukuang">
@@ -190,16 +187,8 @@ var init_event_city2;
         
         //提交
         $('.submitbtn').click(function(){
-            var baohuqi=$('#ex1').val();
-            if(baohuqi>s_period_day){
-        	    $('#s_baohuqi').val('');
-	         }else{
-	        	$('#s_baohuqi').val(baohuqi);
-	         }
-            $('#s_province').val($("#province2").val());//开始
-            $('#s_city').val($("#city2").val());//结束
-            $('#s_communication').val($("#communication").val());//状态
-            $('#s_custcations').val($("#custcations").val());//关注度
+            $('#s_communication').val($("#the_state").val());//状态
+            $('#theposition').val($("#position").val());//关注度
         	getlist();
             $('#myModal').modal('hide');
         });

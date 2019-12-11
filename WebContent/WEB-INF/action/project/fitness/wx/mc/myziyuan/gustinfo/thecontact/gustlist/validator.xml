@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
 	<parameter id="guestcode" type="varchar" required="false" label="公司编号 " />
-	<parameter id="s_province" type="integer" required="false" label="省" />
-	<parameter id="s_city" type="integer" required="false" label="市" />
 	<parameter id="s_communication" type="integer" required="false" label="客户分类 " />
-	<parameter id="s_custcations" type="varchar" required="false" label="客户详细分类 " />
+	<parameter id="theposition" type="varchar" required="false" label="客户详细分类 " />
 	<parameter id="s_name" type="varchar" required="false" label="客户详细分类 " />
 </validator>

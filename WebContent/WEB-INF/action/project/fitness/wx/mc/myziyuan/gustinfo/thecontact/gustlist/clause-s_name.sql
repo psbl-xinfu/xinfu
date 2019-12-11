@@ -1,2 +1,2 @@
-AND (g.name like CONCAT('%',${fld:s_name},'%') or tt.mobile like CONCAT('%',${fld:s_name},'%')
+AND (the.name like CONCAT('%',${fld:s_name},'%') or the.mobile like CONCAT('%',${fld:s_name},'%')
 )

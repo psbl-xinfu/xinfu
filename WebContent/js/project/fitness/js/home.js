@@ -26,7 +26,7 @@ function pickcustCallback(){
 	var custcode = $("#homecustcode").val();
 	var homeunionorgid = $("#homeunionorgid").val();
 	if( "" != custcode ){
-		ccms.dialog.open({url: contextPath+"/action/project/fitness/guest/follow/custcomm?customercode="+custcode+"&homeunionorgid="+homeunionorgid, id: "dialogSearch",width:1050});
+		ccms.dialog.open({url: contextPath+"/action/project/fitness/guest/detail/gustmenu/visitRecord/crud?guestcode="+custcode, id: "dialogSearch",width:1050});
 	}
 }
 

@@ -10,7 +10,7 @@
 		when '7' then '成交'
 		when '8' then '未成交'
 	end) as gj_commresult
-	,cm.remark
+	,cm.remark as cmremark
 	,cm.created
 	,cm.nexttime --下次跟进时间
 from cc_comm cm

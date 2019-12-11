@@ -20,7 +20,7 @@
 	end) as gj_commresult
 	,cm.remark
 	,cm.created
-	,(select name from hr_staff where userlogin=g.mc ) as vc_mc
+	,(select name from hr_staff where userlogin=cm.createdby ) as vc_mc
 from cc_comm cm
 left join cc_guest g on cm.guestcode = g.code and cm.org_id = g.org_id
 left join cc_thecontact the on the.code=cm.thecontactcode and the.org_id=cm.org_id

@@ -7,7 +7,7 @@
 	<log>false</log> 
 	 
 	 
-	<colname></colname>
+	<colname>s_name,s_communication,theposition</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

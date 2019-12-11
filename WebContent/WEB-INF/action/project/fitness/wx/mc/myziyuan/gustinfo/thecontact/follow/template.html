@@ -122,10 +122,8 @@ var thecode ="${fld:thecode}";
 			        str+='  </div>';
 			    str+='  <div class="list">';
 			    str+='      <p class="p1 fl">跟进备注:</p>';
-			        str+='       <p class="p2 fl"><textarea class="form-control" rows="3" placeholder="上次跟进内容" id="scremark" name="scremark">${fld:remark}</textarea></p>';
+			        str+='       <p class="p2 fl"><textarea class="form-control" rows="3" placeholder="上次跟进内容" id="scremark" name="scremark">${fld:cmremark}</textarea></p>';
 			        str+=' </div>';
-        
-			
 			str+='</div>';
 		</info>
 		$(".followlistbody").html(str);
@@ -186,7 +184,7 @@ var thecode ="${fld:thecode}";
                if(obj.className != "thebtn"){
                    open.classList.remove("moveleft");
                }else if(obj.className == "thebtn"){//点击删除按钮执行删除
-            	   location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/comm/crud?thecode="+thecode+"&guestcode="+guestcode;
+            	   location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/comm/crud?thecode="+thecode+"&guestcode="+guestcode+"&state=2";
                }
              }
            });
