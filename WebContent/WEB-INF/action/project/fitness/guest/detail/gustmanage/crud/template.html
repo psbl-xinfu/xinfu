@@ -473,17 +473,22 @@ $(document).ready(function() {
 	
 	$("#businesstype").hide();
 	setSelectValue($("#custcations2"), "");
+	$("#custcation2").val("");
 	$("#communication2").change(function(){
+		setSelectValue($("#custcations2"), "");
+		$("#custcation2").val("");
 		var cust2=$("#communication2").val();
 			if(cust2==''){
 				$('#businesstype').hide();
 				setSelectValue($("#custcations2"), "");
+				$("#custcation2").val("");
 			}else{
 				if(cust2==1){
 					$('#businesstype').show();
 				}else{
 					$('#businesstype').hide();
 					setSelectValue($("#custcations2"), "");
+					$("#custcation2").val("");
 				}
 			}
 	});

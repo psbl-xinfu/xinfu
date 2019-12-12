@@ -30,4 +30,4 @@ where (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs 
 			then 1=1 else g.mc = '${def:user}' end)
 ${filter} 
 
- order by vc_mobile desc 
+ order by officename,vc_mobile desc 
