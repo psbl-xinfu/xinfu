@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<config>
+
+	<summary>
+		Exportar documento excel directo al browser
+	</summary>
+	
+	<log>false</log>
+	
+	<colname></colname>
+	<sql-template>query-base.sql</sql-template>
+
+	<transaction>
+		<classname>transactions.project.fitness.SearchData</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericExcelOutput</classname>
+	</output>
+
+	<excel recordset="query-base.sql" sheetname="联系人跟进记录" filename="联系人跟进记录.xls" header-background="true">
+		<col id="officename" label="公司名称" />
+		<col id="vc_name" label="联系人" />
+		<col id="vc_mobile" label="手机号" />
+		<col id="cc_position" label="职位" />
+		<col id="created" label="跟进时间" />
+		<col id="gj_commresult" label="跟进状态" />
+		<col id="remark" label="跟进内容" />
+	</excel>
+
+</config>

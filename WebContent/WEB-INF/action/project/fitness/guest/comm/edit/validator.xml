@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="commcode" type="varchar" label="跟进记录编号" required="false"/>
+</validator>

@@ -1,8 +1,5 @@
  select
- 	 concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" 
-	
- value="',cm.code::varchar,'','" > </label>') as application_id
-	,g.officename
+	g.officename
 	,the.name as vc_name
 	,(case the.sex when
     	'0' then '女'
@@ -32,4 +29,5 @@ where (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs 
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
 			then 1=1 else g.mc = '${def:user}' end)
 ${filter} 
- order by created desc 
+
+ order by vc_mobile desc 

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="guestcode" type="varchar" required="false" label="公司编号"  />
+   	<parameter id="commcode" type="varchar" required="false" label="跟进记录的编号"  />
+    <parameter id="the_state" type="varchar" required="false" label="这次跟进状态" />
+    <parameter id="_start_date" type="varchar" required="true" label="下次跟进时间" />
+	<parameter id="scremark" type="varchar" required="true" label="公司编号" />	
+</validator>

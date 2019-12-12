@@ -3,8 +3,73 @@
 <head>
 ${inc:/action/project/fitness/home/pub}
 <title>沟通记录</title>
+<style type="text/css">
+       .table>tbody>tr:hover{
+            background:olive;
+        } 
+        .table-cont{
+            max-height: 500px;
+            overflow: auto;
+            margin: 20px 10px;
+        }
+</style> 
 </head>
 <body>
+	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg" >
+				<header class="header-default">
+					<span id="formTitle">新增</span>
+					<span class="header-close"></span>
+				</header>
+				<div class="b-i-main  yyc_b-i-main">
+					<form id="addForm" name="addForm" method="post">
+						<input type="hidden" name="guestcode" id="guestcode"  />
+						<input type="hidden" name="commcode" id="commcode"  />
+						<div class="modal-body b-i-main">
+							<nav>
+								<li>
+									<label style="width: 130px;">公司名称：</label><span id="gsname"></span>
+								</li>
+								<li>
+									<label style="width: 130px;">联系人：</label><span id="thename"></span>
+								</li>
+								<li>
+									<label style="width: 130px;">跟进状态：</label>
+									<div class="my-selected">
+										<select  id="the_state" name="the_state" style="display: none;"> 
+											<option value="">选择跟进状态</option>
+											<option value="1">未建立关系</option>
+											<option value="2">建立关系</option>
+											<option value="3">了解需求</option>
+											<option value="4">对接产品价值</option>
+											<option value="5">要承诺</option>
+											<option value="6">暂时搁置</option>
+											<option value="7">成交</option>
+											<option value="8">未成交</option>
+										</select>
+									</div> 
+								</li>
+								<li>
+									<label style="width: 130px;">跟进时间：</label><span id="scgjsj"></span>
+								</li>
+								<li class="to100w" style="margin-left: 6%">
+									<label  style="width: 260px;">跟进内容：</label>
+									<textarea id="scremark" cols="50" rows="1" class="my-textarea" name="scremark" ></textarea>
+								</li>
+								<li>
+									<label style="width: 180px;">下次跟进日期：</label></span>
+										<input id="_start_date" name="_start_date" type="text" class="input-default"/>
+								</li>
+								
+							</nav>
+						</div>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn" class="my-btn-default active">保存</button>
+				</footer>
+			</div>
+		</div>
 	<form role="form" method="post" id="searchForm">
 		<input name="sort" type="hidden" value="com.created" preserve="true"/>
 		<input name="order" type="hidden" value="desc" preserve="true" /> 
@@ -46,7 +111,17 @@ ${inc:/action/project/fitness/home/pub}
 
 							<div>
 								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
-							</div>					 										
+								<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+								<div class="tab-cout-nav-b">
+									<nav class="r-c-3-t-b-r">
+										 <li>
+											<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="edit_btn">
+										</li>
+										
+									</nav>
+								</div>
+							</div>	
+											 										
 						</nav>
 					</div>
 					<div class="r-tab-cout-3-t-b">
@@ -57,11 +132,16 @@ ${inc:/action/project/fitness/home/pub}
 					</div>
 				</div>
 		
-				<div class="r-tab-cout-3-b">
-					<div class="to-change-background"></div>
-					<table class="am-table">
+				<div class="r-tab-cout-3-b table-cont">
+					<div class="to-change-background h-43"></div>
+					<table class="table">
 						<thead>
-							<tr>
+							<tr >
+								<th class="table-checkbox">
+									<label class="am-checkbox">
+										<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;">
+									</label>
+								</th>
 								<th>公司名称</th>
 							    <th>联系人姓名</th>
 							    <th>性别</th>
@@ -74,6 +154,7 @@ ${inc:/action/project/fitness/home/pub}
 					</thead>
 					<tbody id="datagridTemplate" style="display: none">
 						<tr id="list">
+							<td>#application_id#</td>
 							<td>#officename#</td>
 			                <td>#vc_name#</td>
 			                <td>#i_sex#</td>
@@ -95,18 +176,83 @@ ${inc:/action/project/fitness/home/pub}
 		</div>
 	</div>
 	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_start_date" name="daochu_start_date" type="text" />
+        <input id="daochu_end_date" name="daochu_end_date" type="text" />
+		<input id="daochu_commstage" name="daochu_commstage"  type="text"/>
+		<input id="daochu_createdby" name="daochu_createdby"  type="text"/>
+		<div id="daochufilterconditionshtml">
+		</div>
+	</form>	
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
+	searchSelectInit($("#commstage,#createdby,#the_state"));
 	var search=null;
+	$(".header-close").unbind().on("click",function(){
+		$("#modalAddnew").modal('hide');
+		ccms.util.clearForm('addForm');
+	});
 	$("#startdate").val(new Date().format("yyyy-MM-01"));
 	$("#enddate").val("${def:date}");
 	
-	selectInit($("#createdby,#commtarget,#commstage,#commresult"));	
+	$('#save_btn').on('click',function(){
+		$('#save_btn').hide();
+		var uri="${def:context}/action/project/fitness/guest/comm/update";
+		   ajaxCall(uri,{
+			   	method: "post",
+			   	form:"addForm",
+			   	progress: false,
+			   	dataType: "script",
+			   	success: function() {
+			   		ccms.dialog.notice("修改成功!", 1000, function(){
+				   		$('#modalAddnew').modal('hide');
+				   		ccms.util.clearForm('addForm');
+				   		search.searchData(1);
+				   		$('#modalAddnew').prop('scrollTop','0');
+			   		});
+		   		}
+		   	}); 
+	})
+	
+	
+	
+	$('#edit_btn').on('click',function(){
+		
+		var leng=$('input[name="datalist"]:checked').length
+		var code=$('input[name="datalist"]:checked').val();
+		if(leng!=1||code==''||code==null){
+			ccms.dialog.notice("请选择一条进行修改!");
+		}else{
+			$('#formTitle').text('修改跟进记录');
+			ccms.util.clearForm('addForm');
+			$('#modalAddnew').prop('scrollTop','0');
+			var uri="${def:context}/action/project/fitness/guest/comm/edit?commcode="+code;
+			   ajaxCall(uri,{
+			   	method: "get",
+			   	progress: false,
+			   	dataType: "script",
+			 	async:false,
+			   	success: function() {
+			   		$('#modalAddnew').modal('show');
+			 	  	}
+				});
+			}
+	});
+		
+		
 		this.search=search;
 		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		ccms.util.renderCheckbox("datalist");
+		$("#daochu_list").unbind().on("click", function(){
+	         $("#daochu_start_date").val($("#_start_date").val());
+	         $("#daochu_end_date").val($("#_end_date").val());
+	         $("#daochu_commstage").val($("#vc_name").val());
+	         $("#daochu_createdby").val($("#i_public").val());
+	         $("#daochuForm").submit();
+  	     });
 	}}).initSearchBtn().searchData(1);
-	$Dialog().date($('#startdate,#enddate'));	
+	$Dialog().date($('#startdate,#enddate,#_start_date'));	
 		
 		
 });
