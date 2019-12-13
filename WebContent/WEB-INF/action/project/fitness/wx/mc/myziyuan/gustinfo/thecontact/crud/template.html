@@ -178,6 +178,8 @@ var init_event_city2;
         });
 	
         $("#ten_btn").click(function(){
+        	sessionStorage.removeItem("the_list");
+        	sessionStorage.removeItem("the_scroll");
         	if(state==1){
         		location.href = "${def:context}/action/project/fitness/wx/mc/myziyuan/crud?guestcode="+$("#guestcode").val();
         	}else{

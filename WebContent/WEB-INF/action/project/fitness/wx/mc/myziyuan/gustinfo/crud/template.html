@@ -140,12 +140,14 @@ ${inc:/action/project/fitness/wx/pub}
         })
     	
         $('#btnck').on('click',function(){
+        	sessionStorage.removeItem("the_list");
+        	sessionStorage.removeItem("the_scroll");
         	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode=${fld:guestcode}&state=2";
         })
         
         $('#followrecord').on('click',function(){
         	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/followrecord?guestcode=${fld:guestcode}"
-        }) 
+        })
         
         $('#question').on('click',function(){
               	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/quesion/crud?guestcode=${fld:guestcode}"

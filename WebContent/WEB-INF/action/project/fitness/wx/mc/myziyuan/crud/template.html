@@ -342,7 +342,10 @@ var init_event_city2;
     function guestbtn(guestcode){
     	sessionStorage.setItem('index_list',$(".myziyuanlistbody").html());//存储列表数据
         sessionStorage.setItem('index_scroll',$(window).scrollTop());//存储滚动条位置
-    	location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode="+guestcode+"&state=1";
+        sessionStorage.removeItem("the_list");
+    	sessionStorage.removeItem("the_scroll");
+        
+        location.href="${def:context}/action/project/fitness/wx/mc/myziyuan/gustinfo/thecontact/crud?guestcode="+guestcode+"&state=1";
     	return false;
     }
   /*   function save_in_cookie(hash_id){
