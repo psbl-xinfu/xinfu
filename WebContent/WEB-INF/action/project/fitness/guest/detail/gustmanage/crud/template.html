@@ -359,9 +359,9 @@ ${inc:/action/project/fitness/home/pub}
 								</li>
 							</nav>
 							<nav class="r-c-3-t-b-r">
-								<li>
+								<!-- <li>
 									<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
-								</li>
+								</li> --> 
 								 <li>
 									<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="edit_btn">
 								</li>
@@ -394,7 +394,9 @@ ${inc:/action/project/fitness/home/pub}
 								<tr>
 									<td>#application_id#</td>
 									<td>#num_days#</td>
-									<td>#officename#</td>
+									<td>
+						            	<a href="javascript:;" onclick="detailptrest('#vc_code#')">#officename#</a>
+						            </td>
 									<td>#vc_name#</td>		
 									<td>#i_sex#</td>		
 									<td>#vc_mobile#</td>
@@ -508,6 +510,8 @@ $(document).ready(function() {
 		var leng=$('input[name="datalist"]:checked').length
 		var code=$('input[name="datalist"]:checked').val();
 		var status=$('input[name="datalist"]:checked').attr('code');
+		alert(status);
+		alert(code);
 		if(leng!=1||code==''||code==null){
 			ccms.dialog.notice("请选择中一条进行查看!");
 		}else{
@@ -702,6 +706,10 @@ $(document).ready(function() {
 		ccms.dialog.open({url : "${def:context}${def:actionroot}/filter", width:1000, height:670});
 	})
 })
+
+function detailptrest(code) {
+	ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='+1+'&guestcode='+code+"&status="});
+	}
 
 function update(){
 	var uri="${def:context}/action/project/fitness/guest/detail/gustmanage/update";

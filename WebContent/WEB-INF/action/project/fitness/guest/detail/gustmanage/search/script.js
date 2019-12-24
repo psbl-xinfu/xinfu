@@ -13,8 +13,9 @@
 		"i_public":"${fld:i_public@js}",
 		"num_days":"${fld:num_days}",
 		"c_position":"${fld:c_position}",
-		"gj_remark":"${fld:gj_remark@js}"
-			},
+		"gj_remark":"${fld:gj_remark@js}",
+		"vc_code":"${fld:vc_code@js}"
+		},
 	</rows>
 	{}
 ]}
