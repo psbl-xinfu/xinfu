@@ -13,7 +13,10 @@ select
   	,tt.code as yttcode
   	,gt.custclass
   	,gt.communication
-  	
+  	,(case when
+  		gt.guestnum >1 then gt.guestnum
+  		else 1
+  	end) as guestnum
 from 
 	cc_guest gt
 left join cc_thecontact tt on tt.guestcode=gt.code and tt.status=1

@@ -1,9 +1,11 @@
 {"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
 	<rows>
 	{
-		    "code":"${fld:code@js}",
-		    "name":"${fld:name@js}",
-		    "mobile":"${fld:mobile@js}"
+		"gtcode":"${fld:gtcode@js}",
+		"thecode":"${fld:thecode@js}",
+	    "officename":"${fld:officename@js}",
+	    "mobile":"${fld:mobile@js}",
+	    "thename":"${fld:thename@js}"
 	},
 	</rows>
 	{}

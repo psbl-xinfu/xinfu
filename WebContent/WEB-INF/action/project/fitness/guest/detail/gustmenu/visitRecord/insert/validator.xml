@@ -7,6 +7,10 @@
 
 <parameter id="cc_position" type="varchar" required="true" label="职位"/>
 
+<parameter id="cc_birth" type="varchar" required="false" label="生日"/>
+
+<parameter id="remark" type="varchar" required="false" label="备注"/>
+
 <parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
 
 <parameter id="guestttcode" type="integer" required="false" label="公司编号" maxlen="20" />

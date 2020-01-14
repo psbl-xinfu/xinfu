@@ -7,7 +7,7 @@
 
 	<log>false</log>
 
-	<colname>createdby,commstage,startdate,enddate</colname>
+	<colname>createdby,commstage,startdate,enddate,vc_name</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

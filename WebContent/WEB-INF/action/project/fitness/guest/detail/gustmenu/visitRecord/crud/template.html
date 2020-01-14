@@ -53,6 +53,17 @@ ${inc:/action/project/fitness/home/pub}
 									</select>
 								</div>
 				 			</li>
+				 			<li class='lis'>		
+								<label>生日</label> 	
+								<input id="cc_birth" name="cc_birth" placeholder="生日" type="text"class="input-default"/>
+								
+				 			</li>	
+				 			<li class='lis'>	
+				 			</li>
+							<li class='lis'>		
+								<label>备注：</label> 	
+								<textarea id="remark" name="remark" placeholder="备注" class="my-textarea" rows="2" cols="1"></textarea>
+				 			</li>	
 				 			<!-- <nav style="margin-left: 6%">	
 									<li >
 										<label class="btn-label" id="btn-label">请选择标签</label> 
@@ -155,7 +166,7 @@ $(document).ready(function() {
 		$("#modalAddnew").modal('hide');
 		ccms.util.clearForm('addForm');
 	});
-	
+	 $Dialog().date($('#cc_birth'));
 	
 	$('#save_btn').on('click',function(){
 		var labelcodes = $("#labelcodes").val().split(",");

@@ -11,7 +11,8 @@ select
 	gt.custclass, --客户详细分类
 	the.code as thecode,
 	the.name,
-	the.mobile
+	the.mobile,
+	gt.guestnum
 from cc_guest gt
 left join cc_thecontact the on gt.code=the.guestcode
 where gt.code=${fld:guestcode} and the.status=1

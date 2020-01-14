@@ -1,2 +1,2 @@
- AND ptclass.created::date <= ${fld:enddate}::date
+ AND log.created::date <= ${fld:enddate}::date
  

@@ -51,8 +51,17 @@ var ptstr = "<option value=''>请选择</option>";
 	
 $("#ttname").html(ptstr);
 
+var binstatus
+<thecontactstrat-row>
+setSelectValue($("#ttname"), "${fld:ttcodestrat}");
+ binstatus="${fld:ttstatus}";
+</thecontactstrat-row>
 
-
+if(binstatus==1){
+	setSelectValue($("#ttstatus"), "1");
+}
+setSelectValue($("#cc_birth"), "${fld:customtype}");
+$("#guestnum").val("${fld:guestnum}");
 //修改id号  zyb 2019-3-21
 $("#ttname").selectpicker("refresh");
 $("#ttname").selectpicker("render");

@@ -42,6 +42,7 @@
 <parameter id="communication" type="integer" required="true" label="客户分类"  />
 
 <parameter id="custcation" type="varchar" required="false" label="客户类型"  />
+<parameter id="guestnum" type="integer" required="false" label="公司数量"  />
 
 
 <!-- <parameter id="labels" type="integer" required="true" label="沟通阶段"  /> -->

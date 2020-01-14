@@ -25,17 +25,17 @@ ${inc:/action/project/fitness/home/pub}
 							<li class="dateTime">
 						  		<input id="enddate" name="enddate" type="text" class="input-default"/>
 							</li>
-							<li>
+						<!-- <li>
 								<select id="ptdefcode" name="ptdefcode" style="display: none;">
 									<option value="">全部课程</option>
 									<ptdef-list>
 										<option value="${fld:code}">${fld:ptlevelname}</option>
 									</ptdef-list>
 								</select>
-							</li>
+							</li> -->
 							<li>
-								<select id="pt" name="pt" style="display: none;">
-									<option value="">全部教练</option>
+								<select id="mc" name="mc" style="display: none;">
+									<option value="">全部操作人</option>
 									<staff-rows>
 										<option value="${fld:userlogin}">${fld:name}</option>
 									</staff-rows>
@@ -54,32 +54,28 @@ ${inc:/action/project/fitness/home/pub}
 					<table class="">
 						<thead>
 							<tr>
-							    <th>会员姓名</th>
-							    <th>会员手机号</th>
-							    <th>课程</th>
-							    <th>私教</th>
-							    <th>修改前课时</th>
-							    <th>修改后课时</th>
-							    <th>原单价</th>
-							    <th>修改后单价</th>
+							    <th>姓名</th>
+							    <th>手机号</th>
+							    <th>原来公司</th>
+							    <th>现在公司</th>
+							    <th>类型</th>
+							    <th>原来咨询师</th>
+							    <th>现在咨询师</th>
 							    <th>修改时间</th>
-							    <th>修改人</th>
-							    <th>备注</th>
+							    <th>操作人</th>
 							</tr>
 						</thead>
 						<tbody id="datagridTemplate" style="display: none">
 							<tr id="list">
-				                <td>#name#</td>
+				                <td>#thename#</td>
 				                <td>#mobile#</td>
-				                <td>#ptkm#</td>
-				                <td>#ptname#</td>
-				                <td>#oldpt#</td>
-				                <td>#newpt#</td>
-				                <td>#ptfee#</td>
-				                <td>#ptfactfee#</td>
+				                <td>#yofficename#</td>
+				                <td>#xofficename#</td>
+				                <td>#logtype#</td>
+				                <td>#ymcname#</td>
+				                <td>#xmcname#</td>
 				                <td>#created#</td>
 				                <td>#createdby#</td>
-				                <td>#remark#</td>
 							</tr>
 						</tbody>
 						<tbody id="datagrid">
@@ -103,7 +99,7 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
-	searchSelectInit($("#ptdefcode,#pt"));
+	searchSelectInit($("#mc"));
 	$Dialog().date($('#enddate'));
 	$Dialog().date($('#startdate'));
 	$("#startdate").val(new Date("${def:date}").format("yyyy-MM-01")); 

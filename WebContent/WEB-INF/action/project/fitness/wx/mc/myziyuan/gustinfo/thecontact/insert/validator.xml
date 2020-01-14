@@ -11,6 +11,9 @@
 
 <parameter id="guestcode" type="varchar" required="false" label="公司编号" maxlen="20" />
 
+<parameter id="birthday" type="varchar" required="false" label="生日" maxlen="64" />
+
+
    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
 		on-error-label="该手机已经存在,请重新输入" id="cc_mobile" sql="noRep.sql" />
 </validator>

@@ -2,18 +2,24 @@
 <config>
 
 	<summary>
-		私教转课
 	</summary>
 	
 	<log>false</log>
 
+	<colname>thecodelog</colname>
+	<sql-template>insertlog.sql</sql-template>
+
 	<transaction>
-		<classname>dinamica.GenericTransaction</classname>
+		<classname>com.ccms.InsertMaster</classname>
 		<validator>true</validator>
-		<transaction>false</transaction>
+		<transaction>true</transaction>
 		<jdbc-log>false</jdbc-log>
-	    <recordset id="query.sql" source="sql" scope="transaction"/>
 	</transaction>
+	
+	<query>update.sql</query>
+	<query>updatecomm.sql</query>
+	<query>delete.sql</query>
+
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
@@ -21,7 +27,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="query.sql" tag="rows"/>
 	</output>
 
 </config>
+

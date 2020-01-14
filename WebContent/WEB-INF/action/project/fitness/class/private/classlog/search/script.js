@@ -1,17 +1,15 @@
 {"page":{"total":${fld:total},"pageNo":${fld:pageno},"totalPages":${fld:pages}},"rows":[
 	<rows>
 	{
-		"name":"${fld:name}",
+		"thename":"${fld:thename}",
 		"mobile":"${fld:mobile}",
-		"ptname":"${fld:ptname}",
-		"ptkm":"${fld:ptkm}",
-		"oldpt":"${fld:oldpt}",
-		"newpt":"${fld:newpt}",
-		"ptfee":"${fld:ptfee}",
-		"ptfactfee":"${fld:ptfactfee}",
+		"yofficename":"${fld:yofficename}",
+		"xofficename":"${fld:xofficename}",
+		"logtype":"${fld:logtype}",
+		"ymcname":"${fld:ymcname}",
+		"xmcname":"${fld:xmcname}",
 		"createdby":"${fld:createdby}",
-		"created":"${fld:created@yyyy-MM-dd HH:mm}",
-		"remark":"${fld:remark}"
+		"created":"${fld:created@yyyy-MM-dd HH:mm}"
 	},
 	</rows>
 	{}

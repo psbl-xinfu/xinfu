@@ -1,9 +1,9 @@
  AND 
 	(
 	
-				 (pts.name like concat('%', ${fld:cust},'%')) 
+				 (ct.name like concat('%', ${fld:cust},'%')) 
 		or
 		
-				(pts.mobile like concat('%', ${fld:cust},'%'))
+				(ct.mobile like concat('%', ${fld:cust},'%'))
 	)
 	

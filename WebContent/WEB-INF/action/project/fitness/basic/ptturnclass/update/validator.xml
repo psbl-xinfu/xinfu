@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="custcode" type="varchar" required="true" label="要合并的公司"  />
+ 	<parameter id="newcustcode" type="varchar" required="true" label="合并成这个公司"  />
+	<parameter id="yuanmc" type="varchar" required="false" label="yuanmc"  /> 
+	<parameter id="contents" type="varchar" required="false" label="yuanmc"  />
+</validator>

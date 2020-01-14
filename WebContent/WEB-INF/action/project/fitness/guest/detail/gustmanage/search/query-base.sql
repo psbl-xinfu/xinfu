@@ -1,4 +1,4 @@
-select 
+select
 
  concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" 
 	
@@ -34,11 +34,8 @@ select
 	(p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0 then '否'
 	when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0 then '是'
 	end) as i_public,--是否进入公海
-	(case when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0
-	then concat('已过期', now()::date-(p.grabtime::date+(${fld:period_day}||'day')::interval)::date,'天')
-	when (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date >= 0
-	then concat('未过期', (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date ,'天')
-	end) as num_days, --保护期天数
+	(case when now()::date-p.grabtime::date=0 then '今天刚跟进' else concat('未跟进',now()::date-p.grabtime::date,'天')  end)
+	 as num_days, --保护期天数
 	g.communication, --沟通阶段
 	lablg.lablgname,
 	lablg.lablgcode
@@ -71,7 +68,14 @@ and g.org_id=${def:org} and
 	else 1=1
 end)
 ${filter} 
-${orderby}
+order by
+(case when ${fld:thesorting}=1 then   (now()::date-p.grabtime::date) 
+ 	else (p.grabtime::date-now()::date) 
+ end) desc
+ 
+ 
+ 
+
 
 
 

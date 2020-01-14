@@ -3,6 +3,13 @@
 	<head>
 ${inc:/action/project/fitness/wx/pub}
 	<title>添加联系人</title>
+	     <link href="${def:context}/js/project/fitness/wx/css/bootstrap-slider.min.css" rel="stylesheet">
+     	<link href="${def:context}/js/project/fitness/wx/css/normalize3.0.2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="${def:context}/js/project/fitness/wx/css/style.css?v=7" />
+     	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/mobiscroll_date.css" rel="stylesheet" />
+    	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
+        <link href="${def:context}/js/project/fitness/wx/css/yyc_end.css" rel="stylesheet">
 	<link href="${def:context}/js/project/fitness/wx/css/huiji.css" rel="stylesheet" />
     </head>
     <body>
@@ -28,6 +35,11 @@ ${inc:/action/project/fitness/wx/pub}
                     <input type="radio" name="sex" value="0">女
                 </label>
             </div>
+             <div class="listother">
+             	<p class='p1'>生日</p>
+                <p class='p2'>
+                 <input type="text" name="birthday"  class="form-control timeinput" id="birthday" data-date-format="yyyy-mm-dd hh:ii"></p>
+            </div>
             <hr/>
             <div class="mokuai">
             	<h5>职位</h5>
@@ -45,6 +57,9 @@ ${inc:/action/project/fitness/wx/pub}
          	<img src="${def:context}/js/project/fitness/wx/image/quxiao.png" class="quxiao" id="back" >
         </div>
         </form>
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/bootstrap-slider.min.js" ></script> 
+         <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll_date.js" charset="gb2312"></script> 
+        <script src="${def:context}/js/project/fitness/wx/js/timepacker/js/mobiscroll.js"></script> 
     </body>
    
     <script type="text/javascript">
@@ -53,6 +68,32 @@ ${inc:/action/project/fitness/wx/pub}
     		$('#cc_mobile').on('blur',function(){
     			checkTel($('#cc_mobile').val(),"cc_mobile");
     		});
+    		
+    		var date=new Date();
+      	  var currYear = (new Date()).getFullYear();  
+            var opt={};
+            opt.date = {preset : 'date'};
+            opt.datetime = {preset : 'datetime'};
+            opt.time = {preset : 'time'};
+            opt.default = {
+            		theme: 'android-ics light', //皮肤样式
+                    display: 'bottom', //显示方式 
+                mode: 'scroller', //日期选择模式
+                dateFormat: 'yyyy-mm-dd',
+                lang: 'zh',
+                showNow: true,
+                nowText: "今天",
+                startYear: currYear - 50, //开始年份
+                endYear: currYear + 10 //结束年份
+            };
+
+            
+          	$("#birthday").mobiscroll($.extend(opt['date'], opt['default']));
+         	var datek=date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      		$('#birthday').val(datek);
+    		
+    		
+    		
     		
         	$('#save').on('click',function(){
         		var url = "${def:context}${def:actionroot}/insert"

@@ -10,6 +10,7 @@ insert into cc_thecontact
 	,created  --操作时间
 	,org_id
 	,status
+	,birthday
 )
 values 
 (
@@ -22,7 +23,8 @@ values
 	'${def:user}',
 	{ts '${def:timestamp}'},
 	${def:org},
-	0
+	0,
+	${fld:birthday}
 )
 
 

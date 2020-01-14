@@ -7,7 +7,8 @@
 		"vc_mobile":"${fld:vc_mobile@js}",
 		"cc_position":"${fld:cc_position}",
 		"gj_commresult":"${fld:gj_commresult}",
-		"remark":"${fld:remark@js}"
+		"remark":"${fld:remark@js}",
+		"created":"${fld:created@yyyy-MM-dd HH:mm:ss}"
 			},
 	</rows>
 	{}

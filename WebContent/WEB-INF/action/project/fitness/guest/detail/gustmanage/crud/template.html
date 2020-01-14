@@ -5,25 +5,6 @@
 ${inc:/action/project/fitness/home/pub}
 <title>客户资源列表</title>
 <style type="text/css">
-		/* .table{
-            width:100%;
-            max-width: 100%;
-        } */
-       /*  .table>thead>tr{
-            background: #edf7ff;
-        } */
-       /*  .table>thead>tr>th {
-            white-space: nowrap;
-            padding: 8px;
-            line-height: 1.42857143;
-        } */
- 
-        /* .table>tbody>tr:nth-child(odd){
-             background: #fff;
-         }
-        .table>tbody>tr:nth-child(even){
-            background: #f7f7f7;
-        } */
        .table>tbody>tr:hover{
             background:olive;
         } 
@@ -150,7 +131,10 @@ ${inc:/action/project/fitness/home/pub}
 							</div>
 			 			</li>
 			 			
-			 			
+			 			<li> 			
+							<label>公司数量</label> 	
+							<input type="text" id="guestnum" name="guestnum" value="" maxlength="80" placeholder="公司数量"/>
+			 			 </li>
 						<li> 			
 							<label>电话</label> 	
 							<input type="text" id="cc_officetel" name="cc_officetel" value="" maxlength="80" placeholder="公司电话"/>
@@ -280,16 +264,16 @@ ${inc:/action/project/fitness/home/pub}
 									<input type="checkbox" name="public" value="1" style="display: none;"/>公海
 								</li>
 								<li class='lis'>
-							<div class="my-selected">
-								<select  id="position" name="position"> 
-									<option value="">请选择职位</option>
-									<position-rows>
-										<option value="${fld:poscode}">${fld:posname}</option>
-									</position-rows>
-									
-								</select>
-							</div>
-			 			</li>
+									<div class="my-selected">
+										<select  id="position" name="position"> 
+											<option value="">请选择职位</option>
+											<position-rows>
+												<option value="${fld:poscode}">${fld:posname}</option>
+											</position-rows>
+											
+										</select>
+									</div>
+					 			</li>
 								<div class="r-c-btnList b-10">
 									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
 									<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addnew_btn">
@@ -305,7 +289,7 @@ ${inc:/action/project/fitness/home/pub}
 								</li>
 								<li class="label-p" id="periodnum">
 									<label for="rc-n-1-2">保护期(天)：</label>
-									<input class="input-default" type="text"  id="period_day" name="period_day"  value="${fld:period_day}" placeholder="请输入天数">
+									<input style="width:80px" class="input-default" type="text"  id="period_day" name="period_day"  value="${fld:period_day}">
 								</li>
 								
 								
@@ -357,6 +341,9 @@ ${inc:/action/project/fitness/home/pub}
 									
 									
 								</li>
+								<li class="hasCheck">
+									<input type="checkbox" name="thesorting" value="1" style="display: none;"/>倒序
+								</li>
 							</nav>
 							<nav class="r-c-3-t-b-r">
 								<!-- <li>
@@ -379,7 +366,7 @@ ${inc:/action/project/fitness/home/pub}
 											<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;">
 										</label>
 									</th>
-									<th>保护期(天数)</th>
+									<th>未跟进(天数)</th>
 									<th>公司名称</th>
 									<th>关键对接人</th>
 									<th>性别</th>
@@ -510,8 +497,6 @@ $(document).ready(function() {
 		var leng=$('input[name="datalist"]:checked').length
 		var code=$('input[name="datalist"]:checked').val();
 		var status=$('input[name="datalist"]:checked').attr('code');
-		alert(status);
-		alert(code);
 		if(leng!=1||code==''||code==null){
 			ccms.dialog.notice("请选择中一条进行查看!");
 		}else{
@@ -624,7 +609,9 @@ $(document).ready(function() {
 	$('#cc_email').on('blur',function(){
 		checkEmail($('#cc_email').val(),'cc_email');
 	})	
-	
+	$("#guestnum").on('blur', function () {
+		checknum($('#guestnum').val(),'guestnum');
+	})
 	
 	if( "undefined" != "${fld:startdate}" && "" != "${fld:startdate}" ){
 		$("#_start_date").val("${fld:startdate}");
@@ -789,7 +776,18 @@ function checkTel(value,str){
 	    	 $('#'+str).val('');
 	    }
    }
-	
+function checknum(num,str){
+　　　　if (num=="") { 
+		ccms.dialog.notice("请输入内容");
+		$('#'+str).val('');
+　　　　　　return false; 
+　　　　} 
+　　　　if (!(/(^[1-9]\d*$)/.test(num))) { 
+		ccms.dialog.notice("输入的不是正整数");
+		$('#'+str).val('');
+　　　　　　return false; 
+　　　　}
+}
 	
 function IdentityCodeValid(code,str) { 
     var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};

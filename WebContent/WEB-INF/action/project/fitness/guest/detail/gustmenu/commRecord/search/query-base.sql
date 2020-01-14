@@ -20,7 +20,7 @@ select
 	,cm.remark
 	,cm.created
 from  cc_comm cm  
-left join cc_thecontact the on cm.thecontactcode=the.code and the.org_id='${def:org}'
+INNER join cc_thecontact the on cm.thecontactcode=the.code and the.org_id='${def:org}'
 where cm.guestcode=${fld:id}
  and cm.org_id='${def:org}' 
  ${filter}

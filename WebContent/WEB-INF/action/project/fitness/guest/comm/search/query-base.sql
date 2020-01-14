@@ -25,8 +25,8 @@
 	,cm.created
 	,(select name from hr_staff where userlogin=cm.createdby ) as vc_mc
 from cc_comm cm
-left join cc_guest g on cm.guestcode = g.code and cm.org_id = g.org_id
-left join cc_thecontact the on the.code=cm.thecontactcode and the.org_id=cm.org_id
+inner join cc_guest g on cm.guestcode = g.code and cm.org_id = g.org_id
+inner join cc_thecontact the on the.code=cm.thecontactcode and the.org_id=cm.org_id
 where (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)

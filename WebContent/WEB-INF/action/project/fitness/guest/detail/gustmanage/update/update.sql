@@ -10,6 +10,7 @@ update cc_guest set
   	,remark = ${fld:cc_remark}
   	,communication=${fld:communication}
   	,custclass=${fld:custcation}
+  	,guestnum=${fld:guestnum}
 where
 	code = ${fld:cc_code} and org_id='${def:org}'
 	

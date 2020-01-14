@@ -7,7 +7,7 @@
 
 	<log>false</log>
 
-	<colname>s_end_date,s_start_date</colname>
+	<colname>s_end_date,s_start_date,vc_name</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

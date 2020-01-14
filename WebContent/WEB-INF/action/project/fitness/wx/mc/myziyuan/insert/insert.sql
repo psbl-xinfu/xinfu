@@ -16,7 +16,7 @@ insert into cc_guest
 	,createdby  --操作人
 	,created  --操作时间
 	,org_id
-	
+	,guestnum
 )
 values 
 (
@@ -35,7 +35,8 @@ values
 	${fld:custcation},
 	'${def:user}',
 	{ts '${def:timestamp}'},
-	${def:org}
+	${def:org},
+	${fld:guestnum}
 )
 
 

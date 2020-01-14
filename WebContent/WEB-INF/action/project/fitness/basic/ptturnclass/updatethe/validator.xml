@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="ccguestcode" type="varchar" required="true" label="要合并的公司"  />
+ 	<parameter id="newthecode" type="varchar" required="true" label="合并成这个公司"  />
+	<parameter id="thecode" type="varchar" required="false" label="thecode"  /> 
+</validator>

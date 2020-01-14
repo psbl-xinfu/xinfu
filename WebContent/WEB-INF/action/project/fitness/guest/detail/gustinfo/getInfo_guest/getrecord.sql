@@ -28,7 +28,8 @@ select
 	remark,
 	(select name from hr_staff where userlogin=cc_guest.mc 
 	) as mc,
-	created
+	created,
+	guestnum
 from 
 	cc_guest 
 where 

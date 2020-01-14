@@ -1,3 +1,39 @@
+alter table cc_thecontact add birthday Date;
+COMMENT ON COLUMN "public"."cc_thecontact"."birthday" IS '生日';
+
+alter table cc_guest add guestnum int;
+COMMENT ON COLUMN "public"."cc_guest"."guestnum" IS '公司数量';
+--合并和转移日志表
+CREATE TABLE "public"."cc_merger_transfer_log" (
+  "code" varchar(64) ,
+  "yguestcode" varchar(64) ,
+	"xguestcode" varchar(64),
+	
+	"thecode" varchar(64),
+	 "ymc" varchar(64) ,
+	"xmc" varchar(64),
+	"type" int4,
+  "createdby" varchar(64) ,
+  "created" timestamp(6),
+  "org_id" int4,
+	"contents" TEXT
+)
+;
+
+
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."code" IS '主键';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."yguestcode" IS '原来的公司';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."xguestcode" IS '现在的公司';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."thecode" IS '联系人code';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."ymc" IS '原来的mc';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."xmc" IS '现在的mc';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."type" IS '类型：1转移2合并';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."createdby" IS '操作人';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."created" IS '操作时间';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."org_id" IS 'orgid';
+COMMENT ON COLUMN "public"."cc_merger_transfer_log"."contents" IS '公司名称;公司电话;email;公司详细地址;邮编;备注;会籍;厨师会籍;省;市;客户类型;客户分类;客户详细分类;';
+
+
 --添加职位表
 CREATE TABLE "public"."cc_position" (
   "code" varchar(64) ,

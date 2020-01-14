@@ -11,6 +11,7 @@ $('#wx').text("${fld:wx}");
 $('#qq').text("${fld:qq}");
 $('#mc').text("${fld:mc}");
 $('#participate').text("${fld:participate}");
+$('#guestnum').text("${fld:guestnum}");
 
 $('#type').text("${fld:type}");
 $('#cardtype').text("${fld:cardtype}");

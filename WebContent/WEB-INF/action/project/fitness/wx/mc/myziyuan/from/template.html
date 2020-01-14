@@ -22,6 +22,10 @@ ${inc:/action/project/fitness/wx/pub}
                 <p class='p1'>公司邮箱</p>
                 <p class='p2'><input type="text" name="cc_email"  class="textinput" id="cc_email" placeholder="请输入公司邮箱" value=""></p>
 	        </div>
+	        <div class="listother">
+                <p class='p1'>公司数量</p>
+                <p class='p2'><input type="text" name="guestnum"  class="textinput" id="guestnum" placeholder="请输入公司数量" value=""></p>
+	        </div>
             <div class="listother">
                 <p class='p1'>姓名</p>
                 <p class='p2'><input type="text" name="thename"  class="textinput" id="thename" placeholder="请输入联系人姓名"></p>
@@ -149,6 +153,9 @@ ${inc:/action/project/fitness/wx/pub}
     		$('#cc_officetel').on('blur',function(){
     			checkTel($('#cc_officetel').val(),"cc_officetel");
     		});
+    		$("#guestnum").on('blur', function () {
+    			checknum($('#guestnum').val(),'guestnum');
+    		})
         	$("#businesstype").hide();
         	setSelectValue($("#custcations"), "");
         	$("#communication").change(function(){
@@ -201,6 +208,17 @@ ${inc:/action/project/fitness/wx/pub}
     		 	$('#'+str).val('');
     		}
     	}
-    	
+    	function checknum(num,str){
+    	　　　　if (num=="") { 
+    			ccms.dialog.notice("请输入内容");
+    			$('#'+str).val('');
+    	　　　　　　return false; 
+    	　　　　} 
+    	　　　　if (!(/(^[1-9]\d*$)/.test(num))) { 
+    			ccms.dialog.notice("输入的不是正整数");
+    			$('#'+str).val('');
+    	　　　　　　return false; 
+    	　　　　}
+    	}
     </script>
 </html>

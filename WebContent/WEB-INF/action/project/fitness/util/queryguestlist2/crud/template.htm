@@ -34,16 +34,17 @@ ${inc:/action/project/fitness/home/pub}
 					<table> 
 						<thead>
 							<tr>
-								<th>资源编号</th>
-								<th>姓名</th>
+								<th>公司名称</th>
+								<th>关键负责人</th>
 								<th>手机号码</th>
 							</tr>
 						</thead>
 						
 						<tbody id="datagridTemplate" style="display: none">
-							<tr onclick="custinfo('#code#', '#name#')">
-								<td>#code#</td>
-								<td>#name#</td>
+							<tr onclick="custinfo('#gtcode#','#officename#')">
+								<td id='gtcode'>#gtcode#</td>
+								<td>#officename#</td>
+								<td>#thename#</td>
 								<td>#mobile#</td>										
 							</tr>
 						</tbody>
@@ -62,6 +63,7 @@ ${inc:/action/project/fitness/home/pub}
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
+	$("#gtcode").hide();
 	var search=null;
 	this.search=search;
 	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
@@ -74,9 +76,9 @@ $(document).ready(function() {
 	}}).initSearchBtn().searchData(1);
 });
 //
-function custinfo(code, name){
-	parent.$("#${fld:objid}").val(code);
-	parent.$("#${fld:objidtwo}").val(name);
+function custinfo(gtcode, officename){
+	parent.$("#${fld:objid}").val(gtcode);
+	parent.$("#${fld:objidtwo}").val(officename);
 	parent.pickguestCallback();
 	ccms.dialog.close();
 }

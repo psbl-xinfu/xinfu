@@ -14,7 +14,10 @@ ${inc:/action/project/fitness/wx/pub}
                <a id="tel" href=""> <img src="${def:context}/js/project/fitness/wx/image/tel.png" class="telpic fr"> </a>
             </div>
             <div class="listother">
-                <p class='p1'>公司类型</p><p class='p2'  id="customtype"></p>
+                <p class='p1'>公司类型</p>
+            </div>
+             <div class="listother">
+                <p class='p1'>公司数量</p><p class='p2'  id="guestnum"></p>
             </div>
             <div class="listother">
                 <p class='p1'>客户分类</p><p class='p2' id="communication"></p>
@@ -23,6 +26,7 @@ ${inc:/action/project/fitness/wx/pub}
                 <p class='p1'>详细分类</p>
                 <p class='p2 fl'><p class='p2' id="custclass"></p>
             </div>
+            
             <div class="list">
                 <p class='p1'>公司地址</p><p class='p2' id="officeaddr"></p>
             </div>
@@ -73,6 +77,7 @@ ${inc:/action/project/fitness/wx/pub}
     	$('#thename').html('${fld:name}');
     	$('#mobile2').html('&emsp;${fld:mobile}');
     	$('#tel').attr('href','tel:${fld:mobile}');
+    	$('#guestnum').html('${fld:guestnum}');
 		var customtype="${fld:customtype}";
 		var communication="${fld:communication}";
 		var custclass="${fld:custclass}";

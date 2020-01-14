@@ -4,7 +4,9 @@ select
   	,sex as i_sex
 	,mobile as vc_mobile
 	,(select code as poscode from cc_position where code=cc_thecontact.positioncode)
-from 
+	,birthday
+	,remark
+	from 
 	cc_thecontact 
 where 
 	code = ${fld:code} and org_id=${def:org}

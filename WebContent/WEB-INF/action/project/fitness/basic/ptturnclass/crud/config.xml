@@ -13,8 +13,8 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="query-user.sql" source="sql" scope="transaction" />
-		<recordset id="query-pt.sql" source="sql" scope="transaction" />
-		<recordset id="query-org.sql" source="sql" scope="transaction" />
+		<!-- <recordset id="query-pt.sql" source="sql" scope="transaction" /> -->
+		<!-- <recordset id="query-org.sql" source="sql" scope="transaction" /> -->
 	</transaction>
 
 	<output>
@@ -24,8 +24,8 @@
 		<content-type>text/html</content-type>
 		<expiration>0</expiration>>
 		<print mode="form" recordset="query-user.sql" />
-		<print mode="table" recordset="query-pt.sql" tag="pt-rows" />
-		<print mode="table" recordset="query-org.sql" tag="org-rows" />
+		<!-- <print mode="table" recordset="query-pt.sql" tag="pt-rows" /> -->
+		<!-- <print mode="table" recordset="query-org.sql" tag="org-rows" /> -->
 	</output>
 
 </config>

@@ -1,3 +1,4 @@
  and 
- (case when ${fld:public}=1 then (p.grabtime::date+(${fld:period_day}||'day')::interval)::date - now()::date < 0
+ (case when ${fld:public}=1 then
+ now()::date-p.grabtime::date > ${fld:period_day}
  else 1=1 end)
