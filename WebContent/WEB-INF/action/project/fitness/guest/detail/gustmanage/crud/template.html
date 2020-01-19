@@ -422,6 +422,9 @@ color: red !important;
 								<li>
 									<img src="${def:context}/js/project/fitness/image/SVG/btn/tice.svg" title="体测" alt=""id="test_btn">
 								</li>
+								<li>
+									<img src="${def:context}/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除" alt=""id="del_btn">
+								</li>
 							</nav>
 						</div>
 					</div>
@@ -562,6 +565,36 @@ $(document).ready(function() {
 		}else{
 			$('#cc_mc').attr('disabled',false);
 			insert();
+		}
+	})
+	
+	$("#del_btn").unbind().on('click',function(){
+		var obthis=getCheckboxValue("datalist");
+		/* var flag=true;
+		$('input[name=datalist]:checked').each(function(){
+			if($(this).attr('code1')==99){
+				flag=false;
+			}
+		}) */
+		if(obthis!= ""){
+			/* if(flag){ */
+				$Dialog().confirm("确定要删除这些数据吗?", function(){
+					var url = "${def:context}${def:actionroot}/deletes?id="+obthis;
+					ajaxCall(url,{
+						method: "get",
+						progress: true,
+						dataType: "script",
+						success: function() {
+							ccms.dialog.alert("操作成功！");
+							search.searchData(1);
+						}
+					});
+				});
+				/*} else{
+				ccms.dialog.alert("不能删除已成为会员的资源！")
+			} */
+		}else{
+			ccms.dialog.alert("请勾选资源数据！")
 		}
 	})
 	//修改信息
