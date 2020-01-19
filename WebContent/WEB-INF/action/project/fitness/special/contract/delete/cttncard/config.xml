@@ -17,7 +17,7 @@
 	<query>delete-finance.sql</query>
 	<query>delete-operatelog.sql</query>
 	<query>delete-card.sql</query>
-	<query>delete-ptrest.sql</query>
+	<!-- <query>delete-ptrest.sql</query> -->
 	<query>insert-operatelog.sql</query>
 	
 	<output>
