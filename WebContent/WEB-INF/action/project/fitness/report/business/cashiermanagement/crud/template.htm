@@ -41,6 +41,7 @@ ${inc:/action/project/fitness/home/pub}
 									</cashier1-list>
 								</select>
 							</li>
+							
 							<li style="width: 130px;">
 								<select id="shouyinyuan" name="shouyinyuan" data-live-search="true" style="display: none;">
 									<option value="">全部收银员</option>
@@ -49,9 +50,9 @@ ${inc:/action/project/fitness/home/pub}
 									</cashier-list>
 								</select>
 							</li>
-							<!-- <li>
-								<input id="shishoujine" name="shishoujine" type="text" disabled="disabled" class="input-default" placeholder="实收金额" />
-							</li> -->
+							<span style="color: red;" cols="30" rows="4">
+								总合计不统计储值消费
+							</span>
 							<div>
 								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
 								<button type="button" class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
@@ -75,7 +76,7 @@ ${inc:/action/project/fitness/home/pub}
 				<div class="to-change-background h-43"></div>
 					<table class="">
 						<thead>
-							<tr>
+							<tr id="tr1">
 								<th>收银日期</th>  
 								<th>销售1</th>
 								<th>销售2</th>
@@ -113,7 +114,7 @@ ${inc:/action/project/fitness/home/pub}
 						<tbody id="datagrid">
 						</tbody>
 						<tbody>
-							<tr>
+							<tr id="tr2">
 								<td>合计</td>
 								<td></td>
 								<td></td>
@@ -159,7 +160,12 @@ $(document).ready(function() {
 	}else{
 		$(document).attr("title","收银日报表");
 	}
-	
+	var tdArr  = $("#tr2").children("td");
+	var tdArr2  = $("#tr1").children("th");
+	var tdArr3  = $("#list").children("td");
+	 tdArr.eq(7).hide();
+	 tdArr2.eq(7).hide();
+	 tdArr3.eq(7).hide();
 	var startdate = "${fld:start_date}";
 	startdate = ("undefined" != startdate && "" != startdate ? startdate : new Date("${def:date}").format("yyyy-MM-dd"));
 	var enddate = "${fld:end_date}";
@@ -187,8 +193,10 @@ $(document).ready(function() {
 	
 	var search=null;
 	this.search=search;
+	var bin=0;
 	search=$Search({datagrid:"datagrid",formId:"searchForm",rowpackage:function(obj){
 		// 支付方式值输出
+		
 		var paydetail = obj.pay_detail;
 		if( undefined != paydetail && "" != paydetail ){
 			var paydetailarr = paydetail.split(";");
@@ -207,19 +215,40 @@ $(document).ready(function() {
 	},success:function(){
 		$("table").css("table-layout","auto");
 		var datarows = $("#datagrid tr");
+		
+		bin=0;
+		var trList = $("#tr1").children("th");
+		for (var i = 0; i < trList.length; i++) {
+			bin++;
+			if($("#tr1").find("th").eq(i).text()=="储值卡"){
+				break;
+			} 
+		}
+		
 		// 合计
 		$("#datagrid").parent().find("tr:last").find("td").each(function(idx,ele){
 			if( $(this).hasClass("sumfee") ){
 				var sumfee = 0;
+				var chuzhij=0;
 				datarows.find("td:nth-child("+(idx+1)+")").each(function(i2,e2){
+					/* alert(i2.length); */
 					var _value = $(this).text();
+					/* alert(_value); */
 					if( "" != _value && isFloat(_value) ){
 						sumfee = parseFloat(sumfee) + parseFloat(_value);
+						chuzhij=sumfee;
 					}
 				});
+				
 				$(this).text(sumfee);
 			}
 		});
+		//实现合计总额-储值支付的钱才是真正的总收入
+		
+		var heji = parseFloat(tdArr.eq(8).text()) - parseFloat(tdArr.eq(bin-1).text());
+		
+		tdArr.eq(8).text(heji);
+		
 	}}).initSearchBtn().searchData(1);
 	
 	$("#dayin").unbind().on("click",function(){

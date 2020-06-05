@@ -1,5 +1,12 @@
 select
-	concat('<input type="checkbox" name="goodlist" value="', tuid, '" "/>') AS checklink,
+	--concat('<input type="checkbox" name="goodlist" value="', tuid, '" "/>')
+	concat('
+	  <label class="am-checkbox">
+	  <input type="checkbox"  data-am-ucheck name="goodlist" 
+	   value="',tuid,'" "/>
+	   </label>
+	') AS checklink,
+	
 	goods_name,
 	fastcode,
 	(select	domain_text_cn from t_domain where "namespace"='goodType' and domain_value::integer = goods_type and is_enabled = '1' ) as goods_type,

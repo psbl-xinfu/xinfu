@@ -11,6 +11,7 @@ ${inc:/action/project/fitness/home/pub}
 			</header>
 			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
 				<input type="hidden" id="cust_code" name="cust_code" value="${fld:customercode}" />
+				<input type="hidden" id="payment" name="payment"  />
 	          	<div class="modal-body b-i-main">
 					<nav>
 						<li>
@@ -33,7 +34,7 @@ ${inc:/action/project/fitness/home/pub}
 						-->
 						<li>
 							<label for="" style="width: 150px;" id="ctmoney">充值金额</label>	
-							<input type="text" id="moneycash" name="moneycash" value="0" placeholder="金额"/>
+							<input type="text" id="moneycash" name="moneycash" value="" placeholder="金额"/>
 						</li>
 						<!-- modified by zzn 2019-05-27 注释掉				
 						<li>
@@ -103,7 +104,7 @@ $(document).ready(function() {
 			return false;
 		}
  	   if($("#moneycash").val()=="")$("#moneycash").val("0");
- 	   if($("#moneygift").val()=="")$("#moneygift").val("0");
+ 	   /* if($("#moneygift").val()=="")$("#moneygift").val("0"); */
  	   //充值金额
  	   var moneycash = $("#moneycash").val();
  	   if(moneycash==0){
@@ -133,9 +134,10 @@ $(document).ready(function() {
  			ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
  			return false;
  		}
+ 		$("#payment").val(paymoney);
  		//
  		$Dialog().confirm("确定要充值吗？",function(){
- 			var uri="${def:context}${def:actionroot}/insert";
+ 			var uri="${def:context}${def:actionroot}/insert"; 
  		   	ajaxCall(uri,{
  		   		method: "post",
  		   		form:"formEditor",

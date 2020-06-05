@@ -21,7 +21,7 @@ values
 	${seq:nextval@seq_cc_operatelog},	--主键
 	${def:org},
 	'54',
-	${fld:cust_code}||';'||''||';'||''||';'||concat(${fld:moneycash}, '')||';'||concat(${fld:moneygift}, '')||';'||'',                                                  
+	${fld:cust_code}||';'||''||';'||''||';'||concat(${fld:moneycash}, '')||';'||concat(${fld:payment}, '')||';'||'',                                                  
 	0,
 	0,
 	0,

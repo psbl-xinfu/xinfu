@@ -17,7 +17,7 @@ values
 	'${def:user}',
 	${fld:cust_code},
 	${fld:name},
-	'会员充值'||concat(${fld:moneycash}, '')||'元，充值同时并且赠送了您'||concat(${fld:moneygift}, '')||'元',
+	'会员充值'||concat(${fld:moneycash}, '')||'元，充值同时并且赠送了您'||concat(${fld:payment}, '')||'元',
 	0,
 	{ts'${def:timestamp}'},
 	${def:org}

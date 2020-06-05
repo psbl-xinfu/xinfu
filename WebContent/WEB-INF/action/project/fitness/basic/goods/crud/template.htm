@@ -49,7 +49,7 @@ ${inc:/action/project/fitness/home/pub}
 						</li>
 						<li>
 							<label style="width: 110px;">进货价（元）：</label>
-							<input type="text" id="buyprice" name="buyprice" maxlength="80" placeholder="进货价"/>	
+							<input type="text" id="buyprice" name="buyprice" οnkeyup="javascript:CheckInputIntFloat(this);" maxlength="80" placeholder="进货价"/>	
 						</li>
 					<!-- modified by zzn 2019-04-04 暂时隐藏，后期完善-->
 				        <!-- 
@@ -200,7 +200,7 @@ $(document).ready(function() {
 			setSelectValue($("#goods_type"), "");
 			setSelectValue($("#unit"), "");
 			setSelectValue($("#isgift"), "");
-			$("#buyprice").val("0");
+			
 			$("#formTitle").html("新增");
 		},
 		editBack:function(){
@@ -221,6 +221,7 @@ $(document).ready(function() {
 	}).init();
 		this.search=search;
 		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+			ccms.util.renderCheckbox("goodlist");
 			$("#edit_btn").unbind().on("click", function(){
 				var obthis = getCheckboxValue("goodlist");
 				var count = obthis.split(",").length;
@@ -236,7 +237,7 @@ $(document).ready(function() {
 			});
 			
 		$("#searchForm #gname").val("");
-		ccms.util.renderCheckbox("goodlist");
+		
 		$("#delete_btn").unbind().on("click", function(){
 			var obthis = getCheckboxValue("goodlist");
 			if(obthis!= ""){
@@ -280,13 +281,18 @@ $(document).ready(function() {
 		}
 	});
 	//进货价
-	$("#buyprice").blur(function(){
+	/* $("#buyprice").blur(function(){
 		var buyprice = $(this).val();
 		if(isNaN(buyprice)){
 			buyprice = 0;
 		}
 		$(this).val(buyprice <0 ? 0 : buyprice);
-	});
+	}); */
+	function CheckInputIntFloat(oInput) {
+	   if('' != oInput.value.replace(/\d{1,}\.{0,1}\d{0,}/,'')) {
+	        oInput.value = oInput.value.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' :oInput.value.match(/\d{1,}\.{0,1}\d{0,}/);
+	   }
+	}
 });
 </script>
 </body>

@@ -7,7 +7,7 @@
     <parameter id="standard" type="varchar" required="true" label="规格" />
     <parameter id="unit" type="varchar" required="true" label="单位" />
     <parameter id="buyprice" type="double" required="true" label="进货价" />
-    <parameter id="isgift" type="varchar" required="true" label="是否为礼品" />
+    <!-- <parameter id="isgift" type="varchar" required="true" label="是否为礼品" /> -->
     <parameter id="remark" type="varchar" required="false" label="备注" />
     
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator" 

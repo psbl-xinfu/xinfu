@@ -14,16 +14,17 @@ ${inc:/action/project/fitness/home/pub}
 				<nav>
 					<li>
 						<label style="width: 130px;">会员姓名：</label>
-						<input type="text" id="name" name="name" value="${fld:name}" readonly="readonly" />	
+						<span>${fld:name}</span>
 						<input type="hidden" id="code" name="code" value="${fld:code}" />	
 					</li>
 					<li>
-						<label style="width: 130px;">手机号码：</label>
-						<input type="text" id="mobile" name="mobile" value="${fld:mobile}" readonly="readonly" />	
+						<label style="width: 130px;">手机号码：</label><span>${fld:mobile}</span>
+							
 					</li>
 					<li>
 						<label style="width: 130px;">课程名称：</label>
-						<input type="text" id="ptlevelname" name="ptlevelname" value="${fld:ptlevelname}" readonly="readonly" />	
+						<span>${fld:ptlevelname}</span>
+						<!-- <input type="text" id="ptlevelname" name="ptlevelname" value="${fld:ptlevelname}" readonly="readonly" />	 -->
 					</li>
 					<li>
 						<label style="width: 130px;">私教：${fld:ptid}</label>

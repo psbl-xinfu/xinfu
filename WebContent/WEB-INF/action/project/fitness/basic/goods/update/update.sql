@@ -5,7 +5,7 @@ update cc_goods set
 	standard=${fld:standard},
 	unit=${fld:unit},
 	buyprice=${fld:buyprice},
-	isgift=${fld:isgift},
+	--isgift=${fld:isgift},
 	remark=${fld:remark},
 	updated={ts'${def:timestamp}'},
 	updatedby='${def:user}'
