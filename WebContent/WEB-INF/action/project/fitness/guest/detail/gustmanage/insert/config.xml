@@ -6,8 +6,8 @@
 	
 	<log>false</log>
 
-	<colname>labels</colname>
-	<sql-template>insertlable.sql</sql-template>
+	<colname>storename,address</colname>
+	<sql-template>insertbranch.sql</sql-template>
 
 	<transaction>
 		<classname>com.ccms.InsertMaster</classname>
@@ -18,7 +18,6 @@
 
 	<query>insert.sql</query>
 	<query>insert-public.sql</query>
-	<query>insertthecontact.sql</query>
 
 
 	<output>

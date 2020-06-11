@@ -42,13 +42,18 @@ ${inc:/action/project/fitness/home/pub}
 							<label>公司名称<span style="color: red;">*</span></label>
 							<input type="text" id="company" name="company" value="" maxlength="80"  placeholder="公司名称"/>
 						</li>
-						<li class='lis'>
+						<li> 			
+							<label>公司数量</label> 	
+							<input type="text" id="guestnum" name="guestnum" value="" maxlength="80" placeholder="公司数量"/>
+			 			 </li>
+						<!-- <li class='lis'>
 							<label>联系人姓名<span style="color: red;">*</span></label>
 							<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
-						</li>
+						</li> -->
+						
 						<li>
 							<label>公司类型<span style="color: red;">*</span></label>
-							<select  id="cc_birth" name="cc_birth" class=""> 
+							<select  id="cc_birth" name="cc_birth" > 
 								<option value="">选择客户类型</option>
 								<option value="1">健身俱乐部</option>
 								<option value="2">健身工作室</option>
@@ -58,13 +63,13 @@ ${inc:/action/project/fitness/home/pub}
 								<option value="6">其他</option>
 							</select>
 						</li>
-						<li class="ttbin">
+						<!-- <li class="ttbin">
 							<label>联系人</label>
 							<select id="ttname" name="ttname" class=""> 
 							</select>
-						</li>
+						</li> -->
 						
-						<li class='lis'>			
+						<!--<li class='lis'>			
 							<label>性别<span style="color: red;"></span></label>
 							<div class="my-selected">
 								<select  id="cc_sex" name="cc_sex"> 
@@ -73,12 +78,12 @@ ${inc:/action/project/fitness/home/pub}
 									<option value="0">女</option>
 								</select>
 							</div> 	
-			 			</li>
+			 			</li>-->
 			 			
-						<li class='lis'>		
+						<!-- <li class='lis'>		
 							<label>手机<span style="color: red;">*</span></label> 	
 							<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
-			 			</li>	
+			 			</li> -->	
 			 			<li>
 			 			</li>
 			 			<li>
@@ -99,7 +104,7 @@ ${inc:/action/project/fitness/home/pub}
 							
 						<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
 							<option value="1">枢途设计</option>
-							<option value="2">枢途平牌</option>
+							<option value="2">枢途品牌</option>
 							<option value="3">单次学习</option>
 							<option value="4">全年学习</option>
 							<option value="5">6+1学习</option>
@@ -118,7 +123,7 @@ ${inc:/action/project/fitness/home/pub}
 								<option value="8">内训客户</option>
 							</select> -->
 						</li>
-			 			<li class='lis'>
+			 			<!-- <li class='lis'>
 			 				<label>职位<span style="color: red;">*</span></label> 	
 							<div class="my-selected">
 								<select  id="position" name="position"> 
@@ -129,12 +134,21 @@ ${inc:/action/project/fitness/home/pub}
 									
 								</select>
 							</div>
-			 			</li>
+			 			</li>-->
 			 			
-			 			<li> 			
-							<label>公司数量</label> 	
-							<input type="text" id="guestnum" name="guestnum" value="" maxlength="80" placeholder="公司数量"/>
-			 			 </li>
+			 			<li>
+							<label>获客渠道<span style="color: red;">*</span></label>
+							<select  id="cc_channel" name="cc_channel" class=""> 
+								<option value="">渠道类型</option>
+								<option value="1">抖音</option>
+								<option value="2">公众号</option>
+								<option value="3">转介绍</option>
+								<option value="4">展会</option>
+								<option value="5">论坛</option>
+								<option value="6">粉丝客户</option>
+								<option value="7">其他</option>
+							</select>
+						</li>
 						<li> 			
 							<label>电话</label> 	
 							<input type="text" id="cc_officetel" name="cc_officetel" value="" maxlength="80" placeholder="公司电话"/>
@@ -142,20 +156,19 @@ ${inc:/action/project/fitness/home/pub}
 						
 						
 						
-						<li class='lis'>
+						<!-- <li class='lis'>
 							<label>微信号</label>
 							<input type="text" id="cc_wx" name="cc_wx" value="" maxlength="80" placeholder="微信"/>
-						</li>
+						</li>-->
 						<li class='lis'> 			
-							<label>qq号</label> 	
-							<input type="text" id="cc_qq" name="cc_qq" value="" maxlength="80" placeholder="qq" />
-			 			</li>	
-			 			
+							<label>公众号</label> 	
+							<input type="text" id="thepublic" name="thepublic" value="" maxlength="80" placeholder="公众号" />
+			 			</li>	 
 			 			<li> 			
 							<label>E-mail</label> 	
 							<input type="text" id="cc_email" name="cc_email" value="" maxlength="80" placeholder="email"/>
 			 			</li>	
-			 			<li > 			
+			 			<!-- <li > 			
 							<label>关键负责人</label> 	
 							<div class="my-selected">
 								<select  id="ttstatus" name="ttstatus"> 
@@ -164,7 +177,7 @@ ${inc:/action/project/fitness/home/pub}
 									<option value="0">不是</option>
 								</select>
 							</div>
-			 			</li>
+			 			</li> -->
 			 			
 						<li> 			
 							<label>地区<span style="color: red;">*</span></label> 	
@@ -182,11 +195,16 @@ ${inc:/action/project/fitness/home/pub}
 								</select>
 							</div>
 			 			</li>
-			 			<li class="to100w" style="margin-left: 6%"> 			
-							<label >地址</label> 	
-							<textarea id="address" name="address" placeholder="地址详细信息" class="my-textarea" rows="2" cols="1"></textarea>
+			 			<li > 			
+							<label>主店名称</label> 
+							<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="主店名称" />	
+							<label>主店地址</label> 
+							<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />	
+			 				 &nbsp;&nbsp;&nbsp;&nbsp;
+			 				<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>
 			 			</li>
-			 			
+			 			<div id="salelist" >
+						</div>
 			 			
 			 			<!-- <nav style="margin-left: 6%">	
 							<label-rows>
@@ -195,10 +213,10 @@ ${inc:/action/project/fitness/home/pub}
 								</li>
 							</label-rows>
 						</nav> -->
-			 			<li> 			
+			 			<!-- <li> 			
 							<label>邮编</label> 	
 							<input type="text" id="postalcode" name="postalcode" value="" maxlength="80" placeholder="邮编"/>
-			 			</li>			
+			 			</li> -->			
 						<li> 			
 							<label>咨询师</label> 	
 							<div class="my-selected">
@@ -250,7 +268,7 @@ ${inc:/action/project/fitness/home/pub}
 								</li> 
 										
 								<li class="inputName" style="width: 160px">
-									<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="公司名称/姓名/电话" class="input-default"/>							
+									<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="请输入公司名称" class="input-default"/>							
 				 			 	</li>		
 								<li style="width: 160px">
 								  <select id="newmc" name="newmc" style="display: none;">
@@ -263,17 +281,18 @@ ${inc:/action/project/fitness/home/pub}
 								<li class="hasCheck">
 									<input type="checkbox" name="public" value="1" style="display: none;"/>公海
 								</li>
-								<li class='lis'>
-									<div class="my-selected">
-										<select  id="position" name="position"> 
-											<option value="">请选择职位</option>
-											<position-rows>
-												<option value="${fld:poscode}">${fld:posname}</option>
-											</position-rows>
-											
-										</select>
-									</div>
-					 			</li>
+								<li>
+									<select  id="cc_channelquery" name="cc_channelquery" class=""> 
+										<option value="">渠道类型</option>
+										<option value="1">抖音</option>
+										<option value="2">公众号</option>
+										<option value="3">转介绍</option>
+										<option value="4">展会</option>
+										<option value="5">论坛</option>
+										<option value="6">粉丝客户</option>
+										<option value="7">其他</option>
+									</select>
+								</li>
 								<div class="r-c-btnList b-10">
 									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
 									<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addnew_btn">
@@ -326,18 +345,6 @@ ${inc:/action/project/fitness/home/pub}
 										<option value="6">学习点客户</option>
 										<option value="7">内训客户</option>
 			                         </select>
-								
-								
-									<!-- <select  id="" name="custcation2" data-live-search="true" style="display: none;"> 
-										<option value="">请选择</option>
-										<option value="1">殊途设计</option>
-										<option value="2">殊途平牌</option>
-										<option value="3">单次学习</option>
-										<option value="5">全年学习</option>
-										<option value="6">6+1学习</option>
-										<option value="7">学习点客户</option>
-										<option value="8">内训客户</option>
-									</select> -->
 									
 									
 								</li>
@@ -368,13 +375,9 @@ ${inc:/action/project/fitness/home/pub}
 									</th>
 									<th>未跟进(天数)</th>
 									<th>公司名称</th>
-									<th>关键对接人</th>
-									<th>性别</th>
-									<th>手机</th>
-									<th>职位</th>
 									<th>咨询师归属</th>
-									<th>跟进状态</th>
-									<th>跟进备注</th>
+									
+									<th>公司备注</th>
 								</tr>
 							</thead>
 							<tbody id="datagridTemplate" style="display: none">
@@ -384,13 +387,9 @@ ${inc:/action/project/fitness/home/pub}
 									<td>
 						            	<a href="javascript:;" onclick="detailptrest('#vc_code#')">#officename#</a>
 						            </td>
-									<td>#vc_name#</td>		
-									<td>#i_sex#</td>		
-									<td>#vc_mobile#</td>
-									<td>#c_position#</td>
+										
 									<td>#vc_newmc#</td>
-									<td>#vc_commresult#</td>
-									<td>#gj_remark#</td>
+									<td>#remark#</td>
 								</tr>
 							</tbody>
 							
@@ -419,12 +418,13 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var init_event_city;
 var init_event_city2;
+var cumulative=1;
 var search = null;
 $(document).ready(function() {
 	
 	
 	
-	searchSelectInit($("#custcations,#custcations2,#ttname,#ttstatus,#communication2,#communication,#position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
+	searchSelectInit($("#custcations,#custcations2,#cc_channelquery,#cc_channel,#ttname,#ttstatus,#communication2,#communication,#position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
 	 $('#custcations').selectpicker({
 	        'selectedText': 'cat'
 	 });
@@ -505,7 +505,6 @@ $(document).ready(function() {
 	})
 	$("#custcations2").change(function(){
 		$("#custcation2").val($("#custcations2").val()); 
-		
 	})
 	
 	
@@ -518,6 +517,9 @@ $(document).ready(function() {
 			update();
 		}else{
 			$('#cc_mc').attr('disabled',false);
+			/* $.each(function(){
+				
+			}) */
 			insert();
 		}
 	})
@@ -557,6 +559,11 @@ $(document).ready(function() {
 	$('#recommend').on('blur',function(){
 		getCustome();
 	})
+	$("#addpay_btnbin").on("click",function(e){
+		
+		appendSale();
+	});
+	
 	
 	//新增
 	$("#addnew_btn").on("click", function(e){
@@ -717,7 +724,25 @@ function update(){
 	   	}); 
 }
 
+function removeObj(obj){
+	$("#obj").parent().remove();
+	$('#salelist').html("");
+	cumulative--;
+	var str="";
+	for (var i = 2; i < cumulative; i++) {
+		str +='<li>';
+		str +='<label>分店'+i+'名称</label> ';
+		str +='<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="分店'+i+'名称" />';	
+		str +='<label>分店地址</label> ';
+		str +='<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />';	
+		str +='&nbsp;&nbsp;&nbsp;&nbsp;';
+		/* str +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>'; */
+		str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
+		str +='</li>';
+	}
 
+	$('#salelist').append(str);
+}
 
 function insert(){
 
@@ -817,6 +842,23 @@ function checkEmail(value,str){
 	 $('#'+str).val('');
 	}
 }
+
+function appendSale(){
+	
+	var str="";
+	str +='<li>';
+	str +='<label>分店'+cumulative+'名称</label> ';
+	str +='<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="分店'+cumulative+'名称" />';	
+	str +='<label>分店地址</label> ';
+	str +='<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />';	
+	str +='&nbsp;&nbsp;&nbsp;&nbsp;';
+	/* str +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>'; */
+	str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
+	str +='</li>';
+	$('#salelist').append(str);
+	cumulative++;
+}
+
 //回调查询方法,不要删除
 function pickcustCallback(){}
 </script>

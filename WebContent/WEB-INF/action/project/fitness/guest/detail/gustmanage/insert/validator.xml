@@ -4,24 +4,19 @@
  
 <parameter id="company" type="varchar" required="true" label="公司名称"/>
 
-<parameter id="cc_name" type="varchar" required="true" label="客户名称"/>
 
-<parameter id="cc_mobile" type="varchar" required="true" label="手机号"/>
 
 <parameter id="cc_officetel" type="varchar" required="false" label="电话号"/>
 
-<parameter id="cc_wx" type="varchar" required="false" label="微信号"/>
 
 <parameter id="cc_email" type="varchar" required="false" label="邮箱"/>
 
-<parameter id="address" type="varchar" required="false" label="地址"/>
+<parameter id="thepublic" type="varchar" required="false" label="公众号"/> 
 
 <parameter id="postalcode" type="varchar" required="false" label="邮编"/>
 
 <parameter id="cc_remark" type="varchar" required="false" label="备注"/>
-<parameter id="gj_remark" type="varchar" required="false" label="跟进内容"/>
 
-<parameter id="position" type="varchar" required="true" label="职位"/>
 
 <parameter id="cc_type" type="integer" required="false" label="跟进状态"/>
 
@@ -29,14 +24,14 @@
 
 <parameter id="province2" type="integer" required="true" label="省"/>
 
-<parameter id="ttstatus" type="varchar" required="true" label="是否显示"/>
 
 <parameter id="city2" type="integer" required="true" label="市"/>
 
-<parameter id="cc_qq" type="integer" required="false" label="qq号"/>
+<!--  <parameter id="storename" type="varchar" required="false" label="分店名称"/>  -->
 
-<parameter id="cc_birth" type="integer" required="true" label="公司客户类型" maxlen="20" />
-<parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
+<parameter id="cc_birth" type="integer" required="true" label="公司客户类型"  />
+
+<parameter id="cc_channel" type="integer" required="true" label="获客渠道" maxlen="20" />
 
 
 <parameter id="communication" type="integer" required="true" label="客户分类"  />
@@ -47,8 +42,8 @@
 
 <!-- <parameter id="labels" type="integer" required="true" label="沟通阶段"  /> -->
 
-   <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
-		on-error-label="该手机已经存在,请重新输入" id="cc_mobile" sql="noRep.sql" />
+<!--    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该手机已经存在,请重新输入" id="cc_mobile" sql="noRep.sql" /> -->
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
 	on-error-label="已有该公司，请重新输入" id="company" sql="noRep2.sql" />
 </validator>

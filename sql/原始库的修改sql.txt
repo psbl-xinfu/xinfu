@@ -1,3 +1,37 @@
+
+//获客渠道
+ALTER table cc_guest add channel int4;
+COMMENT ON COLUMN "public"."cc_guest"."channel" IS '获客渠道:1抖音2公众号3转介绍4展会5论坛6粉丝客户7其他';
+
+//添加公众号
+ALTER table cc_guest add thepublic VARCHAR(64);
+COMMENT ON COLUMN "public"."cc_guest"."thepublic" IS '公众号';
+
+
+create table cc_branch(
+ code varchar(64),
+ guestcode varchar(64),
+ storename varchar(64),
+ address varchar(64),
+ createdby varchar(64),
+ created timestamp(6)
+);
+
+COMMENT ON COLUMN "public"."cc_branch"."code" IS 'id';
+COMMENT ON COLUMN "public"."cc_branch"."guestcode" IS 'guest表的id';
+COMMENT ON COLUMN "public"."cc_branch"."storename" IS '分店名称';
+COMMENT ON COLUMN "public"."cc_branch"."address" IS '分店地址';
+COMMENT ON COLUMN "public"."cc_branch"."createdby" IS '创建人';
+COMMENT ON COLUMN "public"."cc_branch"."created" IS '创建时间';
+COMMENT ON TABLE "public"."cc_branch" IS '分店详细表';
+
+
+
+
+---------------------------------------
+
+
+
 alter table cc_thecontact add birthday Date;
 COMMENT ON COLUMN "public"."cc_thecontact"."birthday" IS '生日';
 
