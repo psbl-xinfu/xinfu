@@ -1,5 +1,5 @@
 select
-  	 code,
+  	 code as guestcode,
 	officename,--公司名称
 	email,
 	initmc,

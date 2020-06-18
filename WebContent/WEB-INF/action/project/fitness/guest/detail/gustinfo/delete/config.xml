@@ -2,23 +2,21 @@
 <config>
 
 	<summary>
+		Producto - Insertar registro
 	</summary>
 	
 	<log>false</log>
 
-	<colname>storename,address,states</colname>
-	<sql-template>insertbranch.sql</sql-template>
-
 	<transaction>
-		<classname>com.ccms.InsertMaster</classname>
+		<classname>dinamica.GenericTableManager</classname>
 		<validator>true</validator>
-		<transaction>true</transaction>
+		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
-
+	<query>insertbranchdellog.sql</query>
 	<query>insert.sql</query>
-	<query>insert-public.sql</query>
-
+	<query>update.sql</query>
+	<query>delete.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
@@ -29,4 +27,3 @@
 	</output>
 
 </config>
-

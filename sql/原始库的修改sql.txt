@@ -1,3 +1,61 @@
+//创建人的转移日志表
+create table cc_thecontact_log(
+	"code" varchar(50) not null ,
+  "guestcode" varchar(64),
+  "thecode" varchar(64),
+	"branch_dellogcode" varchar(64),
+  "createdby" varchar(64), --操作人
+  "created" timestamp(6)--操作时间
+);
+COMMENT ON COLUMN "public"."cc_thecontact_log"."guestcode" IS '公司code';
+COMMENT ON COLUMN "public"."cc_thecontact_log"."branch_dellogcode" IS '分店修改日志code'
+
+
+//添加分店的id
+ALTER table cc_thecontact  add  branchcode varchar(64)
+
+COMMENT ON COLUMN "public"."cc_thecontact"."branchcode" IS '店的id'
+
+
+ALTER table cc_thecontact  add  branchcode varchar(64)
+COMMENT ON COLUMN "public"."cc_thecontact"."branchcode" IS '店的id'
+
+//创建店的删除表
+create table cc_branch_dellog(
+	"code" varchar(50) not null ,
+  "guestcode" varchar(64),
+	"branchcode" varchar(64),
+	"storename" varchar(64),
+	"address" varchar(64) ,
+	"ystorename" varchar(64),
+	"yaddress" varchar(64) ,
+	"states" int4,
+	"createdtime" date, --人的id
+  "createdby" varchar(64), --操作人
+  "created" timestamp(6)--操作时间
+);
+
+
+COMMENT ON COLUMN "public"."cc_branch_dellog"."guestcode" IS '公司code';
+COMMENT ON COLUMN "public"."cc_branch_dellog"."storename" IS '分店名称';
+COMMENT ON COLUMN "public"."cc_branch_dellog"."branchcode" IS '分店的id';
+COMMENT ON COLUMN "public"."cc_branch_dellog"."address" IS '分店地址';
+COMMENT ON COLUMN "public"."cc_branch_dellog"."ystorename" IS '原分店名称';
+COMMENT ON COLUMN "public"."cc_branch_dellog"."yaddress" IS '原分店地址';
+COMMENT ON COLUMN "public"."cc_branch_dellog"."states" IS '0删除1修改';
+COMMENT ON COLUMN "public"."cc_branch_dellog"."createdtime" IS '创建日期';
+
+
+
+
+
+
+
+
+COMMENT ON COLUMN "public"."cc_guest"."communication" IS '1客户2重点意向客户3咨询客户4陌生客户'
+
+
+COMMENT ON COLUMN "public"."cc_guest"."customtype" IS '公司类型1健身俱乐部2健身工作室3余家会所4器械器5培训机构6其他';
 
 //获客渠道
 ALTER table cc_guest add channel int4;
@@ -14,7 +72,8 @@ create table cc_branch(
  storename varchar(64),
  address varchar(64),
  createdby varchar(64),
- created timestamp(6)
+ created timestamp(6),
+ states int4
 );
 
 COMMENT ON COLUMN "public"."cc_branch"."code" IS 'id';
@@ -23,6 +82,7 @@ COMMENT ON COLUMN "public"."cc_branch"."storename" IS '分店名称';
 COMMENT ON COLUMN "public"."cc_branch"."address" IS '分店地址';
 COMMENT ON COLUMN "public"."cc_branch"."createdby" IS '创建人';
 COMMENT ON COLUMN "public"."cc_branch"."created" IS '创建时间';
+COMMENT ON COLUMN "public"."cc_branch"."states" IS '0主店1分店';
 COMMENT ON TABLE "public"."cc_branch" IS '分店详细表';
 
 

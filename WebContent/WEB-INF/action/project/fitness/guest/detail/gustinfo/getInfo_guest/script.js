@@ -1,5 +1,6 @@
-﻿<rows>
-
+﻿var guestcode="";
+<rows>
+	guestcode="${fld:guestcode}";
 $('#officename').text("${fld:officename}");
 $('#guestnum').text("${fld:guestnum}");
 $('#officetel').text("${fld:othertel}");
@@ -49,22 +50,26 @@ $('#remark').text("${fld:remark}");
 
 </rows>
 var branchnum=0;
-var branchstr="";
+
 <branch-rows>
-	branchnum++;
-	if(branchnum==1){
+	/*<input type="hidden" name="menuorgid" id="menuorgid" value="${fld:menuorgid}" />
+*/	if("${fld:states}"==0){
 		branchstr+='<span class="lable3">主店名称：</span>';
-		branchstr+='<span class="lable4" id="storename"></span>';
+		branchstr+='<span class="lable4" id="storename">${fld:storename}</span>';
 		branchstr+='<span class="lable3">主店地址：</span>';
-		branchstr+='<span class="lable4" id="address"></span>';
+		branchstr+='<span class="lable4" id="address">${fld:address}</span>';
 	}else{
-		
-		branchstr +='<span class="lable3">分店'+branchnum+'名称</label> ';
-		branchstr +='<span class="lable4" id="storename"></span>';	
-		branchstr +='<span class="lable3">分店地址：</span> ';
-		branchstr +='<span class="lable4" id="address"></span>';	
-		branchstr +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
-		
+		branchstr +='<span class="lable3">分店'+branchnum+'名称:</span>' ;
+		branchstr +='<span class="lable4" id="storename">${fld:storename}</span>';
+		branchstr +='<span class="lable3">分店'+branchnum+'地址:</span>';
+		branchstr +='<span class="lable4" id="address">${fld:address}</span>';
+		branchstr +='<label  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label>';
 	}
+	branchnum++;
 </branch-rows>
-$("#branch").append(branchstr);
+
+
+$("#branch").append(branchstr); 
+
+
+

@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator>
+	<parameter id="branchcode" type="varchar" required="true" label="分店id"/>
+	<parameter id="guestcode" type="varchar" required="true" label="公司id"/>
+</validator>

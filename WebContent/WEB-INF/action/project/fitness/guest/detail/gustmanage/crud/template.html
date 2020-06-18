@@ -85,6 +85,25 @@ ${inc:/action/project/fitness/home/pub}
 							<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
 			 			</li> -->	
 			 			<li>
+			 				<label>可能性</label> 	
+							<select id="possibility" title="请选择" name="possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
+								<option value="1">芯复软件</option>
+								<option value="2">枢途设计</option>
+								<option value="3">枢途品牌</option>
+								<option value="4">品牌文化</option>
+								<option value="5">高级领导力</option>
+								<option value="6">领导力突破</option>
+								<option value="7">管理课程</option>
+								<option value="8">全年学习</option>
+								<option value="9">私教内训</option>
+								<option value="10">会籍内训</option>
+								<option value="11">储值</option>
+								<option value="12">线上课</option>
+								<option value="13">公开课</option>
+								<option value="14">管理顾问</option>
+								<option value="15">管理建模</option>
+								<option value="16">全案</option>
+	                         </select>
 			 			</li>
 			 			<li>
 			 				<label>客户分类<span style="color: red;">*</span></label> 	
@@ -103,13 +122,25 @@ ${inc:/action/project/fitness/home/pub}
 							<label>客户详细分类</label> 
 							
 						<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
-							<option value="1">枢途设计</option>
-							<option value="2">枢途品牌</option>
-							<option value="3">单次学习</option>
-							<option value="4">全年学习</option>
-							<option value="5">6+1学习</option>
-							<option value="6">学习点客户</option>
-							<option value="7">内训客户</option>
+							<option value="1">芯复软件</option>
+							<option value="2">枢途设计</option>
+							<option value="3">枢途品牌</option>
+							<option value="4">品牌文化</option>
+							<option value="5">高级领导力</option>
+							<option value="6">领导力突破</option>
+							<option value="7">管理课程</option>
+							<option value="8">全年学习</option>
+							<option value="9">私教内训</option>
+							<option value="10">会籍内训</option>
+							<option value="11">储值</option>
+							<option value="12">线上课</option>
+							<option value="13">公开课</option>
+							<option value="14">管理顾问</option>
+							<option value="15">管理建模</option>
+							<option value="16">全案</option>
+							<option value="17">过期</option>
+							<option value="18">6+1学习</option>
+							<option value="19">学习点客户</option>
                          </select>
 							
 							<!-- <select  id="custcation" name="custcation" data-live-search="true" style="display: none;"> 
@@ -202,6 +233,7 @@ ${inc:/action/project/fitness/home/pub}
 							<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />	
 			 				 &nbsp;&nbsp;&nbsp;&nbsp;
 			 				<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>
+			 				<input type="hidden"  name="states" value="0" />	
 			 			</li>
 			 			<div id="salelist" >
 						</div>
@@ -337,30 +369,62 @@ ${inc:/action/project/fitness/home/pub}
 			 			
 								<li class="hasCheck" id="businesstype">
 									<select id="custcations2" title="请选择" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										<option value="1">枢途设计</option>
-										<option value="2">枢途平牌</option>
-										<option value="3">单次学习</option>
-										<option value="4">全年学习</option>
-										<option value="5">6+1学习</option>
-										<option value="6">学习点客户</option>
-										<option value="7">内训客户</option>
+										<option value="1">芯复软件</option>
+										<option value="2">枢途设计</option>
+										<option value="3">枢途品牌</option>
+										<option value="4">品牌文化</option>
+										<option value="5">高级领导力</option>
+										<option value="6">领导力突破</option>
+										<option value="7">管理课程</option>
+										<option value="8">全年学习</option>
+										<option value="9">私教内训</option>
+										<option value="10">会籍内训</option>
+										<option value="11">储值</option>
+										<option value="12">线上课</option>
+										<option value="13">公开课</option>
+										<option value="14">管理顾问</option>
+										<option value="15">管理建模</option>
+										<option value="16">全案</option>
+										<option value="17">过期</option>
+										<option value="18">6+1学习</option>
+										<option value="19">学习点客户</option>
 			                         </select>
 									
 									
+								</li>
+								<li>
+									<select id="possibility2" title="请选择可能性" name="possibility2" class="selectpicker show-tick form-control" multiple data-live-search="false">
+										<option value="1">芯复软件</option>
+										<option value="2">枢途设计</option>
+										<option value="3">枢途品牌</option>
+										<option value="4">品牌文化</option>
+										<option value="5">高级领导力</option>
+										<option value="6">领导力突破</option>
+										<option value="7">管理课程</option>
+										<option value="8">全年学习</option>
+										<option value="9">私教内训</option>
+										<option value="10">会籍内训</option>
+										<option value="11">储值</option>
+										<option value="12">线上课</option>
+										<option value="13">公开课</option>
+										<option value="14">管理顾问</option>
+										<option value="15">管理建模</option>
+										<option value="16">全案</option>
+			                         </select>
 								</li>
 								<li class="hasCheck">
 									<input type="checkbox" name="thesorting" value="1" style="display: none;"/>倒序
 								</li>
 							</nav>
-							<nav class="r-c-3-t-b-r">
-								<!-- <li>
+							<!-- <nav class="r-c-3-t-b-r">
+								<li>
 									<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
-								</li> --> 
+								</li> 
 								 <li>
 									<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="edit_btn">
 								</li>
 								
-							</nav>
+							</nav> -->
 						</div>
 					</div>
 					<div class="r-tab-cout-3-b table-cont">
@@ -424,11 +488,17 @@ $(document).ready(function() {
 	
 	
 	
-	searchSelectInit($("#custcations,#custcations2,#cc_channelquery,#cc_channel,#ttname,#ttstatus,#communication2,#communication,#position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
+	searchSelectInit($("#custcations,#possibility,#possibility2,#custcations2,#cc_channelquery,#cc_channel,#ttname,#ttstatus,#communication2,#communication,#position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
 	 $('#custcations').selectpicker({
 	        'selectedText': 'cat'
 	 });
 	 $('#custcations2').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 $('#possibility').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 $('#possibility2').selectpicker({
 	        'selectedText': 'cat'
 	 });
 	 
@@ -511,16 +581,17 @@ $(document).ready(function() {
 	
 	
 	$('#save_btn').on('click',function(){
+		alert($("#possibility").val());
 		$("#custcation").val($("#custcations").val());
 		if($('#cc_code').val()!=""){
 			$('#cc_mc').attr('disabled',true);
-			update();
+			//update();
 		}else{
 			$('#cc_mc').attr('disabled',false);
 			/* $.each(function(){
 				
 			}) */
-			insert();
+			//insert();
 		}
 	})
 	//修改信息
@@ -567,6 +638,7 @@ $(document).ready(function() {
 	
 	//新增
 	$("#addnew_btn").on("click", function(e){
+		$("#salelist").empty();
 		ccms.util.clearForm('addForm');
 		//清空form下所有select
 		$("#addForm select").each(function(){
@@ -725,23 +797,26 @@ function update(){
 }
 
 function removeObj(obj){
-	$("#obj").parent().remove();
-	$('#salelist').html("");
+	$(obj).parent().remove();
+	
 	cumulative--;
 	var str="";
-	for (var i = 2; i < cumulative; i++) {
-		str +='<li>';
+	var i=0;
+	var namelen=$("[name=storename]");
+	
+	for (var i = 1; i < namelen.length; i++) {
+		str +="<li>";
 		str +='<label>分店'+i+'名称</label> ';
-		str +='<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="分店'+i+'名称" />';	
+		str +='<input type="text" id="storename" name="storename" value="'+$("[name=storename]").eq(i).val()+'" maxlength="80" placeholder="分店'+i+'名称" />';	
 		str +='<label>分店地址</label> ';
-		str +='<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />';	
+		str +='<input  type="text" id="address" name="address" value="'+$("[name=address]").eq(i).val()+'" maxlength="500" placeholder="地址详细信息" />';	
 		str +='&nbsp;&nbsp;&nbsp;&nbsp;';
-		/* str +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>'; */
 		str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
-		str +='</li>';
+		str +='<input type="hidden"  name="states" value="1" />	';
+		str +="</li>";
 	}
-
-	$('#salelist').append(str);
+	$('#salelist').html("");
+	$('#salelist').append(str); 
 }
 
 function insert(){
@@ -854,6 +929,7 @@ function appendSale(){
 	str +='&nbsp;&nbsp;&nbsp;&nbsp;';
 	/* str +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>'; */
 	str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
+	str +='<input type="hidden"  name="states" value="1" />	';
 	str +='</li>';
 	$('#salelist').append(str);
 	cumulative++;

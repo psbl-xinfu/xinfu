@@ -5,7 +5,8 @@ insert into cc_branch
 	storename,
 	address,
 	created,
-	createdby
+	createdby,
+	states
 )
 values 
 (
@@ -14,5 +15,6 @@ values
     ${fld:storename},
      ${fld:address},
     {ts '${def:timestamp}'},
-    '${def:user}'
+    '${def:user}',
+    (case  when ${fld:states}='1'  then 1 else 0 end)
 )
