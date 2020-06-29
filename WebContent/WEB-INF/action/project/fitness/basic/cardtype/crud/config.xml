@@ -11,9 +11,9 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="query-cardcategory.sql" source="sql" scope="transaction" />
+		<!-- <recordset id="query-cardcategory.sql" source="sql" scope="transaction" />
 		<recordset id="query-skill_name.sql" source="sql" scope="transaction" />
-		<recordset id="query-cardtype.sql" source="sql" scope="transaction" />
+		<recordset id="query-cardtype.sql" source="sql" scope="transaction" /> -->
 	</transaction>
 
 	<output>
@@ -21,9 +21,9 @@
 		<template>template.htm</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
-		<print mode="table" recordset="query-cardcategory.sql" tag="cardcategory_row2"/>
+		<!-- <print mode="table" recordset="query-cardcategory.sql" tag="cardcategory_row2"/>
 		<print mode="table" recordset="query-skill_name.sql" tag="staff-rows"/>
-		<print mode="table" recordset="query-cardtype.sql" tag="cardtype-rows"/>
+		<print mode="table" recordset="query-cardtype.sql" tag="cardtype-rows"/> -->
 		<print mode="form" recordset="_request" />
 	</output>
 

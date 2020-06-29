@@ -1,4 +1,4 @@
-select1
+select
 
  concat('<label class="am-checkbox"><input type="checkbox"  data-am-ucheck name="datalist" 
 	

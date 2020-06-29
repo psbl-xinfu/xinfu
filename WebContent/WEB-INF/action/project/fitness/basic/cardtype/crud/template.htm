@@ -14,13 +14,7 @@ ${inc:/action/project/fitness/home/pub}
 				</header>
 			<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
 				<input type="hidden" id="vc_code" name="vc_code" value=""/>
-				<!-- 折扣 -->
-				<input type="hidden"   id="z1"  name="vc_mealdiscount" value=""/>
-				<input type="hidden"   id="z2"  name="vc_drinkdiscount" value=""/>
-				<input type="hidden"   id="z3" name="vc_jsdiscount" value=""/>
-				<input type="hidden"   id="z4"  name="vc_swimdiscount" value=""/>
-				<input type="hidden"   id="z5" name="vc_singlediscount" value=""/>
-				<input type="hidden"   id="z6"  name="vc_classdiscount" value=""/>
+			
 				<!-- 时间 -->
 				<div id="checkedNodesDiv"></div>
 	          	<div class="modal-body b-i-main">
@@ -30,114 +24,7 @@ ${inc:/action/project/fitness/home/pub}
 							<label style="width: 100px;">卡名称：</label>
 							<input type="text" id="vc_name" name="vc_name" value="" maxlength="80" placeholder="卡名称"/>
 						</li>
-						<li>
-							<label style="width: 100px;">背景颜色(微信)：</label>
-							<input type="text" class="jscolor" id="vc_color" name="vc_color" readonly="readonly" placeholder="背景颜色"/>	
-						</li>
-						<li>
-							<label style="width: 100px;">卡类型：</label>				
-							<select id="vc_type" name="vc_type" class="normal-select">
-								<option value="">请选择</option>
-								<cardcategory_row2>
-									<option value="${fld:code}" code="${fld:union_id}">${fld:category_name}</option>
-								</cardcategory_row2>
-							</select>
-						</li>
-						<li>
-							<label style="width: 100px;">卡类别：</label>						
-							<select id="vc_cardcategory" name="vc_cardcategory" class="normal-select">
-								<option value="">请选择</option>
-								<option value="0">时效卡</option>
-								<option value="1">计次卡</option>
-								<option value="2">储值卡</option>
-							</select>
-						</li>
-						<li>
-							<label style="width: 100px;" id="daylable" >有效天数：</label>				
-							<input type="text" id="daycount" name="daycount" value="0"  maxlength="80" placeholder="有效天数"/>
-						</li>
-						<li>
-							<label style="width: 100px;" id="countlable"></label>				
-							<input type="text" id="count" name="count" value="0" style="display: none;" maxlength="80" placeholder="可用次数"/>
-						</li>
-						<li>
-							<label style="width: 100px;" id="moneyleftlable" ></label>				
-							<input type="text" id="moneyleft" name="moneyleft" value="0" style="display:none;" maxlength="80" placeholder="储值金额"/>
-						</li>
-						<li>
-							<label style="width: 100px;" id="givemoneylable" ></label>				
-							<input type="text" id="givemoney" name="givemoney" value="0" style="display:none;" maxlength="80" placeholder="赠送基金"/>
-						</li>						
-						<li>
-							<label style="width: 100px;">销售价格：</label>						
-							<input type="text" id="vc_cardfee" name="vc_cardfee" value="" maxlength="80" placeholder="销售价格"/>
-						</li>
-						<li>
-							<label style="width: 100px;">销售底价：</label>						
-							<input type="text" id="vc_minfee" name="vc_minfee" value="" maxlength="80" placeholder="销售底价"/>
-						</li>
-						<li>
-							<label style="width: 100px;">支持门店：</label>				
-							<span id="support" style="width: 100px"></span>		
-						</li>
-						<li></li>
-						<li>
-							<label style="width: 100px;">赠送时长(天)：</label>				
-							<input type="text" id="vc_giveday" name="vc_giveday" value="0" maxlength="80" placeholder="0"/>
-						</li>
-						<li>
-							<label style="width: 100px;">赠送体验课(节)：</label>				
-							<input type="text" id="vc_ptcount" name="vc_ptcount" value="0" maxlength="80" placeholder="0"/>
-						</li>
-						<!-- <li>
-							<label style="width: 100px;">使用人数：</label>								
-							<select id="maxusernum" name="maxusernum">
-								<option value="">请选择</option>
-								<option value="0">独享</option>
-								<option value="1">共享</option>
-							</select>
-						</li>-->
-						<!-- <li>
-							<label style="width: 100px;"></label>			
-							<input type="text" id="vc_maxusernum" name="vc_maxusernum" value="1" maxlength="80" placeholder="数量"/>人
-						</li> -->
-						<!--  <li>
-							<label style="width: 100px;">销售提成：</label>							
-							<select id="scaletype" name="scaletype">
-								<option value="">请选择</option>
-								 //<option value="0">按比例</option>
-								<option value="1">固定值</option>
-							</select>
-						</li>-->
-						<!-- <li>
-							<label style="width: 100px;"></label>				
-							<input type="text" id="vc_scale" name="vc_scale" value="0" maxlength="80" placeholder="销售提成"/>
-						</li> -->
-						<li>
-							<label style="width: 100px;">开卡期限：</label>				
-							<input type="text" id="opencarddeadline" name="opencarddeadline" value="0" maxlength="80" placeholder="开卡期限（天）"/>
-							（天）
-						</li>
-						<li></li>
-						<li>
-							<label style="width: 100px;">消费折扣：</label>				
-							<button type="button" id="sale_btn">添加项目</button>
-						</li>
-							<li>
-						</li>
-						<div id="salelist" >
-						</div>
-						<!-- modified by leo 190522 隐藏时段	
-						<li>
-							<label style="width: 100px;">限制时段：</label>				
-							<button type="button" id="time_btn">添加时段</button>
-						</li>
-						<div id="timeinterallist"></div>
-						-->	
-						<li class="to100w" style="margin-left: 6%">
-							<label>备注</label>
-							<textarea id="vc_remark" name="vc_remark" placeholder="暂无数据" class="my-textarea"></textarea>
-						</li>
+				
 					</nav>
 				</div>		
 			<footer class="footer-default">
@@ -156,46 +43,9 @@ ${inc:/action/project/fitness/home/pub}
 			<div class="tab-cout-nav">
 				<div class="tab-cout-nav-t">
 					<nav class="tab-nav-my">
-						<!-- <li class="dateTime">
-								<input id="s_start_date" name="s_start_date" type="text" class="input-default" placeholder="开始日期"/>
-						</li>	
-						
-						<li class="dateTime">
-								<input id="s_end_date" name="s_end_date" type="text"class="input-default" placeholder="结束日期"/>
-							
-						</li> -->
-						
-						<!-- <li style="width: 100px;">
-							<select id="s_skill_name" name="s_skill_name"  >
-								<option value="">全部会籍</option>
-								<staff-rows>
-									<option value="${fld:userlogin}">${fld:name}</option>
-								</staff-rows>
-							</select>
-						</li> -->
-								
-						<li class="inputName">
-							<input id="s_name"  name="s_name" type="text" placeholder="卡名称"class="input-default"/>
-						</li>	
-						<li style="width: 100px;">
-							<select id="s_type" name="s_type" style="display: none;">
-								<option value="">所有卡种</option>
-								<cardtype-rows>
-								<option value="${fld:code}">${fld:category_name}</option>
-								</cardtype-rows>
-							</select>
-						</li>
-						<li style="width: 100px;">	
-							<select  id="s_status" name="s_status"class="normal-select">
-								<option value="">全部状态</option>
-									<option value="0">禁用</option>
-									<option value="1">启用</option>
-							</select> 
-						  </li>
 						<div class="r-c-btnList">
-							<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+							
 							<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="新增" alt="" data-toggle="modal" id="addnew_btn">
-							<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button> 
 						</div>		
 					</nav>
 					</div>
@@ -269,54 +119,16 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
-	selectInit($("#vc_type,#vc_cardcategory,#s_type,#s_status"))
-	searchSelectInit($("#s_skill_name"));
-	$Dialog().date($('#s_start_date,#s_end_date'));
-	$("#s_start_date,#s_end_date").val("${def:date}"); 
+	
 	$(".header-close").unbind().on("click",function(){
 		$("#modalAddnew").modal('hide');
 		ccms.util.clearForm('formEditor');
 	});
 	
-	//增加折扣
-	$('#sale_btn').on('click',function(){
-		var len=$('.salesChoice').length;
-		if(len<=5){
-			appendSale();
-		}else{
-			ccms.dialog.alert("最大长度只能是5个");
-		}
-	})
 	
-	//卡类型判断通店
-	$('#vc_type').on('change',function(){
-		var id= $("#vc_type").find("option:selected").attr('code');
-		getShop(id)
-	})
-	/* //共享赋值
-	$('#maxusernum').on('change',function(){
-		var id= $("#maxusernum").find("option:selected").val();
-		if(id==0){
-			$('#vc_maxusernum').val(1);
-		}else{
-			$('#vc_maxusernum').val(2);
-		}
-	}) */
 	
-	/* //共享值验证
-	$('#vc_maxusernum').on('blur',function(){
-		var id= $("#maxusernum").find("option:selected").val();
-		maxnumViladate(id,$('#vc_maxusernum').val());
-	}) */
+
 	
-	/* //销售提成值验证
-	$('#cc_scale').on('blur',function(){
-		scaleViladate($('#cc_scale').val())
-	}) */
-	//添加时段
-	$('#time_btn').on('click',function(){
-		appendTime();
-	})
 	var obj = $Crud({
 		formId:"formEditor",
 		button:"save_btn",
@@ -375,61 +187,12 @@ $(document).ready(function() {
 				}
 			});	
 				
-			$("#delete").unbind().on("click", function(){
-				var obthis = getCheckboxValue("datalist");
-				if(obthis!=""){
-					$Dialog().confirm("确定要删除吗？",function(){
-						obj.del({id:obthis});
-					});
-				}else{
-					ccms.dialog.alert("请选择卡类型！")
-				}
-			});
+			
 			
 	}}).initSearchBtn().searchData(1);
-	// modified by zzn 根据卡类型显示有效次数、有效天数、储值金额
-	$("#vc_cardcategory").change(function(){
-		if($(this).val()=="1"){
-			$("#count").show();
-			$("#daycount").show();
-			$("#moneyleft").hide();
-			$("#countlable").html("可用次数：");
-			$("#daylable").html("有效天数：");
-			$("#moneyleftlable").html("");	
-		}else if ($(this).val()=="0"){
-			$("#daycount").show();
-			$("#count").hide();
-			$("#moneyleft").hide();	
-			$("#countlable").html("");
-			$("#daylable").html("有效天数：");
-			$("#moneyleftlable").html("");	
-		}else if ($(this).val()=="2"){
-			$("#moneyleft").show();
-			$("#count").hide();
-			$("#daycount").hide();			
-			$("#countlable").html("");
-			$("#daylable").html("");
-			$("#moneyleftlable").html("储值金额：");	
-		}
-	})
-	//开卡期限
-	$("#opencarddeadline").blur(function(){
-		var opencarddeadline = $(this).val();
-		if(isNaN(opencarddeadline)){
-			opencarddeadline = 0;
-		}
-		$(this).val(parseInt(opencarddeadline));
-	});
-	//跟进销售提成选中值修改input的显示字
-/* 	$("#scaletype").change(function(){
-		if($(this).val()=="0"){
-			$("#vc_scale").attr("placeholder", "百分比");
-		}else if($(this).val()=="1"){
-			$("#vc_scale").attr("placeholder", "提成金额");
-		}else{
-			$("#vc_scale").attr("placeholder", "销售提成");
-		}
-	}) */
+
+	
+	
 	//导出
 	$("#daochu_list").unbind().on("click", function(){
          $("#daochu_s_name").val($("#searchForm #s_name").val());
@@ -448,29 +211,7 @@ $(document).ready(function() {
 	});
 });
 
-function appendSale(){
-	var objs=	$('.salesChoice').length;
-	var str="";
-str+='<li>'
-str+='<label>享受</label>'
-str+='<select class="normal-select salesChoice" name="storage" onchange="listValadate(this,'+objs+',\'salesChoice\')">'
-str+='<option value="">选择项目</option>'
-/* modify by zzn 190521 隐藏除商品、单次消费以外的折扣类型 */
-/* str+='<option value="z1">点餐折扣定义</option>' */
-str+='<option value="z2">商品折扣定义</option>'
-/* str+='<option value="z3">健身折扣定义</option>'
-str+='<option value="z4">游泳折扣定义</option>' */
-str+='<option value="z5">单次消费折扣定义</option>'
-/* str+='<option value="z6">团操扣费折扣定义</option>' */
-str+='</select>'
-	
-str+='	<label >折扣</label>'
-str+='	<input type="text" name="discount" maxlength="80" onblur="salesViladate(this)"/>'
-str+='<label >%</label>'
-str+='<label  style="color:red" onclick="removeObj(this)">删除</label>'
-str+='</li>'		
-$('#salelist').append(str);
-}
+
 
 function getShop(id){
 	var url = "${def:context}${def:actionroot}/getshop?id="+id
@@ -484,42 +225,8 @@ function getShop(id){
 }
 
 
-function appendTime(){
-	var objs=	$('.timeChoice').length;
-	var str="";
-str+='<li>'
-str+='<label>日期</label>'
-str+='<select name="weekday" class="normal-select timeChoice"onchange="listValadate(this,'+objs+',\'timeChoice\')">'
-str+='<option value="">全部日期</option>'
-str+='<option value="1">周一</option>'
-str+='<option value="2">周二</option>'
-str+='<option value="3">周三</option>'
-str+='<option value="4">周四</option>'
-str+='<option value="5">周五</option>'
-str+='<option value="6">周六</option>'
-str+='<option value="0">周日</option>'
-str+='</select>'
-	
-str+='<label >入场</label>'
-str+='<input type="text" class="times" name="starttime1" value="" maxlength="80"/>'
-str+='<label >至</label>'
-str+='<input type="text" class="times" name="endtime1" value="" maxlength="80"/>'
-str+='<label style="color:red" onclick="removeObj(this)">删除</label>'
-str+='</li>'		
-$('#timeinterallist').append(str);
-$Dialog().time($('.times'));
-}
 
-function removeObj(obj){
-	$(obj).parent().remove();
-	// add by leo 190522 删除操作时，清空已有隐藏折扣数据。
-	$('#z1').val("");
-	$('#z2').val("");
-	$('#z3').val("");
-	$('#z4').val("");
-	$('#z5').val("");
-	$('#z6').val("");
-}
+
 
 function save(){
 	var saveResult=true;
