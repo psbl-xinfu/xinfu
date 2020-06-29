@@ -6,18 +6,15 @@
 	</summary>
 	
 	<log>false</log>
-	<colname>weekday,starttime1,endtime1;discount,storage</colname>
-	<sql-template>inserttime.sql;insert-discount.sql</sql-template>
 
 	<transaction>
-		<classname>com.ccms.InsertMaster</classname>
+		<classname>dinamica.GenericTableManager</classname>
 		<validator>true</validator>
-		<transaction>true</transaction>
+		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
 
 	<query>insert.sql</query>
-	<query>insertcardfee.sql</query>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>

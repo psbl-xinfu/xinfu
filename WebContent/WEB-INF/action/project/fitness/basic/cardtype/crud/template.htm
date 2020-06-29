@@ -24,7 +24,11 @@ ${inc:/action/project/fitness/home/pub}
 							<label style="width: 100px;">卡名称：</label>
 							<input type="text" id="vc_name" name="vc_name" value="" maxlength="80" placeholder="卡名称"/>
 						</li>
-				
+						<li>
+							<label>可能性<span style="color: red;">*</span></label>
+							<input type="radio" name="isgood" value="1" />是	
+							<input type="radio" name="isgood" value="0" />否
+						</li>
 					</nav>
 				</div>		
 			<footer class="footer-default">
@@ -76,24 +80,18 @@ ${inc:/action/project/fitness/home/pub}
 										<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;">
 									</label>
 								</th>
-								<th>卡名称</th>
-								<th>价格</th>
-								<th>类型</th>
-								<th>通用性</th>
-								<!-- <th>可用人数</th> -->
-								<th>状态</th>
+								<th>产品名称</th>
+								<th>产品状态</th>
+								
 							</tr>
 						</thead>
 						
 						<tbody id="datagridTemplate" style="display: none">
 							<tr>
 							 <td class="table-checkbox">#application_id#</td> 
-								<td >#name#</td>
-								<td >#cardfee#</td>
-								<td >#type#</td>
-								<td >#tongyong#</td>										
-								<!-- <td >#maxusernum#</td>	 -->									
-								<td >#status#</td>
+								<td >#vc_name#</td>
+									<td >#status#</td>
+								
 							</tr>
 						</tbody>
 						<tbody id="datagrid">
@@ -119,7 +117,7 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var search=null;
 $(document).ready(function() {
-	
+	ccms.util.renderRadio("isgood");
 	$(".header-close").unbind().on("click",function(){
 		$("#modalAddnew").modal('hide');
 		ccms.util.clearForm('formEditor');
@@ -145,11 +143,10 @@ $(document).ready(function() {
 		addNewBack:function(){
 			$("#formTitle").html("新增");
 			/* $('#vc_maxusernum').val(1); */
-			$('#support,#salelist,#timeinterallist').html('');
+			
 			$(".color").removeAttr("style"); 
-			$("#formEditor select").each(function(){
-				setSelectValue($("#"+$(this).attr("name")), "");
-			})
+			$('input[name=isgood][value=1]').iCheck('check');
+			
 		},
 		editBack:function(){
 			$("#formTitle").html("修改");

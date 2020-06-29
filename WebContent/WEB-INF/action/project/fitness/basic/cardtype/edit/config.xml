@@ -13,8 +13,6 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="getrecord.sql" source="sql" scope="transaction" />
-		<recordset id="timelimit.sql" source="sql" scope="transaction" />
-		<recordset id="query-discount.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -23,9 +21,7 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="getrecord.sql" tag="rows1" />
-		<print mode="table" recordset="timelimit.sql" tag="rows2" />
-		<print mode="table" recordset="query-discount.sql" tag="rows-discount" />
+		<print mode="form" recordset="getrecord.sql" />
 	</output>
 
 </config>

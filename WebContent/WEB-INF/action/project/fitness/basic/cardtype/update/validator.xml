@@ -1,32 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
- 		<parameter id="vc_code" type="varchar" required="true" label="卡编号" maxlen="32" />
-       <parameter id="vc_name" type="varchar" required="true" label="卡名称" maxlen="32" />
-       <parameter id="vc_type" type="varchar" required="false" label="卡类型" maxlen="32" />
-       <parameter id="vc_color" type="varchar" required="true" label="颜色" maxlen="32" />
-       <parameter id="vc_cardfee" type="double" required="true" label="销售价格" maxlen="32" />
-       <parameter id="vc_minfee" type="double" required="false" label="销售底价" maxlen="32" />
-       <parameter id="vc_giveday" type="integer" required="false" label="赠送天数" maxlen="32" />
-       <parameter id="vc_ptcount" type="integer" required="false" label="赠送免费课" maxlen="32" />
-      <!--  <parameter id="vc_maxusernum" type="integer" required="true" label="共享几人" maxlen="32" />    -->
-      <!--  <parameter id="scaletype" type="integer" required="true" label="销售提成" maxlen="32" />                 -->
-      <!--  <parameter id="vc_scale" type="double" required="true" label="销售提成" maxlen="32" /> -->
-       <parameter id="count" type="integer" required="false" label="可用次数" maxlen="32" />   
-       <!-- 选择储值卡时需取消有效天数的验证 zzn -->     
-       <parameter id="daycount" type="double" required="false" label="有效天数" maxlen="32" />
-       <parameter id="moneyleft" type="double" required="false" label="储值金额" maxlen="32" />
-       
-       <parameter id="opencarddeadline" type="integer" required="false" label="开卡期限" maxlen="32" />                 
-       
-       <parameter id="vc_mealdiscount" type="integer" required="false" label="点餐折扣定义" maxlen="32" />
-       <parameter id="vc_drinkdiscount" type="integer" required="false" label="饮品折扣定义" maxlen="32" />
-       <parameter id="vc_jsdiscount" type="integer" required="false" label="健身折扣定义" maxlen="32" />
-       <parameter id="vc_swimdiscount" type="integer" required="false" label="游泳折扣定义" maxlen="32" />              
-       <parameter id="vc_singlediscount" type="integer" required="false" label="单次消费折扣定义" maxlen="32" />
-       <parameter id="vc_classdiscount" type="integer" required="false" label="团操扣费折扣定义" maxlen="32" />
-       
-         <parameter id="vc_remark" type="varchar" required="false" label="备注" maxlen="32" />
-          <parameter id="vc_cardcategory" type="varchar" required="false" label="卡类别" maxlen="32" />
-         
+	<parameter id="vc_code" type="varchar" required="true" label="vc_code" maxlen="32" />
+   	<parameter id="vc_name" type="varchar" required="true" label="vc_name" maxlen="32" />
+   	<parameter id="isgood" type="integer" required="true"  label="vc_name" maxlen="32" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该产品已存在,请重新输入" id="vc_name" sql="norep.sql" />
 </validator>
-

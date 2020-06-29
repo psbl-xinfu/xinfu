@@ -7,7 +7,7 @@
 
 	<log>false</log>
 
-	<colname>s_name,s_type,s_status,s_tong,s_share,s_time</colname>
+	<colname>vc_name</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>
