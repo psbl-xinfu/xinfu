@@ -109,6 +109,7 @@ color: red !important;
 							<label>会籍<span style="color: red;">*</span></label> 	
 							<div class="my-selected">
 								<select id="cc_mc" name="cc_mc"   >
+									<option value="">请选择</option>
 									<staff-rows3>
 										<option value="${fld:userlogin}">${fld:name}</option>
 									</staff-rows3>
@@ -635,6 +636,7 @@ $(document).ready(function() {
 		$("#addForm select").each(function(){
 			setSelectValue($("#"+$(this).attr("name")), "");
 		});
+		setSelectValue($("#cc_mc"), "${def:user}");
 		$('#formTitle').text('新增');
 		$('#modalAddnew').modal('show')
 	});
