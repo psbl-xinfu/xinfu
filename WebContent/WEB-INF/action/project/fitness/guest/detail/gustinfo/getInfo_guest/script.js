@@ -20,30 +20,15 @@ var custclass="${fld:custclass}";
 var arr=custclass.split(",");
 /* var custcationsarry =custclass.split(",").length ;*/
  var custcations="";
-for (var i = 0; i < arr.length; i++) {
-	if(arr[i]==1){
-		custcations+="殊途设计;";
+ <product-rows>
+ 	for (var i = 0; i < arr.length; i++) {
+		if(arr[i]=="${fld:procode}"){
+			custcations+="${fld:proname};";
+		}
+		
 	}
-	if(arr[i]==2){
-		custcations+="殊途品牌;";
-	}
-	if(arr[i]==3){
-		custcations+="单次学习;";
-	}
-	if(arr[i]==4){
-		custcations+="全年学习;";
-	}
-	if(arr[i]==5){
-		custcations+="6+1学习;";
-	}
-	if(arr[i]==6){
-		custcations+="学习点客户;";
-	}
-	if(arr[i]==7){
-		custcations+="内训客户;";
-	}
-	
-}
+ </product-rows>
+
 $('#custcations').text(custcations.substr(0, custcations.length - 1) );
 $('#remark').text("${fld:remark}");
 

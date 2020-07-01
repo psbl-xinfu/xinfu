@@ -35,6 +35,7 @@ ${inc:/action/project/fitness/home/pub}
 					<input type="hidden" id="cc_code" name="cc_code" value=""/>
 					<input type="hidden" id="yttcode" name="yttcode" value=""/>
 					<input type="hidden" id="custcation" name="custcation" value=""/>
+					<input type="hidden" id="possibility4" name="possibility4" value=""/>
 					
 					<nav >
 						
@@ -87,22 +88,9 @@ ${inc:/action/project/fitness/home/pub}
 			 			<li>
 			 				<label>可能性</label> 	
 							<select id="possibility" title="请选择" name="possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
-								<option value="1">芯复软件</option>
-								<option value="2">枢途设计</option>
-								<option value="3">枢途品牌</option>
-								<option value="4">品牌文化</option>
-								<option value="5">高级领导力</option>
-								<option value="6">领导力突破</option>
-								<option value="7">管理课程</option>
-								<option value="8">全年学习</option>
-								<option value="9">私教内训</option>
-								<option value="10">会籍内训</option>
-								<option value="11">储值</option>
-								<option value="12">线上课</option>
-								<option value="13">公开课</option>
-								<option value="14">管理顾问</option>
-								<option value="15">管理建模</option>
-								<option value="16">全案</option>
+								<isgood-row>
+									<option value="${fld:procodeis}">${fld:pronameis}</option>
+	                         	</isgood-row>
 	                         </select>
 			 			</li>
 			 			<li>
@@ -122,25 +110,9 @@ ${inc:/action/project/fitness/home/pub}
 							<label>客户已购产品</label> 
 							
 						<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
-							<option value="1">芯复软件</option>
-							<option value="2">枢途设计</option>
-							<option value="3">枢途品牌</option>
-							<option value="4">品牌文化</option>
-							<option value="5">高级领导力</option>
-							<option value="6">领导力突破</option>
-							<option value="7">管理课程</option>
-							<option value="8">全年学习</option>
-							<option value="9">私教内训</option>
-							<option value="10">会籍内训</option>
-							<option value="11">储值</option>
-							<option value="12">线上课</option>
-							<option value="13">公开课</option>
-							<option value="14">管理顾问</option>
-							<option value="15">管理建模</option>
-							<option value="16">全案</option>
-							<option value="17">过期</option>
-							<option value="18">6+1学习</option>
-							<option value="19">学习点客户</option>
+							<product-row>
+								<option value="${fld:procode}">${fld:proname}</option>
+							</product-row>
                          </select>
 							
 							<!-- <select  id="custcation" name="custcation" data-live-search="true" style="display: none;"> 
@@ -288,6 +260,7 @@ ${inc:/action/project/fitness/home/pub}
 						<div class="tab-cout-nav-t yyc_tab-cout-nav-t">
 							<nav class="tab-nav-my">
 								<input type="hidden" id="custcation2" name="custcation2" value=""/>
+								<input type="hidden" id="possibility3" name="possibility3" value=""/>
 								<li class="province1">
 									<select  id="province" name="province"> 
 										<option value="">请选择省</option>
@@ -369,47 +342,17 @@ ${inc:/action/project/fitness/home/pub}
 			 			
 								<li class="hasCheck" id="businesstype">
 									<select id="custcations2" title="选择已购产品" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										<option value="1">芯复软件</option>
-										<option value="2">枢途设计</option>
-										<option value="3">枢途品牌</option>
-										<option value="4">品牌文化</option>
-										<option value="5">高级领导力</option>
-										<option value="6">领导力突破</option>
-										<option value="7">管理课程</option>
-										<option value="8">全年学习</option>
-										<option value="9">私教内训</option>
-										<option value="10">会籍内训</option>
-										<option value="11">储值</option>
-										<option value="12">线上课</option>
-										<option value="13">公开课</option>
-										<option value="14">管理顾问</option>
-										<option value="15">管理建模</option>
-										<option value="16">全案</option>
-										<option value="17">过期</option>
-										<option value="18">6+1学习</option>
-										<option value="19">学习点客户</option>
+										
+										<product-row2>
+											<option value="${fld:procode}">${fld:proname}</option>
+			                         	</product-row2>
 			                         </select>
-									
-									
 								</li>
 								<li>
 									<select id="possibility2" title="请选择可能性" name="possibility2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										<option value="1">芯复软件</option>
-										<option value="2">枢途设计</option>
-										<option value="3">枢途品牌</option>
-										<option value="4">品牌文化</option>
-										<option value="5">高级领导力</option>
-										<option value="6">领导力突破</option>
-										<option value="7">管理课程</option>
-										<option value="8">全年学习</option>
-										<option value="9">私教内训</option>
-										<option value="10">会籍内训</option>
-										<option value="11">储值</option>
-										<option value="12">线上课</option>
-										<option value="13">公开课</option>
-										<option value="14">管理顾问</option>
-										<option value="15">管理建模</option>
-										<option value="16">全案</option>
+										<isgood-row2>
+											<option value="${fld:procodeis}">${fld:pronameis}</option>
+			                         	</isgood-row2>
 			                         </select>
 								</li>
 								<li class="hasCheck">
@@ -532,7 +475,9 @@ $(document).ready(function() {
 	
 	$("#businesstype").hide();
 	setSelectValue($("#custcations2"), "");
+	setSelectValue($("#possibility2"), "");
 	$("#custcation2").val("");
+	$("#possibility2").val("");
 	$("#communication2").change(function(){
 		setSelectValue($("#custcations2"), "");
 		$("#custcation2").val("");
@@ -576,22 +521,23 @@ $(document).ready(function() {
 	$("#custcations2").change(function(){
 		$("#custcation2").val($("#custcations2").val()); 
 	})
+	$("#possibility2").change(function(){
+		$("#possibility3").val($("#possibility2").val()); 
+	})
 	
 	
 	
 	
 	$('#save_btn').on('click',function(){
-		alert($("#possibility").val());
 		$("#custcation").val($("#custcations").val());
+		$("#possibility4").val($("#possibility").val());
 		if($('#cc_code').val()!=""){
 			$('#cc_mc').attr('disabled',true);
-			//update();
+			update();
 		}else{
 			$('#cc_mc').attr('disabled',false);
-			/* $.each(function(){
-				
-			}) */
-			//insert();
+			
+			insert();
 		}
 	})
 	//修改信息
@@ -652,6 +598,8 @@ $(document).ready(function() {
 		$("#businesstype1").hide();
 		setSelectValue($("#custcations2"), "");
 		$("#custcation2").val("");
+		setSelectValue($("#possibility2"), "");
+		$("#possibility3").val("");
 		$("#communication").change(function(){
 			var cust=$("#communication").val();
 				if(cust==''){

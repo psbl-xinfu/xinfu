@@ -2,13 +2,13 @@ CREATE TABLE "public"."cc_product" (
   "code" varchar(64) COLLATE "cc_product"."default",
   "proname" varchar(64) COLLATE "cc_product"."default",
 	status int4,
-	isgood int4,--是否包括可能性
+	isgood int4,--是否是产品
   "createdby" varchar(64) COLLATE "cc_product"."default",
   "created" timestamp(6),
   "org_id" int4
 );
 COMMENT ON COLUMN "public"."cc_product"."status" IS '0停用1启用';
-COMMENT ON COLUMN "public"."cc_product"."isgood" IS '2不是1是可能性';
+COMMENT ON COLUMN "public"."cc_product"."isgood" IS '0不是1是产品';
 
 //创建人的转移日志表
 create table cc_thecontact_log(

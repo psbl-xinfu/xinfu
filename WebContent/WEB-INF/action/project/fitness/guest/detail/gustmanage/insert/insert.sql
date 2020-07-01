@@ -20,6 +20,7 @@ insert into cc_guest
 	,guestnum --公司数量
 	,thepublic --公众号
 	,channel --获客渠道
+	,possibility
 )
 values 
 (
@@ -42,7 +43,8 @@ values
 	${def:org},
 	(case when ${fld:guestnum}::int >1 then ${fld:guestnum} else 1 end),
 	${fld:thepublic},
-	${fld:cc_channel}
+	${fld:cc_channel},
+	${fld:possibility4}
 	
 )
 
