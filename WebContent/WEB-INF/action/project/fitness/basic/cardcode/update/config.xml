@@ -12,7 +12,7 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
-
+	<query>updatecard.sql</query>
 	<query>update.sql</query>
 
 	<output>
