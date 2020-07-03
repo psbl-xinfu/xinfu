@@ -1,15 +1,19 @@
 ﻿document.addForm.cc_code.value="${fld:code@js}";
-document.addForm.company.value="${fld:officename}";
+document.addForm.company.value="${fld:officename}";//公司名称
+$("#guestnum").val("${fld:guestnum}");//公司数量
+setSelectValue($("#cc_birthall"), "${fld:customtype}");//公司类型
+setSelectValue($("#cc_birthall"), "${fld:possibility}");//可能性
+setSelectValue($("#communicationall"), "${fld:communication}");//客户分类
+setSelectValue($("#custcationsall"), "${fld:custclass}");//客户详细分类（已购产品）
+setSelectValue($("#cc_channelall"), "${fld:channel}");//获客渠道
+$("#cc_officetel").val("${fld:othertel}");//电话
+$("#thepublicall").val("${fld:thepublic}");//公众号
+$("#cc_email").val("${fld:email}");//email
+var possibility_id='${fld:possibility}';
+var arrlists=possibility_id.split(",");
 
-document.addForm.cc_officetel.value="${fld:officetel@js}"; 
-document.addForm.cc_email.value="${fld:email}";
-document.addForm.address.value="${fld:officeaddr}";
-document.addForm.postalcode.value="${fld:postcode}";
-document.addForm.cc_remark.value="${fld:remark}";
-
-/*<labelguest-row>
-	ccms.util.setCheckboxValue("labels", "${fld:labelguestcode}", "addForm");
-</labelguest-row>*/
+$('#possibility').selectpicker('val', arrlists);
+$("#possibility4").val("${fld:possibility}");
 
 setSelectValue($("#province2"), "${fld:province2}");
 /*setSelectValue($("#city2"), "${fld:city2}");*/
@@ -17,55 +21,28 @@ getSelectDomain("city2", "City", "Province", "${fld:province2}",function(){
  	setSelectValue($("#city2"), "${fld:city2}");
 });
 
+
+
 setSelectValue($("#cc_mc"), "${fld:mc}");
 
 
-$("#yttcode").val("${fld:yttcode}");
-
-setSelectValue($("#communication"), "${fld:communication}");
-	var communication=$("#communication").val();
+	var communication=$("#communicationall").val();
 	if(communication==''){
 		$('#businesstype1').hide();
 		setSelectValue($("#custcation"), "");
 	}else{
-		if(communication==1){
+		if(communication==2){
 			$('#businesstype1').show();
 			/*selectpicker($("#custcations"), );*/
 			var select_id='${fld:custclass}';
 			 var arr=select_id.split(",");
 			/* $('#custcations').val(arr).trigger('change');*/
 			/*$("#custcations").val('${fld:custclass}');*/
-			$('#custcations').selectpicker('val', arr);
+			$('#custcationsall').selectpicker('val', arr);
 			$("#custcation").val("${fld:custclass}");
 		}else{
 			$('#businesstype1').hide();
-			setSelectValue($("#custcations"), "");
+			setSelectValue($("#custcationsall"), "");
 		}
 	}
-	
-var ptstr = "<option value=''>请选择</option>";
-
-<thecontact-row>
-	ptstr+="<option value='${fld:ttcode@js}'>${fld:ttname}</option>"
-</thecontact-row>
-	
-$("#ttname").html(ptstr);
-
-var binstatus
-<thecontactstrat-row>
-setSelectValue($("#ttname"), "${fld:ttcodestrat}");
- binstatus="${fld:ttstatus}";
-</thecontactstrat-row>
-
-if(binstatus==1){
-	setSelectValue($("#ttstatus"), "1");
-}
-setSelectValue($("#cc_birth"), "${fld:customtype}");
-$("#guestnum").val("${fld:guestnum}");
-//修改id号  zyb 2019-3-21
-$("#ttname").selectpicker("refresh");
-$("#ttname").selectpicker("render");
-
- 
-
 

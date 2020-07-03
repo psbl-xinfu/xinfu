@@ -98,10 +98,12 @@ ${inc:/action/project/fitness/home/pub}
 							<div class="my-selected">
 								<select  id="communication" name="communication"> 
 									<option value="">请选择</option>
-									<option value="1">客户</option>
-									<option value="2">重点意向客户</option>
-									<option value="3">咨询客户</option>
-									<option value="4">陌生客户</option>
+									<option value="1">粉丝客户</option>
+									<option value="2">客户</option>
+									<option value="3">重点意向客户</option>
+									<option value="4">咨询客户</option>
+									<option value="5">陌生客户</option>
+									
 								</select>
 							</div>
 			 			</li>
@@ -332,10 +334,11 @@ ${inc:/action/project/fitness/home/pub}
 								<li class="hasCheck">
 									<select  id="communication2" name="communication2"> 
 										<option value="">客户分类</option>
-										<option value="1">客户</option>
-										<option value="2">重点意向客户</option>
-										<option value="3">咨询客户</option>
-										<option value="4">陌生客户</option>
+										<option value="1">粉丝客户</option>
+										<option value="2">客户</option>
+										<option value="3">重点意向客户</option>
+										<option value="4">咨询客户</option>
+										<option value="5">陌生客户</option>
 									</select>
 								</li>
 								</li>
@@ -487,7 +490,7 @@ $(document).ready(function() {
 				setSelectValue($("#custcations2"), "");
 				$("#custcation2").val("");
 			}else{
-				if(cust2==1){
+				if(cust2==2){
 					$('#businesstype').show();
 				}else{
 					$('#businesstype').hide();
@@ -557,7 +560,7 @@ $(document).ready(function() {
 					$('#businesstype1').hide();
 					setSelectValue($("#custcations"), "");
 				}else{
-					if(cust==1){
+					if(cust==2){
 						$('#businesstype1').show();
 					}else{
 						$('#businesstype1').hide();
@@ -606,7 +609,7 @@ $(document).ready(function() {
 					$('#businesstype1').hide();
 					setSelectValue($("#custcations"), "");
 				}else{
-					if(cust==1){
+					if(cust==2){
 						$('#businesstype1').show();
 					}else{
 						$('#businesstype1').hide();

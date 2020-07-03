@@ -120,7 +120,7 @@ display:inline-block;
 						</li>
 						<li> 			
 							<label>公司数量</label> 	
-							<input type="text" id="guestnum" name="guestnum" value="" maxlength="80" placeholder="公司数量"/>
+							<input type="text" id="guestnumall" name="guestnumall" value="" maxlength="80" placeholder="公司数量"/>
 			 			 </li>
 						<!-- <li class='lis'>
 							<label>联系人姓名<span style="color: red;">*</span></label>
@@ -129,7 +129,7 @@ display:inline-block;
 						
 						<li>
 							<label>公司类型<span style="color: red;">*</span></label>
-							<select  id="cc_birth" name="cc_birth" > 
+							<select  id="cc_birthall" name="cc_birthall" > 
 								<option value="">选择客户类型</option>
 								<option value="1">健身俱乐部</option>
 								<option value="2">健身工作室</option>
@@ -139,44 +139,25 @@ display:inline-block;
 								<option value="6">其他</option>
 							</select>
 						</li>
-						<!-- <li class="ttbin">
-							<label>联系人</label>
-							<select id="ttname" name="ttname" class=""> 
-							</select>
-						</li> -->
-						
-						<!--<li class='lis'>			
-							<label>性别<span style="color: red;"></span></label>
-							<div class="my-selected">
-								<select  id="cc_sex" name="cc_sex"> 
-									<option value="">请选择</option>
-									<option value="1">男</option>
-									<option value="0">女</option>
-								</select>
-							</div> 	
-			 			</li>-->
-			 			
-						<!-- <li class='lis'>		
-							<label>手机<span style="color: red;">*</span></label> 	
-							<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
-			 			</li> -->	
+					
 			 			<li>
 			 				<label>可能性</label> 	
 							<select id="possibility" title="请选择" name="possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
-								<isgood-row>
+								<isgood-rows>
 									<option value="${fld:procodeis}">${fld:pronameis}</option>
-	                         	</isgood-row>
+	                         	</isgood-rows>
 	                         </select>
 			 			</li>
 			 			<li>
 			 				<label>客户分类<span style="color: red;">*</span></label> 	
 							<div class="my-selected">
-								<select  id="communication" name="communication"> 
+								<select  id="communicationall" name="communication"> 
 									<option value="">请选择</option>
-									<option value="1">客户</option>
-									<option value="2">重点意向客户</option>
-									<option value="3">咨询客户</option>
-									<option value="4">陌生客户</option>
+									<option value="1">粉丝客户</option>
+									<option value="2">客户</option>
+									<option value="3">重点意向客户</option>
+									<option value="4">咨询客户</option>
+									<option value="5">陌生客户</option>
 								</select>
 							</div>
 			 			</li>
@@ -184,10 +165,10 @@ display:inline-block;
 						<li class="hasCheck" id="businesstype1">
 							<label>客户已购产品</label> 
 							
-							<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
-								<product-row>
+							<select id="custcationsall" title="请选择" name="custcationsall" class="selectpicker show-tick form-control" multiple data-live-search="false">
+								<product-rows>
 									<option value="${fld:procode}">${fld:proname}</option>
-								</product-row>
+								</product-rows>
 	                         </select>
 								
 							
@@ -196,7 +177,7 @@ display:inline-block;
 			 			
 			 			<li>
 							<label>获客渠道<span style="color: red;">*</span></label>
-							<select  id="cc_channel" name="cc_channel" class=""> 
+							<select  id="cc_channelall" name="cc_channelall" class=""> 
 								<option value="">渠道类型</option>
 								<option value="1">抖音</option>
 								<option value="2">公众号</option>
@@ -217,7 +198,7 @@ display:inline-block;
 						
 						<li class='lis'> 			
 							<label>公众号</label> 	
-							<input type="text" id="thepublic" name="thepublic" value="" maxlength="80" placeholder="公众号" />
+							<input type="text" id="thepublicall" name="thepublicall" value="" maxlength="80" placeholder="公众号" />
 			 			</li>	 
 			 			<li> 			
 							<label>E-mail</label> 	
@@ -341,7 +322,7 @@ $(document).ready(function() {
 	gust_code = "${fld:guestcode}";
 	var menuorgid = "${fld:menuorgid}";
 		//帕斯贝利资源宝
-		searchSelectInit($("#custcations,#possibility,#possibility2,#custcations2,#cc_channelquery,#cc_channel,#ttname,#ttstatus,#communication2,#communication,#position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
+		searchSelectInit($("#cc_birthall,#possibility,#communicationall,#custcationsall,#cc_channelall,#province2,#city2,#cc_mc"));
 		 $('#custcations').selectpicker({
 		        'selectedText': 'cat'
 		 });
@@ -352,6 +333,32 @@ $(document).ready(function() {
 				$("#modalAddnew").modal('hide');
 				ccms.util.clearForm('addForm');
 		});
+		 $("#businesstype1").hide();
+		 $("#communicationall").change(function(){
+				setSelectValue($("#custcationsall"), "");
+				$("#custcationsall").val("");
+				var cust2=$("#communicationall").val();
+					if(cust2==''){
+						$('#businesstype1').hide();
+						setSelectValue($("#custcationsall"), "");
+						$("#custcation").val("");
+					}else{
+						if(cust2==2){
+							$('#businesstype1').show();
+						}else{
+							$('#businesstype1').hide();
+							setSelectValue($("#custcationsall"), "");
+							$("#custcation").val("");
+						}
+					}
+			});
+		 
+		 getSelectDomain("province2", "Province");
+		 $("#province2").change(function(){
+		 	getSelectDomain("city2", "City", "Province", $(this).val(),function(){
+		      	setSelectValue($("#city2"), init_event_city2);
+		     });
+		 });
 		$('#update_btn').on('click',function(){
 			$('#formTitle').text('修改');
 			$('#cc_mc').attr('disabled',true);
@@ -360,22 +367,7 @@ $(document).ready(function() {
 			$(".ttbin").show();
 
 			$("#businesstype1").hide();
-			setSelectValue($("#custcations"), "");
-			$("#custcation").val("");
-			$("#communication").change(function(){
-				var cust=$("#communication").val();
-					if(cust==''){
-						$('#businesstype1').hide();
-						setSelectValue($("#custcations"), "");
-					}else{
-						if(cust==1){
-							$('#businesstype1').show();
-						}else{
-							$('#businesstype1').hide();
-							setSelectValue($("#custcations"), "");
-						}
-					}
-			});
+		
 			
 			//清空form下所有select
 			$("#addForm select").each(function(){
