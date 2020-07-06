@@ -2,7 +2,7 @@
 <validator onerror="/action/ccms/validate">
 	<parameter id="cust_code" type="varchar" required="true" label="会员code" maxlen="32" />
 	<parameter id="moneycash" type="double" required="true" label="充值金额" maxlen="32" />
-	<parameter id="payment" type="double" required="true" label="实际支付" maxlen="32" />
+	<parameter id="moneygift" type="double" required="true" label="赠送金额" maxlen="32" />
 	<parameter id="remark" type="varchar" required="false" label="备注" maxlen="32" />
 	<parameter id="pay_detail" type="varchar" required="true" label="支付明细" maxlen="32" />
 	<parameter id="name" type="varchar" required="false" label="会员姓名" maxlen="32" />

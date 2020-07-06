@@ -28,9 +28,9 @@ values
 	{ts'${def:timestamp}'},
 	${fld:remark},
 	1,
-	'储值'||';'||concat(${fld:moneycash}, '')||';'||concat(${fld:payment}, ''),
+	'储值'||';'||concat(${fld:moneycash}, '')||';'||concat(${fld:moneygift}, ''),
 	${fld:moneycash},
-	${fld:payment},
+	${fld:moneycash},
 	${fld:pay_detail},
 	${def:org}
 )

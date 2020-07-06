@@ -22,7 +22,7 @@ insert into cc_chargecard
 		0,
 		moneycash,
 		${fld:moneycash},
-		0,
+		${fld:moneygift},
 		moneycash+${fld:moneycash},
 		${fld:moneycash},
 		${fld:remark},
