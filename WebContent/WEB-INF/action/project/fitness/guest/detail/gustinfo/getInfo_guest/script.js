@@ -48,7 +48,7 @@ var branchnum=0;
 		branchstr +='<span class="lable4" id="storename">${fld:storename}</span>';
 		branchstr +='<span class="lable3">分店'+branchnum+'地址:</span>';
 		branchstr +='<span class="lable4" id="address">${fld:address}</span>';
-		branchstr +='<label  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label>';
+		
 	}
 	branchnum++;
 </branch-rows>
