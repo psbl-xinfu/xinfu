@@ -480,6 +480,18 @@ function closefindcard(){
 	ccms.dialog.close("rc1001");
 	$("#custall").focus();
 }
+
+function posturl(url){
+	ajaxCall(url,{
+		method:"post",
+		form:"searchForm",
+		progress:true,
+		dataType:"script",
+		success:function(){
+		}
+	});
+}
+
 </script>
 </body>
 </html> 

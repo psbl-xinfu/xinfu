@@ -28,13 +28,3 @@ if(count==0){
 	}
 }
 
-function posturl(url){
-	ajaxCall(url,{
-		method:"post",
-		form:"searchForm",
-		progress:true,
-		dataType:"script",
-		success:function(){
-		}
-	});
-}
