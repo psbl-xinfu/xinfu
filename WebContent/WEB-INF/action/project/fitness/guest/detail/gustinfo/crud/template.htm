@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+${inc:/action/project/fitness/home/pub}
 <title>客户信息</title>
 <style type="text/css">
 hr {
@@ -124,10 +125,11 @@ display:inline-block;
 		<div class="basic-information modal-dialog dialogbg" >
 				<header class="header-default">
 					<span id="formTitle">修改</span>
+					<span class="header-close"></span>
 				</header>
 				<div class="b-i-main  yyc_b-i-main">
 					<form id="addForm" name="addForm" method="post">
-					<input type="hidden" id="cc_code" name="cc_code" value="${fld:code}"/>
+					<input type="hidden" id="cc_code" name="cc_code" value=""/>
 					<input type="hidden" id="yttcode" name="yttcode" value=""/>
 					<input type="hidden" id="custcation" name="custcation" value=""/>
 					<input type="hidden" id="possibility4" name="possibility4" value=""/>
@@ -136,11 +138,11 @@ display:inline-block;
 						
 						<li>
 							<label>公司名称<span style="color: red;">*</span></label>
-							<input type="text" id="company" name="company" value="${fld:officename}" maxlength="80"  placeholder="公司名称"/>
+							<input type="text" id="company" name="company" value="" maxlength="80"  placeholder="公司名称"/>
 						</li>
 						<li> 			
 							<label>公司数量</label> 	
-							<input type="text" id="guestnumall" name="guestnumall" value="${fld:guestnum}" maxlength="80" placeholder="公司数量"/>
+							<input type="text" id="guestnumall" name="guestnumall" value="" maxlength="80" placeholder="公司数量"/>
 			 			 </li>
 						<!-- <li class='lis'>
 							<label>联系人姓名<span style="color: red;">*</span></label>
@@ -285,7 +287,7 @@ display:inline-block;
 			</div> 
 			<div class="first">
 				<span class="lable1">公司详细地址：</span>
-				<span class="lable2" id="province"></span>
+				<span class="lable2" id="province1"></span>
 				<span class="lable1">E-mail：</span>
 				<span class="lable2" id="email"></span>
 				<span class="lable1">分配顾问：</span>
@@ -330,14 +332,88 @@ display:inline-block;
 		var branchstr="";
 		var gust_code="";
 		var search = null;
+		var init_event_city2;
+		var fend="";
 $(document).ready(function() {
 	gust_code = "${fld:guestcode}";
 	var menuorgid = "${fld:menuorgid}";
 		//帕斯贝利资源宝
 		searchSelectInit($("#cc_birthall,#possibility,#communicationall,#custcationsall,#cc_channelall,#province2,#city2,#cc_mc"));
 		 
+		 $('#custcations').selectpicker({
+		        'selectedText': 'cat'
+		 });
+		 $('#custcations2').selectpicker({
+		        'selectedText': 'cat'
+		 });
+			$(".header-close").unbind().on("click",function(){
+				$("#modalAddnew").modal('hide');
+				
+			});
+		 getSelectDomain("province2", "Province");
+		 $("#province2").change(function(){
+			getSelectDomain("city2", "City", "Province", $(this).val(),function(){
+	         	setSelectValue($("#city2"), init_event_city2);
+	        });
+		 });
+		 
+		 $("#businesstype1").hide();
+		
+		 
+		 $("#salelist").empty();
+		 <branch-rows>
+			 if("${fld:states}"==0){
+				 fend +='<li >'; 			
+				 fend +='<label>主店名称</label> ';
+				 fend +='<input type="text" id="storename" name="storename" value="${fld:storename}" maxlength="80" placeholder="主店名称" />	';
+				 fend +='<label>主店地址</label> ';
+				 fend +='<input  type="text" id="address" name="address" value="${fld:address}" maxlength="500" placeholder="地址详细信息" />	';
+				 fend += '&nbsp;&nbsp;&nbsp;&nbsp;';
+				 fend +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>';
+				 fend +='<input type="hidden"  name="states" value="0" />	';
+				 fend +='</li>';
+			 }else{
+				 fend +='<li>';
+				 fend +='<label>分店名称</label>' ;
+				 fend +='<input type="text" id="storename" name="storename" value="${fld:storename}" maxlength="80" />';
+				 fend +='<label>分店地址</label>';
+				 fend +='<input type="text" id="address" name="address" value="${fld:address}"  maxlength="500"/>';
+				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
+				 fend +='<label  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label>';
+				 fend +='</li>';
+			 }
+		 </branch-rows>
+		 $("#salelist").append(fend);
+
+		 $("#communicationall").change(function(){
+				setSelectValue($("#custcationsall"), "");
+				$("#custcationsall").val("");
+				var cust2=$("#communicationall").val();
+					if(cust2==''){
+						$('#businesstype1').hide();
+						setSelectValue($("#custcationsall"), "");
+						$("#custcation").val("");
+					}else{
+						if(cust2==2){
+							$('#businesstype1').show();
+						}else{
+							$('#businesstype1').hide();
+							setSelectValue($("#custcationsall"), "");
+							$("#custcation").val("");
+						}
+					}
+			});
+			
+		 
+		 
+		 
+		 $("#addpay_btnbin").on("click",function(e){
+				appendSale();
+		});
+		
 		$('#update_btn').on('click',function(){
 			//ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code='+gust_code, width : 800, height : 600 });
+			$('#modalAddnew').modal('show');
 		});
 		
 		$("#guestinfoone,#guestinfotwo").show();
@@ -367,9 +443,46 @@ $(document).ready(function() {
 			}).initSearchBtn().searchData(1);
 		}
 		
+		function removeObj1(obj){
+			$(obj).parent().remove();
+		}
+		function removeObj(obj){
+			$Dialog().confirm("确定要删除吗?", function() {
+				var url="${def:context}/action/project/fitness/guest/detail/gustinfo/delete?branchcode="+obj+"&guestcode="+gust_code;
+				ajaxCall(url,{
+					method: "get",
+					progress: false,
+					dataType: "script",
+					success: function() {
+						ccms.dialog.notice("删除成功！",1000, function(){
+							var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
+							   ajaxCall(uri,{
+							   	method: "get",
+							   	progress: false,
+							   	dataType: "script",
+							 	async:false,
+							   	success: function() {
+							   	}
+								});
+						});
+					}
+				}); 
+			});
+		}
 		
-		
-		
+		function appendSale(){
+			var str="";
+			str +='<li>';
+			str +='<label>新加分店名称</label>' ;
+			 str +='<input type="text" id="storename" name="storename" value="" maxlength="80" />';
+			 str +='<label>新加分店地址</label>';
+			 str +='<input type="text" id="address" name="address" value=""  maxlength="500"/>';
+			 str +='&nbsp;&nbsp;&nbsp;&nbsp;';
+			 str +='<label  style="color:red" onclick="removeObj1(this)">删除</label>';
+			 str +='</li>';			
+			$('#salelist').append(str);
+			
+		}
 	</script>
 </body>
 </html>

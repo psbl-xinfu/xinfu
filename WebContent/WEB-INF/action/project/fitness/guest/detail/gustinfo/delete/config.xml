@@ -14,8 +14,7 @@
 		<jdbc-log>false</jdbc-log>
 	</transaction>
 	<query>insertbranchdellog.sql</query>
-	<query>insert.sql</query>
-	<query>update.sql</query>
+	
 	<query>delete.sql</query>
 
 	<output>

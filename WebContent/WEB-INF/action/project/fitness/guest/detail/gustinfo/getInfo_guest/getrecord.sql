@@ -1,28 +1,42 @@
 select
-  	 code as guestcode,
-	officename,--公司名称
-	email,
-	initmc,
-	othertel,
-	remark,
+
+	code as guestcode
+	,officename --公司名称
+	,othertel  --电话
+	,email 
+	,remark  --公司备注
+	,mc --顾问
+	,initmc
+	,province2 --省
+	,city2  --市
+	,customtype   --公司类型
+	,communication --客户分类
+	,custclass  --客户详细分类
+	,createdby  --操作人
+	,created  --操作时间
+	,org_id
+	,guestnum --公司数量
+	,thepublic --公众号
+	,channel --获客渠道
+	,possibility--可能性
+	
+	
+	
 	  --公司类型
-	(case customtype when '1' then '健身俱乐部'
+	,(case customtype when '1' then '健身俱乐部'
 	when '2' then '健身工作室'
 	when '3' then '瑜伽会所'
 	when '4' then '器械器'
 	when '5' then '培训机构'
 	else  '其他'
-end	) as customtype
+end	) as customtype2
 	,(case communication
 	when '1' then '粉丝客户'
 	when '2' then '客户'
 	when '3' then '重点意向客户'
 	when '4' then '咨询客户'
 	when '5' then '陌生客户'
-	 end) as communication,  --客户分类
-	 custclass --客户详细分类
-	,guestnum --公司数量
-	,thepublic --公众号
+	 end) as communication2  --客户分类
 	,(case channel when '1' then '抖音' 
 	when '2' then '公众号'
 	when '3' then '转介绍'
@@ -30,7 +44,7 @@ end	) as customtype
 	when '5' then '论坛'
 	when '6' then '粉丝客户'
 	else '其他'
-end) as channel --获客渠道
+end) as channel2 --获客渠道
 	,createdby  --操作人
 	,created  --操作时间
 	,(

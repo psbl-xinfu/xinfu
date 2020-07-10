@@ -12,6 +12,10 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="query-org_id.sql" source="sql" scope="transaction" />
+		
+		<recordset id="getbranch.sql" source="sql" scope="transaction" />
+		<recordset id="getisgood.sql" source="sql" scope="transaction" />
+		<recordset id="getproduct.sql" source="sql" scope="transaction" />
 		<!--  -->
 	</transaction>
 
@@ -21,6 +25,10 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<!--  -->
+		
+		<print mode="table" recordset="getbranch.sql"  tag="branch-rows"/> 
+		<print mode="table" recordset="getproduct.sql"  tag="product-rows"/>
+		<print mode="table" recordset="getisgood.sql"  tag="isgood-rows"/>
 		<print mode="form" recordset="query-org_id.sql" />
 		<print mode="form" recordset="_request" />
 	</output>

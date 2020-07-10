@@ -2,33 +2,28 @@
 <config>
 
 	<summary>
+		编辑系统应用
 	</summary>
 	
-	<log>true</log>
+	<log>false</log>
 
 	<transaction>
 		<classname>dinamica.GenericTransaction</classname>
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="getguest.sql" source="sql" scope="transaction" />
-		<recordset id="getbranch.sql" source="sql" scope="transaction" />
-		<recordset id="getisgood.sql" source="sql" scope="transaction" />
-		<recordset id="getproduct.sql" source="sql" scope="transaction" />
+		 <recordset id="getbranch.sql" source="sql" scope="transaction" /> 
 	</transaction>
 
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-		<template>template.htm</template>
+		<template>script.js</template>
 		<set-http-headers>true</set-http-headers>
-		<content-type>text/html</content-type>
-		<print mode="form" recordset="getguest.sql" />
+		<content-type>text/javascript</content-type>
+		<expiration>0</expiration>
 		<print mode="table" recordset="getbranch.sql"  tag="branch-rows"/> 
-		<print mode="table" recordset="getproduct.sql"  tag="product-rows"/>
-		<print mode="table" recordset="getisgood.sql"  tag="isgood-rows"/>
+		 <print mode="table" recordset="getbranch.sql"  tag="branch-rows1"/> 
 		<print mode="form" recordset="_request" />
 	</output>
+
 </config>
-
-
-
