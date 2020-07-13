@@ -410,7 +410,39 @@ $(document).ready(function() {
 		 $("#addpay_btnbin").on("click",function(e){
 				appendSale();
 		});
-		
+		 <!--保存修改 -->
+		 $("#save_btn").on("click",function(){
+			 var namelen=$("[name=storename]");
+			 for (var i = 1; i < namelen.length; i++) {
+				 var fendname=$("[name=storename]").eq(i).val();
+				 var fendaddress=$("[name=address]").eq(i).val();
+				 if(fendname=="" || fendname==null){
+					ccms.dialog.notice("店名不可以为空！", 2000);
+					return false;
+				 }
+				 if(fendaddress=="" || fendaddress==null){
+					ccms.dialog.notice("店地址不可以为空！", 2000);
+					return false;
+				 }
+				
+			 }
+			 var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/update";
+			   ajaxCall(uri,{
+				   	method: "post",
+				   	form:"addForm",
+				   	progress: false,
+				   	dataType: "script",
+				   	success: function() {
+						ccms.dialog.notice("修改成功!", 2000, function(){
+					   		$('#modalAddnew').modal('hide');
+					   		ccms.util.clearForm('addForm');
+					   		search.searchData(1);
+					   		$('#modalAddnew').prop('scrollTop','0');
+						});
+			   		}
+			   	}); 
+		});
+		 
 		$('#update_btn').on('click',function(){
 			//ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code='+gust_code, width : 800, height : 600 });
 			$('#modalAddnew').modal('show');

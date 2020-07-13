@@ -539,7 +539,20 @@ $(document).ready(function() {
 			update();
 		}else{
 			$('#cc_mc').attr('disabled',false);
-			
+			 var namelen=$("[name=storename]");
+			 for (var i = 1; i < namelen.length; i++) {
+				 var fendname=$("[name=storename]").eq(i).val();
+				 var fendaddress=$("[name=address]").eq(i).val();
+				 if(fendname=="" || fendname==null){
+					ccms.dialog.notice("店名不可以为空！", 2000);
+					return false;
+				 }
+				 if(fendaddress=="" || fendaddress==null){
+					ccms.dialog.notice("店地址不可以为空！", 2000);
+					return false;
+				 }
+				
+			 }
 			insert();
 		}
 	})
