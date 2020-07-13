@@ -10,7 +10,7 @@ insert into cc_label_guest
 values 
 (
 	${seq:nextval@seq_cc_label_guest},
-    ${fld:cc_code},
+    ${seq:currval@seq_cc_guest},
     ${fld:labels},
     '${def:user}',
     {ts '${def:timestamp}'},
