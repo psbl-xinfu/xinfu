@@ -118,10 +118,84 @@ display:inline-block;
     display: inline-block;
     margin-left: 0px;
 }
+/* #modalAddbranch{
+   display: none;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%,-50%);
+   min-width:50%;
+   overflow: visible;
+   bottom: inherit; 
+   right: inherit;
+	border: 1px solid black;
+}
+ */
+.branch-information {
+    font-size: 13px;
+    top: 50%;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+    background: rgba(42, 48, 56, 0.8);
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-bottom: 20px;
+    max-height: 750px;
+    overflow-y: auto;
+}
+ .branch-close {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 44px;
+    width: 44px;
+    transition: -webkit-transform 0.3s ease-in;
+    transition: transform 0.3s ease-in;
+    transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+    background: url(../image/SVG/common/X.svg) center center no-repeat;
+}
 </style>
 </head>
 <body>
+   	<div class="modal fade" id="modalAddbranch"  tabindex="-1" style="display:none;">
+		
+		<div class="branch-information modal-dialog dialogbg" >	
+        					<header class="header-default">
+									<span id="formTitle">添加分店</span>
+									<span class="branch-close"></span>
+							</header>
+							<div class="b-i-main  yyc_b-i-main">
+									<nav >
+									 <li>
+										 <label>分店名称</label>
+										 <input type="text" id="storenameaddup" name="storenameaddup" value="" maxlength="80" />
+										 <label>分店地址</label>
+										 <input type="text" id="addressaddup" name="addressaddup" value=""  maxlength="500"/>
+									 </li>
+									</nav>
+							</div>
+        					<footer class="footer-default">
+								<button id="add_btn" class="my-btn-default active">确认</button>
+								<button id="cancel_btn" class="my-btn-default active">取消</button>
+							</footer>
+        				</div>
+        		
+        	</div>	
 	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+			
+			
+		
 		<div class="basic-information modal-dialog dialogbg" >
 				<header class="header-default">
 					<span id="formTitle">修改</span>
@@ -350,6 +424,39 @@ $(document).ready(function() {
 				$("#modalAddnew").modal('hide');
 				
 			});
+			
+			$(".branch-close").unbind().on("click",function(){
+				$("#modalAddbranch").modal('hide');
+				$("#modalAddnew").modal('show');
+			});
+			
+			$("#cancel_btn").unbind().on("click",function(){
+				$("#modalAddbranch").modal('hide');
+				$("#modalAddnew").modal('show');
+			});
+			
+			$("#add_btn").unbind().on("click",function(){
+				var zhi="storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code;
+				var url="${def:context}/action/project/fitness/guest/detail/gustinfo/insert?"+zhi;
+				ajaxCall(url,{
+					method: "post",
+					progress: false,
+					dataType: "script",
+					success: function() {
+						ccms.dialog.notice("删除成功！",1000, function(){
+							var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
+							   ajaxCall(uri,{
+							   	method: "get",
+							   	progress: false,
+							   	dataType: "script",
+							 	async:false,
+							   	success: function() {
+							   	}
+								});
+						});
+					}
+				}); 
+			});
 		 getSelectDomain("province2", "Province");
 		 $("#province2").change(function(){
 			getSelectDomain("city2", "City", "Province", $(this).val(),function(){
@@ -408,7 +515,10 @@ $(document).ready(function() {
 		 
 		 
 		 $("#addpay_btnbin").on("click",function(e){
-				appendSale();
+				//appendSale();
+				$("#modalAddnew").modal('hide'); 
+				$("#modalAddbranch").modal('show');
+				
 		});
 		 <!--保存修改 -->
 		 $("#save_btn").on("click",function(){

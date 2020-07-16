@@ -1,1 +1,1 @@
-select 1 from cc_guest where officename=${fld:company} and org_id=${def:org}
+select 1 from cc_branch where storename=${fld:storenameaddup} and org_id=${def:org}
