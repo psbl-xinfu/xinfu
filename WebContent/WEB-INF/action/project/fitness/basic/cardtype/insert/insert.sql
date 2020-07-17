@@ -18,7 +18,8 @@ insert into cc_cardtype
    remark,
    opencarddeadline,
    moneyleft, --储值金额
-   org_id
+   org_id,
+   maxusernum --几人
 )
 values 
 (
@@ -40,5 +41,7 @@ values
     ${fld:vc_remark},
     ${fld:opencarddeadline},
     ${fld:moneyleft},
-	${def:org}
+	${def:org},
+	${fld:vc_maxusernum}
+	
 )

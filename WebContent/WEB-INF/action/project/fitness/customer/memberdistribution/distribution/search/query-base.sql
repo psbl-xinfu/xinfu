@@ -12,7 +12,7 @@ where guest.mc = s.userlogin and guest.status !=0 and guest.status!=99 and guest
 where cust.mc = s.userlogin and cust.status != 0 and
 	 exists(
 		select 1 from cc_card card where card.customercode = cust.code 
-		and card.org_id = cust.org_id and card.status!=0 and card.status!=6 
+		and card.org_id = cust.org_id   
 	) and cust.org_id = s.org_id
 
 )

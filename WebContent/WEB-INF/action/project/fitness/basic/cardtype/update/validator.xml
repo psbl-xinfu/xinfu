@@ -8,7 +8,7 @@
        <parameter id="vc_minfee" type="double" required="false" label="销售底价" maxlen="32" />
        <parameter id="vc_giveday" type="integer" required="false" label="赠送天数" maxlen="32" />
        <parameter id="vc_ptcount" type="integer" required="false" label="赠送免费课" maxlen="32" />
-      <!--  <parameter id="vc_maxusernum" type="integer" required="true" label="共享几人" maxlen="32" />    -->
+     <parameter id="vc_maxusernum" type="integer" required="true" label="共享几人" maxlen="32" />  
       <!--  <parameter id="scaletype" type="integer" required="true" label="销售提成" maxlen="32" />                 -->
       <!--  <parameter id="vc_scale" type="double" required="true" label="销售提成" maxlen="32" /> -->
        <parameter id="count" type="integer" required="false" label="可用次数" maxlen="32" />   
