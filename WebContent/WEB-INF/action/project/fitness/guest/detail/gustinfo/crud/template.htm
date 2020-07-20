@@ -443,17 +443,19 @@ $(document).ready(function() {
 					progress: false,
 					dataType: "script",
 					success: function() {
-						ccms.dialog.notice("删除成功！",1000, function(){
+							$("#storenameaddup").val("");
+						    $("#addressaddup").val("");
+							$("#modalAddbranch").modal('hide');
+							$("#modalAddnew").modal('show');
+							
 							var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
 							   ajaxCall(uri,{
 							   	method: "get",
 							   	progress: false,
 							   	dataType: "script",
-							 	async:false,
 							   	success: function() {
 							   	}
 								});
-						});
 					}
 				}); 
 			});
@@ -476,8 +478,10 @@ $(document).ready(function() {
 				 fend +='<label>主店地址</label> ';
 				 fend +='<input  type="text" id="address" name="address" value="${fld:address}" maxlength="500" placeholder="地址详细信息" />	';
 				 fend += '&nbsp;&nbsp;&nbsp;&nbsp;';
-				 fend +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>';
+				 fend +='<i class="am-icon-plus" id="addpay_btnbin1" title="添加"></i>';
+				 fend +='<label  style="color:red"  id="update_btnbranch">修改</label>';
 				 fend +='<input type="hidden"  name="states" value="0" />	';
+				 fend +='<input type="hidden"  name="branchcode" value="${fld:branchcode}" />	';
 				 fend +='</li>';
 			 }else{
 				 fend +='<li>';
@@ -487,6 +491,8 @@ $(document).ready(function() {
 				 fend +='<input type="text" id="address" name="address" value="${fld:address}"  maxlength="500"/>';
 				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
 				 fend +='<label  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label>';
+				 fend +='<label  style="color:red" id="update_btnbranch">修改</label>';
+				 fend +='<input type="hidden"  name="branchcode" value="${fld:branchcode}" />	';
 				 fend +='</li>';
 			 }
 		 </branch-rows>
@@ -512,9 +518,17 @@ $(document).ready(function() {
 			});
 			
 		 
+		 $("#update_btnbranch").on("click",function(e){
+				//appendSale();
+				$("#modalAddnew").modal('hide'); 
+				$("#modalAddbranch").modal('show');
+				for(int i=0;){
+					
+				}
+				
+		});
 		 
-		 
-		 $("#addpay_btnbin").on("click",function(e){
+		 $("#addpay_btnbin1").on("click",function(e){
 				//appendSale();
 				$("#modalAddnew").modal('hide'); 
 				$("#modalAddbranch").modal('show');
@@ -611,20 +625,31 @@ $(document).ready(function() {
 				}); 
 			});
 		}
-		
-		function appendSale(){
-			var str="";
-			str +='<li>';
-			str +='<label>新加分店名称</label>' ;
-			 str +='<input type="text" id="storename" name="storename" value="" maxlength="80" />';
-			 str +='<label>新加分店地址</label>';
-			 str +='<input type="text" id="address" name="address" value=""  maxlength="500"/>';
-			 str +='&nbsp;&nbsp;&nbsp;&nbsp;';
-			 str +='<label  style="color:red" onclick="removeObj1(this)">删除</label>';
-			 str +='</li>';			
-			$('#salelist').append(str);
-			
+		function updateObj(obj){
+			$("#modalAddnew").modal('hide'); 
+			$("#modalAddbranch").modal('show');
+			var url="${def:context}/action/project/fitness/guest/detail/gustinfo/updatebranch?branchcode="+obj+"&guestcode="+gust_code;
+			ajaxCall(url,{
+				method: "get",
+				progress: false,
+				dataType: "script",
+				success: function() {
+					ccms.dialog.notice("删除成功！",1000, function(){
+						var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
+						   ajaxCall(uri,{
+						   	method: "get",
+						   	progress: false,
+						   	dataType: "script",
+						 	async:false,
+						   	success: function() {
+						   	}
+							});
+					});
+				}
+			}); 
 		}
+		
+	
 	</script>
 </body>
 </html>

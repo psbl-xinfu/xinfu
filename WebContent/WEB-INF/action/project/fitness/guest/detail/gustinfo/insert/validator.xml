@@ -10,5 +10,5 @@
 
 
 	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
-	on-error-label="已有该分店，请重新输入" id="company" sql="noRep2.sql" />
+	on-error-label="已有该分店，请重新输入" id="storenameaddup" sql="noRep2.sql" />
 </validator>

@@ -29,8 +29,10 @@ $("#salelist").empty();
 									 fend +='<label>主店地址</label> ';
 									 fend +='<input  type="text" id="address" name="address" value="${fld:address}" maxlength="500" placeholder="地址详细信息" />	';
 									 fend += '&nbsp;&nbsp;&nbsp;&nbsp;';
-									 fend +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>';
+									 fend +='<i class="am-icon-plus" id="addpay_btnbin1" title="添加"></i>';
+									 fend +='<label  style="color:red" id="update_btnbranch">修改</label>';
 									 fend +='<input type="hidden"  name="states" value="0" />	';
+									 fend +='<input type="hidden"  name="branchcode" value="${fld:branchcode}" />	';
 									 fend +='</li>';
 								 }else{
 									 fend +='<li>';
@@ -40,7 +42,17 @@ $("#salelist").empty();
 									 fend +='<input type="text" id="address" name="address" value="${fld:address}"  maxlength="500"/>';
 									 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
 									 fend +='<label  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label>';
+									 fend +='<label  style="color:red" id="update_btnbranch">修改</label>';
+									 fend +='<input type="hidden"  name="branchcode" value="${fld:branchcode}" />	';
 									 fend +='</li>';
 								 }
 							 </branch-rows1>
 							 $("#salelist").append(fend);
+							 $("#addpay_btnbin1").on("click",function(e){
+								   $("#storenameaddup").val("");
+								   $("#addressaddup").val("");
+									//appendSale();
+									$("#modalAddnew").modal('hide'); 
+									$("#modalAddbranch").modal('show');
+									
+							});
