@@ -64,13 +64,14 @@ ${inc:/action/project/fitness/home/pub}
 			}, success, error);*/
 			navigator.myGetUserMedia = navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia||navigator.msGetUserMedia;
 		    navigator.myGetUserMedia({video : true}, function(stream){
+		    	alert(stream);
 		        window.URL = window.URL||window.webkitURL||window.mozURL||window.msURL;
-		        video.src = window.URL.createObjectURL(stream);
+		        video.srcObject  = stream;
 		        video.play();
 		    }, error);
 
 			function success(stream) {
-				video.src = window.webkitURL.createObjectURL(stream);
+				video.srcObject = stream;
 				video.play();
 			}
 
