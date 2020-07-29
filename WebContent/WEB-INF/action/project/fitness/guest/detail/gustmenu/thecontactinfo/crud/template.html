@@ -2,7 +2,7 @@
 <html>
 <head>
 ${inc:/action/project/fitness/home/pub}
-<title>客户信息</title>
+<title>联系人详情</title>
 <style type="text/css">
 hr {
 	opacity: 0.1;
@@ -168,509 +168,96 @@ display:inline-block;
 </style>
 </head>
 <body>
-   
-	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
-		<div class="basic-information modal-dialog dialogbg" >
-				<header class="header-default">
-					<span id="formTitle">详情</span>
-					<span class="header-close"></span>
+			<div class="basic-dialog yyc_basic-dialog dialogbg" style="height:auto;">
+          		<header class="header-default">
+					<span id="formTitle">联系人详情
+					</span>
 				</header>
-				<div class="b-i-main  yyc_b-i-main">
-					<form id="addForm" name="addForm" method="post">
-					<input type="hidden" id="cc_code" name="cc_code" value=""/>
-					<input type="hidden" id="yttcode" name="yttcode" value=""/>
-					<input type="hidden" id="custcation" name="custcation" value=""/>
-					<input type="hidden" id="possibility4" name="possibility4" value=""/>
-					
-					<nav >
-						
-						<li>
-							<label>公司名称<span style="color: red;">*</span></label>
-							<input type="text" id="company" name="company" value="" maxlength="80"  placeholder="公司名称"/>
-						</li>
-						<li> 			
-							<label>公司数量</label> 	
-							<input type="text" id="guestnumall" name="guestnumall" value="" maxlength="80" placeholder="公司数量"/>
-			 			 </li>
-						<!-- <li class='lis'>
-							<label>联系人姓名<span style="color: red;">*</span></label>
-							<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
-						</li> -->
-						
-						<li>
-							<label>公司类型<span style="color: red;">*</span></label>
-							<select  id="cc_birthall" name="cc_birthall" > 
-								<option value="">选择客户类型</option>
-								<option value="1">健身俱乐部</option>
-								<option value="2">健身工作室</option>
-								<option value="3">瑜伽会所</option>
-								<option value="4">器械器</option>
-								<option value="5">培训机构</option>
-								<option value="6">其他</option>
-							</select>
-						</li>
-					
-			 			<li>
-			 				<label>可能性</label> 	
-							<select id="possibility" title="请选择" name="possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
-								<!--  <isgood-rows>
-									<option value="${fld:procodeis}">${fld:pronameis}</option>
-	                         	</isgood-rows>-->
-	                         </select>
-			 			</li>
-			 			<li>
-			 				<label>客户分类<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="communicationall" name="communicationall"> 
-									<option value="">请选择</option>
-									<option value="1">粉丝客户</option>
-									<option value="2">客户</option>
-									<option value="3">重点意向客户</option>
-									<option value="4">咨询客户</option>
-									<option value="5">陌生客户</option>
-								</select>
-							</div>
-			 			</li>
-			 			
-						<li class="hasCheck" id="businesstype1">
-							<label>客户已购产品</label> 
+				<div id="main" class="dialogbg" style="width:100%;font-size:12px" >
+					<div class="row1" >
+						<div class="first">
+							<span class="lable1">联系人名称：</span>
+							<span class="lable2" id="officename"></span>
+							<span class="lable1">性别：</span>
+							<span class="lable2" id="thepublic"></span>
+							<span class="lable1">手机号1：</span>
+							<span class="lable2" id="officetel"></span>
+							<span class="lable1">手机号2：</span>
+							<span class="lable2" id="officetel"></span>
 							
-							<select id="custcationsall" title="请选择" name="custcationsall" class="selectpicker show-tick form-control" multiple data-live-search="false">
-								<!-- <product-rows>
-									<option value="${fld:procode}">${fld:proname}</option>
-								</product-rows> -->
-	                         </select>
-								
-							
-						</li>
-			 			
-			 			
-			 			<li>
-							<label>获客渠道<span style="color: red;">*</span></label>
-							<select  id="cc_channelall" name="cc_channelall" class=""> 
-								<option value="">渠道类型</option>
-								<option value="1">抖音</option>
-								<option value="2">公众号</option>
-								<option value="3">转介绍</option>
-								<option value="4">展会</option>
-								<option value="5">论坛</option>
-								<option value="6">粉丝客户</option>
-								<option value="7">其他</option>
-							</select>
-						</li>
-						<li> 			
-							<label>电话</label> 	
-							<input type="text" id="cc_officetel" name="cc_officetel" value="" maxlength="80" placeholder="公司电话"/>
-			 			 </li>
-						
-						
-						
-						
-						<li> 			
-							<label>公众号</label> 	
-							<input type="text" id="thepublicall" name="thepublicall" value="" maxlength="80" placeholder="公众号" />
-			 			</li>	 
-			 			<li> 			
-							<label>E-mail</label> 	
-							<input type="text" id="cc_email" name="cc_email" value="" maxlength="80" placeholder="email"/>
-			 			</li>	
-			 		
-			 			
-						<li> 			
-							<label>地区<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="province2" name="province2"> 
-									<option value="">请选择省</option>
-								</select>
-							</div>
-			 			</li>	
-			 			<li> 			
-							<label>市<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="city2" name="city2"> 
-									<option value="">请选择市</option>
-								</select>
-							</div>
-			 			</li>
-			 			
-			 			<div id="salelist" >
+						</div> 
+						<div class="first">
+							<span class="lable1">职位：</span>
+							<span class="lable2" id="province1"></span>
+							<span class="lable1">生日：</span>
+							<span class="lable2" id="email"></span>
+							<span class="lable1">邮箱：</span>
+							<span class="lable2" id="mc"></span>
+							<span class="lable1">抖音：</span>
+							<span class="lable2" id="mc"></span>
 						</div>
-			 			
-			 			
-			 						
-						<li> 			
-							<label>咨询师</label> 	
-							<div class="my-selected">
-								<select id="cc_mc" name="cc_mc"   >
-									<!-- <skillname-row>
-										<option value="${fld:userlogin}">${fld:name}</option>
-									</skillname-row> 
-								</select> -->
-							</div> 
-			 			</li>
-			 			
-			 			<li class="to100w" style="margin-left: 6%">
-							<label>公司备注</label>
-							<textarea id="cc_remark" name="cc_remark" placeholder="暂无数据" class="my-textarea" rows="" cols="4"></textarea>
-			 				<footer class="footer-default"><button id="save_btn" class="my-btn-default active">保存</button></footer>
 						
-						</li>	
+					</div>
+					<div class="row1">
+						<div class="first">
+							<span class="lable3">微信：</span>
+							<span class="lable4" id="cc_birth"></span>
+							<span class="lable3">所属店：</span>
+							<span class="lable4" id="cc_channel"></span>
+						</div>
 						
-					</nav>
-					</form>
-			 		<footer >
-			 			
-			 		</footer>
+						<div class="first">
+							<span class="lable3">可能性课程：</span>
+							<span class="lable4" id="communication"></span>
+							<span class="lable5">已学课程：</span>
+							<span class="lable6" id="custcations"></span>
+						</div> 
+						<div class="first" id="branch">
+						</div> 
+					</div>
+					<div class="row1">
+						<div class="first">
+							<span class="lable1">备注：</span>
+							<span class="lable2 nowidth" id="remark"></span>
+						</div>
+					</div> 
+					
 				</div>
+			<form style="width: 100%;" id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
 				
-			</div>
-		</div>	
-	<div id="main" class="dialogbg" style="height: 80%;font-size:12px">
-		<div class="row1" >
-			<div class="first">
-				<span class="lable1">联系人名称：</span>
-				<span class="lable2" id="officename"></span>
-				<span class="lable1">性别：</span>
-				<span class="lable2" id="thepublic"></span>
-				<span class="lable1">手机号1：</span>
-				<span class="lable2" id="officetel"></span>
-				<span class="lable1">手机号2：</span>
-				<span class="lable2" id="officetel"></span>
-				
-			</div> 
-			<div class="first">
-				<span class="lable1">职位：</span>
-				<span class="lable2" id="province1"></span>
-				<span class="lable1">生日：</span>
-				<span class="lable2" id="email"></span>
-				<span class="lable1">邮箱：</span>
-				<span class="lable2" id="mc"></span>
-				<span class="lable1">抖音：</span>
-				<span class="lable2" id="mc"></span>
-			</div>
-			
+				<div class="r-tab-cout-3-b">
+					<table class="am-table">
+						<thead>
+							<tr>
+								<th></th>
+								<th class="sortable">编号</th>
+								<th class="sortable">课程名称</th>
+								<th class="sortable">可预约课时</th>
+								<th class="sortable">教练</th>
+								<th class="sortable">课程状态</th>
+								<th class="sortable">课时费</th>
+							</tr>
+						</thead>
+						<tbody id="ptrest">
+						</tbody>
+					</table>
+				</div>
+			<footer class="footer-default">
+			  	<button type="button" id="save_btn">确&nbsp;定</button>
+			</footer>
+			<form>
 		</div>
-		<div class="row1">
-			<div class="first">
-				<span class="lable3">微信：</span>
-				<span class="lable4" id="cc_birth"></span>
-				<span class="lable3">所属店：</span>
-				<span class="lable4" id="cc_channel"></span>
-			</div>
-			
-			<div class="first">
-				<span class="lable3">可能性课程：</span>
-				<span class="lable4" id="communication"></span>
-				<span class="lable5">已学课程：</span>
-				<span class="lable6" id="custcations"></span>
-			</div> 
-			<div class="first" id="branch">
-			</div> 
-		</div>
-		<div class="row1">
-			<div class="first">
-				<span class="lable1">备注：</span>
-				<span class="lable2 nowidth" id="remark"></span>
-			</div>
-		</div> 
-		<footer class="footer-default">
-			<button id="update_btn" class="my-btn-default active">修改</button>
-		</footer>
-	</div>
-	<form class="form-horizonta" role="form" method="post" id="searchForm">
-		<input name="pageSize" type="hidden" value="1000" preserve="true" />
-		<input type="hidden" name="menuorgid" id="menuorgid" value="${fld:menuorgid}" />
-	</form>
-	<input type="hidden" name="actionroot" id="actionroot"
-		value="${def:actionroot}" />
-	<script language="JavaScript">
-		var branchstr="";
-		var gust_code="";
-		var search = null;
-		var init_event_city2;
-		var fend="";
-		var branch_code="";
-$(document).ready(function() {
-	 gust_code = "${fld:guestcode}";
-	var thecode = "${fld:thecode}";
-		//帕斯贝利资源宝
-		searchSelectInit($("#cc_birthall,#possibility,#communicationall,#custcationsall,#cc_channelall,#province2,#city2,#cc_mc"));
-		 
-		 $('#custcationsall').selectpicker({
-		        'selectedText': 'cat'
-		 });
-		 $('#possibility').selectpicker({
-		        'selectedText': 'cat'
-		 });
-			$(".header-close").unbind().on("click",function(){
-				$("#modalAddnew").modal('hide');
-				
-			});
-			
-			$(".branch-close").unbind().on("click",function(){
-				$("#modalAddbranch").modal('hide');
-				$("#modalAddnew").modal('show');
-			});
-			
-			$("#cancel_btn").unbind().on("click",function(){
-				$("#modalAddbranch").modal('hide');
-				$("#modalAddnew").modal('show');
-			});
-			
-			$("#add_btn").unbind().on("click",function(){
-				var bin = $("#formTitle").text();
-				if(bin=="添加分店"){
-					var zhi="storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code+"&states=1";
-					var url="${def:context}/action/project/fitness/guest/detail/gustinfo/insert?"+zhi;
-					ajaxCall(url,{
-						method: "post",
-						progress: false,
-						dataType: "script",
-						success: function() {
-								$("#storenameaddup").val("");
-							    $("#addressaddup").val("");
-								$("#modalAddbranch").modal('hide');
-								$("#modalAddnew").modal('show');
-								
-								var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
-								   ajaxCall(uri,{
-								   	method: "get",
-								   	progress: false,
-								   	dataType: "script",
-								   	success: function() {
-								   	}
-									});
-						}
-					}); 
-				}else if(bin=="添加主店"){
-					var zhi="storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code+"&states=0";
-					var url="${def:context}/action/project/fitness/guest/detail/gustinfo/insert?"+zhi;
-					ajaxCall(url,{
-						method: "post",
-						progress: false,
-						dataType: "script",
-						success: function() {
-								$("#storenameaddup").val("");
-							    $("#addressaddup").val("");
-								$("#modalAddbranch").modal('hide');
-								$("#modalAddnew").modal('show');
-								
-								var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
-								   ajaxCall(uri,{
-								   	method: "get",
-								   	progress: false,
-								   	dataType: "script",
-								   	success: function() {
-								   	}
-									});
-						}
-					}); 
-				}else{
-					var zhi="branchcode="+branch_code+"&storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code;
-					var url="${def:context}/action/project/fitness/guest/detail/gustinfo/updatebranch?"+zhi;
-					ajaxCall(url,{
-						method: "post",
-						progress: false,
-						dataType: "script",
-						success: function() {
-							ccms.dialog.notice("修改成功！",1000);
-							$("#storenameaddup").val("");
-						    $("#addressaddup").val("");
-							$("#modalAddbranch").modal('hide');
-							$("#modalAddnew").modal('show');
-							
-							var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
-							   ajaxCall(uri,{
-							   	method: "get",
-							   	progress: false,
-							   	dataType: "script",
-							   	success: function() {
-							   		
-							   	}
-								});
-						}
-					}); 
-				}
-			
-			});
-		 getSelectDomain("province2", "Province");
-		 $("#province2").change(function(){
-			getSelectDomain("city2", "City", "Province", $(this).val(),function(){
-	         	setSelectValue($("#city2"), init_event_city2);
-	        });
-		 });
-		 
-		 $("#businesstype1").hide();
-		/* 
-		 
-		 $("#salelist").empty();
-		 var branchisnull=0;
-		 <branch-rows>
-		 	
-			 if("${fld:states}"==0){
-				 fend +='<li >'; 			
-				 fend +='<label>主店名称</label> ';
-				 fend +='<input type="text" id="storename" readonly ="readonly" name="storename" value="${fld:storename}" maxlength="80" placeholder="主店名称" />	';
-				 fend +='<label>主店地址</label> ';
-				 fend +='<input  type="text" id="address" readonly ="readonly" name="address" value="${fld:address}" maxlength="500" placeholder="地址详细信息" />	';
-				 fend += '&nbsp;&nbsp;&nbsp;&nbsp;';
-				 fend +='<i class="am-icon-plus" id="addpay_btnbin1" title="添加"></i>';
-				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
-				 fend +='<label6  style="color:red" onclick="updateObj(\'${fld:branchcode}\',\'${fld:storename}\',\'${fld:address}\')">修改</label6>';
-				 fend +='<input type="hidden"  name="states" value="0" />	';
-				 fend +='</li>';
-			 }else{
-				 fend +='<li>';
-				 fend +='<label>分店名称</label>' ;
-				 fend +='<input type="text" id="storename" readonly ="readonly" name="storename" value="${fld:storename}" maxlength="80" />';
-				 fend +='<label>分店地址</label>';
-				 fend +='<input type="text" id="address" readonly ="readonly" name="address" value="${fld:address}"  maxlength="500"/>';
-				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
-				 fend +='<label6  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label6>';
-				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
-				 fend +='<label6  style="color:red" onclick="updateObj(\'${fld:branchcode}\',\'${fld:storename}\',\'${fld:address}\')">修改</label6>';
-				 fend +='</li>';
-				 
-			 }
-			 branchisnull++;
-		 </branch-rows>
-		 if(branchisnull<1){
-			 fend +='<li >'; 
-			 fend +='<label8 style="color:red">没有店请添加！</label8>' ;
-			 fend +='<i class="am-icon-plus" id="addpay_btnbin1" title="添加"></i>';
-			 fend +='</li >'; 
-		 }
-		 $("#salelist").append(fend); */
-
-		 $("#communicationall").change(function(){
-				setSelectValue($("#custcationsall"), "");
-				$("#custcationsall").val("");
-				var cust2=$("#communicationall").val();
-					if(cust2==''){
-						$('#businesstype1').hide();
-						setSelectValue($("#custcationsall"), "");
-						$("#custcation").val("");
-					}else{
-						if(cust2==2){
-							$('#businesstype1').show();
-						}else{
-							$('#businesstype1').hide();
-							setSelectValue($("#custcationsall"), "");
-							$("#custcation").val("");
-						}
-					}
-			});
-			
-		 
-		
-		 
-		 $("#addpay_btnbin1").on("click",function(e){
-				//appendSale();
-				if(branchisnull<1){
-					var branchzhu="";
-					$("#branchzhu").empty();
-					$("#formTitle").text("添加主店");
-					 branchzhu +=' <label>主店名称</label>';
-					 branchzhu +=' <input type="text" id="storenameaddup" name="storenameaddup" value="" maxlength="80" />';
-					 branchzhu +='<label>主店地址</label>';
-					 branchzhu +='<input type="text" id="addressaddup" name="addressaddup" value=""  maxlength="500"/>';
-					 $("#branchzhu").append(branchzhu);
-					 branchisnull++;
-				}
-				$("#modalAddnew").modal('hide'); 
-				$("#modalAddbranch").modal('show');
-				
-		});
-		 <!--保存修改 -->
-		 $("#save_btn").on("click",function(){
-			$("#cc_code").val(gust_code);
-			$("#custcation").val($("#custcationsall").val());
-			$("#possibility4").val($("#possibility").val());
-			 var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/update";
-			   ajaxCall(uri,{
-				   	method: "post",
-				   	form:"addForm",
-				   	progress: false,
-				   	dataType: "script",
-				   	success: function() {
-						ccms.dialog.notice("修改成功!", 2000, function(){
-					   		$('#modalAddnew').modal('hide');
-					   		ccms.util.clearForm('addForm');
-					   		search.searchData(1);
-					   		$('#modalAddnew').prop('scrollTop','0');
-						});
-			   		}
-			   	}); 
-		});
-		 
-		$('#update_btn').on('click',function(){
-			//ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code='+gust_code, width : 800, height : 600 });
-			$('#modalAddnew').modal('show');
-		});
-		
-		$("#guestinfoone,#guestinfotwo").show();
-		$('#cus').hide();
-		 ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/getInfo_the?id="
-				+ gust_codey) 
-});
-
-		function ajax(url) {
-			ajaxCall(url, {
-				method : "get",
-				progress : true,
-				dataType : "script",
-				success : function() {
-				}
-			});
-		}
-
-		function init() {
-			this.search = search;
-			search = $Search({
-				datagrid : "datagrid",
-				formId : "searchForm",
-				success : function() {
-					$("table").css("table-layout", "auto");
-				}
-			}).initSearchBtn().searchData(1);
-		}
-		
-		function removeObj1(obj){
-			$(obj).parent().remove();
-		}
-		function removeObj(obj){
-			$Dialog().confirm("确定要删除吗?", function() {
-				var url="${def:context}/action/project/fitness/guest/detail/gustinfo/delete?branchcode="+obj+"&guestcode="+gust_code;
-				ajaxCall(url,{
-					method: "get",
-					progress: false,
-					dataType: "script",
-					success: function() {
-						ccms.dialog.notice("删除成功！",1000, function(){
-							var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
-							   ajaxCall(uri,{
-							   	method: "get",
-							   	progress: false,
-							   	dataType: "script",
-							 	async:false,
-							   	success: function() {
-							   	}
-								});
-						});
-					}
-				}); 
-			});
-		}
-		function updateObj(obj,storename,address){
-			$("#formTitle").text("修改分店");
-			$("#storenameaddup").val(storename);
-			$("#addressaddup").val(address);
-			$("#modalAddnew").modal('hide'); 
-			$("#modalAddbranch").modal('show');
-			branch_code=obj;			
-		}
-		
 	
-	</script>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+		var search = null;
+		$(document).ready(function() {
+		
+			this.search = search;
+			search = $Search({datagrid : "datagrid", formId : "searchForm",rowpackage:function(obj){
+			}, success : function() {
+			}}).initSearchBtn().searchData(1);
+		});
+	</script> 
 </body>
 </html>
