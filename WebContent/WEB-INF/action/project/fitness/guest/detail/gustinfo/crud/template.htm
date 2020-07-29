@@ -163,7 +163,7 @@ display:inline-block;
     transition: -webkit-transform 0.3s ease-in;
     transition: transform 0.3s ease-in;
     transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
-    background: url(../image/SVG/common/X.svg) center center no-repeat;
+    
 }
 </style>
 </head>
@@ -177,7 +177,7 @@ display:inline-block;
 							</header>
 							<div class="b-i-main  yyc_b-i-main">
 									<nav >
-									 <li>
+									 <li id="branchzhu">
 										 <label>分店名称</label>
 										 <input type="text" id="storenameaddup" name="storenameaddup" value="" maxlength="80" />
 										 <label>分店地址</label>
@@ -193,7 +193,6 @@ display:inline-block;
         		
         	</div>	
 	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
-			
 			
 		
 		<div class="basic-information modal-dialog dialogbg" >
@@ -247,7 +246,7 @@ display:inline-block;
 			 			<li>
 			 				<label>客户分类<span style="color: red;">*</span></label> 	
 							<div class="my-selected">
-								<select  id="communicationall" name="communication"> 
+								<select  id="communicationall" name="communicationall"> 
 									<option value="">请选择</option>
 									<option value="1">粉丝客户</option>
 									<option value="2">客户</option>
@@ -328,26 +327,30 @@ display:inline-block;
 							<label>咨询师</label> 	
 							<div class="my-selected">
 								<select id="cc_mc" name="cc_mc"   >
-									<!-- <staff-rows3>
+									<skillname-row>
 										<option value="${fld:userlogin}">${fld:name}</option>
-									</staff-rows3> -->
+									</skillname-row> 
 								</select>
 							</div> 
 			 			</li>
+			 			
 			 			<li class="to100w" style="margin-left: 6%">
 							<label>公司备注</label>
 							<textarea id="cc_remark" name="cc_remark" placeholder="暂无数据" class="my-textarea" rows="" cols="4"></textarea>
+			 				<footer class="footer-default"><button id="save_btn" class="my-btn-default active">保存</button></footer>
+						
 						</li>	
 						
 					</nav>
 					</form>
+			 		<footer >
+			 			
+			 		</footer>
 				</div>
-				<footer class="footer-default">
-					<button id="save_btn" class="my-btn-default active">保存</button>
-				</footer>
+				
 			</div>
 		</div>	
-	<div id="main" class="dialogbg" style="height: 750px;font-size:12px">
+	<div id="main" class="dialogbg" style="height: 80%;font-size:12px">
 		<div class="row1" >
 			<div class="first">
 				<span class="lable1">公司名称：</span>
@@ -408,16 +411,17 @@ display:inline-block;
 		var search = null;
 		var init_event_city2;
 		var fend="";
+		var branch_code="";
 $(document).ready(function() {
 	gust_code = "${fld:guestcode}";
 	var menuorgid = "${fld:menuorgid}";
 		//帕斯贝利资源宝
 		searchSelectInit($("#cc_birthall,#possibility,#communicationall,#custcationsall,#cc_channelall,#province2,#city2,#cc_mc"));
 		 
-		 $('#custcations').selectpicker({
+		 $('#custcationsall').selectpicker({
 		        'selectedText': 'cat'
 		 });
-		 $('#custcations2').selectpicker({
+		 $('#possibility').selectpicker({
 		        'selectedText': 'cat'
 		 });
 			$(".header-close").unbind().on("click",function(){
@@ -436,13 +440,62 @@ $(document).ready(function() {
 			});
 			
 			$("#add_btn").unbind().on("click",function(){
-				var zhi="storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code;
-				var url="${def:context}/action/project/fitness/guest/detail/gustinfo/insert?"+zhi;
-				ajaxCall(url,{
-					method: "post",
-					progress: false,
-					dataType: "script",
-					success: function() {
+				var bin = $("#formTitle").text();
+				if(bin=="添加分店"){
+					var zhi="storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code+"&states=1";
+					var url="${def:context}/action/project/fitness/guest/detail/gustinfo/insert?"+zhi;
+					ajaxCall(url,{
+						method: "post",
+						progress: false,
+						dataType: "script",
+						success: function() {
+								$("#storenameaddup").val("");
+							    $("#addressaddup").val("");
+								$("#modalAddbranch").modal('hide');
+								$("#modalAddnew").modal('show');
+								
+								var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
+								   ajaxCall(uri,{
+								   	method: "get",
+								   	progress: false,
+								   	dataType: "script",
+								   	success: function() {
+								   	}
+									});
+						}
+					}); 
+				}else if(bin=="添加主店"){
+					var zhi="storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code+"&states=0";
+					var url="${def:context}/action/project/fitness/guest/detail/gustinfo/insert?"+zhi;
+					ajaxCall(url,{
+						method: "post",
+						progress: false,
+						dataType: "script",
+						success: function() {
+								$("#storenameaddup").val("");
+							    $("#addressaddup").val("");
+								$("#modalAddbranch").modal('hide');
+								$("#modalAddnew").modal('show');
+								
+								var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
+								   ajaxCall(uri,{
+								   	method: "get",
+								   	progress: false,
+								   	dataType: "script",
+								   	success: function() {
+								   	}
+									});
+						}
+					}); 
+				}else{
+					var zhi="branchcode="+branch_code+"&storenameaddup="+$("#storenameaddup").val()+"&addressaddup="+$("#addressaddup").val()+"&guestcode="+gust_code;
+					var url="${def:context}/action/project/fitness/guest/detail/gustinfo/updatebranch?"+zhi;
+					ajaxCall(url,{
+						method: "post",
+						progress: false,
+						dataType: "script",
+						success: function() {
+							ccms.dialog.notice("修改成功！",1000);
 							$("#storenameaddup").val("");
 						    $("#addressaddup").val("");
 							$("#modalAddbranch").modal('hide');
@@ -454,10 +507,13 @@ $(document).ready(function() {
 							   	progress: false,
 							   	dataType: "script",
 							   	success: function() {
+							   		
 							   	}
 								});
-					}
-				}); 
+						}
+					}); 
+				}
+			
 			});
 		 getSelectDomain("province2", "Province");
 		 $("#province2").change(function(){
@@ -470,32 +526,42 @@ $(document).ready(function() {
 		
 		 
 		 $("#salelist").empty();
+		 var branchisnull=0;
 		 <branch-rows>
+		 	
 			 if("${fld:states}"==0){
 				 fend +='<li >'; 			
 				 fend +='<label>主店名称</label> ';
-				 fend +='<input type="text" id="storename" name="storename" value="${fld:storename}" maxlength="80" placeholder="主店名称" />	';
+				 fend +='<input type="text" id="storename" readonly ="readonly" name="storename" value="${fld:storename}" maxlength="80" placeholder="主店名称" />	';
 				 fend +='<label>主店地址</label> ';
-				 fend +='<input  type="text" id="address" name="address" value="${fld:address}" maxlength="500" placeholder="地址详细信息" />	';
+				 fend +='<input  type="text" id="address" readonly ="readonly" name="address" value="${fld:address}" maxlength="500" placeholder="地址详细信息" />	';
 				 fend += '&nbsp;&nbsp;&nbsp;&nbsp;';
 				 fend +='<i class="am-icon-plus" id="addpay_btnbin1" title="添加"></i>';
-				 fend +='<label  style="color:red"  id="update_btnbranch">修改</label>';
+				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
+				 fend +='<label6  style="color:red" onclick="updateObj(\'${fld:branchcode}\',\'${fld:storename}\',\'${fld:address}\')">修改</label6>';
 				 fend +='<input type="hidden"  name="states" value="0" />	';
-				 fend +='<input type="hidden"  name="branchcode" value="${fld:branchcode}" />	';
 				 fend +='</li>';
 			 }else{
 				 fend +='<li>';
 				 fend +='<label>分店名称</label>' ;
-				 fend +='<input type="text" id="storename" name="storename" value="${fld:storename}" maxlength="80" />';
+				 fend +='<input type="text" id="storename" readonly ="readonly" name="storename" value="${fld:storename}" maxlength="80" />';
 				 fend +='<label>分店地址</label>';
-				 fend +='<input type="text" id="address" name="address" value="${fld:address}"  maxlength="500"/>';
+				 fend +='<input type="text" id="address" readonly ="readonly" name="address" value="${fld:address}"  maxlength="500"/>';
 				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
-				 fend +='<label  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label>';
-				 fend +='<label  style="color:red" id="update_btnbranch">修改</label>';
-				 fend +='<input type="hidden"  name="branchcode" value="${fld:branchcode}" />	';
+				 fend +='<label6  style="color:red" onclick="removeObj(${fld:branchcode})">删除</label6>';
+				 fend +='&nbsp;&nbsp;&nbsp;&nbsp;';
+				 fend +='<label6  style="color:red" onclick="updateObj(\'${fld:branchcode}\',\'${fld:storename}\',\'${fld:address}\')">修改</label6>';
 				 fend +='</li>';
+				 
 			 }
+			 branchisnull++;
 		 </branch-rows>
+		 if(branchisnull<1){
+			 fend +='<li >'; 
+			 fend +='<label8 style="color:red">没有店请添加！</label8>' ;
+			 fend +='<i class="am-icon-plus" id="addpay_btnbin1" title="添加"></i>';
+			 fend +='</li >'; 
+		 }
 		 $("#salelist").append(fend);
 
 		 $("#communicationall").change(function(){
@@ -518,38 +584,30 @@ $(document).ready(function() {
 			});
 			
 		 
-		 $("#update_btnbranch").on("click",function(e){
-				//appendSale();
-				$("#modalAddnew").modal('hide'); 
-				$("#modalAddbranch").modal('show');
-				for(int i=0;){
-					
-				}
-				
-		});
+		
 		 
 		 $("#addpay_btnbin1").on("click",function(e){
 				//appendSale();
+				if(branchisnull<1){
+					var branchzhu="";
+					$("#branchzhu").empty();
+					$("#formTitle").text("添加主店");
+					 branchzhu +=' <label>主店名称</label>';
+					 branchzhu +=' <input type="text" id="storenameaddup" name="storenameaddup" value="" maxlength="80" />';
+					 branchzhu +='<label>主店地址</label>';
+					 branchzhu +='<input type="text" id="addressaddup" name="addressaddup" value=""  maxlength="500"/>';
+					 $("#branchzhu").append(branchzhu);
+					 branchisnull++;
+				}
 				$("#modalAddnew").modal('hide'); 
 				$("#modalAddbranch").modal('show');
 				
 		});
 		 <!--保存修改 -->
 		 $("#save_btn").on("click",function(){
-			 var namelen=$("[name=storename]");
-			 for (var i = 1; i < namelen.length; i++) {
-				 var fendname=$("[name=storename]").eq(i).val();
-				 var fendaddress=$("[name=address]").eq(i).val();
-				 if(fendname=="" || fendname==null){
-					ccms.dialog.notice("店名不可以为空！", 2000);
-					return false;
-				 }
-				 if(fendaddress=="" || fendaddress==null){
-					ccms.dialog.notice("店地址不可以为空！", 2000);
-					return false;
-				 }
-				
-			 }
+			$("#cc_code").val(gust_code);
+			$("#custcation").val($("#custcationsall").val());
+			$("#possibility4").val($("#possibility").val());
 			 var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/update";
 			   ajaxCall(uri,{
 				   	method: "post",
@@ -625,28 +683,13 @@ $(document).ready(function() {
 				}); 
 			});
 		}
-		function updateObj(obj){
+		function updateObj(obj,storename,address){
+			$("#formTitle").text("修改分店");
+			$("#storenameaddup").val(storename);
+			$("#addressaddup").val(address);
 			$("#modalAddnew").modal('hide'); 
 			$("#modalAddbranch").modal('show');
-			var url="${def:context}/action/project/fitness/guest/detail/gustinfo/updatebranch?branchcode="+obj+"&guestcode="+gust_code;
-			ajaxCall(url,{
-				method: "get",
-				progress: false,
-				dataType: "script",
-				success: function() {
-					ccms.dialog.notice("删除成功！",1000, function(){
-						var uri="${def:context}/action/project/fitness/guest/detail/gustinfo/edit?code="+gust_code;
-						   ajaxCall(uri,{
-						   	method: "get",
-						   	progress: false,
-						   	dataType: "script",
-						 	async:false,
-						   	success: function() {
-						   	}
-							});
-					});
-				}
-			}); 
+			branch_code=obj;			
 		}
 		
 	

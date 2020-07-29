@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+
+	<summary>
+		系统应用管理
+	</summary>
+	
+	<log>false</log>
+
+	<transaction>
+		<classname>dinamica.GenericTransaction</classname>
+		<validator>true</validator>
+		<transaction>false</transaction>
+		<jdbc-log>false</jdbc-log>
+		<!-- <recordset id="query-position.sql" source="sql" scope="transaction"/>
+		<recordset id="getisgood.sql" source="sql" scope="transaction"/>
+		<recordset id="getcourse.sql" source="sql" scope="transaction"/>
+		<recordset id="getbranch.sql" source="sql" scope="transaction"/> -->
+	</transaction>
+
+	<output>
+		<classname>dinamica.GenericOutput</classname>
+		<template>template.html</template>
+		<set-http-headers>true</set-http-headers>
+		<content-type>text/html</content-type>
+	<!-- 	<print mode="table" recordset="query-position.sql" tag="position-rows"/>
+		<print mode="table" recordset="getcourse.sql"  tag="product-rows"/>
+		<print mode="table" recordset="getisgood.sql"  tag="isgood-rows"/>
+		<print mode="table" recordset="getbranch.sql"  tag="branch-rows"/>
+		<print mode="table" recordset="query-position.sql" tag="position-rows2"/>
+		<print mode="table" recordset="getcourse.sql"  tag="product-rows2"/>
+		<print mode="table" recordset="getisgood.sql"  tag="isgood-rows2"/>
+		<print mode="table" recordset="getbranch.sql"  tag="branch-rows2"/> -->
+		<print mode="form" recordset="_request" />
+	</output>
+
+</config>

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+	<parameter id="vc_code" type="varchar" required="true" label="vc_code" maxlen="32" />
+   	<parameter id="vc_name" type="varchar" required="true" label="vc_name" maxlen="32" />
+   	<parameter id="isgood" type="integer" required="true"  label="vc_name" maxlen="32" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该产品已存在,请重新输入" id="vc_name" sql="norep.sql" />
+</validator>

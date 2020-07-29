@@ -1,3 +1,102 @@
+drop table cc_thecontact_log;
+CREATE TABLE "public"."cc_thecontact_log" (
+  code varchar(50) 
+  ,guestcode varchar(64)
+ 	,positioncode varchar(64)
+	,possibility text
+	,thecourse text
+	,branchcode varchar(64)
+	
+   ,yguestcode varchar(64)
+	 ,ypositioncode varchar(64)
+	 ,ypossibility text
+	 ,ythecourse text
+	 ,ybranchcode varchar(64)
+	
+	 ,createdby varchar(64) 
+   ,created timestamp(6)
+)
+;
+
+//添加课程表
+CREATE TABLE "public"."cc_course" (
+  "code" varchar(64) ,
+  "courname" varchar(64) ,
+	status int4,
+	isgood int4,--是否是课程
+  "createdby" varchar(64) ,
+  "created" timestamp(6),
+  "org_id" int4
+);
+COMMENT ON COLUMN "public"."cc_course"."status" IS '0停用1启用';
+COMMENT ON COLUMN "public"."cc_course"."isgood" IS '0不是1是课程';
+
+
+
+alter table cc_thecontact add email varchar(64);
+
+COMMENT ON COLUMN "public"."cc_thecontact"."email" IS '邮箱';
+
+alter table cc_thecontact add trill varchar(64);
+
+COMMENT ON COLUMN "public"."cc_thecontact"."trill" IS '抖音';
+
+alter table cc_thecontact add wechat varchar(64);
+
+COMMENT ON COLUMN "public"."cc_thecontact"."wechat" IS '微信';
+
+
+
+alter table cc_thecontact add mobile2 varchar(64);
+
+COMMENT ON COLUMN "public"."cc_thecontact"."mobile2" IS '手机号2号';
+
+alter table cc_thecontact add possibility text;
+
+COMMENT ON COLUMN "public"."cc_thecontact"."possibility" IS '可能性';
+
+alter table cc_thecontact add thecourse text;
+
+COMMENT ON COLUMN "public"."cc_thecontact"."thecourse" IS '已学课程';
+
+//创建公司修改记录表
+CREATE TABLE cc_guest_log (
+  code varchar(50) ,
+  guestcode varchar(64) ,
+  officename varchar(64) ,
+  guestnum int4,
+  customtype int4,
+  possibility text ,
+  communication int4 ,
+  custclass text,
+  channel int4,
+  othertel varchar(64),
+  thepublic varchar(64),
+	email varchar(64),
+	province2 int8,
+	city2 int8,
+	remark text,
+	
+	
+	yofficename varchar(64),
+  yguestnum int4,
+  ycustomtype int4 ,
+  ypossibility text,
+  ycommunication int4,
+  ycustclass text,
+  ychannel int4,
+  yothertel varchar(64),
+  ythepublic varchar(64),
+	yemail varchar(64),
+	yprovince2 int8,
+	ycity2 int8,
+	ycreatedby varchar(64),
+	yremark text,
+	createdby varchar(64),--创建人
+	created timestamp(6)
+)
+
+
 CREATE TABLE "public"."cc_product" (
   "code" varchar(64) COLLATE "cc_product"."default",
   "proname" varchar(64) COLLATE "cc_product"."default",

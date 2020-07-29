@@ -116,8 +116,29 @@ label {
     transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
     background: url('../image/SVG/common/X.svg') center center no-repeat;
 }
+.header-default .ben-close {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 44px;
+    width: 44px;
+    transition: -webkit-transform 0.3s ease-in;
+    transition: transform 0.3s ease-in;
+    transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
+    background: url('../image/SVG/common/X.svg') center center no-repeat;
+}
+
 
 .header-default .header-close:hover {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+}
+.header-default .ben-close:hover {
     -webkit-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
     transform: rotate(360deg);
@@ -5166,7 +5187,7 @@ div.addTop .other-full .other-half {
     -ms-flex-direction: column;
     flex-direction: column;
     padding-bottom: 20px;
-    max-height: 750px;
+    max-height: 80%;
     overflow-y: auto;
 }
 

@@ -7,7 +7,7 @@
 
 	<log>false</log>
 
-	<colname>labelthecodes,vc_name</colname>
+	<colname>cc_branchcodes2,cc_position2,cc_possibilitys2,vc_name,cc_theproducts2</colname>
 	<sql-template>query-base.sql</sql-template>
 	<paging-recordset>query.sql</paging-recordset>
 	<total-recordset>query-count.sql</total-recordset>

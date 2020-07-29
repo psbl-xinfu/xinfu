@@ -5,11 +5,23 @@
 
 <parameter id="cc_mobile" type="varchar" required="true" label="手机号"/>
 
+<parameter id="cc_mobile2" type="varchar" required="flase" label="手机号2"/>
+
 <parameter id="cc_position" type="varchar" required="true" label="职位"/>
 
 <parameter id="cc_birth" type="varchar" required="false" label="生日"/>
 
 <parameter id="remark" type="varchar" required="false" label="备注"/>
+
+<parameter id="cc_possibilitys" type="varchar" required="false" label="可能性"/>
+
+<parameter id="cc_theproducts" type="varchar" required="false" label="已购产品"/>
+
+<parameter id="cc_branchcode" type="varchar" required="false" label="店的id"/>
+
+<parameter id="cc_email" type="varchar" required="false" label="邮箱"/>
+<parameter id="cc_trill" type="varchar" required="false" label="抖音"/>
+<parameter id="cc_wechat" type="varchar" required="false" label="微信"/>
 
 <parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
 
@@ -17,4 +29,6 @@
 
    <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
 		on-error-label="该手机已经存在,请重新输入" id="cc_mobile" sql="noRep.sql" />
+	<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+	on-error-label="该手机已经存在,请重新输入" id="cc_mobile2" sql="noRep2.sql" />
 </validator>

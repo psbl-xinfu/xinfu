@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
 	<parameter id="ttid" type="varchar" required="false" label="vc_code"/>
-	<parameter id="labelthecodes" type="varchar" required="false" label="labelcodes"/>
-	<parameter id="vc_name" type="varchar" required="false" label="labelcodes"/>
+	<parameter id="vc_name" type="varchar" required="false" label="姓名"/>
+	<parameter id="cc_position2" type="varchar" required="false" label="职位"/>
+	<parameter id="cc_possibilitys2" type="varchar" required="false" label="可能性"/>
+	<parameter id="cc_theproducts2" type="varchar" required="false" label="已购产品"/>
+	<parameter id="cc_branchcodes2" type="varchar" required="false" label="店面"/>
 </validator>

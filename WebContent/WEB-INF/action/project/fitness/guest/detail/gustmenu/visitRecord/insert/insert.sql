@@ -12,6 +12,13 @@ insert into cc_thecontact
 	,status
 	,birthday
 	,remark
+	,possibility
+	,theproduct
+	,mobile2
+	,branchcode
+	,email
+	,trill
+	,wechat
 )
 values 
 (
@@ -26,7 +33,14 @@ values
 	${def:org},
 	0,
 	${fld:cc_birth},
-	${fld:remark}
+	${fld:remark},
+	${fld:cc_possibilitys},
+	${fld:cc_theproducts},
+	${fld:cc_mobile2},
+	${fld:cc_branchcode},
+	${fld:cc_email},
+	${fld:cc_trill},
+	${fld:cc_wechat}
 )
 
 

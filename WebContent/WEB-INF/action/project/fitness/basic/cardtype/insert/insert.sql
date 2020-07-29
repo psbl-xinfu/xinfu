@@ -5,7 +5,8 @@ insert into cc_product
    isgood,
    createdby,--操作人
    created,
-   org_id
+   org_id,
+   status
    
 )
 values 
@@ -15,5 +16,6 @@ values
     ${fld:isgood},
     '${def:user}',
 	{ts '${def:timestamp}'},
-	${def:org}
+	${def:org},
+	1
 )

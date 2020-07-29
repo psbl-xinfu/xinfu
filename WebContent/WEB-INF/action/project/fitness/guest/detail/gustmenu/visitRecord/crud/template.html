@@ -3,10 +3,55 @@
 <head>
 ${inc:/action/project/fitness/home/pub}
 <title>联系人</title>
+
 </head>
 
 <body>
-			
+	
+	
+	<div class="modal fade" id="modalshuaixuan"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg" >
+				<header class="header-default">
+					<span id="formTitle">条件</span>
+					<span class="ben-close"></span>
+				</header>
+				<div class="b-i-main  yyc_b-i-main">
+						
+						<nav >
+				 				
+				 			<li class='lis'>	
+				 				<label>店面</label> 
+								<select id="cc_branchcode2" title="请选择" name="cc_branchcode2" >
+									<branch-rows2>
+										<option value="${fld:branchcode}">${fld:branchname}</option>
+									</branch-rows2>
+		                         </select>
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>可能性课程</label> 
+								<select id="cc_possibility2" title="请选择" name="cc_possibility2" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<isgood-rows2>
+										<option value="${fld:procodeis}">${fld:pronameis}</option>
+									</isgood-rows2>
+		                         </select>
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>已学课程</label> 
+								<select id="cc_theproduct2" title="请选择" name="cc_theproduct2" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<product-rows2>
+										<option value="${fld:procode}">${fld:courname}</option>
+									</product-rows2>
+		                         </select>
+				 			</li>
+						</nav>
+				</div>
+				<footer class="footer-default">
+					<button id="que_btn" class="my-btn-default active">确认</button>
+				</footer>
+			</div>
+		</div>
+	
+	
 	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
 		<div class="basic-information modal-dialog dialogbg" >
 				<header class="header-default">
@@ -16,7 +61,8 @@ ${inc:/action/project/fitness/home/pub}
 				<div class="b-i-main  yyc_b-i-main">
 					<form id="addForm" name="addForm" method="post">
 						<input type="hidden" id="cc_code" name="cc_code" value=""/>
-						<input id="labelcodes" name="labelcodes"  type="hidden" value=""/>
+						<input id="cc_possibilitys" name="cc_possibilitys"  type="hidden" value=""/>
+						<input id="cc_theproducts" name="cc_theproducts"  type="hidden" value=""/>
 						<input id="guestttcode" name="guestttcode" type="hidden" value="" />
 						<div id="filterconditionshtml">
 						</div>
@@ -42,6 +88,10 @@ ${inc:/action/project/fitness/home/pub}
 								<label>手机<span style="color: red;">*</span></label> 	
 								<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
 				 			</li>	
+				 			<li class='lis'>		
+								<label>手机2</label> 	
+								<input type="text" id="cc_mobile2" name="cc_mobile2" value="" maxlength="80"  placeholder="手机"/>
+				 			</li>
 				 			<li class='lis'>
 				 				<label>职位<span style="color: red;">*</span></label> 	
 								<div class="my-selected">
@@ -58,17 +108,50 @@ ${inc:/action/project/fitness/home/pub}
 								<input id="cc_birth" name="cc_birth" placeholder="生日" type="text"class="input-default"/>
 								
 				 			</li>	
-				 			<li class='lis'>	
+				 			<li class='lis'>		
+								<label>邮箱</label> 	
+								<input id="cc_email" name="cc_email" placeholder="邮箱" type="text"class="input-default"/>
+								
 				 			</li>
+				 			<li class='lis'>		
+								<label>抖音</label> 	
+								<input id="cc_trill" name="cc_trill" placeholder="抖音" type="text"class="input-default"/>
+								
+				 			</li>
+				 			<li class='lis'>		
+								<label>微信</label> 	
+								<input id="cc_wechat" name="cc_wechat" placeholder="微信" type="text"class="input-default"/>
+								
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>店面</label> 
+								<select id="cc_branchcode" title="请选择" name="cc_branchcode" >
+									<branch-rows>
+										<option value="${fld:branchcode}">${fld:branchname}</option>
+									</branch-rows>
+		                         </select>
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>可能性课程</label> 
+								<select id="cc_possibility" title="请选择" name="cc_possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<isgood-rows>
+										<option value="${fld:procodeis}">${fld:pronameis}</option>
+									</isgood-rows>
+		                         </select>
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>已学课程</label> 
+								<select id="cc_theproduct" title="请选择" name="cc_theproduct" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<product-rows>
+										<option value="${fld:procode}">${fld:courname}</option>
+									</product-rows>
+		                         </select>
+				 			</li>
+				 			
 							<li class='lis'>		
 								<label>备注：</label> 	
 								<textarea id="remark" name="remark" placeholder="备注" class="my-textarea" rows="2" cols="1"></textarea>
 				 			</li>	
-				 			<!-- <nav style="margin-left: 6%">	
-									<li >
-										<label class="btn-label" id="btn-label">请选择标签</label> 
-									</li>
-							</nav> -->
 				 			
 						</nav>
 					</form>
@@ -84,29 +167,42 @@ ${inc:/action/project/fitness/home/pub}
 				<form  role="form" method="post" id="searchForm">
 					<div class="am-tabs-bd r-tab-cont">
 						<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
-					
+						
+							<input id="cc_possibilitys2" name="cc_possibilitys2"  type="hidden" value=""/>
+							<input id="cc_theproducts2" name="cc_theproducts2"  type="hidden" value=""/>
+							<input id="cc_branchcodes2" name="cc_branchcodes2"  type="hidden" value=""/>
+							
 							<div class="tab-cout-nav-b">
 								<nav class="r-c-3-t-b-l">
 									<li>
 										<button type="button" id="communicaRecord">跟进</button>
 									</li>
-									<li>
-										<button type="button" id="edit_btn">修改联系人</button>
-									</li>
-									<li class="inputName" style="width: 160px">
-										<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="姓名/电话" class="input-default"/>							
+									
+									<li class="inputName" style="width:100px">
+										<input style="width: 100px" type="text" id="vc_name" name="vc_name" placeholder="姓名/电话" class="input-default"/>							
+					 			 	</li>
+					 			 	<li>
+											<select  id="cc_position2" name="cc_position2"> 
+												<option value="">请选择职位</option>
+												<position-rows2>
+													<option value="${fld:poscode}">${fld:posname}</option>
+												</position-rows2>
+											</select>
 					 			 	</li>	
+					 			 	
+					 			 	
+					 			 	
 									<div class="r-c-btnList b-10 ">
 										<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询">查询</button>
+										<button type="button" id="edit_btn">修改联系人</button>
 										<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addttname">
-										<!-- <img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/> --> 
+										<img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/> 
 									</div>
 								</nav>
 							</div>
 						</div>
 					</div>
 					
-					<input id="labelthecodes" name="labelthecodes" type="hidden" value="" />
 					<input id="ttid" name="ttid" type="hidden" value="" />
 					<input name="sort" type="hidden" value="indate" preserve="true" />
 					<input name="order" type="hidden" value="desc" preserve="true" />
@@ -127,6 +223,8 @@ ${inc:/action/project/fitness/home/pub}
 										<th>姓名</th>
 										<th>性别</th>
 										<th>手机号</th> 
+										<th>手机2号</th> 
+										<th>店名</th>
 										<th>职位</th>
 										<th>跟进状态</th>
 										<th>跟进内容</th>
@@ -135,9 +233,11 @@ ${inc:/action/project/fitness/home/pub}
 								<tbody id="datagridTemplate" style="display: none">
 									<tr>
 										<td>#application_id#</td>
-										<td>#vc_name#</td>
+										<td><a href="javascript:;" onclick="detailptrest('#vc_code#')">#vc_name#</a></td>
 										<td>#i_sex#</td>
-										<td>#vc_mobile#</td>		
+										<td>#vc_mobile#</td>
+										<td>#mobile2#</td>		
+										<td>#branchname#</td>	
 										<td>#position#</td>		
 										<td>#gj_commresult#</td>
 										<td>#remark#</td>
@@ -160,22 +260,29 @@ ${inc:/action/project/fitness/home/pub}
 <script language="JavaScript">
 var bin="${fld:guestcode}";
 $(document).ready(function() {
-	searchSelectInit($("#cc_position,#cc_sex"));
+	searchSelectInit($("#cc_position2,#cc_branchcode2,#cc_possibility2,#cc_theproduct2,#cc_position,#cc_sex,#cc_possibility,#cc_theproduct,#cc_branchcode"));
 	
 	 $(".header-close").unbind().on("click",function(){
 		$("#modalAddnew").modal('hide');
 		ccms.util.clearForm('addForm');
 	});
-	 $Dialog().date($('#cc_birth'));
-	
-	$('#save_btn').on('click',function(){
-		var labelcodes = $("#labelcodes").val().split(",");
-		var filterconditionshtml = "";
-		$.each(labelcodes,function(i,val){
-			filterconditionshtml+="<input name='labelname' type='hidden' value='"+val+"' class='filterconditions' />";
+	 $(".ben-close").unbind().on("click",function(){
+			$("#modalshuaixuan").modal('hide');
 		});
-		
-		$("#filterconditionshtml").html(filterconditionshtml);
+	 $Dialog().date($('#cc_birth'));
+	 $('#cc_possibility').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 $('#cc_theproduct').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 $('#cc_possibility2').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 $('#cc_theproduct2').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	$('#save_btn').on('click',function(){
 		
 		if($('#cc_code').val()!=""){
 			update();
@@ -189,9 +296,13 @@ $(document).ready(function() {
 	})
 	
 	
-	$("#filter_btn").unbind().on('click',function(){
+	/* $("#filter_btn").unbind().on('click',function(){
 		ccms.dialog.open({url : "${def:context}${def:actionroot}/filter", width:1000, height:670});
-	})
+	}) */
+	
+	$("#filter_btn").on('click',function(){
+		$("#modalshuaixuan").modal('show');
+	});
 	
 	//修改信息
 	$('#edit_btn').on('click',function(){
@@ -211,6 +322,12 @@ $(document).ready(function() {
 		});
 		$('#modalAddnew').modal('show');
 	});
+	$("#que_btn").on('click',function(){
+		$("#cc_branchcodes2").val($("#cc_branchcode2").val()); 
+		$("#cc_possibilitys2").val($("#cc_possibility2").val()); 
+		$("#cc_theproducts2").val($("#cc_theproduct2").val());
+		$("#modalshuaixuan").modal('hide');
+	});
 	
 	 $("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
 		 if( $(this).prop("checked") ){// 
@@ -224,6 +341,10 @@ $(document).ready(function() {
 	$('#cc_mobile').on('blur',function(){
 		checkTel($('#cc_mobile').val(),"cc_mobile");
 	});
+	$('#cc_mobile2').on('blur',function(){
+		checkTel($('#cc_mobile2').val(),"cc_mobile2");
+	});
+	
 	$("#communicaRecord").unbind().on("click",function(){
 		var thecode =$('input[name="datalist"]:checked').val();
 		var leng=$('input[name="datalist"]:checked').length
@@ -234,7 +355,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	/* this.search=search; */
+	 this.search=search; 
 	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
 		$("table").css("table-layout","auto");
 		ccms.util.renderCheckbox("datalist");
@@ -259,8 +380,14 @@ function update(){
 	   	}); 
 }
 
+function detailptrest(code) {
+	ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/crud?guestcode='+bin+"&thecode="+code});
+}
+
 function insert(){
 	$("#guestttcode").val(bin);
+	$("#cc_possibilitys").val($("#cc_possibility").val());
+	$("#cc_theproducts").val($("#cc_theproduct").val());
 	var uri="${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/insert";
 	   ajaxCall(uri,{
 		   	method: "post",

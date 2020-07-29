@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+       <parameter id="vc_name" type="varchar" required="true" label="卡名称" maxlen="32" />
+        <parameter id="isgood" type="integer" required="false" label="isgood" maxlen="32" />
+          <!-- 姓名需要验证是否重复 -->
+<custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该名已经存在,请重新命名" id="vc_name" sql="norep.sql" />
+</validator>
+

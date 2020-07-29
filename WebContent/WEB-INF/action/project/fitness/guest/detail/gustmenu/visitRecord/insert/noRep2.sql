@@ -1,0 +1,1 @@
+select 1 from cc_thecontact where mobile2=${fld:cc_mobile2} 
