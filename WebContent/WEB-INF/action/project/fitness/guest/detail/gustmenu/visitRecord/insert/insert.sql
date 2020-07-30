@@ -13,7 +13,7 @@ insert into cc_thecontact
 	,birthday
 	,remark
 	,possibility
-	,theproduct
+	,thecourse
 	,mobile2
 	,branchcode
 	,email

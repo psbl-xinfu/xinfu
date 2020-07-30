@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-	<parameter id="vc_code" type="varchar" required="false" label="卡号" />
-	<parameter id="menuorgid" type="varchar" required="true" label="menuorgid" />
+	<parameter id="guest_code" type="varchar" required="false" label="公司编号" />
+	<parameter id="the_code" type="varchar" required="true" label="联系人id" />
 </validator>

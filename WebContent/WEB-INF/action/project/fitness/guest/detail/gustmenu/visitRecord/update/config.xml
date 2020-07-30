@@ -2,20 +2,18 @@
 <config>
 
 	<summary>
+		退场刷卡
 	</summary>
 	
 	<log>false</log>
 
-	<colname>labelname</colname>
-	<sql-template>insertlable.sql</sql-template>
-
 	<transaction>
-		<classname>com.ccms.InsertMaster</classname>
+		<classname>dinamica.GenericTableManager</classname>
 		<validator>true</validator>
 		<transaction>true</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
-	<query>delete.sql</query>
+
 	<query>update.sql</query>
 
 	<output>
@@ -27,5 +25,3 @@
 	</output>
 
 </config>
-
-

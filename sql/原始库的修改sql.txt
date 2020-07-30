@@ -128,8 +128,7 @@ ALTER table cc_thecontact  add  branchcode varchar(64)
 COMMENT ON COLUMN "public"."cc_thecontact"."branchcode" IS '店的id'
 
 
-ALTER table cc_thecontact  add  branchcode varchar(64)
-COMMENT ON COLUMN "public"."cc_thecontact"."branchcode" IS '店的id'
+
 
 //创建店的删除表
 create table cc_branch_dellog(

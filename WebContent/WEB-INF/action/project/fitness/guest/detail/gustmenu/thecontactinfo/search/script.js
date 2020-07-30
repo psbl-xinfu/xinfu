@@ -2,9 +2,9 @@
 	<rows>
 	{
 		
-		    "code":"${fld:code}",
-		    "typename":"${fld:typename}",
-		    "status":"${fld:status}"
+		    "gj_commresult":"${fld:gj_commresult}",
+		    "remark":"${fld:remark}",
+		    "created":"${fld:created}"
 	},
 	</rows>
 	{}

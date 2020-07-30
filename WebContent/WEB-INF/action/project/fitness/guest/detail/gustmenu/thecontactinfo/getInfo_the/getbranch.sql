@@ -8,5 +8,5 @@ select
 from 
 	cc_branch 
 where 
-	guestcode = ${fld:id} 
+	guestcode = ${fld:guestcode} 
 	order by code asc

@@ -9,7 +9,9 @@
 		"gj_commresult":"${fld:gj_commresult}",
 		"remark":"${fld:remark@js}",
 		"mobile2":"${fld:vc_mobile2@js}",
-		"branchname":"${fld:branchname@js}"
+		"branchname":"${fld:branchname@js}",
+		"vc_code":"${fld:vc_code@js}"
+		
 			
 			},
 	</rows>

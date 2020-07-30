@@ -13,8 +13,9 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="getrecord.sql" source="sql" scope="transaction" />
-		<recordset id="getbranch.sql" source="sql" scope="transaction" />
-		<recordset id="getproduct.sql" source="sql" scope="transaction" />
+		<!-- <recordset id="getbranch.sql" source="sql" scope="transaction" /> -->
+		<recordset id="getcourse.sql" source="sql" scope="transaction" />
+		<recordset id="getcourseps.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -25,8 +26,9 @@
 		<expiration>0</expiration>
 		
 		<print mode="table" recordset="getrecord.sql"  tag="rows"/>
-		<print mode="table" recordset="getbranch.sql"  tag="branch-rows"/>
-		<print mode="table" recordset="getproduct.sql"  tag="product-rows"/>
+		<!-- <print mode="table" recordset="getbranch.sql"  tag="branch-rows"/> -->
+		<print mode="table" recordset="getcourse.sql"  tag="course-rows"/>
+		<print mode="table" recordset="getcourseps.sql"  tag="courseps-rows"/>
 		<print mode="form" recordset="_request" />
 	</output>
 

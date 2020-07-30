@@ -165,9 +165,121 @@ display:inline-block;
     transition: transform 0.3s ease-in, -webkit-transform 0.3s ease-in;
     
 }
+
+
+       
+
 </style>
 </head>
-<body>
+<body>		
+<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg" >
+				<header class="header-default">
+					<span id="formTitle">修改</span>
+					<span class="header-close"></span>
+				</header>
+				<div class="b-i-main  yyc_b-i-main">
+					<form id="addForm" name="addForm" method="post">
+						<input type="hidden" id="cc_code" name="cc_code" value=""/>
+						<input id="cc_possibilitys" name="cc_possibilitys"  type="hidden" value=""/>
+						<input id="cc_theproducts" name="cc_theproducts"  type="hidden" value=""/>
+						<input id="guestttcode" name="guestttcode" type="hidden" value="" />
+						<nav >
+							
+							<li>
+								<label>联系人姓名<span style="color: red;">*</span></label>
+								<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
+							</li>
+							
+							<li>			
+								<label>性别<span style="color: red;"></span></label>
+								<div class="my-selected">
+									<select  id="cc_sex" name="cc_sex"> 
+										<option value="">请选择</option>
+										<option value="1">男</option>
+										<option value="0">女</option>
+									</select>
+								</div> 	
+				 			</li>
+				 			
+							<li class='lis'>		
+								<label>手机<span style="color: red;">*</span></label> 	
+								<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
+				 			</li>	
+				 			<li class='lis'>		
+								<label>手机2</label> 	
+								<input type="text" id="cc_mobile2" name="cc_mobile2" value="" maxlength="80"  placeholder="手机"/>
+				 			</li>
+				 			<li class='lis'>
+				 				<label>职位<span style="color: red;">*</span></label> 	
+								<div class="my-selected">
+									<select  id="cc_position" name="cc_position"> 
+										<option value="">请选择职位</option>
+										<position-rows>
+											<option value="${fld:poscode}">${fld:posname}</option>
+										</position-rows>
+									</select>
+								</div>
+				 			</li>
+				 			<li class='lis'>		
+								<label>生日</label> 	
+								<input id="cc_birth" name="cc_birth" placeholder="生日" type="text"class="input-default"/>
+								
+				 			</li>	
+				 			<li class='lis'>		
+								<label>邮箱</label> 	
+								<input id="cc_email" name="cc_email" placeholder="邮箱" type="text"class="input-default"/>
+								
+				 			</li>
+				 			<li class='lis'>		
+								<label>抖音</label> 	
+								<input id="cc_trill" name="cc_trill" placeholder="抖音" type="text"class="input-default"/>
+								
+				 			</li>
+				 			<li class='lis'>		
+								<label>微信</label> 	
+								<input id="cc_wechat" name="cc_wechat" placeholder="微信" type="text"class="input-default"/>
+								
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>店面</label> 
+								<select id="cc_branchcode" title="请选择" name="cc_branchcode" >
+									<branch-rows>
+										<option value="${fld:branchcode}">${fld:branchname}</option>
+									</branch-rows>
+		                         </select>
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>可能性课程</label> 
+								<select id="cc_possibility" title="请选择" name="cc_possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<isgood-rows>
+										<option value="${fld:procodeis}">${fld:pronameis}</option>
+									</isgood-rows>
+		                         </select>
+				 			</li>
+				 			<li class='lis'>	
+				 				<label>已学课程</label> 
+								<select id="cc_theproduct" title="请选择" name="cc_theproduct" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<product-rows>
+										<option value="${fld:procode}">${fld:courname}</option>
+									</product-rows>
+		                         </select>
+				 			</li>
+				 			
+							<li class='lis'>		
+								<label>备注：</label> 	
+								<textarea id="remark" name="remark" placeholder="备注" class="my-textarea" rows="2" cols="1"></textarea>
+				 			</li>	
+				 			
+						</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn" class="my-btn-default active">保存</button>
+				</footer>
+			</div>
+		</div>
+
 			<div class="basic-dialog yyc_basic-dialog dialogbg" style="height:auto;">
           		<header class="header-default">
 					<span id="formTitle">联系人详情
@@ -177,74 +289,86 @@ display:inline-block;
 					<div class="row1" >
 						<div class="first">
 							<span class="lable1">联系人名称：</span>
-							<span class="lable2" id="officename"></span>
+							<span class="lable2" id="thename"></span>
 							<span class="lable1">性别：</span>
-							<span class="lable2" id="thepublic"></span>
+							<span class="lable2" id="thei_sex"></span>
 							<span class="lable1">手机号1：</span>
-							<span class="lable2" id="officetel"></span>
+							<span class="lable2" id="themobile"></span>
 							<span class="lable1">手机号2：</span>
-							<span class="lable2" id="officetel"></span>
+							<span class="lable2" id="themobile2"></span>
 							
 						</div> 
 						<div class="first">
 							<span class="lable1">职位：</span>
-							<span class="lable2" id="province1"></span>
+							<span class="lable2" id="theposition"></span>
 							<span class="lable1">生日：</span>
-							<span class="lable2" id="email"></span>
+							<span class="lable2" id="thebirthday"></span>
 							<span class="lable1">邮箱：</span>
-							<span class="lable2" id="mc"></span>
+							<span class="lable2" id="theemail"></span>
 							<span class="lable1">抖音：</span>
-							<span class="lable2" id="mc"></span>
+							<span class="lable2" id="thetrill"></span>
 						</div>
 						
 					</div>
 					<div class="row1">
 						<div class="first">
 							<span class="lable3">微信：</span>
-							<span class="lable4" id="cc_birth"></span>
+							<span class="lable4" id="thewechat"></span>
 							<span class="lable3">所属店：</span>
-							<span class="lable4" id="cc_channel"></span>
+							<span class="lable4" id="thebranchname"></span>
 						</div>
 						
 						<div class="first">
-							<span class="lable3">可能性课程：</span>
-							<span class="lable4" id="communication"></span>
+							<span class="lable5">可能性课程：</span>
+							<span class="lable6" id="thepossibility"></span>
 							<span class="lable5">已学课程：</span>
-							<span class="lable6" id="custcations"></span>
+							<span class="lable6" id="thethecourse"></span>
 						</div> 
-						<div class="first" id="branch">
-						</div> 
+						
 					</div>
 					<div class="row1">
 						<div class="first">
 							<span class="lable1">备注：</span>
-							<span class="lable2 nowidth" id="remark"></span>
+							<span class="lable2 nowidth" id="theremark"></span>
 						</div>
 					</div> 
-					
+					<div class="row1">
+						<div class="first">
+							<button type="button" id="genjin_btn">跟&nbsp;进</button>
+							<button type="button" id="update_btn">修&nbsp;改</button>
+							<button type="button" id="updatelog_btn">变更记录</button>
+						</div>
+					</div>
 				</div>
 			<form style="width: 100%;" id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
-				
-				<div class="r-tab-cout-3-b">
-					<table class="am-table">
-						<thead>
-							<tr>
-								<th></th>
-								<th class="sortable">编号</th>
-								<th class="sortable">课程名称</th>
-								<th class="sortable">可预约课时</th>
-								<th class="sortable">教练</th>
-								<th class="sortable">课程状态</th>
-								<th class="sortable">课时费</th>
-							</tr>
-						</thead>
-						<tbody id="ptrest">
-						</tbody>
-					</table>
-				</div>
-			<footer class="footer-default">
-			  	<button type="button" id="save_btn">确&nbsp;定</button>
-			</footer>
+				<input type="hidden" id="guest_code" name="guest_code" value="${fld:guestcode}"/>
+				<input type="hidden" id="the_code" name="the_code" value="${fld:thecode}"/>
+				<div class="r-tab-cout-3-b table-cont">
+						<div class="to-change-background h-43"></div>
+						<table class="table"> 
+							<thead>
+								<tr>
+									<th>跟进状态</th>
+									<th>跟进时间</th>
+									<th>跟进备注</th>
+								</tr>
+							</thead>
+							<tbody id="datagridTemplate" style="display: none">
+								<tr>
+									<td>#gj_commresult#</td>
+									<td>#created#</td>
+									<td>#remark#</td>
+								</tr>
+							</tbody>
+							
+							<tbody id="datagrid">
+							</tbody>
+						</table>
+						<div class="pageDiv">
+							<ul class="pagination">
+							</ul>
+						</div>
+					</div>
 			<form>
 		</div>
 	
@@ -252,12 +376,45 @@ display:inline-block;
 	<script language="JavaScript">
 		var search = null;
 		$(document).ready(function() {
+			
+			$("#update_btn").on('click',function(){
+				
+				edit();
+			});
 		
+			ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/getInfo_the?thecode="
+					+ $("#the_code").val()+"&guestcode"+$("#guest_code").val() )
+					
+
+			
 			this.search = search;
-			search = $Search({datagrid : "datagrid", formId : "searchForm",rowpackage:function(obj){
+			search = $Search({datagrid : "datagrid", formId : "formEditor",rowpackage:function(obj){
 			}, success : function() {
+				
 			}}).initSearchBtn().searchData(1);
 		});
+		
+		function ajax(url) {
+			ajaxCall(url, {
+				method : "get",
+				progress : true,
+				dataType : "script",
+				success : function() {
+				}
+			});
+		}
+		function edit(){
+				var uri="${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/edit?code="+code;
+				   ajaxCall(uri,{
+				   	method: "get",
+				   	progress: false,
+				   	dataType: "script",
+				 	async:false,
+				   	success: function() {
+				   		
+				 	  	}
+					});
+		}
 	</script> 
 </body>
 </html>
