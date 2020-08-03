@@ -44,7 +44,7 @@ SELECT
 	,c.mc as vc_mc
 	,d.code as vc_cardcode
 	,d.startdate AS c_startdate /* 启用日期 20170110*/
-	,d.enddate AS c_enddate /* 截止日期 20170110*/
+	,get_arr_value(t.relatedetail, 6) AS c_enddate /* 截止日期 20170110*/
 	,'' AS vc_validdays /* 有效天数 20170110*/
 	,CASE d.starttype WHEN 0 THEN '当天启用' WHEN 1 THEN '初次训练启用' WHEN 2 THEN '固定时间启用' END AS vc_starttype
 	,d.factmoney::numeric(10,2) AS yd_money
