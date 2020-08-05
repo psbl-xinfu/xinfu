@@ -180,17 +180,20 @@ display:inline-block;
 				</header>
 				<div class="b-i-main  yyc_b-i-main">
 					<form id="addForm" name="addForm" method="post">
-						<input type="hidden" id="cc_code" name="cc_code" value=""/>
+						<input type="hidden" id="cc_thecode" name="cc_thecode" value=""/>
+						<input type="hidden" id="cc_guestcode" name="cc_guestcode" value=""/>
 						<input id="cc_possibilitys" name="cc_possibilitys"  type="hidden" value=""/>
-						<input id="cc_theproducts" name="cc_theproducts"  type="hidden" value=""/>
-						<input id="guestttcode" name="guestttcode" type="hidden" value="" />
+						<input id="cc_thecourses" name="cc_thecourses"  type="hidden" value=""/>
 						<nav >
 							
 							<li>
 								<label>联系人姓名<span style="color: red;">*</span></label>
 								<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
 							</li>
-							
+							<li>			
+								<label>公司</label>
+								<input type="text" id="guestblur" name="guestblur" value="" maxlength="120"  placeholder="公司名称"/>
+				 			</li>
 							<li>			
 								<label>性别<span style="color: red;"></span></label>
 								<div class="my-selected">
@@ -253,19 +256,20 @@ display:inline-block;
 				 				<label>可能性课程</label> 
 								<select id="cc_possibility" title="请选择" name="cc_possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
 									<isgood-rows>
-										<option value="${fld:procodeis}">${fld:pronameis}</option>
+										<option value="${fld:coucodeis}">${fld:counameis}</option>
 									</isgood-rows>
 		                         </select>
 				 			</li>
 				 			<li class='lis'>	
 				 				<label>已学课程</label> 
-								<select id="cc_theproduct" title="请选择" name="cc_theproduct" class="selectpicker show-tick form-control" multiple data-live-search="false">
-									<product-rows>
-										<option value="${fld:procode}">${fld:courname}</option>
-									</product-rows>
+								<select id="cc_thecourse" title="请选择" name="cc_thecourse" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<course-rows>
+										<option value="${fld:coucode}">${fld:courname}</option>
+									</course-rows>
 		                         </select>
 				 			</li>
-				 			
+				 			<li>
+				 			</li>
 							<li class='lis'>		
 								<label>备注：</label> 	
 								<textarea id="remark" name="remark" placeholder="备注" class="my-textarea" rows="2" cols="1"></textarea>
@@ -375,13 +379,56 @@ display:inline-block;
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 	<script language="JavaScript">
 		var search = null;
+		var the_code="${fld:thecode}";
+		var guest_code="${fld:guestcode}";
 		$(document).ready(function() {
 			
+			searchSelectInit($("#cc_sex,#cc_position,#cc_branchcode,#cc_possibility,#cc_thecourse"));
+			 $('#cc_possibility').selectpicker({
+			        'selectedText': 'cat'
+			 });
+			 $('#cc_thecourse').selectpicker({
+			        'selectedText': 'cat'
+			 });
+			 $(".header-close").unbind().on("click",function(){
+					$("#modalAddnew").modal('hide');
+					
+				});
 			$("#update_btn").on('click',function(){
 				
 				edit();
 			});
-		
+			$("#guestblur").blur(function(){
+				var cust = $(this).val();
+				if(undefined==cust||cust ==""){
+					ccms.dialog.alert("请输入公司名称！");
+				}else{
+					ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlists/crud?pickcustname="+cust+"&objid=cc_guestcode&objidtwo=guestblur&random_number="+Math.random()});
+				}
+			});
+			
+			 $("#save_btn").on("click",function(){
+					$("#cc_possibilitys").val($("#cc_possibility").val());
+					$("#cc_thecourses").val($("#cc_thecourse").val());
+					 var uri="${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/update";
+					   ajaxCall(uri,{
+						   	method: "post",
+						   	form:"addForm",
+						   	progress: false,
+						   	dataType: "script",
+						   	success: function() {
+								ccms.dialog.notice("修改成功!", 2000, function(){
+							   		$('#modalAddnew').modal('hide');
+							   		ccms.util.clearForm('addForm');
+							   		search.searchData(1);
+							   		$('#modalAddnew').prop('scrollTop','0');
+								});
+					   		}
+					   	}); 
+				});
+			
+			
+			
 			ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/getInfo_the?thecode="
 					+ $("#the_code").val()+"&guestcode"+$("#guest_code").val() )
 					
@@ -404,16 +451,19 @@ display:inline-block;
 			});
 		}
 		function edit(){
-				var uri="${def:context}/action/project/fitness/guest/detail/gustmenu/visitRecord/edit?code="+code;
+				var uri="${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/edit?thecode="+the_code+"&guestcode="+guest_code;
 				   ajaxCall(uri,{
 				   	method: "get",
 				   	progress: false,
 				   	dataType: "script",
 				 	async:false,
 				   	success: function() {
-				   		
+				   			$('#modalAddnew').modal('show');
 				 	  	}
 					});
+		}
+		function pickcustCallback(){
+			$("#cc_guestcode").val();
 		}
 	</script> 
 </body>

@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator>
-	<parameter id="code" type="varchar" label="ID de Registro" required="false"/>
+	<parameter id="thecode" type="varchar" label="联系人的id" required="false"/>
+	<parameter id="guestcode" type="varchar" label="公司名称" required="false"/>
 </validator>

@@ -1,19 +1,20 @@
-update cc_guest set
-  	 officename = ${fld:company},
-  guestnum = ${fld:guestnumall},
-  customtype = ${fld:cc_birthall},
-  possibility = ${fld:possibility4},
-  communication =  ${fld:communicationall},
-  custclass = ${fld:custcation},
-  channel = ${fld:cc_channelall},
-  othertel = ${fld:cc_officetel},
-  thepublic = ${fld:thepublicall},
-	email = ${fld:cc_email},
-	province2 = ${fld:province2},
-	city2 = ${fld:city2},
-	remark = ${fld:cc_remark}
+update cc_thecontact set
+  	name = ${fld:cc_name}
+  	,sex=${fld:cc_sex}
+	,mobile= ${fld:cc_mobile}
+	,positioncode= ${fld:cc_position}
+	,birthday=${fld:cc_birth}
+	,remark=${fld:remark}
+	,possibility=${fld:cc_possibilitys}
+	,thecourse=${fld:cc_thecourses}
+	,mobile2=${fld:cc_mobile2}
+	,branchcode=${fld:cc_branchcode}
+	,email=${fld:cc_email}
+	,trill=${fld:cc_trill}
+	,wechat=${fld:cc_wechat}
+	
 where
-	code = ${fld:cc_code} 
+	code = ${fld:cc_thecode} and org_id='${def:org}'
 	
 	
 	

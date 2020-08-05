@@ -12,7 +12,8 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		 <recordset id="getbranch.sql" source="sql" scope="transaction" /> 
+		<recordset id="getbranch.sql" source="sql" scope="transaction" /> 
+		<recordset id="thecontact.sql" source="sql" scope="transaction" /> 
 	</transaction>
 
 	<output>
@@ -21,9 +22,8 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/javascript</content-type>
 		<expiration>0</expiration>
-		<print mode="table" recordset="getbranch.sql"  tag="branch-rows"/> 
-		 <print mode="table" recordset="getbranch.sql"  tag="branch-rows1"/> 
-		<print mode="form" recordset="_request" />
+		<!-- <print mode="table" recordset="getbranch.sql"  tag="branch-rows"/>  -->
+		<print mode="form" recordset="thecontact.sql" /> 
 	</output>
 
 </config>

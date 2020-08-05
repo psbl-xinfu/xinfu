@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>查询会员卡</title>
+</head>
+<body>
+<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
+		<div class="basic-information modal-dialog dialogbg" >
+				<header class="header-default">
+					<span id="formTitle">新增</span>
+					<span class="header-close"></span>
+				</header>
+				<div class="b-i-main  yyc_b-i-main">
+					<form id="addForm" name="addForm" method="post">
+					<input type="hidden" id="cc_code" name="cc_code" value=""/>
+					<input type="hidden" id="yttcode" name="yttcode" value=""/>
+					<input type="hidden" id="custcation" name="custcation" value=""/>
+					<input type="hidden" id="possibility4" name="possibility4" value=""/>
+					
+					<nav >
+						
+						<li>
+							<label>公司名称<span style="color: red;">*</span></label>
+							<input type="text" id="company" name="company" value="" maxlength="80"  placeholder="公司名称"/>
+						</li>
+						<li> 			
+							<label>公司数量</label> 	
+							<input type="text" id="guestnum" name="guestnum" value="" maxlength="80" placeholder="公司数量"/>
+			 			 </li>
+						<!-- <li class='lis'>
+							<label>联系人姓名<span style="color: red;">*</span></label>
+							<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
+						</li> -->
+						
+						<li>
+							<label>公司类型<span style="color: red;">*</span></label>
+							<select  id="cc_birth" name="cc_birth" > 
+								<option value="">选择客户类型</option>
+								<option value="1">健身俱乐部</option>
+								<option value="2">健身工作室</option>
+								<option value="3">瑜伽会所</option>
+								<option value="4">器械器</option>
+								<option value="5">培训机构</option>
+								<option value="6">其他</option>
+							</select>
+						</li>
+						
+			 			<li>
+			 				<label>可能性</label> 	
+							<select id="possibility" title="请选择" name="possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
+								<isgood-row>
+									<option value="${fld:procodeis}">${fld:pronameis}</option>
+	                         	</isgood-row>
+	                         </select>
+			 			</li>
+			 			<li>
+			 				<label>客户分类<span style="color: red;">*</span></label> 	
+							<div class="my-selected">
+								<select  id="communication" name="communication"> 
+									<option value="">请选择</option>
+									<option value="1">粉丝客户</option>
+									<option value="2">客户</option>
+									<option value="3">重点意向客户</option>
+									<option value="4">咨询客户</option>
+									<option value="5">陌生客户</option>
+									
+								</select>
+							</div>
+			 			</li>
+			 			
+						<li class="hasCheck" id="businesstype1">
+							<label>客户已购产品</label> 
+							
+						<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
+							<product-row>
+								<option value="${fld:procode}">${fld:proname}</option>
+							</product-row>
+                         </select>
+							
+						
+						</li>
+			 		
+			 			
+			 			<li>
+							<label>获客渠道<span style="color: red;">*</span></label>
+							<select  id="cc_channel" name="cc_channel" class=""> 
+								<option value="">渠道类型</option>
+								<option value="1">抖音</option>
+								<option value="2">公众号</option>
+								<option value="3">转介绍</option>
+								<option value="4">展会</option>
+								<option value="5">论坛</option>
+								<option value="6">粉丝客户</option>
+								<option value="7">其他</option>
+							</select>
+						</li>
+						<li> 			
+							<label>电话</label> 	
+							<input type="text" id="cc_officetel" name="cc_officetel" value="" maxlength="80" placeholder="公司电话"/>
+			 			 </li>
+						
+						
+						
+						
+						<li class='lis'> 			
+							<label>公众号</label> 	
+							<input type="text" id="thepublic" name="thepublic" value="" maxlength="80" placeholder="公众号" />
+			 			</li>	 
+			 			<li> 			
+							<label>E-mail</label> 	
+							<input type="text" id="cc_email" name="cc_email" value="" maxlength="80" placeholder="email"/>
+			 			</li>	
+			 		
+			 			
+						<li> 			
+							<label>地区<span style="color: red;">*</span></label> 	
+							<div class="my-selected">
+								<select  id="province2" name="province2"> 
+									<option value="">请选择省</option>
+								</select>
+							</div>
+			 			</li>	
+			 			<li> 			
+							<label>市<span style="color: red;">*</span></label> 	
+							<div class="my-selected">
+								<select  id="city2" name="city2"> 
+									<option value="">请选择市</option>
+								</select>
+							</div>
+			 			</li>
+			 			<li > 			
+							<label>主店名称</label> 
+							<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="主店名称" />	
+							<label>主店地址</label> 
+							<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />	
+			 				 &nbsp;&nbsp;&nbsp;&nbsp;
+			 				<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>
+			 				<input type="hidden"  name="states" value="0" />	
+			 			</li>
+			 			<div id="salelist" >
+						</div>
+			 			
+			 					
+						<li> 			
+							<label>咨询师</label> 	
+							<div class="my-selected">
+								<select id="cc_mc" name="cc_mc"   >
+									<staff-rows3>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows3>
+								</select>
+							</div> 
+			 			</li>
+			 			<li class="to100w" style="margin-left: 6%">
+							<label>公司备注</label>
+							<textarea id="cc_remark" name="cc_remark" placeholder="暂无数据" class="my-textarea" rows="" cols="4"></textarea>
+						</li>	
+						
+					</nav>
+					</form>
+				</div>
+				<footer class="footer-default">
+					<button id="save_btn" class="my-btn-default active">保存</button>
+				</footer>
+			</div>
+		</div>	
+
+<div style="background: rgb(42, 48, 56);height: 700px;">
+	<form  role="form" method="post" id="searchForm" name="searchForm">
+		<input name="sort" type="hidden" value="" preserve="true" />
+		<input name="order" type="hidden" value="" preserve="true" />
+		<input name="pageNo" type="hidden" value="" preserve="true" />
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="am-tabs-bd r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+			<div class="tab-cout-nav">
+				<div class="tab-cout-nav-t">
+					<nav class="tab-nav-my">
+						<li>
+							<input id="pickcustname"  name="pickcustname" type="text" placeholder="公司名称" value="${fld:pickcustname}" class="input-default"/>
+						</li>	
+						<div class="r-c-btnList">
+							<button type="button" class="r-c-3-btn-1" id="search_btn"></button>
+							<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addttname">
+						</div>		
+						</nav>
+					</div>
+				</div>
+				
+				<!-- 通用表格 -->
+				<div class="r-tab-cout-3-b">
+					<div class="to-change-background h-43"></div>
+					<table> 
+						<thead>
+							<tr>
+								<th>公司名称</th>
+								<th>咨询师</th>
+							</tr>
+						</thead>
+						
+						<tbody id="datagridTemplate" style="display: none">
+							<tr onclick="custinfo('#code#','#officename#')">
+								<td>#officename#</td>
+								<td>#mc#</td>										
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+					<div class="pageDiv">
+						<ul class="pagination">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var cumulative=1;
+$(document).ready(function() {
+	alert("${fld:pickcustname}");
+	
+	searchSelectInit($("#cc_birth,#possibility,#communication,#custcations,#cc_channel,#province2,#city2,#cc_mc"));
+	//公司地址
+	
+	getSelectDomain("province2", "Province");
+	$("#province2").change(function(){
+		getSelectDomain("city2", "City", "Province", $(this).val(),function(){
+         	setSelectValue($("#city2"), init_event_city2);
+        });
+	});
+	 $('#custcations').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 $('#possibility').selectpicker({
+	        'selectedText': 'cat'
+	 });
+	 
+	 $(".header-close").unbind().on("click",function(){
+			$("#modalAddnew").modal('hide');
+			ccms.util.clearForm('addForm');
+		});
+	 
+	$('#save_btn').on('click',function(){
+		$("#custcation").val($("#custcations").val());
+		$("#possibility4").val($("#possibility").val());
+		if($('#cc_code').val()!=""){
+			$('#cc_mc').attr('disabled',true);
+			update();
+		}else{
+			$('#cc_mc').attr('disabled',false);
+			 var namelen=$("[name=storename]");
+			 for (var i = 1; i < namelen.length; i++) {
+				 var fendname=$("[name=storename]").eq(i).val();
+				 var fendaddress=$("[name=address]").eq(i).val();
+				 if(fendname=="" || fendname==null){
+					ccms.dialog.notice("店名不可以为空！", 2000);
+					return false;
+				 }
+				 if(fendaddress=="" || fendaddress==null){
+					ccms.dialog.notice("店地址不可以为空！", 2000);
+					return false;
+				 }
+				
+			 }
+			insert();
+		}
+	})
+	 $('#recommend').on('blur',function(){
+			getCustome();
+		})
+	$("#addpay_btnbin").on("click",function(e){
+		appendSale();
+	});
+	 $("#addttname").on("click", function(e){
+			$("#salelist").empty();
+			ccms.util.clearForm('addForm');
+			//清空form下所有select
+			$("#addForm select").each(function(){
+				setSelectValue($("#"+$(this).attr("name")), "");
+			});
+			$('#formTitle').text('新增');
+			$('#modalAddnew').modal('show');
+			$(".lis").show();
+			$("#toss").show();
+			$(".ttbin").hide();
+			$("#businesstype1").hide();
+			$("#communication").change(function(){
+				var cust=$("#communication").val();
+					if(cust==''){
+						$('#businesstype1').hide();
+						setSelectValue($("#custcations"), "");
+					}else{
+						if(cust==2){
+							$('#businesstype1').show();
+						}else{
+							$('#businesstype1').hide();
+							setSelectValue($("#custcations"), "");
+						}
+					}
+			});
+			
+			
+		});
+		
+		
+		
+	$('#cc_mobile').on('blur',function(){
+		checkTel($('#cc_mobile').val(),"cc_mobile");
+	})
+	$('#cc_officetel').on('blur',function(){
+		checkTel($('#cc_officetel').val(),"cc_officetel");
+	})
+	$('#cc_othertel').on('blur',function(){
+		checkTel($('#cc_othertel').val(),"cc_othertel");
+	})
+	var search=null;
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+		
+	}}).initSearchBtn().searchData(1);
+});
+//
+function custinfo(code,officename){
+	parent.$("#${fld:objid}").val(code);
+	parent.$("#${fld:objidtwo}").val(officename);
+	parent.pickcustCallback();
+	ccms.dialog.close();
+}
+
+function removeObj(obj){
+	$(obj).parent().remove();
+	
+	cumulative--;
+	var str="";
+	var i=0;
+	var namelen=$("[name=storename]");
+	
+	for (var i = 1; i < namelen.length; i++) {
+		str +="<li>";
+		str +='<label>分店'+i+'名称</label> ';
+		str +='<input type="text" id="storename" name="storename" value="'+$("[name=storename]").eq(i).val()+'" maxlength="80" placeholder="分店'+i+'名称" />';	
+		str +='<label>分店地址</label> ';
+		str +='<input  type="text" id="address" name="address" value="'+$("[name=address]").eq(i).val()+'" maxlength="500" placeholder="地址详细信息" />';	
+		str +='&nbsp;&nbsp;&nbsp;&nbsp;';
+		str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
+		str +='<input type="hidden"  name="states" value="1" />	';
+		str +="</li>";
+	}
+	$('#salelist').html("");
+	$('#salelist').append(str); 
+}
+
+function checkTel(value,str){
+    var isPhone = /^[1][3,4,5,7,8][0-9]{9}$/;
+    var isMob=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+    var value= value
+    if(!isMob.test(value)&&!isPhone.test(value)){
+    	ccms.dialog.notice("请输入正确手机号或电话号!");
+	    	 $('#'+str).val('');
+	    }
+   }
+function checknum(num,str){
+　　　　if (num=="") { 
+		ccms.dialog.notice("请输入内容");
+		$('#'+str).val('');
+　　　　　　return false; 
+　　　　} 
+　　　　if (!(/(^[1-9]\d*$)/.test(num))) { 
+		ccms.dialog.notice("输入的不是正整数");
+		$('#'+str).val('');
+　　　　　　return false; 
+　　　　}
+}
+
+function checkEmail(value,str){
+	var value=value
+	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	if(!myreg.test(value)){
+		ccms.dialog.notice('请输入有效的E_mail！');
+	 $('#'+str).val('');
+	}
+}
+
+function appendSale(){
+	
+	var str="";
+	str +='<li>';
+	str +='<label>分店'+cumulative+'名称</label> ';
+	str +='<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="分店'+cumulative+'名称" />';	
+	str +='<label>分店地址</label> ';
+	str +='<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />';	
+	str +='&nbsp;&nbsp;&nbsp;&nbsp;';
+	/* str +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>'; */
+	str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
+	str +='<input type="hidden"  name="states" value="1" />	';
+	str +='</li>';
+	$('#salelist').append(str);
+	cumulative++;
+}
+</script>
+</body>
+</html>

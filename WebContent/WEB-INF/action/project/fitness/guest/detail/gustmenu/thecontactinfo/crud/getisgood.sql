@@ -1,3 +1,3 @@
-SELECT code as procodeis,courname as pronameis
+SELECT code as coucodeis,courname as counameis
 FROM cc_course 
 where status=1 

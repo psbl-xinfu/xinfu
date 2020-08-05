@@ -1,21 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <validator onerror="/action/ccms/validate">
-    <parameter id="cc_code" type="varchar" required="true" label="code"  />
- 	<parameter id="company" type="varchar" required="false" label="公司名称"  />
-	<parameter id="guestnumall" type="integer" required="false" label="公司数量" />
-	<parameter id="cc_birthall" type="integer" required="false" label="公司类型"  />
-	<parameter id="possibility4" type="varchar" required="false" label="可能性"/>
-	<parameter id="communicationall" type="integer" required="false" label="客户分类"/>
-	<parameter id="custcation" type="varchar" required="false" label="客户已购产品"/>
-	<parameter id="cc_channelall" type="integer" required="false" label="获客渠道"/>
-	<parameter id="cc_officetel" type="varchar" required="false" label="电话"/>
-	<parameter id="thepublicall" type="varchar" required="false" label="公众号"/>
+    <parameter id="cc_guestcode" type="varchar" required="true" label="code"  />
+    <parameter id="cc_thecode" type="varchar" required="true" label="code"  />
+ 	<parameter id="cc_name" type="varchar" required="true" label="客户名称"/>
+
+	<parameter id="cc_mobile" type="varchar" required="true" label="手机号"/>
+	
+	<parameter id="cc_mobile2" type="varchar" required="flase" label="手机号2"/>
+	
+	<parameter id="cc_position" type="varchar" required="true" label="职位"/>
+	
+	<parameter id="cc_possibilitys" type="varchar" required="false" label="可能性"/>
+
+	<parameter id="cc_thecourses" type="varchar" required="false" label="已学课程"/>
+	
+	<parameter id="cc_branchcode" type="varchar" required="false" label="店的id"/>
 	<parameter id="cc_email" type="varchar" required="false" label="邮箱"/>
-	<parameter id="province2" type="integer" required="false" label="省"/>
-	<parameter id="city2" type="integer" required="false" label="市"/>
-    <parameter id="cc_mc" type="varchar" required="false" label="会籍"  />
-    <parameter id="cc_remark" type="varchar" required="false" label="备注"  />
-   
+	<parameter id="cc_trill" type="varchar" required="false" label="抖音"/>
+	<parameter id="cc_wechat" type="varchar" required="false" label="微信"/>
+	
+	<parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
+	<parameter id="cc_birth" type="varchar" required="true" label="生日"/>
+
+	<parameter id="remark" type="varchar" required="true" label="备注"/>
+	
+
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
-		on-error-label="该公司已经存在,请重输入" id="company" sql="noRep.sql" />
+		on-error-label="该手机号已经存在,请重输入" id="cc_mobile" sql="noRep.sql" />
+		 <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"
+		on-error-label="该手机号已经存在,请重输入" id="cc_mobile2" sql="noRep2.sql" />
 </validator>

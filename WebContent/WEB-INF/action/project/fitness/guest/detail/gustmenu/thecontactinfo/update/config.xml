@@ -14,7 +14,6 @@
 		<jdbc-log>false</jdbc-log>
 	</transaction>
 
-	<query>insertguestcode.sql</query>
 	<query>update.sql</query>
 
 	<output>
