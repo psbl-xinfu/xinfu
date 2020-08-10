@@ -219,9 +219,10 @@ ${inc:/action/project/fitness/home/pub}
 </div>
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
+var init_event_city;
+var init_event_city2;
 var cumulative=1;
 $(document).ready(function() {
-	alert("${fld:pickcustname}");
 	
 	searchSelectInit($("#cc_birth,#possibility,#communication,#custcations,#cc_channel,#province2,#city2,#cc_mc"));
 	//公司地址
@@ -247,10 +248,7 @@ $(document).ready(function() {
 	$('#save_btn').on('click',function(){
 		$("#custcation").val($("#custcations").val());
 		$("#possibility4").val($("#possibility").val());
-		if($('#cc_code').val()!=""){
-			$('#cc_mc').attr('disabled',true);
-			update();
-		}else{
+		
 			$('#cc_mc').attr('disabled',false);
 			 var namelen=$("[name=storename]");
 			 for (var i = 1; i < namelen.length; i++) {
@@ -267,7 +265,6 @@ $(document).ready(function() {
 				
 			 }
 			insert();
-		}
 	})
 	 $('#recommend').on('blur',function(){
 			getCustome();
@@ -330,6 +327,27 @@ function custinfo(code,officename){
 	parent.pickcustCallback();
 	ccms.dialog.close();
 }
+
+
+function insert(){
+
+	var uri="${def:context}/action/project/fitness/guest/detail/gustmanage/insert";
+	   ajaxCall(uri,{
+		   	method: "post",
+		   	form:"addForm",
+		   	progress: false,
+		   	dataType: "script",
+		   	success: function() {
+				ccms.dialog.notice("新增成功!", 1200, function(){
+			   		$('#modalAddnew').modal('hide');
+			   		ccms.util.clearForm('addForm');
+			   		parent.search.searchData(1);
+			   		$('#modalAddnew').prop('scrollTop','0');
+				});
+	   		}
+	   	}); 
+}
+
 
 function removeObj(obj){
 	$(obj).parent().remove();

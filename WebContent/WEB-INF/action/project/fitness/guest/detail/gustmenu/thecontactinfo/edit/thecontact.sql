@@ -14,6 +14,7 @@ select
 	,trill
 	,wechat
 	,guestcode
+	,(select officename from cc_guest where code=cc_thecontact.guestcode ) as theguestofficename
 	from 
 	cc_thecontact 
 where 

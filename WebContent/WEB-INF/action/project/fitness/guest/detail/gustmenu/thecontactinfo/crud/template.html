@@ -244,9 +244,10 @@ display:inline-block;
 								<input id="cc_wechat" name="cc_wechat" placeholder="微信" type="text"class="input-default"/>
 								
 				 			</li>
-				 			<li class='lis'>	
+				 			<li id='branchlis'>	
 				 				<label>店面</label> 
 								<select id="cc_branchcode" title="请选择" name="cc_branchcode" >
+									<option value="">请选择</option>
 									<branch-rows>
 										<option value="${fld:branchcode}">${fld:branchname}</option>
 									</branch-rows>
@@ -316,6 +317,8 @@ display:inline-block;
 					</div>
 					<div class="row1">
 						<div class="first">
+							<span class="lable3">公司名称：</span>
+							<span class="lable4" id="theguestname"></span>
 							<span class="lable3">微信：</span>
 							<span class="lable4" id="thewechat"></span>
 							<span class="lable3">所属店：</span>
@@ -398,12 +401,22 @@ display:inline-block;
 				
 				edit();
 			});
+			$("#updatelog_btn").on('click',function(){
+				ccms.dialog.open({url:"${def:context}/action/project/fitness/guest/detail/gustmenu/thelog/crud?thecode="+the_code});
+			});
+			
+			$("#genjin_btn").on('click',function(){
+				
+				ccms.dialog.open({url:"${def:context}/action/project/fitness/guest/detail/gustmanage/followfrom/crud?thecode="+the_code});
+			});
+			
+			
 			$("#guestblur").blur(function(){
 				var cust = $(this).val();
 				if(undefined==cust||cust ==""){
 					ccms.dialog.alert("请输入公司名称！");
 				}else{
-					ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlists/crud?pickcustname="+cust+"&objid=cc_guestcode&objidtwo=guestblur&random_number="+Math.random()});
+					ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlists/crud?pickcustname="+cust+"&objid=cc_guestcode&objidtwo=guestblur&branchlis=branchlis&random_number="+Math.random()});
 				}
 			});
 			
@@ -418,9 +431,8 @@ display:inline-block;
 						   	dataType: "script",
 						   	success: function() {
 								ccms.dialog.notice("修改成功!", 2000, function(){
-							   		$('#modalAddnew').modal('hide');
-							   		ccms.util.clearForm('addForm');
-							   		search.searchData(1);
+									$('#modalAddnew').modal('hide');
+									parent.parent.location.reload();
 							   		$('#modalAddnew').prop('scrollTop','0');
 								});
 					   		}
@@ -463,7 +475,15 @@ display:inline-block;
 					});
 		}
 		function pickcustCallback(){
-			$("#cc_guestcode").val();
+			var uri="${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/getInfo_cus?thecode="+the_code+"&guestcode="+$("#cc_guestcode").val();
+			   ajaxCall(uri,{
+			   	method: "get",
+			   	progress: false,
+			   	dataType: "script",
+			 	async:false,
+			   	success: function() {
+			 	  	}
+				});
 		}
 	</script> 
 </body>

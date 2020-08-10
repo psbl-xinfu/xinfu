@@ -12,7 +12,7 @@
 		when '8' then '未成交'
 	end) as gj_commresult
 	,cm.remark
-	,cm.created
+	,to_char(cm.created,'yyyy-MM-dd hh:MM:ss') as created
 
 from cc_comm cm
 inner join cc_thecontact the on the.code=cm.thecontactcode

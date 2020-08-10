@@ -1,6 +1,7 @@
 drop table cc_thecontact_log;
 CREATE TABLE "public"."cc_thecontact_log" (
   code varchar(50) 
+  ,thecode varchar(64)
   ,guestcode varchar(64)
  	,positioncode varchar(64)
 	,possibility text
@@ -162,7 +163,7 @@ COMMENT ON COLUMN "public"."cc_branch_dellog"."createdtime" IS '创建日期';
 
 
 
-COMMENT ON COLUMN "public"."cc_guest"."communication" IS '1客户2重点意向客户3咨询客户4陌生客户'
+COMMENT ON COLUMN "public"."cc_guest"."communication" IS '1粉丝客户2客户3重点意向客户4咨询客户5陌生客户'
 
 
 COMMENT ON COLUMN "public"."cc_guest"."customtype" IS '公司类型1健身俱乐部2健身工作室3余家会所4器械器5培训机构6其他';

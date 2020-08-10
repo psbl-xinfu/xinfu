@@ -12,9 +12,9 @@ update cc_thecontact set
 	,email=${fld:cc_email}
 	,trill=${fld:cc_trill}
 	,wechat=${fld:cc_wechat}
-	
+	,guestcode=${fld:cc_guestcode}
 where
-	code = ${fld:cc_thecode} and org_id='${def:org}'
+	code = ${fld:cc_thecode} 
 	
 	
 	

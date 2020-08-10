@@ -2,8 +2,9 @@
 <config>
 
 	<summary>
+		查询系统应用
 	</summary>
-	
+
 	<log>false</log>
 
 	<transaction>
@@ -11,18 +12,17 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-		<recordset id="query-thecontact.sql" source="sql" scope="transaction" />
+		<recordset id="query-base.sql" source="sql" scope="transaction" />
 		<recordset id="getisgood.sql" source="sql" scope="transaction" />
 	</transaction>
-
 	<output>
 		<classname>dinamica.GenericOutput</classname>
-		<template>template.html</template>
+	    <template>script.js</template>
 		<set-http-headers>true</set-http-headers>
-		<content-type>text/html</content-type>
+		<content-type>text/javascript</content-type>
 		<print mode="table" recordset="getisgood.sql" tag="isgood-rows"/>
-		<print mode="form" recordset="query-thecontact.sql" />
-		
+		<print mode="table" recordset="query-base.sql" tag="list-rows"/>
 	</output>
+
 
 </config>

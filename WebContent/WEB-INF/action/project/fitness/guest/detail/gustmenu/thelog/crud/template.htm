@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>租柜合同</title>
+</head>
+<body>
+		<div class="r-tab-cont" style="height:auto;">
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="am-table">
+						<thead>
+							<tr >
+								<th>现公司名称</th>
+							    <th>现职位</th>
+							    <th>现可能性</th>
+							    <th>现已学课程</th>
+							    <th>现门店</th>
+							    <th>修改日期</th>
+							    <th>操作人</th>
+							</tr>
+						</thead>
+				<tbody id="datagrid">
+				</tbody>
+			</table>
+			<div class="pageDiv">
+				<ul class="pagination">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+	<script language="JavaScript">
+	$(document).ready(function() {
+		var thecode="${fld:thecode}";
+		ajax("${def:context}/action/project/fitness/guest/detail/gustmenu/thelog/search?thecode="+thecode)
+	});
+
+	function ajax(url){
+	ajaxCall(url,{
+		method: "get",
+		progress: true,
+		dataType: "script",
+		success: function() {
+		}
+	});
+	}
+</script>
+</body>
+</html>

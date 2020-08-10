@@ -15,7 +15,8 @@ select
 	(select storename from cc_branch where code=cc_thecontact.branchcode ) as branchname,
 	possibility,
 	thecourse,
-	remark
+	remark,
+	(select officename from cc_guest where code=cc_thecontact.guestcode ) as theguestofficename
 from 
 	cc_thecontact 
 where 

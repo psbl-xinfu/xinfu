@@ -14,7 +14,8 @@ select
 		when '8' then '未成交'
 	end) as commresult,
 	cm.remark,
-	cm.created
+	to_char(cm.created,'yyyy-MM-dd hh:MM:ss') as created,
+	the.possibility
 	
 from cc_thecontact the
 left join cc_guest gt on the.guestcode=gt.code

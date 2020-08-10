@@ -326,14 +326,16 @@ public class ImportGuestExcel extends ImportUtil {
 								validateError.append("客户不可以为空");
 							}else{
 								//公司类型
-								if(communication.equals("客户"))
+								if(communication.equals("粉丝客户"))
 									rs.setValue("communication", 1);
-								if(communication.equals("重点意向客户"))
+								if(communication.equals("客户"))
 									rs.setValue("communication", 2);
-								if(communication.equals("咨询客户"))
+								if(communication.equals("重点意向客户"))
 									rs.setValue("communication", 3);
-								if(communication.equals("陌生客户"))
+								if(communication.equals("咨询客户"))
 									rs.setValue("communication", 4);
+								if(communication.equals("陌生客户"))
+									rs.setValue("communication", 5);
 							}
 						} catch (Exception e) {
 							validateError.append("客户不可以为空");

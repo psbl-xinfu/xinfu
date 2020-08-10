@@ -13,7 +13,7 @@
 		<transaction>true</transaction>
 		<jdbc-log>false</jdbc-log>
 	</transaction>
-
+	<query>insert.sql</query>
 	<query>update.sql</query>
 
 	<output>

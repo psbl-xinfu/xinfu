@@ -4,6 +4,8 @@ document.addForm.cc_name.value="${fld:ttname}";
 document.addForm.cc_mobile.value="${fld:vc_mobile}";
 document.addForm.cc_birth.value="${fld:birthday}";
 document.addForm.remark.value="${fld:remark}";
+document.addForm.guestblur.value="${fld:theguestofficename}";
+
 
 document.addForm.cc_mobile2.value="${fld:mobile2}";
 document.addForm.cc_email.value="${fld:email}";
