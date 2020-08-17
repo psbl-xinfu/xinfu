@@ -19,9 +19,9 @@
 	<parameter id="cc_wechat" type="varchar" required="false" label="微信"/>
 	
 	<parameter id="cc_sex" type="integer" required="false" label="性别" maxlen="20" />
-	<parameter id="cc_birth" type="varchar" required="true" label="生日"/>
+	<parameter id="cc_birth" type="varchar" required="false" label="生日"/>
 
-	<parameter id="remark" type="varchar" required="true" label="备注"/>
+	<parameter id="remark" type="varchar" required="false" label="备注"/>
 	
 
     <custom-validator classname="dinamica.validators.DuplicatedKeyValidator"

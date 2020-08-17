@@ -14,7 +14,7 @@
 
 	<parameter id="cc_thecourses" type="varchar" required="false" label="已学课程"/>
 	
-	<parameter id="cc_branchcode" type="varchar" required="true" label="店的id"/>
+	<parameter id="cc_branchcode" type="varchar" required="false" label="店的id"/>
 	<parameter id="cc_email" type="varchar" required="false" label="邮箱"/>
 	<parameter id="cc_trill" type="varchar" required="false" label="抖音"/>
 	<parameter id="cc_wechat" type="varchar" required="false" label="微信"/>

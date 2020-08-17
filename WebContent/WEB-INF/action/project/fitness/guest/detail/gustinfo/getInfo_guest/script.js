@@ -65,7 +65,7 @@ setSelectValue($("#cc_mc"), "${fld:mc}");
 		$('#businesstype1').hide();
 		setSelectValue($("#custcation"), "");
 	}else{
-		if(communication=='2'){
+		if(communication=='2'||communication=='1'){
 			$('#businesstype1').show();
 			/*selectpicker($("#custcations"), );*/
 			var select_id='${fld:custclass}';

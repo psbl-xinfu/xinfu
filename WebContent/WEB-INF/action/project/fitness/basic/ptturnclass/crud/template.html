@@ -25,20 +25,8 @@ background: rgba(42, 48, 56, -1.2) !important
 						<input type="hidden" name="custcode" id="custcode" />
 						<label for="id" class="hebing">合并给其他公司 ：</label>
 						<input type="text" name="newcustname" id="newcustname" title="公司名称" placeholder="公司名称" style="width: 160px;" />
-						<input type="hidden" name="newcustcode" id="newcustcode" />
-						<label for="id" class="zhuangyi">联系人：</label>
-						<input type="text" name="theall" id="theall" title="手机号" placeholder="手机号" style="width: 160px;" />
-						<input type="hidden" name="thecode" id="thecode" />
-						<label for="id" class="zhuangyi">转移给其他公司 ：</label>
-						<input type="text" name="newthename" id="newthename" title="公司名称" placeholder="公司名称" style="width: 160px;" />
-						<input type="hidden" name="newthecode" id="newthecode" />
-						<label for="id">
-		                    <input type="checkbox" id="isgroup" name="isgroup" >转移(不勾选是合并)
-		                </label>
-		                <!-- <label for="id">
-		                    <input type="radio" name="isgroup"  value="1">转移
-		                </label> -->
-		                <button type="button" id="savebtn">确认</button>
+		               	<input type="hidden" name="newcustcode" id="newcustcode" />
+		                <button type="button" id="savebtn">合并</button>
 					</div>
 					<div class="sec-2">
 						
@@ -51,6 +39,7 @@ background: rgba(42, 48, 56, -1.2) !important
 										<th>姓名</th>
 										<th>性别</th>
 										<th>手机号</th>
+										<th>门店</th>
 										<th>职位</th>
 										<th>公司名称</th>
 										<th>咨询师归属</th>
@@ -76,42 +65,7 @@ $(function(){
 	$(document).click(function(){ 
 		$(".error").html("");
 	}); 
-	ccms.util.renderCheckbox("isgroup");
-	
-	/* $("#caozuo").hide(); */
-	$(".zhuangyi").hide();
-	$("#theall").hide();
-	$("#newthename").hide();
-	
-	$(".hebing").show();	
-	$("#custall").show();
-	$("#newcustname").show();
-	$("#isgroup").unbind().on('ifClicked',function(){
-		$("#ptrestForm").find('input[type=text],input[type=hidden]').each(function(){
-			$(this).val('');
-		})
-		$("#ptrestlist").html("");
-		if($("#isgroup").is(':checked')){
-			/* $("#caozuo").hide(); */
-			$(".zhuangyi").hide();
-			$("#theall").hide();
-			$("#newthename").hide();
-			
-			$(".hebing").show();	
-			$("#custall").show();
-			$("#newcustname").show();
-		}else{
-			/* $("#caozuo").show(); */
-			$(".hebing").hide();	
-			$("#custall").hide();
-			$("#newcustname").hide();
-			
-			$(".zhuangyi").show();
-			$("#theall").show();
-			$("#newthename").show();
-		}
-	});	
-	
+
 	
 	//查询转课人
 	$("#custall").blur(function(){
@@ -135,55 +89,13 @@ $(function(){
 		}
 	});
 	
-	//要被转移的人
-	$("#theall").blur(function(){
-		$("#type").val("1");
-		if($(this).val()!=""){
-			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlist/crud?pickcustname="
-					+$(this).val()+"&objid=thecode&objidtwo=theall&random_number="+Math.random()});
-		}else{
-			$("#ptrestlist").html("");
-			$("#theall").val("");
-		}
-	});
-	//查询转给哪个公司
-	$("#newthename").blur(function(){
-		$("#type").val("2");
-		if($(this).val()!=""){
-			ccms.dialog.open({url : "${def:context}/action/project/fitness/util/queryguestlist2/crud?pickcustname="
-					+$(this).val()+"&objid=newthecode&objidtwo=newthename&random_number="+Math.random()});
-		}else{
-			$("#newthename").val("");
-		}
-	});
+	
 	
 	
 	//合并或转移
 	$("#savebtn").click(function(){
 		var divobj = $("#checkedNodesDiv");
-		divobj.empty();
-		if($("#isgroup").is(':checked')){
-			if($("#thecode").val()==""){
-				ccms.dialog.notice("请输入联系人名称！", 2000);
-				return false;
-			}
-			if($("#newthecode").val()==""){
-				ccms.dialog.notice("请输入转移其他公司 ！", 2000);
-				return false;
-			}
-			var url = "${def:actionroot}/updatethe";
-			ajaxCall(url,{
-				method:"post",
-				form:"ptrestForm",
-				progress:true,
-				dataType:"script",
-				success:function(){	
-					ccms.dialog.notice("成功！", 2000, function(){
-						location.href=location.href;
-					});
-				}
-			});
-		}else{
+			
 			if($("#custcode").val()==""){
 				ccms.dialog.notice("请输入公司名称！", 2000);
 				return false;
@@ -197,7 +109,8 @@ $(function(){
 				var thecode = arrthecode[i];
 		    	divobj.append('<input type="hidden" name="thecodelog" value="' + thecode + '" />');
 			}
-			var url = "${def:actionroot}/update";
+			alert("1");
+			var url = "${def:context}/action/project/fitness/basic/ptturnclass/update";
 			ajaxCall(url,{
 				method:"post",
 				form:"ptrestForm",
@@ -209,7 +122,6 @@ $(function(){
 					});
 				}
 			});
-		}
 	});
 	
 	
@@ -227,17 +139,6 @@ function pickguestCallback(){
 	}
 }
 
-function picktheCallback(){
-	if($("#type").val()=="1"){
-		var url = "${def:actionroot}/querythelist?thecode="+$("#thecode").val();
-		ajaxCall(url,{
-			method:"get",
-			progress:true,
-			dataType:"script",
-			success:function(){	
-			}
-		});
-	}
-}
+
 </script>
 </html>

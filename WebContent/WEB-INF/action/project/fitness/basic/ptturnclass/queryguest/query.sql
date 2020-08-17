@@ -11,6 +11,7 @@ select
     end) as i_sex
     ,(select posname from cc_position where code=ct.positioncode) as posname
     ,(select name from hr_staff where userlogin=gt.mc ) as mcname
+    ,(select storename from cc_branch where code=ct.branchcode) as storename
 from cc_guest gt
 left join cc_thecontact ct on gt.code = ct.guestcode
 where 

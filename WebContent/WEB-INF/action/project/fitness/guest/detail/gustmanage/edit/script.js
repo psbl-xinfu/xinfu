@@ -28,7 +28,7 @@ setSelectValue($("#communication"), "${fld:communication}");
 		$('#businesstype1').hide();
 		setSelectValue($("#custcation"), "");
 	}else{
-		if(communication==1){
+		if(communication==1||communication==2){
 			$('#businesstype1').show();
 			/*selectpicker($("#custcations"), );*/
 			var select_id='${fld:custclass}';

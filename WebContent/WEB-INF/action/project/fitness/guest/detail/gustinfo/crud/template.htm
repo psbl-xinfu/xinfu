@@ -31,7 +31,7 @@ hr {
 .lable2 {
 	display:inline-block;
     height: 33px;
-	width: 12%;
+	width: auto;
 	line-height: 40px;
 	text-align: left;
     line-height: 33px;
@@ -573,7 +573,7 @@ $(document).ready(function() {
 						setSelectValue($("#custcationsall"), "");
 						$("#custcation").val("");
 					}else{
-						if(cust2==2){
+						if(cust2==2||cust2==1){
 							$('#businesstype1').show();
 						}else{
 							$('#businesstype1').hide();

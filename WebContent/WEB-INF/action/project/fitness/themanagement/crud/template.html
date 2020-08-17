@@ -24,232 +24,7 @@ ${inc:/action/project/fitness/home/pub}
 	
 	
 
-	<div class="modal fade" id="modalAddnew"  tabindex="-1" style="display:none;">
-		<div class="basic-information modal-dialog dialogbg" >
-				<header class="header-default">
-					<span id="formTitle">新增</span>
-					<span class="header-close"></span>
-				</header>
-				<div class="b-i-main  yyc_b-i-main">
-					<form id="addForm" name="addForm" method="post">
-					<input type="hidden" id="cc_code" name="cc_code" value=""/>
-					<input type="hidden" id="yttcode" name="yttcode" value=""/>
-					<input type="hidden" id="custcation" name="custcation" value=""/>
-					<input type="hidden" id="possibility4" name="possibility4" value=""/>
-					
-					<nav >
-						
-						<li>
-							<label>公司名称<span style="color: red;">*</span></label>
-							<input type="text" id="company" name="company" value="" maxlength="80"  placeholder="公司名称"/>
-						</li>
-						<li> 			
-							<label>公司数量</label> 	
-							<input type="text" id="guestnum" name="guestnum" value="" maxlength="80" placeholder="公司数量"/>
-			 			 </li>
-						<!-- <li class='lis'>
-							<label>联系人姓名<span style="color: red;">*</span></label>
-							<input type="text" id="cc_name" name="cc_name" value="" maxlength="80"  placeholder="姓名"/>
-						</li> -->
-						
-						<li>
-							<label>公司类型<span style="color: red;">*</span></label>
-							<div class="my-selected">
-								<select  id="cc_birth" name="cc_birth" > 
-									<option value="">选择客户类型</option>
-									<option value="1">健身俱乐部</option>
-									<option value="2">健身工作室</option>
-									<option value="3">瑜伽会所</option>
-									<option value="4">器械器</option>
-									<option value="5">培训机构</option>
-									<option value="6">其他</option>
-								</select>
-							</div>
-						</li>
-						<!-- <li class="ttbin">
-							<label>联系人</label>
-							<select id="ttname" name="ttname" class=""> 
-							</select>
-						</li> -->
-						
-						<!--<li class='lis'>			
-							<label>性别<span style="color: red;"></span></label>
-							<div class="my-selected">
-								<select  id="cc_sex" name="cc_sex"> 
-									<option value="">请选择</option>
-									<option value="1">男</option>
-									<option value="0">女</option>
-								</select>
-							</div> 	
-			 			</li>-->
-			 			
-						<!-- <li class='lis'>		
-							<label>手机<span style="color: red;">*</span></label> 	
-							<input type="text" id="cc_mobile" name="cc_mobile" value="" maxlength="80"  placeholder="手机"/>
-			 			</li> -->	
-			 			<li>
-			 				<label>可能性</label> 	
-							<select id="possibility" title="请选择" name="possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
-								<isgood-row>
-									<option value="${fld:procodeis}">${fld:pronameis}</option>
-	                         	</isgood-row>
-	                         </select>
-			 			</li>
-			 			<li>
-			 				<label>客户分类<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="communication" name="communication"> 
-									<option value="">请选择</option>
-									<option value="1">粉丝客户</option>
-									<option value="2">客户</option>
-									<option value="3">重点意向客户</option>
-									<option value="4">咨询客户</option>
-									<option value="5">陌生客户</option>
-									
-								</select>
-							</div>
-			 			</li>
-			 			
-						<li class="hasCheck" id="businesstype1">
-							<label>客户已购产品</label> 
-							
-						<select id="custcations" title="请选择" name="custcations" class="selectpicker show-tick form-control" multiple data-live-search="false">
-							<product-row>
-								<option value="${fld:procode}">${fld:proname}</option>
-							</product-row>
-                         </select>
-							
-							<!-- <select  id="custcation" name="custcation" data-live-search="true" style="display: none;"> 
-								<option value="">请选择</option>
-								<option value="1">殊途设计</option>
-								<option value="2">殊途平牌</option>
-								<option value="3">单次学习</option>
-								<option value="5">全年学习</option>
-								<option value="6">6+1学习</option>
-								<option value="7">学习点客户</option>
-								<option value="8">内训客户</option>
-							</select> -->
-						</li>
-			 			<!-- <li class='lis'>
-			 				<label>职位<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="position" name="position"> 
-									<option value="">请选择职位</option>
-									<position-rows>
-										<option value="${fld:poscode}">${fld:posname}</option>
-									</position-rows>
-									
-								</select>
-							</div>
-			 			</li>-->
-			 			
-			 			<li>
-							<label>获客渠道<span style="color: red;">*</span></label>
-							<div class="my-selected">
-								<select  id="cc_channel" name="cc_channel" class=""> 
-									<option value="">渠道类型</option>
-									<option value="1">抖音</option>
-									<option value="2">公众号</option>
-									<option value="3">转介绍</option>
-									<option value="4">展会</option>
-									<option value="5">论坛</option>
-									<option value="6">粉丝客户</option>
-									<option value="7">其他</option>
-								</select>
-							</div>
-						</li>
-						<li> 			
-							<label>电话</label> 	
-							<input type="text" id="cc_officetel" name="cc_officetel" value="" maxlength="80" placeholder="公司电话"/>
-			 			 </li>
-						
-						
-						
-						<!-- <li class='lis'>
-							<label>微信号</label>
-							<input type="text" id="cc_wx" name="cc_wx" value="" maxlength="80" placeholder="微信"/>
-						</li>-->
-						<li class='lis'> 			
-							<label>公众号</label> 	
-							<input type="text" id="thepublic" name="thepublic" value="" maxlength="80" placeholder="公众号" />
-			 			</li>	 
-			 			<li> 			
-							<label>E-mail</label> 	
-							<input type="text" id="cc_email" name="cc_email" value="" maxlength="80" placeholder="email"/>
-			 			</li>	
-			 			<!-- <li > 			
-							<label>关键负责人</label> 	
-							<div class="my-selected">
-								<select  id="ttstatus" name="ttstatus"> 
-									<option value="">请选择</option>
-									<option value="1">是</option>
-									<option value="0">不是</option>
-								</select>
-							</div>
-			 			</li> -->
-			 			
-						<li> 			
-							<label>地区<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="province2" name="province2"> 
-									<option value="">请选择省</option>
-								</select>
-							</div>
-			 			</li>	
-			 			<li> 			
-							<label>市<span style="color: red;">*</span></label> 	
-							<div class="my-selected">
-								<select  id="city2" name="city2"> 
-									<option value="">请选择市</option>
-								</select>
-							</div>
-			 			</li>
-			 			<li > 			
-							<label>主店名称</label> 
-							<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="主店名称" />	
-							<label>主店地址</label> 
-							<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />	
-			 				 &nbsp;&nbsp;&nbsp;&nbsp;
-			 				<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>
-			 				<input type="hidden"  name="states" value="0" />	
-			 			</li>
-			 			<div id="salelist" >
-						</div>
-			 			
-			 			<!-- <nav style="margin-left: 6%">	
-							<label-rows>
-								<li >
-									<input type="checkbox" id="lbid${fld:code}" name="labels" value="${fld:labelcode}" style="display: none;" />${fld:labelname@js}
-								</li>
-							</label-rows>
-						</nav> -->
-			 			<!-- <li> 			
-							<label>邮编</label> 	
-							<input type="text" id="postalcode" name="postalcode" value="" maxlength="80" placeholder="邮编"/>
-			 			</li> -->			
-						<li> 			
-							<label>咨询师</label> 	
-							<div class="my-selected">
-								<select id="cc_mc" name="cc_mc"   >
-									<staff-rows3>
-										<option value="${fld:userlogin}">${fld:name}</option>
-									</staff-rows3>
-								</select>
-							</div> 
-			 			</li>
-			 			<li class="to100w" style="margin-left: 6%">
-							<label>公司备注</label>
-							<textarea id="cc_remark" name="cc_remark" placeholder="暂无数据" class="my-textarea" rows="" cols="4"></textarea>
-						</li>	
-						
-					</nav>
-					</form>
-				</div>
-				<footer class="footer-default">
-					<button id="save_btn" class="my-btn-default active">保存</button>
-				</footer>
-			</div>
-		</div>		
+		
 		<form  role="form" method="post" id="searchForm">
 			<input name="sort" type="hidden" value="g.created" preserve="true" />
 			<input name="order" type="hidden" value="desc" preserve="true" />
@@ -279,8 +54,45 @@ ${inc:/action/project/fitness/home/pub}
 								</li> 
 										
 								<li class="inputName" style="width: 160px">
-									<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="请输入公司名称" class="input-default"/>							
+									<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="请输入联系人名称|手机号" class="input-default"/>							
 				 			 	</li>		
+								
+								
+								
+								<div class="r-c-btnList b-10">
+									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
+									<!-- <img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/>  -->
+									<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
+								</div>
+							</nav>
+						</div>
+						<div class="tab-cout-nav-b">
+							<nav class="r-c-3-t-b-l">
+			 			
+								
+								<li>
+									<select id="possibility2" title="请选择可能性课程" name="possibility2" class="selectpicker show-tick form-control" multiple data-live-search="false">
+										<isgood-row2>
+											<option value="${fld:procodeis}">${fld:pronameis}</option>
+			                         	</isgood-row2>
+			                         </select>
+								</li>
+								<li class="hasCheck" >
+									<select id="custcations2" title="请选择以上课程" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
+										
+										<product-row2>
+											<option value="${fld:procode}">${fld:proname}</option>
+			                         	</product-row2>
+			                         </select>
+								</li>
+								<li style="width: 160px">
+								  <select id="newmc" name="newmc" style="display: none;">
+									  <option value="">请选择职位</option>
+									  <skillname-row>
+											<option  value='${fld:userlogin}'>${fld:name@js}</option>
+									  </skillname-row>
+								  </select>
+								</li>
 								<li style="width: 160px">
 								  <select id="newmc" name="newmc" style="display: none;">
 									  <option value="">全部咨询师</option>
@@ -289,92 +101,11 @@ ${inc:/action/project/fitness/home/pub}
 									  </skillname-row>
 								  </select>
 								</li>
-								<li class="hasCheck">
-									<input type="checkbox" name="public" value="1" style="display: none;"/>公海
-								</li>
-								<li>
-									<select  id="cc_channelquery" name="cc_channelquery" class=""> 
-										<option value="">渠道类型</option>
-										<option value="1">抖音</option>
-										<option value="2">公众号</option>
-										<option value="3">转介绍</option>
-										<option value="4">展会</option>
-										<option value="5">论坛</option>
-										<option value="6">粉丝客户</option>
-										<option value="7">其他</option>
-									</select>
-								</li>
-								<div class="r-c-btnList b-10">
-									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
-									<img src="${def:context}/js/project/fitness/image/SVG/nav/xinzengkecheng.svg" title="添加" alt="" data-toggle="modal" id="addnew_btn">
-									<!-- <img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/>  -->
-									<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
-								</div>
-							</nav>
-						</div>
-						<div class="tab-cout-nav-b">
-							<nav class="r-c-3-t-b-l">
-								<li>
-									<button type="button" id="change_btn">分配顾问</button>
-								</li>
-								<li class="label-p" id="periodnum">
-									<label for="rc-n-1-2">保护期(天)：</label>
-									<input style="width:80px" class="input-default" type="text"  id="period_day" name="period_day"  value="${fld:period_day}">
-								</li>
-								
-								
-								<li style="width: 140px;">
-									<select id="overdue_day" name="overdue_day" style="display: none;">
-										<option value="">进入公海天数</option>
-										<option  value='7'>大于7天</option>
-										<option  value='15'>大于15天</option>
-										<option  value='30'>大于30天</option>
-										<option  value='60'>大于60天</option>
-										<option  value='90'>大于90天</option>
-										<option  value='180'>大于180天</option>
-									</select>
-								</li>
-								<li style="width: 10px;"></li>
-								<li class="hasCheck">
-									<select  id="communication2" name="communication2"> 
-										<option value="">客户分类</option>
-										<option value="1">粉丝客户</option>
-										<option value="2">客户</option>
-										<option value="3">重点意向客户</option>
-										<option value="4">咨询客户</option>
-										<option value="5">陌生客户</option>
-									</select>
-								</li>
-								</li>
-			 			
-								<li class="hasCheck" id="businesstype">
-									<select id="custcations2" title="选择已购产品" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										
-										<product-row2>
-											<option value="${fld:procode}">${fld:proname}</option>
-			                         	</product-row2>
-			                         </select>
-								</li>
-								<li>
-									<select id="possibility2" title="请选择可能性" name="possibility2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										<isgood-row2>
-											<option value="${fld:procodeis}">${fld:pronameis}</option>
-			                         	</isgood-row2>
-			                         </select>
-								</li>
-								<li class="hasCheck">
+								<!-- <li class="hasCheck">
 									<input type="checkbox" name="thesorting" value="1" style="display: none;"/>倒序
-								</li>
+								</li> -->
 							</nav>
-							<!-- <nav class="r-c-3-t-b-r">
-								<li>
-									<img src="${def:context}/js/project/fitness/image/SVG/table/icon_yulan.svg" title="查看" alt=""id="look">
-								</li> 
-								 <li>
-									<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt=""id="edit_btn">
-								</li>
-								
-							</nav> -->
+							
 						</div>
 					</div>
 					<div class="r-tab-cout-3-b table-cont">
@@ -382,27 +113,25 @@ ${inc:/action/project/fitness/home/pub}
 						<table class="table"> 
 							<thead>
 								<tr>
-									<th class="table-checkbox">
-										<label class="am-checkbox">
-											<input id="selectAll"  name="datalist"  type="checkbox" value="" style="display: none;">
-										</label>
-									</th>
-									<th>未跟进(天数)</th>
+									<th>联系人</th>
 									<th>公司名称</th>
-									<th>咨询师归属</th>
-									
-									<th>公司备注</th>
+									<th>门店</th>
+									<th>职位</th>
+									<th>手机号</th>
+									<th>跟进时间</th>
+									<th>跟进记录</th>
 								</tr>
 							</thead>
 							<tbody id="datagridTemplate" style="display: none">
 								<tr>
-									<td>#application_id#</td>
-									<td>#num_days#</td>
 									<td>
-						            	<a href="javascript:;" onclick="detailptrest('#vc_code#')">#officename#</a>
+						            	<a href="javascript:;" onclick="detailptrest('#thecode#')">#thename#</a>
 						            </td>
-										
-									<td>#vc_newmc#</td>
+									<td>#gofficename#</td>
+									<td>#storename#</td>
+									<td>#posname#</td>	
+									<td>#themobile#</td>
+									<td>#created#</td>
 									<td>#remark#</td>
 								</tr>
 							</tbody>
@@ -626,7 +355,7 @@ $(document).ready(function() {
 					$('#businesstype1').hide();
 					setSelectValue($("#custcations"), "");
 				}else{
-					if(cust==2||cust==1){
+					if(cust==2){
 						$('#businesstype1').show();
 					}else{
 						$('#businesstype1').hide();
