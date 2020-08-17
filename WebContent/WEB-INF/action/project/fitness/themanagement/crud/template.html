@@ -40,57 +40,28 @@ ${inc:/action/project/fitness/home/pub}
 					<div class="tab-cout-nav">
 						<div class="tab-cout-nav-t yyc_tab-cout-nav-t">
 							<nav class="tab-nav-my">
-								<input type="hidden" id="custcation2" name="custcation2" value=""/>
-								<input type="hidden" id="possibility3" name="possibility3" value=""/>
-								<li class="province1">
+								<input type="hidden" id="cc_thecourses" name="cc_thecourses" value=""/>
+								<input type="hidden" id="cc_possibilitys" name="cc_possibilitys" value=""/>
+								<li class="province">
 									<select  id="province" name="province"> 
 										<option value="">请选择省</option>
 									</select>
 								</li>
-								<li class="city1">
+								<li class="city">
 									<select  id="city" name="city"> 
 										<option value="">请选择市</option>
 									</select>
 								</li> 
 										
 								<li class="inputName" style="width: 160px">
-									<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="请输入联系人名称|手机号" class="input-default"/>							
+									<input style="width: 130px" type="text" id="vc_name" name="vc_name" placeholder="联系人名称|手机号" class="input-default"/>							
 				 			 	</li>		
-								
-								
-								
-								<div class="r-c-btnList b-10">
-									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
-									<!-- <img class="r-c-3-btn-3" src="${def:context}/js/project/fitness/image/SVG/nav/btn_shaixuan.svg" title="条件筛选" data-toggle="modal" id="filter_btn"/>  -->
-									<button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>
-								</div>
-							</nav>
-						</div>
-						<div class="tab-cout-nav-b">
-							<nav class="r-c-3-t-b-l">
-			 			
-								
-								<li>
-									<select id="possibility2" title="请选择可能性课程" name="possibility2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										<isgood-row2>
-											<option value="${fld:procodeis}">${fld:pronameis}</option>
-			                         	</isgood-row2>
-			                         </select>
-								</li>
-								<li class="hasCheck" >
-									<select id="custcations2" title="请选择以上课程" name="custcations2" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										
-										<product-row2>
-											<option value="${fld:procode}">${fld:proname}</option>
-			                         	</product-row2>
-			                         </select>
-								</li>
 								<li style="width: 160px">
-								  <select id="newmc" name="newmc" style="display: none;">
+								  <select id="cc_position" name="cc_position" style="display: none;">
 									  <option value="">请选择职位</option>
-									  <skillname-row>
-											<option  value='${fld:userlogin}'>${fld:name@js}</option>
-									  </skillname-row>
+									  <position-row>
+											<option  value='${fld:poscode}'>${fld:posname@js}</option>
+									  </position-row>
 								  </select>
 								</li>
 								<li style="width: 160px">
@@ -101,9 +72,31 @@ ${inc:/action/project/fitness/home/pub}
 									  </skillname-row>
 								  </select>
 								</li>
-								<!-- <li class="hasCheck">
-									<input type="checkbox" name="thesorting" value="1" style="display: none;"/>倒序
-								</li> -->
+								
+								<div class="r-c-btnList b-10">
+									<button type="button" class="r-c-3-btn-1" code=1 id="search_btn" title="查询"></button>
+								</div>
+							</nav>
+						</div>
+						<div class="tab-cout-nav-b">
+							<nav class="r-c-3-t-b-l">
+								
+								<li>
+									<select id="cc_possibility" title="请选择可能性课程" name="cc_possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
+										<isgood-row2>
+											<option value="${fld:procodeis}">${fld:pronameis}</option>
+			                         	</isgood-row2>
+			                         </select>
+								</li>
+								<li class="hasCheck" >
+									<select id="cc_thecourse" title="请选择以上课程" name="cc_thecourse" class="selectpicker show-tick form-control" multiple data-live-search="false">
+										
+										<product-row2>
+											<option value="${fld:procode}">${fld:proname}</option>
+			                         	</product-row2>
+			                         </select>
+								</li>
+								
 							</nav>
 							
 						</div>
@@ -160,431 +153,56 @@ ${inc:/action/project/fitness/home/pub}
 	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 var init_event_city;
-var init_event_city2;
 var cumulative=1;
 var search = null;
 $(document).ready(function() {
 	
 	
 	
-	searchSelectInit($("#custcations,#possibility,#possibility2,#custcations2,#cc_channelquery,#cc_channel,#ttname,#ttstatus,#communication2,#communication,#position,#overdue_day,#cc_sex,#cc_birth,#city2,#newmc,#province,#city,#province2"));
-	 $('#custcations').selectpicker({
+	searchSelectInit($("#cc_possibility,#cc_thecourse,#cc_position,#newmc,#province,#city"));
+	
+	 $('#cc_thecourse').selectpicker({
 	        'selectedText': 'cat'
 	 });
-	 $('#custcations2').selectpicker({
-	        'selectedText': 'cat'
-	 });
-	 $('#possibility').selectpicker({
-	        'selectedText': 'cat'
-	 });
-	 $('#possibility2').selectpicker({
+	 $('#cc_possibility').selectpicker({
 	        'selectedText': 'cat'
 	 });
 	 
-	// 上传头像
-	$("#upload_btn").unbind().on("click",function(){
-		var pkvalue = document.addForm.cc_code.value;
-		if( "" == pkvalue ){
-			ccms.dialog.notice("请保存资源信息后再上传头像", 2000);
-		}else{
-			ccms.dialog.open({url: contextPath+"/action/project/fitness/util/attachment/photo/crud?table_code=cc_guest&pk_value="+pkvalue, height: "600", width: "630"});
-		}
-	});
+	 getSelectDomain("province", "Province");
+		$("#province").change(function(){
+		    getSelectDomain("city", "City", "Province", $(this).val(),function(){
+	       		setSelectValue($("#city"), init_event_city);
+	        });
+		});
 	
-	$(".header-close").unbind().on("click",function(){
-		$("#modalAddnew").modal('hide');
-		ccms.util.clearForm('addForm');
-	});
+		// 下拉搜索初始化
+		searchSelectInit($("#cc_mc"));
 	
-	//分配顾问
-	$("#change_btn").unbind().on("click",function(){
-		var obthis = getCheckboxValue("datalist");
-		var count = obthis.split(",").length;
-		if(obthis!= ""){
-			$Dialog().confirm("选定的"+count+"个将更换会籍顾问，是否继续！",function(){
-				ccms.dialog.open({url : '${def:context}${def:actionroot}/distribution/crud?guestcode='+obthis, width:'1000',height:'600'});
-			});
-		}else{
-			ccms.dialog.notice("请选择!");
-		}
-	});
-	
-	$("#businesstype").hide();
-	setSelectValue($("#custcations2"), "");
-	setSelectValue($("#possibility2"), "");
-	$("#custcation2").val("");
-	$("#possibility2").val("");
-	$("#communication2").change(function(){
-		setSelectValue($("#custcations2"), "");
-		$("#custcation2").val("");
-		var cust2=$("#communication2").val();
-			if(cust2==''){
-				$('#businesstype').hide();
-				setSelectValue($("#custcations2"), "");
-				$("#custcation2").val("");
-			}else{
-				if(cust2==2){
-					$('#businesstype').show();
-				}else{
-					$('#businesstype').hide();
-					setSelectValue($("#custcations2"), "");
-					$("#custcation2").val("");
-				}
-			}
-	});
-	
-	//办卡
-	$("#banka").unbind().on("click",function(){
-		var guestid =$('input[name="datalist"]:checked').val();
-		var leng=$('input[name="datalist"]:checked').length
-		if(guestid!=""&&leng==1){
-			ccms.dialog.open({url:"${def:context}/action/project/fitness/contract/newcard/create/form?guestcode="+guestid,id:"dialogPic"});
-		}else{
-			ccms.dialog.notice("请选择一条数据!");
-		}
-	});
-	
-	$('#look').on('click',function(){
-		var leng=$('input[name="datalist"]:checked').length
-		var code=$('input[name="datalist"]:checked').val();
-		var status=$('input[name="datalist"]:checked').attr('code');
-		if(leng!=1||code==''||code==null){
-			ccms.dialog.notice("请选择中一条进行查看!");
-		}else{
-			ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='+1+'&guestcode='+code+"&status="+status});
-		}
-	})
-	$("#custcations2").change(function(){
-		$("#custcation2").val($("#custcations2").val()); 
-	})
-	$("#possibility2").change(function(){
-		$("#possibility3").val($("#possibility2").val()); 
-	})
+		$("#cc_thecourse").change(function(){
+			$("#custcation2").val($("#cc_thecourse").val()); 
+		})
+		$("#cc_possibility").change(function(){
+			$("#possibility3").val($("#cc_possibility").val()); 
+		})
 	
 	
-	
-	
-	$('#save_btn').on('click',function(){
-		$("#custcation").val($("#custcations").val());
-		$("#possibility4").val($("#possibility").val());
-		if($('#cc_code').val()!=""){
-			$('#cc_mc').attr('disabled',true);
-			update();
-		}else{
-			$('#cc_mc').attr('disabled',false);
-			 var namelen=$("[name=storename]");
-			 for (var i = 1; i < namelen.length; i++) {
-				 var fendname=$("[name=storename]").eq(i).val();
-				 var fendaddress=$("[name=address]").eq(i).val();
-				 if(fendname=="" || fendname==null){
-					ccms.dialog.notice("店名不可以为空！", 2000);
-					return false;
-				 }
-				 if(fendaddress=="" || fendaddress==null){
-					ccms.dialog.notice("店地址不可以为空！", 2000);
-					return false;
-				 }
-				
-			 }
-			insert();
-		}
-	})
-	//修改信息
-	$('#edit_btn').on('click',function(){
-		$('#formTitle').text('修改');
-		$('#cc_mc').attr('disabled',true);
-		$(".lis").hide();
-		$("#toss").hide();
-		$(".ttbin").show();
 
-		$("#businesstype1").hide();
-		setSelectValue($("#custcations"), "");
-		$("#custcation").val("");
-		$("#communication").change(function(){
-			var cust=$("#communication").val();
-				if(cust==''){
-					$('#businesstype1').hide();
-					setSelectValue($("#custcations"), "");
-				}else{
-					if(cust==2){
-						$('#businesstype1').show();
-					}else{
-						$('#businesstype1').hide();
-						setSelectValue($("#custcations"), "");
-					}
-				}
-		});
-		
-		//清空form下所有select
-		$("#addForm select").each(function(){
-			setSelectValue($("#"+$(this).attr("name")), "");
-		});
-		edit();
-	})
-	
-	$('#recommend').on('blur',function(){
-		getCustome();
-	})
-	$("#addpay_btnbin").on("click",function(e){
-		
-		appendSale();
-	});
-	
-	
-	//新增
-	$("#addnew_btn").on("click", function(e){
-		$("#salelist").empty();
-		ccms.util.clearForm('addForm');
-		//清空form下所有select
-		$("#addForm select").each(function(){
-			setSelectValue($("#"+$(this).attr("name")), "");
-		});
-		$('#formTitle').text('新增');
-		$('#modalAddnew').modal('show');
-		$(".lis").show();
-		$("#toss").show();
-		$(".ttbin").hide();
-		$("#businesstype1").hide();
-		setSelectValue($("#custcations2"), "");
-		$("#custcation2").val("");
-		setSelectValue($("#possibility2"), "");
-		$("#possibility3").val("");
-		$("#communication").change(function(){
-			var cust=$("#communication").val();
-				if(cust==''){
-					$('#businesstype1').hide();
-					setSelectValue($("#custcations"), "");
-				}else{
-					if(cust==2){
-						$('#businesstype1').show();
-					}else{
-						$('#businesstype1').hide();
-						setSelectValue($("#custcations"), "");
-					}
-				}
-		});
-		
-		
-	});
-	
-	
-	
-	$('#cc_mobile').on('blur',function(){
-		checkTel($('#cc_mobile').val(),"cc_mobile");
-	})
-	$('#cc_officetel').on('blur',function(){
-		checkTel($('#cc_officetel').val(),"cc_officetel");
-	})
-	$('#cc_othertel').on('blur',function(){
-		checkTel($('#cc_othertel').val(),"cc_othertel");
-	})
-	$('#cc_card').on('blur',function(){
-			IdentityCodeValid($('#cc_card').val(),'cc_card');
-	})
-	//验证邮箱
-	$('#cc_email').on('blur',function(){
-		checkEmail($('#cc_email').val(),'cc_email');
-	})	
-	$("#guestnum").on('blur', function () {
-		checknum($('#guestnum').val(),'guestnum');
-	})
-	
-	if( "undefined" != "${fld:startdate}" && "" != "${fld:startdate}" ){
-		$("#_start_date").val("${fld:startdate}");
-	}else if( "all" != "${fld:datetype}" ){
-		$("#_start_date").val(new Date().format("yyyy-MM-01"));
-	}
-	if( "undefined" != "${fld:enddate}" && "" != "${fld:enddate}" ){
-		$("#_end_date").val("${fld:enddate}");
-	}else if( "all" != "${fld:datetype}" ){
-		$("#_end_date").val("${def:date}");
-	}
-	if( "undefined" != "${fld:vc_mc}" && "" != "${fld:vc_mc}" ){
-		$("#skill_name").val("${fld:vc_mc}");
-	}else{
-		$("#skill_name").val("${def:user}");
-	}
-	if( "undefined" != "${fld:i_public}" && "" != "${fld:i_public}" ){
-		$("#i_public").val("${fld:i_public}");
-	}
-	$("#resource").on('ifClicked',function(){
-		if($("#resource").is(':checked')){
-			$("#kh_zyfpcx").attr('disabled','disabled');
-		}else{
-			$("#kh_zyfpcx").removeAttr('disabled');
-		}
-	});
 		this.search=search;
 		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
-			$("table").css("table-layout","auto");
-		ccms.util.renderCheckbox("datalist");
-		$("#searchForm #vc_name").val("");
 		
-			
-		//全选   取消全选
-	    $("#selectAll").unbind().on("ifClicked",function(){    //点击事件未选中
-		 if( $(this).prop("checked") ){// 
-			$('input[name=datalist]').iCheck('uncheck');
-		 }else{
-			$('input[name=datalist]').iCheck('check');  //
-		 }
-	    });
-			//导出
-			$("#daochu_list").unbind().on("click", function(){
-		         $("#daochu_start_date").val($("#_start_date").val());
-		         $("#daochu_end_date").val($("#_end_date").val());
-		         $("#daochuvc_name").val($("#vc_name").val());
-		         $("#daochui_public").val($("#i_public").val());
-		         $("#daochu_period_day").val($("#period_day").val());
-		         $("#daochu_newmc").val($("#newmc").val());
-		         
-		     	var filterconditionscolumn = $("#filterconditionscolumn").val().split(",");
-		     	var daochufilterconditionshtml = "";
-		     	$.each(filterconditionscolumn,function(i, val){
-		     		daochufilterconditionshtml+="<input name='daochu_"+val+"' id='daochu_"+val+"' value='"+$("#"+val).val()+"' type='text' class='filterconditions' />";
-		     	});
-		     	$("#daochufilterconditionshtml").html(daochufilterconditionshtml);
-		         $("#daochuForm").submit();
-	   	     });
-			}}).initSearchBtn().searchData(1);
-	//地址搜索
- 	getSelectDomain("province", "Province");
-	$("#province").change(function(){
-	    getSelectDomain("city", "City", "Province", $(this).val(),function(){
-       		setSelectValue($("#city"), init_event_city);
-        });
-	});
-	//公司地址
-	getSelectDomain("province2", "Province");
-	$("#province2").change(function(){
-		getSelectDomain("city2", "City", "Province", $(this).val(),function(){
-         	setSelectValue($("#city2"), init_event_city2);
-        });
-	});
+		}}).initSearchBtn().searchData(1);
+ 	
+	
 
-	// 下拉搜索初始化
-	searchSelectInit($("#cc_mc"));
-	//条件筛选
-	$("#filter_btn").unbind().on('click',function(){
-		ccms.dialog.open({url : "${def:context}${def:actionroot}/filter", width:1000, height:670});
-	})
 })
 
 function detailptrest(code) {
 	ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/follow/custcomm?cust_type=1&type=1&commtype='+1+'&guestcode='+code+"&status="});
 	}
 
-function update(){
-	var uri="${def:context}/action/project/fitness/guest/detail/gustmanage/update";
-	   ajaxCall(uri,{
-		   	method: "post",
-		   	form:"addForm",
-		   	progress: false,
-		   	dataType: "script",
-		   	success: function() {
-		   		ccms.dialog.notice("修改成功!", 2000, function(){
-		   			var yeshu = $("#pageNo").val();
-			   		$('#modalAddnew').modal('hide');
-			   		/* ccms.util.clearForm('addForm'); */
-			   		search.initSearchBtn().searchData(yeshu);
-			   		$('#modalAddnew').prop('scrollTop','0');
-		   		});
-	   		}
-	   	}); 
-}
-
-function removeObj(obj){
-	$(obj).parent().remove();
-	
-	cumulative--;
-	var str="";
-	var i=0;
-	var namelen=$("[name=storename]");
-	
-	for (var i = 1; i < namelen.length; i++) {
-		str +="<li>";
-		str +='<label>分店'+i+'名称</label> ';
-		str +='<input type="text" id="storename" name="storename" value="'+$("[name=storename]").eq(i).val()+'" maxlength="80" placeholder="分店'+i+'名称" />';	
-		str +='<label>分店地址</label> ';
-		str +='<input  type="text" id="address" name="address" value="'+$("[name=address]").eq(i).val()+'" maxlength="500" placeholder="地址详细信息" />';	
-		str +='&nbsp;&nbsp;&nbsp;&nbsp;';
-		str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
-		str +='<input type="hidden"  name="states" value="1" />	';
-		str +="</li>";
-	}
-	$('#salelist').html("");
-	$('#salelist').append(str); 
-}
-
-function insert(){
-
-	var uri="${def:context}/action/project/fitness/guest/detail/gustmanage/insert";
-	   ajaxCall(uri,{
-		   	method: "post",
-		   	form:"addForm",
-		   	progress: false,
-		   	dataType: "script",
-		   	success: function() {
-				ccms.dialog.notice("新增成功!", 2000, function(){
-			   		$('#modalAddnew').modal('hide');
-			   		ccms.util.clearForm('addForm');
-			   		search.searchData(1);
-			   		$('#modalAddnew').prop('scrollTop','0');
-				});
-	   		}
-	   	}); 
-}
-
-function edit(){
-	var leng=$('input[name="datalist"]:checked').length
-	var code=$('input[name="datalist"]:checked').val();
-	if(leng!=1||code==''||code==null){
-		ccms.dialog.notice("请选择一条进行修改!");
-	}else{
-		ccms.util.clearForm('addForm');
-		$('#modalAddnew').prop('scrollTop','0');
-		var uri="${def:context}/action/project/fitness/guest/detail/gustmanage/edit?code="+code;
-		   ajaxCall(uri,{
-		   	method: "get",
-		   	progress: false,
-		   	dataType: "script",
-		 	async:false,
-		   	success: function() {
-		   		$('#modalAddnew').modal('show');
-		 	  	}
-			});
-		}
-}
 
 
-function getCustome(){
-	$("#cus_code").val("");
-	if($('#recommend').val()!=''){
-		ccms.dialog.open({url : "${def:context}/action/project/fitness/util/querycustlist/crud?pickcustname="+$('#recommend').val()+"&objid=cus_code&objidtwo=recommend&random_number="+Math.random()});
-	}
-}
-	
-function checkTel(value,str){
-    var isPhone = /^[1][3,4,5,7,8][0-9]{9}$/;
-    var isMob=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
-    var value= value
-    if(!isMob.test(value)&&!isPhone.test(value)){
-    	ccms.dialog.notice("请输入正确手机号或电话号!");
-	    	 $('#'+str).val('');
-	    }
-   }
-function checknum(num,str){
-　　　　if (num=="") { 
-		ccms.dialog.notice("请输入内容");
-		$('#'+str).val('');
-　　　　　　return false; 
-　　　　} 
-　　　　if (!(/(^[1-9]\d*$)/.test(num))) { 
-		ccms.dialog.notice("输入的不是正整数");
-		$('#'+str).val('');
-　　　　　　return false; 
-　　　　}
-}
+
 	
 function IdentityCodeValid(code,str) { 
     var city={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江 ",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北 ",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏 ",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外 "};
@@ -606,31 +224,8 @@ function IdentityCodeValid(code,str) {
     }
 }
 
-function checkEmail(value,str){
-	var value=value
-	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	if(!myreg.test(value)){
-		ccms.dialog.notice('请输入有效的E_mail！');
-	 $('#'+str).val('');
-	}
-}
 
-function appendSale(){
-	
-	var str="";
-	str +='<li>';
-	str +='<label>分店'+cumulative+'名称</label> ';
-	str +='<input type="text" id="storename" name="storename" value="" maxlength="80" placeholder="分店'+cumulative+'名称" />';	
-	str +='<label>分店地址</label> ';
-	str +='<input  type="text" id="address" name="address" value="" maxlength="500" placeholder="地址详细信息" />';	
-	str +='&nbsp;&nbsp;&nbsp;&nbsp;';
-	/* str +='<i class="am-icon-plus" id="addpay_btnbin" title="添加"></i>'; */
-	str +='<label  style="color:red" onclick="removeObj(this)">删除</label>';
-	str +='<input type="hidden"  name="states" value="1" />	';
-	str +='</li>';
-	$('#salelist').append(str);
-	cumulative++;
-}
+
 
 //回调查询方法,不要删除
 function pickcustCallback(){}
