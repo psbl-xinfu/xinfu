@@ -1,4 +1,4 @@
-select 
+select
 	the.code as thecode
 	,the.name as thename
 	,the.mobile as  themobile
@@ -15,6 +15,19 @@ left join cc_branch b on the.branchcode = b.code
 left join cc_position p on the.possibility= p.code
 left join 
 (select thecontactcode,remark,created from cc_comm 
-left join ( select max (code)as code from cc_comm group by thecontactcode)  cc on cc.code =cc_comm.code) c on c.thecontactcode=the.code
- 
-order by created
+right join ( select max (code)as code from cc_comm group by thecontactcode)  cc on cc.code =cc_comm.code) c on c.thecontactcode=the.code
+WHERE 
+(case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
+			where ( exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
+			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
+			then 1=1 else g.mc = '${def:user}' end)
+and  
+(case when 
+	${fld:city} is not null then g.province2 = ${fld:province} and g.city2=${fld:city}
+	when  ${fld:city} is null then (case when 
+		${fld:province} is not null then g.province2 = ${fld:province}
+		else 1=1
+	end)
+	else 1=1
+end)
+${filter} 

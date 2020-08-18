@@ -83,17 +83,17 @@ ${inc:/action/project/fitness/home/pub}
 								
 								<li>
 									<select id="cc_possibility" title="请选择可能性课程" name="cc_possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
-										<isgood-row2>
-											<option value="${fld:procodeis}">${fld:pronameis}</option>
-			                         	</isgood-row2>
+										<getisgood-row>
+											<option value="${fld:coucodeis}">${fld:counameis}</option>
+			                         	</getisgood-row>
 			                         </select>
 								</li>
 								<li class="hasCheck" >
-									<select id="cc_thecourse" title="请选择以上课程" name="cc_thecourse" class="selectpicker show-tick form-control" multiple data-live-search="false">
+									<select id="cc_thecourse" title="请选择以学课程" name="cc_thecourse" class="selectpicker show-tick form-control" multiple data-live-search="false">
 										
-										<product-row2>
-											<option value="${fld:procode}">${fld:proname}</option>
-			                         	</product-row2>
+										<getcourse-row>
+											<option value="${fld:coucode}">${fld:courname}</option>
+			                         	</getcourse-row>
 			                         </select>
 								</li>
 								
@@ -118,7 +118,7 @@ ${inc:/action/project/fitness/home/pub}
 							<tbody id="datagridTemplate" style="display: none">
 								<tr>
 									<td>
-						            	<a href="javascript:;" onclick="detailptrest('#thecode#')">#thename#</a>
+						            	<a href="javascript:;" onclick="detailptrest('#thecode#','#gcode#')">#thename#</a>
 						            </td>
 									<td>#gofficename#</td>
 									<td>#storename#</td>
@@ -179,10 +179,10 @@ $(document).ready(function() {
 		searchSelectInit($("#cc_mc"));
 	
 		$("#cc_thecourse").change(function(){
-			$("#custcation2").val($("#cc_thecourse").val()); 
+			$("#cc_thecourses").val($("#cc_thecourse").val()); 
 		})
 		$("#cc_possibility").change(function(){
-			$("#possibility3").val($("#cc_possibility").val()); 
+			$("#cc_possibilitys").val($("#cc_possibility").val()); 
 		})
 	
 	
@@ -224,6 +224,9 @@ function IdentityCodeValid(code,str) {
     }
 }
 
+function detailptrest(thecode,gcode) {
+	ccms.dialog.open({url : '${def:context}/action/project/fitness/guest/detail/gustmenu/thecontactinfo/crud?guestcode='+gcode+"&thecode="+thecode});
+}
 
 
 
