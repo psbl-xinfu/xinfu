@@ -1,2 +1,2 @@
 and
-	cm.commresult = ${fld:commstage}
+	c.commresult = ${fld:daochu_commstage}

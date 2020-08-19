@@ -186,6 +186,8 @@ ${inc:/action/project/fitness/home/pub}
         <input id="daochu_end_date" name="daochu_end_date" type="text" />
 		<input id="daochu_commstage" name="daochu_commstage"  type="text"/>
 		<input id="daochu_createdby" name="daochu_createdby"  type="text"/>
+		<input id="daochu_vc_name" name="daochu_vc_name"  type="text"/>
+		
 		<div id="daochufilterconditionshtml">
 		</div>
 	</form>	
@@ -250,10 +252,11 @@ $(document).ready(function() {
 		search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
 		ccms.util.renderCheckbox("datalist");
 		$("#daochu_list").unbind().on("click", function(){
-	         $("#daochu_start_date").val($("#_start_date").val());
-	         $("#daochu_end_date").val($("#_end_date").val());
-	         $("#daochu_commstage").val($("#vc_name").val());
-	         $("#daochu_createdby").val($("#i_public").val());
+	         $("#daochu_start_date").val($("#startdate").val());
+	         $("#daochu_end_date").val($("#enddate").val());
+	         $("#daochu_commstage").val($("#commstage").val());
+	         $("#daochu_createdby").val($("#createdby").val());
+	         $("#daochu_vc_name").val($("#vc_name").val());
 	         $("#daochuForm").submit();
   	     });
 	}}).initSearchBtn().searchData(1);

@@ -7,8 +7,8 @@
 	</summary>
 	
 	<log>false</log>
-	
-	<colname></colname>
+
+	<colname>daochu_vc_name,daochu_start_date,daochu_end_date,daochu_commstage,daochu_createdby</colname>
 	<sql-template>query-base.sql</sql-template>
 
 	<transaction>
@@ -29,7 +29,7 @@
 		<col id="cc_position" label="职位" />
 		<col id="created" label="跟进时间" />
 		<col id="gj_commresult" label="跟进状态" />
-		<col id="remark" label="跟进内容" />
+		<col id="mmremark" label="跟进内容" />
 	</excel>
 
 </config>
