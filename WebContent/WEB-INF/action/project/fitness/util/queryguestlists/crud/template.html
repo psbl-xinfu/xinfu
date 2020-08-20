@@ -250,6 +250,9 @@ $(document).ready(function() {
 		$("#possibility4").val($("#possibility").val());
 		
 			$('#cc_mc').attr('disabled',false);
+			if($("#guestnum").val()=""||$("#guestnum").val()==null){
+				$("#guestnum").val(0);
+			}
 			 var namelen=$("[name=storename]");
 			 for (var i = 1; i < namelen.length; i++) {
 				 var fendname=$("[name=storename]").eq(i).val();

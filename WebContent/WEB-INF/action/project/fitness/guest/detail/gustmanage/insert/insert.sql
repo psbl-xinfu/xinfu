@@ -41,7 +41,7 @@ values
 	'${def:user}',
 	{ts '${def:timestamp}'},
 	${def:org},
-	(case when ${fld:guestnum}::int >1 then ${fld:guestnum} else 1 end),
+	${fld:guestnum},
 	${fld:thepublic},
 	${fld:cc_channel},
 	${fld:possibility4}
