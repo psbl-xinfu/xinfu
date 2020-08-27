@@ -2,4 +2,5 @@
 <validator>
 	<parameter id="mc" type="varchar" required="false" label="会籍" />
 	<parameter id="shijian" type="varchar" required="false" label="时间"/>
+	<parameter id="i_status" type="varchar" required="false" label="时间"/>
 </validator>

@@ -79,7 +79,6 @@ public class Login extends GenericTransaction
 			
 			//verificar si el usuario es de LDAP o de DB
 			String sqlCheckLdap = getSQL(getResource("login-ldap.sql"), inputParams);
-			logger.info("++++++++++login-ldap.sql========================"+sqlCheckLdap);
 			//crea un recordset con la data obtenida
 			Recordset rsLDAP = db.get(sqlCheckLdap);
 			
@@ -114,7 +113,6 @@ public class Login extends GenericTransaction
 					if (i > j && ( null == isAutoLock || !"false".equals(isAutoLock) ) )
 					{
 						String sql = getResource("disable.sql");
-						logger.info("++++++++++disable.sql========================"+sql);
 						sql = getSQL(sql,inputParams);
 						db.exec(sql);
 						rc = 4;
@@ -134,7 +132,6 @@ public class Login extends GenericTransaction
 				
 				//save login history record
 				String sqlLog = getResource("insert-loginlog.sql");
-				logger.info("++++++++++insert-loginlog.sql========================"+sqlLog);
 				sqlLog = getSQL(sqlLog, rs1);
 				db.exec(sqlLog);
 
@@ -155,7 +152,6 @@ public class Login extends GenericTransaction
 						//check if password has expired
 						String gpolicy = (String)getRequest().getAttribute("dinamica.security.passpolicy"); //get default policy
 						String sql1 = getSQL(getResource("check-passdate.sql"), rs1);
-						logger.info("++++++++++check-passdate.sql========================"+sql1);
 						Recordset rsPass = db.get(sql1,1);
 						if (rsPass.getRecordCount()>0)
 						{
@@ -183,7 +179,6 @@ public class Login extends GenericTransaction
 							String sessionTrace = getConfig().getConfigValue("session-trace");
 							if (sessionTrace!=null && sessionTrace.equalsIgnoreCase("true")) {
 								sqlLog = getSQL(getResource("insert-session.sql"), rs1);
-								logger.info("++++++++++insert-session.sql========================"+sqlLog);
 								db.exec(sqlLog);
 							}
 							
@@ -192,7 +187,6 @@ public class Login extends GenericTransaction
 							
 							//get user roles
 							String sqlRoles = getSQL(getResource("roles.sql"), rs1);
-							logger.info("++++++++++roles.sql========================"+sqlRoles);
 							Recordset rs2 = db.get(sqlRoles);
 
 							String roles[] = new String [rs2.getRecordCount()];
@@ -205,7 +199,6 @@ public class Login extends GenericTransaction
 				
 							//get user skills
 							String sqlSkills = getSQL(getResource("skills.sql"), rs1);
-							logger.info("+++++++skills.sql========================"+sqlSkills);
 							Recordset rsSkill = db.get(sqlSkills);
 							
 							String skills[] = new String [rsSkill.getRecordCount()];
@@ -218,28 +211,20 @@ public class Login extends GenericTransaction
 							
 							//create user object
 							DinamicaUser user = new DinamicaUser(inputParams.getString("userlogin"), roles, skills);
-							logger.info("+++++++user========================"+user);
 							//store user object into session attribute
 							getSession().setAttribute("dinamica.security.login", user);
-							logger.info("+++++++user2========================"+user);
 							//set redirect URL
 							getRequest().setAttribute("dinamica.security.uri", (inputParams.getString("uri")==null?"":inputParams.getString("uri")));
-							logger.info("+++++++uri========================"+inputParams.getString("uri"));
 							String weixinIdString=inputParams.getString("weixin_id");
-							logger.info("+++++++weixinIdString========================"+weixinIdString);
 							if("".equals(weixinIdString)&&null==weixinIdString){
 								String updateUseridSql = getSQL(getResource("update-weixin.sql"),inputParams);
-								logger.info("+++++++update-weixin.sql========================"+updateUseridSql);
 								String deleteWeixinSql = getSQL(getResource("delete-weixin.sql"),inputParams);
-								logger.info("+++++++delete-weixin.sql========================"+deleteWeixinSql);
 								String insertWeixinSql = getSQL(getResource("insert-weixin.sql"),inputParams);
-								logger.info("+++++++insert-weixin.sql========================"+insertWeixinSql);
 								db.equals(updateUseridSql);
 								if(!"".equals(weixinIdString)&&null!=weixinIdString){
 									db.equals(updateUseridSql);
 								}
 								String weixinLocation=inputParams.getString("weixin_location");
-								logger.info("login success weixin location"+weixinLocation);
 
 								if(!"".equals(weixinLocation)&&null!=weixinLocation){
 									String[] ll=weixinLocation.split(",");
@@ -256,7 +241,6 @@ public class Login extends GenericTransaction
 				else
 				{
 					String sql1 = getSQL(getResource("check-audit.sql"), rs1);
-					logger.info("++++++++++++++check-audit.sql========================"+sql1);
 					Recordset rs =db.get(sql1);
 					rs.next();
 					int is_audit =rs.getInt("is_audit");
@@ -329,19 +313,14 @@ public class Login extends GenericTransaction
 	 */
 	public void getUserPrefs(Db db, Recordset user) throws Throwable
 	{
-		logger.info("+++++++get+++user___========================"+user.getString("tenantry_id"));
 		String locale = user.getString("locale");
 		java.util.Locale l = new java.util.Locale(locale != null?locale:"cn");
 		getSession().setAttribute("dinamica.user.locale", l);
 		
 		if(user.containsField("tenantry_id")){
-			logger.info("+++++++tenantry_id========================"+user.getString("tenantry_id"));
 			getSession().setAttribute("dinamica.user.tenantry", user.getString("tenantry_id"));
-			logger.info("+++++++subject_id========================"+user.getString("subject_id"));
 			getSession().setAttribute("dinamica.user.subject", user.getString("subject_id"));
-			logger.info("+++++++org_id========================"+user.getString("org_id"));
 			getSession().setAttribute("dinamica.user.org_", user.getString("org_id"));
-			logger.info("+++++++user_id========================"+user.getString("user_id"));
 			getSession().setAttribute("dinamica.user.id", user.getString("user_id"));
 			getSession().setAttribute("dinamica.user.type", "1");
 			//getSession().setAttribute("dinamica.user.name", user.getString("user_name"));
@@ -375,7 +354,6 @@ public class Login extends GenericTransaction
 		
 		//get sql for login DB
 		String sqlLogin = getSQL(getResource("login.sql"), inputParams);
-		logger.info("++++++++++login.sql========================"+sqlLogin);
 		
 		//get user
 		Recordset rs = getDb().get(sqlLogin);

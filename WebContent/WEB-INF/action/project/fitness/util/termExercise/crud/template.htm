@@ -32,6 +32,14 @@ ${inc:/action/project/fitness/home/pub}
 											<option value="4">三个月以上</option>
 										 </select>
 									</li>	
+									<li>
+										<select id="i_status" name="i_status" style="display: none;">
+											<option value="">卡状态</option>
+											<cardstatus>
+												<option value="${fld:domain_value}">${fld:domain_text_cn@js}</option>
+											</cardstatus>
+										</select>			 	
+									 </li>
 								  	<div class="r-c-btnList">
 										<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
 									</div>						
@@ -85,7 +93,7 @@ ${inc:/action/project/fitness/home/pub}
 	<script language="JavaScript">
 		var search = null;
 		$(document).ready(function() {
-			searchSelectInit($("#mc,#shijian"));
+			searchSelectInit($("#mc,#shijian,#i_status"));
 		/* 	$Dialog().date($('#s_start_date'));
 			$Dialog().date($('#s_end_date'));
 			$("#s_start_date").val(new Date().format("yyyy-MM-01"));

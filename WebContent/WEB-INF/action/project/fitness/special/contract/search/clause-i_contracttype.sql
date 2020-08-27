@@ -1,5 +1,5 @@
  and (CASE ${fld:i_contracttype} WHEN 0 THEN (c.type = 0 AND c.contracttype NOT IN (1,2,3)) --办卡合同
-		WHEN 1 THEN (c.type = 5 AND c.contracttype NOT IN (1,2,3)) --定金合同
+		WHEN 1 THEN (c.status=2 and c.contracttype!=3 and c.normalmoney!=c.factmoney) --定金合同
 		WHEN 2 THEN (c.contracttype = 3) --还款合同
 		WHEN 3 THEN (c.contracttype = 1 OR c.contracttype = 2 OR c.type = 6) --升级合同
 		WHEN 4 THEN (c.type = 2 AND c.contracttype NOT IN (1,2,3)) --私教合同
