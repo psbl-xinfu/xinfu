@@ -337,17 +337,16 @@ display:inline-block;
 			 			<li class="to100w" style="margin-left: 6%">
 							<label>公司备注</label>
 							<textarea id="cc_remark" name="cc_remark" placeholder="暂无数据" class="my-textarea" rows="" cols="4"></textarea>
-			 				<footer class="footer-default"><button id="save_btn" class="my-btn-default active">保存</button></footer>
 						
 						</li>	
 						
 					</nav>
 					</form>
-			 		<footer >
-			 			
-			 		</footer>
+			 		
 				</div>
-				
+				<footer class="footer-default">
+					<button id="save_btn" class="my-btn-default active">保存</button>
+				</footer>
 			</div>
 		</div>	
 	<div id="main" class="dialogbg" style="height: 80%;font-size:12px">
@@ -392,7 +391,7 @@ display:inline-block;
 		<div class="row1">
 			<div class="first">
 				<span class="lable1">备注：</span>
-				<span class="lable2 nowidth" id="remark"></span>
+				<span class="lable6" id="remark"></span>
 			</div>
 		</div> 
 		<footer class="footer-default">
@@ -616,10 +615,7 @@ $(document).ready(function() {
 				   	dataType: "script",
 				   	success: function() {
 						ccms.dialog.notice("修改成功!", 2000, function(){
-					   		$('#modalAddnew').modal('hide');
-					   		ccms.util.clearForm('addForm');
-					   		search.searchData(1);
-					   		$('#modalAddnew').prop('scrollTop','0');
+							location.reload();
 						});
 			   		}
 			   	}); 

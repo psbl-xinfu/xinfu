@@ -384,6 +384,7 @@ display:inline-block;
 		var search = null;
 		var the_code="${fld:thecode}";
 		var guest_code="${fld:guestcode}";
+		var guestnamebin="";
 		$(document).ready(function() {
 			
 			searchSelectInit($("#cc_sex,#cc_position,#cc_branchcode,#cc_possibility,#cc_thecourse"));
@@ -432,7 +433,11 @@ display:inline-block;
 						   	success: function() {
 								ccms.dialog.notice("修改成功!", 2000, function(){
 									$('#modalAddnew').modal('hide');
-									parent.parent.location.reload();
+									if($("#guestblur").val()!=guestnamebin){
+										parent.parent.location.reload();
+									}else{
+										parent.location.reload();
+									}
 							   		$('#modalAddnew').prop('scrollTop','0');
 								});
 					   		}

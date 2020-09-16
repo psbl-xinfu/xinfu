@@ -451,7 +451,9 @@ $(document).ready(function() {
 	 $('#possibility2').selectpicker({
 	        'selectedText': 'cat'
 	 });
+	
 	 
+	 setSelectValue($("#newmc"), "${def:user}");
 	// 上传头像
 	$("#upload_btn").unbind().on("click",function(){
 		var pkvalue = document.addForm.cc_code.value;
