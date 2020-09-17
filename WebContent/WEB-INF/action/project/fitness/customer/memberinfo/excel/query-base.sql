@@ -1,23 +1,29 @@
-select
-	r.code,
-	(select t.tuid from t_attachment_files t where t.pk_value = r.code and t.table_code = 'cc_customer' and t.org_id= ${def:org} order by t.tuid desc limit 1) as imgid,
-	r.name as vc_name,
-	(case r.sex when '0' then '女' when '1' then '男' else '未知' end) as i_sex,
-	(select hr_staff.name  from hr_staff where hr_staff.userlogin=r.mc and hr_staff.org_id = '${def:org}') as vc_mc,
-	
-	(select count(1) from cc_comm where customercode = r.code and cc_comm.org_id = r.org_id) as tonghuanum,
-	(select created from cc_comm where customercode = r.code and cc_comm.org_id = r.org_id order by created desc  LIMIT 1) as tonghuadate,
-	(select intime from cc_inleft where customercode = r.code and cc_inleft.org_id = r.org_id order by intime desc LIMIT 1) as daodiandate,
-	  
- 	(select  enddate  from cc_card  where cc_card.customercode = r.code and cc_card.isgoon = 0  order by enddate desc limit 1 )as enddate
- 	,(case when (${fld:daochu_period_day}::int-('${def:date}'::date -(select created from cc_mcchange where customercode = r.code order by created desc limit 1)::date))<1 then 0 
- 	else (${fld:daochu_period_day}::int-('${def:date}'::date -(select created from cc_mcchange where customercode = r.code order by created desc limit 1)::date)) end) as datenum,
- 	r.mobile
-from  cc_customer r 
-where EXISTS(
-	SELECT 1 FROM cc_card d 
-	WHERE r.code = d.customercode AND d.isgoon = 0 AND d.org_id = r.org_id AND d.status != 0 AND d.status != 6
-) 
+select distinct cust.name as custname,cust.mobile,
+(case cust.sex when '0' then '女' when '1' then '男' else '未知'  end) as sex
+,cust.remark as custremark,(case cd.status when '0' then '无效'
+when '1' then '正常'
+when '2' then '未启用'
+when '3' then '存卡中'
+when '4' then '挂失中'
+when '5' then '停卡中'
+when '6' then '过期'
+ 
+end) as status,ct.name,ct.remark,cd.code,
+cc.incode,con.factmoney,iit.indate,cd.startdate,
+cd.enddate,cd.count,cd.nowcount,scd.prestopdays,
+scd.factstopdays,scd.reason,scd.money
+from cc_card cd
+left join cc_contract con on con.code = cd.contractcode
+left join cc_customer cust on cd.customercode=cust.code
+left join cc_cardcode cc on cc.cardcode=cd.code and cc.status=1
+left join cc_cardtype ct on ct.code=cd.cardtype  
+LEFT JOIN cc_savestopcard scd on scd.cardcode=cd.code and scd.stoptype='1'
+LEFT JOIN 
+(select it.indate,it.customercode,it.cardcode,it.org_id from cc_inleft it  
+RIGHT JOIN 
+(select  max(c.code) code from cc_inleft c  group by customercode  ) c  on c.code=it.code) iit on iit.cardcode=cd.code and iit.org_id=cd.org_id
+ 
+where cd.org_id=${def:org} and cd.isgoon!='-1'  and cust.status!=0
 /* 判断当前登录人是否是私教，私教查询全部会员*/
 and (case when (select skill_scope from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
@@ -26,8 +32,8 @@ and (case when (select skill_scope from hr_staff_skill hss inner join hr_skill h
 (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
 			where (hs.org_id = ${def:org} or exists(select 1 from hr_staff_org so where hs.org_id = so.org_id and userlogin = '${def:user}'))
 			and hss.userlogin = '${def:user}' and hs.data_limit = 1)
-			then 1=1 else r.mc = '${def:user}' end) end)
-AND r.org_id = ${def:org} and r.status!=0
+			then 1=1 else cust.mc = '${def:user}' end) end)
+AND cd.org_id = ${def:org} 
  ${filter}
  
 order by indate desc

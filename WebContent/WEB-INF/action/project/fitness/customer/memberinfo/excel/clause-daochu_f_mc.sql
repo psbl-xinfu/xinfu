@@ -1,2 +1,2 @@
  and
-	r.mc = ${fld:daochu_f_mc}
+	cust.mc = ${fld:daochu_f_mc}

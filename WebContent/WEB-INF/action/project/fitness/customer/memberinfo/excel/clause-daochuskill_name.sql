@@ -7,6 +7,6 @@ and (
 		SELECT 1 FROM cc_ptrest t 
 		WHERE t.customercode = r.code AND t.ptleftcount > 0 AND t.pttype != 5 AND t.org_id = r.org_id AND t.ptid=${fld:daochuskill_name}
 	) 
-	else r.mc = ${fld:daochuskill_name} end
+	else cust.mc = ${fld:daochuskill_name} end
 )
   

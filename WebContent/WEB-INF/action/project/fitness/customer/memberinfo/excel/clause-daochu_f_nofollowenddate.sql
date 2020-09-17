@@ -1,2 +1,2 @@
  and
-	r.created <= ${fld:daochu_f_nofollowenddate}
+	cust.created <= ${fld:daochu_f_nofollowenddate}

@@ -1,4 +1,4 @@
-select  cust.code,cust.name,(case WHEN cust.sex = '0' then '女' when cust.sex = '1' then '男' else '未知' end) as sex,cust.mobile,
+select1  cust.code,cust.name,(case WHEN cust.sex = '0' then '女' when cust.sex = '1' then '男' else '未知' end) as sex,cust.mobile,
 (case when iit.indate is null 
 	then cust.indate else iit.indate end) as indate,
 (NOW()::date-

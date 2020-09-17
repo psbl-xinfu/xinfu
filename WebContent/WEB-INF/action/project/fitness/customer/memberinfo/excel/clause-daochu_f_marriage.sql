@@ -1,2 +1,2 @@
  and
-	r.marriage = ${fld:daochu_f_marriage}
+	cust.marriage = ${fld:daochu_f_marriage}

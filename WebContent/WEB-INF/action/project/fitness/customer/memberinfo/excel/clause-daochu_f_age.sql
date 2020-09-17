@@ -1,2 +1,2 @@
  and
-	r.age = ${fld:daochu_f_age}
+	cust.age = ${fld:daochu_f_age}

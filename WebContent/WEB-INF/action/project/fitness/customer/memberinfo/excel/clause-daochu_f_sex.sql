@@ -1,2 +1,2 @@
  and
-	r.sex = ${fld:daochu_f_sex}
+	cust.sex = ${fld:daochu_f_sex}

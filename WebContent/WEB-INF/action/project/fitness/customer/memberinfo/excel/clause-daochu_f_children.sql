@@ -1,2 +1,2 @@
  and
-	r.children = ${fld:daochu_f_children}
+	cust.children = ${fld:daochu_f_children}

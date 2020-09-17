@@ -1,2 +1,2 @@
  and
-	r.type = ${fld:daochu_f_type}
+	cust.type = ${fld:daochu_f_type}

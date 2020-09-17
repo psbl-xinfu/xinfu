@@ -11,9 +11,9 @@
 	
 	<colname>daochuskill_name,daochu_start_date,daochu_end_date,daochuvc_all,daochuvc_cardtype,daochui_status
 	,daochu_f_sex,daochu_f_age,daochu_f_nofollowstartdate,daochu_f_nofollowenddate,daochu_f_startmonth,daochu_f_startday,daochu_f_endmonth
-	,daochu_f_endday,daochu_f_type,daochu_f_mc,daochu_f_purpose,daochu_f_stage,daochu_f_personalhobbit
-	,daochu_f_marriage,daochu_f_children,daochu_f_leave,daochu_f_protection,daochu_f_calltimes
-	,daochu_f_distributioncount,daochu_f_inleftnum,daochu_f_overduecard
+	,daochu_f_endday,daochu_f_type,daochu_f_mc,daochu_f_purpose,daochu_f_personalhobbit
+	,daochu_f_marriage,daochu_f_children,daochu_f_leave
+	,daochu_f_inleftnum,daochu_f_overduecard
 	</colname>
 	<sql-template>query-base.sql</sql-template>
 
@@ -29,15 +29,25 @@
 	</output>
 
 	<excel recordset="query-base.sql" sheetname="会员信息查询" filename="会员信息查询.xls" header-background="true">
-		<col id="datenum" label="保护期" />
-		<col id="vc_name" label="姓名" />
-		<col id="i_sex" label="性别" />
-		<col id="mobile" label="手机" />
-		<col id="vc_mc" label="会籍" />
-		<col id="tonghuanum" label="通话次数" />
-		<col id="tonghuadate" label="最后通话时间" />
-		<col id="daodiandate" label="最后到访时间" />
-		<col id="enddate" label="会籍截止日期" />
+		<col id="custname" label="姓名" />
+		<col id="sex" label="姓别" />
+		<col id="mobile" label="手机号码" />
+		<col id="name" label="卡种类别" />
+		<col id="remark" label="卡种备注信息" />
+		<col id="code" label="卡号" />
+		<col id="incode" label="卡内码" />
+		<col id="status" label="卡状态" />
+		<col id="prestopdays" label="预停卡天数" />
+		<col id="factstopdays" label="实停卡天数" />
+		<col id="reason" label="停卡原因" />
+		<col id="money" label="停卡实收金额" />
+		<col id="factmoney" label="购卡成交金额" />
+		<col id="indate" label="最后到访时间" />
+		<col id="startdate" label="起止时间" />
+		<col id="enddate" label="截止有效期" />
+		<col id="count" label="总次数" />
+		<col id="nowcount" label="剩余次数" />
+		<col id="custremark" label="会员备注信息" />
 		
 	</excel>
 
