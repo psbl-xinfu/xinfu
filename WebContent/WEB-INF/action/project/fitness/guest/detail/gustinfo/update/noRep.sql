@@ -1,3 +1,3 @@
-select 1 from cc_guest where  
-(case when officename=${fld:company} then 1=1 
-else 1=null end)
+select 1 from cc_guest g where g.officename=${fld:company}  and g.org_id='${def:org}' and
+not exists(select 1 from cc_guest where code = ${fld:cc_code} and g.code=code
+and org_id='${def:org}')
