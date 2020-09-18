@@ -5,7 +5,7 @@ and (
 	) 
 	then EXISTS(
 		SELECT 1 FROM cc_ptrest t 
-		WHERE t.customercode = r.code AND t.ptleftcount > 0 AND t.pttype != 5 AND t.org_id = r.org_id AND t.ptid=${fld:daochuskill_name}
+		WHERE t.customercode = cust.code AND t.ptleftcount > 0 AND t.pttype != 5 AND t.org_id = cust.org_id AND t.ptid=${fld:daochuskill_name}
 	) 
 	else cust.mc = ${fld:daochuskill_name} end
 )
