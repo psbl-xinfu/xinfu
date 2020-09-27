@@ -12,7 +12,7 @@ select
 	(select name from hr_staff where userlogin = f.createdby) as createdby
 from cc_fillcard f
 left join cc_customer cust on f.customercode = cust.code and f.org_id = cust.org_id
-left join cc_card card on f.oldcardcode = card.code and card.org_id = f.org_id 
+left join cc_card card on f.oldcardcode = card.code and card.org_id = f.org_id  and card.isgoon!='-1'
 where f.org_id = ${def:org} and f.status !=0
 ${filter}
 ${orderby}
