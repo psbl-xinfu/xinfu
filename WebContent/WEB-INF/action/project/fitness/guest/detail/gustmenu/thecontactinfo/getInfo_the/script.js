@@ -6,7 +6,7 @@ $('#themobile2').text("${fld:mobile2}");
 /*if("${fld:birth}"!=''&&"${fld:birthday}"!=''){
 	$('#birth').text("${fld:birth}月${fld:birthday}日");
 }*/
-$('#theguestname').text("${fld:theguestofficename}");
+$('#theguestname').append('<a href="javascript:;" onclick="refguestcode(${fld:refguestcode})">${fld:theguestofficename}</a>');
 $('#theposition').text("${fld:position}");
 $('#thebirthday').text("${fld:birthday}");
 $('#theemail').text("${fld:email}");

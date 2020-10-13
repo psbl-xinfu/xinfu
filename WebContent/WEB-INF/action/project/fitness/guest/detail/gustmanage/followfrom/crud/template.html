@@ -32,7 +32,7 @@ ${inc:/action/project/fitness/home/pub}
 						<textarea readonly="readonly" id="scremark" cols="50" rows="1" class="my-textarea" name="scremark" maxlength="6000">${fld:remark}</textarea>
 					</li>
 					<li>
-						<label style="width: 60px;">这次跟进状态：</label>
+						<label style="width: 130px;">这次跟进状态：</label>
 						<div class="my-selected">
 							<select  id="the_state" name="the_state" style="display: none;"> 
 								<option value="">选择跟进状态</option>
@@ -46,7 +46,7 @@ ${inc:/action/project/fitness/home/pub}
 								<option value="8">未成交</option>
 							</select>
 						</div> 
-						<label style="width: 60px;">可能性课程:</label>
+						<label style="width: 130px;">可能性课程:</label>
 						<div class="my-selected">
 							<select id="cc_possibility" title="请选择" name="cc_possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
 								<isgood-rows>
@@ -54,11 +54,25 @@ ${inc:/action/project/fitness/home/pub}
 								</isgood-rows>
 		                     </select>
 						</div> 
-						<label style="width: 60px;">下次跟进日期：</label></span>
-						<input id="_start_date" name="_start_date" type="text" class="input-default"/>
+						
 						
 					</li>
-					
+					<li>
+					<label style="width: 130px;">下次跟进日期：</label></span>
+						<input id="_start_date" name="_start_date" type="text" class="input-default"/>
+						<select class="normal-select" id="hour" name="hour">
+								<option value="">请选择</option>
+								<hour-list>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</hour-list>
+							</select>
+							<select class="normal-select" id="minute" name="minute">
+								<option value="">请选择</option>
+								<moment-list>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</moment-list>
+							</select>
+					</li>
 					<li class="to100w" style="margin-left: 6%">
 						<label style="width: 260px;">这次跟进内容：</label>
 						<textarea id="remark" cols="50" rows="1" class="my-textarea" name="remark" maxlength="6000"></textarea>
@@ -77,7 +91,7 @@ ${inc:/action/project/fitness/home/pub}
 <input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
-	searchSelectInit($("#the_state,#cc_possibility"));
+	searchSelectInit($("#the_state,#cc_possibility,#hour,#minute"));
 	$('#cc_possibility').selectpicker({
         'selectedText': 'cat'
  	});

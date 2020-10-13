@@ -7,6 +7,7 @@
     <parameter id="status" type="varchar" required="false" label="status" maxlen="64" />
     <parameter id="commtype" type="varchar" required="false" label="0显示右边跟进1不显示" maxlen="64" />
     <parameter id="homeunionorgid" type="varchar" required="false" label="homeunionorgid" maxlen="64"/>
+    <parameter id="tzthecode" type="varchar" required="false" label="跳转联系人id" maxlen="64"/>
     <!--parameter id="cust_type" type="varchar" required="true" label="资源/会员" maxlen="64" />
     <parameter id="type" type="varchar" required="true" label="0显示办卡按钮1不显示" maxlen="64" /-->
 </validator>

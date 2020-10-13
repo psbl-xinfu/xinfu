@@ -413,6 +413,7 @@ display:inline-block;
 		var branch_code="";
 $(document).ready(function() {
 	gust_code = "${fld:guestcode}";
+	var tzthecode="${fld:tzthecode}";
 	var menuorgid = "${fld:menuorgid}";
 		//帕斯贝利资源宝
 		searchSelectInit($("#cc_birthall,#possibility,#communicationall,#custcationsall,#cc_channelall,#province2,#city2,#cc_mc"));
@@ -614,9 +615,16 @@ $(document).ready(function() {
 				   	progress: false,
 				   	dataType: "script",
 				   	success: function() {
-						ccms.dialog.notice("修改成功!", 2000, function(){
-							location.reload();
-						});
+				   		if(tzthecode!=null||tzthecode!=""){
+				   			ccms.dialog.notice("修改成功!", 2000, function(){
+				   				parent.location.reload(); 
+							});
+				   		}else{
+				   			ccms.dialog.notice("修改成功!", 2000, function(){
+								location.reload();
+							});
+				   		}
+						
 			   		}
 			   	}); 
 		});

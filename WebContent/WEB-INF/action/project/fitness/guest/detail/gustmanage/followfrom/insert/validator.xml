@@ -6,5 +6,7 @@
     <parameter id="_start_date" type="varchar" required="true" label="下次跟进时间" />
 	<parameter id="thecode" type="varchar" required="true" label="联系人" />	
 	<parameter id="ofcode" type="varchar" required="true" label="公司编号" />	
+	<parameter id="hour" type="varchar" required="true" label="时间" />
+	<parameter id="minute" type="varchar" required="true" label="分中" />
 	<parameter id="thepossibility" type="varchar" required="false" label="可能性" />	
 </validator>

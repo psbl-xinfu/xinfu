@@ -13,11 +13,12 @@ ${inc:/action/project/fitness/home/pub}
 	<script language="JavaScript">
 $(document).ready(function() {
 	var menuorgid = "${fld:homeunionorgid}";
+	
 	if("${fld:homeunionorgid}"==""){
 		menuorgid = ${def:org};
 	}
 	$(".left_main_part").load(
-			"${def:context}/action/project/fitness/guest/detail/gustmenu/crud?gust_code=${fld:guestcode}&cus_code=${fld:customercode}&status=${fld:status}&ispubload=true&menuorgid="+menuorgid);
+			"${def:context}/action/project/fitness/guest/detail/gustmenu/crud?gust_code=${fld:guestcode}&cus_code=${fld:customercode}&status=${fld:status}&tzthecode=${fld:tzthecode}&ispubload=true&menuorgid="+menuorgid);
 		hideright();
 });
 function hideright(){

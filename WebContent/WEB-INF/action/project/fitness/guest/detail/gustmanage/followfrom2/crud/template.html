@@ -12,6 +12,7 @@ ${inc:/action/project/fitness/home/pub}
 		<form id="formEditor" name="formEditor" method="post">
        			<input id="ofcode" name="ofcode" type="hidden" value="${fld:ofcode}"  />
        			<input id="thecode" name="thecode" type="hidden" value="${fld:thecode}"  />
+       			<input id="thepossibility" name="thepossibility" type="hidden" value=""  />
        		<div class="modal-body b-i-main">
 				<nav>
 					<li>
@@ -45,15 +46,41 @@ ${inc:/action/project/fitness/home/pub}
 								<option value="8">未成交</option>
 							</select>
 						</div> 
-						<label style="width: 180px;">下次跟进日期：</label></span>
-						<input id="_start_date" name="_start_date" type="text" class="input-default"/>
+						<label style="width: 130px;">可能性课程:</label>
+						<div class="my-selected">
+							<select id="cc_possibility" title="请选择" name="cc_possibility" class="selectpicker show-tick form-control" multiple data-live-search="false">
+								<isgood-rows>
+									<option value="${fld:coucodeis}">${fld:counameis}</option>
+								</isgood-rows>
+		                     </select>
+						</div> 
+						
+						
 					</li>
-					
+					<li>
+					<label style="width: 130px;">下次跟进日期：</label></span>
+						<input id="_start_date" name="_start_date" type="text" class="input-default"/>
+						<select class="normal-select" id="hour" name="hour">
+								<option value="">请选择</option>
+								<hour-list>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</hour-list>
+							</select>
+							<select class="normal-select" id="minute" name="minute">
+								<option value="">请选择</option>
+								<moment-list>
+									<option value="${fld:domain_value}">${fld:domain_text_cn}</option>
+								</moment-list>
+							</select>
+					</li>
 					<li class="to100w" style="margin-left: 6%">
 						<label style="width: 260px;">这次跟进内容：</label>
 						<textarea id="remark" cols="50" rows="1" class="my-textarea" name="remark" maxlength="6000"></textarea>
 					</li>
 						
+					<li class="dateTime">
+						
+					</li>
 				</nav>
 			</div>
 		</form>
@@ -64,12 +91,19 @@ ${inc:/action/project/fitness/home/pub}
 <input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
-	searchSelectInit($("#the_state"));
+	searchSelectInit($("#the_state,#cc_possibility,#hour,#minute"));
+	$('#cc_possibility').selectpicker({
+        'selectedText': 'cat'
+ 	});
 	 $("#_start_date").val("${def:date}");
 	$Dialog().date($('#_start_date')); 
 	 $(document).click(function(){ 
 		$(".error").html("");
 	 });
+	 
+	 var possibility="${fld:possibility}";
+	 var possibilityarr=possibility.split(",");
+	 $('#cc_possibility').selectpicker('val', possibilityarr);
 	//添加跟进
 	$("#savea_btn").click(function(){
 		if($("#_start_date").val()<"${def:date}"){
@@ -79,7 +113,9 @@ $(document).ready(function() {
 		if($("#the_state").val()==""||$("#the_state").val()<1){
 			ccms.dialog.notice("请选择跟进状态!", 3000);
 		}else{
-			 $("#savea_btn").hide();
+			
+			$("#thepossibility").val($("#cc_possibility").val());
+			$("#savea_btn").hide();
 			var url = "${def:context}/action/project/fitness/guest/detail/gustmanage/followfrom/insert";
 			ajaxCall(url,{
 			   	method: "post",
@@ -87,9 +123,9 @@ $(document).ready(function() {
 			   	progress: false,
 			   	dataType: "script",
 			   	success: function() {
-			   		ccms.dialog.notice("跟进成功!", 1500, function(){
+			   		ccms.dialog.notice("跟进成功!", 2000, function(){
 				   		/* ccms.util.clearForm('addForm'); */
-				   		parent.search.searchData(1);
+				   		parent.location.reload();
 				   		ccms.dialog.close();
 					});
 		   		}

@@ -16,7 +16,7 @@ values
 	${fld:ofcode},
 	${fld:the_state},
 	${fld:thecode},
-	${fld:_start_date},
+	(${fld:_start_date}${fld:hour} ||':'||${fld:minute})::timestamp,
     ${fld:remark},
     '${def:user}',
     {ts'${def:timestamp}'},

@@ -12,6 +12,9 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 		<recordset id="query-thecontact.sql" source="sql" scope="transaction" />
+		<recordset id="getisgood.sql" source="sql" scope="transaction" />
+		<recordset id="query-Hour.sql" source="sql" scope="transaction" />
+		<recordset id="query-Moment.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -19,8 +22,11 @@
 		<template>template.html</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-Hour.sql" tag="hour-list"/>
+		<print mode="table" recordset="query-Moment.sql" tag="moment-list"/>
+		<print mode="table" recordset="getisgood.sql" tag="isgood-rows"/>
 		<print mode="form" recordset="query-thecontact.sql" />
-		<print mode="form" recordset="_request"/>
+		
 	</output>
 
 </config>

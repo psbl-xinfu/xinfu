@@ -16,7 +16,8 @@ select
 	possibility,
 	thecourse,
 	remark,
-	(select officename from cc_guest where code=cc_thecontact.guestcode ) as theguestofficename
+	(select officename from cc_guest where code=cc_thecontact.guestcode ) as theguestofficename,
+	guestcode as refguestcode 
 from 
 	cc_thecontact 
 where 

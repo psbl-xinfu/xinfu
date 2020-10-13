@@ -4,4 +4,5 @@
      <parameter id="cus_code" type="varchar" required="false" label="cus_code"/>
      <parameter id="status" type="varchar" required="false" label="status"/>
     <parameter id="menuorgid" type="varchar" required="true" label="menuorgid" maxlen="64"/>
+    <parameter id="tzthecode" type="varchar" required="false" label="tzthecode" />
 </validator>
