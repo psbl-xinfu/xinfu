@@ -11,7 +11,8 @@
 		<validator>true</validator>
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
-	    <recordset id="query-skill_name.sql" source="sql" scope="transaction"/> 
+	    <recordset id="query-skill_name.sql" source="sql" scope="transaction"/>
+	    <recordset id="query-cardstatus.sql" source="sql" scope="transaction"/>  
 	</transaction>
 	
 	<output>
@@ -20,5 +21,6 @@
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
 		<print mode="table" recordset="query-skill_name.sql" tag="mc-rows" />
+		<print mode="table" recordset="query-cardstatus.sql" tag="cardstatus" />
 	</output> 
 </config>

@@ -8,7 +8,10 @@
 		,"status":"${fld:status@js}"
 		,"indate":"${fld:indate@yyyy-MM-dd}"
 		,"cis":"${fld:cis}"
-		
+		,"enddate":"${fld:enddate@yyyy-MM-dd}"
+		,"code":"${fld:code}"
+		,"typename":"${fld:typename}"
+		,"sycs":"${fld:sycs}"
 	},
 	</rows>
 	{}

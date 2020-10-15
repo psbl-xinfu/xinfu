@@ -31,7 +31,14 @@ ${inc:/action/project/fitness/home/pub}
 										 		</mc-rows>
 										 </select>	
 									</li>
-									
+								<li>
+										<select id="i_status" name="i_status" style="display: none;">
+											<option value="">卡状态</option>
+											<cardstatus>
+												<option value="${fld:domain_value}">${fld:domain_text_cn@js}</option>
+											</cardstatus>
+										</select>			 	
+									 </li>
 								<li class="label-p">
 									<label for="rc-n-1-2">锻炼次数：</label>
 								</li>
@@ -64,7 +71,11 @@ ${inc:/action/project/fitness/home/pub}
 										<th>性别</th>
 										<th>手机</th>
 										<th>会籍</th>
+										<th>卡号</th>
+										<th>卡类型</th>
 										<th>卡状态</th>
+										<th>卡有效期</th>
+										<th>卡剩余次数</th>
 										<th>最后锻炼日期</th>
 										<th>锻炼次数</th>
 										<th></th>										
@@ -77,7 +88,11 @@ ${inc:/action/project/fitness/home/pub}
 										<td>#sex#</td>
 										<td>#mobile#</td>
 										<td>#mc#</td>
+										<td>#code#</td>
+										<td>#typename#</td>
 										<td>#status#</td>
+										<td>#enddate#</td>
+										<td>#sycs#</td>
 										<td>#indate#</td>
 										<td>#cis#</td>
 									</tr>
@@ -99,7 +114,7 @@ ${inc:/action/project/fitness/home/pub}
 		$("#startdate").val(new Date().format("yyyy-MM-01"));
 		$("#enddate").val("${def:date}");
 		$(document).ready(function() {
-			searchSelectInit($("#mc"));
+			searchSelectInit($("#mc,#i_status"));
 		/* 	$Dialog().date($('#s_start_date'));
 			$Dialog().date($('#s_end_date'));
 			$("#s_start_date").val(new Date().format("yyyy-MM-01"));

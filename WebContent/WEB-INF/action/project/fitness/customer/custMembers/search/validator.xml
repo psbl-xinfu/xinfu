@@ -5,4 +5,5 @@
 	<parameter id="enddate" type="varchar" required="false" label="结束时间"/>
 	<parameter id="min" type="varchar" required="false" label="最小次数"/>
 	<parameter id="max" type="varchar" required="false" label="最大次数"/>
+	<parameter id="i_status" type="varchar" required="false" label="卡状态"/>
 </validator>
