@@ -31,12 +31,22 @@ ${inc:/action/project/fitness/home/pub}
 						<input type="hidden" id="ptid" name="ptid" value="${fld:ptid}" readonly="readonly" />	
 					</li>
 					<li>
-						<label style="width: 146px;">剩余课时：${fld:ptleftcount}</label>
-						<input type="hidden" id="restclass" name="restclass" value="${fld:ptleftcount}" readonly="readonly" />	
+						<label style="width: 130px;">更换课程：</label>
+						<select id="ptdefcode" name="ptdefcode" style="display: none;">
+							<option value="">全部课程</option>
+							<ptdef-list>
+								<option value="${fld:code}">${fld:ptlevelname}</option>
+							</ptdef-list>
+						</select>
 					</li>
 					<li>
-						<label style="width: 130px;">修改课时：</label>
-						<input type="text" id="updateclass" name="updateclass" value="${fld:ptleftcount}"/>	
+						<label style="width: 130px;">课程单价：</label>
+						<input type="hidden" id="ptfee" name="ptfee" value="${fld:ptfee}" readonly="readonly" />	
+
+					</li>
+					<li>
+						<label style="width: 130px;">参考价格：</label>
+						<input type="text" id="ghfee" name="ghfee" value=""/>	
 					</li>
 <!-- 					<li>
 						<label style="width: 146px;">实际单价：${fld:ptfee}</label>
@@ -61,7 +71,7 @@ ${inc:/action/project/fitness/home/pub}
 <input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
-	
+	selectInit($("#ptdefcode")); 
 	//修改课时
 	$("#save_btn").click(function(){
 		if($("#updateclass").val()==""||$("#updateclass").val()<0){

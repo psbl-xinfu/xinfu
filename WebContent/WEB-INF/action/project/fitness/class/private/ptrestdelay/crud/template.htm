@@ -47,6 +47,9 @@
 						</nav>
 						<nav class="r-c-3-t-b-r">
 							<li>
+								<img src="${def:context}/js/project/fitness/image/SVG/nav/genghuan.svg"  height="31px" title="跟换" alt="" id="replace_btnbin">
+							</li>
+							<li>
 								<img src="${def:context}/js/project/fitness/image/SVG/nav/xiugai.svg" title="修改" alt="" id="update_btn">
 							</li>
 							<li>
@@ -141,10 +144,20 @@
 						ccms.dialog.notice("请选择!");
 					}
 				});
+				$("#replace_btnbin").unbind().on("click", function(){
+					var obthis = getCheckboxValue("ptrestradio");
+					if(obthis!= ""){
+						ccms.dialog.open({url : "${def:context}${def:actionroot}/replacefrom?code="+obthis, height: 600});
+					}else{
+						ccms.dialog.notice("请选择!");
+					}
+				});
 				
 			}
 		}).initSearchBtn().searchData(1);
 		//导出
+		/*  跟换课程  */
+				
 		$("#daochu_list").unbind().on("click", function () {
 			$("#daochu_ptdefcode").val($("#ptdefcode").val());
 			$("#daochu_cust").val($("#cust").val());
