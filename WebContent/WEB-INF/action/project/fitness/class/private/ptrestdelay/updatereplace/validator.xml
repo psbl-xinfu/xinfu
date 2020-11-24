@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<validator onerror="/action/ccms/validate">
+    <parameter id="code" type="varchar" required="true" label="私教课库存表code" />
+    <parameter id="ghfee" type="double" required="true" label="差价" />
+    <parameter id="ptdefcode" type="varchar" required="true" label="修改课程的id" />
+    <parameter id="remark" type="varchar" required="false" label="备注" />
+    <parameter id="pay_detail" type="varchar" required="false" label="金额明细" />
+    <parameter id="custcode" type="varchar" required="false" label="会员编号" />
+    <parameter id="ptlevelcode" type="varchar" required="false" label="原来课程的编号" />
+    <parameter id="xzptfeedj" type="double" required="false" label="更换课程的单价" />
+    <parameter id="ptleftcount" type="integer" required="false" label="剩余课时" />
+    
+</validator>

@@ -13,6 +13,10 @@
 		<transaction>false</transaction>
 		<jdbc-log>false</jdbc-log>
 	    <recordset id="query.sql" source="sql" scope="transaction" />
+	    <recordset id="query-ptkc.sql" source="sql" scope="transaction" />
+	    <recordset id="query-OtherPayWay.sql" source="sql" scope="transaction" />
+		<recordset id="query-skillscopenum.sql" source="sql" scope="transaction" />
+		<recordset id="query-customer.sql" source="sql" scope="transaction" />
 	</transaction>
 
 	<output>
@@ -20,6 +24,10 @@
 		<template>template.htm</template>
 		<set-http-headers>true</set-http-headers>
 		<content-type>text/html</content-type>
+		<print mode="table" recordset="query-ptkc.sql" tag="querykc-list" />
+		<print mode="table" recordset="query-OtherPayWay.sql" tag="OtherPayWay-list"/>
+		<print mode="form" recordset="query-skillscopenum.sql" />
+		<print mode="table" recordset="query-customer.sql" tag="money-rows"/>
 		<print mode="form" recordset="query.sql"/>
 		<print mode="form" recordset="_request" />
 	</output>

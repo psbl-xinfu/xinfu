@@ -145,9 +145,19 @@
 					}
 				});
 				$("#replace_btnbin").unbind().on("click", function(){
+					
 					var obthis = getCheckboxValue("ptrestradio");
+					var ptid = $("input[name=ptrestradio]:checked").attr("ptid");
+					var reatetype = $("input[name=ptrestradio]:checked").attr("reatetype");
+					
+					console.log(reatetype);
 					if(obthis!= ""){
-						ccms.dialog.open({url : "${def:context}${def:actionroot}/replacefrom?code="+obthis, height: 600});
+						if(reatetype==1||reatetype=="1"){
+							ccms.dialog.notice("体验课不能更换!");
+						}else{
+							ccms.dialog.open({url : "${def:context}${def:actionroot}/replacefrom?code="+obthis+"&ptid="+ptid, height: 600});
+						}
+						
 					}else{
 						ccms.dialog.notice("请选择!");
 					}

@@ -1,11 +1,13 @@
 select
+	cust.code as custcode,
 	cust.name,
 	cust.mobile,
 	p.ptlevelname,
 	(select name from hr_staff where userlogin = pr.ptid) as ptid,-- 私教
 	pr.ptleftcount::int,--私教剩余课时
 	pr.ptfee,
-	round(pr.ptfactfee::numeric,2) as ptfactfee
+	round(pr.ptfactfee::numeric,2) as ptfactfee,
+	pr.ptlevelcode
 from cc_ptrest pr 
 left join cc_customer cust on pr.customercode = cust.code and pr.org_id = cust.org_id
 left join cc_ptdef p on p.code = pr.ptlevelcode and p.org_id = pr.org_id

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+${inc:/action/project/fitness/home/pub}
+<title>转课查询</title>
+</head>
+<body>
+	<form  role="form" method="post" id="searchForm">
+		<input name="sort" type="hidden" value="op.createdate;op.createtime" preserve="true"/>
+		<input name="order" type="hidden" value="desc;desc" preserve="true" /> 
+		<input name="pageNo" type="hidden" value="" preserve="true" /> 
+		<input name="totalPages" type="hidden" value="" preserve="true" />
+		<div class="r-tab-cont">
+			<div class="c-n-nav-2 am-tab-panel am-in am-active am-fade three-none" >
+				<div class="r-tab-cout-3-t">
+					<div class="r-tab-cout-3-t-t">
+							
+						<nav>
+							<li>
+								<input type="text" id="cust" name="cust" class="input-default" placeholder="会员姓名/手机号" />
+							</li>
+							<li class="dateTime">
+						  		<input id="startdate" name="startdate" type="text" class="input-default"/>
+							</li>
+							<li class="dateTime">
+						  		<input id="enddate" name="enddate" type="text" class="input-default"/>
+							</li>
+							<li>
+								<select id="ptdefcode" name="ptdefcode" style="display: none;">
+									<option value="">全部课程</option>
+									<ptdef-list>
+										<option value="${fld:code}">${fld:ptlevelname}</option>
+									</ptdef-list>
+								</select>
+							</li>
+							<li>
+								<select id="pt" name="pt" style="display: none;">
+									<option value="">全部教练</option>
+									<staff-rows>
+										<option value="${fld:userlogin}">${fld:name}</option>
+									</staff-rows>
+								</select>
+							 </li>	
+							<div>
+								<button type="button" class="r-c-3-btn-1" id="search_btn" title="查询"></button>
+								<!-- <button type="button"  class="r-c-3-btn-3" id="daochu_list" title="导出"></button>  -->
+							</div>
+						</nav>
+					</div>
+				</div>				
+			</div>
+			<div class="r-tab-cout-3-b">
+				<div class="to-change-background"></div>
+					<table class="">
+						<thead>
+							<tr>
+							    <th>会员姓名</th>
+							    <th>会员手机号</th>
+							    <th>现在课程</th>
+							    <th>修改前课程</th>
+							    <th>跟换课时</th>
+							    <th>补差价钱</th>
+							    <th>教练</th>
+							    <th>修改时间</th>
+							    <th>修改人</th>
+							    <th>备注</th>
+							</tr>
+						</thead>
+						<tbody id="datagridTemplate" style="display: none">
+							<tr id="list">
+				                <td>#name#</td>
+				                <td>#mobile#</td>
+				                <td>#xzptdef#</td>
+				                <td>#ylptdef#</td>
+				                <td>#replacecount#</td>
+				                <td>#ptmoney#</td>
+				                <td>#stname#</td>
+				                <td>#created#</td>
+				                <td>#createdby#</td>
+				                <td>#remark#</td>
+							</tr>
+						</tbody>
+						<tbody id="datagrid">
+						</tbody>
+					</table>
+				<div class="pageDiv">
+					<ul class="pagination">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	<form action="${def:context}${def:actionroot}/excel" role="form" method="post" id="daochuForm" target="_blank" style="display: none">
+		<input id="daochu_ptdefcode" name="daochu_ptdefcode" type="text" />
+		<input id="daochu_startdate" name="daochu_startdate" type="text" />
+		<input id="daochu_enddate" name="daochu_enddate" type="text" />
+		<input id="daochu_cust" name="daochu_cust" type="text" />
+		<input id="daochu_pt" name="daochu_pt" type="text" />
+	</form>
+	<input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
+<script language="JavaScript">
+var search=null;
+$(document).ready(function() {
+	searchSelectInit($("#ptdefcode,#pt"));
+	$Dialog().date($('#enddate'));
+	$Dialog().date($('#startdate'));
+	$("#startdate").val(new Date("${def:date}").format("yyyy-MM-01")); 
+	$("#enddate").val("${def:date}");
+	this.search=search;
+	search=$Search({datagrid:"datagrid",formId:"searchForm",success:function(){
+	}}).initSearchBtn().searchData(1);
+
+	//导出
+	$("#daochu_list").unbind().on("click", function(){
+         $("#daochu_startdate").val($("#searchForm #startdate").val());
+         $("#daochu_enddate").val($("#searchForm #enddate").val());
+         $("#daochu_ptdefcode").val($("#ptdefcode").val());
+		 $("#daochu_cust").val($("#cust").val());
+		 $("#daochu_pt").val($("#pt").val());
+         $("#daochuForm").submit();
+    });
+});
+</script>
+</body>
+</html>

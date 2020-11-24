@@ -1,3 +1,37 @@
+//zyb 201124 添加更换课程功能
+
+COMMENT ON COLUMN "public"."cc_ptrest"."pttype" IS '来源：1新买课、2场地开发、3续课、4转课、5赠课、6更换';
+
+create table cc_ptrest_replace(
+	"code" varchar(50) ,
+  "customercode" varchar(50) ,
+  "ylptrestcode" varchar(50) ,
+	"xzptrestcode" varchar(50) ,
+  "replacecount" int4,
+	"ptmoney" float8,
+  "ptfee" float8,
+  "ptid" varchar(64) ,
+  "createdby" varchar(64) ,
+  "created" timestamp(6),
+  "org_id" int4,
+	"remark" varchar(2000)
+)
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."customercode" IS '会员编号';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."ylptrestcode" IS '原来的ptrest的code';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."xzptrestcode" IS '现在的ptrest的code';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."replacecount" IS '更换课程节数';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."ptmoney" IS '实付金额（就是补的差价）';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."ptfee" IS '课程单价';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."ptid" IS '教练id';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."createdby" IS '操作人';
+COMMENT ON COLUMN "public"."cc_ptrest_replace"."created" IS '操作时间';
+
+
+INSERT INTO "public"."t_domain"("tuid", "domain_value", "domain_text_cn", "is_default", "created", "createdby", "updated", "updatedby", "version", "namespace", "parent_namespace", "parent_domain_value", "domain_text_en", "remark", "is_enabled", "parent_domain_value2", "show_order", "subject_id") VALUES (4398, '41', '更换课程', '0', now(), NULL, NULL, NULL, NULL, 'FinanceItem', NULL, NULL, NULL, '', '', NULL, 8, 100);
+
+
+
+
 //zyb 190605 add 商品的折扣价
 alter table cc_leave_stock add discount float8 DEFAULT 0
 COMMENT ON COLUMN "public"."cc_leave_stock"."discount" IS '折扣价钱';

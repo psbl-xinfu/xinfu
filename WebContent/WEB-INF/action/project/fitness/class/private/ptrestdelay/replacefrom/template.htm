@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 ${inc:/action/project/fitness/home/pub}
+<meta http-equiv="Content-Typecontent="text/html; charset=UTF-8" />
 <head>
-<title>私教课延期</title>
+<title>跟换私教课</title>
 </head>
 <body>
 	<div class="col_mainInner dialogbg" style="height: 640px;">
 		<header class="header-default">
-			<span id="formTitle">私教课延期</span>
+			<span id="formTitle">更换私教课</span>
 		</header>
 		<form id="formEditor" name="formEditor" class="form-horizontal" role="form" method="post">
        		<div class="modal-body b-i-main">
@@ -16,6 +17,12 @@ ${inc:/action/project/fitness/home/pub}
 						<label style="width: 130px;">会员姓名：</label>
 						<span>${fld:name}</span>
 						<input type="hidden" id="code" name="code" value="${fld:code}" />	
+						<input type="hidden" id="custcode" name="custcode" value="${fld:custcode}" />
+						<input type="hidden" id="ptlevelcode" name="ptlevelcode" value="${fld:ptlevelcode}" />
+						<input type="hidden" id="ptfeedj" name="ptfeedj" value="${fld:ptfee}" /><!-- 没更换课程前单价 -->
+						<input type="hidden" id="xzptfeedj" name="xzptfeedj" value="" /><!-- 更换课程单价 -->
+						<input type="hidden" id="ptleftcount" name="ptleftcount" value="${fld:ptleftcount}" /><!-- 剩余课时 -->
+						
 					</li>
 					<li>
 						<label style="width: 130px;">手机号码：</label><span>${fld:mobile}</span>
@@ -24,28 +31,31 @@ ${inc:/action/project/fitness/home/pub}
 					<li>
 						<label style="width: 130px;">课程名称：</label>
 						<span>${fld:ptlevelname}</span>
-						<!-- <input type="text" id="ptlevelname" name="ptlevelname" value="${fld:ptlevelname}" readonly="readonly" />	 -->
 					</li>
 					<li>
-						<label style="width: 130px;">私教：${fld:ptid}</label>
-						<input type="hidden" id="ptid" name="ptid" value="${fld:ptid}" readonly="readonly" />	
+						<label style="width: 130px;">剩余课时：</label>
+						<span>${fld:ptleftcount}节</span>
+					</li>
+					<li>
+						<label style="width: 130px;">私教：</label>
+						<span>${fld:ptid}</span>
 					</li>
 					<li>
 						<label style="width: 130px;">更换课程：</label>
 						<select id="ptdefcode" name="ptdefcode" style="display: none;">
 							<option value="">全部课程</option>
-							<ptdef-list>
-								<option value="${fld:code}">${fld:ptlevelname}</option>
-							</ptdef-list>
+							<querykc-list>
+								<option code1="${fld:ptfees}" code2="${fld:scale}" value="${fld:ptdefid}">${fld:ptlevelname}</option>
+							</querykc-list>
 						</select>
 					</li>
 					<li>
-						<label style="width: 130px;">课程单价：</label>
-						<input type="hidden" id="ptfee" name="ptfee" value="${fld:ptfee}" readonly="readonly" />	
+						<label style="width: 130px;">跟换课程单价：</label>
+						<span id="ptfeebin">${fld:ptfee}</span>
 
 					</li>
 					<li>
-						<label style="width: 130px;">参考价格：</label>
+						<label style="width: 130px;">需补差价：</label>
 						<input type="text" id="ghfee" name="ghfee" value=""/>	
 					</li>
 <!-- 					<li>
@@ -63,38 +73,173 @@ ${inc:/action/project/fitness/home/pub}
 					</li>
 				</nav>
 			</div>
+			<div id="i_paytypeone" >
+	          		<div class="modal-body " id="paymoney" style="margin-left: 6%;height: 30px"  >
+					</div>
+	          		<div class="modal-body b-i-main">
+						<nav>
+							<li>
+								<label style="width: 130px;">支付方式：</label>
+								<select id="moneytype" class="normal-select">
+									<option value="">请选择</option>
+									<OtherPayWay-list>
+										<option value="${fld:cnfg_id}">${fld:vc_content}</option>
+									</OtherPayWay-list>
+								</select>
+								<label style="width: 160px;">收款金额：</label>
+								<input type="text" id="money" name="money" placeholder="金额" />
+								&nbsp;
+								<i class="am-icon-plus" id="addmoney" title="添加"></i>
+							</li>
+							<li id="moneycashDiv">
+				     			<label style="width: 120px;">现金储值：</label>
+								<span id="moneycash"><money-rows>${fld:moneycash}</money-rows></span>
+				     		</li>
+						</nav>
+					</div>
+					<input type="hidden" id="pay_detail" name="pay_detail"/>
+						<input type="hidden" id="fushu" name="fushu"/>
+				</div>
 			<footer class="footer-default" style="margin-top: 20px">
-				<button type="button" id="save_btn">确认</button>
+				<button type="button" id="save_btn">确认收款</button>
 			</footer>
 		</form>
 	</div>
 <input type="hidden" name="actionroot" id="actionroot" value="${def:actionroot}" />
 <script language="JavaScript">
 $(document).ready(function() {
-	selectInit($("#ptdefcode")); 
+	selectInit($("#ptdefcode,#moneytype")); 
+	setSelectValue($("#ptdefcode"), "${fld:ptlevelcode}");
+	var ptlevelcode="${fld:ptlevelcode}";
+	var ptleftcount = "${fld:ptleftcount}";
+	var ptfee2="${fld:ptfee}";
+	var ptdefid2 = $(ptdefcode).val();
+	$("#moneycashDiv").hide();
+	$("#ghfee").val(parseFloat(0.00));
+	$("#moneytype").change(function(){
+		var text=$("#moneytype").find("option:selected").text();
+		if(text=="储值卡"){
+			$("#moneycashDiv").show();
+		}else{
+			$("#moneycashDiv").hide();
+		}
+	});
+	$("#ptdefcode").on("change",function(){
+		var ptfee = $(this).find("option:selected").attr("code1");
+		var ptdefid = $(this).val();
+		
+		
+		if(parseFloat(ptfee2)>parseFloat(ptfee)){
+			ccms.dialog.alert("只能更换更高级的课程！");
+		}else{
+			var ptfeedj=$("#ptfeedj").val();
+			
+			ptfee = isFloat(ptfee) || isNumber(ptfee) ? parseFloat(ptfee) : 0.00;
+			if(ptlevelcode==ptdefid){
+				$("#ghfee").val(parseFloat(0.00));
+			}else{
+				$("#ghfee").val(parseFloat(ptfee*ptleftcount-ptfeedj*ptleftcount));
+			}
+			$("#ptfeebin").text(ptfee);
+			$("#xzptfeedj").val(ptfee);
+		}
+		
+	});
+	
+	$("#ghfee").blur(function(){
+		var money = $(this).val();
+		if(isNaN(money)){
+			money = 0;
+		}
+		money = Number(money).toFixed(2);
+		$(this).val(money <0 ? 0 : money);
+	});
+	
+	 $("#addmoney").click(function(){
+		   	var moneytype = $("#moneytype").val();
+		   	var moneytypetext = $("#moneytype option:selected").text();
+		   	var money = $("#money").val();
+		   	if(moneytype==""){
+		   		ccms.dialog.alert("请选择方式！");
+		   	}else if(ghfee==""){
+		   		ccms.dialog.alert("请输入金额！");
+		   	}else{
+		   		var count = 0;
+				$("input[name='paytypemoney']").each(function(j,item){
+					   if($(item).attr("code")==moneytype)count++;
+				});
+				if(count==0){
+					$("#paymoney").append(
+							"<li style='margin-left:25px;float:left'><span><span>"+moneytypetext+"：</span><span>"+money+"元</span></span>"
+						+"<input type='hidden' value='"+money+"' code='"+moneytype+"'  name='paytypemoney'/>"
+						+ '<img   onclick="delhour(this)" style="margin-left:5px;margin-top:-2px" height="20" width="45"   src="'+contextPath+'/js/project/fitness/image/SVG/nav/shanchu.svg" title="删除"></li>'
+					);
+					
+					$("#moneytype,#money").val("");
+					$("#moneytype").selectpicker("refresh");
+					$("#moneytype").selectpicker("render");
+				}else
+					ccms.dialog.alert(moneytypetext+"已存在！");
+		   	}
+	  });
+	
 	//修改课时
-	$("#save_btn").click(function(){
-		if($("#updateclass").val()==""||$("#updateclass").val()<0){
-			ccms.dialog.notice("修改课时不可以为空或小于0!", 3000);
+	 $("#save_btn").click(function(){
+			//判断当前登录人是否有收款权限
+	   if(parseInt("${fld:skillscopenum}")==0){
+		   ccms.dialog.notice("该登录人没有充值权限！", 2000);
+		   return false;
+	   }
+	   if($("#ghfee").val()=="")$("#ghfee").val("0");
+	   if($("#moneygift").val()=="")$("#moneygift").val("0");
+	   //充值金额
+	   var ghfee = $("#ghfee").val();
+	   if(ghfee==0){
+			ccms.dialog.alert("请输入需补差价！");
+			return false;
+	   }
+	   
+	   var moneydetail = "";
+		//获取所有支付类型option
+		$("#moneytype option").each(function(){  
+			if($(this).val()!=""){
+				moneydetail+=($("input[name=paytypemoney][code="+$(this).val()+"]").val()+";");
+			}
+			moneydetail = moneydetail.replace("undefined", "0");
+		});
+		//明细
+		$("#pay_detail").val(moneydetail);
+		//获取所有支付金额
+		var paymoney = 0;
+		$("input[name='paytypemoney']").each(function(j,item){
+			paymoney+=Number(item.value);
+		});
+		if(Number(ghfee)!=paymoney){
+			ccms.dialog.alert("实收金额与支付金额不相同，请确认！");
 			return false;
 		}
-		ccms.dialog.confirm("确定要修改吗？", function(){
-			var url = "${def:context}${def:actionroot}/updateclass";
-			ajaxCall(url,{
-			   	method: "post",
-			   	form:"formEditor",
-			   	progress: true,
-			   	dataType: "script",
-			   	success: function() {
-			   		ccms.dialog.notice("成功！", 2000, function(){
-			   			parent.search.searchData(1);
+		//
+		$Dialog().confirm("确定要跟换课程并支付差价吗？",function(){
+			var uri="${def:context}${def:actionroot}/updatereplace";
+		   	ajaxCall(uri,{
+		   		method: "post",
+		   		form:"formEditor",
+		   		progress: true,
+		   		dataType: "script",
+		   		success: function() {
+					$Dialog().notice("充值成功！",1200,function(){
+						parent.search.searchData(1);
 			   			ccms.dialog.close();
-			   		})
-				}
-			})
-		});
-	})
+					});
+		   		}
+		   	});
+		})
+   });
 });
+
+function delhour(val){
+	$(val).parent().remove();
+}
 </script>
 </body>
 </html>

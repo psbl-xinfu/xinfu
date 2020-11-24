@@ -1,5 +1,5 @@
 select 
-	concat('<input type="radio" name="ptrestradio" value="', pr.code,'" code="', pr.ptenddate,'" ') as ptrestradio,
+	concat('<input type="radio" name="ptrestradio" value="', pr.code,'" code="', pr.ptenddate,'" reatetype="', p.reatetype,'" ptid="', (case when p.reatetype=1 then cust.pt else pr.ptid end),'" ') as ptrestradio,
 	cust.name,
 	cust.mobile,
 	p.ptlevelname,
@@ -9,6 +9,7 @@ select
 		when pr.pttype=3 then '续课'
 		when pr.pttype=4 then '转课'
 		when pr.pttype=5 then '赠课'
+		when pr.pttype=6 then '更换'
 	end) as pttype,--来源：1新买课、2场地开发、3续课、4转课、5赠课
 	pr.pttotalcount::integer,--购买节数
 	pr.ptleftcount::integer,--剩余节数
