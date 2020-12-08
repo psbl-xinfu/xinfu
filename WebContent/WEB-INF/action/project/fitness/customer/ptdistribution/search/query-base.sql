@@ -1,4 +1,4 @@
-SELECT 
+SELECT
 	c.code,
  	concat('<label class="am-checkbox"><input type="checkbox" data-am-ucheck name="datalist" value="',c.code,'','" ></label>') as customercheck,
 	(case when (${fld:period_day}::int-('${def:date}'::date -(select created from cc_ptchange where customercode = c.code and org_id = ${def:org} order by created desc limit 1)::date))<1 then 0 
@@ -14,15 +14,15 @@ SELECT
 	(select max(enddate) as  enddate from cc_card where customercode=c.code AND cc_card.isgoon = 0 and cc_card.status='1' and org_id = ${def:org} order by enddate limit 1) as member_end,--会员到期
 	(select indate from cc_inleft where customercode=c.code and org_id = ${def:org} order by indate desc limit 1) as come_date-- 最新到访   
 FROM cc_customer c 
-WHERE EXISTS(
+WHERE (EXISTS(
 	SELECT 1 FROM cc_card d 
 	WHERE c.code = d.customercode AND d.isgoon = 0 AND d.org_id = c.org_id AND d.status != 0 AND d.status != 6
 ) 
-AND EXISTS(
+or EXISTS(
 	SELECT 1 FROM cc_ptrest t 
 	INNER JOIN cc_ptdef d ON d.code = t.ptlevelcode AND t.org_id = d.org_id 
 	WHERE t.customercode = c.code AND t.ptleftcount > 0 AND d.reatetype = 1 AND t.org_id = c.org_id 
-) 
+) )
 AND c.org_id = ${def:org}
 AND c.status != 0
 and (case when exists(select 1 from hr_staff_skill hss inner join hr_skill hs on hss.skill_id = hs.skill_id 
