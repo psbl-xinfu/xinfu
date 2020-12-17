@@ -1,3 +1,12 @@
+INSERT INTO "public"."t_domain"
+("tuid", "domain_value", "domain_text_cn", "is_default",
+ "created", "createdby", "updated", "updatedby", "version", 
+ "namespace", "parent_namespace", "parent_domain_value",
+  "domain_text_en", "remark", "is_enabled", "parent_domain_value2",
+   "show_order", "subject_id") VALUES (nextval('seq_domain'), '7',
+    '要过期', '0', '2017-12-18 14:41:59.309', NULL, NULL,
+     NULL, NULL, 'CardStatuss', NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL);
+
 //zyb 201124 添加更换课程功能
 
 COMMENT ON COLUMN "public"."cc_ptrest"."pttype" IS '来源：1新买课、2场地开发、3续课、4转课、5赠课、6更换';
