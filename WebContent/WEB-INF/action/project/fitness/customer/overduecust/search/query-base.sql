@@ -6,8 +6,11 @@ select
 	(case cust.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
 	(select name from hr_staff where userlogin=cust.mc and org_id = cust.org_id) as mc,
  	(select enddate from cc_card where customercode = cust.code and org_id = cust.org_id 
- 		 order by enddate desc limit 1) as enddate --考虑续卡用户 将 cc_card.isgoon = 0 条件去掉 zzn
-from cc_customer cust
+ 		 order by enddate desc limit 1) as enddate, --考虑续卡用户 将 cc_card.isgoon = 0 条件去掉 zzn
+ card.code,
+	 card.factmoney,
+	 (select name from cc_cardtype where code=card.cardtype ) as typename
+ 		 from cc_customer cust
 left join cc_card card on cust.code=card.customercode
 where cust.org_id = ${def:org}
 and not EXISTS(
@@ -43,8 +46,11 @@ select
 	(case cust.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
 	(select name from hr_staff where userlogin=cust.mc and org_id = cust.org_id) as mc,
  	(select enddate from cc_card where customercode = cust.code and org_id = cust.org_id 
- 		 order by enddate desc limit 1) as enddate --考虑续卡用户 将 cc_card.isgoon = 0 条件去掉 zzn
-from cc_customer cust
+ 		 order by enddate desc limit 1) as enddate, --考虑续卡用户 将 cc_card.isgoon = 0 条件去掉 zzn
+card.code,
+	 card.factmoney,
+	 (select name from cc_cardtype where code=card.cardtype ) as typename
+ 		 from cc_customer cust
 left join cc_card card on cust.code=card.customercode
 where cust.org_id = ${def:org}
 and not EXISTS(
@@ -74,10 +80,14 @@ select
 	cust.name,
 	(case cust.sex when '0' then '女' when '1' then '男' else '未知' end) as sex,
 	(select name from hr_staff where userlogin=cust.mc and org_id = cust.org_id) as mc,
-	oplog.createdate as enddate
+	oplog.createdate as enddate,
+	card.code,
+	 card.factmoney,
+	 (select name from cc_cardtype where code=card.cardtype ) as typename
 from cc_customer cust
 left join cc_contract con on con.customercode=cust.code
 left join cc_operatelog oplog on oplog.relatedetail=con.code 
+left join cc_card card on cust.code=card.customercode
 where oplog.opertype='66'--66就是删除合同的标记
 and cust.org_id = ${def:org}
 and not EXISTS(

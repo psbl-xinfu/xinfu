@@ -6,7 +6,10 @@
 		    "sex":"${fld:sex@js}",
 		    "mobile":"${fld:mobile@js}",
 		    "mc":"${fld:mc@js}",
-		    "enddate":"${fld:enddate}"
+		    "enddate":"${fld:enddate}",
+		    "code":"${fld:code}",
+		    "typename":"${fld:typename}",
+		    "factmoney":"${fld:factmoney}"
 	},
 	</rows>
 	{}

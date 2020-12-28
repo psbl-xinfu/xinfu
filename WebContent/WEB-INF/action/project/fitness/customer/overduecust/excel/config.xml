@@ -26,6 +26,9 @@
 		<col id="sex" label="性别" />
 		<col id="mobile" label="电话" />
 		<col id="mc" label="会籍" />
+		<col id="code" label="卡号" />
+		<col id="typename" label="卡类型" />
+		<col id="factmoney" label="卡价格" />
 		<col id="enddate" label="会籍截止日期" />
 	</excel>
 </config>
